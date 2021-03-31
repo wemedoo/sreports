@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - sReports by niAnalytics</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+@using sReportsV2.Models.User;
+@{ 
+    string action = ViewContext.RouteData.Values["Action"].ToString();
+    string controller = ViewContext.RouteData.Values["Controller"].ToString();
+}
+
+<body class="sidebar-shrink">
+    <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
+
+        <div class="header-wrapper">
+            <button class="menu-btn-md" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="navbar-brand col-6 col-sm-3 col-md-2">
+                <button class="menu-shrink-btn" id="menuShrinkBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#">
+                    <img src="~/Content/img/niAnalytics-logo.png">
+                    sReports
+                </a>
+            </div>
+            <ul class="navbar-nav ml-auto px-4 mobile-hidden">
+                <li class="nav-item">
+                    <!--<a class="nav-link px-4" href="#">
+                <i class="fas fa-bell"></i>
+            </a>-->
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link px-4 dropdown-toggle" href="#" id="dropdownAcc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                        <div class="dropdown-doubleline">
+                            @(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.Username : "")<br />
+                            <span>@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.GetActiveOrganizationData().Name : "")</span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu first-level" aria-labelledby="dropdownAcc">
+                        <li class="dropdown-submenu parent">
+                            <a class="dropdown-item dropdown-toggle dropdown-toggle-left" href="#">@sReportsV2.Resources.TextLanguage.Language</a>
+                            <ul class="dropdown-menu dropdown-left">
+                                @foreach (sReportsV2.Models.Common.EnumViewModel language in ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>)
+                                {
+                                    if (ViewBag.UserCookieData != null && language.Value == (ViewBag.UserCookieData.ActiveLanguage as string))
+                                    {
+                                        <li onclick="setActiveLanguage(event, '@language.Value')" class="language active">
+                                            <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li onclick="setActiveLanguage(event, '@language.Value')" class="language">
+                                            <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu parent">
+                            <a class="dropdown-item dropdown-toggle dropdown-toggle-left" href="#">@sReportsV2.Resources.TextLanguage.Institution</a>
+                            @if (ViewBag.UserCookieData != null)
+                            {
+                                <ul class="dropdown-menu dropdown-left dropdown-institutions">
+
+                                    @foreach (sReportsV2.DTOs.Organization.OrganizationDataOut organization in ViewBag.UserCookieData.Organizations as List
+                                    <sReportsV2.DTOs.Organization.OrganizationDataOut>
+                                        )
+                                    {
+                                        if (organization.Id.Equals(ViewBag.UserCookieData.ActiveOrganization))
+                                        {
+                                            <li onclick="setActiveOrganization(event, '@organization.Id')" class="language active">
+                                                <a class="dropdown-item" href="#">@organization.Name</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li onclick="setActiveOrganization(event, '@organization.Id')" class="language">
+                                                <a class="dropdown-item" href="#">@organization.Name</a>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                            }
+                        </li>
+                        <li class="dropdown-item logout-menu-item" onclick="logout(event)">
+                            <a href="#">@sReportsV2.Resources.TextLanguage.Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Home/Index">
+                        <i class="fas fa-home"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Overview </span>
+                    </a>
+                </li>
+                <li class="nav-item @(action.Equals("GetAll") && controller.Equals("Form") ? "active" : "")">
+                    <a class="nav-link" href="~/Form/GetAll">
+                        <i class="fas fa-pen-square"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Designer </span>
+                    </a>
+                </li>
+                <li class="nav-item @(((action.Equals("GetAll") || action.Equals("GetAllByForm")) && controller.Equals("FormInstance")) ? "active" : "")">
+                    <a class="nav-link" href="~/FormInstance/GetAllFormDefinitions">
+                        <i class="fas fa-cogs"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Engine </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/ThesaurusEntry/GetAll">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Thesaurus </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Patient/GetAll">
+                        <i class="fas fa-users"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Patients </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/EpisodeOfCare/GetAll">
+                        <i class="fas fa-id-card-alt"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.EpisodesOfCare </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Organization/GetAll">
+                        <i class="fas fa-sitemap"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Organization </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Encounter/GetAll">
+                        <i class="fas fa-handshake"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Encounter </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/FormDistribution/GetAll">
+                        <i class="fas fa-handshake"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Simulator </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/User/GetAll">
+                        <i class="fas fa-user"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.User_Administration </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/User/UserProfile?userId=@ViewBag.UserCookieData.Id">
+                        <i class="far fa-user"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Profile </span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                        <span> @(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.Username : "") </span>
+                    </a>
+                    <ul class="dropdown-menu level-1" aria-labelledby="navbarDropdown">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle nav-link" href="#" id="navbarOrganization" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Organization</a>
+                            <ul class="dropdown-menu level-1" aria-labelledby="navbarOrganization">
+                                @foreach (sReportsV2.DTOs.Organization.OrganizationDataOut organization in ViewBag.UserCookieData.Organizations as List
+                                <sReportsV2.DTOs.Organization.OrganizationDataOut>
+                                    )
+                                {
+                                    if (organization.Id.Equals(ViewBag.UserCookieData.ActiveOrganization))
+                                    {
+                                        <li onclick="setActiveOrganization(event, '@organization.Id')" class="language active"><a class="nav-link" href="#">@organization.Name</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li onclick="setActiveOrganization(event, '@organization.Id')" class="language"><a class="nav-link" href="#">@organization.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle nav-link" href="#" id="navbarLanguage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
+                            <ul class="dropdown-menu level-1" aria-labelledby="navbarLanguage">
+                                @foreach (sReportsV2.Models.Common.EnumViewModel language in ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>)
+                                {
+                                    if (ViewBag.UserCookieData != null && language.Value == (ViewBag.UserCookieData.ActiveLanguage as string))
+                                    {
+                                        <li onclick="setActiveLanguage(event, '@language.Value')" class="language active">
+                                            <a class="nav-link" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li onclick="setActiveLanguage(event, '@language.Value')" class="language">
+                                            <a class="nav-link" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" onclick="logout(event)">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Logout </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar" id="sidebar">
+                <ul class="nav flex-column flex-nowrap">
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Home/Index">
+                            <i class="fas fa-home"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Overview </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @(action.Equals("GetAll") && controller.Equals("Form") ? "active" : "")">
+                        <a class="nav-link" href="~/Form/GetAll">
+                            <i class="fas fa-pen-square"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Designer </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @(((action.Equals("Create") || action.Equals("GetAllByFormThesaurus") || action.Equals("GetAllFormDefinitions")) && controller.Equals("FormInstance")) ? "active" : "")">
+                        <a class="nav-link" href="~/FormInstance/GetAllFormDefinitions">
+                            <i class="fas fa-cogs"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Engine </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create")) && controller.Equals("ThesaurusEntry") ? "active" : "")">
+                        <a class="nav-link" href="~/ThesaurusEntry/GetAll">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Thesaurus </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Patient") ? "active" : "")">
+                        <a class="nav-link" href="~/Patient/GetAll">
+                            <i class="fas fa-users"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Patients </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create"))&& controller.Equals("EpisodeOfCare") ? "active" : "")">
+                        <a class="nav-link" href="~/EpisodeOfCare/GetAll">
+                            <i class="fas fa-id-card-alt"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.EpisodesOfCare </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Organization") ? "active" : "")">
+                        <a class="nav-link" href="~/Organization/GetAll">
+                            <i class="fas fa-sitemap"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Organization </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("GetAllEncounter") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Encounter") ? "active" : "")">
+                        <a class="nav-link" href="~/Encounter/GetAll">
+                            <i class="fas fa-handshake"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Encounter </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll"))&& controller.Equals("FormDistribution") ? "active" : "")">
+                        <a class="nav-link" href="~/FormDistribution/GetAll">
+                            <i class="fas fa-play"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Simulator </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("GetAll"))&& controller.Equals("User") ? "active" : "")">
+                        <a class="nav-link" href="~/User/GetAll">
+                            <i class="fas fa-user"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.User_Administration </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @((action.Equals("UserProfile"))&& controller.Equals("User") ? "active" : "")">
+                        <a class="nav-link" href="~/User/UserProfile?userId=@ViewBag.UserCookieData.Id">
+                            <i class="far fa-user"></i>
+                            <span> @sReportsV2.Resources.TextLanguage.Profile </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <main role="main" class="main-content">
+                @RenderBody()
+            </main>
+            <div id="loaderOverlay" class="loader-overlay">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 5)';
+        var simplifiedApp;
+    </script>
+    <script src="~/Scripts/jsoneditor/dist/jsoneditor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

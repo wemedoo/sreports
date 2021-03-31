@@ -1,0 +1,85 @@
+﻿@{
+    sReportsV2.Models.Common.VersionViewModel initialData = Model != null && Model.AdministrativeData != null ? Model.AdministrativeData.GetInitialData() : null;
+}
+@if(Model != null)
+{
+    <div class="row pl-lg-3">
+        <div class="administrative-data">
+            <div class="header-tree">
+                @sReportsV2.Resources.TextLanguage.Administative_data
+            </div>
+            <div class="content">
+                <div class="document-property">
+                    <div class="label">
+                        @sReportsV2.Resources.TextLanguage.Created_by
+                    </div>
+                    <div class="value">
+                        @if (initialData != null && initialData.User != null)
+                        {
+                            @(initialData.User.FirstName)
+                        }
+
+                        @if (initialData != null && initialData.User != null)
+                        {
+                            @(initialData.User.LastName)
+                        }
+                    </div>
+                </div>
+                <div class="document-property">
+                    <div class="label">
+                        @sReportsV2.Resources.TextLanguage.Created_on
+                    </div>
+                    <div class="value">
+                        @if (initialData != null)
+                        {
+
+                            @initialData.CreatedOn
+                        }
+                    </div>
+                </div>
+                @if (Model.AdministrativeData != null)
+                {
+                    <div class="version-history">
+                        <div class="title">
+                            @sReportsV2.Resources.TextLanguage.Version_History
+                        </div>
+                        @foreach (sReportsV2.Models.Common.VersionViewModel version in Model.AdministrativeData.VersionHistory)
+                        {
+                            <div class="single-version">
+                                <div class="document-property">
+                                    <div class="label">
+                                        @sReportsV2.Resources.TextLanguage.Type
+                                    </div>
+                                    <div class="value">
+                                        @version.Type
+                                    </div>
+                                </div>
+                                <div class="document-property">
+                                    <div class="label">
+                                        @sReportsV2.Resources.TextLanguage.Created_on
+                                    </div>
+                                    <div class="value">
+                                        @version.CreatedOn
+                                    </div>
+                                </div>
+                                @if (version.RevokedOn != null)
+                                {
+                                    <div class="document-property">
+                                        <div class="label">
+                                            @sReportsV2.Resources.TextLanguage.Revoked_on
+                                        </div>
+                                        <div class="value">
+                                            @version.RevokedOn
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+     </div>
+        }
+

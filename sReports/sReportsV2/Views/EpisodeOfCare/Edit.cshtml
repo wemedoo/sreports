@@ -1,0 +1,150 @@
+﻿@using sReportsV2.DTOs.Patient;
+@model sReportsV2.DTOs.EpisodeOfCare.EpisodeOfCareDataOut
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.EOC_Create;
+    string hasValue = "-hasvalue";
+}
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.EpisodesOfCare }, { "linkLevel1", "/EpisodeOfCare/GetAll" }, { "level2", Model != null ? Model.Id : sReportsV2.Resources.TextLanguage.EOC_Create }, { "activeLevel", 2 } })
+
+    <form method="post" id="idEPisodeOfCare" class="formEpisodeOfCare" onsubmit="return submitEOCForm(this)" novalidate>
+        <input type="hidden" class="form-control" id="id" value="@(Model != null && Model.Id != null ? Model.Id : "" )" />
+        <input type="hidden" class="form-control" id="patientId" value="@(ViewBag.Patient.Id )" />
+        <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
+        <input type="hidden" class="form-control" id="episodeOfCareId" value="@(Model != null ? Model.Id : "" )" />
+
+        <div class="form-row">
+            <div class="col-12 col-xl-12">
+
+                <div class="form-row eoc-responsive-edit">
+
+                    <div class="col-sm-12 col-md-6 eoc-responsive-edit">
+                        <div class="accordion">
+                            <div class="header-accordion" data-toggle="collapse" data-target="#episodeOfCareFields" aria-expanded="false" aria-controls="episodeOfCareFields">
+                                @sReportsV2.Resources.TextLanguage.EOC_Information
+                            </div>
+                            <div class="accordion-content collapse show" id="episodeOfCareFields">
+
+                                <div class="form-element form-select">
+                                    <label for="type" class="form-element-label">@sReportsV2.Resources.TextLanguage.EOC_Type_Name:</label>
+                                    <select class="form-element-field @hasValue" id="type" name="Type">
+                                        <option value=""></option>
+                                        @foreach (var episodeOfCareType in ViewBag.EpisodeOfCareTypes)
+                                        {
+                                            <option value="@episodeOfCareType.Thesaurus.O40MTId" @(Model != null && Model.Type != null && Model.Type.Equals(episodeOfCareType.Thesaurus.O40MTId) ? "selected" : "")>
+                                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(episodeOfCareType.Label)
+                                            </option>
+
+                                        }
+                                    </select>
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element form-select">
+                                    <label for="status" class="form-element-label">@sReportsV2.Resources.TextLanguage.Status:</label>
+                                    <select class="form-element-field @hasValue" id="status" name="Status" required>
+                                        <option value=""></option>
+                                        @foreach (var statusOption in Enum.GetNames(typeof(sReportsV2.Domain.Enums.EOCStatus)))
+                                        {
+                                            <option value="@statusOption" @(Model != null && Model.Status != null && Model.Status.Equals(statusOption) ? "selected" : "")>
+                                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(statusOption)
+                                            </option>
+
+                                        }
+                                    </select>
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element form-select">
+                                    <label for="diagnosisRole" class="form-element-label">@sReportsV2.Resources.TextLanguage.EOC_DiagnosisRole_Name:</label>
+                                    <select class="form-element-field @hasValue" id="diagnosisRole" name="Role" required>
+                                        <option value=""></option>
+                                        @foreach (var roleOption in ViewBag.DiagnosisRoles)
+                                        {
+                                            <option value="@roleOption.Thesaurus.O40MTId" @(Model != null && Model.DiagnosisRole != null && Model.DiagnosisRole.Thesaurus.O40MTId.Equals(roleOption.Thesaurus.O40MTId) ? "selected" : "")>
+                                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(roleOption.Label)
+                                            </option>
+                                        }
+                                    </select>
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element">
+                                    <label for="diagnosisCondition" class="form-element-label">@sReportsV2.Resources.TextLanguage.EOC_DiagnosisCondition_Name:</label>
+                                    <input class="form-element-field" type="text" id="diagnosisCondition" value="@(Model != null && Model.DiagnosisCondition != null ? Model.DiagnosisCondition : "")" />
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element">
+                                    <label for="diagnosisRank" class="form-element-label">@sReportsV2.Resources.TextLanguage.EOC_DiagnosisRank_Name:</label>
+                                    <input class="form-element-field" type="number" id="diagnosisRank" name="diagnosisRank" value="@(Model != null && Model.DiagnosisRank != null ? Model.DiagnosisRank : "")" />
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element">
+                                    <label for="periodStartDate" class="form-element-label">@sReportsV2.Resources.TextLanguage.EOC_PeriodStartDate:</label>
+                                    <input class="form-element-field" type="date" id="periodStartDate" value="@(Model != null && Model.Period != null && Model.Period.StartDate != null ? Model.Period.StartDate.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" autocomplete="off" required />
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element">
+                                    <label for="periodEndDate" class="form-element-label">@sReportsV2.Resources.TextLanguage.EOC_PeriodEndDate:</label>
+                                    <input class="form-element-field" type="date" id="periodEndDate" value="@(Model != null && Model.Period != null && Model.Period.EndDate != null ? Model.Period.EndDate.Value.ToString("yyyy-MM-dd") : null)" autocomplete="off" required />
+                                    <div class="form-element-bar"></div>
+                                </div>
+
+                                <div class="form-element">
+                                    <label for="description" class="form-element-label">@sReportsV2.Resources.TextLanguage.Description:</label>
+                                    <textarea class="form-element-field" type="text" form="idEPisodeOfCare" id="description" name="Description" value="@(Model != null && Model.Description != null ? Model.Description : "")" required>@(Model != null && Model.Description != null ? Model.Description : "")</textarea>
+                                    <div class="form-element-bar"></div>
+                                    <div class="form-element-description"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 order-first order-sm-first order-md-last eoc-responsive-edit">
+                        @Html.Partial("PatientInfo", ViewBag.Patient as PatientDataOut)
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 order-last order-sm-last eoc-responsive-edit">
+                        @if (Model != null)
+                        {
+                            <div class="diagnostic-report-container" id="diagnosticReports">
+                                <div class="accordion">
+                                    <div class="header-accordion" data-toggle="collapse" data-target="#diagnosticReportsContainer" aria-expanded="false" aria-controls="diagnosticReportsContainer">
+                                        @sReportsV2.Resources.TextLanguage.DiagnosticReports
+                                        <button class="btn btn-primary add-new-button no-right-margin" type="button" onclick="showAvailableForms(event, '@Model.Id')">
+                                            <i class="fas fa-plus-circle"></i>
+                                            @sReportsV2.Resources.TextLanguage.Create
+                                        </button>
+                                        <button class="btn btn-primary add-new-button" type="button" onclick="showAvailableFormsWithReferral(event, '@Model.Id')">
+                                            <i class="fas fa-plus-circle"></i>
+                                            @sReportsV2.Resources.TextLanguage.Create_referrals
+                                        </button>
+                                    </div>
+                                    <div class="accordion-content collapse" id="diagnosticReportsContainer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-12">
+                <div class="form-row eoc">
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary submit-button right-button">@sReportsV2.Resources.TextLanguage.Save</button>
+                        <button class="btn btn-danger right-button" type="button" onclick="cancelEpisodeOfCareEdit()" value="Back">@sReportsV2.Resources.TextLanguage.Back</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+<script src="~/Scripts/sReports/tableCommon.js"></script>
+<script src="~/Scripts/sReports/episodeOfCare.js"></script>

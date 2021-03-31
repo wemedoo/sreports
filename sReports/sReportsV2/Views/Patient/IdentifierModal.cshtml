@@ -1,0 +1,62 @@
+﻿@using sReportsV2.DTOs.Patient;
+@{
+    string hasValue = "-hasvalue";
+}
+<form id="newIdentifierForm" onsubmit="return false">
+
+    <div class="modal fade" id="identifierModal" tabindex="-1" role="dialog" aria-labelledby="identifierModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="identifierModalLabel">@sReportsV2.Resources.TextLanguage.Patient_Identificator</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-element form-select">
+                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Identifier_name:</label>
+                        <select class="form-element-field @hasValue" id="newIdentifierSystem" name="newIdentifierSystem" required>
+                            @foreach (IdentifierTypeDataOut type in this.ViewData["IdentifierTypes"] as List<IdentifierTypeDataOut>)
+                            {
+                                <option value="@type.O4MtId">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(type.Name)</option>
+                            }
+                        </select>
+                        <div class="form-element-bar"></div>
+                    </div>
+
+                    <div class="form-element">
+                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Value:</label>
+                        <input class="form-element-field" type="text" id="newIdentifierValue" name="newIdentifierValue" required />
+                        <div class="form-element-bar"></div>
+                    </div>
+
+                    <div class="form-element form-select">
+                        <label class="form-element-label @hasValue">@sReportsV2.Resources.TextLanguage.IdentifierUse:</label>
+                        <select class="form-element-field @hasValue " id="newIdentifierUse" name="newIdentifierUse" required>
+                            <option value=""></option>
+                            @foreach (var identifierUse in Enum.GetValues(typeof(sReportsV2.Domain.Enums.IdentifierUseType)))
+                            {
+                                <option value="@identifierUse">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(identifierUse.ToString())</option>
+                            }
+                        </select>
+                        <div class="form-element-bar"></div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@sReportsV2.Resources.TextLanguage.Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewIdentifier(event)">@sReportsV2.Resources.TextLanguage.SaveChanges</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    var activeEntity = '@(this.ViewData.ContainsKey("ActiveEntity") ? this.ViewData["ActiveEntity"].ToString() : string.Empty)';
+</script>
+
+

@@ -1,0 +1,52 @@
+﻿@using sReportsV2.DTOs.EpisodeOfCare
+@using sReportsV2.DTOs.DiagnosticReport
+@model sReportsV2.DTOs.Pagination.PaginationDataOut<DiagnosticReportDataOut,DiagnosticReportFilterDataIn>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>@sReportsV2.Resources.TextLanguage.Title</th>
+                <th>@sReportsV2.Resources.TextLanguage.Version</th>
+                <th>@sReportsV2.Resources.TextLanguage.LastUpdate</th>
+                <th>@sReportsV2.Resources.TextLanguage.User</th>
+                <th></th>
+                <th>@sReportsV2.Resources.TextLanguage.Referrals</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (DiagnosticReportDataOut report in Model.Data)
+            {
+            <tr id="row-@report.Id" onclick="clickedDiagnosticReportRow(event, '@Model.DataIn.EpisodeOfCareId','@report.Id')">
+
+                <td>@report.Title</td>
+                <td>@report.Version.Major.@report.Version.Minor</td>
+                <td>@report.LastUpdate</td>
+                <td>@(report.User != null ? (report.User.FirstName + " " + report.User.LastName) + " (" + report.User.Username + ") " : "")</td>
+                <td>
+                    <div class="dropdown show">
+                        <a class="dropwdown-button" href="#" role="button" id="dropdownMenuLink-@report.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bars"></i>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-@report.Id">
+                            <a class="dropdown-item" href="#" onclick="editDiagnosticReport(event,'@Model.DataIn.EpisodeOfCareId','@report.Id')">@sReportsV2.Resources.TextLanguage.Edit</a>
+                            <!--<a class="dropdown-item" href="#">Edit</a>-->
+                            <a class="dropdown-item" href="#" onclick="deleteDiagnosticReport(event, '@Model.DataIn.EpisodeOfCareId','@report.Id','@report.LastUpdate.Value.ToString("o")')">@sReportsV2.Resources.TextLanguage.Delete</a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <label class="form-checkbox-label" id="checkBoxGroup">
+                        <input value="@report.Id" class="form-checkbox-field" type="checkbox" name="referral" />
+                        <i class="form-checkbox-button"></i>
+                    </label>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pager-container">
+        @Html.Partial("Pagination")
+    </div>
+</div>

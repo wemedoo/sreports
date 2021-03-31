@@ -1,0 +1,21 @@
+﻿<div class="header-table">
+    @sReportsV2.Resources.TextLanguage.UMLS_SelectConcept
+</div>
+<div class="table-responsive tableFixHead">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>Ui</th>
+                <th>@sReportsV2.Resources.TextLanguage.RootSource</th>
+                <th>@sReportsV2.Resources.TextLanguage.Name</th>
+            </tr>
+        </thead>
+        <tbody id="conceptsTableBody" class="umsl-clearable-content">
+        </tbody>
+    </table>
+    <div id="loadMoreButtonContainer" class="load-more-button-container">
+        <div class="load-more-button" onclick="searchByTerm()">
+            @sReportsV2.Resources.TextLanguage.LoadConcept
+        </div>
+    </div>
+</div>

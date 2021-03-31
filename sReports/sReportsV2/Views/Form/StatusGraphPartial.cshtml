@@ -1,0 +1,36 @@
+﻿<div class="accordion">
+    <div class="header-accordion" data-toggle="collapse" onclick="collapseChapter(this)" data-target="#statusGraph" aria-expanded="false" aria-controls="statusGraph">
+        @sReportsV2.Resources.TextLanguage.StatusGraph
+    </div>
+    <div class="accordion-content collapse col-12" id="statusGraph">
+        @if (Model.WorkflowHistory != null)
+        {
+            <div class="row padd-statusGraph">
+                @foreach (sReportsV2.DTOs.Form.DataOut.FormStatusDataOut status in Model.WorkflowHistory)
+                {
+                    <div class="margin-forms" id="misublog">
+                        <div id="misublog">
+                            <div>
+                                @status.User.FirstName  @status.User.LastName
+                            </div>
+                            <div class="arrow">
+                                <div class="line"></div>
+                                <div class="point"></div>
+                            </div>
+                            <div class="padd-createData">
+                                @status.Created.ToString("dd-MMM-yyyy")
+                            </div>
+                        </div>
+                        <div id="misublog">
+                            <div class="padd-state">
+                                <rect class="@status.GetStatusColor(status.Status.ToString())" id="rect" x="0" y="0">
+                                    <text class="text-white" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(status.Status.ToString())</text>
+                                </rect>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

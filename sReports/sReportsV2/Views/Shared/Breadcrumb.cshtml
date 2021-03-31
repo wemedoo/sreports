@@ -1,0 +1,54 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        @if ((int)ViewData["activeLevel"] == 0)
+        {
+            <li class="breadcrumb-item active" aria-current="page">
+                <i class="fas fa-home"></i>
+                <a href="~/Home/Index">@sReportsV2.Resources.TextLanguage.HomeStart</a>
+            </li>
+        }
+        else
+        {
+            <li class="breadcrumb-item">
+                <i class="fas fa-home"></i>
+                <a href="~/Home/Index">@sReportsV2.Resources.TextLanguage.HomeStart</a>
+            </li>
+        }
+
+        @if (ViewData["level1"] != null)
+        {
+            if ((int)ViewData["activeLevel"] == 1)
+            {
+                <li class="breadcrumb-item active" aria-current="page"><a>@ViewData["level1"]</a></li>
+            }
+            else
+            {
+                <li class="breadcrumb-item"><a href="@ViewData["linkLevel1"]">@ViewData["level1"]</a></li>
+            }
+
+        }
+        @if (ViewData["level2"] != null)
+        {
+            if ((int)ViewData["activeLevel"] == 2)
+            {
+                <li class="breadcrumb-item active" aria-current="page"><a>@ViewData["level2"]</a></li>
+            }
+            else
+            {
+                <li class="breadcrumb-item"><a href="@ViewData["linkLevel2"]">@ViewData["level2"]</a></li>
+            }
+        }
+
+        @if (ViewData["level3"] != null)
+        {
+            if ((int)ViewData["activeLevel"] == 3)
+            {
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">@ViewData["level3"]</a></li>
+            }
+            else
+            {
+                <li class="breadcrumb-item"><a href="#">@ViewData["level3"]</a></li>
+            }
+        }
+    </ol>
+</nav>

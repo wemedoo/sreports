@@ -1,0 +1,63 @@
+﻿
+@{
+    string hasValue = "-hasvalue";
+}
+
+<form id="newCodeForm" name="NewCodeForm" onsubmit="return false">
+    <div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="codeModalLabel"> @sReportsV2.Resources.TextLanguage.AddCode</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-element">
+                        <label for="codeSystem" class="form-element-label"> @sReportsV2.Resources.TextLanguage.System:</label>
+                        <select class="form-element-field @hasValue" id="codeSystem" name="codeSystem" required>
+                            <option value=""></option>
+                            @foreach (var codeSystem in ViewBag.CodeSystems)
+                            {
+                                <option value="@codeSystem.Value">@codeSystem.Label</option>
+                            }
+                        </select>
+                        <div class="form-element-bar"></div>
+                    </div>
+                    <div class="form-element">
+                        <label for="codeVersion" class="form-element-label"> @sReportsV2.Resources.TextLanguage.Version:</label>
+                        <input required class="form-element-field" type="text" id="codeVersion" name="codeVersion" />
+                        <div class="form-element-bar"></div>
+                    </div>
+                    <div class="form-element">
+                        <label for="codeCode" class="form-element-label"> @sReportsV2.Resources.TextLanguage.Code:</label>
+                        <input required class="form-element-field" type="text" id="codeCode" name="codeCode" />
+                        <div class="form-element-bar"></div>
+                    </div>
+                    <div class="form-element">
+                        <label for="codeValue" class="form-element-label"> @sReportsV2.Resources.TextLanguage.Value (@sReportsV2.Resources.TextLanguage.Preferred_term):</label>
+                        <input required class="form-element-field" type="text" id="codeValue" name="codeValue" />
+                        <div class="form-element-bar"></div>
+                    </div>
+                    <div class="form-element">
+                        <label for="codeVersionPublishDate" class="form-element-label">@sReportsV2.Resources.TextLanguage.VersionPublishDate:</label>
+                        <input required class="form-element-field" id="codeVersionPublishDate" name="codeVersionPublishDate" type="date" />
+                        <div class="form-element-bar"></div>
+                    </div>
+
+                    <label for="bevalid"></label>
+                    <input class="is-form-validate" type="text" name="bevalid" id="bevalid" />
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@sReportsV2.Resources.TextLanguage.Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewCode(event)">@sReportsV2.Resources.TextLanguage.SaveChanges</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,3251 @@
+{
+   "caseDetails": {
+    "submissionID": "CH.USZ.Patho.PatientId.SubmssionId",
+    "location": "test.pathologie.usz.ch",
+    "submissionType": "Biopsy",
+    "probeID": "1",
+    "materialCode": "Biopsy",
+    "tissueCode": "C32",
+    "birthday": "20091210",
+    "dateOfSurgery": "20170617",
+    "gender": "M"
+  }
+  "Clinical Information": [
+	  {
+		"id": "2ae14f38a584451aafa5bc063a186847",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Information not provided]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "599d9b329efe43e5a703810be5a86cd8",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Not administered]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4c0575dcb3194c3cbb03940bc09f4e69",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Administered, specify type]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "dd0298b3a0b749c5a0feeb8bb4e5f9df",
+		"value": "Docetaxel, cisplatin and fluorouracil (TPF)",
+		"name": "[Neoadjuvant Therapy][Administered, specify type][Chemotherapy]",
+		"type": "Checkbox",
+		"defaultValue": "true"
+	  },
+	  {
+		"id": "b21b7923e4fb405ca9722d62658453e1",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Administered, specify type][Radiotherapy]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c8295c3744f04fabb05d7e3080bed71f",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Administered, specify type][Targeted therapy, specify if available]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2913cac2efbe44dfbe6cc05dd3d5c83a",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Administered, specify type][Targeted therapy]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "7c199f975be54917b6fa80695a5a1753",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Administered, specify type][Immunotherapy, specify if available]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5547f8a2965e49c49e5033aab384d417",
+		"value": "",
+		"name": "[Neoadjuvant Therapy][Administered, specify type][Immunotherapy]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "2c2dd72173594535b159fffea23ad2c9",
+		"value": "",
+		"name": "[Note Clinical Information][Note Clinical Information]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "8cdd25dfd5624e06873e9c6e25cfa4d8",
+		"value": "",
+		"name": "[Operative Procedure][Not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "05b0f25055ae499084bff88c5ac9185f",
+		"value": "",
+		"name": "[Operative Procedure][Biopsy]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "aa0c97a14c3c4b268c11621fc65c85a6",
+		"value": "",
+		"name": "[Operative Procedure][Biopsy][excisional]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "35313599da724ff3a07a28131e466d55",
+		"value": "",
+		"name": "[Operative Procedure][Biopsy][incisional]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ec0bfcedba0c4f979454826099a24772",
+		"value": "",
+		"name": "[Operative Procedure][Resection]",
+		"type": "Checkbox",
+		"defaultValue": "true"
+	  },
+	  {
+		"id": "6722790f26ea423da9605a7fa5ed5565",
+		"value": "Laryngopharyngectomy, total",
+		"name": "[Operative Procedure][Resection][specify]",
+		"type": "Input",
+		"defaultValue": "true"
+	  },
+	  {
+		"id": "a50bafa27e5f44d8a5eb49cdbc0e7dbf",
+		"value": "",
+		"name": "[Operative Procedure][Neck]",
+		"type": "Checkbox",
+		"defaultValue": "true"
+	  },
+	  {
+		"id": "eaa2e71dc97945c7b1d6e7d08529d6e4",
+		"value": "Bilateral Neck Disection",
+		"name": "[Operative Procedure][Neck dissection]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "6ba3d1c4b2674eab87b823940d6944c4",
+		"value": "",
+		"name": "[Operative Procedure][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d39c199bb2174cbebbb8d4390136fb67",
+		"value": "",
+		"name": "[Operative Procedure][Other][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "60dcf5b9a2644c85b01a692692014cff",
+		"value": "",
+		"name": "[Specimens Submitted][Not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2d1f3356bf154e999122e78bc208c1d0",
+		"value": "",
+		"name": "[Specimens Submitted][Trachea]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9f3db8d8dace41d5b90199fb56493df1",
+		"value": "",
+		"name": "[Specimens Submitted][Hypopharynx]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5dbc3eb48e114c4d9bf77b4cdac257b4",
+		"value": "",
+		"name": "[Specimens Submitted][Hypopharynx][Laryngopharyngectomy]",
+		"type": "RadioButton",
+		"defaultValue": "true"
+	  },
+	  {
+		"id": "77b1aa7ae61b4f82a0073c0b50dc9df7",
+		"value": "",
+		"name": "[Specimens Submitted][Hypopharynx][Other]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e1f2890fd1db4710afee73bfa90a83fc",
+		"value": "",
+		"name": "[Specimens Submitted][Hypopharynx][Other][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "6f3b7e931065450bb1ce9bd0db396ed7",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0e22dbb5288e4b579b6d0f943b90b815",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Endolaryngeal excision]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8f9e57818c314985956b5d1f1b04cda9",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Transoral laser excision]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0050b4b3ddd94afc9e15efd213081ab5",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Supraglottic laryngectomy]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a6b3a778360f41e18e2a663f05c9fa3e",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Supracricoid laryngectomy]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "cddd7d28dbdf40618a89bce4d60cb817",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Total laryngectomy]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5db1dde27cf3412ca3e4b7fb8a8b6522",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Vertical hemilaryngectomy, specify side]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "95e92591938d49b4840361bd18d7c188",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Vertical hemilaryngectomy]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "9ea7a6cdff7e43c0ae70c4fa0dcb7d4d",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Partial laryngectomy, specify type]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "cc3c7b3f4b3d42eb9b2cdc55c944c5e0",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Partial laryngectomy]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "a1e4ffcb95b14f728f05c60e016ddd0f",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Other]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9a03abff853643a792867ac2520dcfd6",
+		"value": "",
+		"name": "[Specimens Submitted][Larynx][Other][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  }
+  ]
+  "Result": [
+	  {
+		"id": "44fa4d29afda4bf68d03f0d7e07b12e3",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "70e79d8f023b41ba80cb1270303ed770",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "6fee9cdb04754d0b886d8fbf15dae31c",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Submental]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "01bcb7d2fc3946588262640b13f65636",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Submandibular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ddec5b6e0e054887960d05fb2d6212d9",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Upper jugular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "befecae7d0be43ea8cccb276d17f2fc3",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Middle jugular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1f53a3c0a1c34b5abf7fddd68a6f5fc2",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Lower jugular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a419007b55a34ec581508fdbfae9756f",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Posterior triangle]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "83f281a128024c2699d12360c223794a",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Retropharyngeal]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "226698e54ef4449a86dd51a69b5d8ac5",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Parotid/periparotid]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ff94c30e4bf74f8bbdb49ab38fdc3162",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Perifacial]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a56b7a5ea0824e1eabf9d271ea1eba39",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "05cbacea75c04b07aa1d451a0a54c032",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Lymph nodes][Other][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "256d3d724ccf4d7bafffa22c48081828",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1f718cd3c5d748df8bd083e51b10c956",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue][Nerve]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "114b89b9b60d4cb49be3f0a44db44f2f",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue][Muscle]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0128802ef0694e1faafbd23fbd14c351",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue][Vein]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5a08911e509d42ebace655e9f74f7c1d",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue][Salivary gland]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "630e7c39b44c49adbbba24939a04da83",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "df77946447b44cd0b81f0c712ce55080",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Right Non-lymphoid tissue][Other][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "868e55a87bb548aaa86bc7effc731bdb",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "86e77f3543ff4ba2a293ced83462d46c",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e81023f8a2f545a89c7bc17b271a9437",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Submental]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d0598708215646608a68278dc9a14339",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Submandibular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0c71463013674d3ca68d7a9666b724bb",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Upper jugular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "83cc52c4dd7e4aae841638faf9570bb8",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Middle jugular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a3e521a8696c4a27bf9045f57e664763",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Lower jugular]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "44691784ecc4469b92135188ffd8ce8e",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Posterior triangle]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4e9441da6cf042bea362e9002e0c9488",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Retropharyngeal]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d82dd96619004e189fbbdc795fced1cc",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Parotid/periparotid]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "52d3726b0ffa4bcb9eee27d78761030e",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Perifacial]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e277a24b0217419d807a54a89dc15d12",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c049eff0c8a5404095df852166a13f1f",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Lymph nodes][Other][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "7b133c06b1b348dc97ad3111c02ae0e9",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1f3828f00d9841a0a0b452db8dc3a377",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue][Nerve]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "420c0f18c9a84199afa21a2e2605af8a",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue][Muscle]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d3d1dbc42bb04e2cb3f22df4e0cd5e8f",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue][Vein]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c4cc0f8fe1c04862a64922dda8845072",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue][Salivary gland]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7b8c91b86190400b8e3712f6b34e01f8",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e24d109907334407976a1863b890d922",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Left Non-lymphoid tissue][Other][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "034c9f573d0743dead1e0fcc7718928b",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Central compartment]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a368db65ae0e4ae09e09282cfe75ed8d",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Central compartment][Non-lymphoid tissue]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "12b30d4e38264321a6cc7c0857bdb587",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Central compartment][Thymus]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d969fabe944b40f98b2692ab40148521",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Central compartment][Parathyroid]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "85d6d465418d4bceb7caac0deffc3cdb",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Central compartment][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a623c8c42e014073938da7078e9c4f25",
+		"value": "",
+		"name": "[Submitted Lymph Nodes][Central compartment][Other][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "62a0da6177774ccc8825705889f40399",
+		"value": "",
+		"name": "[Specimen Dimensions][Maximum dimension][x]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "dae4a7a093ef45a6995200b5fb40a6e3",
+		"value": "",
+		"name": "[Specimen Dimensions][Maximum dimension][x][y]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "374dec7adb2048b59828d1165b1f880a",
+		"value": "",
+		"name": "[Specimen Dimensions][Maximum dimension][x][z]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "cacc2df5d1d54fe6839ba113fff7df55",
+		"value": "",
+		"name": "[Tumour visible][Yes]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f44d1b3d027e4b6a81f09d1318e14508",
+		"value": "",
+		"name": "[Tumour visible][No]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "367c1dac6aa845178730d2662442bc5d",
+		"value": "",
+		"name": "[Tumour Site(s)][Cannot be assessed]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0725eb5a9a304f798a582c8065359584",
+		"value": "",
+		"name": "[Tumour Site(s)][Trachea]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8f25da684a924cf0aabf7bc4d48cd0ae",
+		"value": "",
+		"name": "[Tumour Site(s)][Trachea][Left]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1498234dc36140449082c386c5c4dd7a",
+		"value": "",
+		"name": "[Tumour Site(s)][Trachea][Right]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "99f5f53cc1214659ac6b5a318349d91b",
+		"value": "",
+		"name": "[Tumour Site(s)][Trachea][Midline]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d13bc16e5e294d8aaefde5486dc06a73",
+		"value": "",
+		"name": "[Tumour Site(s)][Trachea][Laterality not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "490e5dfc9ae04ef6a3e3f22dcd64367a",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c9a50716e3d242b49e044af14d6578ac",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Left]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "460d37616e914c42b7db223ad94557db",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Right]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d478ba46455f4019b228ecea88530862",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Midline]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "261b11abd44d409e987707dafcbf9b1b",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Laterality not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e8be3764af2b4152b02f124e8a23f865",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Piriform sinus]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ca2249dd6698442e9927543a1b1e00ad",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Postcricoid]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4ac476b9383a4317b0053e812faf2011",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Pharyngeal wall]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "671528fe3b864e18a27c419b1c02a0c6",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4802989030a9484ab9534fc305f7f4dc",
+		"value": "",
+		"name": "[Tumour Site(s)][Hypopharynx][Other][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "7f3107fcbef14b4483fa4e92eeba52f0",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c3d01020e05d4e268d0792fb02190543",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Left]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "17c13fecfe0f4287bdf9a26d126b748b",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Right]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a2d1e5be6886474984faf4260de14943",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Midline]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d896d823142b4b399e1b484e8fe13955",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Laterality not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9ace30cb45e945818df0fa9476204986",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Epiglottis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8b8a7b6064714907b8a79d1bccdfd8ba",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Epiglottis][Lingual aspect]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0c735fe600124f758dcd152576249fbd",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Epiglottis][Laryngeal aspect]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "149d88921823492f92b3d36ec09e575b",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Aryepiglottic fold]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "6e5636af95704369b8f02bfa3f434e77",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Arytenoid]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "34c718b477d94925acd1aac40c8bc8d2",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][False vocal cord/fold]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8947defaf58e4d05a748720dc690c5bb",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, supraglottis][Ventricle]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1997eb61ef2f49a9aa67d7d3fb8ccd47",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "bdccb89dffe44238ad634400ec3c5e1f",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][Left]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "15df2d471df04b6eb66a7459f8228768",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][Right]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "167698731a024022b5ed341de8fa9759",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][Midline]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "b32b1dd320bb45ebb1f33432f1c9ecd3",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][Laterality not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "008ada96b31346b1bc4f671deb05f210",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][True vocal cord/fold]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "33dd94d104194fa080d960a0cc94b998",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][Anterior commissure]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7304a60b959641449b82543d244d5411",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, glottis][Posterior commissure]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3371465699c6470095b49687b2b40f9f",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, subglottis]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "51d00e9c40674ddb9f0a1e8a066c3ead",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, subglottis][Left]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f39c129e72724a8c873156c27b28c8dc",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, subglottis][Right]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c494fcb763d545c5a771467a4bf3cfd1",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, subglottis][Midline]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "210e53b2dcb14f708b20025c6830fef1",
+		"value": "",
+		"name": "[Tumour Site(s)][Larynx, subglottis][Laterality not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "b8a39c4b41b74f19a4ccacb5abbb36d5",
+		"value": "",
+		"name": "[Tumour Site(s)][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0eb93390d73941258c4dc705ca31f3cc",
+		"value": "",
+		"name": "[Tumour Site(s)][Other][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d1cf1de52d3545ccb317beee95300d7c",
+		"value": "",
+		"name": "[Tumour Site(s)][Other][Left]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c2ef75c4787843149a36192b3d3dcb2b",
+		"value": "",
+		"name": "[Tumour Site(s)][Other][Right]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5348cf07b6104822ba234537db5b91b6",
+		"value": "",
+		"name": "[Tumour Site(s)][Other][Midline]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f070c2b2e4dd49ddba99240af2b51d48",
+		"value": "",
+		"name": "[Tumour Site(s)][Other][Laterality not specified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ea1240a6475841f68aab752a628bdfdc",
+		"value": "",
+		"name": "[Tumour Focality][Unifocal]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "911811dbbc014946a6cc6c611b56c5c0",
+		"value": "",
+		"name": "[Tumour Focality][Multifocal]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4ded9a1b9ba34430a2a92ba8ad144c4b",
+		"value": "",
+		"name": "[Tumour Focality][Number of tumours]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "0ab0290dae3f4a00a68e26103cc821e5",
+		"value": "",
+		"name": "[Tumour Focality][Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4ac043a98ce843c6936c17bcd247c624",
+		"value": "",
+		"name": "[Tumour Focality][Cannot be assessed][Explanation]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "f4004147d81c4799ad95a8103ec467b5",
+		"value": "",
+		"name": "[Tumour Dimension(s)][x]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "3e9d2d067fc44586b8483904303c60b7",
+		"value": "",
+		"name": "[Tumour Dimension(s)][x][y]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "95def0e1f054456e98e2a96711429768",
+		"value": "",
+		"name": "[Tumour Dimension(s)][x][z]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d62c8bd828fc4887861aafd7d00faae7",
+		"value": "",
+		"name": "[Tumour Dimension(s)][Cannot be assessed]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0f9880ed7a624fdea9dbaefed174ee51",
+		"value": "",
+		"name": "[Tumour Dimension(s)][Cannot be assessed][Explanation]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "da3fb565b5e248bf9317fa946f83b89c",
+		"value": "",
+		"name": "[Macroscopic Margins][Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "724789bb706e4839ab9b3f60a3edbb31",
+		"value": "",
+		"name": "[Macroscopic Margins][R2: Involved]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "74017ef5d78b4215adc8881fcda99302",
+		"value": "",
+		"name": "[Macroscopic Margins][Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "aeab099bd47a4a198521d61d55d4f38c",
+		"value": "",
+		"name": "[Macroscopic Venous Invasion][Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "eebbb0f1db664f93bca4b3a07a535b23",
+		"value": "",
+		"name": "[Macroscopic Venous Invasion][V2: Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d8bb002415264694a845f1c49e6cf5bf",
+		"value": "",
+		"name": "[Macroscopic Venous Invasion][Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "b681e335711b464b8bafdb9e49dbd28f",
+		"value": "",
+		"name": "[Note Macroscopic Report][Note Macroscopic report]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "eef0399856054e0789a5cf2264ac3608",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, conventional type]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "67bf58f9ae50462c967849ac2ca898f1",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, variant types]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "00dfafa115fe45baae8c70bbd7beb0ca",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, variant types][Adenosquamous carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ec4098a59b60424b90e4f71a2077dbf2",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, variant types][Basaloid squamous cell carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "90128a40f39a4048969a0ae2439e0070",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, variant types][Papillary squamous cell carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1883206ac521463e9cd5f5707c177b72",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, variant types][Spindle cell squamous cell carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "db16ddd2fc904d78b39a204ff9124a46",
+		"value": "",
+		"name": "[Histological Tumour Type][Squamous cell carcinoma, variant types][Verrucous squamous cell carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8103b471df934799a77eea2992aa100d",
+		"value": "",
+		"name": "[Histological Tumour Type][Lymphoepithelial carcinoma]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "65db370dcb7345b8a21f2c8ba8a57f00",
+		"value": "",
+		"name": "[Histological Tumour Type][Neuroendocrine carcinoma]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "aa211a0ec95341d58893e18a830e35e4",
+		"value": "",
+		"name": "[Histological Tumour Type][Neuroendocrine carcinoma][Well differentiated neuroendocrine carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c119506437b5494c9f77a139b4fe6a6f",
+		"value": "",
+		"name": "[Histological Tumour Type][Neuroendocrine carcinoma][Moderately differentiated neuroendocrine carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ea8b0984c41d413883dd2e149be287eb",
+		"value": "",
+		"name": "[Histological Tumour Type][Neuroendocrine carcinoma][Poorly differentiated neuroendocrine carcinoma, specify]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e9fbd60f38784020ad1065517214dadc",
+		"value": "",
+		"name": "[Histological Tumour Type][Neuroendocrine carcinoma][Poorly differentiated neuroendocrine carcinoma, specify][Small cell neuroendocrine carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2b93c68e2940437bbdec174ebdd51aca",
+		"value": "",
+		"name": "[Histological Tumour Type][Neuroendocrine carcinoma][Poorly differentiated neuroendocrine carcinoma, specify][Large cell neuroendocrine carcinoma]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "36a34ba131194186a825c228f7b9a5f3",
+		"value": "",
+		"name": "[Histological Tumour Type][Combined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f1122fca6d9a429da7b8866e1e5c6140",
+		"value": "",
+		"name": "[Histological Tumour Type][Carcinomas of Minor Salivary Glands]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c4b9dd6b14f745e59acb1a0698c43b8b",
+		"value": "",
+		"name": "[Histological Tumour Type][Carcinomas of Minor Salivary Glands][Adenoid cystic carcinoma, specify grade]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "71fc0f8fa747494bb12689ad37ba55fa",
+		"value": "",
+		"name": "[Histological Tumour Type][Carcinomas of Minor Salivary Glands][Adenoid cystic carcinoma, specify grade][ACC grade]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "09c54ffc26c14e24957a6da397760245",
+		"value": "",
+		"name": "[Histological Tumour Type][Carcinomas of Minor Salivary Glands][Mucoepidermoid carcinoma, specify grade]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4deccafd0d154cb6bb559783d1fdc7c8",
+		"value": "",
+		"name": "[Histological Tumour Type][Carcinomas of Minor Salivary Glands][Mucoepidermoid carcinoma, specify grade][MEC grade]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "2bef6a9f0086429d9438469e82e6feb2",
+		"value": "",
+		"name": "[Histological Tumour Type][Carcinomas of Minor Salivary Glands][Other Carcinomas of Minor Salivary Glands]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3368dd95eca04f929e620e16fc4d5fa2",
+		"value": "",
+		"name": "[Histological Tumour Type][Other histological tumour type not listed]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c6d9f0423983463a98484f88d0bfafdb",
+		"value": "",
+		"name": "[Histological Grade][Not applicable]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5640451e3bda41419b448e9edc4d8b05",
+		"value": "",
+		"name": "[Histological Grade][GX: Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "713f527cc39c44cfb08fd3c726abc737",
+		"value": "",
+		"name": "[Histological Grade][G1: Well differentiated]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0f93f2622300446c811af0bdf5c6ba4e",
+		"value": "",
+		"name": "[Histological Grade][G2: Moderately differentiated]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8237196580524aecb17270a85df809b8",
+		"value": "",
+		"name": "[Histological Grade][G3: Poorly differentiated]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3934ce6e61674908a16899445c1885bd",
+		"value": "",
+		"name": "[Histological Grade][G4: Undifferentiated]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e95fdd3f0b66447bb7387fd9321f0e62",
+		"value": "",
+		"name": "[Histological Grade][Other]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "807022ff35744f018b3b5576ca111082",
+		"value": "",
+		"name": "[Histological Grade][Other][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "a1335e5971564e5786b7c3b9d29a8648",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Not identified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ca7fddc5a6f84e7ab30acb0bc63d1fc4",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Involves mucosa]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f9cd82a36bc1473faa8ec6ad1a8c6931",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Involves paraglottic space]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "41a5050c5ca54c6ab5bace2de9a6fc37",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Involves pre-epiglottic space]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "08b59d4a5c7d49a3b2ae82d46e5e19f4",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Partial thickness invasion of cartilage]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c1fca9c808f742128783e1b9b6ae0ffd",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Full thickness invasion of cartilage]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4136becb06544dfdbf5cf1b167477787",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Tumour thickness]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "43c12c24f17b4856a82cdcee80387c68",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Tissue layers involved]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "fa29d85e4d2047ac9054ac83a04e7c1a",
+		"value": "",
+		"name": "[Extent Of Larynx Invasion][Tissue layers involved][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d527284724884a4c9b6ca2dc6efd0290",
+		"value": "",
+		"name": "[Extent Of Hypopharynx Invasion][Not identified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ca2af0ae796141f5a10a66ce7591f5bc",
+		"value": "",
+		"name": "[Extent Of Hypopharynx Invasion][Tissue layers involved]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "eec1b3acfcd541cca7fa624c949f2af8",
+		"value": "",
+		"name": "[Extent Of Hypopharynx Invasion][Tissue layers involved][specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "5099a0fc5e9e4348bda5e76970981a4c",
+		"value": "",
+		"name": "[Extent Of Hypopharynx Invasion][Tumour thickness]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "8289601cd47a4dd4b429a4061fbd6100",
+		"value": "",
+		"name": "[Pattern of Invasive Front][Cohesive]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "092ad9f0408a44938d01b7fff1e5243b",
+		"value": "",
+		"name": "[Pattern of Invasive Front][Non-cohesive]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f2f13a1af78f455e9bde881b85c09e57",
+		"value": "",
+		"name": "[Perineural Invasion][PnX: Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "32259f49c8f64905919820817e66dae6",
+		"value": "",
+		"name": "[Perineural Invasion][Pn0: Not detected]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0514a989055546e2aed86208d95c7f99",
+		"value": "",
+		"name": "[Perineural Invasion][Pn1: Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "379af9a641c44a28824f9fa02d563d54",
+		"value": "",
+		"name": "[Lymphatic Invasion][LX: Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ad893c2064334182b3d05666952446f6",
+		"value": "",
+		"name": "[Lymphatic Invasion][L0: Not detected]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "6ad1c31dca2b42b4a995c3ce871ed30b",
+		"value": "",
+		"name": "[Lymphatic Invasion][L1: Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "715cfe419ad143fa9a94b968bb948cb7",
+		"value": "",
+		"name": "[Microscopic Venous Invasion][VX: Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8a95905f56804bf1b6c7c47da1df0415",
+		"value": "",
+		"name": "[Microscopic Venous Invasion][V0: Not detected]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a10b0de535bb4e559f6d94fb59818a94",
+		"value": "",
+		"name": "[Microscopic Venous Invasion][V1: Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e694b629402043fbbbdff67570517459",
+		"value": "",
+		"name": "[Microscopic Venous Invasion][V2: Macroscopic venous invasion]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "db8f2f5d9f494afbb4f2806d913e71bf",
+		"value": "",
+		"name": "[Microscopic Margins][Not applicable]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "eab4be8eca784f128ee065dfa245d29e",
+		"value": "",
+		"name": "[Microscopic Margins][RX: Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "bc58d20d934e44d79ae708bac8cb0945",
+		"value": "",
+		"name": "[Microscopic Margins][RX: Cannot be assessed][Explanation]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "3ebf5b5115a241f58283501f3e6d9a71",
+		"value": "",
+		"name": "[Microscopic Margins][R0: No involvement detected]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7e4f3ba332934d2fbe638e538ea4158d",
+		"value": "",
+		"name": "[Microscopic Margins][R0: No involvement detected][Distance from closest margin]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d498bc1bcb5e43cc84061ad9bd0c2aa5",
+		"value": "",
+		"name": "[Microscopic Margins][R0: No involvement detected][Distance not assessable]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d16f57b862ab4bb99f7b56113e44f702",
+		"value": "",
+		"name": "[Microscopic Margins][R0: No involvement detected][Specify closest margin, if possible]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d107702f369946569b84625d7638e493",
+		"value": "",
+		"name": "[Microscopic Margins][R1: Involved]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d48c393f7fe3468f96e1997b11c9e0e3",
+		"value": "",
+		"name": "[Microscopic Margins][R1: Involved][Specify margin(s), if possible]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "c9307129a90d45778c8dc7872bc4dfb8",
+		"value": "",
+		"name": "[Microscopic Margins][R2: Macroscopic margin involvement]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e4d549dbecc8457e9820939181a1fd9c",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][R1: Involved]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "fd11fa2f0eac49dc94597dfb7989125d",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][R1: Involved][Specify margin(s), if possible]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "1e14beb5cbfe40a48d53cbd441a4cc47",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][Not Involved]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a2ce7bf119b0459b9a535e8b37ff888f",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][Not Involved][Distance from closest margin]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "632ef13023664d51a042ed4b36694e5a",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][Not Involved][Distance not assessable]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a772ac2a2a5a4d8fa816f4a678c29a6f",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][Not Involved][Specify closest margin, if possible]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "efe5e454213843dc9d986d4076f4ea70",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a04e0ee786964ac68dbb471a77fe70da",
+		"value": "",
+		"name": "[Margin Status of Invasive Carcinoma][Cannot be assessed][Explanation]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ccd6e19f5a4046de989b05a69562973f",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][R1: Involved]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9a653b2c40024c84869670da1cc26361",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][R1: Involved][Specify margin(s), if possible]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "42ae8ea477bf4b6e9d239b297187a958",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][Not involved]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "dda59fcd30bf448891f5cea23f68b662",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][Not involved][Distance from closest margin]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ba9653211de947b3ba70f74fb7cf1904",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][Not involved][Distance not assessable]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "bb80d05eda244758813bb8597f7ec34e",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][Not involved][Specify closest margin, if possible]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "c31ddfa86bea45bdaec6355a23a2d537",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][Cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a31587bfc3024b63a0139bf4d0aa94c3",
+		"value": "",
+		"name": "[Margin Status of Carcinoma in situ/high-grade dysplasia][Cannot be assessed][Explanation]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "de7b86ca304e4185800d8f7b8e2b89d2",
+		"value": "",
+		"name": "[Coexistent Pathology][None identified]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "57988d32b8414c6c88ebac1f425171db",
+		"value": "",
+		"name": "[Coexistent Pathology][Necrotizing sialometaplasia]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "86163115573f4e9e8be61708babf4681",
+		"value": "",
+		"name": "[Coexistent Pathology][Infection]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "345276d43a8347d3a465a6dd1b8247a5",
+		"value": "",
+		"name": "[Coexistent Pathology][Infection][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "36e93dcf58dd4a26ba03e21cd54760d2",
+		"value": "",
+		"name": "[Coexistent Pathology][Dysplasia]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "76772ae6ba3b491abf3a971e01178213",
+		"value": "",
+		"name": "[Coexistent Pathology][Dysplasia][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ba073127262e440ca44533dc2c99e4a1",
+		"value": "",
+		"name": "[Coexistent Pathology][Hyperplasia]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "31d874aa3e3d4756848ff25f39b8fd26",
+		"value": "",
+		"name": "[Coexistent Pathology][Hyperplasia][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ff129573e61d4b5093017f2d06211b25",
+		"value": "",
+		"name": "[Coexistent Pathology][Other]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9ad28dfc8143471780ef163e2b1b318a",
+		"value": "",
+		"name": "[Coexistent Pathology][Other][Specify]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "a1333423ef1c4be3b8e1a48345da01e0",
+		"value": "",
+		"name": "[Ancillary Studies][Not performed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ac9287fa4a2f4a368cb836e9e7a91fc1",
+		"value": "",
+		"name": "[Ancillary Studies][Performed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "be38aacd626a47c5a110393afcc9820a",
+		"value": "",
+		"name": "[Ancillary Studies][Performed][Specify]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "3a1a2a9cf0cb4d8a9a9dacdd078896b8",
+		"value": "",
+		"name": "[Note Microscopic Report][Note Microscopic Report]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "239ec158875e4a729b053bf3677533e0",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Not examined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ad21435197e24ef7bd1b90f5aba5f2c8",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "26a9fd80dffe4a7d8fc550b7d28eb409",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "37c6fc1c89d84e1ea5c6ffb28f3042c6",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "399206cafa564eed9f861d5b86de2e94",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "2e862151faa34c71882b06c5f4dc3ef3",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7ba635fb0f15483184323bf94f6b12cf",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7df5c70431fc4afebaa079141b379459",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "09ad7b48ce014c4381233020bd97485c",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ff99a55b685a4948a8bb283d0a0f633e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "60bfed521134481582583d6c1df05e4a",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "77e984750d6546699c2199ac885fb585",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submental IA][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "173c712df5ca4f6fb4704c18a1aaaff7",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "149fad0604184fc6828bf71bccbd2faa",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "9402ed29ca1f45a1b26a2cedbed5de5b",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0574180b886048c79eaca4de197a8ec6",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "eadb5579314a489faebe5fc0847ffb47",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "57b0bc39bac844a5869cee2fc4a1c85e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d112730d4bdd4cc296b1886501a377c0",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "241a0101a2d94b2691b15469be57df48",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "5159c29ceeb44784a24af25ba174f990",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2b583645b0d3486198358b96da23446c",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "adef3d524b594e6f84ea68de00a33108",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Submandibular IB][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ce80bd50d7434520be6325657f77a8ca",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c85c849ae98c4cdfaa03ff52ed8bc6f3",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "4625eba3643c4792a108e3a7353d1e61",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d0e91201b341412bb866ea64a7781b4a",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "17d308383bd94077913fc4531b84df82",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "162eacba37904720af164b3bee50f209",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "adbf242f88c74d2ba44ec94311816b7d",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "62b4b54c21cf4f21b2f3cf1d5ff6118b",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "eb504905d6ef44bf8c28c9b4df39f08a",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "947dbb8378f44c8580685b8e9819eede",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ccc057c03d024ff0a9ca5278cba180af",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Upper jugular II][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d1e0b8d200694c6fa976cbd0594d6878",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "51dab4f9fe1146b4b660051797487c0e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d639d865dc784d988536b1642320ca68",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ee24655134d44e1e88fce904c85ead36",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "de9238d5285e45f69972053f62242d5e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f5059909ad8048d2890d49259e8acd4e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "40c0a3a0a1054de3adb0d7fd56c50bca",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1483c8fb802549d6897977165fedda36",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "723583bc6a464ac1b7e8544a8e125d30",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "843cfd4f85ff4795bc98405716cd0b0e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "1a2c9eb163324ce18772643df9cf5b7f",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Middle jugular III][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8dca90a7591e41f0bac38fbe24e58eeb",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "03ec1f34513f41e3b5ba5e6070072618",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "bd778c4b2c914c7aa233e7063b59f76d",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "be225ff7a7ee4d4ab08716c10110b1a7",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "59400de752004a8da24406dadcbef24c",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3bf496c4e1174115b5182a2d353b2a7d",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e6a52d36a3864ff59ad95d744601645a",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e294b0d465d54feab09e632d66d9a3c0",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "a615471bf57d4ece879aa228b8868e0a",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9f4634532d5743f19f826227983a5743",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ecbe9abc533a4a149001a6c41aa68901",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Lower jugular IV][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8e36f8221cf0427b988a13ba1472293b",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1a9712ddc327401da46e37942168470a",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "b727e62d066644b8a473b68dbc276d91",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "33dd4001e5f54178a18a6a56f652dd78",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "0fa2398aa6af4502a02a1633fc9732a3",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "749936af0a5140dfb74ad3d7c7f5a6b1",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "bf864825331541fbb86cf48f8222b61e",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "656e96c4d8c145569c9a01679e95c768",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "5b9005b060e34ffa88075ef04ea581e9",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "157fe74400824f8b813eab1e03e16830",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ccd29d74323540ad8117bff7ddf7d136",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Posterior triangle V][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d0ff5dd153ca479eba984beb4904f274",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Max dimension of largest lymph node metastasis]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "b1c2c82b01cf44dc8e8eecd97a3f9692",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Max dimension of largest involved lymph node]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "1f8b8312c0d3498986c3140e1bb846df",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Greatest extent of ENE]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "188e8594ed1f46ccb86935a57e8384df",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Soft tissue metastasis present]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ae27d5d2bdbc47779f4af62c1f50f6db",
+		"value": "",
+		"name": "[Right Sided Lymph Nodes][Non-lymphatic structures involved]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ca34804b7c9b46fca5d9b1683a4230ea",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Not examined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "086473f3ebb2474a93eb6fde7ba418fe",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1b25fdddaf3f48c1a54edbc2e9b50ad6",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "bf1f13fc645d446fad289afc94bd2d3a",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "13b4d47bd913447787b907ef8c9294ac",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "16e045fb24da4ba0ae6acee696ad5f6a",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f16fec5eaa3a49b99db10be42638b18e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3fa39998ae014a38a767f0fd63f18b0a",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "535563bcb9ba4ea58cb431687dfda140",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d27590130f1445de966c7e0bade2c0db",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f54c00a98d4941589327aac606812759",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "5eb74d8078524ca2bb939a43c70b1828",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submental IA][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "65995a0d02754dd0bc2db42722a499d9",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0d6051b40a86452fabfc79a9256b21f5",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "85c0def166154243befcdc9d23adaa0e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5185b7c96602424a8932fc2dd35ea761",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "fbc31eb6dfff4ff9940d828dd0289a0f",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "90152cfa328d43a6ae2912dc1a96cb76",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4732988709ad43528be44ae68dbe52bc",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5ca1acd5a40245ec88a6a50ca45d6eb6",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "dd5a2b624b52429f9e548ff10870ac18",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "258edf4e13a84d5da0cf203059954bc9",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "4a812d438fe0494bb44cee2b14b8f4b5",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Submandibular IB][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7a385551d6a846178905c9d77f3aa2fd",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3a00f13a29524264b4aa31f3a88a95a5",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "20ad28b9348b46e18522b9b6109cfe36",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c06805bd508f450bbe8d9f0c8fb73018",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "421b6efed648479bb76f44e46f18912e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ff361fbc7e554bb28c1fe13b3ef1da3c",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c8bc3dc235b047a7ab74972d50eb7cb9",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d89945d16cbe4d91b8363bdc82263cad",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "b68d78114f154c45ad084a1e3bb13b54",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d5ef74470ade40189843b0582df87af4",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "4d6a4fd846f3439b87318c7d94eee700",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Upper jugular II][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0570018c159847a5866be199080041c5",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3f3fd82c4c4248908723d9e4e04853cd",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ecec201e35f440fea13a99ba4b6e46ce",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e004ac8477d44b5fb6d41abcbaa92fa9",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "e871483160294793b36b7f91939db60d",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "558007ee94504f4ba6df8358cdc1e01f",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e68d7a40255e4a7f9e39bace394fa59e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "47314cf44a994f9abd3b92136c06ae95",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "75c7705df4aa40208a0f99f45efc3b4c",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9d757eab144748ff82c229d2da3ec500",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d2f30ec8914a4212b8343ddefcb99f1e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Middle jugular III][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9f99e2cb56824657a2331d34a26de66c",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e7cb23ac7d8c4beab1b41ea23fb573c8",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "81b3ad51879748098bbb737eedbb5312",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f0a7b86206084511a912afc846812d6f",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "7b0c30c6a34a4072bc155adb1a5fff4a",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "26ec027e790b408d9066cffa0f44f252",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0c683acd132448e7b365b3b84da75c70",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9ad471672d5f44bcb6209f882c0c4dbb",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "f1876e0ac39c47d6a8550db95bcd7368",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d1122d01f33c4e7d8b11b991bc2de795",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "7d2a446c54f944749785f1d80f97a16f",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Lower jugular IV][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "16dedb4bc72a4eaa9de8d668248f107a",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "156c826912fe444fb8acafa231987842",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Number of nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "d982317ecb9948508b0169b127fb201e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "de7b0ecbe55e418aaa1f1b59b7b2995e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Number of nodes positives]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "96a5bd2cff694f299e36e0ac849525fb",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "8a92078f4cb94e18a995033cf332aea2",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "41364a4a8d204f1b97538b0aeb74a84f",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "aa54b8356a5349bc86cd3c565e14d03a",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "5272845221b744daa51d51842bd1efc7",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d108c9cd54ab497d80d552565bd53dd6",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "cdcc3d35fa9e40b4b3d89380c368a70e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Posterior triangle V][The number of nodes with ENE cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2d6a7007f8c0470aafa80ba6d8341497",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Max dimension of largest lymph node metastasis]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "419538897de149cba7f0ff63d66a7b33",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Max dimension of largest involved lymph node]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "b838bfd07bed492984f5e7437fecde63",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Greatest extent of ENE]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "a71b468ea54f424ab1323798d7689675",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Soft tissue metastasis]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e49c89b6dbe648feb8b461f4ca0a66e2",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Soft tissue metastasis][Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "71ff933559844ea297fe444e810984ab",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Soft tissue metastasis][Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c53ee3ad14be44738afcda0956ae2a5e",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Non-lymphatic structures involved]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "525867c20a20407d9d1447728886d010",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Non-lymphatic structures involved][Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "cd5134b73f46493e81c1c89c5708880f",
+		"value": "",
+		"name": "[Left Sided Lymph Nodes][Non-lymphatic structures involved][Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3721cdfe6a224814ae70e64e6496fbf5",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Not examined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c32cc66b8a6b42349f0d7522fb7960f8",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Number of lymph nodes examined]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "3f4394020a9a45f0ae77b54cafa9d6c1",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][The number of nodes cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "cb5e62c3e69d448881178b70314a0fca",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Number of lymph nodes positive]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "ca8bade488e94ace907edd04ced8c188",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][The number of nodes positives cannot be determined]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "993018c4e9964a01bbacceaadb454226",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Extranodal extension: Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "b81f680bcf2340d19f001bcf6ca99de4",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2bac431d2f904e1e861da119e425a929",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "e1f446a1f77e45fcb652aa24b1937007",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "fbc45153eb9d46c6bce71e35e018fdc5",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Number]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "1b613429640a4cfba6de3bc80933ec76",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Max dimension of largest lymph node metastasis]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "2e5258d26ef943c1bcfe5c84c0d6a66f",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Max dimension of largest involved lymph node]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "367bd860f5fc4e8689b6beb419a13c2e",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Greatest extent of ENE]",
+		"type": "Input",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "cfcb3e9e372949d48202b42f7ad817ac",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Soft tissue metastasis]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "98e7e5ae73af483bb1ba56fa0fe07d53",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Soft tissue metastasis][Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "185d96e8a90848a082c3c4614ea102ea",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Soft tissue metastasis][Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "61b723b7e7ea4544b4f54d1046c445eb",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Non-lymphatic structures involved]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9a996b7ece1f4fddad9555cc71070b2a",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Not identified]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "c6c5bd37c619489aa645101a8c25659f",
+		"value": "",
+		"name": "[Central Compartment Lymph Nodes][Present]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "5e07eb27edcb46488002d119069c446a",
+		"value": "",
+		"name": "[TNM Descriptors][m: Multiple primary tumours at a single site]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "6f47d028a50a43e7b5476561d59f3ea7",
+		"value": "",
+		"name": "[TNM Descriptors][r: Recurrent tumours after a disease free period]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "83b14df25cca4dc5b7041801c48b7f01",
+		"value": "",
+		"name": "[TNM Descriptors][y: Classification is performed during or following multimodality treatment]",
+		"type": "Checkbox",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "edf5adf75e874b2eb6c11223661da3ae",
+		"value": "",
+		"name": "[Primary Tumour][pTX: Primary Tumour cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ff73e81e6bcc4c4689a542ab6ab159e3",
+		"value": "",
+		"name": "[Primary Tumour][pT0: No evidence of primary tumour]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "2c352d593cb440ae866033d478427e2d",
+		"value": "",
+		"name": "[Primary Tumour][pTis: Carcinoma in situ]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9d1afab22fcd42bf95829defd045a1c8",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Hypopharynx][pT1: Tumour limited to one subsite of hypopharynx and/or 2 cm or less in greatest dimension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4f6babdd033a47a880cb8f8d5b4a23f0",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Hypopharynx][pT2: Tumour invades more than one subsite of hypopharynx or an adjacent site, or measures more than 2 cm but not more than 4 cm in greatest dimension, without fixation of hemilarynx]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "4d4323ca62ac40b7b9660c26cc11eb5c",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Hypopharynx][pT3: Tumour more than 4 cm in greatest dimension, or with fixation of hemilarynx or extension to oesophagus]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "adc28770a4ee4ce1a2ff28085cdc3c3c",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Hypopharynx][pT4a: Tumour invades any of the following: thyroid/cricoid cartilage, hyoid bone, thyroid gland, oesophagus, central compartment soft tissue*]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a52d327e67a34234bf0126114b288cb8",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Hypopharynx][pT4b: Tumour invades prevertebral fascia, encases carotid artery, or invades mediastinal structures]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0a30dd362ad345b98e21e8568802af9e",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Supraglottis][pT1: Tumour limited to one subsite of supraglottis with normal vocal cord mobility]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "42803921eef648f2ba0404631b7dce7f",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Supraglottis][pT2: Tumour invades mucosa of more than one adjacent subsite of supraglottis or glottis or region outside the supraglottis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "847075a0b41a475f8145c09c121c0e4c",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Supraglottis][pT3: Tumour limited to larynx with vocal cord fixation and/or invades any of the following: postcricoid area, pre epiglottic space, paraglottic space, and/or inner cortex of thyroid cartilage]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "d8d6b0caa302458bbe5a0c0c6c2afd5f",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Supraglottis][pT4a: Tumour invades through the thyroid cartilage and/or invades tissues beyond the larynx, e.g., trachea, soft tissues of neck including deep/extrinsic muscle of tongue]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e8f0b7817f9a41a88d7b12429713598a",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Supraglottis][pT4b: Tumour invades prevertebral space, encases carotid artery, or mediastinal structures]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f52ded164e1140aab2e72aa70acf427b",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT1: Tumour limited to vocal cord(s)]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3c89ee2c50154ace9cc20c121c094898",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT1: Tumour limited to vocal cord(s)][pT1a: Tumour limited to one vocal cord]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e155016c1d1b4a5c9867c3e3cb78a3d5",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT1: Tumour limited to vocal cord(s)][pT1b: Tumour involves both vocal cords]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "38642d63703f4ef68cc5334a9d4164a0",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT2: Tumour extends to supraglottis and/or subglottis, and/or with impaired vocal cord mobility]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "54ec291f80134fb4ab30a9a2fa57dc0d",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT3: Tumour limited to larynx with vocal cord fixation and/or invades paraglottic space, and/or inner cortex of the thyroid cartilage]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f89a90054f234f9aa4d285842f1bb981",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT4a: Tumour invades through the outer cortex of the thyroid cartilage, and/or invades tissues beyond the larynx, e.g., trachea, soft tissues of neck including deep/extrinsic muscle of tongue]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a353212fe7214866a8172f3316b9f5e0",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Glottis][pT4b: Tumour invades prevertebral space, encases carotid artery, or mediastinal structures]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7b108a78530e42968d48148ba2a9b9d4",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Subglottis][pT1: Tumour limited to subglottis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "6fc098fdb2fe4343a93be0acfbb372af",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Subglottis][pT2: Tumour extends to vocal cord(s) with normal or impaired mobility]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "db3de0ba186a4e5c81ce0930cc6822f8",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Subglottis][pT3: Tumour limited to larynx with vocal cord fixation]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "6cafdda092f047b1b8cb91010dc1eb4f",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Subglottis][pT4a: Tumour invades cricoid or thyroid cartilage and/or invades tissues beyond the larynx, e.g., trachea, soft tissues of neck including deep/extrinsic muscle of tongue]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0fb94e70fbf549179812a693685d23b6",
+		"value": "",
+		"name": "[Primary Tumour][Primary tumour: Subglottis][pT4b: Tumour invades prevertebral space, encases carotid artery, or mediastinal structures]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "29395bcab9914d48ba25c794f38b7325",
+		"value": "",
+		"name": "[Regional lymph nodes][Histological examination of a selective neck dissection specimen will ordinarily include 10 or more lymph nodes. Histological examination of a radical or modified radical neck dissection specimen will ordinarily include 15 or more lymph nodes.]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "fa4a9f06f6bb4f56a670e08a4cdadca5",
+		"value": "",
+		"name": "[Regional lymph nodes][Not applicable]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "88151590e451400fb6dffc24ad318119",
+		"value": "",
+		"name": "[Regional lymph nodes][pNX: Regional lymph nodes cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "524916ef2ec84126a1b66a277293a23d",
+		"value": "",
+		"name": "[Regional lymph nodes][pN0: No regional lymph node metastasis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "7d549f2167ab4197943fe7ded395a115",
+		"value": "",
+		"name": "[Regional lymph nodes][pN1: Metastasis in a single ipsilateral lymph node, 3 cm or less in greatest dimension without extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "58f24e7bf183499f972120572a9efa08",
+		"value": "",
+		"name": "[Regional lymph nodes][pN2a: Metastasis in a single ipsilateral lymph node, less than 3 cm in greatest dimension with extranodal extension or more than 3 cm but not more than 6 cm in greatest dimension without extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "3526e923549c4397a81f5b70cfbb6924",
+		"value": "",
+		"name": "[Regional lymph nodes][pN2b: Metastasis in multiple ipsilateral lymph nodes, none more than 6 cm in greatest dimension, without extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "f5154728ff834d2f839e680f0bce8027",
+		"value": "",
+		"name": "[Regional lymph nodes][pN2c: Metastasis in bilateral or contralateral lymph nodes, none more than 6 cm in greatest dimension, without extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "0bd87444d0d24ccbbddfb3206f2e116b",
+		"value": "",
+		"name": "[Regional lymph nodes][pN3a: Metastasis in a lymph node more than 6 cm in greatest dimension without extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "b9c53d3d7e1440ae94cb5af312817c58",
+		"value": "",
+		"name": "[Regional lymph nodes][pN3b: Metastasis in a lymph node more than 3 cm in greatest dimension with extranodal extension or multiple ipsilateral, or any contralateral or bilateral node(s) with extranodal extension]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "cfabdb95d9534158a5f27e0ec73b1e6b",
+		"value": "",
+		"name": "[Distant metastasis][Not applicable]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "1e9f65ef21e9408b93de0c00ce5c0833",
+		"value": "",
+		"name": "[Distant metastasis][pMX: Presence of distant metastasis cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "b21093366c65488badd2a06134c132ed",
+		"value": "",
+		"name": "[Distant metastasis][pM0: No distant metastasis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "ebda6662c4cb49b8aebc75e01bbfcbc2",
+		"value": "",
+		"name": "[Distant metastasis][pM1: Distant metastasis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "97c322f857c64975950d69ff250b8b2e",
+		"value": "",
+		"name": "[Distant metastasis][Not applicable]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "e6e2ae4759f14e119c728d4826879e64",
+		"value": "",
+		"name": "[Distant metastasis][pMX: Presence of distant metastasis cannot be assessed]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "a9b84bb331734c988d387b97fb16764f",
+		"value": "",
+		"name": "[Distant metastasis][pM1: Distant metastasis]",
+		"type": "RadioButton",
+		"defaultValue": "false"
+	  },
+	  {
+		"id": "9f63f9c682c94488b8d0b9cf50690ed3",
+		"value": "",
+		"name": "[Diagnosis][Note Diagnosis]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  },
+	  {
+		"id": "13ffbdffb25545e5b288f9e0bdf8d84c",
+		"value": "",
+		"name": "[Additional Comments][Additional Comments]",
+		"type": "Textarea",
+		"defaultValue": ""
+	  }
+  ]
+}

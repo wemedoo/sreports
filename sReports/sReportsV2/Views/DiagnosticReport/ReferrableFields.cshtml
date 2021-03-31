@@ -1,0 +1,39 @@
+﻿@using sReportsV2.DTOs.Common.DTO
+
+@model List<ReferralInfoDTO>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="form-accordion">
+        <div class="form-accordion-header" data-toggle="collapse" data-target="#referralChapter" aria-expanded="false" aria-controls="referralChapter">
+            Summary from source documents
+        </div>
+        <div class="collapse chapter" id="referralChapter">
+
+            <div class="card">
+                <div class="card-body">
+
+                    @foreach (var referral in Model)
+                    {
+                        if (referral.ReferrableFields != null && referral.ReferrableFields.Count > 0)
+                        {
+                            <h2>Referral title : @referral.Title</h2>
+                            foreach (var kvp in referral.ReferrableFields)
+                            {
+                                <div class="row">
+                                    <div class="col-4"><p>@kvp.Key :</p></div>
+                                    <div class="col-8"><p><b>@Html.Raw(@kvp.Value)</b></p></div>
+                                </div>
+                            }
+                        }
+
+                    }
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+}
+
+

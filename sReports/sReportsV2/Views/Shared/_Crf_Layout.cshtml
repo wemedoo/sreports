@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1020988-30"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-1020988-30');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - sReports by niAnalytics</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/sReports/bootstrap-treeview.js"></script>
+    <style>
+
+    </style>
+</head>
+@{
+    string action = ViewContext.RouteData.Values["Action"].ToString();
+    string controller = ViewContext.RouteData.Values["Controller"].ToString();
+}
+
+<body class="sidebar-shrink">
+    <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
+
+        <div class="header-wrapper-simplified">
+            <button class="menu-btn-md" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="navbar-brand col-5  col-sm-2 col-md-1">
+                <a class="logo-link" href="#">
+                    <img src="~/Content/img/niAnalytics-logo.png">
+                    sReports
+                </a>
+            </div>
+            <div class="mobile-hidden">
+                <ul class="inline-list">
+                    @foreach (sReportsV2.Models.Common.EnumViewModel language in (ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>).Where(x => !x.Value.Equals("it")))
+                    {
+                        if (language.Value.Equals((ViewBag.Language as string)))
+                        {
+                            <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="language active">
+                                <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="language">
+                                <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                        <span> Select language </span>
+                    </a>
+                    <ul class="dropdown-menu level-1" aria-labelledby="navbarDropdown">
+                        @foreach (sReportsV2.Models.Common.EnumViewModel language in (ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>).Where(x => !x.Value.Equals("it")))
+                        {
+                            if (ViewBag != null && language.Value.Equals((ViewBag.Language as string)))
+                            {
+                                <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="language active">
+                                    <a class="nav-link" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="language">
+                                    <a class="nav-link" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+                @if (Request["id"] != "14573")
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/crf/create?id=14573&language=@ViewBag.Language&">Core Case Record Form – Admission</a>
+                    </li>
+                }
+                @if (Request["id"] != "14911")
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/crf/create?id=14911&language=@ViewBag.Language">Daily Case Record Form</a>
+                    </li>
+                }
+                @if (Request["id"] != "15112")
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/crf/create?id=15112&language=@ViewBag.Language">Core Case Record Form – Hospitalization and Discharge</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar" id="sidebar">
+                <ul class="nav flex-column flex-nowrap">
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="http://c19.nianalytics.com/">
+                            <i class="fas fa-chart-line"></i>
+                            <span> Graph </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @(((action.ToLower().Equals("instructions")) && controller.ToLower().Equals("crf")) ? "active" : "")">
+                        <a class="nav-link" href="~/CRF/Instructions?language=@ViewBag.Language">
+                            <i class="fas fa-info"></i>
+                            <span> Instructions </span>
+                        </a>
+                    </li>
+                    <li class="nav-item @(((action.ToLower().Equals("create")) && controller.ToLower().Equals("crf")) ? "active" : "")">
+                        <a class="nav-link" href="~/crf/create?id=14573&language=@ViewBag.Language">
+                            <i class="fas fa-plus"></i>
+                            <span> Data capture </span>
+                        </a>
+                    </li>
+                    @{
+                        string current = Request.Params["id"];
+                        if (string.IsNullOrWhiteSpace(current))
+                        {
+                            current = Request.Params["ThesaurusId"];
+                            if (string.IsNullOrWhiteSpace(current))
+                            {
+                                current = ViewBag.ThesaurusId ?? "14573";
+                            }
+                        }
+                    }
+                    <li class="nav-item @(((action.ToLower().Equals("getallbyformthesaurus")) && controller.ToLower().Equals("forminstance")) ? "active" : "")">
+                        <a class="nav-link" href="~/@("FormInstance/GetAllByFormThesaurus?ThesaurusId=" + current + "&IsSimplifiedLayout=True&Language="+  ViewBag.Language ?? "en")">
+                            <i class="fas fa-list"></i>
+                            <span> Data </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <main role="main" class="main-content">
+                @RenderBody()
+            </main>
+            <div id="loaderOverlay" class="loader-overlay">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 20)';
+        var simplifiedApp = "/CRF/Edit";
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "activeLevel", 0 } })
+
+
+<div class="widgets-container">
+    <div class="widget first">
+        <div class="widget-header">
+            @sReportsV2.Resources.TextLanguage.Documents_per_group
+        </div>
+        <div class="widget-content">
+            <canvas id="documentsPerThesaurus" width="200" height="200"></canvas>
+        </div>
+    </div>
+
+    <div class="widget right">
+        <div class="widget-header">
+            @sReportsV2.Resources.TextLanguage.Total_thesaurus_entries
+        </div>
+        <div class="widget-content">
+            <div class="items">
+                <div class="total-item">
+                    <div id="totalThesaurusEntries" class="total-number"></div>
+                    <div class="total-label">Thesaurus entries</div>
+                </div>
+                <div class="total-item">
+                    <div id="totalUmls" class="total-number"></div>
+                    <div class="total-label">Connected with UMLS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widget">
+        <div class="widget-header">
+            @sReportsV2.Resources.TextLanguage.Users_by_organization
+        </div>
+        <div class="widget-content" id="organizationUsersCount">
+
+        </div>
+    </div>
+    <!--<div class="widget right">
+        <div class="widget-header">
+            Documents per Group
+        </div>
+        <div class="widget-content">
+
+        </div>
+    </div>-->
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="~/Scripts/sReports/overview.js"></script>

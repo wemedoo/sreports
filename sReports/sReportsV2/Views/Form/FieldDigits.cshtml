@@ -1,0 +1,18 @@
+﻿@*@using sReportsV2.DTOs.Form.DataOut;
+@model FormFieldDataOut
+
+<fieldset id="@Model.Id" class="form-element form-input" @Html.Raw(Model.Visibility)>
+    <label for="@Model.Id" class="form-element-label">
+        @Html.Raw(Model.FullLabel)
+        @if (Model.Help != null)
+        {
+            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+        }
+    </label>
+    <input type="digits" name="@Model.Id" @Model.ValidationAttr value="@Model.Value" class="form-element-field" placeholder="@Model.DescriptionLabel" />
+    <div class="form-element-bar"></div>
+
+    <div class="form-element-description">
+        @Html.Raw(Model.Description)
+    </div>
+</fieldset>*@

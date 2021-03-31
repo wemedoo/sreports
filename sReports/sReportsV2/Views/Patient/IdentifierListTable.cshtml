@@ -1,0 +1,39 @@
+﻿@using sReportsV2.DTOs.Organization.DataOut;
+@model List<IdentifierDataOut> 
+<div class="accordion">
+    <div class="header-accordion always-collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="identifiers">
+        @sReportsV2.Resources.TextLanguage.Identifiers
+        <button class="btn btn-primary add-new-button" type="button" onclick="showIdentifierModal(event)">
+            <i class="fas fa-plus-circle"></i>
+            @sReportsV2.Resources.TextLanguage.AddNew
+        </button>
+    </div>
+    <div class="accordion-content collapse show" id="identifiers">
+        <div class="identifiers-container" id="identifierContainer">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th class="truncate tooltip-tipable">@sReportsV2.Resources.TextLanguage.Identifier_name</th>
+                        <th class="truncate tooltip-tipable">@sReportsV2.Resources.TextLanguage.Identifier_value</th>
+                        <th class="truncate tooltip-tipable">@sReportsV2.Resources.TextLanguage.IdentifierUse</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (IdentifierDataOut identifier in Model)
+                        {
+                            <tr>
+                                <td data-property="system" data-value="@identifier.System.O4MtId" class="truncate tooltip-tipable" title="@identifier.System.Name" >@identifier.System.Name</td>
+                                <td data-property="value" data-value="@identifier.Value" class="truncate tooltip-tipable" title="@identifier.Value">@identifier.Value</td>
+                                <td data-property="use" data-value="@identifier.Use" class="truncate tooltip-tipable" title="@identifier.Use">@identifier.Use</td>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

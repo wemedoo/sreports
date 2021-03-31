@@ -1,0 +1,27 @@
+﻿<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content upload-modal" style="height:30%">
+            <form method="post" enctype="multipart/form-data" onsubmit="upload()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">@sReportsV2.Resources.TextLanguage.UploadPdf</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label for="file">@sReportsV2.Resources.TextLanguage.UploadFile:</label>
+                    </div>
+                    <div class="fileUpload input.upload">
+                        <input id="uploadFile" class="f-input" placeholder="@sReportsV2.Resources.TextLanguage.NoContent" />
+                        <button type="button" class="fileUpload btn btn-primary upload-button">@sReportsV2.Resources.TextLanguage.ChooseFile</button>
+                        <input id="file" name="file" type="file" class="upload upload-input" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">@sReportsV2.Resources.TextLanguage.UploadFile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

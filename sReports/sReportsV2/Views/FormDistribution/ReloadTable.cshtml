@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "ReloadForms";
+}
+
+
+@*@Html.Partial("~/Views/Form/FormFilter.cshtml")*@
+<div class="table-responsive centered-table">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>@sReportsV2.Resources.TextLanguage.Title</th>
+                <th>@sReportsV2.Resources.TextLanguage.NumberOfDocuments</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (sReportsV2.DTOs.FormDistribution.DataOut.FormDistributionTableDataOut form in Model.Data)
+            {
+                <tr>
+                    <td onclick="clickedRow(event,'@form.Id')" id="row-@form.Id">@form.Title</td>                   
+                    <td>
+                        <fieldset class="form-element form-input">
+                            <input type="number" id="num_of_documents_@form.Id" min="0" required class="form-element-field" placeholder="@sReportsV2.Resources.TextLanguage.SetNumberOfDocumentsToGenerate" />
+                            <div class="form-element-bar"></div>
+                         </fieldset>
+                    </td>     
+                    <td>
+                        <button class="btn btn-primary add-new-button" type="button" onclick="generateDocuments('@form.Id')">@sReportsV2.Resources.TextLanguage.GenerateDocuments</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <div class="pager-container">
+            @Html.Partial("Pagination")
+        </div>
+    </div>
+</div>
+

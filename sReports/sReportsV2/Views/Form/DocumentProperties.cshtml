@@ -1,0 +1,87 @@
+﻿@using sReportsV2.DTOs.DocumentProperties.DataOut
+@model DocumentPropertiesDataOut
+
+@if(Model != null)
+{
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Class
+    </div>
+    <div class="value">
+        @sReportsV2.Resources.TextLanguage.Class
+    </div>
+</div>
+
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Administrative_Context
+    </div>
+    <div class="value">
+        @sReportsV2.Resources.TextLanguage.Administrative_Context
+    </div>
+</div>
+
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Clinical_Context
+    </div>
+    <div class="value">
+        @if (Model.ClinicalContext != null)
+        {
+            @sReportsV2.Resources.TextLanguage.Clinical_Context
+        }
+    </div>
+</div>
+
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Clinical_Domain
+    </div>
+    <div class="value">
+        @sReportsV2.Resources.TextLanguage.Clinical_Domain
+    </div>
+</div>
+
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Description
+    </div>
+    <div class="value">
+        @sReportsV2.Resources.TextLanguage.Description
+    </div>
+</div>
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Explicit_Purpose
+    </div>
+    <div class="value">
+        @if (Model.Purpose != null)
+        {
+            @sReportsV2.Resources.TextLanguage.Explicit_Purpose
+        }
+    </div>
+</div>
+
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.General_Purpose
+    </div>
+    <div class="value">
+        @if (Model.Purpose != null && Model.Purpose.GeneralPurpose != null)
+        {
+            @sReportsV2.Resources.TextLanguage.General_Purpose
+        }
+    </div>
+</div>
+<div class="document-property">
+    <div class="label">
+        @sReportsV2.Resources.TextLanguage.Scope_of_Validity
+    </div>
+    <div class="value">
+        @if (Model.ScopeOfValidity != null)
+        {
+            @sReportsV2.Resources.TextLanguage.Scope_of_Validity
+        }
+    </div>
+</div>
+}

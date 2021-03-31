@@ -1,0 +1,320 @@
+﻿{
+  "About": {
+    "PropertyOf": "this format is a property of niAnalytics & SOTEX (80% niAnalytics : 20% SOTEX)",
+    "FormatType": "sReports",
+    "FormatVersion": "6.0.0",
+    "Links": "'https://nianalytics.com/', ' https://www.sotexsolutions.com/'",
+    "ThesaurusReference": "https://referenceThesaurus.insel.ch",
+    "ThesaurusVersion": "0.0.0",
+    "ThesaurusUpdated": "15.12.2018"
+  },
+  "Title": "Instruction for the brachytherapy planning",
+  "Chapters": [
+    {
+      "Id": "fc1",
+      "Title": "Chapter 1",
+      "Description": "Inselspital, Radiooncology",
+      "ThesaurusId": null,
+      "Pages": [
+        {
+          "Id": "fp1",
+          "Title": "",
+          "Description": "",
+          "ThesaurusId": null,
+          "FieldSets": [
+            {
+              "Id": "fs1",
+              "Label": "",
+              "Fields": [
+                {
+                  "Id": "1",
+                  "Type": "text",
+                  "ThesaurusId": "C0079399",
+                  "Label": "Patient First Name"
+                },
+                {
+                  "Id": "2",
+                  "Type": "text",
+                  "Label": "Patient Second Name"
+                },
+                {
+                  "Id": "3",
+                  "Type": "date",
+                  "Label": "Date of birdth"
+                }
+              ]
+            },
+            {
+              "Id": "fs2",
+              "Label": "",
+              "Fields": [
+                {
+                  "Id": "4",
+                  "Type": "date",
+                  "Label": "Instruction given on: "
+                },
+                {
+                  "Id": "5",
+                  "Type": "text",
+                  "Label": "Instruction given by: "
+                }
+              ]
+            },
+            {
+              "Id": "fs23",
+              "Label": "",
+              "Fields": [
+                {
+                  "Id": "6",
+                  "Type": "radio",
+                  "Label": "Departmental Managerg",
+                  "Values": [
+                    {
+                      "Label": "inpatient",
+                      "Value": "66_1"
+                    },
+                    {
+                      "Label": "outpatient",
+                      "Value": "66_2"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Id": "fs2553",
+              "Label": "",
+              "Fields": [               
+                
+              ]
+            },
+            {
+              "Id": "fs233",
+              "Label": "",
+              "Fields": [
+                {
+                  "Id": "8",
+                  "Type": "date",
+                  "Label": "Admission"
+                },
+                {
+                  "Id": "10",
+                  "Type": "date",
+                  "Label": "Fasten"
+                }
+              ]
+            },
+            {
+              "Id": "fs2334",
+              "Label": "",
+              "Fields": [
+                {
+                  "Id": "9",
+                  "Type": "datetime",
+                  "Label": "Application"
+                },
+                {
+                  "Id": "11",
+                  "Type": "text",
+                  "Label": "Duration of hospitalisation"
+                }
+              ]
+            },
+            {
+              "id": "fs2",
+              "Label": "",
+              "Fields": [
+                {
+                  "Id": "12",
+                  "Type": "select",
+                  "Label": "Intervention",
+                  "Values": [
+                    {
+                      "Value": "1",
+                      "Label": "Intracavitary Brachytherapy"
+                    },
+                    {
+                      "Value": "2",
+                      "Label": "Endoluminal brachytherapy"
+                    },
+                    {
+                      "Value": "3",
+                      "Label": "Contact brachytherapy"
+                    },
+                    {
+                      "Value": "4",
+                      "Label": "Intraoperative brachytherapy"
+                    },
+                    {
+                      "Value": "5",
+                      "Label": "Vaginal Cylinder"
+                    },
+                    {
+                      "Value": "6",
+                      "Label": "Seed-Implantation"
+                    },
+                    {
+                      "Value": "7",
+                      "Label": "Consultation with anestesiologist"
+                    }
+                  ],
+                  "Dependables": [
+                    {
+                      "Condition": "1",
+                      "ActionType": 0,
+                      "ActionParams": "13"
+                    },
+                    {
+                      "Condition": "3",
+                      "ActionType": 0,
+                      "ActionParams": "14"
+                    },
+                    {
+                      "Condition": "4",
+                      "ActionType": 0,
+                      "ActionParams": "14"
+                    },
+                    {
+                      "Condition": "5",
+                      "ActionType": 0,
+                      "ActionParams": "14"
+                    },
+                    {
+                      "Condition": "3",
+                      "ActionType": 0,
+                      "ActionParams": "15"
+                    }
+                  ]
+                },
+                {
+                  "Id": "13",
+                  "Type": "checkbox",
+                  "Label": "mit Proguide-Needle",
+                  "IsVisible": false,
+                  "Values": [
+                    {
+                      "Label": "True",
+                      "Value": "True"
+                    }
+                  ]
+                },
+                {
+                  "Id": "14",
+                  "Type": "text",
+                  "Label": "Where",
+                  "IsVisible": false
+                },
+                {
+                  "Id": "15",
+                  "Type": "checkbox",
+                  "Label": "aladin",
+                  "IsVisible": false,
+                  "Values": [
+                    {
+                      "Label": "True",
+                      "Value": "True"
+                    }
+                  ]
+                },
+                {
+                  "Id": "96",
+                  "Type": "datetime",
+                  "Label": "Consultation with anestesiologist"
+                },
+                {
+                  "Id": "20",
+                  "Label": "Type of anestesia",
+                  "Type": "radio",
+                  "Values": [
+                    {
+                      "Label": "Local",
+                      "Value": "Local"
+                    },
+                    {
+                      "Label": "Spinal",
+                      "Value": "Spinal"
+                    },
+                    {
+                      "Label": "Complete",
+                      "Value": "Complete"
+                    },
+                    {
+                      "Label": "PCA",
+                      "Value": "PCA"
+                    },
+                    {
+                      "Label": "PDA",
+                      "Value": "PDA"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "fs2667",
+              "Label": "",
+              "Fields": [
+
+                {
+                  "Id": "25",
+                  "Type": "checkbox",
+                  "Label": "Checklist (labels): ",
+                  "Values": [
+                    {
+                      "Label": "ARIA CT Termin",
+                      "Value": "25_1"
+                    },
+                    {
+                      "Label": "ARIA Brachy",
+                      "Value": "25_2"
+                    },
+                    {
+                      "Label": "RAP",
+                      "Value": "25_3"
+                    },
+                    {
+                      "Label": "Blu/Red Health Records",
+                      "Value": "25_4"
+                    },
+                    {
+                      "Label": "Treatment Costs Corespondence Form",
+                      "Value": "25_5"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "fs56562",
+              "Label": "",
+              "Fields": [
+
+
+                {
+                  "Id": "30",
+                  "Type": "text",
+                  "Label": "Alergies"
+                },
+                {
+                  "Id": "31",
+                  "Type": "text",
+                  "Label": "Antiloagulation"
+                },
+                {
+                  "Id": "33",
+                  "Type": "date",
+                  "Label": "Should be stopped"
+                },
+                {
+                  "Id": "32",
+                  "Type": "text",
+                  "Label": "Additional Comments"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

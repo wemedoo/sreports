@@ -1,0 +1,81 @@
+﻿@using sReportsV2.DTOs.EpisodeOfCare;
+@using System.Linq;
+
+@model sReportsV2.DTOs.Patient.PatientDataOut
+
+@if (Model != null)
+{
+    <div class="accordion" id="patientTree" name="@Model.Id">
+        <div class="header-accordion always-collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="patientTree">
+            @sReportsV2.Resources.TextLanguage.Episodes_Of_Care
+            <button class="btn btn-primary pt-0 pb-0" onclick="addNewEpisodeOfCare('@Model.Id')"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.AddNewEpisodeOfCare </button>
+
+        </div>
+
+        <div class="accordion-content tree collapse show" id="patientTree">
+
+
+            <ul class="tree-ul">
+                @for (int i = 0; i < Model.EpisodeOfCares.Count; i++)
+                {
+                    <li class="parent">
+                        <div class="content episode-of-care" id="@Model.EpisodeOfCares[i].Id">
+                            <i class="fas fa-plus"></i>
+                            <span class="item-form">@(Model.EpisodeOfCares[i].DiagnosisCondition) (@Model.EpisodeOfCares[i].Period.ToString()) - @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.EpisodeOfCares[i].Status) </span>
+                        </div>
+
+                        <ul class="nested-tree-ul expandable">
+                            @for (int j = 0; j < Model.EpisodeOfCares[i].Encounters.Count; j++)
+                            {
+                                <li class="child-item enc">
+                                    <div class="content encounter level-1" id="@Model.EpisodeOfCares[i].Encounters[j].Id">
+                                        <i class="fas fa-plus"></i>
+                                        <span class="item-form">@Model.EpisodeOfCares[i].Encounters[j].LastUpdate.Value.ToString("dd/MM/yyyy HH:mm") - @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.EpisodeOfCares[i].Encounters[j].ServiceType.GetDisplay()) (@(Model.EpisodeOfCares[i].Encounters[j].FormInstances.Count))</span>
+                                    </div>
+                                    <ul class="nested-tree-ul no-children expandable">
+                                        @foreach (var formInstance in Model.EpisodeOfCares[i].Encounters[j].FormInstances)
+                                        {
+                                            <li class="child-item">
+                                                <div class="content form-instance level-2" id="@formInstance.Id">
+                                                    <span class="item-form">@formInstance.Title</span>
+                                                    
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+
+<script>
+
+</script>
+
+<div class="modal fade" id="diagnosticReport" tabindex="-1" role="dialog" aria-labelledby="diagnosticReportLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form method="post" enctype="multipart/form-data" ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="diagnosticReportLabel">@sReportsV2.Resources.TextLanguage.DiagnosticReports</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="diagnosticReportModalContent" class="modal-body">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+

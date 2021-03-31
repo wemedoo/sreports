@@ -1,0 +1,30 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+@{
+    ViewBag.Action = "/FormInstance/Create";
+}
+
+    <div>
+        @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Engine }, { "linkLevel1", "/FormInstance/GetAllFormDefinitions" }, { "level2", Model.Title }, { "linkLevel2", "/FormInstance/GetAllByFormThesaurus?VersionId=" + Model.Version.Id + "&thesaurusId=" + Model.ThesaurusId + "&title=" + Model.Title + "&documentClass=" + ViewBag.FilterFormInstanceDataIn.DocumentClass + "&ClassesOtherValue=" + ViewBag.FilterFormInstanceDataIn.ClassesOtherValue + "&FollowUp=" + ViewBag.FilterFormInstanceDataIn.FollowUp + "&GeneralPurpose=" + ViewBag.FilterFormInstanceDataIn.GeneralPurpose + "&explicitPurpose=" + ViewBag.FilterFormInstanceDataIn.ExplicitPurpose + "&scopeOfValididty=" + ViewBag.FilterFormInstanceDataIn.ScopeOfValidity + "&clinicalDomain=" + ViewBag.FilterFormInstanceDataIn.ClinicalDomain + "&clinicalContext=" + ViewBag.FilterFormInstanceDataIn.ClinicalContext + "&administrativeContext=" + ViewBag.FilterFormInstanceDataIn.AdministrativeContext }, { "level3", ViewBag.formInstanceId != null ? ViewBag.formInstanceId : @sReportsV2.Resources.TextLanguage.CreateNewInstance }, { "activeLevel", 3 } })
+    </div>
+@if (ViewData.ModelState.Keys.Contains("ConcurrencyException"))
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationMessage("ConcurrencyException")
+    </div>
+}
+
+<div class="col-12">
+    <h1 class="page-title">@Model.Title</h1>
+</div>
+
+@if (Model.ReferrableFields != null && Model.ReferrableFields.Count > 0) 
+{
+<div>
+    @Html.Partial("~/Views/DiagnosticReport/ReferrableFields.cshtml", Model.ReferrableFields)
+</div>
+}
+
+<div>
+    @Html.Partial("~/Views/Form/FormPartial.cshtml", Model)
+</div>

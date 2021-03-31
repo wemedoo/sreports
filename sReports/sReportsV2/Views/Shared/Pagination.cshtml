@@ -1,0 +1,77 @@
+﻿
+@{
+    int startVal = Model.DataIn.Page - 2;
+    int endVal = Model.DataIn.Page + 2;
+    int totalPages = (int)Math.Ceiling((double)Model.Count / Model.DataIn.PageSize);
+
+    if (Model.DataIn.Page < 3)
+    {
+        startVal = 1;
+    }
+    if (endVal > totalPages)
+    {
+        endVal = totalPages;
+    }
+
+}
+    <select id="pageSizeSelector" class="pageSizeSelector">
+        @if (Model.DataIn.PageSize == 5)
+        {
+            <option value="5" selected>5</option>
+
+        }
+        else
+        {
+            <option value="5">5</option>
+
+        }
+        @if (Model.DataIn.PageSize == 10 )
+        {
+            <option value="10" selected>10</option> 
+
+        }
+        else
+        {
+            <option value="10">10</option>
+
+        }
+        @if (Model.DataIn.PageSize == 15 )
+        {
+            <option value="15" selected>15</option>
+
+        }
+        else
+        {
+            <option value="15">15</option>
+
+        }
+        @if (Model.DataIn.PageSize == 20)
+        {
+            <option value="20" selected>20</option>
+
+        }
+        else
+        {
+            <option value="20">20</option>
+
+        }
+    </select>
+        <ul class="pagination">
+            <li><a href="#" onclick="changePage(1, event, '@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">&laquo;</a></li>
+            <li class="@(Model.DataIn.Page == 1 ? "disabled" : "")">
+
+                <a href="#" @if (Model.DataIn.Page != 1) { <text> onclick="changePage(@Model.DataIn.Page-1, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')" </text> }>&lsaquo;</a>
+            </li>
+            @for (var i = startVal; i <= endVal; i++)
+            {
+                <li class="page-item @(i == Model.DataIn.Page ? "active" : "")">
+                    <a onclick="changePage(@i, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">@i</a>
+                </li>
+            }
+            <li class="@((Model.DataIn.Page == totalPages) ? "disabled" : "")">
+
+                <a href="#" @if (Model.DataIn.Page != totalPages) { <text> onclick="changePage(@Model.DataIn.Page+1, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')" </text> }>&rsaquo;</a>
+            </li>
+            <li><a href="#" onclick="changePage(@totalPages, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">&raquo;</a></li>
+        </ul>
+

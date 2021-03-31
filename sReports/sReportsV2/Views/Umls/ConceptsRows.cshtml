@@ -1,0 +1,23 @@
+﻿@using sReportsV2.Models.Umls;
+
+@if (Model != null && (Model.Result.Results[0] as ConceptSearchResultViewModel).Ui != "NONE")
+{
+    foreach (ConceptSearchResultViewModel concept in Model.Result.Results as List<ConceptSearchResultViewModel>)
+    {
+        <tr class="table-row" onclick="loadDetails(event,'@concept.Ui')">
+            <td data-field="ui">@concept.Ui</td>
+            <td data-field="rootSource">@concept.RootSource</td>
+            <td data-field="name">@concept.Name</td>
+        </tr>
+    }
+
+    <script>
+        if(@Model.Result.Results.Count < @Model.PageSize)
+        {
+            console.log("Works");
+            $('#loadMoreButtonContainer').hide();
+        }
+        var currentPage = @Model.PageNumber + 1;
+    </script>
+}
+

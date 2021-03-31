@@ -1,0 +1,39 @@
+﻿@using sReportsV2.DTOs.Form
+@model sReportsV2.DTOs.EpisodeOfCare.EpisodeOfCareListFormsDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.CreateDiagnosticReport;
+}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-md-6 padding-sm ">
+            @Html.Partial("~/Views/EpisodeOfCare/PatientInfo.cshtml", Model.Patient)
+            @Html.Partial("~/Views/EpisodeOfCare/EpisodeOfCareInfo.cshtml")
+        </div>
+        <div class="col-md-6 padding-sm order-sm-first">
+            <div class="forms-list-container">
+                <div class="header-rounded">
+                    @sReportsV2.Resources.TextLanguage.SelectReportCreate
+                </div>
+                <ul class="list-group" style="max-height: 70vh; overflow: auto;">
+                    @foreach (FormEpisodeOfCareDataOut form in Model.Forms)
+                    {
+                        <li class="list-group-item" onclick="createDiagnosticReport(event, '@Model.EpisodeOfCare.Id', '@form.Id','@Model.EncounterId')">
+                            @form.Title
+                            <span class="icon-create">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var referrals = @Html.Raw(Json.Encode(Model.Referrals));
+</script>
+
+<script src="~/Scripts/sReports/episodeOfCare.js"></script>

@@ -1,0 +1,18 @@
+﻿@using sReportsV2.DTOs.Organization;
+@model List<OrganizationDataOut>
+    <div class="organization-hierarchy">
+        @foreach (OrganizationDataOut organization in Model)
+        {
+            <div class="organization-hierarchy-item">
+                <div class="name">@organization.Name</div>
+                <div class="city">@organization.Address.City</div>
+            </div>
+            <div class="line-container">
+                <div class="line"></div>
+            </div>
+        }
+        <div class="organization-hierarchy-item active">
+            <div id="organizationHierarchyActiveName" class="name"></div>
+            <div id="organizationHierarchyActiveCity" class="city"></div>
+        </div>
+    </div>

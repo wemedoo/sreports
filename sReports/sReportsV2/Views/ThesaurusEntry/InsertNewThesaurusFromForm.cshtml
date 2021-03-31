@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "InsertNewThesaurusFromForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>InsertThesaurusFromFormView</h2>
+
+<div class="form-input-container" style="width: 350px;">
+    <form action="/ThesaurusEntry/InsertThesaurusFromForm" method="get" id="form1">
+        <label for="Form id" class="form-element-label">Form  id</label>
+        <input type="text" name="formId" id="formId" class="form-element-field" />
+        <div class="form-element-bar"></div>
+
+        <div class="submit-button-container" style="margin-top: 15px">
+            <button type="submit" form="form1" class="btn btn-primary">Generate</button>
+        </div>
+
+    </form>
+
+</div>
+

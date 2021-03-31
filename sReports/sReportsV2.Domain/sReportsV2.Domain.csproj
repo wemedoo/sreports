@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F6570A48-CAE5-4412-940E-05A081AAD9C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sReportsV2.Domain</RootNamespace>
+    <AssemblyName>sReportsV2.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>sReportsV2.Domain.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>sReportsV2.Domain.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Common\KeyValue.cs" />
+    <Compile Include="Entities\Common\ReferalInfo.cs" />
+    <Compile Include="Entities\DFD\Constants.cs" />
+    <Compile Include="Entities\DFD\DFDFormInfo.cs" />
+    <Compile Include="Entities\Distribution\FormDistribution.cs" />
+    <Compile Include="Entities\Distribution\FormFieldDistribution.cs" />
+    <Compile Include="Entities\Common\EpisodeOfCareType.cs" />
+    <Compile Include="Entities\Common\Period.cs" />
+    <Compile Include="Entities\Common\ServiceType.cs" />
+    <Compile Include="Entities\Constants\FieldTypes.cs" />
+    <Compile Include="Entities\Constants\O40MtConstants.cs" />
+    <Compile Include="Entities\CustomFHIRClasses\O4CodeableConcept.cs" />
+    <Compile Include="Entities\CustomFHIRClasses\O4Identifier.cs" />
+    <Compile Include="Entities\CustomFHIRClasses\O4ResourceReference.cs" />
+    <Compile Include="Entities\Distribution\FormFieldDistributionSingleParameter.cs" />
+    <Compile Include="Entities\Distribution\FormFieldNormalDistributionParameters.cs" />
+    <Compile Include="Entities\Distribution\FormFieldValueDistribution.cs" />
+    <Compile Include="Entities\Distribution\RelatedVariable.cs" />
+    <Compile Include="Entities\Distribution\SingleDependOnValue.cs" />
+    <Compile Include="Entities\Encounter\EncounterEntity.cs" />
+    <Compile Include="Entities\Encounter\EncounterFhirFilter.cs" />
+    <Compile Include="Entities\Encounter\EncounterFilter.cs" />
+    <Compile Include="Entities\Base\Entity.cs" />
+    <Compile Include="Entities\Encounter\EnumEntry.cs" />
+    <Compile Include="Entities\EpisodeOfCareEntities\EpisodeOfCareEntity.cs" />
+    <Compile Include="Entities\EpisodeOfCareEntities\EpisodeOfCareFhirFilter.cs" />
+    <Compile Include="Entities\EpisodeOfCareEntities\EpisodeOfCareFilter.cs" />
+    <Compile Include="Entities\EpisodeOfCareEntities\EpisodeOfCareStatus.cs" />
+    <Compile Include="Entities\Field\FieldDatetime.cs" />
+    <Compile Include="Entities\Field\FieldEmail.cs" />
+    <Compile Include="Entities\Field\Field.cs" />
+    <Compile Include="Entities\Field\FieldCalculative.cs" />
+    <Compile Include="Entities\Field\FieldCheckbox.cs" />
+    <Compile Include="Entities\Field\FieldDate.cs" />
+    <Compile Include="Entities\Field\FieldFile.cs" />
+    <Compile Include="Entities\Field\FieldNumeric.cs" />
+    <Compile Include="Entities\Field\FieldRadio.cs" />
+    <Compile Include="Entities\Field\FieldRegex.cs" />
+    <Compile Include="Entities\Field\FieldSelect.cs" />
+    <Compile Include="Entities\Field\FieldSelectable.cs" />
+    <Compile Include="Entities\Field\FieldText.cs" />
+    <Compile Include="Entities\Field\FieldString.cs" />
+    <Compile Include="Entities\Field\FieldTextArea.cs" />
+    <Compile Include="Entities\FormInstance\FormInstanceCovidFilter.cs" />
+    <Compile Include="Entities\FormInstance\FormInstanceFhirFilter.cs" />
+    <Compile Include="Entities\FormInstance\FormInstancePerDomain.cs" />
+    <Compile Include="Entities\Form\FieldSet.cs" />
+    <Compile Include="Entities\Form\Form.cs" />
+    <Compile Include="Entities\Form\FormAbout.cs" />
+    <Compile Include="Entities\Form\FormChapter.cs" />
+    <Compile Include="Entities\Form\FormEpisodeOfCare.cs" />
+    <Compile Include="Entities\Form\FormFieldDependable.cs" />
+    <Compile Include="Entities\Form\FormFieldValue.cs" />
+    <Compile Include="Entities\Form\FormFilterData.cs" />
+    <Compile Include="Entities\Form\FormPage.cs" />
+    <Compile Include="Entities\Form\FormPageImageMap.cs" />
+    <Compile Include="Entities\Form\FormStatus.cs" />
+    <Compile Include="Entities\Form\Help.cs" />
+    <Compile Include="Entities\Form\LayoutStyle.cs" />
+    <Compile Include="Entities\Form\Version.cs" />
+    <Compile Include="Entities\Form\ReferralForm.cs" />
+    <Compile Include="Entities\OrganizationEntities\IdentifierEntity.cs" />
+    <Compile Include="Entities\OrganizationEntities\Organization.cs" />
+    <Compile Include="Entities\OrganizationEntities\OrganizationFilter.cs" />
+    <Compile Include="Entities\OrganizationEntities\OrganizationWithUsers.cs" />
+    <Compile Include="Entities\OrganizationEntities\OrganizationUsersCount.cs" />
+    <Compile Include="Entities\PatientEntities\Address.cs" />
+    <Compile Include="Entities\PatientEntities\Communication.cs" />
+    <Compile Include="Entities\PatientEntities\Contact.cs" />
+    <Compile Include="Entities\PatientEntities\IdentifierType.cs" />
+    <Compile Include="Entities\PatientEntities\MultipleBirth.cs" />
+    <Compile Include="Entities\PatientEntities\Name.cs" />
+    <Compile Include="Entities\PatientEntities\PatientEntity.cs" />
+    <Compile Include="Entities\Common\AdministrativeData.cs" />
+    <Compile Include="Entities\Common\Enums.cs" />
+    <Compile Include="Entities\Common\Sequence.cs" />
+    <Compile Include="Entities\Common\UserData.cs" />
+    <Compile Include="Entities\PatientEntities\PatientFhirFilter.cs" />
+    <Compile Include="Entities\PatientEntities\PatientFilter.cs" />
+    <Compile Include="Entities\PatientEntities\Telecom.cs" />
+    <Compile Include="Entities\Role\Roles.cs" />
+    <Compile Include="Entities\ThesaurusEntry\CodeSystem.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryFilterData.cs" />
+    <Compile Include="Entities\UserEntities\User.cs" />
+    <Compile Include="Entities\UserEntities\UserWithOrganization.cs" />
+    <Compile Include="Exceptions\ConcurrencyDeleteException.cs" />
+    <Compile Include="Exceptions\ConcurrencyException.cs" />
+    <Compile Include="Extensions\BundleExtension.cs" />
+    <Compile Include="Entities\Common\AuditLog.cs" />
+    <Compile Include="Entities\Common\EnumData.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentClass.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentClinicalContext.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentGeneralPurpose.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentInheritedMetaData.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentInheritedMetaDataInstitution.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentInheritedMetaDataPerson.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentProperties.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentPurpose.cs" />
+    <Compile Include="Entities\DocumentProperties\DocumentScopeOfValidity.cs" />
+    <Compile Include="Entities\DocumentProperties\Enums.cs" />
+    <Compile Include="Entities\Common\Version.cs" />
+    <Compile Include="Entities\FormInstance\FormInstanceFilterData.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryCodingSystem.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntry.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryTranslation.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryTree.cs" />
+    <Compile Include="Entities\FormInstance\FormInstance.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Enums\StringConstants.cs" />
+    <Compile Include="Extensions\Ensure.cs" />
+    <Compile Include="Extensions\SystemExtension.cs" />
+    <Compile Include="Extensions\PatientExtensions.cs" />
+    <Compile Include="FormValues\FieldValue.cs" />
+    <Compile Include="Mongo\MongoConfiguration.cs" />
+    <Compile Include="Mongo\MongoDBInstance.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementations\CodeSystemService.cs" />
+    <Compile Include="Services\Implementations\DFDService.cs" />
+    <Compile Include="Services\Implementations\DiagnosisRoleService.cs" />
+    <Compile Include="Services\Implementations\EncounterClassificationService.cs" />
+    <Compile Include="Services\Implementations\EncounterService.cs" />
+    <Compile Include="Services\Implementations\EncounterStatusService.cs" />
+    <Compile Include="Services\Implementations\EncounterTypeSevice.cs" />
+    <Compile Include="Services\Implementations\EpisodeOfCareService.cs" />
+    <Compile Include="Services\Implementations\EnumService.cs" />
+    <Compile Include="Services\Implementations\EpisodeOfCareTypeService.cs" />
+    <Compile Include="Services\Implementations\FormDistributionService.cs" />
+    <Compile Include="Services\Implementations\FormInstanceService.cs" />
+    <Compile Include="Services\Implementations\FormService.cs" />
+    <Compile Include="Services\Implementations\OrganizationService.cs" />
+    <Compile Include="Services\Implementations\OrganizationTypeService.cs" />
+    <Compile Include="Services\Implementations\PatientService.cs" />
+    <Compile Include="Services\Implementations\RoleService.cs" />
+    <Compile Include="Services\Implementations\ThesaurusEntryService.cs" />
+    <Compile Include="Services\Implementations\UserService.cs" />
+    <Compile Include="Services\Interfaces\FormDistributionService.cs" />
+    <Compile Include="Services\Interfaces\ICodeSystemService.cs" />
+    <Compile Include="Services\Interfaces\IDFDService.cs" />
+    <Compile Include="Services\Interfaces\IEncounterService.cs" />
+    <Compile Include="Services\Interfaces\IEnumCommonService.cs" />
+    <Compile Include="Services\Interfaces\IEpisodeOfCareService.cs" />
+    <Compile Include="Services\Interfaces\IEnumService.cs" />
+    <Compile Include="Services\Interfaces\IFormInstanceService.cs" />
+    <Compile Include="Services\Interfaces\IFormService.cs" />
+    <Compile Include="Services\Interfaces\IOrganizationService.cs" />
+    <Compile Include="Services\Interfaces\IPatientService.cs" />
+    <Compile Include="Services\Interfaces\IRoleService.cs" />
+    <Compile Include="Services\Interfaces\IThesaurusEntryService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\sReportsV2.Domain.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\sReportsV2.Domain.csprojAssemblyReference.cache" />
+    <None Include="sReportsV2.Domain.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="DatabaseMigrationScripts\New\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hl7.Fhir.Core\Hl7.Fhir.Core.csproj">
+      <Project>{B3D4479D-F66E-4CEA-9118-60001D09D1D6}</Project>
+      <Name>Hl7.Fhir.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DatabaseMigrationScripts\Archived\R126\migrate_version_property.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\migrations_all.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\patientChapterDependablesFix.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\updateFormsForRepetititveFunctionality.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\update_CTCAE_Dynamic.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\update_field_type_name.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\versionUpdate.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R126\workflow_scheme_update.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R138\migration_all.js" />
+    <Content Include="DatabaseMigrationScripts\Archived\R142\formInstanceUpdate.js" />
+    <Content Include="obj\Debug\sReportsV2.Domain.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper">
+      <Version>6.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <Version>2.9.6</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="mongocsharpdriver">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Sendgrid">
+      <Version>9.13.2</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog">
+      <Version>2.9.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

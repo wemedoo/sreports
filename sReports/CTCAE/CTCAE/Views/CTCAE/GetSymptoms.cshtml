@@ -1,0 +1,101 @@
+﻿@model CTCAE.Models.Patient
+@{
+    ViewData["Title"] = "GetSymptoms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body class="ctcae-background">
+    <div class="ctcae-center">
+
+        <div class="form-row position">
+            <div style="margin-right:26px">
+                <label class="pat-ID">Patient ID:</label>
+                <span class="pat-ID pat-ID-input">@(Model != null && Model.PatientId != null ? Model.PatientId : "")</span>
+            </div>
+            <div style="margin-right:22px">
+                <label class="date">Date:</label>
+                <span class="date date-input">@(Model != null && Model.Date != null ? Model.Date.Value.ToString("MM/dd/yyyy") : "")</span>
+            </div>
+            <div>
+                <label class="visit-no">Visit No:</label>
+                <span class="visit-no visit-no-input">@(Model != null && Model.VisitNo != null ? Model.VisitNo : "")</span>
+            </div>
+            <input type="hidden" id="selectId" name="selectId" value="@(Model.SelectItems[Model.SelectId].Id)" />
+        </div>
+
+        <div class="ambulatory-Toxicity-center">
+            <div class="ambulatory-Toxicity amb-margin">Ambulatory Toxicity Evaluation—CTCAE V5</div>
+        </div>
+
+        <div>
+            <div class="browse-and-add-addit-center">
+                <div class="browse-and-add-addit">
+                    Browse and add additional adverse events
+                </div>
+            </div>
+            <div class="ctcae-inline letters-box">
+                <div class="a-b-c-d">
+                    <div class="radiowrapper2">
+                        <div id="group">
+                            @for (char letter = 'A'; letter <= 'Z'; letter++)
+                            {
+                                <input class="chk3" type="radio" name="group" id="@letter" value="@letter" />
+                                <label for="@letter" class="@letter letter" onclick="submitToSymptoms('@letter')">@letter</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="items-inline symptoms">
+            <ul class="list-group list-desc" >
+                <li class="search-letter">
+                    @Model.FirstLetter
+                </li>
+                @foreach (var item in ViewBag.Models)
+                {
+                    if (@item.CTCAETerm[0] == Model.FirstLetter)
+                    {
+                        if (Model.SelectItems[Model.SelectId].DefaultList.Any(s => s.CTCAETerm == @item.CTCAETerm))
+                        {
+                            <li id="@item.MedDraCode" class="symptoms-active" value="@item.CTCAETerm" onclick="removeSympClass(this, '@item.MedDraCode', '@item.CTCAETerm')">
+                                <div class="browse-items" value="@item.CTCAETerm">
+                                    <span class="check">
+                                    </span>
+                                    <input class="@item.MedDraCode" type="checkbox" name="chkbx" id="@item.MedDraCode" value="@item.CTCAETerm" />
+                                    <label for="medDraCode+@item.MedDraCode" class="item-text item-list">@item.CTCAETerm</label>
+                                    <span class="remove" id="remove">
+                                    </span>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li value="@item.CTCAETerm">
+                                <div class="browse-items" value="@item.CTCAETerm">
+                                    <span class="check">
+                                    </span>
+                                    <input class="chkbx" type="checkbox" name="chkbx" id="medDraCode+@item.MedDraCode" value="@item.CTCAETerm" onclick="addItemToList('@item.CTCAETerm', '@item.MedDraCode')"/>
+                                    <label for="medDraCode+@item.MedDraCode" id="@item.MedDraCode" class="item-text item-list" >@item.CTCAETerm</label>
+                                    <span class="remove" id="remove">
+                                    </span>
+                                </div>
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+
+            <div class="ctcae-done-button">
+                <button class="ctcae-done" id="doneButton" type="submit" onclick="submitSymptoms()"><i class="done">Done</i></button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script src="~/js/patient.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".@Model.FirstLetter").addClass("letter-frame");
+    });
+</script>

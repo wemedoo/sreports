@@ -1,0 +1,79 @@
+﻿@model CTCAE.Models.Patient
+@{
+    ViewData["Title"] = "GetPatient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="ctcae-background">
+    <div class="ctcae-center">
+        <div class="form-row position">
+            <div style="margin-right:26px">
+                <label class="pat-ID">Patient ID:</label>
+                <span class="pat-ID pat-ID-input">@(Model != null && Model.PatientId != null ? Model.PatientId : "")</span>
+            </div>
+            <div style="margin-right:22px">
+                <label class="date">Date:</label>
+                <span class="date date-input">@(Model != null && Model.Date != null ? Model.Date.Value.ToString("MM/dd/yyyy") : "")</span>
+            </div>
+            <div>
+                <label class="visit-no">Visit No:</label>
+                <span class="visit-no visit-no-input">@(Model != null && Model.VisitNo != null ? Model.VisitNo : "")</span>
+            </div>
+        </div>
+        <div class="ambulatory-Toxicity-center">
+            <div class="ambulatory-Toxicity" style="padding-top:15px; padding-bottom: 18px">Ambulatory Toxicity Evaluation—CTCAE V5</div>
+        </div>
+
+        <div class="ctcae-inline">
+
+            <div class="pointer-pos">
+                <div class="pointer"></div> 
+                <select class="head-and-neck head-and-neck-cancer" id="selectId" onchange="getOption()">
+                    @foreach (var item in Model.SelectItems)
+                    {
+                        @if (item.Id == Model.SelectId)
+                        {
+                            <option class="head-and-neck-cancer" selected value="@item.Id">@item.Label</option>
+                        }
+                        else
+                        {
+                            <option class="head-and-neck-cancer" value="@item.Id">@item.Label</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            @Html.Partial("PartialSelect")
+
+        </div>
+
+        <div>
+            <div class="browse-and-add-addit margin-browse">
+                Browse and add additional adverse events
+            </div>
+            <div class="ctcae-inline letters-box-pat">
+                <div class="a-b-c-d">
+                    <div class="radiowrapper2">
+                        <div id="group">
+                            @for (char letter = 'A'; letter <= 'Z'; letter++)
+                            {
+                                <input class="chk3" type="radio" name="group" id="@letter" value="@letter" />
+                                <label for="@letter" class="letter" onclick="submitToSymptoms('@letter', 'indicator')">@letter</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="button-inline">
+            <div class="ctcae-buttons">
+                <button class="ctcae-submit" id="submitButton" type="submit" onclick="submitToReview()"><i class="preview">Submit</i></button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="~/js/patient.js"></script>

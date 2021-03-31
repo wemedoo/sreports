@@ -1,0 +1,21 @@
+﻿@using sReportsV2.DTOs.FormDistribution.DataOut
+
+@model FormFieldDistributionDataOut
+
+    <div id="@Model.Id">
+        @foreach (FormFieldValueDistributionDataOut value in Model.Values)
+        {
+
+        <fieldset class="form-element form-input">
+            <label for="success_probability_@value.ThesaurusId" class="form-element-label">
+                @value.Label
+            </label>
+            <input type="number" name="success_probability_@value.ThesaurusId" required value="@(value.SuccessProbability != null ? value.SuccessProbability.ToString() : "")" class="form-element-field" id="success_probability_@value.ThesaurusId" data-thesaurusid="@value.ThesaurusId" step="0.01" placeholder="@sReportsV2.Resources.TextLanguage.SuccessProbability" min="0" max="1" />
+            <div class="form-element-bar"></div>
+            <div class="form-element-description">
+                @sReportsV2.Resources.TextLanguage.TheSuccessProbability
+            </div>
+        </fieldset>
+
+        }
+    </div>

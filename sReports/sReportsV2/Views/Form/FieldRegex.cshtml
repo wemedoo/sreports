@@ -1,0 +1,29 @@
+﻿@using sReportsV2.DTOs.Field.DataOut;
+@model FieldRegexDataOut
+@{
+    bool isChapterReadonly = ViewBag.Chapter;
+}
+
+<fieldset id="@Model.Id" class="form-element form-input" @Html.Raw(Model.Visibility)>
+    <label for="@Model.Id" class="form-element-label">
+        @Html.Raw(Model.FullLabel)
+        @if (Model.Help != null)
+        {
+            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+        }
+    </label>
+    @if (Model.IsReadonly || isChapterReadonly)
+    {
+        <input type="text" class="form-element-field" data-type="regex" name="@Model.Id" data-regexdescription="@Model.RegexDescription" data-regex="@Model.Regex" placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) value="@(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrWhiteSpace(Model.Value[0]) ? Model.Value[0] : string.Empty)" readonly />
+    }
+    else
+    {
+        <input type="text" class="form-element-field" data-type="regex" name="@Model.Id" data-regexdescription="@Model.RegexDescription" data-regex="@Model.Regex" placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) value="@(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrWhiteSpace(Model.Value[0]) ? Model.Value[0] : string.Empty)" />
+    }
+    <div class="form-element-bar"></div>
+
+    <div class="form-element-description">
+        @Html.Raw(Model.Description)
+    </div>
+</fieldset>
+

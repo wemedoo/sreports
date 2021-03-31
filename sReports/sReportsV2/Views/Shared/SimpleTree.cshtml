@@ -1,0 +1,77 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.Domain.Entities.Form;
+
+@model FormDataOut
+<div class="accordion">
+    <div class="header-accordion always-collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="identifiers">
+        Open form
+    </div>
+    <div class="accordion-content tree collapse show" id="identifiers">
+        <div id="tree"></div>
+        <ul id="myUL">
+            @foreach (Form form in ViewBag.TreeForms as List<Form>)
+            {
+                <li class="parent  list-group-item @(Model.ThesaurusId == form.ThesaurusId ? "current-form active" : "")" onclick="treeItemClickedShowForm(event,this)" data-formthesaurusid="@form.ThesaurusId" data-language="@ViewBag.Language">
+                    <div class="parent-content">
+                        <i class="fas @(Model.ThesaurusId == form.ThesaurusId ? "fa-minus" : "fa-plus")"></i>
+                        <span class="item-form">@form.Title</span>
+                    </div>
+
+                    <ul class="nested @(Model.ThesaurusId == form.ThesaurusId ? "active" : "")" style="padding-inline-start: 0;">
+                        @for (int i = 0; i < form.Chapters.Count; i++)
+                        {
+
+                            <li class="child-item @(i == 0 ? "active" : "")" onclick="treeItemClickedCollapseChapter(event, this)" data-target="#@form.Chapters[i].Id">@form.Chapters[i].Title</li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    $(document).on('click', '.parent', function () {
+        parentClicked(this);
+    })
+
+    function parentClicked(element) {
+        $(element).toggleClass('active');
+        $(element).find('.nested').toggleClass("active");
+        if ($(element).find('.fas').hasClass('fa-plus')) {
+            $(element).find('.fas').removeClass('fa-plus');
+            $(element).find('.fas').addClass('fa-minus');
+        } else {
+            $(element).find('.fas').removeClass('fa-minus');
+            $(element).find('.fas').addClass('fa-plus');
+        }
+        element.classList.toggle("collapsed-parent");
+    }
+
+    function treeItemClickedCollapseChapter(evenet, element) {
+        event.stopImmediatePropagation();
+        $(element).siblings('.child-item').removeClass('active');
+        $(element).addClass('active');
+        collapseChapter(element);
+    }
+
+    function treeItemClickedShowForm(event, element) {
+        event.stopImmediatePropagation();
+        if ($(element).hasClass('parent')) {
+            if ($(element).hasClass('current-form')) {
+                parentClicked(element)
+            } else {
+
+                window.location.href = `/@(Html.Raw(ViewBag.MainCreateAction))id=${$(element).data('formthesaurusid')}&language=${$(element).data('language')}`
+            }
+        } else {
+            let parent = $(element).find('.parent');
+            if ($(parent).hasClass('active')) {
+                parentClicked(element)
+            } else {
+                window.location.href = `/@(Html.Raw(ViewBag.MainCreateAction))thesaurusId=${$(element).data('formthesaurusid')}&language=${$(element).data('language')}`
+            }
+        }
+    }
+</script>

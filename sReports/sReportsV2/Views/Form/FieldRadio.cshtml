@@ -1,0 +1,109 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+
+@model FieldRadioDataOut
+@{
+    bool isChapterReadonly = ViewBag.Chapter;
+    int fieldSetCounter = ViewBag.FieldSetCounter;
+    string fieldSetId = ViewBag.FieldSetId;
+
+}
+
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-radio form-radio-inline field-set-content" @Html.Raw(Model.Visibility)>
+    <legend class="form-radio-legend" title="@Model.DescriptionLabel">
+        @Html.Raw(Model.FullLabel)
+        @if (Model.Help != null)
+        {
+            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+        }
+    </legend>
+
+    @foreach (FormFieldValueDataOut ffv in Model.Values)
+    {
+        <label class="form-radio-label">
+
+            <input type="radio"
+                   id="@(Model.Id)-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
+                   name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                   @Model.ValidationAttr
+                   data-value="@ffv.Value"
+                   data-numericvalue="@ffv.NumericValue"
+                   value="@ffv.ThesaurusId"
+                   class="form-radio-field"
+                   onclick ="return @((!(Model.IsReadonly || isChapterReadonly)).ToString().ToLower())"
+                   @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId) ? "checked" : string.Empty)>
+
+            <i class="form-radio-button"></i>
+            <span>@ffv.Label</span>
+        </label>
+        <br />
+    }
+
+    <div class="form-element-description">
+        @Html.Raw(Model.Description)
+    </div>
+</fieldset>
+
+<script>
+    
+    $(document).ready(function () {
+            fieldSetIdentificator = @fieldSetCounter;
+
+            @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
+            {
+            @: if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                   @ShowDependables(ffd, fieldSetId);
+            @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+            @: }
+            }
+    });
+
+    $(document).on("change", 'input[name^="@fieldSetId-"][name*="@Model.Id"]', function () {
+            fieldSetIdentificator = $(this).attr("name").split('-')[1];
+            @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
+            {
+                 @HideDependables(ffd,  fieldSetId);
+            @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
+            }
+
+            @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
+            {
+            @: if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                   @ShowDependables(ffd, fieldSetId);
+            @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+            @: }
+            }
+    });
+
+@helper ShowDependables(FormFieldDependableDataOut ffd, string fieldSetId)
+{
+    
+    foreach (FormFieldDependableDataOut ffddo in ffd.Dependables)
+    {
+        if (ffd.Dependables != null && ffd.Dependables.Count() > 0)
+        {
+            <text>
+            if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+            }
+            </text>
+            @ShowDependables(ffddo, fieldSetId);
+        }
+    }
+}
+@helper HideDependables(FormFieldDependableDataOut ffd, string fieldSetId)
+{
+    foreach (FormFieldDependableDataOut ffddo in ffd.Dependables)
+    {
+        if (ffd.Dependables != null && ffd.Dependables.Count() > 0)
+        {
+            <text>
+                $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).hide();
+                $(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).prop('checked', false);
+            </text>
+            @HideDependables(ffddo, fieldSetId);
+        }
+    }
+}
+</script>

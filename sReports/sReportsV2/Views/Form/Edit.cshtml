@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Form_create;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Designer }, { "linkLevel1", "/Form/GetAll" }, { "level2", Model.Title != null ? Model.Title : @sReportsV2.Resources.TextLanguage.Form_create }, { "activeLevel", 2 } })
+
+<div class="main-content-container no-padd-top">
+    <div id="jsoneditorContainer" class="designer">
+
+        @Html.Partial("StatusGraphPartial")
+       
+        <div class="accordion">
+            <div class="header-accordion" data-toggle="collapse" onclick="collapseChapter(this)" data-target="#defineForm" aria-expanded="false" aria-controls="defineForm">
+                @sReportsV2.Resources.TextLanguage.DefineForm
+            </div>
+
+            <div class="accordion-content collapse show col-12" id="defineForm">
+                <div class="row  margin-forms">
+                    <div class="col-xl-6 col-lg-6 col-sm-12 first-json-editor jsons-position">
+                        <div id="jsoneditorTree" style="width: 100%; height: 80vh;"></div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12 jsons-position">
+                        <div id="jsoneditorCode" style="width: 100%; height: 80vh;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="json-editor-buttons">
+            <button class="btn btn-danger" onclick="cancelJsonEditor()">@sReportsV2.Resources.TextLanguage.Back</button>
+            <button class="btn btn-primary" onclick="createNewFormDefinition()">@(Model.Id == null ? sReportsV2.Resources.TextLanguage.Create : sReportsV2.Resources.TextLanguage.Save )</button>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Scripts/sReports/form.js"></script>
+
+<script>
+    var json = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented))
+    $(document).ready(function(){
+        showJsonEditor(json);
+    })
+</script>

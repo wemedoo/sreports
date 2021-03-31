@@ -1,0 +1,193 @@
+﻿{
+  "About": {
+    "PropertyOf": "this format is a property of niAnalytics & SOTEX (80% niAnalytics : 20% SOTEX)",
+    "FormatType": "sReports",
+    "FormatVersion": "6.0.0",
+    "Links": "'https://nianalytics.com/', ' https://www.sotexsolutions.com/'",
+    "ThesaurusReference": "https://referenceThesaurus.insel.ch",
+    "ThesaurusVersion": "0.0.0",
+    "ThesaurusUpdated": "15.12.2018"
+  },
+  "Title": "Demo nr. 1",
+  "Chapters": [
+    {
+      "Id": "fc1",
+      "Title": "Body Test",
+      "Description": "Test",
+      "ThesaurusId": null,
+      "Pages": [
+        {
+          "Id": "fp1",
+          "Title": "Lab Results",
+          "Description": "Test",
+          "ThesaurusId": null,
+          "FieldSets": [
+            {
+              "Label": "Blood Test",
+              "Description": "Test",
+              "LayoutStyle": {
+                "LayoutType": "vertical",
+                "MaxItems":  4
+              },
+                "Fields": [
+                  {
+                    "Id": "1",
+                    "Type": "radio",
+                    "Label": "Gender",
+                    "IsRequired": false,
+                    "ThesaurusId": "C0079399",
+                    "Values": [
+                      {
+                        "Label": "Male",
+                        "Value": "11",
+                        "ThesaurusId": "C0086582"
+                      },
+                      {
+                        "Label": "Female",
+                        "Value": "22",
+                        "ThesaurusId": "C0043210"
+                      },
+                      {
+                        "Label": "Transgender-male",
+                        "Value": "111",
+                        "ThesaurusId": "C3266856"
+                      },
+                      {
+                        "Label": "Transgender-female",
+                        "Value": "222",
+                        "ThesaurusId": "C3266856"
+                      }
+                    ],
+                    "Dependables": [
+                      {
+                        "Condition": "11",
+                        "ActionType": 0,
+                        "ActionParams": "6"
+                      },
+                      {
+                        "Condition": "111",
+                        "ActionType": 0,
+                        "ActionParams": "6"
+                      },
+                      {
+                        "Condition": "22",
+                        "ActionType": 0,
+                        "ActionParams": "7"
+                      },
+                      {
+                        "Condition": "222",
+                        "ActionType": 0,
+                        "ActionParams": "7"
+                      }
+                    ]
+                  },
+
+                  {
+                    "Id": "2",
+                    "Type": "number",
+                    "Label": "Sodium (Na)",
+                    "Description": "Enter Sodium level",
+                    "ThesaurusId": "C0853174",
+                    "IsRequired": false,
+                    "Min": 100,
+                    "Max": 200,
+                    "Unit": "mmol/L"
+                  },
+                  {
+                    "Id": "3",
+                    "Type": "number",
+                    "Label": "Potassium (K)",
+                    "Description": "Enter Potassium level",
+                    "ThesaurusId": "C0853173",
+                    "IsRequired": false,
+                    "Min": 1,
+                    "Max": 10,
+                    "Unit": "mmol/L"
+                  }
+                ]
+              },
+            {
+              "Label": "Blood Test",
+              "Description": "Test",
+              "Fields": [
+                {
+                  "Id": "4",
+                  "Type": "number",
+                  "Label": "Blood urea nitrogen",
+                  "ThesaurusId": "C0005845",
+                  "IsRequired": true,
+                  "Min": 1,
+                  "Max": 20,
+                  "Unit": "mmol/L"
+                },
+                {
+                  "Id": "5",
+                  "Type": "number",
+                  "Label": "Urea | Blood arterial",
+                  "ThesaurusId": "C3655232",
+                  "IsRequired": false,
+                  "Min": 5,
+                  "Max": 100,
+                  "Unit": "mmol/L"
+                },
+                {
+                  "Id": "6",
+                  "Type": "number",
+                  "Label": "Creatinine - male",
+                  "Description": "test",
+                  "Unit": "μmol/L",
+                  "ThesaurusId": "C0428279",
+                  "IsRequired": false,
+                  "Min": 20,
+                  "Max": 500,
+                  "IsVisible": false
+                },
+                {
+                  "Id": "7",
+                  "Type": "number",
+                  "Label": "Creatinine - female",
+                  "ThesaurusId": "C0428279",
+                  "IsRequired": false,
+                  "Min": 20,
+                  "Max": 500,
+                  "Unit": "μmol/L",
+                  "IsVisible": false
+                },
+                {
+                  "Id": "8",
+                  "Type": "datetime",
+                  "Label": "Glucose (fasting)",
+                  "ThesaurusId": "C0202045",
+                  "IsRequired": false,
+                  "Min": 1,
+                  "Max": 30,
+                  "Unit": "μmol/L"
+                }
+
+
+              ]
+            }
+          ]
+        },
+
+        {
+          "Id": "fp12",
+          "Title": "0 Page",
+          "ThesaurusId": null,
+          "FieldSets": [
+            {
+              "Label": "0 page",
+              "Fields": [
+                {
+                  "Id": "1112",
+                  "Type": "text",
+                  "Label": "1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

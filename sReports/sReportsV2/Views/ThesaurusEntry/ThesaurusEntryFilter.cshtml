@@ -1,0 +1,68 @@
+﻿@using sReportsV2.Models.Common;
+
+<div class="col-lg-12 collapse-filter-container collapse show" id="collapseFilter">
+    <div class="row">
+
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    O4.0MT ID
+                </div>
+                <input type="text" class="form-control" id="o40MtId" value="@(Model != null && Model.DataIn != null ? Model.DataIn.O40MtId:"")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Preferred_term
+                </div>
+                <input type="text" class="form-control" id="preferredTerm" value="@(Model != null && Model.DataIn != null ? Model.DataIn.PreferredTerm:"")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Synonym
+                </div>
+                <input type="text" class="form-control" id="synonym" value="@(Model != null && Model.DataIn != null ? Model.DataIn.Synonym:"")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Similar_term
+                </div>
+                <input type="text" class="form-control" id="similarTerm" value="@(Model != null && Model.DataIn != null ? Model.DataIn.SimilarTerm:"")">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Abbreviation
+                </div>
+                <input type="text" class="form-control" id="abbreviation" value="@(Model != null && Model.DataIn != null ? Model.DataIn.Abbreviation:"")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.UMLS_Code
+                </div>
+                <input type="text" class="form-control" id="umlsCode" value="@(Model != null && Model.DataIn != null ? Model.DataIn.UmlsCode:"")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.UMLS_Name
+                </div>
+                <input type="text" class="form-control" id="umlsName" value="@(Model != null && Model.DataIn != null ? Model.DataIn.UmlsName:"")">
+            </div>
+        </div>
+    </div>
+    <div class="button-wrapper-filter" id="submitFilterButton">
+        <button class="btn btn-primary" onclick="filterData()"><i class="fas fa-filter"></i> @sReportsV2.Resources.TextLanguage.Filter</button>
+    </div>
+</div>

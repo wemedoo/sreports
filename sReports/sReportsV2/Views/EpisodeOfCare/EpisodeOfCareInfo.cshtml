@@ -1,0 +1,50 @@
+﻿<div class="entity">
+
+    <div class="header-rounded">
+        @sReportsV2.Resources.TextLanguage.Episodes_Of_Care
+    </div>
+    <div class="entity-data">
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.Description:</div>
+            <div class="property-value">@Model.EpisodeOfCare.Description</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.Status:</div>
+            <div class="property-value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("EOCStatus_" + Model.EpisodeOfCare.Status)</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.EOC_Type_Name:</div>
+            <div class="property-value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("EOCType_" + Model.EpisodeOfCare.Type)</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.EOC_DiagnosisCondition_Name:</div>
+            <div class="property-value">@Model.EpisodeOfCare.DiagnosisCondition</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.EOC_DiagnosisRole_Name:</div>
+            <div class="property-value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("DiagnosisRole_" + Model.EpisodeOfCare.DiagnosisRole)</div>
+        </div>
+        @if (Model.Referrals != null && Model.Referrals is List<sReportsV2.DTOs.FormInstance.DataOut.FormInstanceReferralDataOut> && (Model.Referrals as List<sReportsV2.DTOs.FormInstance.DataOut.FormInstanceReferralDataOut>).Count() > 0)
+        {
+            <div class="property centered">
+                <div class="property-name">Created based on:</div>
+                <div class="property-value">
+                    @foreach (var referral in Model.Referrals)
+                    {
+                       <a href="/DiagnosticReport/Edit?episodeOfCareId=@Model.EpisodeOfCare.Id&diagnosticReportId=@referral.Id">
+                            @referral.Title
+                       </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="property">
+            <button type="button" onclick="goToEpisodeOfCare('@Model.EpisodeOfCare.Id')" class="btn btn-primary" style="margin-top : 10px">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                @sReportsV2.Resources.TextLanguage.BackToEOC
+            </button>
+        </div>
+
+    </div>
+</div>

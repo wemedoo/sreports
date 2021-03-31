@@ -1,0 +1,98 @@
+﻿@using sReportsV2.DTOs.FormDistribution.DataOut
+@using sReportsV2.Domain.Entities.Constants;
+
+@model List<FormFieldDistributionRelatedVariable>
+
+@{
+    FormFieldDistributionRelatedVariable target = ViewBag.Target as FormFieldDistributionRelatedVariable;
+}
+@if (target.VariableType == FieldTypes.Number)
+{
+    @RenderRelatedElements(target.VariableType, "dodati label");
+}
+else
+{
+    foreach (FormFieldValueDistributionDataOut value in target.Values)
+    {
+        @RenderRelatedElements(target.VariableType,value.Label)
+    }
+}
+
+@helper RenderRelatedElements(string type, string label)
+{
+    if (Model[0].VariableType == FieldTypes.Number)
+    {
+        for (int i = 0; i < Model[0].GetNumericOptionsCount(); i++)
+        {
+            @Render(type, label, Model[0].GetNumericLable(i));
+        }
+    }
+    else
+    {
+        foreach (FormFieldValueDistributionDataOut variable1Value in Model[0].Values)
+        {
+            @Render(type, label, variable1Value.Label)
+        }
+    }
+}
+
+@helper Render(string type, string targetLabel, string secondLabel)
+{
+    if (Model.Count == 2)
+    {
+        if (Model[1].VariableType == FieldTypes.Number)
+        {
+            for (int j = 0; j < Model[1].GetNumericOptionsCount(); j++)
+            {
+                @RenderInput(type, targetLabel, secondLabel, Model[1].GetNumericLable(j))
+            }
+        }
+        else
+        {
+            foreach (FormFieldValueDistributionDataOut variable2Value in Model[1].Values)
+            {
+                @RenderInput(type, targetLabel, secondLabel, variable2Value.Label)
+            }
+        }
+    }
+    else
+    {
+        @RenderInput(type, targetLabel, secondLabel)
+    }}
+
+
+
+
+@helper RenderInput(string targetType, params string[] labels)
+{
+    if (targetType == FieldTypes.Number)
+    {
+        <fieldset class="form-element form-input">
+            <label class="form-element-label">
+                @string.Join(" / ", labels) / @sReportsV2.Resources.TextLanguage.Mean
+            </label>
+            <input type="number" class="form-element-field" step="0.0001" data-options=""/>
+            <div class="form-element-bar"></div>
+            <div class="form-element-description">@sReportsV2.Resources.TextLanguage.MeanCentreDistribution</div>
+        </fieldset>
+        <fieldset class="form-element form-input">
+            <label class="form-element-label">
+                @string.Join(" / ", labels) / @sReportsV2.Resources.TextLanguage.StandardDeviation
+            </label>
+            <input type="number" class="form-element-field" step="0.01" />
+            <div class="form-element-bar"></div>
+            <div class="form-element-description">@sReportsV2.Resources.TextLanguage.StandardDeviationDistribution</div>
+        </fieldset>
+    }
+    else
+    {
+        <fieldset class="form-element form-input">
+            <label for="lowerBoundary" class="form-element-label">
+                @string.Join(" / ", labels)
+            </label>
+            <input type="number" step="0.01" name="lowerBoundary" required class="form-element-field" id="lowerBoundary" placeholder="Define lower boundary" />
+            <div class="form-element-bar"></div>
+        </fieldset>
+    }
+
+}

@@ -1,0 +1,21 @@
+﻿@using sReportsV2.DTOs.FormDistribution.DataOut
+
+@model FormFieldDistributionDataOut
+
+    <fieldset class="form-element form-input">
+        <label for="mean_@Model.Id" class="form-element-label">
+            @sReportsV2.Resources.TextLanguage.Mean
+        </label>
+        <input type="number" name="mean_@Model.Id" id="mean_@Model.Id" value="@(Model.Mean != null ? Model.Mean.ToString() : "")" class="form-element-field" step="0.01"/>
+        <div class="form-element-bar"></div>
+        <div class="form-element-description">@sReportsV2.Resources.TextLanguage.MeanCentreDistribution</div>
+    </fieldset>
+    <fieldset class="form-element form-input">
+        <label for="@Model.Id" class="form-element-label">
+            @sReportsV2.Resources.TextLanguage.StandardDeviation
+        </label>
+        <input type="number" name="standard_deviation_@Model.Id" id="standard_deviation_@Model.Id" required value="@(Model.StandardDeviation != null ? Model.StandardDeviation.ToString() : "")" class="form-element-field" step="0.01" />
+        <div class="form-element-bar"></div>
+        <div class="form-element-description">@sReportsV2.Resources.TextLanguage.StandardDeviationDistribution</div>
+    </fieldset>
+

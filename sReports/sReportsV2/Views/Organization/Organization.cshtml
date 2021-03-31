@@ -1,0 +1,212 @@
+﻿@using sReportsV2.DTOs.Common
+@model sReportsV2.DTOs.Organization.OrganizationDataOut
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Organization_Create;
+    string hasValue = "-hasvalue";
+
+}
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Organization }, { "linkLevel1", "/Organization/GetAll" }, { "level2", Model != null ? Model.Id : @sReportsV2.Resources.TextLanguage.Organization_Create }, { "activeLevel", 2 } })
+
+<div id="container_demo" class="form-row">
+    <div class="col-md-12 col-lg-3 col-xl-2">
+        <div class="organization-hierarchy-container">
+            <div class="header-tree">
+                @sReportsV2.Resources.TextLanguage.Organization_Hieararchy
+            </div>
+            <div id="organizationHierarchyContainer">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-9 col-xl-10">
+        <div class="form-data">
+            @Html.Partial("~/Views/Patient/IdentifierListTable.cshtml", Model != null ? Model.Identifiers : null)
+            <input type="hidden" class="form-control" id="id" value="@(Model != null && Model.Id != null ? Model.Id : "" )" />
+            <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
+            <div class="header-tree">
+                @sReportsV2.Resources.TextLanguage.Organization
+            </div>
+            <form method="post" id="idOrganization" class="formOrganization" onsubmit="return submitOrganizationForm(this)" novalidate>
+
+                <div class="form-row">
+                    <div class="col-md-6">
+
+                        <div class="form-element form-select">
+                            <label for="activity" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_Activity:</label>
+                            <select class="form-element-field @hasValue" id="activity" name="Activity" required>
+                                <option value=""></option>
+                                @if (Model != null && Model.Activity)
+                                {
+                                    <option value="true" selected>@sReportsV2.Resources.TextLanguage.Active</option>
+                                }
+                                else
+                                {
+                                    <option value="true">@sReportsV2.Resources.TextLanguage.Active</option>
+                                }
+
+                                @if (Model != null && !Model.Activity)
+                                {
+                                    <option value="false" selected>@sReportsV2.Resources.TextLanguage.Inactive</option>
+                                }
+                                else
+                                {
+                                    <option value="false">@sReportsV2.Resources.TextLanguage.Inactive</option>
+                                }
+                            </select>
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="name" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_Name:</label>
+                            <input required class="form-element-field" id="name" name="Name" type="text" value="@(Model != null && Model.Name != null ? Model.Name : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="organizationAlias" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organizatin_Alias:</label>
+                            <input required class="form-element-field" type="text" id="alias" name="alias" value="@(Model != null && Model.Alias != null ? Model.Alias : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_PartOf:</label>
+                            <select class="organizations form-element-field" id="partOf" name="partOf" placeholder="@sReportsV2.Resources.TextLanguage.Organization_PartOfPlaceholder">
+                                @if (Model != null && Model.PartOf != null)
+                                {
+                                    <option value=" "></option>
+                                    <option selected value="@Model.PartOf.Id">@Model.PartOf.Name</option>
+                                }
+                                else
+                                {
+                                    <option selected value=" "></option>
+                                }
+                            </select>
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label class="form-checkbox-legend">@sReportsV2.Resources.TextLanguage.Organization_Types:</label>
+                            <div class="form-row form-element form-checkbox form-checkbox-inline form-margin chk">
+                                <div class="form-margin col-md-6" id="checkBoxGroup">
+                                    @{
+                                        int length = ViewBag.OrganizationTypes.Count;
+                                        int half = length / 2;
+                                    }
+                                    @for (int i = 0; i < half; i++)
+                                    {
+                                        <label class="form-checkbox-label" id="checkBoxGroup">
+                                            <input value="@ViewBag.OrganizationTypes[i].Thesaurus.O40MTId" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.OrganizationTypes[i].Label" checked="@(Model !=null && Model.Type != null? Model.Type.Contains(ViewBag.OrganizationTypes[i].Thesaurus.O40MTId): false)" />
+                                            <i class="form-checkbox-button"></i>
+                                            <span>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(ViewBag.OrganizationTypes[i].Label)</span>
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                                <div class="form-margin col-md-6" id="checkBoxGroup">
+                                    @for (int i = half; i < length; i++)
+                                    {
+                                        <label class="form-checkbox-label" id="checkBoxGroup">
+                                            <input value="@ViewBag.OrganizationTypes[i].Thesaurus.O40MTId" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.OrganizationTypes[i].Label" checked="@(Model !=null && Model.Type != null? Model.Type.Contains(ViewBag.OrganizationTypes[i].Thesaurus.O40MTId): false)" />
+                                            <i class="form-checkbox-button"></i>
+                                            <span>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(ViewBag.OrganizationTypes[i].Label)</span>
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="name" class="form-element-label">@sReportsV2.Resources.TextLanguage.PrimaryColor:</label>
+                            <input class="form-element-field" id="primaryColor" name="PrimaryColor" type="color" value="@(Model != null && Model.PrimaryColor != null ? Model.PrimaryColor : "#009670")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="name" class="form-element-label">@sReportsV2.Resources.TextLanguage.SecondaryColor:</label>
+                            <input class="form-element-field" id="secondaryColor" name="SecondaryColor" type="color" value="@(Model != null && Model.SecondaryColor != null ? Model.SecondaryColor : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="logoUrl" class="form-element-label">@sReportsV2.Resources.TextLanguage.LogoUrl:</label>
+                            <input class="form-element-field" id="logoUrl" name="LogoUrl" type="text" placeholder="@sReportsV2.Resources.TextLanguage.EnterUrl" value="@(Model != null && Model.LogoUrl != null ? Model.LogoUrl.ToString() : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-element">
+                            <label for="organizationCity" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_City:</label>
+                            <input required class="form-element-field" type="text" id="city" name="City" value="@(Model != null && Model.Address != null ? Model.Address.City : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="organizationState" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_State:</label>
+                            <input required class="form-element-field" type="text" id="state" name="state" value="@(Model != null && Model.Address != null ? Model.Address.State : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="postalCode" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_PostalCode:</label>
+                            <input required class="form-element-field" type="text" id="postalCode" name="PostalCode" value="@(Model != null && Model.Address != null ? Model.Address.PostalCode : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="street" class="form-element-label">@sReportsV2.Resources.TextLanguage.OrganizationStreet:</label>
+                            <input class="form-element-field" type="text" id="street" name="Street" value="@(Model != null && Model.Address != null ? Model.Address.Street : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="organizationCountry" class="form-element-label">@sReportsV2.Resources.TextLanguage.Organization_Country:</label>
+                            <input required class="form-element-field" type="text" id="country" name="country" value="@(Model != null && Model.Address != null ? Model.Address.Country : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        @Html.Partial("~/Views/Patient/TelecomListTable.cshtml", new ViewDataDictionary { { "Container", "OrganizationTelecom" }, { "Telecoms", Model != null ? Model.Telecom : null } })
+                    </div>
+
+                </div>
+
+                <div class="form-element">
+                    <input class="btn btn-primary submit-button" type="submit" value="@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create )" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.organizations').select2({
+            minimumInputLength: 3,
+            placeholder: '@sReportsV2.Resources.TextLanguage.Organization_PartOfPlaceholder',
+            allowClear: true,
+          ajax: {
+            url: `/Organization/GetAutocompleteData?organizationId=${$('#id').val()}`,
+            dataType: 'json',
+            data: function (params) {
+              return {
+                Term: params.term, // search term
+                  Page: params.page,
+                  ExcludeId: $("#id").val()
+              };
+            },
+
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+            }
+        });
+        reloadHierarchy();
+
+    });
+</script>
+
+@Html.Partial("~/Views/Patient/IdentifierModal.cshtml", new ViewDataDictionary { { "ActiveEntity", "Organization" }, { "IdentifierTypes", ViewBag.IdentifierTypes } })
+@Html.Partial("~/Views/Patient/TelecomModal.cshtml")
+
+@Scripts.Render("~/bundles/organization")
+

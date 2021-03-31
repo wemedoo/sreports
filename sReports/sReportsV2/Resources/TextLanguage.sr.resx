@@ -1,0 +1,3591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A&amp;E" xml:space="preserve">
+    <value>A&amp;E</value>
+  </data>
+  <data name="A&amp;EP" xml:space="preserve">
+    <value>A&amp;EP</value>
+  </data>
+  <data name="Abbreaviations" xml:space="preserve">
+    <value>Skraćenice</value>
+  </data>
+  <data name="Abbreviation" xml:space="preserve">
+    <value>Skraćenica</value>
+  </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Zloupotreba</value>
+  </data>
+  <data name="ACAS" xml:space="preserve">
+    <value>ACAS</value>
+  </data>
+  <data name="Access" xml:space="preserve">
+    <value>Pristup</value>
+  </data>
+  <data name="Accident" xml:space="preserve">
+    <value>Nesreća</value>
+  </data>
+  <data name="AccidentAndEmergencyMedicine" xml:space="preserve">
+    <value>Medicina nesreće i hitne pomoći</value>
+  </data>
+  <data name="Accommodation Placement/Support" xml:space="preserve">
+    <value>Smeštaj / podrška smeštaja</value>
+  </data>
+  <data name="Acquired Brain Injury Info/Referral" xml:space="preserve">
+    <value>Stečene informacije / uputstva o povredama mozga</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Aktivan</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Aktivnost</value>
+  </data>
+  <data name="Acupuncture" xml:space="preserve">
+    <value>Akupunktura</value>
+  </data>
+  <data name="Acute Inpatient Serv" xml:space="preserve">
+    <value>Akutna bolnička služba</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="Address_information" xml:space="preserve">
+    <value>Informacije o adresi</value>
+  </data>
+  <data name="Administative_data" xml:space="preserve">
+    <value>Administrativni podaci</value>
+  </data>
+  <data name="AdministrativeMedical" xml:space="preserve">
+    <value>Administrativno medicinska</value>
+  </data>
+  <data name="AdministrativeUnit" xml:space="preserve">
+    <value>Administrativna jedinica</value>
+  </data>
+  <data name="Administrative_Context" xml:space="preserve">
+    <value>Administrativni kontekst</value>
+  </data>
+  <data name="Adult Day Programs" xml:space="preserve">
+    <value>Programi za odrasle</value>
+  </data>
+  <data name="Adult Mental Health Services" xml:space="preserve">
+    <value>Službe za mentalno zdravlje odraslih</value>
+  </data>
+  <data name="Adult/Community Education" xml:space="preserve">
+    <value>Obrazovanje odraslih / zajednice</value>
+  </data>
+  <data name="Advice" xml:space="preserve">
+    <value>Saveti</value>
+  </data>
+  <data name="Advocacy" xml:space="preserve">
+    <value>Advokatura</value>
+  </data>
+  <data name="Aged Care Assessment" xml:space="preserve">
+    <value>Procena nege starenja</value>
+  </data>
+  <data name="Aged Care Information/Referral" xml:space="preserve">
+    <value>Informacije o starijoj nezi / preporuka</value>
+  </data>
+  <data name="Aged Persons Mental" xml:space="preserve">
+    <value>Mentalne starosne osobe</value>
+  </data>
+  <data name="Aged Persons Mental Health Services" xml:space="preserve">
+    <value>Službe za mentalno zdravlje starijih osoba</value>
+  </data>
+  <data name="Aged Persons Mental Health Teams" xml:space="preserve">
+    <value>Timovi za mentalno zdravlje starijih osoba</value>
+  </data>
+  <data name="Aged Residential Care" xml:space="preserve">
+    <value>Starosna staračka nega</value>
+  </data>
+  <data name="Aids" xml:space="preserve">
+    <value>Aids</value>
+  </data>
+  <data name="Air ambulance" xml:space="preserve">
+    <value>Vazdušna hitna pomoć</value>
+  </data>
+  <data name="Al-Anon" xml:space="preserve">
+    <value>Al-Anon</value>
+  </data>
+  <data name="Al-Teen" xml:space="preserve">
+    <value>Al-Teen</value>
+  </data>
+  <data name="Alcohol" xml:space="preserve">
+    <value>Alkohol</value>
+  </data>
+  <data name="Alexander Technique Therapy" xml:space="preserve">
+    <value>Aleksandar tehika terapije</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="Alleorgology" xml:space="preserve">
+    <value>Alergologija</value>
+  </data>
+  <data name="Ambulance" xml:space="preserve">
+    <value>Hitna pomoć</value>
+  </data>
+  <data name="Anaestetics" xml:space="preserve">
+    <value>Anestetici</value>
+  </data>
+  <data name="Anaesthesiology - Pain Medicine" xml:space="preserve">
+    <value>Anesteziologija - Medicina boli</value>
+  </data>
+  <data name="Anatomical Pathology" xml:space="preserve">
+    <value>Anatomska patologija</value>
+  </data>
+  <data name="Antenatal" xml:space="preserve">
+    <value>Prenatalni</value>
+  </data>
+  <data name="Anxiety" xml:space="preserve">
+    <value>Anksioznost</value>
+  </data>
+  <data name="Aromatherapy" xml:space="preserve">
+    <value>Aromaterapija</value>
+  </data>
+  <data name="Arthritis" xml:space="preserve">
+    <value>Artritis</value>
+  </data>
+  <data name="Assessment" xml:space="preserve">
+    <value>Procena</value>
+  </data>
+  <data name="Assistance" xml:space="preserve">
+    <value>Pomoć</value>
+  </data>
+  <data name="Asthma" xml:space="preserve">
+    <value>Astma</value>
+  </data>
+  <data name="Atoms" xml:space="preserve">
+    <value>Atomi (Sinonimi)</value>
+  </data>
+  <data name="ATSS" xml:space="preserve">
+    <value>ATSS</value>
+  </data>
+  <data name="Attendant Care" xml:space="preserve">
+    <value>Nega polaznika</value>
+  </data>
+  <data name="Audiology" xml:space="preserve">
+    <value>Audiologija</value>
+  </data>
+  <data name="Babies" xml:space="preserve">
+    <value>Bebe</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Nazad</value>
+  </data>
+  <data name="Bathroom Modificatio" xml:space="preserve">
+    <value>Modifikacija kupatila</value>
+  </data>
+  <data name="Before and/or After" xml:space="preserve">
+    <value>Pre i / ili posle školovanja</value>
+  </data>
+  <data name="Behavior" xml:space="preserve">
+    <value>Ponašanje</value>
+  </data>
+  <data name="Behavior Interventi" xml:space="preserve">
+    <value>Intervencija u ponašanju</value>
+  </data>
+  <data name="Bereavement" xml:space="preserve">
+    <value>Strah</value>
+  </data>
+  <data name="Bereavement Counselling" xml:space="preserve">
+    <value>Savetovanja za gubitak života</value>
+  </data>
+  <data name="Billing" xml:space="preserve">
+    <value>Naplate</value>
+  </data>
+  <data name="Biorhythm Services" xml:space="preserve">
+    <value>Bioritam usluge</value>
+  </data>
+  <data name="Bipolar" xml:space="preserve">
+    <value>Bipolarni</value>
+  </data>
+  <data name="Birth" xml:space="preserve">
+    <value>Rođenje</value>
+  </data>
+  <data name="Birth Control" xml:space="preserve">
+    <value>Kontrola rađanja</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Datum rođenja</value>
+  </data>
+  <data name="Birthing Options" xml:space="preserve">
+    <value>Opcije veza</value>
+  </data>
+  <data name="BIST" xml:space="preserve">
+    <value>BIST</value>
+  </data>
+  <data name="Blood" xml:space="preserve">
+    <value>Krv</value>
+  </data>
+  <data name="Blood Donation" xml:space="preserve">
+    <value>Donacija krvi</value>
+  </data>
+  <data name="Blood Transport" xml:space="preserve">
+    <value>Transport krvi</value>
+  </data>
+  <data name="Bone" xml:space="preserve">
+    <value>Kost</value>
+  </data>
+  <data name="Bowel" xml:space="preserve">
+    <value>Creva</value>
+  </data>
+  <data name="Bowen Therapy" xml:space="preserve">
+    <value>Boven terapija</value>
+  </data>
+  <data name="Brain" xml:space="preserve">
+    <value>Mozak</value>
+  </data>
+  <data name="Breast Feeding" xml:space="preserve">
+    <value>Hranjenje dojkama</value>
+  </data>
+  <data name="Breast Screen" xml:space="preserve">
+    <value>Ekran za grudi</value>
+  </data>
+  <data name="Brokerage" xml:space="preserve">
+    <value>Posredovanje</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkazati</value>
+  </data>
+  <data name="Cancer" xml:space="preserve">
+    <value>Rak</value>
+  </data>
+  <data name="Cancer Services" xml:space="preserve">
+    <value>Službe protiv raka</value>
+  </data>
+  <data name="Cancer Support" xml:space="preserve">
+    <value>Podrška protiv raka</value>
+  </data>
+  <data name="Cardiology" xml:space="preserve">
+    <value>Kardiologija</value>
+  </data>
+  <data name="Cardiothoracic Surgery" xml:space="preserve">
+    <value>Kardiotorakalna hirurgija</value>
+  </data>
+  <data name="Cardiovascular Disea" xml:space="preserve">
+    <value>Kardiovaskularne bolesti</value>
+  </data>
+  <data name="Care Packages" xml:space="preserve">
+    <value>Paketi za negu</value>
+  </data>
+  <data name="Carer" xml:space="preserve">
+    <value>Njegovatelj</value>
+  </data>
+  <data name="Carer Support" xml:space="preserve">
+    <value>Podrška za karijeru</value>
+  </data>
+  <data name="Case Management" xml:space="preserve">
+    <value>Upravljanje predmetima</value>
+  </data>
+  <data name="Case Management for Older Persons" xml:space="preserve">
+    <value>Upravljanje slučajevima za starije osobe</value>
+  </data>
+  <data name="Casualty" xml:space="preserve">
+    <value>Povređenost</value>
+  </data>
+  <data name="Cemetery Operation" xml:space="preserve">
+    <value>Operacija groblja</value>
+  </data>
+  <data name="Centrelink" xml:space="preserve">
+    <value>Centrelink</value>
+  </data>
+  <data name="Chemists" xml:space="preserve">
+    <value>Hemičari</value>
+  </data>
+  <data name="Child And Adolescent" xml:space="preserve">
+    <value>Dete i adolescenti</value>
+  </data>
+  <data name="Child and Family Ser" xml:space="preserve">
+    <value>Dečije i porodične usluge</value>
+  </data>
+  <data name="Child Care" xml:space="preserve">
+    <value>Nega deteta</value>
+  </data>
+  <data name="Child Protection/Child Abuse Report" xml:space="preserve">
+    <value>Izveštaj o zaštiti deteta / zlostavljanja dece</value>
+  </data>
+  <data name="Child Services" xml:space="preserve">
+    <value>Usluge za dete</value>
+  </data>
+  <data name="ChildPsyhiatry" xml:space="preserve">
+    <value>Dečja psihijatrija</value>
+  </data>
+  <data name="Children" xml:space="preserve">
+    <value>Deca</value>
+  </data>
+  <data name="Children's Play Programs" xml:space="preserve">
+    <value>Programi za igru dece</value>
+  </data>
+  <data name="Children's Services" xml:space="preserve">
+    <value>Dečije usluge</value>
+  </data>
+  <data name="Chinese Herbal Medicine" xml:space="preserve">
+    <value>Kineska herba medicina</value>
+  </data>
+  <data name="Chiropractic" xml:space="preserve">
+    <value>Kiropraktika</value>
+  </data>
+  <data name="Cholesterol" xml:space="preserve">
+    <value>Holesterol</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Grad</value>
+  </data>
+  <data name="Class" xml:space="preserve">
+    <value>Klasa</value>
+  </data>
+  <data name="Clinical" xml:space="preserve">
+    <value>Klinička</value>
+  </data>
+  <data name="Clinical Genetics" xml:space="preserve">
+    <value>Klinička genetika</value>
+  </data>
+  <data name="Clinical Pharmacology" xml:space="preserve">
+    <value>Klinička farmakologija</value>
+  </data>
+  <data name="ClinicalBilology" xml:space="preserve">
+    <value>Klinička biologija</value>
+  </data>
+  <data name="ClinicalChemistry" xml:space="preserve">
+    <value>Klinička hemija</value>
+  </data>
+  <data name="ClinicalNeurophysiology" xml:space="preserve">
+    <value>Klinička neurofiziologija</value>
+  </data>
+  <data name="Clinical_Context" xml:space="preserve">
+    <value>Klinički kontekst</value>
+  </data>
+  <data name="Clinical_Domain" xml:space="preserve">
+    <value>Klinički domen</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvoriti</value>
+  </data>
+  <data name="Clothing" xml:space="preserve">
+    <value>Odeća</value>
+  </data>
+  <data name="CombinedPurposeForReferralAndReporting" xml:space="preserve">
+    <value>Kombinovana svrha upućivanja i izveštavanja</value>
+  </data>
+  <data name="Communication" xml:space="preserve">
+    <value>Komunikacija</value>
+  </data>
+  <data name="Community Based Acco" xml:space="preserve">
+    <value>Smeštaj u zajednici</value>
+  </data>
+  <data name="Community Bus" xml:space="preserve">
+    <value>Javni autobus</value>
+  </data>
+  <data name="Community Care Unit" xml:space="preserve">
+    <value>Jedinica za brigu o zajednici</value>
+  </data>
+  <data name="Community Child And" xml:space="preserve">
+    <value>Službe za mentalno zdravlje djece i adolescenata u zajednici</value>
+  </data>
+  <data name="Community Health" xml:space="preserve">
+    <value>Zdravlje u zajednici</value>
+  </data>
+  <data name="Community Hours" xml:space="preserve">
+    <value>Sati zajednice</value>
+  </data>
+  <data name="Community Residentia" xml:space="preserve">
+    <value>Stambena zajednica</value>
+  </data>
+  <data name="Community Transport" xml:space="preserve">
+    <value>Transport u zajednici</value>
+  </data>
+  <data name="Companion Visiting" xml:space="preserve">
+    <value>Društvo u poseti</value>
+  </data>
+  <data name="Companionship" xml:space="preserve">
+    <value>Društvo</value>
+  </data>
+  <data name="Confirm_selection" xml:space="preserve">
+    <value>Potvrditi izbor</value>
+  </data>
+  <data name="Consumer Advice" xml:space="preserve">
+    <value>Saveti za potrošače</value>
+  </data>
+  <data name="Consumer Issues" xml:space="preserve">
+    <value>Potrošačka pitanja</value>
+  </data>
+  <data name="Contact_address" xml:space="preserve">
+    <value>Kontakt adresa</value>
+  </data>
+  <data name="Contact_information" xml:space="preserve">
+    <value>Kontakt podaci o osobi</value>
+  </data>
+  <data name="Content_dependent" xml:space="preserve">
+    <value>Sadržaj zavisnosti</value>
+  </data>
+  <data name="ContextDependent" xml:space="preserve">
+    <value>Kontekst zavisnosti</value>
+  </data>
+  <data name="Continuing Care Serv" xml:space="preserve">
+    <value>Usluga stalne nege</value>
+  </data>
+  <data name="Contraception Inform" xml:space="preserve">
+    <value>Informacije o kontracepciji</value>
+  </data>
+  <data name="Coordinating Bodies" xml:space="preserve">
+    <value>Koordinaciona tela</value>
+  </data>
+  <data name="Correctional Service" xml:space="preserve">
+    <value>Popravna služba</value>
+  </data>
+  <data name="Council Environmenta" xml:space="preserve">
+    <value>Savet za zaštitu životne sredine</value>
+  </data>
+  <data name="Counselling" xml:space="preserve">
+    <value>Savetovanje</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Zemlja</value>
+  </data>
+  <data name="CraniofacialSurgery" xml:space="preserve">
+    <value>Kraniofacijalna hirurgija</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Kreirati</value>
+  </data>
+  <data name="Created_by" xml:space="preserve">
+    <value>Kreirao</value>
+  </data>
+  <data name="Created_on" xml:space="preserve">
+    <value>Kreirano</value>
+  </data>
+  <data name="CreateNewInstance" xml:space="preserve">
+    <value>Kreirati novu instancu</value>
+  </data>
+  <data name="Cremation" xml:space="preserve">
+    <value>Kremacija</value>
+  </data>
+  <data name="Criminal" xml:space="preserve">
+    <value>Kriminal</value>
+  </data>
+  <data name="Crises" xml:space="preserve">
+    <value>Krize</value>
+  </data>
+  <data name="Crisis Assessment An" xml:space="preserve">
+    <value>Usluge procene i lečenja krize (Mačke)</value>
+  </data>
+  <data name="Crisis Assistance" xml:space="preserve">
+    <value>Krizna pomoć</value>
+  </data>
+  <data name="Crisis Counselling" xml:space="preserve">
+    <value>Krizno savetovanje</value>
+  </data>
+  <data name="Crisis Refuge" xml:space="preserve">
+    <value>Prikrivanje krizama</value>
+  </data>
+  <data name="Crisis/Emergency Accommodation" xml:space="preserve">
+    <value>Krizni / hitni smeštaj</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Datum i vreme unosa</value>
+  </data>
+  <data name="Day Program" xml:space="preserve">
+    <value>Dnevni program</value>
+  </data>
+  <data name="Deaf" xml:space="preserve">
+    <value>Gluv</value>
+  </data>
+  <data name="Death Service Information" xml:space="preserve">
+    <value>Informacije o smrti</value>
+  </data>
+  <data name="Definition" xml:space="preserve">
+    <value>Definicija</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obrisati</value>
+  </data>
+  <data name="Delivered Meals (Meals On Wheels)" xml:space="preserve">
+    <value>Isporučena hrana (obroci na točkovima)</value>
+  </data>
+  <data name="Dental Hygiene" xml:space="preserve">
+    <value>Oralna higijena</value>
+  </data>
+  <data name="Dentistry" xml:space="preserve">
+    <value>Stomatologija</value>
+  </data>
+  <data name="Dentures" xml:space="preserve">
+    <value>Proteze</value>
+  </data>
+  <data name="Depression" xml:space="preserve">
+    <value>Depresija</value>
+  </data>
+  <data name="Dermatology" xml:space="preserve">
+    <value>Dermatologija</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Designer" xml:space="preserve">
+    <value>Dizajn</value>
+  </data>
+  <data name="Detoxification" xml:space="preserve">
+    <value>Detoksikacija</value>
+  </data>
+  <data name="Diabetes" xml:space="preserve">
+    <value>Dijabetes</value>
+  </data>
+  <data name="Diabetes Educator" xml:space="preserve">
+    <value>Dijabetes edukator</value>
+  </data>
+  <data name="Diag. Radiology /Xray /CT /Fluoroscopy" xml:space="preserve">
+    <value>Dijagnostička radiologija / rendgenski zrak / CT / fluoroskopija</value>
+  </data>
+  <data name="Admission Diagnosis" xml:space="preserve">
+    <value>Dijagnoza prijema</value>
+  </data>
+  <data name="Chief Complaint" xml:space="preserve">
+    <value>Glavna žalba</value>
+  </data>
+  <data name="Comorbidity Diagnosis" xml:space="preserve">
+    <value>Dijagnoza komorbiditeta</value>
+  </data>
+  <data name="Discharge Diagnosis" xml:space="preserve">
+    <value>Dijagnoza pražnjenja</value>
+  </data>
+  <data name="Post Op Diagnosis" xml:space="preserve">
+    <value>Dijagnoza posle operacije</value>
+  </data>
+  <data name="Pre Op Diagnosis" xml:space="preserve">
+    <value>Dijagnoza pre operacije</value>
+  </data>
+  <data name="Diagnostic" xml:space="preserve">
+    <value>Dijagnostički</value>
+  </data>
+  <data name="Diagnostic Ultrasound" xml:space="preserve">
+    <value>Dijagnostički ultrazvuk</value>
+  </data>
+  <data name="DiagnosticReports" xml:space="preserve">
+    <value>Dijagnostički izveštaji</value>
+  </data>
+  <data name="Diaphragm Fitting" xml:space="preserve">
+    <value>Postavljanje dijafragme</value>
+  </data>
+  <data name="Dietetics" xml:space="preserve">
+    <value>Dijetetika</value>
+  </data>
+  <data name="Dieticians" xml:space="preserve">
+    <value>Dijetičari</value>
+  </data>
+  <data name="Disability Advocacy" xml:space="preserve">
+    <value>Zagovaranje invalidnosti</value>
+  </data>
+  <data name="Disability Aids &amp; Equipment" xml:space="preserve">
+    <value>Oprema za osobe sa invaliditetom</value>
+  </data>
+  <data name="Disability Case Management" xml:space="preserve">
+    <value>Upravljanje slučajevima invalidnosti</value>
+  </data>
+  <data name="Disability Day Programs/Activities" xml:space="preserve">
+    <value>Programi / aktivnosti za dan invalidnosti</value>
+  </data>
+  <data name="Disability Information/Referral" xml:space="preserve">
+    <value>Informacije o invalidnosti / preporuka</value>
+  </data>
+  <data name="Disability Support Packages" xml:space="preserve">
+    <value>Paketi podrške za osobe sa invaliditetom</value>
+  </data>
+  <data name="Disability Supported Accommodation" xml:space="preserve">
+    <value>Smeštaj koji podržava invalidnost</value>
+  </data>
+  <data name="Disabled Parking" xml:space="preserve">
+    <value>Parking za invalide</value>
+  </data>
+  <data name="District Nursing" xml:space="preserve">
+    <value>Sestrinstvo</value>
+  </data>
+  <data name="Divorce" xml:space="preserve">
+    <value>Razvod</value>
+  </data>
+  <data name="Doctors" xml:space="preserve">
+    <value>Doktori</value>
+  </data>
+  <data name="DocumentClass" xml:space="preserve">
+    <value>Klasa dokumenata</value>
+  </data>
+  <data name="DocumentInformationCollectionOrPresentationState" xml:space="preserve">
+    <value>Stanje podataka o dokumentu ili stanje prezentacije</value>
+  </data>
+  <data name="DocumentProperties" xml:space="preserve">
+    <value>Svojstva dokumenta</value>
+  </data>
+  <data name="Drink-Drive" xml:space="preserve">
+    <value>Vožnja u pijanom stanju</value>
+  </data>
+  <data name="DriverLicence" xml:space="preserve">
+    <value>Vozačka dozvola</value>
+  </data>
+  <data name="Drug and/or Alcohol Counselling" xml:space="preserve">
+    <value>Savetovanje o drogama i / ili alkoholu</value>
+  </data>
+  <data name="Drug/Alcohol Information/Referral" xml:space="preserve">
+    <value>Informacije o drogama / alkoholu / preporuka</value>
+  </data>
+  <data name="Dual Diagnosis Servi" xml:space="preserve">
+    <value>Usluge dvostruke dijagnoze</value>
+  </data>
+  <data name="Early Childhood Intervention" xml:space="preserve">
+    <value>Interna intervencija u ranom detinjstvu</value>
+  </data>
+  <data name="Early Choice" xml:space="preserve">
+    <value>Rani izbor</value>
+  </data>
+  <data name="Eating Disorder" xml:space="preserve">
+    <value>Poremećaja u ishrani</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Izmeniti</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Emergency Medical" xml:space="preserve">
+    <value>Hitna medicina</value>
+  </data>
+  <data name="Emergency Relief" xml:space="preserve">
+    <value>Hitna pomoć</value>
+  </data>
+  <data name="Employment And Train" xml:space="preserve">
+    <value>Zapošljavanje i obuka</value>
+  </data>
+  <data name="Employment Placement and/or Support" xml:space="preserve">
+    <value>Praksa zapošljavanja i / ili podrška</value>
+  </data>
+  <data name="Encounter" xml:space="preserve">
+    <value>Poseta</value>
+  </data>
+  <data name="Ambulatory" xml:space="preserve">
+    <value>Ambulantno</value>
+  </data>
+  <data name="Emergency" xml:space="preserve">
+    <value>Hitno</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>Polje</value>
+  </data>
+  <data name="Home Health" xml:space="preserve">
+    <value>Dom zdravlja</value>
+  </data>
+  <data name="Inpatient Acute" xml:space="preserve">
+    <value>Akutna bolnica</value>
+  </data>
+  <data name="Inpatient Encounter" xml:space="preserve">
+    <value>Bolnička poseta</value>
+  </data>
+  <data name="Inpatient Non Acute" xml:space="preserve">
+    <value>Bolnica koja nije akutna</value>
+  </data>
+  <data name="Observation Encounter" xml:space="preserve">
+    <value>Posmatranje posete</value>
+  </data>
+  <data name="Pre Admission" xml:space="preserve">
+    <value>Pred ulaz</value>
+  </data>
+  <data name="Short Stay" xml:space="preserve">
+    <value>Kraći boravak</value>
+  </data>
+  <data name="Virtual" xml:space="preserve">
+    <value>Virtualna</value>
+  </data>
+  <data name="Arrived" xml:space="preserve">
+    <value>Stigao</value>
+  </data>
+  <data name="In progress" xml:space="preserve">
+    <value>U toku</value>
+  </data>
+  <data name="Onleave" xml:space="preserve">
+    <value>Na odsustvu</value>
+  </data>
+  <data name="Triaged" xml:space="preserve">
+    <value>Otopljen</value>
+  </data>
+  <data name="Annual Diabetes Mellitus Screening" xml:space="preserve">
+    <value>Godišnji pregled za dijabetes melitus</value>
+  </data>
+  <data name="Bone Drilling Bone Marrow Punction In Clinic" xml:space="preserve">
+    <value>Vađenje koštane srži u bolnici</value>
+  </data>
+  <data name="Infant Colon Screening 60 minutes" xml:space="preserve">
+    <value>Pregled dečjeg creva za 60 minuta</value>
+  </data>
+  <data name="Outpatient Kenacort Injection" xml:space="preserve">
+    <value>Ambulantna injekcija kenakorta</value>
+  </data>
+  <data name="Encounter_Classification_Name" xml:space="preserve">
+    <value>Klasifikacija</value>
+  </data>
+  <data name="Encounter_Create" xml:space="preserve">
+    <value>Kreirati posetu</value>
+  </data>
+  <data name="Encounter_EOC" xml:space="preserve">
+    <value>Poseta - Epizoda zdravstvene nege</value>
+  </data>
+  <data name="Encounter_ServiceType_Name" xml:space="preserve">
+    <value>Servisni tip</value>
+  </data>
+  <data name="Encounter_Submit" xml:space="preserve">
+    <value>Ediventirati posetu</value>
+  </data>
+  <data name="Encounter_Type_Name" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Endocrinology" xml:space="preserve">
+    <value>Endrokrinologija</value>
+  </data>
+  <data name="Endodontic" xml:space="preserve">
+    <value>Endodontik</value>
+  </data>
+  <data name="Engine" xml:space="preserve">
+    <value>Dijagnostik</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Engleski</value>
+  </data>
+  <data name="Enter_value" xml:space="preserve">
+    <value>Unesite vrednost</value>
+  </data>
+  <data name="Environment" xml:space="preserve">
+    <value>Životna sredina</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Otkazan</value>
+  </data>
+  <data name="EnteredInError" xml:space="preserve">
+    <value>Unesena greška</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Završen</value>
+  </data>
+  <data name="Onhold" xml:space="preserve">
+    <value>Na čekanju</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>Planiran</value>
+  </data>
+  <data name="Waitlist" xml:space="preserve">
+    <value>Lista čekanja</value>
+  </data>
+  <data name="EOC_Create" xml:space="preserve">
+    <value>Kreirati epizodu zdravstvene nege</value>
+  </data>
+  <data name="EOC_DiagnosisCondition_Name" xml:space="preserve">
+    <value>Stanje dijagnoze</value>
+  </data>
+  <data name="EOC_DiagnosisRank_Name" xml:space="preserve">
+    <value>Rang dijagnoze</value>
+  </data>
+  <data name="EOC_DiagnosisRole_Name" xml:space="preserve">
+    <value>Uloga dijagnoze</value>
+  </data>
+  <data name="EOC_Information" xml:space="preserve">
+    <value>Informacije o epizodi zdravstvene nege</value>
+  </data>
+  <data name="EOC_PeriodEndDate" xml:space="preserve">
+    <value>Datum završetka</value>
+  </data>
+  <data name="EOC_PeriodStartDate" xml:space="preserve">
+    <value>Datum početka</value>
+  </data>
+  <data name="EOC_Show" xml:space="preserve">
+    <value>Prikazati epizode zdravstvene nege</value>
+  </data>
+  <data name="EOC_Type_Name" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="EpisodesOfCare" xml:space="preserve">
+    <value>Epizoda Zdravstvene Nege</value>
+  </data>
+  <data name="Episodes_Of_Care" xml:space="preserve">
+    <value>Epizoda Zdravstvene Nege</value>
+  </data>
+  <data name="Equipment" xml:space="preserve">
+    <value>Oprema</value>
+  </data>
+  <data name="Exercise" xml:space="preserve">
+    <value>Vežba</value>
+  </data>
+  <data name="Exercise Physiology" xml:space="preserve">
+    <value>Fiziologija vežbanja</value>
+  </data>
+  <data name="Explicit_Purpose" xml:space="preserve">
+    <value>Izričita svrha</value>
+  </data>
+  <data name="Facility" xml:space="preserve">
+    <value>Objekat</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>Netačno</value>
+  </data>
+  <data name="Family" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="Family Choice" xml:space="preserve">
+    <value>Porodični izbor</value>
+  </data>
+  <data name="Family Counselling/Therapy" xml:space="preserve">
+    <value>Porodično savetovanje / terapija</value>
+  </data>
+  <data name="Family Day care" xml:space="preserve">
+    <value>Porodična briga o porodici</value>
+  </data>
+  <data name="Family Law" xml:space="preserve">
+    <value>Porodično pravo</value>
+  </data>
+  <data name="Family Options" xml:space="preserve">
+    <value>Porodične opcije</value>
+  </data>
+  <data name="Family Planning" xml:space="preserve">
+    <value>Planiranje porodice</value>
+  </data>
+  <data name="Family Services" xml:space="preserve">
+    <value>Porodične usluge</value>
+  </data>
+  <data name="Family Violence" xml:space="preserve">
+    <value>Porodično nasilje</value>
+  </data>
+  <data name="Family Violence Counselling" xml:space="preserve">
+    <value>Savetovalište za porodično nasilje</value>
+  </data>
+  <data name="FamilyAndGeneralMedicine" xml:space="preserve">
+    <value>Porodična i opšta medicina</value>
+  </data>
+  <data name="FamilyName" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Faks</value>
+  </data>
+  <data name="Feldenkrais" xml:space="preserve">
+    <value>Feldenkrais</value>
+  </data>
+  <data name="FFYA" xml:space="preserve">
+    <value>FFYA</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtriraj</value>
+  </data>
+  <data name="Financial Aid" xml:space="preserve">
+    <value>Finansijska pomoć</value>
+  </data>
+  <data name="Financial Assistance" xml:space="preserve">
+    <value>Finansijska podrška</value>
+  </data>
+  <data name="Financial Counselling" xml:space="preserve">
+    <value>Finansijsko savetovanje</value>
+  </data>
+  <data name="Financial Information/Advice" xml:space="preserve">
+    <value>Finansijske informacije / saveti</value>
+  </data>
+  <data name="Fitness" xml:space="preserve">
+    <value>Fitnes</value>
+  </data>
+  <data name="Flexible Care Packag" xml:space="preserve">
+    <value>Fleksibilni paketi za negu</value>
+  </data>
+  <data name="Flying Doctor Service" xml:space="preserve">
+    <value>Usluga letećeg doktora</value>
+  </data>
+  <data name="FollowUp" xml:space="preserve">
+    <value>Prateći</value>
+  </data>
+  <data name="Food" xml:space="preserve">
+    <value>Hrana</value>
+  </data>
+  <data name="Food Safety" xml:space="preserve">
+    <value>Bezbednost hrane</value>
+  </data>
+  <data name="Food Vouchers" xml:space="preserve">
+    <value>Vaučeri za hranu</value>
+  </data>
+  <data name="Forensic Mental Heal" xml:space="preserve">
+    <value>Forenzičke usluge mentalnog zdravlja</value>
+  </data>
+  <data name="FormDefinitionState_Disabled" xml:space="preserve">
+    <value>Onemogućen</value>
+  </data>
+  <data name="FormDefinitionState_OnGoing" xml:space="preserve">
+    <value>U toku</value>
+  </data>
+  <data name="FormDefinitionState_ReadyForDataCapture" xml:space="preserve">
+    <value>Spreman za snimanje</value>
+  </data>
+  <data name="FormDefinitionState_ReadyForReview" xml:space="preserve">
+    <value>Spreman za pregled</value>
+  </data>
+  <data name="FormInstances" xml:space="preserve">
+    <value>Instance forme</value>
+  </data>
+  <data name="Form_create" xml:space="preserve">
+    <value>Kreirati formu</value>
+  </data>
+  <data name="Form_definitions" xml:space="preserve">
+    <value>Definicije forme</value>
+  </data>
+  <data name="Foster Care" xml:space="preserve">
+    <value>Hraniteljstvo</value>
+  </data>
+  <data name="FoundIn" xml:space="preserve">
+    <value>Pronađen u</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>Francuski</value>
+  </data>
+  <data name="Friendly Visiting" xml:space="preserve">
+    <value>Prijateljske posete</value>
+  </data>
+  <data name="Funeral Services" xml:space="preserve">
+    <value>Pogrebne usluge</value>
+  </data>
+  <data name="Further Desc. - Community Health Care" xml:space="preserve">
+    <value>Dalji opis - Zdravstvena zaštita zajednice</value>
+  </data>
+  <data name="Further Desc. - Specialist Medical" xml:space="preserve">
+    <value>Dodatni opis - Specijalistički medicinski</value>
+  </data>
+  <data name="Further Desc. - Specialist Surgical" xml:space="preserve">
+    <value>Dodatni opis - Specijalistički hirurški</value>
+  </data>
+  <data name="Futures" xml:space="preserve">
+    <value>Budućnosti</value>
+  </data>
+  <data name="Futures For Young Ad" xml:space="preserve">
+    <value>Budućnosti za mlade odrasle</value>
+  </data>
+  <data name="GastroenterologicSurgery" xml:space="preserve">
+    <value>Gastroenterološka hirurgija</value>
+  </data>
+  <data name="Gastroenterology" xml:space="preserve">
+    <value>Gastroenterologija</value>
+  </data>
+  <data name="Gastroenterology &amp; Hepatology" xml:space="preserve">
+    <value>Gastroenterologija i hepatologija</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Pol (Administrativno)</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Ženski</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Muški</value>
+  </data>
+  <data name="Gender_Other" xml:space="preserve">
+    <value>Drugo</value>
+  </data>
+  <data name="Gender_Unknown" xml:space="preserve">
+    <value>Nepoznato</value>
+  </data>
+  <data name="General Dental" xml:space="preserve">
+    <value>Opšta stomatologija</value>
+  </data>
+  <data name="General Mental Health Services" xml:space="preserve">
+    <value>Opšte usluge mentalnog zdravlja</value>
+  </data>
+  <data name="General Practice" xml:space="preserve">
+    <value>Opšta praksa</value>
+  </data>
+  <data name="General Practitioner" xml:space="preserve">
+    <value>Lekar</value>
+  </data>
+  <data name="Generalist Counselling" xml:space="preserve">
+    <value>Generalističko savetovanje</value>
+  </data>
+  <data name="GeneralPractice" xml:space="preserve">
+    <value>Opšta praksa</value>
+  </data>
+  <data name="GeneralSurgery" xml:space="preserve">
+    <value>Opšta hirurgija</value>
+  </data>
+  <data name="General_Purpose" xml:space="preserve">
+    <value>Opšte namene</value>
+  </data>
+  <data name="Genetic Counselling" xml:space="preserve">
+    <value>Genetsko savetovanje</value>
+  </data>
+  <data name="Geriatric Medicine" xml:space="preserve">
+    <value>Gerijatrijska medicina</value>
+  </data>
+  <data name="Geriatrics" xml:space="preserve">
+    <value>Gerijatrije</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>Nemački</value>
+  </data>
+  <data name="Grants" xml:space="preserve">
+    <value>Stipendije</value>
+  </data>
+  <data name="Grief" xml:space="preserve">
+    <value>Tuga</value>
+  </data>
+  <data name="Grief Counselling" xml:space="preserve">
+    <value>Savet za tugu</value>
+  </data>
+  <data name="Gynaecological Oncology" xml:space="preserve">
+    <value>Ginekološka onkologija</value>
+  </data>
+  <data name="Gynaecology" xml:space="preserve">
+    <value>Ginekologija</value>
+  </data>
+  <data name="HACC" xml:space="preserve">
+    <value>HACC</value>
+  </data>
+  <data name="Health Advocacy/Liaison Service" xml:space="preserve">
+    <value>Zdravstveno zagovaranje / služba za vezu</value>
+  </data>
+  <data name="Health Counselling" xml:space="preserve">
+    <value>Zdravstveno savetovanje</value>
+  </data>
+  <data name="Health Information/Referral" xml:space="preserve">
+    <value>Zdravstvene informacije / preporuka</value>
+  </data>
+  <data name="Health Regulatory /Inspection /Cert." xml:space="preserve">
+    <value>Zdravstveni propisi / inspekcija / sertifikati</value>
+  </data>
+  <data name="Hearing Aids &amp; Equipment" xml:space="preserve">
+    <value>Slušna pomagala i oprema</value>
+  </data>
+  <data name="Heart Disease" xml:space="preserve">
+    <value>Bolest srca</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Pomoć</value>
+  </data>
+  <data name="Hematology" xml:space="preserve">
+    <value>Hematologija</value>
+  </data>
+  <data name="Hepatology" xml:space="preserve">
+    <value>Hepatologija</value>
+  </data>
+  <data name="High Blood Pressure" xml:space="preserve">
+    <value>Visok krvni pritisak</value>
+  </data>
+  <data name="Higher Education" xml:space="preserve">
+    <value>Više obrazovanje</value>
+  </data>
+  <data name="Holiday Programs" xml:space="preserve">
+    <value>Praznični programi</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Kucni</value>
+  </data>
+  <data name="Home Care/Housekeeping Assistance" xml:space="preserve">
+    <value>Kućna nega / pomoć u domaćinstvu</value>
+  </data>
+  <data name="Home Help" xml:space="preserve">
+    <value>Pomoć u kući</value>
+  </data>
+  <data name="Home Maintenance and Repair" xml:space="preserve">
+    <value>Održavanje i popravak kuće</value>
+  </data>
+  <data name="Home Nursing" xml:space="preserve">
+    <value>Kućna nega</value>
+  </data>
+  <data name="Home Visits" xml:space="preserve">
+    <value>Kućne posete</value>
+  </data>
+  <data name="Homefirst" xml:space="preserve">
+    <value>Kući prvo</value>
+  </data>
+  <data name="Homelessness Support" xml:space="preserve">
+    <value>Podrška za beskućnike</value>
+  </data>
+  <data name="Homoeopathy" xml:space="preserve">
+    <value>Homeopatija</value>
+  </data>
+  <data name="Hospice Care" xml:space="preserve">
+    <value>Zdravstvena nega</value>
+  </data>
+  <data name="Hospital Services" xml:space="preserve">
+    <value>Bolničke usluge</value>
+  </data>
+  <data name="Hospital To Home" xml:space="preserve">
+    <value>Od bolnice do doma</value>
+  </data>
+  <data name="Hostel" xml:space="preserve">
+    <value>Hostel</value>
+  </data>
+  <data name="Hostel Accommodation" xml:space="preserve">
+    <value>Smeštaj u hostelu</value>
+  </data>
+  <data name="Household Items" xml:space="preserve">
+    <value>Pokućstvo</value>
+  </data>
+  <data name="Housing Information/Referral" xml:space="preserve">
+    <value>Informacije o kućištu / preporuka</value>
+  </data>
+  <data name="Hydrotherapy" xml:space="preserve">
+    <value>Hidroterapija</value>
+  </data>
+  <data name="Hypertension" xml:space="preserve">
+    <value>Hipertenzija</value>
+  </data>
+  <data name="Hypnotherapy" xml:space="preserve">
+    <value>Hipnoterapija</value>
+  </data>
+  <data name="Identifiers" xml:space="preserve">
+    <value>Identifikator</value>
+  </data>
+  <data name="IdentifierType_PatientID" xml:space="preserve">
+    <value>O4Mt Pacijent id</value>
+  </data>
+  <data name="Identifier_add" xml:space="preserve">
+    <value>Dodati novi identifikator</value>
+  </data>
+  <data name="Identifier_name" xml:space="preserve">
+    <value>Ime identifikatora</value>
+  </data>
+  <data name="Identifier_value" xml:space="preserve">
+    <value>Vrednost identifikatora</value>
+  </data>
+  <data name="Illness" xml:space="preserve">
+    <value>Bolest</value>
+  </data>
+  <data name="Immunization" xml:space="preserve">
+    <value>Imunizacija</value>
+  </data>
+  <data name="Immunology" xml:space="preserve">
+    <value>Imunologija</value>
+  </data>
+  <data name="Immunology &amp; Allergy" xml:space="preserve">
+    <value>Imunologija i alergija</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Neaktivan</value>
+  </data>
+  <data name="Independent Living" xml:space="preserve">
+    <value>Samostalni život</value>
+  </data>
+  <data name="Infectious Diseases" xml:space="preserve">
+    <value>Zarazne bolesti</value>
+  </data>
+  <data name="InfectiousDiseases" xml:space="preserve">
+    <value>Infektivne bolesti</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informacija</value>
+  </data>
+  <data name="InformationCollection" xml:space="preserve">
+    <value>Zbirka informacija</value>
+  </data>
+  <data name="InformationPresentation" xml:space="preserve">
+    <value>Prezentacija informacija</value>
+  </data>
+  <data name="Injury" xml:space="preserve">
+    <value>Povreda</value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>Institucija</value>
+  </data>
+  <data name="InsuranceRelatedDocumentation" xml:space="preserve">
+    <value>Dokumentacija u vezi sa osiguranjem</value>
+  </data>
+  <data name="Intake" xml:space="preserve">
+    <value>Usisni</value>
+  </data>
+  <data name="Integrated Cancer Se" xml:space="preserve">
+    <value>Integrisane usluge protiv raka</value>
+  </data>
+  <data name="Integrated Family Services" xml:space="preserve">
+    <value>Integrisane porodične usluge</value>
+  </data>
+  <data name="Intensive Care Medicine" xml:space="preserve">
+    <value>Medicina intenzivne nege</value>
+  </data>
+  <data name="Intensive Mobile You" xml:space="preserve">
+    <value>Intenzivno za vas</value>
+  </data>
+  <data name="InterInstitutional" xml:space="preserve">
+    <value>Međuinstitucionalni</value>
+  </data>
+  <data name="InternalMedicine" xml:space="preserve">
+    <value>Interna medicina</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>Internacionalni</value>
+  </data>
+  <data name="Interpreting/Multilingual Service" xml:space="preserve">
+    <value>Tumačenje / višejezična usluga</value>
+  </data>
+  <data name="Intervention" xml:space="preserve">
+    <value>Intervencija</value>
+  </data>
+  <data name="IntraInstitutional" xml:space="preserve">
+    <value>Unutarinstitucionalni</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>Italijanski</value>
+  </data>
+  <data name="Job Searching" xml:space="preserve">
+    <value>Potraga za poslom</value>
+  </data>
+  <data name="Justice" xml:space="preserve">
+    <value>Pravda</value>
+  </data>
+  <data name="Juvenile Justice" xml:space="preserve">
+    <value>Pravda za maloletnike</value>
+  </data>
+  <data name="Kindergarten Inclusion Support" xml:space="preserve">
+    <value>Podrška za uključivanje u vrtić</value>
+  </data>
+  <data name="Kindergarten/Preschool" xml:space="preserve">
+    <value>Predškolska ustanova</value>
+  </data>
+  <data name="Kinesiology" xml:space="preserve">
+    <value>Kineziologija</value>
+  </data>
+  <data name="Kinship Care" xml:space="preserve">
+    <value>Nega rodbine</value>
+  </data>
+  <data name="LaboratoryMedicine" xml:space="preserve">
+    <value>Laboratorijska medicina</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
+  <data name="LastUpdate" xml:space="preserve">
+    <value>Poslednje ažuriranje</value>
+  </data>
+  <data name="Legal Advocacy" xml:space="preserve">
+    <value>Pravno zagovaranje</value>
+  </data>
+  <data name="Legal Information/Advice/Referral" xml:space="preserve">
+    <value>Pravne informacije / savet / preporuka</value>
+  </data>
+  <data name="Leisure" xml:space="preserve">
+    <value>Slobodno vreme</value>
+  </data>
+  <data name="Library" xml:space="preserve">
+    <value>Biblioteka</value>
+  </data>
+  <data name="LoadConcept" xml:space="preserve">
+    <value>Učitajte više koncepata</value>
+  </data>
+  <data name="Loans" xml:space="preserve">
+    <value>Krediti</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Odjava</value>
+  </data>
+  <data name="Long Day Child Care" xml:space="preserve">
+    <value>Dugodnevna nega dece</value>
+  </data>
+  <data name="Low Income Earners" xml:space="preserve">
+    <value>Zarada sa malim primanjima</value>
+  </data>
+  <data name="Lung" xml:space="preserve">
+    <value>Pluća</value>
+  </data>
+  <data name="Magnetic Resonance Imaging (MRI)" xml:space="preserve">
+    <value>Magnetna rezonanca (MRI)</value>
+  </data>
+  <data name="Magnetic Therapy" xml:space="preserve">
+    <value>Magnetna terapija</value>
+  </data>
+  <data name="Making A Difference" xml:space="preserve">
+    <value>Pravljenje razlike</value>
+  </data>
+  <data name="Martial Arts" xml:space="preserve">
+    <value>Borilačke veštine</value>
+  </data>
+  <data name="Massage Therapy" xml:space="preserve">
+    <value>Masaža terapija</value>
+  </data>
+  <data name="Material Aid" xml:space="preserve">
+    <value>Materijalna pomoć</value>
+  </data>
+  <data name="Maternal &amp; Child Health" xml:space="preserve">
+    <value>Zdravlje majke i deteta</value>
+  </data>
+  <data name="Mediation" xml:space="preserve">
+    <value>Posredovanje</value>
+  </data>
+  <data name="Medical Oncology" xml:space="preserve">
+    <value>Medicinska onkologija</value>
+  </data>
+  <data name="Medical Research" xml:space="preserve">
+    <value>Medicinsko istraživanje</value>
+  </data>
+  <data name="Medical Services" xml:space="preserve">
+    <value>Medicinske usluge</value>
+  </data>
+  <data name="Medical Specialists" xml:space="preserve">
+    <value>Medicinski specijalisti</value>
+  </data>
+  <data name="Medication Administr" xml:space="preserve">
+    <value>Administracija lekova</value>
+  </data>
+  <data name="Meditation" xml:space="preserve">
+    <value>Meditacija</value>
+  </data>
+  <data name="Meetings" xml:space="preserve">
+    <value>Sastanci</value>
+  </data>
+  <data name="Menstrual Informatio" xml:space="preserve">
+    <value>Menstrualne informacije</value>
+  </data>
+  <data name="Mental Health Advocacy" xml:space="preserve">
+    <value>Zagovaranje mentalnog zdravlja</value>
+  </data>
+  <data name="Mental Health Assess/Triage/Crisis Response" xml:space="preserve">
+    <value>Procena mentalnog zdravlja / trošenje / odgovor na krizu</value>
+  </data>
+  <data name="Mental Health Case Management" xml:space="preserve">
+    <value>Upravljanje slučajevima mentalnog zdravlja</value>
+  </data>
+  <data name="Mental Health Information/Referral" xml:space="preserve">
+    <value>Informacije o mentalnom zdravlju / uputnica</value>
+  </data>
+  <data name="Mental Health Inpatient Services" xml:space="preserve">
+    <value>Bolnice za mentalno zdravlje</value>
+  </data>
+  <data name="Mental Health Non-residential Rehab" xml:space="preserve">
+    <value>Mentalno nerezidencijalna rehabilitacija</value>
+  </data>
+  <data name="Mental Health Residential Rehab/CCU" xml:space="preserve">
+    <value>Rezidencijalna rehabilitacija za mentalno zdravlje / CCU</value>
+  </data>
+  <data name="Methadone" xml:space="preserve">
+    <value>Metadon</value>
+  </data>
+  <data name="Microbiology" xml:space="preserve">
+    <value>Mikrobiologija</value>
+  </data>
+  <data name="MixedInformationPresentationAndCollection" xml:space="preserve">
+    <value>Zbirka i prezentacija informacija</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobilni</value>
+  </data>
+  <data name="Mobile Services" xml:space="preserve">
+    <value>Mobilne usluge</value>
+  </data>
+  <data name="Mobile Support And T" xml:space="preserve">
+    <value>Usluge mobilne podrške i lečenja (MSTS)</value>
+  </data>
+  <data name="Motor Neurone" xml:space="preserve">
+    <value>Bolest motornih neurona</value>
+  </data>
+  <data name="MTSpecificFields" xml:space="preserve">
+    <value>04MT specifična polja</value>
+  </data>
+  <data name="Multidisciplinary Ca" xml:space="preserve">
+    <value>Multidisciplinarne usluge protiv raka</value>
+  </data>
+  <data name="Multidisciplinary Se" xml:space="preserve">
+    <value>Multidisciplinarne usluge</value>
+  </data>
+  <data name="Multiple Sclerosis" xml:space="preserve">
+    <value>Multipla skleroza</value>
+  </data>
+  <data name="Multiple_birth" xml:space="preserve">
+    <value>Višestruko rodjenje</value>
+  </data>
+  <data name="Myotherapy" xml:space="preserve">
+    <value>Mioterapija</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="Naturopathy" xml:space="preserve">
+    <value>Naturopatija</value>
+  </data>
+  <data name="Needle &amp; Syringe Exchange" xml:space="preserve">
+    <value>Razmena iglica i šprica</value>
+  </data>
+  <data name="Neighbourhood House" xml:space="preserve">
+    <value>Susedova kuća</value>
+  </data>
+  <data name="Neonatology &amp; Perinatology" xml:space="preserve">
+    <value>Neonatologija i perinatologija</value>
+  </data>
+  <data name="Nephrology" xml:space="preserve">
+    <value>Nefrologija</value>
+  </data>
+  <data name="Neurology" xml:space="preserve">
+    <value>Neurologija</value>
+  </data>
+  <data name="Neuropsychiatry" xml:space="preserve">
+    <value>Neuropsihijatrija</value>
+  </data>
+  <data name="Neurosurgery" xml:space="preserve">
+    <value>Neurohirurgija</value>
+  </data>
+  <data name="Non-resid. Alcohol/Drug Treatment" xml:space="preserve">
+    <value>Nerezidentalno lečenje alkoholom / lekovima</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nijedan</value>
+  </data>
+  <data name="Not_selected" xml:space="preserve">
+    <value>Nije izabrano</value>
+  </data>
+  <data name="Nuclear Medicine" xml:space="preserve">
+    <value>Nuklearna medicina</value>
+  </data>
+  <data name="NuclearMedicine" xml:space="preserve">
+    <value>Nuklearna medicina</value>
+  </data>
+  <data name="Nursing" xml:space="preserve">
+    <value>Nega</value>
+  </data>
+  <data name="Nursing Home" xml:space="preserve">
+    <value>Starački dom</value>
+  </data>
+  <data name="Nursing Mothers" xml:space="preserve">
+    <value>Negovane majke</value>
+  </data>
+  <data name="Nutrition" xml:space="preserve">
+    <value>Prehrana</value>
+  </data>
+  <data name="Obesity" xml:space="preserve">
+    <value>Gojaznost</value>
+  </data>
+  <data name="Obstetric/Gynaecological Ultrasound" xml:space="preserve">
+    <value>Akušersko / ginekološki ultrazvuk</value>
+  </data>
+  <data name="Obstetrics" xml:space="preserve">
+    <value>Akušerstvo</value>
+  </data>
+  <data name="Obstetrics &amp; Gynaecology" xml:space="preserve">
+    <value>Akušerstvo i ginekologija</value>
+  </data>
+  <data name="ObstetricsAndGynaecology" xml:space="preserve">
+    <value>Ginekologiju i akušerstvo</value>
+  </data>
+  <data name="Occasional Child Care" xml:space="preserve">
+    <value>Povremena nega dece</value>
+  </data>
+  <data name="Occupational Health" xml:space="preserve">
+    <value>Zdravlje i sigurnost na radu</value>
+  </data>
+  <data name="Occupational Medicine" xml:space="preserve">
+    <value>Medicina rada</value>
+  </data>
+  <data name="Occupational Therapy" xml:space="preserve">
+    <value>Radna terapija</value>
+  </data>
+  <data name="OccupationalMedicine" xml:space="preserve">
+    <value>Medicina rada</value>
+  </data>
+  <data name="Old" xml:space="preserve">
+    <value>Staro</value>
+  </data>
+  <data name="Ophthalmology" xml:space="preserve">
+    <value>Oftalmologija</value>
+  </data>
+  <data name="Optometrist" xml:space="preserve">
+    <value>Optometrist</value>
+  </data>
+  <data name="Optometry" xml:space="preserve">
+    <value>Optometrija</value>
+  </data>
+  <data name="Oral Hygiene" xml:space="preserve">
+    <value>Oralna higijena</value>
+  </data>
+  <data name="Oral Medicine" xml:space="preserve">
+    <value>Oralna medicina</value>
+  </data>
+  <data name="Oral Surgery" xml:space="preserve">
+    <value>Oralna hirurgija</value>
+  </data>
+  <data name="OralAndMaxillofacialSurgery" xml:space="preserve">
+    <value>Oralna i maksilofacijalna hirurgija</value>
+  </data>
+  <data name="Organizatin_Alias" xml:space="preserve">
+    <value>Alias organizacije</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organizacija</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizacije</value>
+  </data>
+  <data name="Clinical Research Sponsor" xml:space="preserve">
+    <value>Sponzor kliničkih istraživanja</value>
+  </data>
+  <data name="Community Group" xml:space="preserve">
+    <value>Zajednica</value>
+  </data>
+  <data name="Educational Institute" xml:space="preserve">
+    <value>Obrazovni institut</value>
+  </data>
+  <data name="Government" xml:space="preserve">
+    <value>Vlada</value>
+  </data>
+  <data name="Healthcare Provider" xml:space="preserve">
+    <value>Pružalac zdravstvene zaštite</value>
+  </data>
+  <data name="Hospital Department" xml:space="preserve">
+    <value>Odeljenje bolnice</value>
+  </data>
+  <data name="InsuranceCompany" xml:space="preserve">
+    <value>Osiguranje</value>
+  </data>
+  <data name="Non Healthcare Business Or Corporation" xml:space="preserve">
+    <value>Biznis ili korporacija koja nije zdravstvena zaštita</value>
+  </data>
+  <data name="Organizational Team" xml:space="preserve">
+    <value>Organizacioni tim</value>
+  </data>
+  <data name="Payer" xml:space="preserve">
+    <value>Platiša</value>
+  </data>
+  <data name="Religious Institution" xml:space="preserve">
+    <value>Verska institucija</value>
+  </data>
+  <data name="Organization_Activity" xml:space="preserve">
+    <value>Aktivnost organizacije</value>
+  </data>
+  <data name="Organization_City" xml:space="preserve">
+    <value>Grad organizacije</value>
+  </data>
+  <data name="Organization_Country" xml:space="preserve">
+    <value>Zemlja organizacije</value>
+  </data>
+  <data name="Organization_Create" xml:space="preserve">
+    <value>Kreirati organizaciju</value>
+  </data>
+  <data name="Organization_Hieararchy" xml:space="preserve">
+    <value>Hijerarhija organizacije</value>
+  </data>
+  <data name="Organization_Name" xml:space="preserve">
+    <value>Ime organizacije</value>
+  </data>
+  <data name="Organization_PartOf" xml:space="preserve">
+    <value>Deo</value>
+  </data>
+  <data name="Organization_PartOfPlaceholder" xml:space="preserve">
+    <value>Deo organizacije</value>
+  </data>
+  <data name="Organization_PostalCode" xml:space="preserve">
+    <value>Poštanski broj organizacije</value>
+  </data>
+  <data name="Organization_State" xml:space="preserve">
+    <value>Država organizacije</value>
+  </data>
+  <data name="Organization_Submit" xml:space="preserve">
+    <value>Pošaljite organizaciju</value>
+  </data>
+  <data name="Organization_Types" xml:space="preserve">
+    <value>Tipovi organizacije</value>
+  </data>
+  <data name="Orthodontic" xml:space="preserve">
+    <value>Ortodontska</value>
+  </data>
+  <data name="Orthopaedic Surgery" xml:space="preserve">
+    <value>Ortopedska hirurgija</value>
+  </data>
+  <data name="Orthopaedics" xml:space="preserve">
+    <value>Ortopedija</value>
+  </data>
+  <data name="Osteopathy" xml:space="preserve">
+    <value>Osteopatija</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Drugo</value>
+  </data>
+  <data name="Otolaryngology/Head &amp; Neck Surgery" xml:space="preserve">
+    <value>Otolaringologija / hirurgija glave i vrata</value>
+  </data>
+  <data name="Otorhinolaryngology" xml:space="preserve">
+    <value>Otorinolaringologija</value>
+  </data>
+  <data name="Outpatients" xml:space="preserve">
+    <value>Ambulante</value>
+  </data>
+  <data name="Outreach Service" xml:space="preserve">
+    <value>Pružanje pomoći siromašnima</value>
+  </data>
+  <data name="Outside School Hours Care" xml:space="preserve">
+    <value>Vanjska školska nega</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Početna</value>
+  </data>
+  <data name="PADP" xml:space="preserve">
+    <value>PADP</value>
+  </data>
+  <data name="Paed. Gastroenterology/Hepatology" xml:space="preserve">
+    <value>Pedijatrijska gastroenterologija / hepatologija</value>
+  </data>
+  <data name="Paediatric Cardiology" xml:space="preserve">
+    <value>Pedijatrijska kardiologija</value>
+  </data>
+  <data name="Paediatric Clinical Genetics" xml:space="preserve">
+    <value>Pedijatrijska klinička genetika</value>
+  </data>
+  <data name="Paediatric Clinical Pharmacology" xml:space="preserve">
+    <value>Pedijatrijska klinička farmakologija</value>
+  </data>
+  <data name="Paediatric Dentistry" xml:space="preserve">
+    <value>Pedijatrijska stomatologija</value>
+  </data>
+  <data name="Paediatric Endocrinology" xml:space="preserve">
+    <value>Pedijatrijska endokrinologija</value>
+  </data>
+  <data name="Paediatric Haematology" xml:space="preserve">
+    <value>Pedijatrijska hematologija</value>
+  </data>
+  <data name="Paediatric Immunology &amp; Allergy" xml:space="preserve">
+    <value>Pedijatrijska imunologija i alergija</value>
+  </data>
+  <data name="Paediatric Infectious Diseases" xml:space="preserve">
+    <value>Pedijatrijske zarazne bolesti</value>
+  </data>
+  <data name="Paediatric Intensive Care Medicine" xml:space="preserve">
+    <value>Pedijatrijska medicina intenzivne nege</value>
+  </data>
+  <data name="Paediatric Medical Oncology" xml:space="preserve">
+    <value>Pedijatrijska medicinska onkologija</value>
+  </data>
+  <data name="Paediatric Medicine" xml:space="preserve">
+    <value>Pedijatrijska medicina</value>
+  </data>
+  <data name="Paediatric Nephrology" xml:space="preserve">
+    <value>Pedijatrijska nefrologija</value>
+  </data>
+  <data name="Paediatric Neurology" xml:space="preserve">
+    <value>Pedijatrijska neurologija</value>
+  </data>
+  <data name="Paediatric Nuclear Medicine" xml:space="preserve">
+    <value>Pedijatrijska nuklearna medicina</value>
+  </data>
+  <data name="Paediatric Rehabilitation Medicine" xml:space="preserve">
+    <value>Pedijatrijska rehabilitaciona medicina</value>
+  </data>
+  <data name="Paediatric Rheumatology" xml:space="preserve">
+    <value>Pedijatrijska reumatologija</value>
+  </data>
+  <data name="Paediatric Sleep Medicine" xml:space="preserve">
+    <value>Pedijatrijska medicina spavanja</value>
+  </data>
+  <data name="Paediatric Surgery" xml:space="preserve">
+    <value>Pedijatrijska hirurgija</value>
+  </data>
+  <data name="Paediatric Thoracic Medicine" xml:space="preserve">
+    <value>Pedijatrijska torakalna medicina</value>
+  </data>
+  <data name="Paediatrics" xml:space="preserve">
+    <value>Pedijatrija</value>
+  </data>
+  <data name="PaediatricSurgery" xml:space="preserve">
+    <value>Pedijatrijska hirurgija</value>
+  </data>
+  <data name="Pager" xml:space="preserve">
+    <value>Pejdžer</value>
+  </data>
+  <data name="Pain" xml:space="preserve">
+    <value>Bol</value>
+  </data>
+  <data name="Palliative Medicine" xml:space="preserve">
+    <value>Palijativna medicina</value>
+  </data>
+  <data name="Pap Smear" xml:space="preserve">
+    <value>PAP bris</value>
+  </data>
+  <data name="Parenting" xml:space="preserve">
+    <value>Roditeljstvo</value>
+  </data>
+  <data name="Parenting/Family Support/Education" xml:space="preserve">
+    <value>Podrška / obrazovanje za upravljanje roditeljstvom i porodicom</value>
+  </data>
+  <data name="Pathology" xml:space="preserve">
+    <value>Patologija</value>
+  </data>
+  <data name="Pathology - Clinical Chemistry" xml:space="preserve">
+    <value>Patologija - klinička hemija</value>
+  </data>
+  <data name="Pathology - General" xml:space="preserve">
+    <value>Patologija - opšte</value>
+  </data>
+  <data name="Pathology - Genetics" xml:space="preserve">
+    <value>Patologija - genetika</value>
+  </data>
+  <data name="Pathology - Haematology" xml:space="preserve">
+    <value>Patologija - hematologija</value>
+  </data>
+  <data name="Pathology - Immunology" xml:space="preserve">
+    <value>Patologija - imunologija</value>
+  </data>
+  <data name="Pathology - Microbiology" xml:space="preserve">
+    <value>Patologija - mikrobiologija</value>
+  </data>
+  <data name="Patient" xml:space="preserve">
+    <value>Pacijent</value>
+  </data>
+  <data name="Patient Transport" xml:space="preserve">
+    <value>Prevoz pacijenata</value>
+  </data>
+  <data name="PatientId" xml:space="preserve">
+    <value>Pacijentov Id</value>
+  </data>
+  <data name="Patients" xml:space="preserve">
+    <value>Pacijenti</value>
+  </data>
+  <data name="Patient_Create" xml:space="preserve">
+    <value>Kreirati pacijenta</value>
+  </data>
+  <data name="Patient_family" xml:space="preserve">
+    <value>Prezime pacijenta</value>
+  </data>
+  <data name="Patient_Identificator" xml:space="preserve">
+    <value>Dodati novi pacijentov identifikator</value>
+  </data>
+  <data name="Patient_name" xml:space="preserve">
+    <value>Ime pacijenta</value>
+  </data>
+  <data name="Patient_submit" xml:space="preserve">
+    <value>Poslati informacije o pacijentu</value>
+  </data>
+  <data name="Peak Organizations" xml:space="preserve">
+    <value>Vrhunske organizacije</value>
+  </data>
+  <data name="Periodontic" xml:space="preserve">
+    <value>Parodonticno</value>
+  </data>
+  <data name="Personal Alarms/Alerts" xml:space="preserve">
+    <value>Lični alarmi / upozorenja</value>
+  </data>
+  <data name="Personal Care" xml:space="preserve">
+    <value>Lična nega</value>
+  </data>
+  <data name="Personal Care for Older Persons" xml:space="preserve">
+    <value>Lična nega starijih osoba</value>
+  </data>
+  <data name="Personal Fitness Training" xml:space="preserve">
+    <value>Lični fitnes trening</value>
+  </data>
+  <data name="Pharmacies" xml:space="preserve">
+    <value>Apoteke</value>
+  </data>
+  <data name="Pharmacology" xml:space="preserve">
+    <value>Farmakologija</value>
+  </data>
+  <data name="Pharmacotherapy" xml:space="preserve">
+    <value>Farmakoterapija</value>
+  </data>
+  <data name="Pharmacy" xml:space="preserve">
+    <value>Apoteka</value>
+  </data>
+  <data name="Phobias" xml:space="preserve">
+    <value>Fobije</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="Physical" xml:space="preserve">
+    <value>Fizički</value>
+  </data>
+  <data name="Physical Activity" xml:space="preserve">
+    <value>Fizička aktivnost</value>
+  </data>
+  <data name="Physical Activity Group" xml:space="preserve">
+    <value>Grupa za fizičku aktivnost</value>
+  </data>
+  <data name="Physical Activity Programs" xml:space="preserve">
+    <value>Programi fizičke aktivnosti</value>
+  </data>
+  <data name="Physical Fitness Testing" xml:space="preserve">
+    <value>Ispitivanje fizičke kondicije</value>
+  </data>
+  <data name="PhysicalMedicineAndRehabilitation" xml:space="preserve">
+    <value>Fizikalna medicina i rehabilitacija</value>
+  </data>
+  <data name="Physiotherapy" xml:space="preserve">
+    <value>Fizioterapija</value>
+  </data>
+  <data name="Pilates" xml:space="preserve">
+    <value>Pilates</value>
+  </data>
+  <data name="Placement Protection" xml:space="preserve">
+    <value>Zaštita od plasmana</value>
+  </data>
+  <data name="Planned Activity Groups" xml:space="preserve">
+    <value>Grupe sa planiranim aktivnostima</value>
+  </data>
+  <data name="Plastic &amp; Reconstructive Surgery" xml:space="preserve">
+    <value>Plastična i rekonstruktivna hirurgija</value>
+  </data>
+  <data name="PlasticSurgery" xml:space="preserve">
+    <value>Plastična hirurgija</value>
+  </data>
+  <data name="Playgroup" xml:space="preserve">
+    <value>Dečji vrtić</value>
+  </data>
+  <data name="PodiatricSurgery" xml:space="preserve">
+    <value>Podijatrijska hirurgija</value>
+  </data>
+  <data name="Podiatry" xml:space="preserve">
+    <value>Podijatrija</value>
+  </data>
+  <data name="Postal_code" xml:space="preserve">
+    <value>Poštanski broj</value>
+  </data>
+  <data name="Postnatal" xml:space="preserve">
+    <value>Postnatalni</value>
+  </data>
+  <data name="PreClinicalResearch" xml:space="preserve">
+    <value>Pre klinička istraživanja</value>
+  </data>
+  <data name="Preferred_term" xml:space="preserve">
+    <value>Preferiran termin</value>
+  </data>
+  <data name="Pregnancy" xml:space="preserve">
+    <value>Trudnoća</value>
+  </data>
+  <data name="Pregnancy Tests" xml:space="preserve">
+    <value>Testovi trudnoće</value>
+  </data>
+  <data name="Preschool" xml:space="preserve">
+    <value>Predškolska ustanova</value>
+  </data>
+  <data name="Prescriptions" xml:space="preserve">
+    <value>Propisi</value>
+  </data>
+  <data name="Preventive" xml:space="preserve">
+    <value>Preventivni</value>
+  </data>
+  <data name="PreventiveMedicine" xml:space="preserve">
+    <value>Preventivna medicina</value>
+  </data>
+  <data name="Primary Education" xml:space="preserve">
+    <value>Osnovno obrazovanje</value>
+  </data>
+  <data name="Primary Mental Healt" xml:space="preserve">
+    <value>Timovi za primarno mentalno zdravlje i ranu intervenciju</value>
+  </data>
+  <data name="Problem Gambling Counselling" xml:space="preserve">
+    <value>Problematično kockanje savetovanje</value>
+  </data>
+  <data name="Property Maintenance" xml:space="preserve">
+    <value>Održavanje imovine</value>
+  </data>
+  <data name="Prostate" xml:space="preserve">
+    <value>Prostata</value>
+  </data>
+  <data name="Prosthodontic" xml:space="preserve">
+    <value>Protestički</value>
+  </data>
+  <data name="Psychiatric" xml:space="preserve">
+    <value>Psihijatrija</value>
+  </data>
+  <data name="Psychiatric Disabili" xml:space="preserve">
+    <value>Usluge podrške za psihijatrijske osobe sa invaliditetom - Dostupnost od kuće</value>
+  </data>
+  <data name="Psychiatric Disability Support Services - Planned Respite" xml:space="preserve">
+    <value>Psihijatrijske usluge podrške invaliditetom - planirani predah</value>
+  </data>
+  <data name="Psychiatric Disability Support Services - Residential Rehabilitation" xml:space="preserve">
+    <value>Psihijatrijske usluge podrške invaliditetom - Stambena rehabilitacija</value>
+  </data>
+  <data name="Psychiatric Disability Support Services Home-Based Outreach" xml:space="preserve">
+    <value>Psihijatrijske usluge podrške osobama sa invaliditetom</value>
+  </data>
+  <data name="Psychiatric Disability Support Services Mutual Support And Self Help" xml:space="preserve">
+    <value>Psihijatrijske usluge podrške invaliditetu Uzajamna podrška i samopomoć</value>
+  </data>
+  <data name="Psychiatric Support" xml:space="preserve">
+    <value>Psihijatrijska podrška</value>
+  </data>
+  <data name="Psychiatry" xml:space="preserve">
+    <value>Psihijatrija</value>
+  </data>
+  <data name="Psychiatry (Requires Referral)" xml:space="preserve">
+    <value>Psihijatrija (zahteva preporuku)</value>
+  </data>
+  <data name="Psychology" xml:space="preserve">
+    <value>Psihologija</value>
+  </data>
+  <data name="Public Health Medicine" xml:space="preserve">
+    <value>Javna zdravstvena medicina</value>
+  </data>
+  <data name="Public Rental Housing" xml:space="preserve">
+    <value>Javno stanovanje</value>
+  </data>
+  <data name="PublicHealth" xml:space="preserve">
+    <value>Zdravstvo</value>
+  </data>
+  <data name="Quit Program" xml:space="preserve">
+    <value>Program odustajanja</value>
+  </data>
+  <data name="Radiation Oncology" xml:space="preserve">
+    <value>Radijaciona onkologija</value>
+  </data>
+  <data name="RadiationOncology" xml:space="preserve">
+    <value>Radijaciona onkologija</value>
+  </data>
+  <data name="Radiology" xml:space="preserve">
+    <value>Radiologija</value>
+  </data>
+  <data name="Recreation" xml:space="preserve">
+    <value>Rekreacija</value>
+  </data>
+  <data name="Referral" xml:space="preserve">
+    <value>Preporuka</value>
+  </data>
+  <data name="ReferralToProcedure" xml:space="preserve">
+    <value>Upućivanje na postupak</value>
+  </data>
+  <data name="Reflexology" xml:space="preserve">
+    <value>Refleksologija</value>
+  </data>
+  <data name="Refuge" xml:space="preserve">
+    <value>Izbegavanje</value>
+  </data>
+  <data name="RegistryEntry" xml:space="preserve">
+    <value>Upis u registar</value>
+  </data>
+  <data name="Rehabilitation" xml:space="preserve">
+    <value>Rehabilitacija</value>
+  </data>
+  <data name="Rehabilitation Medicine" xml:space="preserve">
+    <value>Rehabilitaciona medicina</value>
+  </data>
+  <data name="Reiki" xml:space="preserve">
+    <value>Reiki</value>
+  </data>
+  <data name="Relationship" xml:space="preserve">
+    <value>Veza</value>
+  </data>
+  <data name="Relationship Counselling" xml:space="preserve">
+    <value>Savetovanje o vezi</value>
+  </data>
+  <data name="Relaxation Therapy" xml:space="preserve">
+    <value>Relaks terapija</value>
+  </data>
+  <data name="Rent Assistance" xml:space="preserve">
+    <value>Najam pomoći</value>
+  </data>
+  <data name="ReportingOfFindings" xml:space="preserve">
+    <value>Izveštavanje o pronalaženju</value>
+  </data>
+  <data name="ReportingOfProcedure" xml:space="preserve">
+    <value>Izveštavanje o postupku</value>
+  </data>
+  <data name="ReportingOfTherapoDiagnosticProcedures" xml:space="preserve">
+    <value>Izveštavanje o terapeutsko-dijagnostičkim procedurama</value>
+  </data>
+  <data name="Reproductive Endocrinology/Infertility" xml:space="preserve">
+    <value>Reproduktivna endokrinologija / neplodnost</value>
+  </data>
+  <data name="Research" xml:space="preserve">
+    <value>Istraživačka</value>
+  </data>
+  <data name="Residential Alcohol/Drug Treatment" xml:space="preserve">
+    <value>Rezidencijalni tretman alkohola / lekova</value>
+  </data>
+  <data name="Residential Faciliti" xml:space="preserve">
+    <value>Stambeni objekti</value>
+  </data>
+  <data name="Residential Respite" xml:space="preserve">
+    <value>Stambeni odmor</value>
+  </data>
+  <data name="Residential/Out-of-Home Care" xml:space="preserve">
+    <value>Stanovanje / nega van kuće</value>
+  </data>
+  <data name="Respiratory" xml:space="preserve">
+    <value>Respiratorni</value>
+  </data>
+  <data name="RespiratoryMedicine" xml:space="preserve">
+    <value>Respiratorna medicina</value>
+  </data>
+  <data name="Respite Care" xml:space="preserve">
+    <value>Produženi boravak</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Odgovornost</value>
+  </data>
+  <data name="Revoked_on" xml:space="preserve">
+    <value>Opozvan</value>
+  </data>
+  <data name="Rheumatology" xml:space="preserve">
+    <value>Reumatologija</value>
+  </data>
+  <data name="Rooming Houses" xml:space="preserve">
+    <value>Sobne kuće</value>
+  </data>
+  <data name="RootSource" xml:space="preserve">
+    <value>Izvor putanje</value>
+  </data>
+  <data name="Safe Sex" xml:space="preserve">
+    <value>Siguran seks</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sačuvati</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Sačuvati izmene</value>
+  </data>
+  <data name="School Nursing" xml:space="preserve">
+    <value>Školska sestra</value>
+  </data>
+  <data name="Scope_of_Validity" xml:space="preserve">
+    <value>Obim validnosti</value>
+  </data>
+  <data name="Screening" xml:space="preserve">
+    <value>Ekranizovani</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="Secondary Education" xml:space="preserve">
+    <value>Srednje obrazovanje</value>
+  </data>
+  <data name="Secure Extended Care" xml:space="preserve">
+    <value>Sigurna bolnica za produženu negu</value>
+  </data>
+  <data name="SelectOneDefinitions" xml:space="preserve">
+    <value>Izaberite jednu od definicija</value>
+  </data>
+  <data name="SelectOption" xml:space="preserve">
+    <value>Izaberite opciju</value>
+  </data>
+  <data name="SelectReportCreate" xml:space="preserve">
+    <value>Izaberite izveštaj za kreiranje</value>
+  </data>
+  <data name="Self Help" xml:space="preserve">
+    <value>Samopomoć</value>
+  </data>
+  <data name="Self-Defence" xml:space="preserve">
+    <value>Samoodbrana</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Razdvajanje</value>
+  </data>
+  <data name="Serbian" xml:space="preserve">
+    <value>Srpski</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Usluge</value>
+  </data>
+  <data name="Sex Education" xml:space="preserve">
+    <value>Seksualno obrazovanje</value>
+  </data>
+  <data name="Sexual Abuse" xml:space="preserve">
+    <value>Seksualno zlostavljanje</value>
+  </data>
+  <data name="Sexual Assault Counselling" xml:space="preserve">
+    <value>Savetništvo za seksualno zlostavljanje</value>
+  </data>
+  <data name="Sexual Health" xml:space="preserve">
+    <value>Seksualno zdravlje</value>
+  </data>
+  <data name="Sexual Issues" xml:space="preserve">
+    <value>Seksualna pitanja</value>
+  </data>
+  <data name="Sexually Transmitted" xml:space="preserve">
+    <value>Seksualno prenosi</value>
+  </data>
+  <data name="Shiatsu" xml:space="preserve">
+    <value>Šijacu</value>
+  </data>
+  <data name="SIDS" xml:space="preserve">
+    <value>SIDS</value>
+  </data>
+  <data name="Similar_term" xml:space="preserve">
+    <value>Sličan termin</value>
+  </data>
+  <data name="Sleep Medicine" xml:space="preserve">
+    <value>Lekovi za spavanje</value>
+  </data>
+  <data name="Sms" xml:space="preserve">
+    <value>Sms</value>
+  </data>
+  <data name="Social Support" xml:space="preserve">
+    <value>Socijalna podrška</value>
+  </data>
+  <data name="SocialNumber" xml:space="preserve">
+    <value>Broj socijalnog</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Španski</value>
+  </data>
+  <data name="Speech Pathology/Therapy" xml:space="preserve">
+    <value>Govorna patologija / terapija</value>
+  </data>
+  <data name="Sporting Club" xml:space="preserve">
+    <value>Sportski klub</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Država</value>
+  </data>
+  <data name="State_" xml:space="preserve">
+    <value>Stanje</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Stomatology" xml:space="preserve">
+    <value>Stomatologija</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Prihvatiti</value>
+  </data>
+  <data name="Support - Young People Leaving Care" xml:space="preserve">
+    <value>Podrška mladima koji napuštaju negu</value>
+  </data>
+  <data name="Support Groups" xml:space="preserve">
+    <value>Grupe za podršku</value>
+  </data>
+  <data name="Surgery - General" xml:space="preserve">
+    <value>Hirurgija - Opšte</value>
+  </data>
+  <data name="Synonym" xml:space="preserve">
+    <value>Sinonim</value>
+  </data>
+  <data name="Synonyms" xml:space="preserve">
+    <value>Sinonimi</value>
+  </data>
+  <data name="Telecoms" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="Telecom_Add" xml:space="preserve">
+    <value>Dodati novi kontakt</value>
+  </data>
+  <data name="Telecom_System" xml:space="preserve">
+    <value>Vrsta kontakta</value>
+  </data>
+  <data name="Telecom_Use" xml:space="preserve">
+    <value>Upotreba kontakta</value>
+  </data>
+  <data name="Telecom_Value" xml:space="preserve">
+    <value>Vrednost kontakta</value>
+  </data>
+  <data name="Temp" xml:space="preserve">
+    <value>Privremeno</value>
+  </data>
+  <data name="Theragnostic" xml:space="preserve">
+    <value>Teragnostički</value>
+  </data>
+  <data name="Therapy" xml:space="preserve">
+    <value>Terapija</value>
+  </data>
+  <data name="Thesaurus" xml:space="preserve">
+    <value>Tezaurus</value>
+  </data>
+  <data name="ThesaurusId" xml:space="preserve">
+    <value>Thesaurus id</value>
+  </data>
+  <data name="Thoracic Medicine" xml:space="preserve">
+    <value>Torakalna medicina</value>
+  </data>
+  <data name="ThoracicSurgery" xml:space="preserve">
+    <value>Torakalna hirurgija</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Toy Library" xml:space="preserve">
+    <value>Prodavnica igračaka</value>
+  </data>
+  <data name="Training &amp; Vocational Education" xml:space="preserve">
+    <value>Trening i stručno obrazovanje</value>
+  </data>
+  <data name="Translator" xml:space="preserve">
+    <value>Prevodilac</value>
+  </data>
+  <data name="Transport" xml:space="preserve">
+    <value>Transport</value>
+  </data>
+  <data name="Trauma Counselling" xml:space="preserve">
+    <value>Savetovanje za traume</value>
+  </data>
+  <data name="TropicalMedicine" xml:space="preserve">
+    <value>Tropska medicina</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Tačno</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Type_abbreaviation" xml:space="preserve">
+    <value>Uneti ime skraćenice i potom pritisnuti enter</value>
+  </data>
+  <data name="Type_synonym" xml:space="preserve">
+    <value>Uneti ime sinonima i potom pritisnuti enter</value>
+  </data>
+  <data name="Type_term" xml:space="preserve">
+    <value>Uneti ime termina i potom pritisnuti enter</value>
+  </data>
+  <data name="UMLSSpecificFields" xml:space="preserve">
+    <value>UMLS specifična polja</value>
+  </data>
+  <data name="UMLS_Code" xml:space="preserve">
+    <value>UMLS kod</value>
+  </data>
+  <data name="UMLS_Definitions" xml:space="preserve">
+    <value>UMLS definicije</value>
+  </data>
+  <data name="UMLS_Name" xml:space="preserve">
+    <value>UMLS ime</value>
+  </data>
+  <data name="UMLS_Search" xml:space="preserve">
+    <value>Pretraga UMLS-a</value>
+  </data>
+  <data name="UMLS_Select" xml:space="preserve">
+    <value>Izabrati iz UMLS-a</value>
+  </data>
+  <data name="UMLS_SelectConcept" xml:space="preserve">
+    <value>Izaberite UMLS koncept da biste prikazali definicije i atome </value>
+  </data>
+  <data name="UMLS_SerachFor" xml:space="preserve">
+    <value>Pretraga UMLS termina</value>
+  </data>
+  <data name="UMLS_Term" xml:space="preserve">
+    <value>UMLS termin</value>
+  </data>
+  <data name="UniqueMasterCitizenNumber" xml:space="preserve">
+    <value>JMBG</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Urogynaecology" xml:space="preserve">
+    <value>Urinoginekologija</value>
+  </data>
+  <data name="Urology" xml:space="preserve">
+    <value>Urologija</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Korisnik</value>
+  </data>
+  <data name="UserAccessRight" xml:space="preserve">
+    <value>Pravo pristupa korisniku</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Vrednost</value>
+  </data>
+  <data name="Vascular Surgery" xml:space="preserve">
+    <value>Vaskularna hirurgija</value>
+  </data>
+  <data name="VascularSurgery" xml:space="preserve">
+    <value>Vaskularna hirurgija</value>
+  </data>
+  <data name="Venereology" xml:space="preserve">
+    <value>Venereologija</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Verzija</value>
+  </data>
+  <data name="Version_History" xml:space="preserve">
+    <value>Istorija verzija</value>
+  </data>
+  <data name="Vertebrae" xml:space="preserve">
+    <value>Pršljenovi</value>
+  </data>
+  <data name="VeterinaryMedicine" xml:space="preserve">
+    <value>Veterinarska medicina</value>
+  </data>
+  <data name="Victims of Crime Counselling" xml:space="preserve">
+    <value>Savetovalište za žrtve kriminala</value>
+  </data>
+  <data name="Violence" xml:space="preserve">
+    <value>Nasilje</value>
+  </data>
+  <data name="Vocational Guidance" xml:space="preserve">
+    <value>Profesionalne smernice</value>
+  </data>
+  <data name="Vocational Rehabilitation" xml:space="preserve">
+    <value>Profesionalna rehabilitacija</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>Težina</value>
+  </data>
+  <data name="Welfare Assistance" xml:space="preserve">
+    <value>Pomoć za dobrobit</value>
+  </data>
+  <data name="Welfare Counselling" xml:space="preserve">
+    <value>Savetovanje za socijalno staranje</value>
+  </data>
+  <data name="Western Herbal Medicine" xml:space="preserve">
+    <value>Zapadna herba medicina</value>
+  </data>
+  <data name="Wheelchairs" xml:space="preserve">
+    <value>Invalidska kolica</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>Posao</value>
+  </data>
+  <data name="Work Health/Safety Inspection/Cert." xml:space="preserve">
+    <value>Zdravlje na radu / inspekcija bezbednosti / sertifikati</value>
+  </data>
+  <data name="Work Safety/Accident Prevention" xml:space="preserve">
+    <value>Sigurnost na radu / sprečavanje nezgoda</value>
+  </data>
+  <data name="Wound Management" xml:space="preserve">
+    <value>Upravljanje ranama</value>
+  </data>
+  <data name="Yoga" xml:space="preserve">
+    <value>Joga</value>
+  </data>
+  <data name="Young People At Risk" xml:space="preserve">
+    <value>Mladi u riziku</value>
+  </data>
+  <data name="Youth" xml:space="preserve">
+    <value>Omladina</value>
+  </data>
+  <data name="Youth Health" xml:space="preserve">
+    <value>Zdravlje mladih</value>
+  </data>
+  <data name="Youth Services" xml:space="preserve">
+    <value>Omladinske usluge</value>
+  </data>
+  <data name="Aged Care Transport" xml:space="preserve">
+    <value>Prevoz starih lica</value>
+  </data>
+  <data name="Art therapy" xml:space="preserve">
+    <value>Art terapija</value>
+  </data>
+  <data name="Blood pressure monit" xml:space="preserve">
+    <value>Praćenje krvnog pritiska</value>
+  </data>
+  <data name="Cancer Support Groups" xml:space="preserve">
+    <value>Grupe za podršku raku</value>
+  </data>
+  <data name="Cardiac Rehabilitati" xml:space="preserve">
+    <value>Služba za rehabilitaciju srca</value>
+  </data>
+  <data name="Community Cancer Services" xml:space="preserve">
+    <value>Službe za borbu protiv raka u zajednici</value>
+  </data>
+  <data name="Crisis - Mental Health" xml:space="preserve">
+    <value>Kriza - mentalno zdravlje</value>
+  </data>
+  <data name="Deputising Service" xml:space="preserve">
+    <value>Zameničke usluge</value>
+  </data>
+  <data name="Diabetes Education s" xml:space="preserve">
+    <value>Služba obrazovanja za dijabetes</value>
+  </data>
+  <data name="Disability Care Transport" xml:space="preserve">
+    <value>Prevoz invalidne zaštite</value>
+  </data>
+  <data name="Dose administration" xml:space="preserve">
+    <value>Pomoć za administraciju doze</value>
+  </data>
+  <data name="Medical Equipment Hi" xml:space="preserve">
+    <value>Iznajmljivanje medicinske opreme</value>
+  </data>
+  <data name="Medication Reviews" xml:space="preserve">
+    <value>Pregledi lekova</value>
+  </data>
+  <data name="Online Service" xml:space="preserve">
+    <value>Internet usluga</value>
+  </data>
+  <data name="Pulmonary Rehabilita" xml:space="preserve">
+    <value>Služba za plućnu rehabilitaciju</value>
+  </data>
+  <data name="Socialisation" xml:space="preserve">
+    <value>Socijalizacija</value>
+  </data>
+  <data name="Special Needs" xml:space="preserve">
+    <value>Posebne potrebe</value>
+  </data>
+  <data name="Speech Therapist" xml:space="preserve">
+    <value>Logoped</value>
+  </data>
+  <data name="Splinting" xml:space="preserve">
+    <value>Pričvršćivanje</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="Statewide And Specia" xml:space="preserve">
+    <value>Državne i specijalističke usluge</value>
+  </data>
+  <data name="STD" xml:space="preserve">
+    <value>STD</value>
+  </data>
+  <data name="STI" xml:space="preserve">
+    <value>STI</value>
+  </data>
+  <data name="Stillbirth" xml:space="preserve">
+    <value>Mrtvorođenje</value>
+  </data>
+  <data name="Stomal Care" xml:space="preserve">
+    <value>Nega stome</value>
+  </data>
+  <data name="Stroke" xml:space="preserve">
+    <value>Udar</value>
+  </data>
+  <data name="Substance Abuse" xml:space="preserve">
+    <value>Zloupotreba supstanci</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Podrška</value>
+  </data>
+  <data name="Syringes" xml:space="preserve">
+    <value>Špricevi</value>
+  </data>
+  <data name="Teeth" xml:space="preserve">
+    <value>Zubi</value>
+  </data>
+  <data name="Telephone Counselling" xml:space="preserve">
+    <value>Telefonsko savetovanje</value>
+  </data>
+  <data name="Telephone Help Line" xml:space="preserve">
+    <value>Telefonska linija za pomoć</value>
+  </data>
+  <data name="Tenancy Advice" xml:space="preserve">
+    <value>Saveti za stanare</value>
+  </data>
+  <data name="Terminal Illness" xml:space="preserve">
+    <value>Terminal bolest</value>
+  </data>
+  <data name="Transcription" xml:space="preserve">
+    <value>Transkripcija</value>
+  </data>
+  <data name="Translating Services" xml:space="preserve">
+    <value>Usluge prevođenja</value>
+  </data>
+  <data name="Young Adult Diabetes" xml:space="preserve">
+    <value>Usluge dijabetesa za odrasle (IADS)</value>
+  </data>
+  <data name="Youth Crisis" xml:space="preserve">
+    <value>Kriza mladih</value>
+  </data>
+  <data name="1-on-1 Support /Mentoring /Coaching" xml:space="preserve">
+    <value>Podrška / mentorstvo / treniranje 1 na 1</value>
+  </data>
+  <data name="Aboriginal Health Clinic" xml:space="preserve">
+    <value>Klinika za aboridžinsku zdravlje</value>
+  </data>
+  <data name="Aboriginal Health Worker" xml:space="preserve">
+    <value>Zdravstveni radnik aboridžina</value>
+  </data>
+  <data name="Accommodation/Tenancy" xml:space="preserve">
+    <value>Smeštaj / zakup</value>
+  </data>
+  <data name="Adolescent Mental Health Services" xml:space="preserve">
+    <value>Službe za mentalno zdravlje adolescenata</value>
+  </data>
+  <data name="Alzheimer" xml:space="preserve">
+    <value>Alchajmer</value>
+  </data>
+  <data name="Assess-Skill, Ability, Needs" xml:space="preserve">
+    <value>Procena-veština, sposobnost, potrebe</value>
+  </data>
+  <data name="Assist Access/Maintain Employ" xml:space="preserve">
+    <value>Pomoć za pristup / održavanje zaposlenika</value>
+  </data>
+  <data name="Assist Prod-Pers Care/Safety" xml:space="preserve">
+    <value>Pomoć Prod-Pers nezi / sigurnosti</value>
+  </data>
+  <data name="Assist-Integrate School/Ed" xml:space="preserve">
+    <value>Pomoćna integracija škole / Edukacija</value>
+  </data>
+  <data name="Assist-Life Stage, Transition" xml:space="preserve">
+    <value>Scena Assist-Life, Tranzicija</value>
+  </data>
+  <data name="Assist-Personal Activities" xml:space="preserve">
+    <value>Pomoćne lične aktivnosti</value>
+  </data>
+  <data name="Assist-Travel/Transport" xml:space="preserve">
+    <value>Pomoć za putovanje / transport</value>
+  </data>
+  <data name="Assistive Equip-General Tasks" xml:space="preserve">
+    <value>Pomoćni generalno opremljeni zadaci</value>
+  </data>
+  <data name="Assistive Equip-Recreation" xml:space="preserve">
+    <value>Rekreativna oprema</value>
+  </data>
+  <data name="Assistive Prod-Household Task" xml:space="preserve">
+    <value>Pomoćni zadatak porodičnog domaćinstva</value>
+  </data>
+  <data name="Behavior Support" xml:space="preserve">
+    <value>Podrška ponašanja</value>
+  </data>
+  <data name="Chronic Disease Management" xml:space="preserve">
+    <value>Lečenje hronične bolesti</value>
+  </data>
+  <data name="Comms &amp; Info Equipment" xml:space="preserve">
+    <value>Info oprema</value>
+  </data>
+  <data name="Community Nursing Care" xml:space="preserve">
+    <value>Javna nega u zajednici</value>
+  </data>
+  <data name="Cranio-sacral Therapy" xml:space="preserve">
+    <value>Kraniosakralna terapija</value>
+  </data>
+  <data name="Culturally Tailored Health Promotion" xml:space="preserve">
+    <value>Promocija zdravlja prilagođena kulturi</value>
+  </data>
+  <data name="Culturally Tailored Support Groups" xml:space="preserve">
+    <value>Grupe podrške za kulturu</value>
+  </data>
+  <data name="Daily Tasks/Shared Living" xml:space="preserve">
+    <value>Dnevni zadaci / Zajedničko življenje</value>
+  </data>
+  <data name="Dementia Care" xml:space="preserve">
+    <value>Nega za demenciju</value>
+  </data>
+  <data name="Development-Life Skills" xml:space="preserve">
+    <value>Razvoj-životne veštine</value>
+  </data>
+  <data name="Drug and/or Alcohol Support Groups" xml:space="preserve">
+    <value>Grupe za podršku lekovima i / ili alkoholu</value>
+  </data>
+  <data name="Early Childhood Supports" xml:space="preserve">
+    <value>Podržava rano detinjstvo</value>
+  </data>
+  <data name="Education Information/Referral" xml:space="preserve">
+    <value>Informacije o obrazovanju / preporuka</value>
+  </data>
+  <data name="Equipment Special Assess Setup" xml:space="preserve">
+    <value>Podešavanje specijalne opreme za opremu</value>
+  </data>
+  <data name="Falls Prevention" xml:space="preserve">
+    <value>Prevencija za pad</value>
+  </data>
+  <data name="Food Relief/Food/Meals" xml:space="preserve">
+    <value>Olakšavanje hrane / Hrana / Obrok</value>
+  </data>
+  <data name="GPAH - Medical" xml:space="preserve">
+    <value>GPAH - Medicinski</value>
+  </data>
+  <data name="GPAH Other" xml:space="preserve">
+    <value>GPAH ostalo</value>
+  </data>
+  <data name="Haematology" xml:space="preserve">
+    <value>Hematologija</value>
+  </data>
+  <data name="Health Education/Awareness Program" xml:space="preserve">
+    <value>Program zdravstvenog obrazovanja / podizanja svesti</value>
+  </data>
+  <data name="Hearing Equipment" xml:space="preserve">
+    <value>Slušna oprema</value>
+  </data>
+  <data name="Home Medicine Review" xml:space="preserve">
+    <value>Pregled domaće medicine</value>
+  </data>
+  <data name="Home Modification" xml:space="preserve">
+    <value>Kućna modifikacija</value>
+  </data>
+  <data name="Household Tasks" xml:space="preserve">
+    <value>Zadaci za domaćinstvo</value>
+  </data>
+  <data name="Inpatients" xml:space="preserve">
+    <value>Bolnice</value>
+  </data>
+  <data name="Interpret/Translate" xml:space="preserve">
+    <value>Intepretacija / prevođenje</value>
+  </data>
+  <data name="Liaison Services" xml:space="preserve">
+    <value>Službe za vezu</value>
+  </data>
+  <data name="Maternity Shared Car" xml:space="preserve">
+    <value>Zajednička nega majčinstva</value>
+  </data>
+  <data name="Men's Health" xml:space="preserve">
+    <value>Zdravlje muškaraca</value>
+  </data>
+  <data name="Men's Health Clinic" xml:space="preserve">
+    <value>Klinika za zdravlje muškaraca</value>
+  </data>
+  <data name="Migrant Health Clinic" xml:space="preserve">
+    <value>Klinika za zdravlje migranata</value>
+  </data>
+  <data name="Music Therapy" xml:space="preserve">
+    <value>Muzička terapija</value>
+  </data>
+  <data name="Nurse Lead Clinic/s" xml:space="preserve">
+    <value>Medicinska sestra / klinika za medicinske sestre</value>
+  </data>
+  <data name="Nurse Practitioner Lead Clinic/s" xml:space="preserve">
+    <value>Klinika za medicinske sestre</value>
+  </data>
+  <data name="Other Innovative Supports" xml:space="preserve">
+    <value>Ostale inovativne podrške</value>
+  </data>
+  <data name="Paediatric Dermatology" xml:space="preserve">
+    <value>Pedijatrijska dermatologija</value>
+  </data>
+  <data name="Participate Community" xml:space="preserve">
+    <value>Učešće u zajednici</value>
+  </data>
+  <data name="Personal Mobility Equipment" xml:space="preserve">
+    <value>Lična oprema za pokretnost</value>
+  </data>
+  <data name="Physical Wellbeing" xml:space="preserve">
+    <value>Fizičko blagostanje</value>
+  </data>
+  <data name="Plan Management" xml:space="preserve">
+    <value>Upravljanje planom</value>
+  </data>
+  <data name="Prosthetics &amp; Orthotics" xml:space="preserve">
+    <value>Protetika i ortotika</value>
+  </data>
+  <data name="Refugee Health Clinic" xml:space="preserve">
+    <value>Klinika za zdravlje izbeglica</value>
+  </data>
+  <data name="Rehabilitation Servi" xml:space="preserve">
+    <value>Služba za rehabilitaciju</value>
+  </data>
+  <data name="Remedial Massage" xml:space="preserve">
+    <value>Popravna masaža</value>
+  </data>
+  <data name="Sexual Assault" xml:space="preserve">
+    <value>Seksualni napad</value>
+  </data>
+  <data name="Social Work" xml:space="preserve">
+    <value>Socijalni rad</value>
+  </data>
+  <data name="Spiritual Counselling" xml:space="preserve">
+    <value>Duhovno savetovanje</value>
+  </data>
+  <data name="Test Message" xml:space="preserve">
+    <value>Test poruka</value>
+  </data>
+  <data name="Therapeutic Supports" xml:space="preserve">
+    <value>Terapijske podrške</value>
+  </data>
+  <data name="Training-Travel Independence" xml:space="preserve">
+    <value>Trening-Nezavisnost od putovanja</value>
+  </data>
+  <data name="Vehicle modifications" xml:space="preserve">
+    <value>Modifikacije vozila</value>
+  </data>
+  <data name="Veterans" xml:space="preserve">
+    <value>Veterani</value>
+  </data>
+  <data name="Veterans Services" xml:space="preserve">
+    <value>Veteranske usluge</value>
+  </data>
+  <data name="Vision Equipment" xml:space="preserve">
+    <value>Vizionarska oprema</value>
+  </data>
+  <data name="Walk-in Centre /Non-Emergency" xml:space="preserve">
+    <value>Valk-in centar / vanredne situacije</value>
+  </data>
+  <data name="Women's Health" xml:space="preserve">
+    <value>Zdravlje žena</value>
+  </data>
+  <data name="Women's Health Clinic" xml:space="preserve">
+    <value>Klinika za žene</value>
+  </data>
+  <data name="Youth Drop In/Assistance/Support" xml:space="preserve">
+    <value>Ulazak mladih / pomoć / podrška</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="PrimaryColor" xml:space="preserve">
+    <value>Primarna boja</value>
+  </data>
+  <data name="SecondaryColor" xml:space="preserve">
+    <value>Sekundarna boja</value>
+  </data>
+  <data name="EnterUrl" xml:space="preserve">
+    <value>Unesite url</value>
+  </data>
+  <data name="LogoUrl" xml:space="preserve">
+    <value>Logo url</value>
+  </data>
+  <data name="Cantonal Hospital" xml:space="preserve">
+    <value>Kantonalna bolnica</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Departman</value>
+  </data>
+  <data name="Family Doctor Office" xml:space="preserve">
+    <value>Kancelarija porodičnog lekara</value>
+  </data>
+  <data name="Governmental Body" xml:space="preserve">
+    <value>Vladino telo</value>
+  </data>
+  <data name="Group Practice" xml:space="preserve">
+    <value>Grupna vežba</value>
+  </data>
+  <data name="Non Profit Organization" xml:space="preserve">
+    <value>Neprofitna organizacija</value>
+  </data>
+  <data name="Patient Group" xml:space="preserve">
+    <value>Grupa pacijenata</value>
+  </data>
+  <data name="Research Institution" xml:space="preserve">
+    <value>Istraživačka institucija</value>
+  </data>
+  <data name="Spitex" xml:space="preserve">
+    <value>Spitek</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Tim</value>
+  </data>
+  <data name="University Hospital" xml:space="preserve">
+    <value>Univerzitetska bolnica</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Generiši</value>
+  </data>
+  <data name="GenerateNew" xml:space="preserve">
+    <value>Generisanje novog prevoda</value>
+  </data>
+  <data name="GenerateTranslations" xml:space="preserve">
+    <value>Generisati prevod</value>
+  </data>
+  <data name="Community-based aged care" xml:space="preserve">
+    <value>Nega starih lica u zajednici</value>
+  </data>
+  <data name="Drug and alcohol rehabilitation" xml:space="preserve">
+    <value>Rehabilitacija lekova i alkohola</value>
+  </data>
+  <data name="Home and Community Care" xml:space="preserve">
+    <value>Kućna i društvena nega</value>
+  </data>
+  <data name="Post Acute Care" xml:space="preserve">
+    <value>Post akutna nega</value>
+  </data>
+  <data name="Post coordinated diabetes program" xml:space="preserve">
+    <value>Post koordinirani program dijabetesa</value>
+  </data>
+  <data name="Diagnosis of Oncological Diseases and Staging Procedures - Head and Neck Cancer Clinical Pathway of Inselspital Bern" xml:space="preserve">
+    <value>Dijagnoza onkoloških bolesti i postupci stadija - Klinički put karcinoma glave i vrata Inselspital Bern</value>
+  </data>
+  <data name="General Prevention Program of Oncological Diseases" xml:space="preserve">
+    <value>Opšti program prevencije onkoloških bolesti</value>
+  </data>
+  <data name="Oncological Acute Post-Treatment Care - Head and Neck Cancer Clinical Pathway of Inselspital Bern" xml:space="preserve">
+    <value>Onkološka akutna nega posle lečenja - Klinički put protiv raka glave i vrata Inselspital Bern</value>
+  </data>
+  <data name="Oncological Long-Term Care and Follow-Up - Head and Neck Cancer Clinical Pathway of Inselspital Bern" xml:space="preserve">
+    <value>Onkološka dugotrajna njega i praćenje - Klinički put protiv raka glave i vrata Inselspital Bern</value>
+  </data>
+  <data name="Prevention of Oncological Diseases - Municipality Program for Smoking Cesation" xml:space="preserve">
+    <value>Prevencija onkoloških bolesti - opštinski program za prestanak pušenja</value>
+  </data>
+  <data name="Screening for Oncological Diseases - Cantonal Program for Breast Cancer Screening Bern" xml:space="preserve">
+    <value>Ekranizacija onkoloških bolesti - kantonalni program ekranizacije karcinoma dojke Bern</value>
+  </data>
+  <data name="Screening for Oncological Diseases - Colorectal Cancer Screening" xml:space="preserve">
+    <value>Ekranizacija onkoloških bolesti - ekranizacija kolorektalnog karcinoma</value>
+  </data>
+  <data name="Treatment of Oncological Diseases - Head and Neck Cancer Clinical Pathway of Inselspital Bern" xml:space="preserve">
+    <value>Lečenje onkoloških bolesti - klinički put karcinoma glave i vrata Inselspital Bern</value>
+  </data>
+  <data name="DownloadPdf" xml:space="preserve">
+    <value>Preuzeti PDF</value>
+  </data>
+  <data name="IdentifierSystem" xml:space="preserve">
+    <value>Sistem identifikatora</value>
+  </data>
+  <data name="IdentifierUse" xml:space="preserve">
+    <value>Upotreba identifikatora</value>
+  </data>
+  <data name="OrganizationStreet" xml:space="preserve">
+    <value>Ulica organizacije</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="UploadPdf" xml:space="preserve">
+    <value>Učitati PDF</value>
+  </data>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Izabrati datoteku</value>
+  </data>
+  <data name="NoFileChosen" xml:space="preserve">
+    <value>Nema izabrane datoteke</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Otpremiti datoteku</value>
+  </data>
+  <data name="NoContent" xml:space="preserve">
+    <value>Bez sadržaja</value>
+  </data>
+  <data name="DownloadPdfs" xml:space="preserve">
+    <value>Preuzeti PDF(ove)</value>
+  </data>
+  <data name="Accession ID" xml:space="preserve">
+    <value>Pristupni ID</value>
+  </data>
+  <data name="Account number" xml:space="preserve">
+    <value>Broj računa</value>
+  </data>
+  <data name="Account number Creditor" xml:space="preserve">
+    <value>Broj računa poverioca</value>
+  </data>
+  <data name="Account number debitor" xml:space="preserve">
+    <value>Debitor broja računa</value>
+  </data>
+  <data name="Accreditation/Certification Identifier" xml:space="preserve">
+    <value>Identifikator akreditacije / potvrde</value>
+  </data>
+  <data name="Advanced Practice Registered Nurse number" xml:space="preserve">
+    <value>Broj medicinskih sestara napredne prakse</value>
+  </data>
+  <data name="American Express" xml:space="preserve">
+    <value>American Express</value>
+  </data>
+  <data name="American Medical Association Number" xml:space="preserve">
+    <value>Broj američkog medicinskog udruženja</value>
+  </data>
+  <data name="Ancestor Specimen ID" xml:space="preserve">
+    <value>ID uzorka pretka</value>
+  </data>
+  <data name="Anonymous identifier" xml:space="preserve">
+    <value>Anonimni identifikator</value>
+  </data>
+  <data name="Bank Account Number" xml:space="preserve">
+    <value>Broj računa</value>
+  </data>
+  <data name="Bank Card Number" xml:space="preserve">
+    <value>Broj bankovne kartice</value>
+  </data>
+  <data name="Birth Certificate" xml:space="preserve">
+    <value>Rodni list</value>
+  </data>
+  <data name="Birth Certificate File Number" xml:space="preserve">
+    <value>Broj datoteke rodnog lista</value>
+  </data>
+  <data name="Birth registry number" xml:space="preserve">
+    <value>Broj matičnog registra</value>
+  </data>
+  <data name="Breed Registry Number" xml:space="preserve">
+    <value>Broj registra pasmine</value>
+  </data>
+  <data name="Change of Name Document" xml:space="preserve">
+    <value>Promena imena dokumenta</value>
+  </data>
+  <data name="Citizenship Card" xml:space="preserve">
+    <value>Građanska karta</value>
+  </data>
+  <data name="Cost Center number" xml:space="preserve">
+    <value>Broj mesta troška</value>
+  </data>
+  <data name="County number" xml:space="preserve">
+    <value>Županijski broj</value>
+  </data>
+  <data name="Death Certificate File Number" xml:space="preserve">
+    <value>Broj datoteke umrlog</value>
+  </data>
+  <data name="Death Certificate ID" xml:space="preserve">
+    <value>ID umrlog</value>
+  </data>
+  <data name="Dentist license number" xml:space="preserve">
+    <value>Dentist license number</value>
+  </data>
+  <data name="Diner's Club card" xml:space="preserve">
+    <value>Diner's Club kartica</value>
+  </data>
+  <data name="Diplomatic Passport" xml:space="preserve">
+    <value>Diplomatski pasoš</value>
+  </data>
+  <data name="Discover Card" xml:space="preserve">
+    <value>Otkrijte karticu</value>
+  </data>
+  <data name="Doctor number" xml:space="preserve">
+    <value>Doktorski broj</value>
+  </data>
+  <data name="Donor Registration Number" xml:space="preserve">
+    <value>Registracijski broj donatora</value>
+  </data>
+  <data name="Drug Enforcement Administration registration number" xml:space="preserve">
+    <value>Broj dozvole stomatologa</value>
+  </data>
+  <data name="Drug Furnishing or prescriptive authority Number" xml:space="preserve">
+    <value>Broj organa za opremanje ili prepisivanje droga</value>
+  </data>
+  <data name="Employee number" xml:space="preserve">
+    <value>Broj radnika</value>
+  </data>
+  <data name="Facility ID" xml:space="preserve">
+    <value>ID objekta</value>
+  </data>
+  <data name="Fetal Death Report File Number" xml:space="preserve">
+    <value>Broj datoteke izveštaja o smrti fetusa</value>
+  </data>
+  <data name="Fetal Death Report ID" xml:space="preserve">
+    <value>ID izveštaja o smrti fetusa</value>
+  </data>
+  <data name="Filler Identifier" xml:space="preserve">
+    <value>Identifikator punila</value>
+  </data>
+  <data name="General ledger number" xml:space="preserve">
+    <value>Broj glavne knjige</value>
+  </data>
+  <data name="Guarantor external identifier" xml:space="preserve">
+    <value>Spoljni identifikator garant</value>
+  </data>
+  <data name="Guarantor internal identifier" xml:space="preserve">
+    <value>Interni identifikator garant</value>
+  </data>
+  <data name="Health Card Number" xml:space="preserve">
+    <value>Broj zdravstvene kartice</value>
+  </data>
+  <data name="Indigenous/Aboriginal" xml:space="preserve">
+    <value>Autohtoni / aboridžinski</value>
+  </data>
+  <data name="Jurisdictional health number (Canada)" xml:space="preserve">
+    <value>Nadležni zdravstveni broj (Kanada)</value>
+  </data>
+  <data name="Laboratory Accession ID" xml:space="preserve">
+    <value>Identifikacija pristupne laboratorije</value>
+  </data>
+  <data name="Medical License number" xml:space="preserve">
+    <value>Broj medicinske licence</value>
+  </data>
+  <data name="Medical record number" xml:space="preserve">
+    <value>Broj medicinskog kartona</value>
+  </data>
+  <data name="Microchip Number" xml:space="preserve">
+    <value>Broj mikročipa</value>
+  </data>
+  <data name="National Insurance Payor Identifier (Payor)" xml:space="preserve">
+    <value>Identifikator obveznika nacionalnog osiguranja (uplaćivač)</value>
+  </data>
+  <data name="Osteopathic License number" xml:space="preserve">
+    <value>Osteopatski broj licence</value>
+  </data>
+  <data name="Passport number" xml:space="preserve">
+    <value>Broj pasoša</value>
+  </data>
+  <data name="Placer Identifier" xml:space="preserve">
+    <value>Placer identifikator</value>
+  </data>
+  <data name="Podiatrist license number" xml:space="preserve">
+    <value>Broj dozvole za pedijatra</value>
+  </data>
+  <data name="Primary physician office number" xml:space="preserve">
+    <value>Broj primarne lekara</value>
+  </data>
+  <data name="Provider number" xml:space="preserve">
+    <value>Broj provajdera</value>
+  </data>
+  <data name="Social Beneficiary Identifier" xml:space="preserve">
+    <value>Identifikator socijalnog korisnika</value>
+  </data>
+  <data name="Staff Enterprise Number" xml:space="preserve">
+    <value>Broj osoblja preduzeća</value>
+  </data>
+  <data name="Tax ID number" xml:space="preserve">
+    <value>Pib</value>
+  </data>
+  <data name="Temporary Account Number" xml:space="preserve">
+    <value>Privremeni broj računa</value>
+  </data>
+  <data name="Universal Device Identifier" xml:space="preserve">
+    <value>Univerzalni identifikator uređaja</value>
+  </data>
+  <data name="enitentiary/correctional institution Number" xml:space="preserve">
+    <value>Broj kazneno-popravne ustanove</value>
+  </data>
+  <data name="Labor and industries number" xml:space="preserve">
+    <value>Broj rada i industrije</value>
+  </data>
+  <data name="License number" xml:space="preserve">
+    <value>Broj licence</value>
+  </data>
+  <data name="Lifelong physician number" xml:space="preserve">
+    <value>Doživotni lekarski broj</value>
+  </data>
+  <data name="Living Subject Enterprise Number" xml:space="preserve">
+    <value>Broj preduzeća za živi subjekt</value>
+  </data>
+  <data name="Local Registry ID" xml:space="preserve">
+    <value>ID lokalnog registra</value>
+  </data>
+  <data name="Marriage Certificate" xml:space="preserve">
+    <value>Bračna potrvda</value>
+  </data>
+  <data name="MasterCard" xml:space="preserve">
+    <value>Master Card</value>
+  </data>
+  <data name="Medicare/CMS Performing Provider Identification Number" xml:space="preserve">
+    <value>Medicare / CMS identifikacioni broj dobavljača</value>
+  </data>
+  <data name="Member Number" xml:space="preserve">
+    <value>Broj člana</value>
+  </data>
+  <data name="Military ID number" xml:space="preserve">
+    <value>Vojni ID broj</value>
+  </data>
+  <data name="National employer identifier" xml:space="preserve">
+    <value>Nacionalni identifikator poslodavca</value>
+  </data>
+  <data name="National Health Plan Identifier" xml:space="preserve">
+    <value>Identifikator nacionalnog zdravstvenog plana</value>
+  </data>
+  <data name="National Insurance Organization Identifier" xml:space="preserve">
+    <value>Identifikator nacionalne organizacije za osiguranje</value>
+  </data>
+  <data name="National Person Identifier where the xxx is the ISO table 3166 3-character (alphabetic) country code" xml:space="preserve">
+    <value>Nacionalni identifikator osobe gde je kkk ISO-tablica 3166 troznamenkasti (abecedni) kod države</value>
+  </data>
+  <data name="National provider identifier" xml:space="preserve">
+    <value>Identifikator nacionalnog provajdera</value>
+  </data>
+  <data name="National unique individual identifier" xml:space="preserve">
+    <value>Nacionalni jedinstveni identifikator</value>
+  </data>
+  <data name="Naturalization Certificate" xml:space="preserve">
+    <value>Naturalizaciono uverenje</value>
+  </data>
+  <data name="Nurse practitioner number" xml:space="preserve">
+    <value>Broj medicinske sestre</value>
+  </data>
+  <data name="Observation Instance" xml:space="preserve">
+    <value>Instancija posmatranja</value>
+  </data>
+  <data name="Optometrist license number" xml:space="preserve">
+    <value>Broj dozvole za optometrist</value>
+  </data>
+  <data name="Parole Card" xml:space="preserve">
+    <value>Kartica za uslovnu slobodu</value>
+  </data>
+  <data name="Patient external identifier" xml:space="preserve">
+    <value>Vanjski identifikator pacijenta</value>
+  </data>
+  <data name="Patient internal identifier" xml:space="preserve">
+    <value>Interni identifikator pacijenta</value>
+  </data>
+  <data name="Patient Medicaid number" xml:space="preserve">
+    <value>Medicaidni broj pacijenta</value>
+  </data>
+  <data name="Patient's Medicare number" xml:space="preserve">
+    <value>Pacijentov Medicare broj</value>
+  </data>
+  <data name="Pension Number" xml:space="preserve">
+    <value>Penzioni broj</value>
+  </data>
+  <data name="Permanent Resident Card Number" xml:space="preserve">
+    <value>Broj stalnog prebivališta</value>
+  </data>
+  <data name="Person number" xml:space="preserve">
+    <value>Broj osobe</value>
+  </data>
+  <data name="Physician Assistant number" xml:space="preserve">
+    <value>Broj pomoćnika lekara</value>
+  </data>
+  <data name="Practitioner Medicaid number" xml:space="preserve">
+    <value>Medicaid broj</value>
+  </data>
+  <data name="Practitioner Medicare number" xml:space="preserve">
+    <value>Medicare broj</value>
+  </data>
+  <data name="Public Health Case Identifier" xml:space="preserve">
+    <value>Identifikator slučaja javnog zdravlja</value>
+  </data>
+  <data name="Public Health Event Identifier" xml:space="preserve">
+    <value>Identifikator događaja u javnom zdravstvu</value>
+  </data>
+  <data name="Public Health Official ID" xml:space="preserve">
+    <value>Službena legitimacija za javno zdravstvo</value>
+  </data>
+  <data name="Secondary physician office number" xml:space="preserve">
+    <value>Broj sekundarnog lekara</value>
+  </data>
+  <data name="Temporary Living Subject Number" xml:space="preserve">
+    <value>Privremeni životni predmet predmeta</value>
+  </data>
+  <data name="Temporary Medical Record Number" xml:space="preserve">
+    <value>Privremeni broj medicinske evidencije</value>
+  </data>
+  <data name="Health Plan Identifier" xml:space="preserve">
+    <value>Identifikator zdravstvenog plana</value>
+  </data>
+  <data name="Medicare/CMS (formerly HCFA)'s Universal Physician Identification numbers" xml:space="preserve">
+    <value>Univerzalni identifikacioni brojevi za medicinu Medicare / CMS (ranije HCFA)</value>
+  </data>
+  <data name="Organization identifier" xml:space="preserve">
+    <value>Identifikator organizacije</value>
+  </data>
+  <data name="Pharmacist license number" xml:space="preserve">
+    <value>Broj dozvole za farmaceuta</value>
+  </data>
+  <data name="QA number" xml:space="preserve">
+    <value>KA broj</value>
+  </data>
+  <data name="Railroad Retirement number" xml:space="preserve">
+    <value>Željeznički penzioni broj</value>
+  </data>
+  <data name="Railroad Retirement Provider" xml:space="preserve">
+    <value>Dobavljač penzionisanih pruga</value>
+  </data>
+  <data name="Regional registry ID" xml:space="preserve">
+    <value>ID regionalnog registra</value>
+  </data>
+  <data name="Registered Nurse Number" xml:space="preserve">
+    <value>Registrovani broj medicinske sestre</value>
+  </data>
+  <data name="Resource identifier" xml:space="preserve">
+    <value>Identifikator resursa</value>
+  </data>
+  <data name="Shipment Tracking Number" xml:space="preserve">
+    <value>Broj za praćenje pošiljke</value>
+  </data>
+  <data name="Social Security number" xml:space="preserve">
+    <value>Broj socijalnog osiguranja</value>
+  </data>
+  <data name="Specimen ID" xml:space="preserve">
+    <value>ID primerka</value>
+  </data>
+  <data name="State assigned NDBS card Identifier" xml:space="preserve">
+    <value>Identifikovana država NDBS identifikator kartice</value>
+  </data>
+  <data name="State license" xml:space="preserve">
+    <value>Državna licenca</value>
+  </data>
+  <data name="State registry ID" xml:space="preserve">
+    <value>ID državnog registra</value>
+  </data>
+  <data name="Study Permit" xml:space="preserve">
+    <value>Dozvola za studiranje</value>
+  </data>
+  <data name="Subscriber Number" xml:space="preserve">
+    <value>Broj pretplatnika</value>
+  </data>
+  <data name="Temporary Permanent Resident (Canada)" xml:space="preserve">
+    <value>Privremeni prebivalište (Kanada)</value>
+  </data>
+  <data name="Training License Number" xml:space="preserve">
+    <value>Broj licence za obuku</value>
+  </data>
+  <data name="Treaty Number/ (Canada)" xml:space="preserve">
+    <value>Broj ugovora / (Kanada)</value>
+  </data>
+  <data name="Unique Specimen ID" xml:space="preserve">
+    <value>Jedinstveni ID primerka</value>
+  </data>
+  <data name="Unspecified identifier" xml:space="preserve">
+    <value>Neodređeni identifikator</value>
+  </data>
+  <data name="VISA" xml:space="preserve">
+    <value>VISA</value>
+  </data>
+  <data name="Visit number" xml:space="preserve">
+    <value>Broj posete</value>
+  </data>
+  <data name="Visitor Permit" xml:space="preserve">
+    <value>Dozvola za posetioce</value>
+  </data>
+  <data name="WIC identifier" xml:space="preserve">
+    <value>VIC identifikator</value>
+  </data>
+  <data name="Work Permit" xml:space="preserve">
+    <value>Radna dozvola</value>
+  </data>
+  <data name="Workers' Comp Number" xml:space="preserve">
+    <value>Broj radnika</value>
+  </data>
+  <data name="DetectionAndEvalutationOfTherapyAssociatedAdverseEvents" xml:space="preserve">
+    <value>Otkrivanje i evaluacija neželjenih događaja povezanih sa terapijom</value>
+  </data>
+  <data name="EarlyDetectionOfDiseaseRelapse" xml:space="preserve">
+    <value>Rano otkrivanje recidiva bolesti</value>
+  </data>
+  <data name="EvaluationOfTherapeuticEffect" xml:space="preserve">
+    <value>Procena terapijskog efekta</value>
+  </data>
+  <data name="TreatmentOfTherapyaAssociatedAdverseEvents" xml:space="preserve">
+    <value>Lečenje neželjenih događaja povezanih sa terapijom</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Izveštaji</value>
+  </data>
+  <data name="BackToEOC" xml:space="preserve">
+    <value>Vratite se na epizodu zdravstvene nege</value>
+  </data>
+  <data name="BactToPatient" xml:space="preserve">
+    <value>Vratite se na pacijenta</value>
+  </data>
+  <data name="MultipleBirthNumber" xml:space="preserve">
+    <value>Višestruki broj rođenja (ako je više tačno: 1., 2. ...)</value>
+  </data>
+  <data name="UMLS_Link" xml:space="preserve">
+    <value>UMLS link</value>
+  </data>
+  <data name="GeneralInfo" xml:space="preserve">
+    <value>Opšte informacije</value>
+  </data>
+  <data name="Given" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="Identifier_type" xml:space="preserve">
+    <value>Tip identifikatora</value>
+  </data>
+  <data name="PatientIdType" xml:space="preserve">
+    <value>Tip identifikatora pacijenta</value>
+  </data>
+  <data name="PatientIdValue" xml:space="preserve">
+    <value>Vrednost identifikatora pacijenta</value>
+  </data>
+  <data name="SelectIdentifier" xml:space="preserve">
+    <value>Izaberite identifikator</value>
+  </data>
+  <data name="SelectStatus" xml:space="preserve">
+    <value>Izaberite status</value>
+  </data>
+  <data name="SelectType" xml:space="preserve">
+    <value>Izaberite tip</value>
+  </data>
+  <data name="Not Applicable" xml:space="preserve">
+    <value>Nije primenljivo</value>
+  </data>
+  <data name="Official" xml:space="preserve">
+    <value>Zvanično</value>
+  </data>
+  <data name="Secondary" xml:space="preserve">
+    <value>Sekundarno</value>
+  </data>
+  <data name="Usual" xml:space="preserve">
+    <value>Uobičajeno</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="Codes" xml:space="preserve">
+    <value>Kodovi</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="de" xml:space="preserve">
+    <value>Nemački</value>
+  </data>
+  <data name="en" xml:space="preserve">
+    <value>Engleski</value>
+  </data>
+  <data name="es" xml:space="preserve">
+    <value>Španski</value>
+  </data>
+  <data name="fr" xml:space="preserve">
+    <value>Francuski</value>
+  </data>
+  <data name="it" xml:space="preserve">
+    <value>Italijanski</value>
+  </data>
+  <data name="Preferred" xml:space="preserve">
+    <value>Preferiran</value>
+  </data>
+  <data name="sr" xml:space="preserve">
+    <value>Srpski</value>
+  </data>
+  <data name="AddCode" xml:space="preserve">
+    <value>Dodaj kod</value>
+  </data>
+  <data name="Export_Patholink" xml:space="preserve">
+    <value>Izvezi u Patholink format</value>
+  </data>
+  <data name="Documents_per_group" xml:space="preserve">
+    <value>Dokumenti po grupi</value>
+  </data>
+  <data name="Total_thesaurus_entries" xml:space="preserve">
+    <value>Ukupno tezaurus unosa</value>
+  </data>
+  <data name="Users_by_organization" xml:space="preserve">
+    <value>Korisnici po organizaciji</value>
+  </data>
+  <data name="VersionPublishDate" xml:space="preserve">
+    <value>Datum objavljivanja verzije</value>
+  </data>
+  <data name="AddNew" xml:space="preserve">
+    <value>Dodati novi</value>
+  </data>
+  <data name="Oncology" xml:space="preserve">
+    <value>Onkologija</value>
+  </data>
+  <data name="Create_referrals" xml:space="preserve">
+    <value>Kreirati na osnovu uputa</value>
+  </data>
+  <data name="Referrals" xml:space="preserve">
+    <value>Preporuke</value>
+  </data>
+  <data name="ConcurrencyExDeleteEdit" xml:space="preserve">
+    <value>Ne možete izbrisati ovaj objekat! U međuvremenu je promenjen!</value>
+  </data>
+  <data name="ConcurrencyExEdit" xml:space="preserve">
+    <value>Zapis koji ste pokušali da izmenite modifikovao je drugi korisnik nakon što je dobio originalnu vrednost. Operacija izmene je otkazana. Ako i dalje želite da uredite ovaj zapis, osvežite stranicu, unesite izmene i ponovo kliknite na dugme Pošalji. U suprotnom kliknite na dugme Nazad.</value>
+  </data>
+  <data name="ConcurrencyExDelete" xml:space="preserve">
+    <value>Ne možete obrisati ovaj objekat! Već je obrisan od strane drugog korisnika!</value>
+  </data>
+  <data name="DuplicateFieldIds" xml:space="preserve">
+    <value>Duplikati id-ijeva polja</value>
+  </data>
+  <data name="ExportToTxt" xml:space="preserve">
+    <value>Izvezi u tekstualni format</value>
+  </data>
+  <data name="GenerateDocuments" xml:space="preserve">
+    <value>Generisanje dokumenata</value>
+  </data>
+  <data name="NumberOfDocuments" xml:space="preserve">
+    <value>Broj dokumenata</value>
+  </data>
+  <data name="Parameterize" xml:space="preserve">
+    <value>Parametrizirati</value>
+  </data>
+  <data name="SuccessProbability" xml:space="preserve">
+    <value>Verovatnoća uspeha</value>
+  </data>
+  <data name="DefineDistributionsParameters" xml:space="preserve">
+    <value>Definišite parametre distribucije</value>
+  </data>
+  <data name="DifferentOutcomes" xml:space="preserve">
+    <value>različitih ishoda. Trebalo da iznosi 1</value>
+  </data>
+  <data name="Mean" xml:space="preserve">
+    <value>Značenje</value>
+  </data>
+  <data name="MeanCentreDistribution" xml:space="preserve">
+    <value>Srednja vrednost („centar“) distribucije</value>
+  </data>
+  <data name="ProbabilitiesOfEachOfThe" xml:space="preserve">
+    <value>Verovatnoće svakog od</value>
+  </data>
+  <data name="SetNumberOfDocumentsToGenerate" xml:space="preserve">
+    <value>Podesite broj dokumenata za generisanje</value>
+  </data>
+  <data name="StandardDeviation" xml:space="preserve">
+    <value>Standardna devijacija</value>
+  </data>
+  <data name="StandardDeviationDistribution" xml:space="preserve">
+    <value>Standardna devijacija (širina ili „širina“) distribucije</value>
+  </data>
+  <data name="TheSuccessProbability" xml:space="preserve">
+    <value>Verovatnoća uspeha (p) u svakom ispitivanju. Opseg: 0 ≤ p ≤ 1.</value>
+  </data>
+  <data name="CreateDiagnosticReport" xml:space="preserve">
+    <value>Kreirati dijagnostički izveštaj</value>
+  </data>
+  <data name="CreateFormInstance" xml:space="preserve">
+    <value>Kreirati form instancu</value>
+  </data>
+  <data name="CreateThesaurus" xml:space="preserve">
+    <value>Kreirati tezaurus</value>
+  </data>
+  <data name="Simulator" xml:space="preserve">
+    <value>Simulator</value>
+  </data>
+  <data name="DefineForm" xml:space="preserve">
+    <value>Definišite formu</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Onemogućen</value>
+  </data>
+  <data name="OnGoing" xml:space="preserve">
+    <value>U toku</value>
+  </data>
+  <data name="ReadyForDataCapture" xml:space="preserve">
+    <value>Spreman za snimanje podataka</value>
+  </data>
+  <data name="ReadyForReview" xml:space="preserve">
+    <value>Spreman za pregled</value>
+  </data>
+  <data name="StatusGraph" xml:space="preserve">
+    <value>Grafikon stanja</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Ruski</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>Portugalski</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="FormState" xml:space="preserve">
+    <value>Stanje forme</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Beleške</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Korisnici</value>
+  </data>
+  <data name="User Administration" xml:space="preserve">
+    <value>Korisnička administracija</value>
+  </data>
+  <data name="Change_password" xml:space="preserve">
+    <value>Promeni lozinku</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Potvrdi lozinku</value>
+  </data>
+  <data name="Contact_phone" xml:space="preserve">
+    <value>Kontakt telefon</value>
+  </data>
+  <data name="Create_user" xml:space="preserve">
+    <value>Kreiraj korisnika</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova lozinka</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Stara lozinka</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Korisničko ime</value>
+  </data>
+  <data name="User_information" xml:space="preserve">
+    <value>Korisničke informacije</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Novi dokument</value>
+  </data>
+  <data name="NewDocumentFromReferral" xml:space="preserve">
+    <value>Novi dokument iz uputa</value>
+  </data>
+  <data name="NewEncounter" xml:space="preserve">
+    <value>Nova poseta</value>
+  </data>
+  <data name="AddNewEpisodeOfCare" xml:space="preserve">
+    <value>Nova</value>
+  </data>
+  <data name="EditPatient" xml:space="preserve">
+    <value>Promeni pacijenta</value>
+  </data>
+  <data name="Encounters" xml:space="preserve">
+    <value>Posete</value>
+  </data>
+  <data name="HomeStart" xml:space="preserve">
+    <value>Pocetna</value>
+  </data>
+  <data name="DownloadCsvs" xml:space="preserve">
+    <value>Preuzmite podatke u CSV formatu</value>
+  </data>
+  <data name="Document State" xml:space="preserve">
+    <value>Status dokumenta</value>
+  </data>
+  <data name="PostingDate" xml:space="preserve">
+    <value>Datum slanja</value>
+  </data>
+</root>

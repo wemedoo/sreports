@@ -1,0 +1,52 @@
+﻿
+@foreach (var item in Model.SelectItems[Model.SelectId].DefaultList)
+{
+    <div class="margin-top">
+        <span class="dermatitis-radiation">@item.CTCAETerm</span>
+    </div>
+
+    <div class="form-row margin-desc">
+
+        @ShowGradeRectangle(item, "Grade 1", "problem1", item.Grade1)
+        @ShowGradeRectangle(item, "Grade 2", "problem2", item.Grade2)
+        @ShowGradeRectangle(item,"Grade 3", "problem3", item.Grade3)
+        @ShowGradeRectangle(item, "Grade 4", "problem4", item.Grade4)
+
+    </div>
+
+    <input class="terms" type="hidden" id="terms" name="terms" value="@item.CTCAETerm" />
+    <input class="meddracode" type="hidden" id="meddracode" name="meddracode" value="@item.MedDraCode" />
+    <input class="description" type="hidden" id="description" name="description" value="@item.Grade1" />
+    <input class="description2" type="hidden" id="description2" name="description2" value="@item.Grade2" />
+    <input class="description3" type="hidden" id="description3" name="description3" value="@item.Grade3" />
+    <input class="description4" type="hidden" id="description4" name="description4" value="@item.Grade4" />
+}
+
+@functions{
+    object ShowGradeRectangle(CTCAEModel item, string grade, string id, string gradeDescription)
+    {
+        <ul class="rect-indicator rectangle-grade no-select">
+            <li class="grade-padding">
+                <div class="radiowrapper">
+                    @if (grade == item.Grade)
+                    {
+                        <input checked class="chk" type="radio" name="problem+@item.MedDraCode" id="@id+@item.MedDraCode" value="@grade" data-myval="@item.CTCAETerm" data-codes="@item.MedDraCode" />
+                        <label for="@id+@item.MedDraCode" class="grade">@grade</label>
+                    }
+                    else
+                    {
+                        <input class="chk" type="radio" name="problem+@item.MedDraCode" id="@id+@item.MedDraCode" value="@grade" data-myval="@item.CTCAETerm" data-codes="@item.MedDraCode" />
+                        <label for="@id+@item.MedDraCode" class="grade">@grade</label>
+                    }
+                </div>
+                <div class="grade-desc">
+                    <input class="chk" type="hidden" name="problem+@item.MedDraCode" id="@id+@item.MedDraCode" value="@gradeDescription" />
+                    <label for="@id+@item.MedDraCode" class="grades-desc">@gradeDescription</label>
+                </div>
+            </li>
+        </ul>
+
+        return null;
+    }
+}
+

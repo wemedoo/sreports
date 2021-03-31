@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "";
+}
+@model sReportsV2.Models.User.UserModelView
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="sotexsolutions.com">
+    <title>Login - sReports by niAnalytics</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/Content/login.min.css"/>
+</head>
+<body>
+    <div class="container">        
+        <div class="login">
+            <div class="login-header">
+                <img src="~/Content/img/niAnalytics-logo.png">
+                <h1>sReports</h1>
+            </div>
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <legend>Log in</legend>
+
+                <label for="loginUsername">Username</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"></span>
+                    </div>
+                    <input type="text" class="form-control" value="@(Model != null ? Model.Username : "")" placeholder="Enter username" aria-label="Username" aria-describedby="basic-addon1" name="username">
+                    <div class="w-100">
+                        @Html.ValidationMessageFor(m => m.Username)
+                    </div>
+                </div>
+
+                <label for="loginPassword">Password</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2"><i aria-hidden="true" class="fa fa-key"></i></span>
+                    </div>
+                    <input type="password" class="form-control" value="@(Model != null ? Model.Password : "")" placeholder="Enter password" aria-label="Password" aria-describedby="basic-addon2" name="password">
+                    <div class="w-100">
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                </div>
+                if (Html.ValidationMessage("General") != null)
+                {
+                    <div>@Html.ValidationMessage("General")</div>
+                }
+                if (Model != null && !string.IsNullOrWhiteSpace(Model.ReturnUrl.ToString()))
+                {
+                    <input type="hidden" value="@Model.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
+                }
+                else if (!string.IsNullOrEmpty(ViewBag.ReturnUrl as string))
+                {
+                    <input type="hidden" value="@ViewBag.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
+                }
+                <button class="btn btn-primary submit-button" id="loginButton" type="submit">Log in</button>
+                <!-- <span class="login-password-recover">
+            <a href="#">Forgot password?</a>
+        </span>-->
+            }
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+</body>
+</html>

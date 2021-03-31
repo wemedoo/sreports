@@ -1,0 +1,24 @@
+﻿@using sReportsV2.Domain.Entities.Encounter;
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Encounter;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Encounter_EOC }, { "linkLevel1", "/Encounter/GetAll" }, { "level2", ViewBag.EocId + "" }, { "activeLevel", 2 } })
+
+<div>
+    <input hidden class="form-control" type="text" id="eocID" value="@(ViewBag.EocId!= null ? ViewBag.EocId : "" )" />
+</div>
+<div class="table-container">
+    <div class="header">
+        @sReportsV2.Resources.TextLanguage.Encounter
+        <button class="btn btn-primary add-new-button" onclick="createEncounterEntry()"><i class="fas fa-plus-circle"></i>  @sReportsV2.Resources.TextLanguage.Create</button>
+    </div>
+    <div id="tableContainer">
+
+    </div>
+
+</div>
+@Scripts.Render("~/bundles/encounterGetAll")
+
+

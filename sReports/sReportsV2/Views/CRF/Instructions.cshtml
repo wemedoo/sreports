@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Instructions";
+    Layout = "~/Views/Shared/_Crf_Layout.cshtml";
+}
+
+<h2>Instructions</h2>
+
+@Html.Raw(@"DESIGN OF THIS CASE RECORD FORM eCRF\n
+<br />\n
+<br />This eCRF has been created to capture all data as required by the World Health Organization as defined in the WHO Novel Coronavirus (nCoV) Acute Respiratory Infection Clinical Characterisation Data Tool\n version 1.0 dated 25 Jan 2020.\n
+<br />\n
+<br />This CRF is divided into a “CORE” form and a “DAILY” form for daily laboratory and clinical data. In this eCRF, the form chapters have been designated as:\n
+<br />- Core Case Record Form – Admission\n
+<br />- Daily Case Record Form\n
+<br />- Core Case Record Form – Hospitalization and Discharge \n
+<br />\n
+<br />Form completion:\n
+<br />1. Complete the forms in the “Core Case Record Form – Admission” chapter on the first day of hospital admission.\n
+<br />2. Complete the forms in the “Daily Case Record Form” chapter the first day of hospital admission on ICU admission, and daily up to discharge or death. For each additional day, use the “XXXX” button to create a new chapter with the associated two forms for ICU admission, and each subsequent day until discharge or death.\n
+<br />3. Complete the forms in the “Core Case Record Form – Hospitalization and Discharge” chapter upon discharge or death.\n
+<br />\n
+<br />GENERAL GUIDANCE\n
+<br />The eCRF is designed to collect data obtained through examination, interview, and review of hospital notes. Data may be collected retrospectively if the patient is enrolled after the admission date.\n
+<br />As per World Health Organization instructions, no data capture fields have been provided for patient identifiers: this includes names, addresses, date of birth or place of birth.\n
+<br />\n
+<br />Participant Identification Numbers will include a 3-digit country code, a 3 digit site code, and a 4 digit participant number. Participant numbers should be assigned sequentially for each site beginning with 0001. In the case of a single site recruiting participants on different wards, or where it is otherwise difficult to assign sequential numbers, it is acceptable to assign numbers in blocks or incorporating alpha characters. E.g. Ward X will assign numbers from 0001 or A001 onwards and Ward Y will assign numbers from 5001 or B001 onwards. Enter the Participant Identification Number at the top of every page.\n
+<br />\n
+<br />The official printed paper CRFs, may be downloaded <a href='https://www.who.int/docs/default-source/coronaviruse/who-ncov-crf.pdf?sfvrsn=84766e69_2'>here</a> and may be used for later transfer of the data into an electronic database. The pCRF provided by the World Health Organization has additional information for clinicians and it is highly recommended that clinicians download it and become familiar with the information therein. In the case of a participant transferring between sites, it is preferred to maintain the same Participant Identification Number across the sites. When this is not possible, space for recording the new number is provided.\n
+<br />\n
+<br />Contributors need to:\n
+<br />1. Complete every line of every section, except for where the instructions say to skip a section based on certain responses.\n
+<br />2. Selections with circles (o) are single selection answers (choose one answer only). Selections with square boxes (☐) are multiple selection answers (choose as many answers as are applicable).\n
+<br />3. Mark ‘N/A’ for any results of laboratory values that are not available, not applicable or unknown.\n
+<br />\n
+<br />The World Health Organization has requested that all paper CRF data be transferred into a standardized electronic database such as this one. All paper CRFs need to be stored locally, do not send any forms with patient identifiable information to us via e-mail or post. All data should be transferred to a secure electronic database.".Replace("\\n", "</br>").Replace("\\n","</br>"))

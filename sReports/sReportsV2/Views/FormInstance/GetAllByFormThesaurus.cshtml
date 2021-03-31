@@ -1,0 +1,58 @@
+﻿
+@using sReportsV2.DTOs.FormInstance;
+@model sReportsV2.DTOs.FormInstance.DataOut.FormInstanceDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.CreateFormInstance;
+    FormInstanceFilterDataIn filterDataIn = ViewBag.FilterFormInstanceDataIn as FormInstanceFilterDataIn;
+
+}
+@if (!ViewBag.FilterFormInstanceDataIn.IsSimplifiedLayout)
+{
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Engine }, { "linkLevel1", "/FormInstance/GetAllFormDefinitions" }, { "level2", ViewBag.FilterFormInstanceDataIn.Title != null ? ViewBag.FilterFormInstanceDataIn.Title : "" }, { "activeLevel", 2 } })
+
+}
+else
+{
+    <script>
+        simplifiedApp = "/CRF/Edit"
+    </script>
+}
+<div class="d-none" id="thesaurusId">@ViewBag.FilterFormInstanceDataIn.ThesaurusId</div>
+<div class="table-container">
+    <div class="header">
+
+        @ViewBag.FilterFormInstanceDataIn.Title
+        @if (filterDataIn == null || !filterDataIn.IsSimplifiedLayout)
+        {
+            <div class="filter-button-collapse" data-toggle="collapse" data-target="#filterData" aria-expanded="false" aria-controls="filterData">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" /></svg>
+            </div>
+        }
+        @{ 
+            string current = Request.Params["ThesaurusId"];
+            string language = ViewBag.Language;
+        }
+        <button class="btn btn-primary add-new-button" onclick="createFormInstance('@current', '@language')"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        <button class="btn btn-primary add-new-button " onclick="createPdfFormInstance('@ViewBag.FilterFormInstanceDataIn.FormId')"><i class="fas fa-plus-circle"></i> Create new patient using PDF tool</button>
+        <button class="btn btn-primary add-new-button " onclick="showUploadModal(event)"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.UploadPdf</button>
+        @if (filterDataIn == null || !filterDataIn.IsSimplifiedLayout)
+        {
+            <button class="btn btn-primary add-new-button wide" onclick="downloadJsons(event)"><i class="fas fa-plus-circle"></i>@sReportsV2.Resources.TextLanguage.Export_Patholink</button>
+            <button class="btn btn-primary add-new-button wide" onclick="downloadTxt(event)"><i class="fas fa-plus-circle"></i>@sReportsV2.Resources.TextLanguage.ExportToTxt</button>
+            @*<button class="btn btn-primary add-new-button wide" onclick="redirectToDistributionParams('@ViewBag.FilterFormInstanceDataIn.ThesaurusId')"><i class="fas fa-plus-circle"></i>Distribution parameters</button>*@
+
+        }
+
+    </div>
+    @Html.Partial("FilterFormInstancesPartial")
+    <div id="tableContainer"></div>
+</div>
+
+@Html.Partial("~/Views/Pdf/Upload.cshtml")
+<script>
+    var filter = @Html.Raw(Json.Encode(ViewBag.FilterFormInstanceDataIn));
+</script>
+@Scripts.Render("~/bundles/GetAllByFormThesaurus")
+
+

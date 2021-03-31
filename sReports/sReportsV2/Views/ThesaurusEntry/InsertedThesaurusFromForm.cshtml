@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "InsertThesaurusFromForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using  sReportsV2.Domain.Entities.ThesaurusEntry
+@model List<ThesaurusEntry>
+
+    <ul class="list-group">
+        @foreach (ThesaurusEntry thesaurusEntry in Model)
+        {
+        <li class="list-group-item">
+            <div>@thesaurusEntry.O40MTId</div>
+            <div>@thesaurusEntry.Translations.FirstOrDefault().Language</div>
+            <div>@thesaurusEntry.Translations.FirstOrDefault().PreferredTerm</div>
+            <div>@thesaurusEntry.Translations.FirstOrDefault().Definition</div>
+        </li>
+        }
+    </ul>

@@ -1,0 +1,66 @@
+﻿
+@model sReportsV2.DTOs.Patient.PatientDataOut
+@{
+    string hasValue = "-hasvalue";
+ }
+
+<div id="createDocument">
+
+    <div class="form-element form-select">
+        <label for="episodes">@sReportsV2.Resources.TextLanguage.EpisodesOfCare:</label>
+        <select class="form-element-field @hasValue" id="episodes" name="Episodes">
+            <option value=""></option>
+            @foreach (var episode in Model.EpisodeOfCares)
+            {
+        <option @(ViewBag.EpisodeOfCareId == episode.Id ? "selected" : "") value="@episode.Id">@(episode.DiagnosisCondition) (@episode.Period.ToString()) - @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(episode.Status)</option>
+            }
+        </select>
+        <div class="form-element-bar"></div>
+    </div>
+    <div class="encountersContainer mb-3">
+        @foreach (var episode in Model.EpisodeOfCares)
+        {
+            <div class="form-element form-select @(ViewBag.EpisodeOfCareId == episode.Id ? "encounter-active" : "")" id="enc-@episode.Id" style="display:@(ViewBag.EpisodeOfCareId == episode.Id ? "" : "none") ;">
+                <label for="encounters-@episode.Id">@sReportsV2.Resources.TextLanguage.Encounters:</label>
+                <select class="form-element-field @hasValue" id="encounters-@episode.Id" name="Encounters-@episode.Id">
+                    <option value=" ">@sReportsV2.Resources.TextLanguage.NewEncounter</option>
+                    @foreach (var encounter in episode.Encounters)
+                    {
+                <option @(ViewBag.EncounterId == encounter.Id ? "selected" : "")
+                        value="@encounter.Id">@encounter.LastUpdate.Value.ToString("dd/MM/yyyy HH:mm") - @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(encounter.ServiceType.GetDisplay())</option>
+                    }
+                </select>
+                <div class="form-element-bar"></div>
+            </div>
+        }
+    </div>
+
+    @foreach (var episode in Model.EpisodeOfCares) 
+    {
+        foreach (var encounter in episode.Encounters) 
+        {
+            <div class="referral" id="referral-@episode.Id-@encounter.Id" style="display:@(ViewBag.EncounterId != encounter.Id ? "none" : string.Empty)">
+                @if (encounter.FormInstances != null && encounter.FormInstances.Count > 0) 
+                {
+                <label>@sReportsV2.Resources.TextLanguage.Create_referrals:</label>
+                 }
+                @foreach (var formInstance in encounter.FormInstances) 
+                {
+                <div class="content level-2 d-flex" id="@formInstance.Id" >
+                    <div class="referral-modal">@formInstance.Title</div>
+                    <div class="referral-checkbox justify-content-between">
+                        <label class="form-checkbox-label" id="checkBoxGroup">
+                            <input value="@formInstance.Id" class="form-checkbox-field" type="checkbox" name="referral-@encounter.Id" />
+                            <i class="form-checkbox-button"></i>
+                        </label>
+                    </div>
+                </div>
+                }
+            </div>
+        }
+    }
+
+    <button class="btn btn-primary right-button" onclick="documentNew(event)" >@sReportsV2.Resources.TextLanguage.NewDocument</button>
+    
+
+</div>

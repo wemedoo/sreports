@@ -1,0 +1,20 @@
+﻿@using sReportsV2.Domain.Entities.OrganizationEntities;
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Organization;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Organization }, { "activeLevel", 1 } })
+
+<div class="table-container">
+    <div class="header">
+        @sReportsV2.Resources.TextLanguage.Organizations
+        <button class="btn btn-primary add-new-button" onclick="createOrganizationEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+    </div>
+    <div id="tableContainer">
+
+    </div>
+
+</div>
+
+@Scripts.Render("~/bundles/organizationGetAll")

@@ -1,0 +1,32 @@
+﻿@using sReportsV2.DTOs.Form;
+<div class="modal fade" id="generateModal" tabindex="-1" role="dialog" aria-labelledby="generateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-small">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="generateModalLabel">@sReportsV2.Resources.TextLanguage.GenerateNew</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <form id="newGenerateForm">
+                        <label for="language" class="form-group col-md-2">@sReportsV2.Resources.TextLanguage.Language:</label>
+                        <div class="form-group col-md-12">
+                            <select class="form-control" id="language" name="Language" required>
+                                <option value=""></option>
+                                @foreach (var language in ViewBag.Languages)
+                                {
+                                    <option value="@language.Value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                                }
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="buttonSubmitGenerate" class="btn btn-primary" onclick="generateNewLanguage()" dismiss="modal">@sReportsV2.Resources.TextLanguage.Generate</button>
+            </div>
+        </div>
+    </div>
+</div>

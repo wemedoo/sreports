@@ -1,0 +1,38 @@
+﻿@using sReportsV2.DTOs.EpisodeOfCare
+
+    <div class="table-responsive">
+
+        <table class="table table-striped table-sm" id="idTable">
+            <thead>
+                <tr>
+                    <th>@sReportsV2.Resources.TextLanguage.Description</th>
+                    <th>@sReportsV2.Resources.TextLanguage.Status</th>
+                    <th>@sReportsV2.Resources.TextLanguage.EOC_PeriodStartDate</th>
+                    <th>@sReportsV2.Resources.TextLanguage.EOC_PeriodEndDate</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EpisodeOfCareDataOut entry in Model.Data)
+                {
+                    <tr id="row-@entry.Id" onclick="getAllEncounter('@entry.Id')">
+                        <td>@entry.Description</td>
+                        <td>@entry.Status</td>
+                        <td>@(entry.Period != null && entry.Period.StartDate != null ? entry.Period.StartDate.ToShortDateString() : "")</td>
+                        <td>@(entry.Period != null && entry.Period.EndDate != null ? entry.Period.EndDate.Value.ToShortDateString() : "")</td>
+                        <td>
+                            <i class="fas fa-folder folder-color"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (Model.Data.Count == 0)
+        {
+            <div class="no-result">No result!</div>
+        }
+        <div class="pager-container">
+            @Html.Partial("Pagination")
+        </div>
+    </div>
+

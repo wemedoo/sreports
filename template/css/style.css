@@ -1,0 +1,173 @@
+@charset "UTF-8";
+/*--------------------SETTINGS--------------------*/
+a {
+  color: #184d40;
+}
+
+a:focus, a:hover {
+  color: #2a796b;
+  text-decoration: none;
+}
+
+/*--------------------!SETTINGS--------------------*/
+/*--------------------TOP BAR--------------------*/
+.top-bar {
+  background-color: #2a796b;
+}
+
+.top-bar .nav-item > a {
+  color: #fff;
+}
+
+.navbar-brand img {
+  max-height: 50px;
+}
+
+.navbar-brand a {
+  color: #fff;
+}
+
+.menu-shrink-btn {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 20px;
+  height: 40px;
+  width: 40px;
+}
+
+.menu-shrink-btn:active, .menu-shrink-btn:focus, .menu-shrink-btn:hover {
+  outline: none;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-submenu .dropdown-toggle {
+  position: relative;
+  padding-left: 40px;
+}
+
+.dropdown-submenu .dropdown-toggle::after {
+  position: absolute;
+  left: 20px;
+  top: 10px;
+}
+
+/*--------------------!TOP BAR--------------------*/
+/*--------------------SIDEBAR--------------------*/
+.sidebar {
+  background-color: #f8f8f8;
+  border-right: 1px solid #dee2e6;
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  max-height: 100%;
+  z-index: 999;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+}
+
+.sidebar .nav .nav-link {
+  font-size: 18px;
+  display: block;
+  border-bottom: 1px solid #dee2e6;
+  width: 299px;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+}
+
+.sidebar .nav .nav-link:focus, .sidebar .nav .nav-link:hover {
+  background-color: #eee;
+}
+
+.sidebar .nav .nav-link i {
+  padding-left: 10px;
+  padding-right: 15px;
+}
+
+.sidebar .nav-link[data-toggle].collapsed:after {
+  content: "▾";
+}
+
+.sidebar .nav-link[data-toggle]:not(.collapsed):after {
+  content: "▴";
+}
+
+.main-content {
+  padding: 15px;
+  margin-left: 300px;
+  width: 100%;
+}
+
+.sidebar-shrink .sidebar {
+  width: 65px;
+  overflow: hidden;
+}
+
+.sidebar-shrink .sidebar .nav-link > span {
+  opacity: 0;
+}
+
+.sidebar-shrink .sidebar:focus, .sidebar-shrink .sidebar:hover {
+  width: 300px;
+}
+
+.sidebar-shrink .sidebar:focus .nav-link > span, .sidebar-shrink .sidebar:hover .nav-link > span {
+  opacity: 1;
+}
+
+.sidebar-shrink .main-content {
+  margin-left: 65px;
+}
+
+/*--------------------!SIDEBAR--------------------*/
+/*--------------------LOGIN--------------------*/
+.login {
+  position: absolute;
+  width: 360px;
+  z-index: 15;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.login .login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login form {
+  padding: 30px;
+  background-color: #f8f8f8;
+}
+
+.login .login-password-recover {
+  float: right;
+  padding-top: 10px;
+}
+
+.login .btn-primary {
+  background-color: #2a796b;
+  border-color: #2a796b;
+}
+
+.login .btn-primary:focus, .login .btn-primary:hover, .login .btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #184d40;
+  border-color: #184d40;
+}
+
+.login .btn-primary:focus, .login .btn-primary:not(:disabled):not(.disabled).active:focus, .login .btn-primary:not(:disabled):not(.disabled):active:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+}
+
+.login .form-control:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+  border-color: #2a796b;
+}
+
+/*--------------------!LOGIN--------------------*/
+/*# sourceMappingURL=style.css.map */

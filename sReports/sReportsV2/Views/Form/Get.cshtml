@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Form";
+    var controller = ViewContext.Controller as sReportsV2.Controllers.FormController;
+}
+@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+
+<h1 class="page-title">@Model.Title</h1>
+<ul class='nav nav-tabs'>
+    @foreach (FormChapterDataOut c in Model.Chapters)
+    {
+        <li class="nav-item"><a data-toggle="tab" class="nav-link chapter-selector" href="#@c.Id">@c.Title</a></li>
+    }
+</ul>
+<div class='tab-content'>
+    @foreach (FormChapterDataOut c in Model.Chapters)
+    {
+        <div id='@c.Id' class='tab-pane fade in chapter'>
+            <div class='card'>
+                @if (!string.IsNullOrEmpty(c.Description))
+                {
+                    <div class='card-header'>@Html.Raw(c.Description)</div>
+                }
+                <div class='card-body'>
+                    @foreach (FormPageDataOut p in c.Pages)
+                    {
+                        <div class='page' id='@p.Id'>
+                            @if (!string.IsNullOrEmpty(p.Title))
+                            {
+                                <h2>@p.Title</h2>
+                            }
+                            @if (!string.IsNullOrEmpty(p.Description))
+                            {
+                                <div class='page-description'>@p.Description</div>
+                            }
+
+                            @if (p.LayoutStyle != null && p.LayoutStyle.LayoutType.Equals(sReportsV2.Domain.Enums.LayoutType.Vertical))
+                            {
+                                foreach (FormFieldSetDataOut fs in p.FieldSets)
+                                {
+                                    <div class="row">
+                                        <fieldset class='form-fieldset' page-id='@p.Id'>
+                                            @if (!string.IsNullOrEmpty(fs.Label))
+                                            {
+                                                <h3>@fs.Label</h3>
+                                            }
+                                            @if (!string.IsNullOrEmpty(fs.Description))
+                                            {
+                                                <div class='form-fieldset-description'>@Html.Raw(fs.Description)</div>
+                                            }
+
+                                            @foreach (FormFieldDataOut field in fs.Fields)
+                                            {
+                                                if (!string.IsNullOrEmpty(field.Value))
+                                                {
+                                                    @field.Value
+                                                }
+                                            }
+                                        </fieldset>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    @foreach (FormFieldSetDataOut fs in p.FieldSets)
+                                    {
+                                        <fieldset class='form-fieldset col-md-6' page-id='@p.Id'>
+                                            @if (!string.IsNullOrEmpty(fs.Label))
+                                            {
+                                                <h3>@fs.Label</h3>
+                                            }
+                                            @if (!string.IsNullOrEmpty(fs.Description))
+                                            {
+                                                <div class='form-fieldset-description'>@fs.Description</div>
+                                            }
+
+                                            @foreach (FormFieldDataOut field in fs.Fields)
+                                            {
+                                                if (!string.IsNullOrEmpty(field.Value))
+                                                {
+                                                    @field.Value
+                                                }
+
+                                            }
+                                        </fieldset>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+
+                </div>
+                <div class='card-footer'>
+                    <ul class='nav nav-pills float-left'>
+                        @foreach (FormPageDataOut p in c.Pages)
+                        {
+                            <li class="nav-item page-selector"><a class="nav-link" data-toggle='pill' href='#@p.Id' onclick="showPageById('@p.Id')">@p.Title</a></li>
+                        }
+                    </ul>
+
+                    <div>
+                        <div class='float-right'>
+                            <button class="btn btn-primary btn-nav" type='button' id='prevBtn' onclick='nextPrevPage(-1)'> << </button>
+                            <button class="btn btn-primary btn-nav" type='button' id='nextBtn' onclick='nextPrevPage(1)'> >> </button>
+                            <input type="submit" class="btn btn-primary" id='submitBtn' value="Submit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/sReports/form.js"></script>

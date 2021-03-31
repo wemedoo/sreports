@@ -1,0 +1,41 @@
+﻿@model sReportsV2.DTOs.EpisodeOfCare.DiagnosticReportCreateDataOut
+@using sReportsV2.DTOs.FormInstance.DataOut
+@{
+    ViewBag.Title = "CreateDiagnosticReport";
+    ViewBag.Action = "/DiagnosticReport/Create?episodeOfCareId=" + Model.EpisodeOfCare.Id;
+    ViewBag.Referrals = Model.Referrals;
+}
+
+@if (ViewData.ModelState.Keys.Contains("ConcurrencyException"))
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationMessage("ConcurrencyException")
+    </div>
+}
+<div class="col">
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Partial("~/Views/EpisodeOfCare/PatientInfo.cshtml", Model.Patient)
+        </div>
+        <div class="col-md-6">
+            @Html.Partial("~/Views/EpisodeOfCare/EpisodeOfCareInfo.cshtml")
+        </div>
+    </div>
+</div>
+
+<div class="col">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-title">@Model.Form.Title</h1>
+        </div>
+        <div class="col-12">
+            @Html.Partial("~/Views/DiagnosticReport/ReferrableFields.cshtml", Model.Form.ReferrableFields)
+        </div>
+    </div>
+</div>
+
+<div class="col">
+    @Html.Partial("~/Views/Form/FormPartial.cshtml", Model.Form)
+</div>
+
+

@@ -1,0 +1,9 @@
+﻿@model sReportsV2.DTOs.Encounter.EncounterDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Encounter_Create;
+    string hasValue = "-hasvalue";
+}
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Encounter_EOC }, { "linkLevel1", "/Encounter/GetAll" }, { "level2", ViewBag.EpisodeOfCareId }, { "linkLevel2", "/Encounter/GetAllEncounter?eocId=" + ViewBag.EpisodeOfCareId }, { "level3", Model != null ? Model.EpisodeOfCareId : @sReportsV2.Resources.TextLanguage.Encounter_Create }, { "activeLevel", 3 } })
+
+@Html.Partial("Encounter", Model);

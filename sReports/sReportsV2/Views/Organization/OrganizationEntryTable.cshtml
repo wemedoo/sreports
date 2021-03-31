@@ -1,0 +1,41 @@
+﻿@using sReportsV2.DTOs.Organization
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>@sReportsV2.Resources.TextLanguage.Activity</th>
+                <th>@sReportsV2.Resources.TextLanguage.Name</th>
+                <th>@sReportsV2.Resources.TextLanguage.Alias</th>
+                <th>@sReportsV2.Resources.TextLanguage.Address</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (OrganizationDataOut entry in Model.Data)
+            {
+                <tr id="row-@entry.Id" onclick="clickedRow(event,'@entry.Id')">
+                    <td>@(entry.Activity ? sReportsV2.Resources.TextLanguage.Active : sReportsV2.Resources.TextLanguage.Inactive)</td>
+                    <td>@entry.Name</td>
+                    <td>@entry.Alias</td>
+                    <td> @(entry.Address != null ? entry.Address.City +", "+entry.Address.PostalCode+ ", " + entry.Address.Country : "")</td>
+                    <td>
+                        <div class="dropdown show">
+                            <a class="" href="#" role="button" id="dropdownMenuLink-@entry.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-@entry.Id">
+                                
+                                <a class="dropdown-item" href="#" onclick="editEntity(event,'@entry.Id')">@sReportsV2.Resources.TextLanguage.Edit</a>
+                                <!--<a class="dropdown-item" href="#">Edit</a>-->
+                                <a class="dropdown-item" href="#" onclick="removeOrganizationEntry(event, '@entry.Id', '@entry.LastUpdate.Value.ToString("o")')">@sReportsV2.Resources.TextLanguage.Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pager-container">
+        @Html.Partial("Pagination")
+    </div>
+</div>

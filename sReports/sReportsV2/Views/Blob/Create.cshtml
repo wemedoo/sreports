@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+    <form id="imageUpload" enctype="multipart/form-data" onsubmit="return uploadToBlob()">
+        <input type="file" name="imageFile" id="imageFile" />
+
+        <button type="submit">Upload</button>
+        <input class="image-url" type="text" id="generatedUrl" disabled/>
+
+    </form>
+
+
+
+<script>
+    function uploadToBlob() {
+        var myFile = document.getElementById("imageFile").files[0];
+        let data = [{ id: 'generatedUrl', content: myFile}]
+        sendFileData(data, setImageUrl);
+        return false;
+    }
+</script>

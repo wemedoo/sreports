@@ -1,0 +1,109 @@
+﻿@model sReportsV2.DTOs.Encounter.EncounterDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Encounter_Create;
+    string hasValue = "-hasvalue";
+}
+
+    <div class="accordion">
+        <div class="header-accordion always-collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="encounter">
+            @sReportsV2.Resources.TextLanguage.Encounter
+        </div>
+        <div class="accordion-content tree collapse show" id="encounter">
+            <div id="container_demo">
+                <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                <a class="hiddenanchor" id="toregister"></a>
+                <a class="hiddenanchor" id="tologin"></a>
+                <div id="wrapper">
+                    <form method="post" id="idEPisodeOfCare" class="formEpisodeOfCare" onsubmit="return submitForm(this)" novalidate>
+                        <div id="register" class="animate form">
+
+                            <input type="hidden" class="form-control" id="eocId" value="@(Model != null && Model.Id != null && ViewBag.EpisodeOfCareId!=null ? Model.EpisodeOfCareId : ViewBag.EpisodeOfCareId )" />
+                            <input type="hidden" class="form-control" id="id" value="@(Model != null && Model.Id != null ? Model.Id : "" )" />
+                            <input type="hidden" class="form-control" id="lastUpdate" value="@(Model != null && Model.LastUpdate != null ?  Model.LastUpdate.Value.ToString("o") : null)" />
+
+                            <div class="form-row">
+                                <div class="col-md-6">
+
+                                    <div class="form-element form-select">
+                                        <label for="status" class="form-element-label">@sReportsV2.Resources.TextLanguage.Status:</label>
+                                        <select class="form-element-field @hasValue" id="status" name="Status" required @(Model != null && Model.Status != null ? "-hasvalue" : "")>
+                                            <option value=""></option>
+                                            @foreach (var statusOption in ViewBag.EncounterStatuses)
+                                            {
+                                                <option value="@statusOption.Thesaurus.O40MTId" @(Model != null && Model.Status != null && Model.Status.Thesaurus.O40MTId.Equals(statusOption.Thesaurus.O40MTId) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(statusOption.Label)</option>
+                                            }
+                                        </select>
+                                        <div class="form-element-bar"></div>
+                                    </div>
+
+                                    <div class="form-element form-select">
+                                        <label for="classification" class="form-element-label">@sReportsV2.Resources.TextLanguage.Encounter_Classification_Name:</label>
+                                        <select class="form-element-field @hasValue" id="classification" name="Classification" required @(Model != null && Model.Class != null ? "-hasvalue" : "")>
+                                            <option value=""></option>
+                                            @foreach (var classification in ViewBag.EncounterClassifications)
+                                            {
+                                                <option value="@classification.Thesaurus.O40MTId" @(Model != null && Model.Class != null && Model.Class.Thesaurus != null && Model.Class.Thesaurus.O40MTId.Equals(classification.Thesaurus.O40MTId) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(classification.Label)</option>
+                                            }
+                                        </select>
+                                        <div class="form-element-bar"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-element form-select">
+                                        <label for="type" class="form-element-label">@sReportsV2.Resources.TextLanguage.Encounter_Type_Name:</label>
+                                        <select class="form-element-field @hasValue" id="type" name="Type" required @(Model != null && Model.Type != null ? "-hasvalue" : "")>
+                                            <option value=""></option>
+                                            @foreach (var encounterType in ViewBag.EncounterType)
+                                            {
+                                                <option value="@encounterType.Thesaurus.O40MTId" @(Model != null && Model.Type != null && Model.Type.Thesaurus != null && Model.Type.Thesaurus.O40MTId.Equals(encounterType.Thesaurus.O40MTId) ? "selected -has-value" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(encounterType.Label)</option>
+                                            }
+                                        </select>
+                                        <div class="form-element-bar"></div>
+                                    </div>
+
+                                    <div class="form-element form-select">
+                                        <label for="servicetype" class="form-element-label">@sReportsV2.Resources.TextLanguage.Encounter_ServiceType_Name:</label>
+                                        <select class="form-element-field @hasValue" id="servicetype" name="ServiceType" required @(Model != null && Model.ServiceType != null ? "-hasvalue" : "")>
+                                            <option value=""></option>
+                                            @foreach (var encounterServiceType in ViewBag.ServiceTypes)
+                                            {
+                                                <option value="@encounterServiceType.ThesaurusId" @(Model != null && Model.ServiceType != null && Model.ServiceType.Display != null && Model.ServiceType.Display.Equals(encounterServiceType.Display) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(encounterServiceType.Display)</option>
+                                            }
+                                        </select>
+                                        <div class="form-element-bar"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-element">
+                                    <input class="btn btn-primary submit-button right-button" type="submit" value="@sReportsV2.Resources.TextLanguage.Save" />
+                                    @if (ViewBag.IsFromPatient == null)
+                                    {
+                                        <button class="btn btn-danger right-button" type="button" onclick="cancelEncounterEdit($('#eocId').val())" value="Back">@sReportsV2.Resources.TextLanguage.Back</button>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+<script src="~/Scripts/sReports/encounter.js"></script>

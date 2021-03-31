@@ -1,0 +1,150 @@
+﻿@using sReportsV2.DTOs.Common;
+@using sReportsV2.DTOs.Common.DTO;
+
+@model sReportsV2.DTOs.Common.DataOut.UserDataDataOut
+@{
+    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.User_Administration;
+    var activeUser = (Model != null && Model.Id != null ? Model.Id : "");
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.User }, { "linkLevel1", "/User/GetAll" }, { "level2", Model != null ? Model.Username : sReportsV2.Resources.TextLanguage.Create_user }, { "activeLevel", 2 } })
+
+    <form method="post" id="idUserInfo" class="formUserInfo" onsubmit="return submitForm(this, event)" novalidate>
+        <input type="hidden" class="form-control" id="userId" name="Id" value="@( Model != null && Model.Id != null ? Model.Id : "")" />
+        <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
+
+        <div class="form-row">
+
+            <div class="col-md-6">
+
+                <div class="accordion">
+                    <div class="header-accordion always-collapsed" aria-expanded="false" aria-controls="userInfo">
+                        @sReportsV2.Resources.TextLanguage.User_information
+                        @if (activeUser == ViewBag.UserCookieData.Id)
+                        {
+                        <button class="btn btn-primary add-new-button" type="button" onclick="showChangePasswordModal(event, '@Model.Id')">
+                            <i class="fas fa-plus-circle"></i>
+                            @sReportsV2.Resources.TextLanguage.Change_password
+                        </button>
+                        }
+                    </div>
+
+                    <div class="accordion-content collapse show" id="userInfo">
+                        <div class="form-element">
+                            <label for="name" class="form-element-label">@sReportsV2.Resources.TextLanguage.Username:</label>
+                            <input required class="form-element-field" type="text" id="username" name="Username" value="@(Model != null && Model.Username != null ? Model.Username : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="firstName" class="form-element-label">@sReportsV2.Resources.TextLanguage.FirstName:</label>
+                            <input required class="form-element-field" type="text" id="firstName" name="FirstName" value="@(Model != null && Model.FirstName != null ? Model.FirstName : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="lastName" class="form-element-label">@sReportsV2.Resources.TextLanguage.LastName:</label>
+                            <input required class="form-element-field" type="text" id="lastName" name="LastName" value="@(Model != null && Model.LastName != null ? Model.LastName : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="email" class="form-element-label">@sReportsV2.Resources.TextLanguage.Email:</label>
+                            <input required class="form-element-field email" type="text" id="email" name="Email" value="@(Model != null && Model.Email != null ? Model.Email : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                        <div class="form-element">
+                            <label for="contactPhone" class="form-element-label">@sReportsV2.Resources.TextLanguage.Contact_phone:</label>
+                            <input required class="form-element-field" type="text" id="contactPhone" name="ContactPhone" value="@(Model != null && Model.ContactPhone != null ? Model.ContactPhone : "")" />
+                            <div class="form-element-bar"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="header-accordion always-collapsed" aria-expanded="false" aria-controls="roles">
+                        @sReportsV2.Resources.TextLanguage.Roles
+                    </div>
+
+                    <div class="accordion-content collapse show" id="roles">
+
+                        <div class="form-element">
+                            <label class="form-checkbox-legend">@sReportsV2.Resources.TextLanguage.Roles:</label>
+                            <div class="form-row form-element form-checkbox form-checkbox-inline form-margin chk2">
+                                <div class="form-margin col-md-6" id="checkBoxGroup2">
+                                    @for (int i = 0; i < @ViewBag.Roles.Count; i++)
+                                    {
+                                        <label class="form-checkbox-label" id="checkBoxGroup2">
+                                            <input value="@ViewBag.Roles[i]" class="form-checkbox-field chk2" type="checkbox" id="@ViewBag.Roles[i]" checked="@(Model !=null && Model.Roles != null? Model.Roles.Contains(ViewBag.Roles[i]): false)" />
+                                            <i class="form-checkbox-button"></i>
+                                            <span>@ViewBag.Roles[i]</span>
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="accordion">
+                    <div class="header-accordion always-collapsed" aria-expanded="false" aria-controls="organizations">
+                        @sReportsV2.Resources.TextLanguage.Organizations
+                    </div>
+
+                    <div class="accordion-content collapse show" id="organizations">
+
+                        <div class="form-element">
+                            <label class="form-checkbox-legend">@sReportsV2.Resources.TextLanguage.Organizations:</label>
+                            <div class="form-row form-element form-checkbox form-checkbox-inline form-margin chk">
+                                <div class="form-margin col-md-6" id="checkBoxGroup">
+                                    @{
+                                        int length = ViewBag.Organizations.Count;
+                                        int half = length / 2;
+                                    }
+                                    @for (int i = 0; i < half; i++)
+                                    {
+                                        <label class="form-checkbox-label" id="checkBoxGroup">
+                                            <input value="@ViewBag.Organizations[i].Id" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.Organizations[i].Id" checked="@(Model != null && Model.Organizations != null ? Model.Organizations.Any(x => x.Id == ViewBag.Organizations[i].Id) : false)" />
+                                            <i class="form-checkbox-button"></i>
+                                            <span>@ViewBag.Organizations[i].Name</span>
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                                <div class="form-margin col-md-6" id="checkBoxGroup">
+                                    @for (int i = half; i < length; i++)
+                                    {
+                                        <label class="form-checkbox-label" id="checkBoxGroup">
+                                            <input value="@ViewBag.Organizations[i].Id" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.Organizations[i].Id" checked="@(Model !=null && Model.Organizations != null? Model.Organizations.Any(x => x.Id == ViewBag.Organizations[i].Id) : false)" />
+                                            <i class="form-checkbox-button"></i>
+                                            <span>@ViewBag.Organizations[i].Name</span>
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-element">
+            <input class="btn btn-primary submit-button right-button" type="submit" value="@sReportsV2.Resources.TextLanguage.Submit" />
+            <button class="btn btn-danger right-button" type="button" onclick="cancelUserEdit()" value="Back">@sReportsV2.Resources.TextLanguage.Back</button>
+        </div>
+    </form>
+@Html.Partial("ChangePasswordModal")
+@Scripts.Render("~/bundles/user")
+

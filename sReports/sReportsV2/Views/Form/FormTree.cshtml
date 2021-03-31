@@ -1,0 +1,120 @@
+﻿@using sReportsV2.Models.Form.Tree
+
+@model TreeViewModel
+
+@foreach (FormTreeViewModel form in Model.Forms)
+{
+    <div class="tree" style="padding: 10px;" onclick="loadDocumentProperties('@form.Id')">
+        @if (form.ThesaurusId != null && form.ThesaurusId.Equals(Model.O4MtId))
+        {
+            <div class="tree-item main">@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "")</div>
+        }
+        else
+        {
+            foreach (FormTreeChapterViewModel chapter in form.Chapters)
+            {
+                if (chapter.ThesaurusId != null && chapter.ThesaurusId.Equals(Model.O4MtId))
+                {
+                    <div class="tree-item">
+                        <span>@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "")</span>
+                        <div class="tree-item main">
+                            <span>@(chapter.Title)@(chapter.ThesaurusId != null ? "(" + chapter.ThesaurusId + ")" : "")</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                    foreach (FormTreePageViewModel page in chapter.Pages)
+                    {
+                        if (page.ThesaurusId != null && page.ThesaurusId.Equals(Model.O4MtId))
+                        {
+                            <div class="tree-item">
+                                <span>@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "")</span>
+                                <div class="tree-item">
+                                    <span>@(chapter.Title)@(chapter.ThesaurusId != null ? "(" + chapter.ThesaurusId + ")" : "")</span>
+                                    <div class="tree-item main">
+                                        <span>@(page.Title)@(page.ThesaurusId != null ? "(" + page.ThesaurusId + ")" : "")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (FormTreeFieldSetViewModel fs in page.FieldSets)
+                            {
+                                if (fs.ThesaurusId != null && fs.ThesaurusId.Equals(Model.O4MtId))
+                                {
+                                    <div class="tree-item">
+                                        <span>@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "")</span>
+                                        <div class="tree-item">
+                                            <span>@(chapter.Title)@(chapter.ThesaurusId != null ? "(" + chapter.ThesaurusId + ")" : "")</span>
+                                            <div class="tree-item">
+                                                <span>@(page.Title)@(page.ThesaurusId != null ? "(" + page.ThesaurusId + ")" : "")</span>
+                                                <div class="tree-item main">
+                                                    <span>@(fs.Label)@(fs.ThesaurusId != null ? "(" + fs.ThesaurusId + ")" : "")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    foreach (FormTreeFieldViewModel field in fs.Fields)
+                                    {
+                                        if (field.ThesaurusId != null && field.ThesaurusId.Equals(Model.O4MtId))
+                                        {
+                                            <div class="tree-item">
+                                                <span>@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "")</span>
+                                                <div class="tree-item">
+                                                    <span>@(chapter.Title)@(chapter.ThesaurusId != null ? "(" + chapter.ThesaurusId + ")" : "")</span>
+                                                    <div class="tree-item">
+                                                        <span> @(page.Title)@(page.ThesaurusId != null ? "(" + page.ThesaurusId + ")" : "")</span>
+                                                        <div class="tree-item">
+                                                            <span>@(fs.Label)@(fs.ThesaurusId != null ? "(" + fs.ThesaurusId + ")" : "")</span>
+                                                            <div class="tree-item main">
+                                                                <span>@(field.Label)@(field.ThesaurusId != null ? "(" + field.ThesaurusId + ")" : "")</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            foreach (FormTreeFieldValueViewModel value in field.Values)
+                                            {
+                                                if (value.ThesaurusId != null && value.ThesaurusId.Equals(Model.O4MtId))
+                                                {
+
+                                                    <div class="tree-item">
+                                                        <span>@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "")</span>
+                                                        <div class="tree-item">
+                                                            <span>@(chapter.Title)@(chapter.ThesaurusId != null ? "(" + chapter.ThesaurusId + ")" : "")</span>
+                                                            <div class="tree-item">
+                                                                <span>@(page.Title)@(page.ThesaurusId != null ? "(" + page.ThesaurusId + ")" : "")</span>
+                                                                <div class="tree-item">
+                                                                    <span> @(fs.Label)@(fs.ThesaurusId != null ? "(" + fs.ThesaurusId + ")" : "")</span>
+                                                                    <div class="tree-item">
+                                                                        <span>@(field.Label)@(field.ThesaurusId != null ? "(" + field.ThesaurusId + ")" : "")</span>
+                                                                        <div class="tree-item main">
+                                                                            <span>@(value.Label)@(value.ThesaurusId != null ? "(" + value.ThesaurusId + ")" : "")</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </div>
+}

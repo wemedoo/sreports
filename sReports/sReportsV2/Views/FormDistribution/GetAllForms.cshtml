@@ -1,0 +1,30 @@
+﻿@using sReportsV2.DTOs.Form;
+@using sReportsV2.DTOs.Form.DataOut;
+
+@model sReportsV2.DTOs.Pagination.PaginationDataOut<FormDataOut, FormFilterDataIn>
+
+<div class="table-container">
+    <div class="header">
+        @sReportsV2.Resources.TextLanguage.Form_definitions
+    </div>
+    <div id="formsTableContainer">
+
+    </div>
+</div>
+<script>
+    var formsCurrentPage = 1;
+    $(document).ready(function () {
+        let tableConfig = {
+            "url": "/FormDistribution/ReloadForms",
+            "container": "formsTableContainer",
+            "pageNumIdentifier": "formsCurrentPage",
+        }
+        tableConfigs.push(tableConfig);
+        reloadSecondaryTable("/FormDistribution/ReloadForms", "formsTableContainer", "formsCurrentPage")
+    })
+</script>
+
+<script src="~/Scripts/sReports/simulatorFormsTable.js"></script>
+
+
+

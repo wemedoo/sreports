@@ -1,0 +1,18 @@
+﻿@using sReportsV2.Models.Umls
+    <ul class="list-group">
+        @if (Model.Result.Count > 0)
+        {
+            foreach (ConceptDefinitionViewModel definition in Model.Result)
+            {
+                <li class="list-group-item single-definition" onclick="selectDefinition(event)">
+                    <span class="root-source" data-field="rootSource">@definition.RootSource:</span> <span> @Html.Raw(definition.Value)</span>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="list-group-item single-definition" onclick="selectDefinition(event)">
+                NO_RESULT
+            </li>
+        }
+    </ul>

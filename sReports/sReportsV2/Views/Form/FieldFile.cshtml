@@ -1,0 +1,38 @@
+﻿@using sReportsV2.DTOs.Field.DataOut;
+@model FieldFileDataOut
+@{
+    bool isChapterReadonly = ViewBag.Chapter;
+}
+
+<fieldset id="@((Model as FieldDataOut).Id)" class="form-element form-input" @Html.Raw(Model.Visibility)>
+    <label for="@Model.Id" class="form-element-label">
+        @Html.Raw(Model.FullLabel)
+        @if (Model.Help != null)
+        {
+            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+        }
+    </label>
+    @if (Model.IsReadonly || isChapterReadonly)
+    {
+        <input type="file" class="form-element-field" data-id="field-@Model.Id" placeholder="@Model.DescriptionLabel" disabled />
+        <input type="hidden" class="form-element-field" data-id="field-@Model.Id" placeholder="@Model.DescriptionLabel" readonly />
+    }
+    else
+    {
+        <input type="file" class="form-element-field" data-id="field-@Model.Id" placeholder="@Model.DescriptionLabel" />
+        <input type="hidden" id="field-@Model.Id" name="@Model.Id" placeholder="@Model.DescriptionLabel" value="@(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) ? Model.Value[0] :"")" />
+    }
+    <div class="form-element-bar"></div>
+
+    <div class="form-element-description">
+        @Html.Raw(Model.Description)
+    </div>
+
+    @if (Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]))
+    {
+        <div class="form-image-contaier">
+            <img src="@Model.Value[0]" />
+        </div>
+    }
+</fieldset>
+

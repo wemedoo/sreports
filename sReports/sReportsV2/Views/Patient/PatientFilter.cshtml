@@ -1,0 +1,83 @@
+﻿@using sReportsV2.DTOs.Patient;
+<div class="col-lg-12 collapse-filter-container collapse show" id="collapseFilter">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Identifier_type
+                </div>
+                <select class="custom-select" id="identifierType">
+                    <option value="">@sReportsV2.Resources.TextLanguage.SelectIdentifier</option>
+                    <option @(Model.DataIn.IdentifierType == "O4MtPatientId" ? "selected" : "") value="O4MtPatientId">@sReportsV2.Resources.TextLanguage.IdentifierType_PatientID</option>
+                    @foreach (var option in ViewBag.IdentifierTypes as List<IdentifierTypeDataOut>)
+                    {
+                        <option value="@option.O4MtId" @(Model.DataIn.IdentifierType == option.O4MtId ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option.Name)</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="" id="identifier-value">
+                    <div class="label">@sReportsV2.Resources.TextLanguage.Identifier_value</div>
+                    <input class="form-control" id="identifierValue" value="@(Model != null && Model.DataIn != null ? Model.DataIn.IdentifierValue : "")" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Family
+                </div>
+                <input type="text" class="form-control" id="family" value="@(Model != null && Model.DataIn != null ? Model.DataIn.Family : "")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.Given
+                </div>
+                <input type="text" class="form-control" id="given" value="@(Model != null && Model.DataIn != null ? Model.DataIn.Given : "")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.BirthDate
+                </div>
+                <input type="date" class="form-control" id="birthDate" value="@(Model != null && Model.DataIn != null && Model.DataIn.BirthDate!= null ? Model.DataIn.BirthDate.ToString("yyyy-MM-dd") : "")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="label">
+                    @sReportsV2.Resources.TextLanguage.City
+                </div>
+                <input type="text" class="form-control" id="city" value="@(Model != null && Model.DataIn != null ? Model.DataIn.City : "")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="text">
+                    @sReportsV2.Resources.TextLanguage.Country
+                </div>
+                <input type="text" class="form-control" id="country" value="@(Model != null && Model.DataIn != null ? Model.DataIn.Country : "")">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="filter-item">
+                <div class="text">
+                    @sReportsV2.Resources.TextLanguage.Postal_code
+                </div>
+                <input type="text" class="form-control" id="postalCode" value="@(Model != null && Model.DataIn != null ? Model.DataIn.PostalCode : "")">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="button-wrapper-filter" id="submitFilterButton">
+                <button class="btn btn-primary" onclick="filterData()"><i class="fas fa-filter"></i> @sReportsV2.Resources.TextLanguage.Filter</button>
+            </div>
+        </div>
+    </div>
+</div>

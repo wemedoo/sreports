@@ -1,0 +1,29 @@
+﻿@using sReportsV2.DTOs.Organization.DataOut;
+@model List<OrganizationUsersCountDataOut>
+
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Organization</th>
+            <th>Number of Users</th>
+        </tr>
+    </thead>
+    <tbody>
+        @RenderChildren(Model)
+    </tbody>
+</table>
+
+@helper RenderChildren(List<OrganizationUsersCountDataOut> elements, int offset=1)
+{
+    foreach (OrganizationUsersCountDataOut element in elements)
+    {
+        <tr>
+            <td style="padding-left:@(offset*10)px">@element.OrganizationName</td>
+            <td>@element.UsersCount</td>
+        </tr>
+        if(element.Children != null && element.Children.Count() > 0)
+        {
+            @RenderChildren(element.Children, ++offset)
+        }
+    }
+}

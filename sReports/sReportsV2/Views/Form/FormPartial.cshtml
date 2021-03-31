@@ -1,0 +1,351 @@
+﻿@{
+    var controller = ViewContext.Controller as sReportsV2.Controllers.FormCommonController;
+    string hasValue = "-hasvalue";
+}
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.DTOs.Form.DataOut;
+
+@model FormDataOut
+
+    <form id="fid" method="post" action="@ViewBag.Action" novalidate>
+        <input type="hidden" name="formDefinitionId" value="@Model.Id" />
+        <input type="hidden" name="thesaurusId" value="@Model.ThesaurusId" />
+        <input type="hidden" name="language" value="@Model.Language" />
+
+        @if (ViewBag.FilterFormInstanceDataIn != null)
+        {
+            <input type="hidden" name="DocumentClass" value="@ViewBag.FilterFormInstanceDataIn.DocumentClass" />
+            <input type="hidden" name="GeneralPurpose" value="@ViewBag.FilterFormInstanceDataIn.GeneralPurpose" />
+            <input type="hidden" name="ExplicitPurpose" value="@ViewBag.FilterFormInstanceDataIn.ExplicitPurpose" />
+            <input type="hidden" name="ScopeOfValidity" value="@ViewBag.FilterFormInstanceDataIn.ScopeOfValidity" />
+            <input type="hidden" name="ClinicalDomain" value="@ViewBag.FilterFormInstanceDataIn.ClinicalDomain" />
+            <input type="hidden" name="ClinicalContext" value="@ViewBag.FilterFormInstanceDataIn.ClinicalContext" />
+            <input type="hidden" name="AdministrativeContext" value="@ViewBag.FilterFormInstanceDataIn.AdministrativeContext" />
+            <input type="hidden" name="ClassesOtherValue" value="@ViewBag.FilterFormInstanceDataIn.ClassesOtherValue" />
+            <input type="hidden" name="FollowUp" value="@ViewBag.FilterFormInstanceDataIn.FollowUp" />
+            <input type="hidden" name="VersionId" value="@ViewBag.FilterFormInstanceDataIn.VersionId" />
+
+        }
+
+        @if (ViewBag.VersionId != null)
+        {
+            <input type="hidden" name="EditVersionId" value="@ViewBag.VersionId" />
+        }
+
+        <input type="hidden" name="LastUpdate" value="@(ViewBag.LastUpdate != null? ViewBag.LastUpdate.ToString("o") : null) " />
+
+
+        @if (ViewBag.FormInstanceId != null && !string.IsNullOrEmpty(ViewBag.FormInstanceId.ToString()))
+        {
+            <input type="hidden" name="formInstanceId" value="@ViewBag.FormInstanceId" />
+        }
+        @if (ViewBag.EncounterId != null && !string.IsNullOrEmpty(ViewBag.EncounterId.ToString()))
+        {
+            <input type="hidden" name="encounterId" value="@ViewBag.EncounterId" />
+        }
+
+        @if (ViewBag.FormValueId != null && !string.IsNullOrEmpty(ViewBag.FormValueId.ToString()))
+        {
+            <input type="hidden" name="formValueId" value="@ViewBag.FormValueId" />
+        }
+
+        @if (ViewBag.Referrals != null)
+        {
+            foreach (var referral in ViewBag.Referrals)
+            {
+                <input type="hidden" name="referrals" value="@referral.Id" />
+            }
+        }
+        @foreach (FormChapterDataOut c in Model.Chapters)
+        {
+            bool isChapterReadonly = (ViewBag.formInstanceId != null && !string.IsNullOrEmpty(ViewBag.formInstanceId.ToString()) && c.IsReadonly);
+            isChapterReadonly = Model.FormState != null && Model.FormState.Equals(sReportsV2.Domain.Enums.FormState.Finished.ToString()) ? true : isChapterReadonly;
+            <div class="form-accordion">
+                <div class="form-accordion-header" data-toggle="collapse" onclick="collapseChapter(this)" data-target="#@c.Id" aria-expanded="false" aria-controls="@c.Id">
+                    @c.Title
+                </div>
+                <div class="collapse chapter" id="@c.Id">
+
+                    <div class="card">
+                        @if (!string.IsNullOrEmpty(c.Description) && !c.Description.Equals(c.Title))
+                        {
+                            <div class='card-header'>@Html.Raw(c.Description)</div>
+                        }
+                        @if (c.Pages.Count > 1)
+                        {
+                            <div class="page-selector pages-links">
+                                @foreach (FormPageDataOut p in c.Pages)
+                                {
+                                    <a href="#" onclick="showPageById('@p.Id')">@p.Title</a>
+                                }
+                            </div>
+                        }
+                        <div class='card-body'>
+                            @foreach (FormPageDataOut p in c.Pages)
+                            {
+                                <div class='page' id='@p.Id'>
+                                    @if (!string.IsNullOrEmpty(p.Title) && p.IsVisible)
+                                    {
+                                        <h2>@p.Title</h2>
+                                    }
+                                    @if (!string.IsNullOrEmpty(p.Description) && p.IsVisible)
+                                    {
+                                        <div class='page-description'>@p.Description</div>
+                                    }
+
+                                    <div class="row @(p.ImageMap != null ? "image-map" : "")">
+                                        @if (p.ImageMap != null)
+                                        {
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="image-map-container">
+                                                    <img src="@p.ImageMap.Url" usemap="#@p.ImageMap.MapId" />
+                                                    <map name="@p.ImageMap.MapId" id="@p.ImageMap.MapId">
+                                                        @Html.Raw(p.ImageMap.Map)
+                                                    </map>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <div class="@(p.ImageMap != null ? "col-md-12 col-lg-6 " : " col-md-12 col-lg-12")">
+                                            @if (p.LayoutStyle != null && p.LayoutStyle.LayoutType.Equals(sReportsV2.Domain.Enums.LayoutType.Vertical))
+                                            {
+
+                                                foreach (List<FormFieldSetDataOut> ListFs in p.ListOfFieldSets)
+                                                {
+
+                                                    <fieldset class="form-fieldset row" style="margin-bottom:10px;" id="@ListFs[0].Id" page-id='@p.Id' data-map-area="@ListFs[0].MapAreaId">
+                                                        <div class="field-set-container">
+                                                            @{int repetitiveFieldSetCounter = 0;}
+
+                                                            @foreach (FormFieldSetDataOut fs in ListFs)
+                                                            {
+                                                                repetitiveFieldSetCounter++;
+                                                                <div class="field-set field-set-border" name="@repetitiveFieldSetCounter">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        @if (!string.IsNullOrEmpty(fs.Label))
+                                                                        {
+                                                                            <h3>@(fs.IsBold ? Html.Raw("<b>" + fs.Label + "</b>") : Html.Raw(fs.Label))</h3>
+
+                                                                        }
+                                                                        @if (fs.IsRepetitive)
+                                                                        {
+                                                                            <div>
+                                                                                <button type="button" class="btn btn-primary remove-field-set float-right">
+                                                                                    <i class="fas fa-minus-circle"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+
+                                                                    @if (!string.IsNullOrEmpty(fs.Description))
+                                                                    {
+                                                                        <div class="form-fieldset-description">@fs.Description </div>
+                                                                    }
+
+                                                                    @foreach (FieldDataOut field in fs.Fields)
+                                                                    {
+                                                                        @Html.Raw(controller.RenderPartialViewToString(field.PartialView, field, isChapterReadonly, repetitiveFieldSetCounter, ListFs[0].Id))
+                                                                    }
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                        @if (ListFs[0].IsRepetitive)
+                                                        {
+                                                            <div style="margin-bottom:10px;">
+                                                                <button type="button" class="btn btn-primary button-fieldset-repetitive float-right"> <i class="fas fa-plus-circle"></i> Add Field Set</button>
+                                                            </div>
+
+                                                        }
+                                                    </fieldset>
+
+
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+
+                                                    @foreach (List<FormFieldSetDataOut> ListFs in p.ListOfFieldSets)
+                                                    {
+
+                                                        <fieldset class='form-fieldset col-md-12 col-lg-6' id="@ListFs[0].Id" page-id='@p.Id' data-map-area="@ListFs[0].MapAreaId">
+                                                            <div class="field-set-container">
+                                                                @{int repetitiveFieldSetCounter = 0;}
+
+                                                                @foreach (FormFieldSetDataOut fs in ListFs)
+                                                                {
+                                                                    <div class="field-set field-set-border" name="@repetitiveFieldSetCounter">
+                                                                        <div class="d-flex justify-content-between field-set-content">
+                                                                            @if (!string.IsNullOrEmpty(fs.Label))
+                                                                            {
+                                                                                <h3>
+                                                                                    @fs.Label
+                                                                                    @if (fs.Help != null)
+                                                                                    {
+                                                                                        <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(fs.Help, Newtonsoft.Json.Formatting.Indented))"><span>(@(fs.Help.Title))</span></a>
+                                                                                    }
+                                                                                </h3>
+                                                                            }
+                                                                            @if (fs.IsRepetitive)
+                                                                            {
+                                                                                <div>
+
+                                                                                    @if (ListFs.Count == 1)
+                                                                                    {
+                                                                                        <button type="button" class="btn btn-primary remove-field-set float-right" style="display:none">
+                                                                                            <i class="fas fa-minus-circle"></i>
+                                                                                        </button>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <button type="button" class="btn btn-primary remove-field-set float-right">
+                                                                                            <i class="fas fa-minus-circle"></i>
+                                                                                        </button>
+                                                                                    }
+
+                                                                                </div>
+                                                                            }
+
+                                                                        </div>
+
+                                                                        @if (!string.IsNullOrEmpty(fs.Description))
+                                                                        {
+                                                                            <div class="form-fieldset-description">@fs.Description </div>
+                                                                        }
+
+                                                                        <div></div>
+
+                                                                        @foreach (FieldDataOut field in fs.Fields)
+                                                                        {
+                                                                            @Html.Raw(controller.RenderPartialViewToString(field.PartialView, field, isChapterReadonly, repetitiveFieldSetCounter, ListFs[0].Id))
+                                                                        }
+
+                                                                    </div>
+
+                                                                    repetitiveFieldSetCounter++;
+
+                                                                }
+                                                            </div>
+                                                            @if (ListFs[0].IsRepetitive)
+                                                            {
+                                                                <div class="float-right" style="margin-bottom:20px;">
+                                                                    <button type="button" class="btn btn-primary button-fieldset-repetitive"> <i class="fas fa-plus-circle"></i> Add Field Set</button>
+                                                                </div>
+
+                                                            }
+                                                        </fieldset>
+
+
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (!(Model != null && Model.FormState != null && Model.FormState.Equals(sReportsV2.Domain.Enums.FormState.Finished)))
+        {
+            <div class="form-element col-md-6">
+                <label for="notes" class="form-element-label">@sReportsV2.Resources.TextLanguage.Notes</label>
+                <textarea class="form-element-field" type="text" id="notes" name="Notes" value="@(Model != null && Model.Notes != null ? Model.Notes : "")">@(Model != null && Model.Notes != null ? Model.Notes : "")</textarea>
+                <div class="form-element-bar"></div>
+                <div class="form-element-description"></div>
+            </div>
+
+            if (ViewBag.UserCookieData != null)
+            {
+                <div class="form-element form-select col-md-6">
+                    <label for="formState" class="form-element-label">@sReportsV2.Resources.TextLanguage.Document_State</label>
+                    <select class="form-element-field @hasValue" id="formState" name="FormState">
+                        @foreach (var state in Enum.GetNames(typeof(sReportsV2.Domain.Enums.FormState)))
+                        {
+                            if (Model != null && Model.FormState != null && Model.FormState.ToString().Equals(state))
+                            {
+                                <option value="@state" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
+                            }
+                            else
+                            {
+                                <option value="@state">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
+                            }
+                        }
+                    </select>
+                    <div class="form-element-bar"></div>
+                </div>
+
+                <div class="form-element col-md-6">
+                    <label for="date" class="form-element-label">Date:</label>
+                    <input class="form-element-field" id="date" name="Date" value="@(Model != null && Model.Date != null ? Model.Date.Value.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" type="date" />
+                    <div class="form-element-bar"></div>
+                </div>
+            }
+
+        }
+        else
+        {
+            <div class="form-element col-md-6">
+                <label for="notes" class="form-element-label">@sReportsV2.Resources.TextLanguage.Notes</label>
+                <textarea readonly class="form-element-field" type="text" id="notes" name="Notes" value="@(Model != null && Model.Notes != null ? Model.Notes : "")">@(Model != null && Model.Notes != null ? Model.Notes : "")</textarea>
+                <div class="form-element-bar"></div>
+                <div class="form-element-description"></div>
+            </div>
+            if (ViewBag.UserCookieData != null)
+            {
+                <div class="form-element form-select col-md-6">
+                    <label for="formState" class="form-element-label">@sReportsV2.Resources.TextLanguage.Document_State</label>
+                    <select disabled="disabled" class="form-element-field @hasValue" id="formState" name="FormState">
+                        @foreach (var state in Enum.GetNames(typeof(sReportsV2.Domain.Enums.FormState)))
+                        {
+                            if (Model != null && Model.FormState != null && Model.FormState.ToString().Equals(state))
+                            {
+                                <option value="@state" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
+                            }
+                            else
+                            {
+                                <option value="@state">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
+                            }
+                        }
+                    </select>
+                    <div class="form-element-bar"></div>
+                </div>
+                <div class="form-element col-md-6">
+                    <label for="date" class="form-element-label">Date:</label>
+                    <input readonly class="form-element-field" id="date" name="Date" value="@(Model != null && Model.Date != null ? Model.Date.Value.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" type="date" />
+                    <div class="form-element-bar"></div>
+                </div>
+            }
+        }
+
+            @if (!(Model != null && Model.FormState != null && Model.FormState.Equals(sReportsV2.Domain.Enums.FormState.Finished)))
+            {
+                <div class="form-button-container">
+                    <input type="button" onclick="clickedSubmit()" class="btn btn-primary" id='submitBtn' value="@(ViewBag.FormInstanceId != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)" />
+                </div>
+            }
+
+        </form>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="helpModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/formPartial")

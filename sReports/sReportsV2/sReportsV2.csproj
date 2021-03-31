@@ -1,0 +1,1064 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1BE63F3A-CC7B-4129-AF61-B8D9F895597C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sReportsV2</RootNamespace>
+    <AssemblyName>sReportsV2</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\sReportsV2.Domain\sReportsV2.Domain.ruleset</CodeAnalysisRuleSet>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>sReportsV2.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.1.3\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Crc32C.NET, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Crc32C.NET.1.0.5.0\lib\net20\Crc32C.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.barcodes, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.barcodes.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.forms, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.forms.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.io, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.io.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.kernel, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.layout, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.layout.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.pdfa, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.sign, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.sign.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.styledxmlparser, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.styledxmlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="itext.svg, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.svg.dll</HintPath>
+    </Reference>
+    <Reference Include="JsonSubTypes, Version=1.6.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonSubTypes.1.6.0\lib\net47\JsonSubTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.10.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.10.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.12.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.10.0\lib\net452\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.10.0\lib\net452\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.10.0\lib\net452\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.10.0\lib\net452\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.0.0\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.14.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.14.0\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Settings.AppSettings, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Settings.AppSettings.2.2.2\lib\net45\Serilog.Settings.AppSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=3.1.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress, Version=0.23.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.23.0\lib\net45\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="Snappy.NET, Version=1.1.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Snappy.NET.1.1.1.8\lib\net45\Snappy.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.2\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsAuditLogAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsAutorizeAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsFormValidateAttribute.cs" />
+    <Compile Include="Common\Extensions\HttpSessionStateExtension.cs" />
+    <Compile Include="Common\Extensions\StringExtensions.cs" />
+    <Compile Include="Common\JsonModelBinder\JsonNetModelBinder.cs" />
+    <Compile Include="Common\Localization\SpokenLang.cs" />
+    <Compile Include="Common\Singleton\SingletonDataContainer.cs" />
+    <Compile Include="Configs\AutoMapperWebConfiguration.cs" />
+    <Compile Include="Configs\SerilogConfiguration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BlobController.cs" />
+    <Compile Include="Controllers\CRFController.cs" />
+    <Compile Include="Controllers\DFDController.cs" />
+    <Compile Include="Controllers\DiagnosticReportController.cs" />
+    <Compile Include="Controllers\EncounterController.cs" />
+    <Compile Include="Controllers\EpisodeOfCareController.cs" />
+    <Compile Include="Controllers\FormCommonController.cs" />
+    <Compile Include="Controllers\FormDistributionController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\PatholinkController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\SimplifiedPageController.cs" />
+    <Compile Include="Controllers\UmlsController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\FormInstanceController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ThesaurusEntryController.cs" />
+    <Compile Include="Controllers\PdfController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\AutocompletePaginatioDataOut.cs" />
+    <Compile Include="DTOs\CodeSystem\CodeSystemDataOut.cs" />
+    <Compile Include="DTOs\Common\DTO\AddressDTO.cs" />
+    <Compile Include="DTOs\Common\DataIn\DataIn.cs" />
+    <Compile Include="DTOs\Autocomplete\DataIn\AutocompleteDataIn.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteDataOut.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteResultDataOut.cs" />
+    <Compile Include="DTOs\Common\DataOut\EnumDataOut.cs" />
+    <Compile Include="DTOs\Common\DTO\CommunicationDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\ContactDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\KeyValueDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\NameDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\PeriodDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\ReferralInfoDTO.cs" />
+    <Compile Include="DTOs\CRF\DataOut\TreeJsonDataOut.cs" />
+    <Compile Include="DTOs\CRF\DataOut\TreeJsonState.cs" />
+    <Compile Include="DTOs\DfD\DataIn\DfdFormFilterDataIn.cs" />
+    <Compile Include="DTOs\DfD\DfDDataOut\DfDFormTableDataOut.cs" />
+    <Compile Include="DTOs\DfD\DfDDataOut\DoctorDataOut.cs" />
+    <Compile Include="DTOs\DfD\DfDDataOut\SurveySubmittedDataOut.cs" />
+    <Compile Include="DTOs\CTCAE\DataIn\CTCAEPatient.cs" />
+    <Compile Include="DTOs\CTCAE\DataIn\ReviewModel.cs" />
+    <Compile Include="DTOs\DiagnosticReport\DataIn\DiagnosticReportFilterDataIn.cs" />
+    <Compile Include="DTOs\EmailHelper\EmailSender.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterFhirFilterDataIn.cs" />
+    <Compile Include="DTOs\EnumDTO\DataIn\EnumDataIn.cs" />
+    <Compile Include="DTOs\EnumDTO\DataOut\EnumDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareFhirFilterDataIn.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareFilterDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldCalculativeDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldCheckboxDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldDateDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldDatetimeDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldEmailDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldFileDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldNumericDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldRadioDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldRegexDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldSelectableDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldSelectDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldStringDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldTextAreaDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldTextDataIn.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldCalculativeDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldCheckboxDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldDateDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldDatetimeDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldEmailDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldFileDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldNumericDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldRadioDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldRegexDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldSelectableDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldSelectDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldStringDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldTextAreaDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldTextDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionFilterDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDependOnDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionSingleParameterDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldNormalDistributionParametersDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldValueDistributionDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\RelatedVariable.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\SingleDependOnValuDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\VariableDependentRelatedVariables.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionTableDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDependableValue.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionRelatedVariable.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionSingleParameterDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldNormalDistributionParametersDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldValueDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\SingleDependOnValueDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceCovidFilterDataIn.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstancePerDomainDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceReferralDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceTableDataOut.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormPageImageMapDataIn.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormPageImageMapDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormStatusDataOut.cs" />
+    <Compile Include="DTOs\O4CodeableConcept\DataIn\O4CodeableConceptDataIn.cs" />
+    <Compile Include="DTOs\O4CodeableConcept\DataOut\O4CodeableConceptDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationUsersCountDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientFhirFilterDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientFilterDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataOut\PatientFormInstanceDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataOut\PatientTableDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryCountDataOut.cs" />
+    <Compile Include="DTOs\User\DataIn\UserDataDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\UserUpdatePageSizeDataIn.cs" />
+    <Compile Include="DTOs\User\DataOut\UserDataDataOut.cs" />
+    <Compile Include="DTOs\Common\DataOut\VersionDataOut.cs" />
+    <Compile Include="DTOs\Common\DTO\EnumDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\ServiceTypeDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\TelecomDTO.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentClinicalContextDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentGeneralPurposeDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentPropertiesDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentPurposeDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentScopeOfValidityDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentClinicalContextDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentGeneralPurposeDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentPropertiesDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentPurposeDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentScopeOfValidityDataOut.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterDataIn.cs" />
+    <Compile Include="DTOs\Encounter\DataOut\EncounterDataOut.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterFilterDataIn.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareDataIn.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\DiagnosticReportCreateDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\DiagnosticReportDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\EpisodeOfCareDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\EpisodeOfCareListFormsDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceDataIn.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceFilterDataIn.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceDataOut.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormAboutDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormChapterDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormEpisodeOfCareDataDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFieldDependableDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFieldSetDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFieldValueDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFilterDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormHelpDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormLayoutStyleDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormPageDataIn.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormAboutDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormChapterDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormEpisodeOfCareDataDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormEpisodeOfCareDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormFieldDependableDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormFieldSetDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormFieldValueDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormHelpDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormLayoutStyleDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormPageDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataIn\OrganizationDataIn.cs" />
+    <Compile Include="DTOs\Organization\DataIn\OrganizationFilterDataIn.cs" />
+    <Compile Include="DTOs\Organization\DataIn\IdentifierDataIn.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationAutocompleteDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\IdentifierDataOut.cs" />
+    <Compile Include="DTOs\Pagination\PaginationDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataIn\IdentifierTypeDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataOut\IdentifierTypeDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataOut\PatientDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryCodingSystemDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryFilterDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryTranslationDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryTreeDataOut.cs" />
+    <Compile Include="DTOs\Umls\UmlsDataIn.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MapperProfiles\DocumentPropertiesProfile.cs" />
+    <Compile Include="MapperProfiles\EncounterProfile.cs" />
+    <Compile Include="MapperProfiles\EpisodeOfCareProfile.cs" />
+    <Compile Include="MapperProfiles\FieldProfile.cs" />
+    <Compile Include="MapperProfiles\FormDistributionProfile.cs" />
+    <Compile Include="MapperProfiles\FormProfile.cs" />
+    <Compile Include="MapperProfiles\FormInstanceProfile.cs" />
+    <Compile Include="MapperProfiles\OrganizationProfile.cs" />
+    <Compile Include="MapperProfiles\PatientProfile.cs" />
+    <Compile Include="MapperProfiles\ThesaurusEntryProfile.cs" />
+    <Compile Include="MapperProfiles\UmlsProfile.cs" />
+    <Compile Include="MapperProfiles\UserProfile.cs" />
+    <Compile Include="Models\Common\EnumViewModel.cs" />
+    <Compile Include="Models\Common\VersionViewModel.cs" />
+    <Compile Include="Models\Form\Tree\FormTreeChapterDataOut.cs" />
+    <Compile Include="Models\Form\Tree\FormTreeViewModel.cs" />
+    <Compile Include="Models\Form\Tree\FormTreeFieldViewModel.cs" />
+    <Compile Include="Models\Form\Tree\FormTreeFieldSetViewModel.cs" />
+    <Compile Include="Models\Form\Tree\FormTreeFieldValueViewModel.cs" />
+    <Compile Include="Models\Form\Tree\FormTreePageViewModel.cs" />
+    <Compile Include="Models\Form\Tree\TreeViewModel.cs" />
+    <Compile Include="Models\ThesaurusEntry\AdministrativeDataViewModel.cs" />
+    <Compile Include="Models\ThesaurusEntry\ThesaurusEntryCodingSystemViewModel.cs" />
+    <Compile Include="Models\ThesaurusEntry\ThesaurusEntryTranslationViewModel.cs" />
+    <Compile Include="Models\ThesaurusEntry\ThesaurusEntryViewModel.cs" />
+    <Compile Include="Models\Umls\AtomViewModel.cs" />
+    <Compile Include="Models\Umls\ConceptDefinitionViewModel.cs" />
+    <Compile Include="Models\Umls\ConceptResultViewModel.cs" />
+    <Compile Include="Models\Umls\ConceptSearchResultViewModel.cs" />
+    <Compile Include="Models\Umls\UmlsViewModel.cs" />
+    <Compile Include="Models\Umls\SearchResultViewModel.cs" />
+    <Compile Include="Models\Umls\SemanticTypeViewModel.cs" />
+    <Compile Include="Models\Common\UserDataViewModel.cs" />
+    <Compile Include="Models\User\UserCookieData.cs" />
+    <Compile Include="Models\User\UserModelView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\TextLanguage.sr-Cyrl-RS.Designer.cs">
+      <DependentUpon>TextLanguage.sr-Cyrl-RS.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\TextLanguage.sr.Designer.cs">
+      <DependentUpon>TextLanguage.sr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\TextLanguage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextLanguage.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Security\UserResolverService.cs" />
+    <Compile Include="SReportsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SReportsResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\AppResource\fieldSetBackground.jpg" />
+    <Content Include="App_Data\AppResource\footerIcons.png" />
+    <Content Include="App_Data\AppResource\icon1.jpg" />
+    <Content Include="App_Data\AppResource\insel.png" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\form_style_1.css" />
+    <Content Include="Content\img\niAnalytics-logo.png" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="App_Data\AppResource\Roboto-Regular.ttf" />
+    <Content Include="App_Data\DataRequest_With_Data.json" />
+    <None Include="Content\login.scss" />
+    <Content Include="Content\login.css">
+      <DependentUpon>login.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\login.min.css">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
+    <Content Include="Content\main.css">
+      <DependentUpon>main.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\additional-methods.js" />
+    <Content Include="Scripts\additional-methods.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\json.json" />
+    <Content Include="App_Data\json - Copy.json" />
+    <Content Include="App_Data\demo1.json" />
+    <Content Include="Content\main.scss" />
+    <Content Include="App_Data\ServiceTypeValues.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\sReports\bootstrap-treeview.js" />
+    <Content Include="Scripts\sReports\formDistribution.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\sReports\autoscroll.js" />
+    <Content Include="Scripts\sReports\dataCaptureFormDefinitions.js" />
+    <Content Include="Scripts\sReports\encounter.js" />
+    <Content Include="Scripts\sReports\encounterEoc.js" />
+    <Content Include="Scripts\sReports\episodeOfCare.js" />
+    <Content Include="Scripts\sReports\episodeOfCareTable.js" />
+    <Content Include="Scripts\sReports\formFilter.js" />
+    <Content Include="Scripts\sReports\dataCaptureFormInstances.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsoneditor\dist\img\jsoneditor-icons.svg" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor-minimalist.js" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor-minimalist.min.js" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor.css" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor.js" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor.min.css" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor.min.js" />
+    <Content Include="Scripts\jsoneditor\gulpfile.js" />
+    <Content Include="Scripts\jsoneditor\index.js" />
+    <Content Include="Scripts\jsoneditor\src\css\autocomplete.css" />
+    <Content Include="Scripts\jsoneditor\src\css\contextmenu.css" />
+    <Content Include="Scripts\jsoneditor\src\css\img\description.txt" />
+    <Content Include="Scripts\jsoneditor\src\css\img\jsoneditor-icons.svg" />
+    <Content Include="Scripts\jsoneditor\src\css\jsoneditor.css" />
+    <Content Include="Scripts\jsoneditor\src\css\menu.css" />
+    <Content Include="Scripts\jsoneditor\src\css\navigationbar.css" />
+    <Content Include="Scripts\jsoneditor\src\css\reset.css" />
+    <Content Include="Scripts\jsoneditor\src\css\searchbox.css" />
+    <Content Include="Scripts\jsoneditor\src\css\statusbar.css" />
+    <Content Include="Scripts\jsoneditor\src\css\treepath.css" />
+    <Content Include="Scripts\jsoneditor\src\js\ace\index.js" />
+    <Content Include="Scripts\jsoneditor\src\js\ace\theme-jsoneditor.js" />
+    <Content Include="Scripts\jsoneditor\src\js\appendNodeFactory.js" />
+    <Content Include="Scripts\jsoneditor\src\js\assets\jsonlint\jsonlint.js" />
+    <Content Include="Scripts\jsoneditor\src\js\assets\selectr\selectr.css" />
+    <Content Include="Scripts\jsoneditor\src\js\assets\selectr\selectr.js" />
+    <Content Include="Scripts\jsoneditor\src\js\autocomplete.js" />
+    <Content Include="Scripts\jsoneditor\src\js\constants.js" />
+    <Content Include="Scripts\jsoneditor\src\js\ContextMenu.js" />
+    <Content Include="Scripts\jsoneditor\src\js\createAbsoluteAnchor.js" />
+    <Content Include="Scripts\jsoneditor\src\js\ErrorTable.js" />
+    <Content Include="Scripts\jsoneditor\src\js\header.js" />
+    <Content Include="Scripts\jsoneditor\src\js\Highlighter.js" />
+    <Content Include="Scripts\jsoneditor\src\js\History.js" />
+    <Content Include="Scripts\jsoneditor\src\js\i18n.js" />
+    <Content Include="Scripts\jsoneditor\src\js\JSONEditor.js" />
+    <Content Include="Scripts\jsoneditor\src\js\jsonUtils.js" />
+    <Content Include="Scripts\jsoneditor\src\js\ModeSwitcher.js" />
+    <Content Include="Scripts\jsoneditor\src\js\Node.js" />
+    <Content Include="Scripts\jsoneditor\src\js\NodeHistory.js" />
+    <Content Include="Scripts\jsoneditor\src\js\polyfills.js" />
+    <Content Include="Scripts\jsoneditor\src\js\previewmode.js" />
+    <Content Include="Scripts\jsoneditor\src\js\SearchBox.js" />
+    <Content Include="Scripts\jsoneditor\src\js\showMoreNodeFactory.js" />
+    <Content Include="Scripts\jsoneditor\src\js\showSortModal.js" />
+    <Content Include="Scripts\jsoneditor\src\js\showTransformModal.js" />
+    <Content Include="Scripts\jsoneditor\src\js\textmode.js" />
+    <Content Include="Scripts\jsoneditor\src\js\treemode.js" />
+    <Content Include="Scripts\jsoneditor\src\js\TreePath.js" />
+    <Content Include="Scripts\jsoneditor\src\js\util.js" />
+    <Content Include="Scripts\jsoneditor\src\js\validationUtils.js" />
+    <Content Include="Scripts\jsoneditor\src\js\vanilla-picker\index.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sReports\form.js" />
+    <Content Include="Scripts\sReports\changePasswordModal.js" />
+    <Content Include="Scripts\sReports\identifierModal.js" />
+    <Content Include="Scripts\sReports\imageMapResize.js" />
+    <Content Include="Scripts\sReports\organization.js" />
+    <Content Include="Scripts\sReports\user.js" />
+    <Content Include="Scripts\sReports\userTable.js" />
+    <Content Include="Scripts\sReports\organizationTable.js" />
+    <Content Include="Scripts\sReports\overview.js" />
+    <Content Include="Scripts\sReports\patient.js" />
+    <Content Include="Scripts\sReports\patientTable.js" />
+    <Content Include="Scripts\sReports\patientTree.js" />
+    <Content Include="Scripts\sReports\simulatorFormDistributionsTable.js" />
+    <Content Include="Scripts\sReports\simulatorFormsTable.js" />
+    <Content Include="Scripts\sReports\sReports.js" />
+    <Content Include="Scripts\sReports\tableCommon.js" />
+    <Content Include="Scripts\sReports\generateModal.js" />
+    <Content Include="Scripts\sReports\telecomModal.js" />
+    <Content Include="Scripts\sReports\thesaurusEntry.js" />
+    <Content Include="Scripts\sReports\umlsCodingSystem.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Form\FieldText.cshtml" />
+    <Content Include="Views\Form\FieldRadio.cshtml" />
+    <Content Include="Views\Form\FieldEmail.cshtml" />
+    <Content Include="Views\Form\FieldNumber.cshtml" />
+    <Content Include="Views\Form\FieldDigits.cshtml" />
+    <Content Include="Views\Form\FieldDate.cshtml" />
+    <Content Include="Views\Form\FieldURL.cshtml" />
+    <Content Include="Views\Form\FieldCheckbox.cshtml" />
+    <Content Include="Views\Form\FieldTextarea.cshtml" />
+    <Content Include="Views\Form\FieldSelect.cshtml" />
+    <Content Include="Views\Form\FieldDateTime.cshtml" />
+    <Content Include="Views\Form\GetAll.cshtml" />
+    <Content Include="Views\Form\FormPartial.cshtml" />
+    <Content Include="Scripts\jsoneditor\.travis.yml" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor-minimalist.map" />
+    <Content Include="Scripts\jsoneditor\dist\jsoneditor.map" />
+    <Content Include="Scripts\jsoneditor\dist\which files do I need.md" />
+    <Content Include="Scripts\jsoneditor\docs\api.md" />
+    <Content Include="Scripts\jsoneditor\docs\shortcut_keys.md" />
+    <Content Include="Scripts\jsoneditor\docs\styling.md" />
+    <Content Include="Scripts\jsoneditor\docs\usage.md" />
+    <Content Include="Scripts\jsoneditor\greenkeeper.json" />
+    <Content Include="Scripts\jsoneditor\HISTORY.md" />
+    <Content Include="Scripts\jsoneditor\LICENSE" />
+    <Content Include="Scripts\jsoneditor\NOTICE" />
+    <Content Include="Scripts\jsoneditor\package.json" />
+    <Content Include="Scripts\jsoneditor\README.md" />
+    <Content Include="Scripts\jsoneditor\src\docs\which files do I need.md" />
+    <Content Include="Scripts\jsoneditor\src\js\assets\jsonlint\README.md" />
+    <Content Include="Scripts\jsoneditor\src\js\assets\selectr\README.md" />
+    <Content Include="Views\Form\Get.cshtml" />
+    <Content Include="Views\Form\Edit.cshtml" />
+    <Content Include="Views\FormInstance\GetAllByFormThesaurus.cshtml" />
+    <Content Include="Views\FormInstance\GetAllFormDefinitions.cshtml" />
+    <Content Include="Views\Shared\Breadcrumb.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\ThesaurusEntry\GetAll.cshtml" />
+    <Content Include="Views\ThesaurusEntry\Edit.cshtml" />
+    <Content Include="Views\Form\FormFilter.cshtml" />
+    <Content Include="Views\Form\FormsTable.cshtml" />
+    <Content Include="Views\Shared\Pagination.cshtml" />
+    <Content Include="Views\FormInstance\FormsTable.cshtml" />
+    <Content Include="Views\FormInstance\FormInstancesByFormThesaurusTable.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusEntryTable.cshtml" />
+    <Content Include="Views\ThesaurusEntry\CodingSystemPartial.cshtml" />
+    <Content Include="Views\ThesaurusEntry\TranslationsPartial.cshtml" />
+    <Content Include="Views\Umls\ConceptsRows.cshtml" />
+    <Content Include="Views\Umls\AtomsList.cshtml" />
+    <Content Include="Views\Umls\DefinitionsList.cshtml" />
+    <Content Include="Views\Umls\ConceptsTable.cshtml" />
+    <Content Include="Views\Form\FormTree.cshtml" />
+    <Content Include="Views\Form\DocumentProperties.cshtml" />
+    <Content Include="Views\ThesaurusEntry\AdministrativeData.cshtml" />
+    <Content Include="Views\Patient\Edit.cshtml" />
+    <Content Include="Views\Patient\GetAll.cshtml" />
+    <Content Include="Views\Patient\PatientEntryTable.cshtml" />
+    <Content Include="Views\EpisodeOfCare\Edit.cshtml" />
+    <Content Include="Views\EpisodeOfCare\EOCEntryTable.cshtml" />
+    <Content Include="Views\Organization\OrganizationEntryTable.cshtml" />
+    <Content Include="Views\EpisodeOfCare\GetAll.cshtml" />
+    <Content Include="Views\Organization\GetAll.cshtml" />
+    <Content Include="Views\Organization\Organization.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusEntryFilter.cshtml" />
+    <Content Include="Views\Encounter\Create.cshtml" />
+    <Content Include="Views\Encounter\EncounterEntryTable.cshtml" />
+    <Content Include="Views\Encounter\GetAll.cshtml" />
+    <Content Include="Views\Encounter\EOCEntryTable.cshtml" />
+    <Content Include="Views\Encounter\GetAllEncounter.cshtml" />
+    <Content Include="Views\Patient\IdentifierModal.cshtml" />
+    <Content Include="Views\DiagnosticReport\DiagnosticReportsList.cshtml" />
+    <Content Include="Views\DiagnosticReport\ListForms.cshtml" />
+    <Content Include="Views\DiagnosticReport\Create.cshtml" />
+    <Content Include="Views\EpisodeOfCare\PatientInfo.cshtml" />
+    <Content Include="Views\EpisodeOfCare\EpisodeOfCareInfo.cshtml" />
+    <Content Include="Views\Form\Form.cshtml" />
+    <Content Include="Views\Patient\TelecomModal.cshtml" />
+    <Content Include="Views\Patient\TelecomModalForPatient.cshtml" />
+    <Content Include="Views\Organization\OrganizationStructure.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Pdf\Upload.cshtml" />
+    <Content Include="Views\Form\GenerateLanguageModal.cshtml" />
+    <Content Include="Scripts\package-lock.json" />
+    <Content Include="Views\FormInstance\FilterFormInstancesPartial.cshtml" />
+    <Content Include="Views\Blob\Create.cshtml" />
+    <Content Include="Views\Form\FieldFile.cshtml" />
+    <Content Include="Views\Patient\PatientFilter.cshtml" />
+    <Content Include="Views\EpisodeOfCare\EpisodeOfCareFilter.cshtml" />
+    <Content Include="Views\Patient\IdentifierListTable.cshtml" />
+    <Content Include="Views\Patient\TelecomListTable.cshtml" />
+    <Content Include="Views\Organization\GetUsersByOrganizationCount.cshtml" />
+    <Content Include="Views\ThesaurusEntry\CodeModal.cshtml" />
+    <Content Include="Views\ThesaurusEntry\CodesTable.cshtml" />
+    <Content Include="Views\FormDistribution\Edit.cshtml" />
+    <Content Include="Views\FormDistribution\NormalDistributionParameters.cshtml" />
+    <Content Include="Views\FormDistribution\BinominalDistributionParameters.cshtml" />
+    <Content Include="Views\FormDistribution\MultinominalDistributionParameters.cshtml" />
+    <Content Include="Views\FormDistribution\GetAll.cshtml" />
+    <Content Include="Views\FormDistribution\ReloadTable.cshtml" />
+    <Content Include="Views\FormDistribution\ReloadForms.cshtml" />
+    <Content Include="Views\FormDistribution\GetAllForms.cshtml" />
+    <Content Include="Views\Form\StatusGraphPartial.cshtml" />
+    <Content Include="sReportsV2.ruleset" />
+    <Content Include="Views\DiagnosticReport\ReferrableFields.cshtml" />
+    <Content Include="Views\Form\FieldCalculative.cshtml" />
+    <Content Include="Views\Form\FieldRegex.cshtml" />
+    <Content Include="Views\Shared\_Crf_Layout.cshtml" />
+    <Content Include="Views\CRF\Create.cshtml" />
+    <Content Include="Views\FormDistribution\RenderInputsForDependentVariable.cshtml" />
+    <Content Include="Views\FormDistribution\RenderInputs.cshtml" />
+    <Content Include="Views\CRF\Instructions.cshtml" />
+    <Content Include="Views\Shared\SimpleTree.cshtml" />
+    <Content Include="Views\DFD\Create.cshtml" />
+    <Content Include="Views\Shared\_Dfd_Layout.cshtml" />
+    <Content Include="Views\DFD\ReloadFormByPatient.cshtml" />
+    <Content Include="Views\DFD\InfoMesasge.cshtml" />
+    <Content Include="Views\ThesaurusEntry\InsertedThesaurusFromForm.cshtml" />
+    <Content Include="Views\ThesaurusEntry\InsertNewThesaurusFromForm.cshtml" />
+    <Content Include="Views\User\GetAll.cshtml" />
+    <Content Include="Views\User\UserEntryTable.cshtml" />
+    <Content Include="Views\User\User.cshtml" />
+    <Content Include="Views\User\ChangePasswordModal.cshtml" />
+    <Content Include="Views\Patient\PatientTree.cshtml" />
+    <Content Include="Views\EpisodeOfCare\EpisodeOfCareInformation.cshtml" />
+    <Content Include="Views\Patient\PatientEdit.cshtml" />
+    <Content Include="Views\Encounter\Encounter.cshtml" />
+    <Content Include="Views\DiagnosticReport\ModalListForms.cshtml" />
+    <Content Include="Views\Patient\CreateDocument.cshtml" />
+    <None Include="Web.Dev.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\DiagnosticReport\DataOut\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Patholink\" />
+    <Folder Include="Views\SimplifiedPage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chapters\Chapters.csproj">
+      <Project>{3c891d95-8b3d-4b5b-ae0a-f4b579d13296}</Project>
+      <Name>Chapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DfD.SMSApi.Client\DfD.SMSApi.Client.csproj">
+      <Project>{9099C856-FE46-4833-BA7F-C43B5EF8D174}</Project>
+      <Name>DfD.SMSApi.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentGenerator\DocumentGenerator.csproj">
+      <Project>{d2faff68-2149-4e4e-b2d9-305d75e8f959}</Project>
+      <Name>DocumentGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentsParser\DocumentsParser.csproj">
+      <Project>{14188c48-7304-447d-a44e-b136db087d8f}</Project>
+      <Name>DocumentsParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Generator\Generator.csproj">
+      <Project>{8c537fcd-e4df-4e0d-90f7-ce669fbe958c}</Project>
+      <Name>Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReports.PathoLink\sReports.PathoLink.csproj">
+      <Project>{c0d61448-9433-433a-906b-deeb72a500d2}</Project>
+      <Name>sReports.PathoLink</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.Domain.csproj">
+      <Project>{f6570a48-cae5-4412-940e-05a081aad9c4}</Project>
+      <Name>sReportsV2.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UmlsClient\UmlsClient.csproj">
+      <Project>{e73fbb54-341d-4c9f-bea4-7cc29443ef6a}</Project>
+      <Name>UmlsClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TextLanguage.sr-Cyrl-RS.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextLanguage.sr-Cyrl-RS.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TextLanguage.sr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextLanguage.sr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TextLanguage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextLanguage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SReportsResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SReportsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <CodeAnalysisRuleSet>sReportsV2.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55524</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55524/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.DependencyCollector.2.9.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.10.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.10.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.10.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.10.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.2.26\build\Microsoft.VisualStudio.SlowCheetah.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SlowCheetah.3.2.26\build\Microsoft.VisualStudio.SlowCheetah.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" />
+  <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.2.26\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.2.26\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
+  <!--To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <!-- <Target Name="AfterBuild">
+  </Target> -->
+</Project>

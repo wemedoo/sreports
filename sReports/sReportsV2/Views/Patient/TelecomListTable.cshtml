@@ -1,0 +1,38 @@
+﻿@using sReportsV2.DTOs.Common;
+
+<div class="accordion">
+    <div class="header-accordion" data-toggle="collapse" data-target="#telecomsFor@(this.ViewData["Container"].ToString())" aria-expanded="false" aria-controls="telecomsFor@(this.ViewData["Container"].ToString())">
+        @sReportsV2.Resources.TextLanguage.Telecoms
+        <button class="btn btn-primary add-new-button" type="button" onclick="showTelecomModal(event,'@this.ViewData["Container"].ToString()')">
+            <i class="fas fa-plus-circle"></i>
+            @sReportsV2.Resources.TextLanguage.AddNew
+        </button>
+    </div>
+    <div class="accordion-content collapse" id="telecomsFor@(this.ViewData["Container"].ToString())">
+            <table class="table table-striped table-sm" >
+                <thead>
+                    <tr>
+                        <th class="truncate tooltip-tipable">@sReportsV2.Resources.TextLanguage.Telecom_System</th>
+                        <th class="truncate tooltip-tipable">@sReportsV2.Resources.TextLanguage.Telecom_Value</th>
+                        <th class="truncate tooltip-tipable">@sReportsV2.Resources.TextLanguage.Telecom_Use</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (this.ViewData.ContainsKey("Telecoms") && this.ViewData["Telecoms"] != null)
+                    {
+                        foreach (TelecomDTO telecom in this.ViewData["Telecoms"] as List<TelecomDTO>)
+                        {
+                            <tr >
+                                <td class="truncate tooltip-tipable" title="@telecom.System" data-property="system" data-value="@telecom.System">@telecom.System</td>
+                                <td class="truncate tooltip-tipable" title="@telecom.Value" data-property="value" data-value="@telecom.Value"> @telecom.Value</td>
+                                <td class="truncate tooltip-tipable" title="@telecom.Use" data-property="use" data-value="@telecom.Use">@telecom.Use</td>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+    </div>
+</div>

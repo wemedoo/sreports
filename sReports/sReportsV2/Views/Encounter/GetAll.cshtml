@@ -1,0 +1,43 @@
+﻿@using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
+@using sReportsV2.DTOs.Patient;
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Encounter;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Encounter_EOC }, { "activeLevel", 1 } })
+
+<div class="table-container">
+    <div class="header filter-item">
+        <span class="enc-padding-left">@sReportsV2.Resources.TextLanguage.Episodes_Of_Care</span>
+        <select class="form-control encounter-resize add-margin" id="identifierType" name="identifierType">
+            <option value="@sReportsV2.Domain.Enums.ResourceTypes.O4PatientId">@sReportsV2.Resources.TextLanguage.IdentifierType_PatientID</option>
+            @foreach (IdentifierTypeDataOut type in ViewBag.IdentifierTypes as List<IdentifierTypeDataOut>)
+            {
+                <option value="@type.O4MtId">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(type.Name)</option>
+            }
+        </select>
+
+        <input class="form-control add-margin enter-val-resize" type="text" name="identifierValue" id="identifierValue" placeholder="@sReportsV2.Resources.TextLanguage.Enter_value" />
+
+        <button type="button" onclick="search()" class="btn btn-sm btn-primary search-button pos_right" style="height: 35px; clear:both">
+            <i class="fas fa-search"></i>
+
+            @sReportsV2.Resources.TextLanguage.Search
+        </button>
+        <div style='clear:both'></div>
+        <button id="createEoc" class="btn btn-primary add-new-button element-invisible eoc" onclick="newEpisodeOfCare()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+    </div>
+    <div id="tableContainer">
+
+    </div>
+
+</div>
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>
+
+@Scripts.Render("~/bundles/encounterEocGetAll")
+
+
+

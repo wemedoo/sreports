@@ -1,0 +1,2925 @@
+ThesaurusId, Title
+8514,Template for Reporting Results of Biomarker Testing of Specimens From Patients With Tumors of the Head and Neck
+24,RESULTS
+31,Page 1
+Not set,Head and Neck Squamous Cell Carcinoma (HNSCC)
+33,p16 Expression (by immunohistochemistry) as a Surrogate for Transcriptionally Active High-Risk HPV
+34,Negative (<50% diffuse and strong nuclear and cytoplasmic staining)
+35,Equivocal (<70% but >50% diffuse and strong nuclear and cytoplasmic staining)
+36,Positive (>70% diffuse and strong nuclear and cytoplasmic staining)
+37,Indeterminate
+38,Indeterminate (explain):
+39,HPV-DNA (by in situ hybridization [ISH])
+40,Negative (no signal)
+41,Positive
+42,Indeterminate
+43,Positive
+45,Punctate
+46,Diffuse
+47,Subtype(s)
+48,Indeterminate (explain):
+49,Subtype(s) (if available):
+50,HPV E6/E7 mRNA (by ISH)
+51,Negative (no signal)
+52,Positive (cytoplasmic and/or nuclear signals)
+53,Indeterminate
+54,Subtype(s) (if available):
+55,Indeterminate (explain):
+56,HPV-DNA (by polymerase chain reaction [PCR])
+57,Negative (no signal)
+58,Positive
+59,Indeterminate
+60,Subtype(s) (if available):
+61,Indeterminate (explain):
+62,HPV E6/E7 mRNA (by reverse transcriptase polymerase chain reaction [RT-PCR])
+63,Negative (no signal)
+64,Positive
+65,Indeterminate
+66,Subtype(s) (if available):
+67,Indeterminate (explain):
+Not set,Epstein-Barr Virus (EBV) Testing
+68,EBV Early mRNA (EBER) (by ISH)
+69,Negative (no signal)
+70,Positive(nuclear signal)
+71,Indeterminate
+72,Indeterminate (explain):
+Not set,NUT Midline Carcinoma
+73,NUT Expression (by immunohistochemistry [IHC])
+74,Negative
+75,Positive
+76,Indeterminate
+78,Indeterminate (explain):
+79,NUT Rearrangements (by Fluorescence ISH [FISH])
+80,No NUT rearrangement detected
+81,NUT rearrangement detected
+82,Percentage of positive cells (%):
+83,Percentage of positive cells with classic rearrangement (if applicable) (%):
+84,Percentage of positive cells with complex rearrangement (if applicable) (%):
+85,BRD4-NUT Fusion (by RT-PCR)
+86,No BRD4-NUT fusions detected
+87,BRD4-NUT fusions detected
+89,Other NUT Fusion (by RT-PCR)
+90,No NUT translocation detected
+91,NUT translocation detected
+95,Fusion partner:
+Not set,Salivary Gland Carcinoma
+97,EWSR1 Rearrangements (by FISH)
+98,No EWSR1 rearrangement detected
+99,EWSR1 rearrangement detected
+100,Indeterminate
+101,Percentage of positive cells (%):
+102,Percentage of positive cells with classic rearrangement (if applicable) (%):
+103,Percentage of positive cells with complex rearrangement (if applicable) (%):
+104,Indeterminate (explain):
+105,EWSR1-ATF1 Fusion (by RT-PCR)
+106,No EWSR1-ATF1 fusions detected
+107,EWSR1-ATF1 fusions detected
+108,Other EWSR1 Fusion (by RT-PCR)
+109,No EWSR1 translocation detected
+110,EWSR1 translocation detected
+112,Fusion partner:
+Not set,Mammary Analogue Secretory Carcinoma
+113,ETV6 Rearrangements (by FISH)
+114,No ETV6 rearrangement detected
+115,ETV6 rearrangement detected
+116,Indeterminate
+117,Percentage of positive cells (%):
+118,Percentage of positive cells with classic rearrangement (if applicable) (%):
+119,Percentage of positive cells with complex rearrangement (if applicable) (%):
+120,Indeterminate (explain):
+121,ETV6-NTRK3 Fusion (by RT-PCR)
+122,No ETV6-NTRK3 fusions detected
+123,ETV6-NTRK3 fusions detected
+Not set,Mucoepidermoid Carcinoma
+124,MAML2 Rearrangements (by FISH)
+125,No MAML2 rearrangement detected
+126,MAML2 rearrangement detected
+127,Indeterminate
+128,Percentage of positive cells (%):
+129,Percentage of positive cells with classic rearrangement (if applicable) (%):
+130,Percentage of positive cells with complex rearrangement (if applicable) (%):
+131,Indeterminate (explain):
+132,CRTC1-MAML2 Fusion (by RT-PCR)
+133,No CRTC1-MAML2 fusions detected
+134,CRTC1-MAML2 fusions detected
+135,CRTC3-MAML2 Fusion (by RT-PCR)
+136,No CRTC3-MAML2 fusions detected
+137,CRTC3-MAML2 fusions detected
+Not set,Adenoid Cystic Carcinoma
+138,MYB Expression (by IHC)
+139,Negative
+140,Positive
+141,Indeterminate
+142,Indeterminate (explain):
+143,MYB Rearrangements (by FISH)
+144,No MYB rearrangement detected
+145,MYB rearrangement detected
+146,Indeterminate
+147,Percentage of positive cells (%):
+148,Percentage of positive cells with classic rearrangement (if applicable) (%):
+150,Percentage of positive cells with complex rearrangement (if applicable) (%):
+151,Indeterminate (explain):
+152,MYB-NFIB Fusion (by FISH)
+153,No MYB-NFIB fusions detected
+154,MYB-NFIB fusions detected
+155,Indeterminate
+156,Percentage of positive cells (%):
+157,Percentage of positive cells with classic fusion (if applicable) (%):
+158,Percentage of positive cells with complex fusion (if applicable) (%):
+159,Indeterminate (explain):
+160,CRTC1-MAML2 Fusion (by RT-PCR)
+161,No CRTC1-MAML2 fusions detected
+162,CRTC1-MAML2 fusions detected
+Not set,Carcinoma ex Pleomorphic Adenoma/Pleomorphic Adenoma
+163,HMGA2 (by FISH)
+164,No HMGA2 rearrangement detected
+165,HMGA2 rearrangement detected
+166,Indeterminate
+167,Percentage of positive cells (%):
+168,Percentage of positive cells with classic rearrangement (if applicable) (%):
+169,Percentage of positive cells with complex rearrangement (if applicable) (%):
+170,Indeterminate (explain):
+171,CRTC1-MAML2 Fusion (by RT-PCR)
+172,Negative
+173,Positive
+174,Indeterminate
+175,Indeterminate (explain):
+176,PLAG1 (by FISH)
+177,No PLAG1 rearrangement detected
+178,PLAG1 rearrangement detected
+179,Indeterminate
+180,Percentage of positive cells (%):
+181,Percentage of positive cells with classic rearrangement (if applicable) (%):
+182,Percentage of positive cells with complex rearrangement (if applicable) (%):
+183,Indeterminate (explain):
+Not set,Salivary Duct Carcinoma
+184,Human Epidermal Growth Factor-2 (HER2 [ERBB2]) Expression (by IHC)
+185,Negative (score 0)
+186,Negative (score 1+)
+187,Equivocal (score 2+)
+188,Positive (score 3+)
+189,Indeterminate
+190,Indeterminate (explain):
+191,HER2 (ERBB2) Expression (by FISH)
+192,Negative (not amplified)
+193,Positive (amplified)
+194,Indeterminate
+195,Indeterminate (explain):
+196,Number of observers:
+197,Number of invasive cancer cells counted:
+198,Assay
+199,Using dual-probe assay
+200,Using single-probe assay
+201,Average number of HER2 (ERBB2) signals per cancer cell:
+202,Average number of CEP17 signals per cancer cell:
+203,HER2 (ERBB2):CEP17 ratio:
+204,Average number of HER2 (ERBB2) signals per cancer cell:
+205,Androgen Receptor (by IHC)
+206,Negative
+207,Positive
+208,Indeterminate
+209,Indeterminate (explain):
+Not set,Sinonasal Malignancies
+212,INI-1 (by IHC)
+213,Intact (staining retained, negative for INI1 deletion)
+214,Lost (staining lost, positive for INI1 alteration)
+215,Indeterminate
+216,Indeterminate (explain):
+Not set,Biphenotypic Sinonasal Sarcoma
+217,PAX3 Rearrangements (by FISH)
+218,No PAX3 rearrangement detected
+219,PAX3 rearrangement detected
+220,Percentage of positive cells:
+221,Percentage of positive cells with classic rearrangement (if applicable):
+222,Percentage of positive cells with complex rearrangement (if applicable):
+223,PAX3-MAML3 Fusion (by RT-PCR)
+224,No PAX3-MAML3 fusions detected
+225,PAX3-MAML3 fusions detected
+Not set,Paraganglioma
+226,SDHB (by IHC)
+227,Intact (staining retained, negative for SDH alteration)
+228,Lost (staining lost, positive for SDH alteration)
+229,Indeterminate
+230,Indeterminate (explain):
+231,METHODS
+232,Page 1
+Not set,Head And Neck Squamous Cell Carcinoma (HNSCC)
+233,P16 (by IHC)
+271,P16
+234,Primary Antibody
+235,E6H4
+236,Other
+237,Other (specify clone):
+238,HPV DNA (by ISH)
+239,HPV DNA
+240,Subtypes Separately Tested
+241,High-Risk
+242,Low-Risk
+243,Specific Subtype
+244,High-Risk (specify test/vendor):
+245,Low-Risk (specify test/vendor):
+246,Specific Subtype:
+247,(specify test/vendor):
+248,HR-HPV E6/E7 mRNA (by ISH)
+249,HR-HPV E6/E7 mRNA (by ISH)
+250,HR-HPV E6/E7 mRNA (by ISH) (specify test/vendor):
+251,HPV DNA (by PCR)
+252,HPV DNA
+253,Subtypes Separately Tested
+254,High-Risk
+255,Low-Risk
+256,Specific Subtype
+257,High-Risk (specify test/vendor):
+258,Low-Risk (specify test/vendor):
+259,Specific Subtype:
+260,(specify test/vendor):
+261,HR-HPV E6/E7 mRNA by RT-PCR
+262,HR-HPV E6/E7 mRNA by RT-PCR
+263,EBV Testing
+264,EBER by ISH
+265,EBV DNA by PCR
+Not set,NUT Midline Carcinoma
+266,NUT Rearrangements
+267,Breakapart FISH
+268,BRD4-NUT fusion transcript RT-PCR
+269,NUT immunohistochemistry
+Not set,Salivary Gland Carcinoma
+272,EWSR1 Rearrangements
+273,Breakapart FISH
+274,EWSR1-ATF1 fusion transcript RT-PCR
+Not set,Mammary Analogue Secretory Carcinoma
+275,ETV6 Rearrangements
+276,Breakapart FISH
+277,ETV6-NTRK3 fusion transcript RT-PCR
+Not set,Mucoepidermoid Carcinoma
+278,MAML2 Rearrangements
+279,Breakapart FISH
+280,CRTC1-MAML2 fusion transcript RT-PCR
+281,CRTC3-MAML2 fusion transcript RT-PCR
+Not set,Adenoid Cystic Carcinoma
+282,MYB Rearrangements
+283,Breakapart FISH
+284,MYB-NFIB fusion FISH
+285,MYB-NFIB fusion transcript RT-PCR
+286,MYB immunohistochemistry
+Not set,Carcinoma ex Pleomorphic Adenoma/Pleomorphic Adenoma
+287,HMGA2
+288,Breakapart FISH
+289,PLAG1
+290,Breakapart FISH
+291,PLAG1 Immunohistochemistry
+Not set,Salivary Duct Carcinoma
+292,Her2 Expression (by IHC)
+293,US Food and Drug Administration (FDA) cleared
+294,Laboratory-developed test
+295,US Food and Drug Administration (FDA) cleared (specify test/vendor):
+296,Primary Antibody
+297,4B5
+298,HercepTest
+299,A0485
+300,SP3
+301,CB11
+302,Other
+303,Other (specify):
+304,HER2 (ERBB2) Expression (by FISH)
+305,FDA cleared
+306,Laboratory-developed test
+307,FDA cleared (specify test/vendor):
+308,Laboratory-developed test (specify probe):
+309,Androgen receptor immunohistochemistry
+310,Androgen receptor immunohistochemistry
+Not set,Sinonasal Malignancies
+311,Sinonasal Malignancies
+312,INI-1
+313,PAX-3
+Not set,Paraganglioma
+314,Paraganglioma
+315,SDHB immunohistochemistry
+Not set,COMMENT(S)
+316,COMMENT(S)
+9356,Patient Info
+9357,Page 1
+Not set,Basic information
+9358,Patient name:
+9359,Patient family:
+9360,Gender
+9361,Male
+9362,Female
+9363,Other
+9364,Unknown
+9365,Birth date:
+9366,Activity:
+9367,Active
+9368,Inactive
+9369,Multiple birth:
+9370,True
+9371,False
+9476,System
+9477,Phone
+9478,Fax
+9479,Email
+9480,Pager
+9481,Url
+9482,Sms
+9483,Other
+9484,Phone use
+9485,Home
+9486,Work
+9487,Temp
+9488,Old
+9489,Mobile
+9490,Phone
+9491,Fax use
+9492,Home
+9493,Work
+9494,Temp
+9495,Old
+9496,Mobile
+9497,Fax
+9498,Email use
+9499,Home
+9500,Work
+9501,Temp
+9502,Old
+9503,Mobile
+9504,Email
+9505,Pager use
+9506,Home
+9507,Work
+9508,Temp
+9509,Old
+9510,Mobile
+9511,Pager
+9512,Url use
+9513,Home
+9514,Work
+9515,Temp
+9516,Old
+9517,Mobile
+9518,Url
+9519,Sms use
+9520,Home
+9521,Work
+9522,Temp
+9523,Old
+9524,Mobile
+9525,Sms
+9526,Other use
+9527,Home
+9528,Work
+9529,Temp
+9530,Old
+9531,Mobile
+9532,Other
+9372,Language:
+9373,Serbian
+9374,English
+9375,Spanish
+Not set,Identifiers
+9376,Identifier name:
+9377,UniqueMasterCitizenNumber
+9378,DriverLicence
+9379,SocialNumber
+9380,Value:
+9381,Value:
+9382,Value:
+Not set,Address information
+9383,City:
+9384,State:
+9385,Postal Code:
+9386,Country:
+Not set,Contact person information
+9387,Name:
+9533,System
+9534,Phone
+9535,Fax
+9536,Email
+9537,Pager
+9538,Url
+9539,Sms
+9540,Other
+9541,Phone use
+9542,Home
+9543,Work
+9544,Temp
+9545,Old
+9546,Mobile
+9547,Phone
+9548,Fax use
+9549,Home
+9550,Work
+9551,Temp
+9552,Old
+9553,Mobile
+9554,Fax
+9555,Email use
+9556,Home
+9557,Work
+9558,Temp
+9559,Old
+9560,Mobile
+9561,Email
+9562,Pager use
+9563,Home
+9564,Work
+9565,Temp
+9566,Old
+9567,Mobile
+9568,Pager
+9569,Url use
+9570,Home
+9571,Work
+9572,Temp
+9573,Old
+9574,Mobile
+9575,Url
+9576,Sms use
+9577,Home
+9578,Work
+9579,Temp
+9580,Old
+9581,Mobile
+9582,Sms
+9583,Other use
+9584,Home
+9585,Work
+9586,Temp
+9587,Old
+9588,Mobile
+9589,Other
+9389,City:
+9390,State:
+9391,Postal Code:
+9392,Country:
+9393,Gender
+9394,Male
+9395,Female
+9396,Other
+9397,Unknown
+9398,Relationship:
+12345,Protocol for the Examination of Specimens From Patients With Ductal Carcinoma In Situ (DCIS) of the Breast
+,
+C0007124,DCIS OF THE BREAST
+Not set,Specimen Identification
+C1321205,Procedure (Note A)
+C1292535,Excision (less than total mastectomy)
+C0370611,Total mastectomy (including nipple-sparing and skin-sparing mastectomy)
+N/A,Other (specify):
+,Not specified
+,Other (specify)
+,Specimen Laterality
+,Right
+,Left
+,Not specified
+,Tumor Site (select all that apply)
+,Upper outer quadrant
+,Lower outer quadrant
+,Upper inner quadrant
+,Lower inner quadrant
+,Central
+,Nipple
+,Position
+,Other
+,Not specified
+,Position (specify)
+,Other (specify)
+Not set,Size (Extent) of DCIS (Note C)
+,At least
+,Additional dimensions
+,Number of blocks with DCIS
+,Number of blocks examined:
+Not set,Histologic Type (Note D)
+,
+,Ductal carcinoma in situ
+Not set,Architectural Patterns (select all that apply) (Note E)
+,
+,Comedo
+,Paget disease (DCIS involving nipple skin)
+,Cribriform
+,Micropapillary
+,Papillary
+,Solid
+,Other
+,Other (specify)
+8515,Protocol for the Examination of Specimens From Patients With Cancers of the Larynx
+8311,LARYNX (SUPRAGLOTTIS, GLOTTIS, SUBGLOTTIS):
+8312,Page 1
+Not set,Select a single response unless otherwise indicated.
+8313,Procedure (select all that apply)
+8314,Excision
+8315,Endolaryngeal excision
+8316,Transoral laser excision (glottis)
+8317,Supraglottic laryngectomy
+8318,Supracricoid laryngectomy
+8319,Vertical hemilaryngectomy
+8320,Partial laryngectomy
+8321,Total laryngectomy
+8322,Neck (lymph node) dissection
+8323,Other
+8324,Not specified
+8325,Vertical hemilaryngectomy (specify side):
+8326,Partial laryngectomy (specify type):
+8327,Neck (lymph node) dissection (specify):
+8328,Other (specify):
+8329,Tumor Site
+8330,Larynx, supraglottis
+8331,Larynx, glottis
+8332,Larynx, subglottis
+8333,Other
+8334,Not specified
+8335,Larynx, supraglottis
+8336,Epiglottis, lingual aspect
+8337,Epiglottis, laryngeal aspect
+8338,Aryepiglottic folds
+8339,Arytenoid(s)
+8340,False vocal cord
+8341,Ventricle
+8342,Larynx, glottis
+8343,True vocal cord
+8344,Anterior commissure
+8345,Posterior commissure
+8346,With subglottic extension
+8347,Other (specify):
+8348,Transglottic Extension
+8349,Present
+8350,Not identified
+8351,Tumor Laterality (select all that apply)
+8352,Right
+8353,Left
+8354,Midline
+8355,Not specified
+8356,Tumor Focality
+8357,Unifocal
+8358,Multifocal
+8359,Cannot be determined
+Not set,Tumor Size
+8360,Greatest dimension (centimeters):
+8361,Additional dimensions (centimeters):
+8362,Cannot be determined (explain):
+Not set,Histologic Type
+8363,Squamous Cell Carcinoma and Variants (select all that apply)
+8364,Squamous cell carcinoma, conventional (keratinizing)
+8365,Squamous cell carcinoma, nonkeratinizing
+8366,Acantholytic squamous cell carcinoma
+8367,Adenosquamous carcinoma
+8368,Basaloid squamous cell carcinoma
+8369,Papillary squamous cell carcinoma
+8370,Spindle cell squamous cell carcinoma
+8371,Verrucous squamous cell carcinoma
+8372,Lymphoepithelial carcinoma
+8373,Histologic Grade *
+8374,G1: Well differentiated
+8375,G2: Moderately differentiated
+8376,G3: Poorly differentiated
+8377,Other
+8378,GX: Cannot be assessed
+8379,Other (specify):
+8380,Carcinomas of Minor Salivary Glands
+8381,Mucoepidermoid carcinoma, low grade
+8382,Mucoepidermoid carcinoma, intermediate grade
+8383,Mucoepidermoid carcinoma, high grade
+8384,Adenoid cystic carcinoma, tubular pattern *
+8385,Adenoid cystic carcinoma, cribriform pattern *
+8386,Adenoid cystic carcinoma, solid pattern *
+8387,Adenocarcinoma, not otherwise specified, low grade
+8388,Adenocarcinoma, not otherwise specified, intermediate grade
+8389,Adenocarcinoma, not otherwise specified, high grade
+8390,Specify percentage of solid component:
+8391,Specify percentage of solid component:
+8392,Specify percentage of solid component:
+8393,Neuroendocrine Carcinoma
+8394,Well-differentiated neuroendocrine carcinoma (typical carcinoid tumor)
+8395,Moderately differentiated neuroendocrine carcinoma (atypical carcinoid tumor)
+8396,Poorly differentiated neuroendocrine carcinoma, small cell type
+8397,Poorly differentiated neuroendocrine carcinoma, large cell type
+8398,Combined (or composite) neuroendocrine carcinoma with
+8399,Mucosal melanoma
+8400,Carcinoma, type cannot be determined
+8401,Other histologic type not listed
+8402,Combined (or composite) neuroendocrine carcinoma with (specify types):
+8403,Other histologic type not listed (specify):
+Not set,Tumor Extension
+8404,Specify:
+8405,Margins (select all that apply)
+8406,Cannot be assessed
+8407,Uninvolved by invasive tumor
+8408,Involved by invasive tumor
+8409,Uninvolved by high-grade dysplasia/in situ disease *
+8410,Involved by high-grade dysplasia/in situ disease *
+8411,Distance from closest margin (millimeters):
+8412,Specify location of closest margin, per orientation, if possible:
+8413,Location and distance of other close margins:
+8414,Specify margin(s), per orientation, if possible:
+8415,Distance from closest margin (millimeters):
+8416,Specify location of closest margin, per orientation, if possible:
+8417,Specify margin(s), per orientation, if possible:
+8418,Lymphovascular Invasion
+8419,Not identified
+8420,Present
+8421,Cannot be determined
+8422,Perineural Invasion
+8423,Not identified
+8424,Present
+8425,Cannot be determined
+8426,Regional Lymph Nodes
+8427,Lymph nodes submitted or found
+8428,Number of Lymph Nodes Involved:
+8429,Number cannot be determined (explain):
+8430,Number of Lymph Nodes Examined:
+8431,Number cannot be determined (explain):
+8432,Laterality of Lymph Nodes Involved
+8433,Ipsilateral (including midline)
+8434,Contralateral
+8435,Bilateral
+8436,Cannot be determined
+8437,Size of Largest Metastatic Deposit (centimeters):
+8438,Extranodal Extension (ENE)
+8439,Not identified
+8440,Present
+8441,Cannot be determined
+8442,Distance from lymph node capsule (millimeters):
+8443,ENEma (>2 mm)
+8444,ENEmi (≤2 mm)
+Not set,Pathologic Stage Classification (pTNM, AJCC 8th Edition)
+8445,TNM Descriptors (select all that apply) *
+8446,m (multiple primary tumors)
+8447,r (recurrent)
+8448,y (posttreatment)
+Not set,For All Carcinomas
+8449,Primary Tumor (pT)
+8450,pTX: Primary tumor cannot be assessed
+8451,pTis: Carcinoma in situ
+8452,For the Supraglottis
+8453,pT1: Tumor limited to one subsite of supraglottis with normal vocal cord mobility
+8454,pT2: Tumor invades mucosa of more than one adjacent subsite of supraglottis or glottis or region outside the supraglottis (eg, mucosa of base of tongue, vallecula, medial wall of pyriform sinus) without fixation of the larynx
+8455,pT3: Tumor limited to larynx with vocal cord fixation and/or invades any of the following: postcricoid area, preepiglottic space, paraglottic space, and/or inner cortex of thyroid cartilage
+8456,pT4 Moderately advanced or very advanced
+8457,pT4a: Moderately advanced local disease. Tumor invades through the outer cortex thyroid cartilage and/or invades tissues beyond the larynx (eg, trachea, soft tissues of neck including deep extrinsic muscle of tongue, strap muscles, thyroid, or esophagus)
+8458,Very advanced local disease. Tumor invades prevertebral space, encases carotid artery, or invades mediastinal structures
+8459,For the Glottis
+8460,pT1: Tumor limited to the vocal cord(s) (may involve anterior or posterior commissure) with normal mobility
+8461,pT1a: Tumor limited to one vocal cord
+8462,pT1b: Tumor involves both vocal cords
+8463,pT2: Tumor extends to supraglottis and/or subglottis and/or with impaired vocal cord mobility
+8464,pT3: Tumor limited to the larynx with vocal cord fixation and/or invasion of paraglottic space and/or inner cortex of the thyroid cartilage
+8465,pT4: Moderately advanced or very advanced
+8466,pT4a: Moderately advanced local disease. Tumor invades through the outer cortex of the thyroid cartilage and/or invades tissues beyond the larynx (eg, trachea, cricoid cartilage, soft tissues of neck including deep extrinsic muscle of the tongue, strap muscles, thyroid, or esophagus)
+8467,pT4b: Very advanced local disease. Tumor invades prevertebral space, encases carotid artery, or invades mediastinal structures
+8468,For the Subglottis
+8469,pT1: Tumor limited to subglottis
+8470,pT2: Tumor extends to vocal cord(s) with normal or impaired mobility
+8471,pT3: Tumor limited to larynx with vocal cord fixation and/or invasion of paraglottic space and/or inner cortex of the thyroid cartilage
+8472,pT4: Moderately advanced or very advanced
+8473,pT4a: Moderately advanced local disease. Tumor invades cricoid or thyroid cartilage and/or invades tissues beyond the larynx (eg, trachea, soft tissues of neck including deep extrinsic muscles of the tongue, strap muscles, thyroid, or esophagus)
+8474,pT4b: Very advanced local disease. Tumor invades prevertebral space, encases carotid artery, or invades mediastinal structures
+8475,Regional Lymph Nodes (pN) *
+8476,pNX: Regional lymph nodes cannot be assessed
+8477,pN0: No regional lymph node metastasis
+8478,pN1: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(-)
+8479,pN2: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(+); or larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−); or metastases in multiple ipsilateral lymph nodes, none larger than 6 cm in greatest dimension and ENE(−); or in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+8480,pN2a: Metastasis in a single ipsilateral node, 3 cm or smaller in greatest dimension and ENE(+); or metastasis in a single ipsilateral node, larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−)
+8481,pN2b: Metastases in multiple ipsilateral nodes, none larger than 6 cm in greatest dimension and ENE(−)
+8482,pN2c: Metastases in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+8483,pN3: Metastasis in a lymph node, larger than 6 cm in greatest dimension and ENE(−); or metastasis in a single ipsilateral node, larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral, or bilateral lymph nodes and any with ENE(+); or a single contralateral node of any size and ENE(+)
+8484,pN3a: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−)
+8485,pN3b: Metastasis in a single ipsilateral node, larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral, or bilateral lymph nodes and any with ENE(+); or a single contralateral node of any size and ENE(+)
+8486,Distant Metastasis (pM) *
+8487,pM1: Distant metastasis
+8488,Specify site(s), if known:
+Not set,For Mucosal Melanoma
+8489,Primary Tumor (pT)
+8490,pT3: Tumors limited to the mucosa and immediately underlying soft tissue, regardless of thickness or greatest dimension; for example, polypoid nasal disease, pigmented or nonpigmented lesions of the oral cavity, pharynx, or larynx
+8491,pT4: Moderately advanced or very advanced disease
+8492,pT4a: Moderately advanced disease. Tumor involving deep soft tissue, cartilage, bone, or overlying skin
+8493,pT4b: Very advanced disease. Tumor involving brain, dura, skull base, lower cranial nerves (IX, X, XI, XII), masticator space, carotid artery, prevertebral space, or mediastinal structures
+8494,Regional Lymph Nodes (pN)
+8495,pNX: Regional lymph nodes cannot be assessed
+8496,pN0: No regional lymph node metastases
+8497,pN1: Regional lymph node metastases present
+8498,Distant Metastasis (pM) *
+8499,pM1: Distant metastasis present
+8500,Specify site(s), if known:
+8501,Additional Pathologic Findings (select all that apply)
+8502,None identified
+8503,Dysplasia, low grade (includes hyperplasia, keratosis, and mild dysplasia)
+8504,Dysplasia, high grade (includes moderate to severe dysplasia, and carcinoma in situ)
+8505,Squamous papilloma, solitary
+8506,Squamous papillomatosis
+8507,Inflammation
+8508,Squamous metaplasia
+8509,Colonization, fungal
+8510,Colonization, bacterial
+8511,Other
+8512,Inflammation (specify type):
+8513,Other (specify):
+9355,Comment(s)
+9356,Patient Info
+9357,Page 1
+Not set,Basic information
+9358,Patient name:
+9359,Patient family:
+9360,Gender
+9361,Male
+9362,Female
+9363,Other
+9364,Unknown
+9365,Birth date:
+9366,Activity:
+9367,Active
+9368,Inactive
+9369,Multiple birth:
+9370,True
+9371,False
+9476,System
+9477,Phone
+9478,Fax
+9479,Email
+9480,Pager
+9481,Url
+9482,Sms
+9483,Other
+9484,Phone use
+9485,Home
+9486,Work
+9487,Temp
+9488,Old
+9489,Mobile
+9490,Phone
+9491,Fax use
+9492,Home
+9493,Work
+9494,Temp
+9495,Old
+9496,Mobile
+9497,Fax
+9498,Email use
+9499,Home
+9500,Work
+9501,Temp
+9502,Old
+9503,Mobile
+9504,Email
+9505,Pager use
+9506,Home
+9507,Work
+9508,Temp
+9509,Old
+9510,Mobile
+9511,Pager
+9512,Url use
+9513,Home
+9514,Work
+9515,Temp
+9516,Old
+9517,Mobile
+9518,Url
+9519,Sms use
+9520,Home
+9521,Work
+9522,Temp
+9523,Old
+9524,Mobile
+9525,Sms
+9526,Other use
+9527,Home
+9528,Work
+9529,Temp
+9530,Old
+9531,Mobile
+9532,Other
+9372,Language:
+9373,Serbian
+9374,English
+9375,Spanish
+Not set,Identifiers
+9376,Identifier name:
+9377,UniqueMasterCitizenNumber
+9378,DriverLicence
+9379,SocialNumber
+9380,Value:
+9381,Value:
+9382,Value:
+Not set,Address information
+9383,City:
+9384,State:
+9385,Postal Code:
+9386,Country:
+Not set,Contact person information
+9387,Name:
+9533,System
+9534,Phone
+9535,Fax
+9536,Email
+9537,Pager
+9538,Url
+9539,Sms
+9540,Other
+9541,Phone use
+9542,Home
+9543,Work
+9544,Temp
+9545,Old
+9546,Mobile
+9547,Phone
+9548,Fax use
+9549,Home
+9550,Work
+9551,Temp
+9552,Old
+9553,Mobile
+9554,Fax
+9555,Email use
+9556,Home
+9557,Work
+9558,Temp
+9559,Old
+9560,Mobile
+9561,Email
+9562,Pager use
+9563,Home
+9564,Work
+9565,Temp
+9566,Old
+9567,Mobile
+9568,Pager
+9569,Url use
+9570,Home
+9571,Work
+9572,Temp
+9573,Old
+9574,Mobile
+9575,Url
+9576,Sms use
+9577,Home
+9578,Work
+9579,Temp
+9580,Old
+9581,Mobile
+9582,Sms
+9583,Other use
+9584,Home
+9585,Work
+9586,Temp
+9587,Old
+9588,Mobile
+9589,Other
+9389,City:
+9390,State:
+9391,Postal Code:
+9392,Country:
+9393,Gender
+9394,Male
+9395,Female
+9396,Other
+9397,Unknown
+9398,Relationship:
+,
+24,Head and Neck Squamous Cell Carcinoma (HNSCC)
+31,Page 1
+Not set,Human Papillomavirus (HPV) Testing
+33,p16 Expression (by immunohistochemistry) as a Surrogate for Transcriptionally Active High-Risk HPV
+34,Negative (<50% diffuse and strong nuclear and cytoplasmic staining) 
+35,Equivocal (<70% but >50% diffuse and strong nuclear and cytoplasmic staining)
+36,Positive (>70% diffuse and strong nuclear and cytoplasmic staining) 
+37,Indeterminate
+38,Indeterminate (explain):
+39,HPV-DNA (by in situ hybridization [ISH])
+40,Negative (no signal)
+41,Positive
+42,Indeterminate
+43,Positive
+45,Punctate
+46,Diffuse
+47,Subtype(s)
+48,Indeterminate (explain):
+49,Subtype(s) (if available):
+50,HPV E6/E7 mRNA (by ISH)
+51,Negative (no signal)
+52,Positive (cytoplasmic and/or nuclear signals)
+53,Indeterminate
+54,Subtype(s) (if available):
+55,Indeterminate (explain):
+56,HPV-DNA (by polymerase chain reaction [PCR])
+57,Negative (no signal)
+58,Positive
+59,Indeterminate
+60,Subtype(s) (if available):
+61,Indeterminate (explain):
+62,HPV E6/E7 mRNA (by reverse transcriptase polymerase chain reaction [RT-PCR])
+63,Negative (no signal)
+64,Positive
+65,Indeterminate
+66,Subtype(s) (if available):
+67,Indeterminate (explain):
+Not set,Epstein-Barr Virus (EBV) Testing
+68,EBV Early mRNA (EBER) (by ISH)
+69,Negative (no signal)
+70,Positive(nuclear signal)
+71,Indeterminate
+72,Indeterminate (explain):
+Not set,NUT Midline Carcinoma
+73,NUT Expression (by immunohistochemistry [IHC])
+74,Negative
+75,Positive
+76,Indeterminate
+78,Indeterminate (explain):
+79,NUT Rearrangements (by Fluorescence ISH [FISH])
+80,No NUT rearrangement detected
+81,NUT rearrangement detected
+82,Percentage of positive cells (%):
+83,Percentage of positive cells with classic rearrangement (if applicable) (%):
+84,Percentage of positive cells with complex rearrangement (if applicable) (%):
+85,BRD4-NUT Fusion (by RT-PCR)
+86,No BRD4-NUT fusions detected
+87,BRD4-NUT fusions detected
+89,Other NUT Fusion (by RT-PCR)
+90,No NUT translocation detected
+91,NUT translocation detected
+93,Fusion partner:
+95,Salivary Gland Carcinoma
+96,Page 1
+Not set,(Hyalinizing) Clear Cell Carcinoma
+97,EWSR1 Rearrangements (by FISH)
+98,No EWSR1 rearrangement detected
+99,EWSR1 rearrangement detected
+100,Indeterminate
+101,Percentage of positive cells (%):
+102,Percentage of positive cells with classic rearrangement (if applicable) (%):
+103,Percentage of positive cells with complex rearrangement (if applicable) (%):
+104,Indeterminate (explain):
+105,EWSR1-ATF1 Fusion (by RT-PCR)
+106,No EWSR1-ATF1 fusions detected
+107,EWSR1-ATF1 fusions detected
+108,Other EWSR1 Fusion (by RT-PCR)
+109,No EWSR1 translocation detected
+110,EWSR1 translocation detected
+112,Fusion partner:
+Not set,Mammary Analogue Secretory Carcinoma
+113,ETV6 Rearrangements (by FISH)
+114,No ETV6 rearrangement detected
+115,ETV6 rearrangement detected
+116,Indeterminate
+117,Percentage of positive cells (%):
+118,Percentage of positive cells with classic rearrangement (if applicable) (%):
+119,Percentage of positive cells with complex rearrangement (if applicable) (%):
+120,Indeterminate (explain):
+121,ETV6-NTRK3 Fusion (by RT-PCR)
+122,No ETV6-NTRK3 fusions detected
+123,ETV6-NTRK3 fusions detected
+Not set,Mucoepidermoid Carcinoma
+124,MAML2 Rearrangements (by FISH)
+125,No MAML2 rearrangement detected
+126,MAML2 rearrangement detected
+127,Indeterminate
+128,Percentage of positive cells (%):
+129,Percentage of positive cells with classic rearrangement (if applicable) (%):
+130,Percentage of positive cells with complex rearrangement (if applicable) (%):
+131,Indeterminate (explain):
+132,CRTC1-MAML2 Fusion (by RT-PCR)
+133,No CRTC1-MAML2 fusions detected
+314,CRTC1-MAML2 fusions detected
+135,CRTC3-MAML2 Fusion (by RT-PCR)
+136,No CRTC3-MAML2 fusions detected
+137,CRTC3-MAML2 fusions detected
+Not set,Adenoid Cystic Carcinoma
+138,MYB Expression (by IHC)
+139,Negative
+140,Positive
+141,Indeterminate
+142,Indeterminate (explain):
+143,MYB Rearrangements (by FISH)
+144,No MYB rearrangement detected
+145,MYB rearrangement detected
+146,Indeterminate
+147,Percentage of positive cells (%):
+148,Percentage of positive cells with classic rearrangement (if applicable) (%):
+150,Percentage of positive cells with complex rearrangement (if applicable) (%):
+151,Indeterminate (explain):
+152,MYB-NFIB Fusion (by FISH)
+153,No MYB-NFIB fusions detected
+154,MYB-NFIB fusions detected
+155,Indeterminate
+156,Percentage of positive cells (%):
+157,Percentage of positive cells with classic fusion (if applicable) (%):
+158,Percentage of positive cells with complex fusion (if applicable) (%):
+159,Indeterminate (explain):
+160,CRTC1-MAML2 Fusion (by RT-PCR)
+161,No CRTC1-MAML2 fusions detected
+162,CRTC1-MAML2 fusions detected
+Not set,Carcinoma ex Pleomorphic Adenoma/Pleomorphic Adenoma
+163,HMGA2 (by FISH)
+164,No HMGA2 rearrangement detected
+165,HMGA2 rearrangement detected
+166,Indeterminate
+167,Percentage of positive cells (%):
+168,Percentage of positive cells with classic rearrangement (if applicable) (%):
+169,Percentage of positive cells with complex rearrangement (if applicable) (%):
+170,Indeterminate (explain):
+171,CRTC1-MAML2 Fusion (by RT-PCR)
+172,Negative
+173,Positive
+174,Indeterminate
+175,Indeterminate (explain):
+176,PLAG1 (by FISH)
+177,No PLAG1 rearrangement detected
+178,PLAG1 rearrangement detected
+179,Indeterminate
+180,Percentage of positive cells (%):
+181,Percentage of positive cells with classic rearrangement (if applicable) (%):
+182,Percentage of positive cells with complex rearrangement (if applicable) (%):
+183,Indeterminate (explain):
+Not set,Salivary Duct Carcinoma
+184,Human Epidermal Growth Factor-2 (HER2 [ERBB2]) Expression (by IHC)
+185,Negative (score 0)
+186,Negative (score 1+)
+187,Equivocal (score 2+)
+188,Positive (score 3+)
+189,Indeterminate
+190,Indeterminate (explain):
+191,HER2 (ERBB2) Expression (by FISH)
+192,Negative (not amplified)
+193,Positive (amplified)
+194,Indeterminate
+195,Indeterminate (explain):
+196,Number of observers:
+197,Number of invasive cancer cells counted:
+198,Assay
+199,Using dual-probe assay
+200,Using single-probe assay
+201,Average number of HER2 (ERBB2) signals per cancer cell:
+202,Average number of CEP17 signals per cancer cell:
+203,HER2 (ERBB2):CEP17 ratio:
+204,Average number of HER2 (ERBB2) signals per cancer cell:
+205,Androgen Receptor (by IHC)
+206,Negative
+207,Positive
+208,Indeterminate
+209,Indeterminate (explain):
+210,Sinonasal Malignancies
+211,Page 1
+Not set,INI-Deficient Sinonasal Carcinoma/Rhabdoid Tumor
+212,INI-1 (by IHC)
+213,Intact (staining retained, negative for INI1 deletion)
+214,Lost (staining lost, positive for INI1 alteration)
+215,Indeterminate
+216,Indeterminate (explain):
+Not set,Biphenotypic Sinonasal Sarcoma
+217,PAX3 Rearrangements (by FISH)
+218,No PAX3 rearrangement detected
+219,PAX3 rearrangement detected
+220,Percentage of positive cells:
+221,Percentage of positive cells with classic rearrangement (if applicable):
+222,Percentage of positive cells with complex rearrangement (if applicable):
+223,PAX3-MAML3 Fusion (by RT-PCR)
+224,No PAX3-MAML3 fusions detected
+225,PAX3-MAML3 fusions detected
+Not set,Paraganglioma
+226,SDHB (by IHC)
+227,Intact (staining retained, negative for SDH alteration)
+228,Lost (staining lost, positive for SDH alteration)
+229,Indeterminate
+230,Indeterminate (explain):
+231,Head And Neck Squamous Cell Carcinoma (HNSCC)
+232,Page 1
+Not set,HPV Testing
+233,P16 (by IHC)
+232,P16
+234,Primary Antibody
+235,E6H4
+236,Other
+237,Other (specify clone):
+238,HPV DNA (by ISH)
+239,HPV DNA
+240,Subtypes Separately Tested
+241,High-Risk
+242,Low-Risk
+243,Specific Subtype
+244,High-Risk (specify test/vendor):
+245,Low-Risk (specify test/vendor):
+246,Specific Subtype:
+247,(specify test/vendor):
+248,HR-HPV E6/E7 mRNA (by ISH)
+249,HR-HPV E6/E7 mRNA (by ISH)
+250,HR-HPV E6/E7 mRNA (by ISH) (specify test/vendor):
+251,HPV DNA (by PCR)
+252,HPV DNA
+253,Subtypes Separately Tested
+254,High-Risk
+255,Low-Risk
+256,Specific Subtype
+257,High-Risk (specify test/vendor):
+258,Low-Risk (specify test/vendor):
+259,Specific Subtype:
+260,(specify test/vendor):
+261,HR-HPV E6/E7 mRNA by RT-PCR
+262,HR-HPV E6/E7 mRNA by RT-PCR
+263,EBV Testing
+264,EBER by ISH
+265,EBV DNA by PCR
+Not set,NUT Midline Carcinoma
+266,NUT Rearrangements
+267,Breakapart FISH
+268,BRD4-NUT fusion transcript RT-PCR
+269,NUT immunohistochemistry
+270,Salivary Gland Carcinoma
+271,Page 1
+Not set,(Hyalinizing) Clear Cell Carcinoma
+272,EWSR1 Rearrangements
+273,Breakapart FISH
+274,EWSR1-ATF1 fusion transcript RT-PCR
+Not set,Mammary Analogue Secretory Carcinoma
+275,ETV6 Rearrangements
+276,Breakapart FISH
+277,ETV6-NTRK3 fusion transcript RT-PCR
+Not set,Mucoepidermoid Carcinoma
+278,MAML2 Rearrangements
+279,Breakapart FISH
+280,CRTC1-MAML2 fusion transcript RT-PCR
+281,CRTC3-MAML2 fusion transcript RT-PCR
+Not set,Adenoid Cystic Carcinoma
+282,MYB Rearrangements
+283,Breakapart FISH
+284,MYB-NFIB fusion FISH
+285,MYB-NFIB fusion transcript RT-PCR
+286,MYB immunohistochemistry
+Not set,Carcinoma ex Pleomorphic Adenoma/Pleomorphic Adenoma
+287,HMGA2
+288,Breakapart FISH
+289,PLAG1
+290,Breakapart FISH
+291,PLAG1 Immunohistochemistry
+Not set,Salivary Duct Carcinoma
+292,Her2 Expression (by IHC)
+293,US Food and Drug Administration (FDA) cleared
+294,Laboratory-developed test
+295,US Food and Drug Administration (FDA) cleared (specify test/vendor):
+296,Primary Antibody
+297,4B5
+298,HercepTest
+299,A0485
+300,SP3
+301,CB11
+302,Other
+303,Other (specify):
+304,HER2 (ERBB2) Expression (by FISH)
+305,FDA cleared
+306,Laboratory-developed test
+307,FDA cleared (specify test/vendor):
+308,Laboratory-developed test (specify probe):
+309,Androgen receptor immunohistochemistry
+310,Androgen receptor immunohistochemistry
+Not set,Sinonasal Malignancies
+311,Sinonasal Malignancies
+312,INI-1
+313,PAX-3
+Not set,Paraganglioma
+314,Paraganglioma
+315,SDHB immunohistochemistry
+Not set,COMMENT(S)
+316,COMMENT(S)
+8516,Protocol for the Examination of Specimens from Patients with Cancers of the Lip and Oral Cavity
+8517,LIP AND ORAL CAVITY:
+8518,Page 1
+Not set,Select a single response unless otherwise indicated.
+8519,Procedure (select all that apply)
+8520,Excision
+8521,Glossectomy
+8522,Buccal mucosal resection
+8523,Mandibulectomy
+8524,Maxillectomy
+8525,Palatectomy
+8526,Neck (lymph node) dissection
+8527,Other
+8528,Not specified
+8529,Glossectomy (specify):
+8530,Buccal mucosal resection (specify):
+8531,Mandibulectomy (specify):
+8532,Maxillectomy (specify):
+8533,Neck (lymph node) dissection (specify):
+8534,Other (specify):
+8535,Tumor Site
+8536,Lip
+8537,Oral
+8538,Other
+8539,Not specified
+8540,Lip
+8541,Mucosa of upper lip
+8542,Ventral surface of tongue
+8543,Oral
+8544,Lateral border of tongue
+8545,Ventral surface of tongue
+8546,Dorsal surface of tongue
+8547,Anterior two-thirds of tongue
+8548,Upper gingiva
+8549,Lower gingiva
+8550,Anterior floor of mouth
+8551,Floor of mouth
+8552,Hard palate
+8553,Buccal mucosa
+8554,Vestibule of mouth, maxillary
+8555,Vestibule of mouth, mandibular
+8556,Alveolar process, maxillary
+8557,Alveolar process, mandibular
+8558,Retromolar area
+8559,Other (specify):
+8560,Tumor Laterality (select all that apply)
+8561,Right
+8562,Left
+8563,Midline
+8564,Not specified
+8565,Tumor Focality
+8566,Unifocal
+8567,Multifocal
+8568,Cannot be determined
+Not set,Tumor Size
+8569,Greatest dimension (centimeters):
+8570,Additional dimensions (centimeters):
+8571,Cannot be determined (explain):
+8572,Tumor Depth of Invasion (DOI) (millimeters):
+Not set,Histologic Type
+8573,Squamous Cell Carcinoma and Variants (select all that apply)
+8574,Squamous cell carcinoma, conventional
+8575,Acantholytic squamous cell carcinoma
+8576,Adenosquamous carcinoma
+8577,Basaloid squamous cell carcinoma
+8578,Carcinoma cuniculatum
+8579,Papillary squamous cell carcinoma
+8580,Spindle cell squamous cell carcinoma
+8581,Verrucous squamous cell carcinoma
+8582,Lymphoepithelial carcinoma
+8583,Carcinomas of Minor Salivary Glands
+8584,Mucoepidermoid carcinoma, low grade
+8585,Mucoepidermoid carcinoma, intermediate grade
+8586,Mucoepidermoid carcinoma, high grade
+8587,Adenoid cystic carcinoma, tubular pattern *
+8588,Adenoid cystic carcinoma, cribriform pattern *
+8589,Adenoid cystic carcinoma, solid pattern *
+8590,Acinic cell carcinoma
+8591,Polymorphous adenocarcinoma, classic, low grade
+8592,Polymorphous adenocarcinoma, classic, intermediate grade
+8593,Polymorphous adenocarcinoma, classic, high grade
+8594,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), low grade
+8595,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), intermediate grade
+8596,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), high grade
+8597,(Mammary analogue) Secretory carcinoma
+8598,Salivary duct carcinoma
+8599,Epithelial-myoepithelial carcinoma
+8600,(Hyalinizing) clear cell carcinoma
+8601,Adenocarcinoma, not otherwise specified, low grade
+8602,Adenocarcinoma, not otherwise specified, intermediate grade
+8603,Adenocarcinoma, not otherwise specified, high grade
+8604,Basal cell adenocarcinoma
+8605,Carcinosarcoma (true malignant mixed tumor)
+8606,Intraductal carcinoma, low grade
+8607,Intraductal carcinoma, high grade
+8608,Myoepithelial carcinoma
+8609,Oncocytic carcinoma
+8610,Specify percentage of solid component:
+8611,Specify percentage of solid component:
+8612,Specify percentage of solid component:
+8613,Preexisting pleomorphic adenoma component *
+8614,Carcinoma ex pleomorphic adenoma, minimally invasive
+8615,Carcinoma ex pleomorphic adenoma, invasive
+8616,Carcinoma ex pleomorphic adenoma, intracapsular (noninvasive)
+8617,Neuroendocrine Carcinoma
+8618,Well differentiated neuroendocrine carcinoma (typical carcinoid tumor)
+8619,Moderately differentiated neuroendocrine carcinoma (atypical carcinoid tumor)
+8620,Poorly differentiated neuroendocrine carcinoma, small cell type
+8621,Poorly differentiated neuroendocrine carcinoma, large cell type
+8622,Combined (or composite) neuroendocrine carcinoma
+8623,Mucosal melanoma
+8624,Carcinoma, type cannot be determined
+8625,Other histologic type not listed
+8626,Combined (or composite) neuroendocrine carcinoma (specify types):
+8627,Other histologic type not listed (specify):
+8628,Histologic Grade *
+8629,G1: Well differentiated
+8630,G2: Moderately differentiated
+8631,G3: Poorly differentiated
+8632,Other
+8633,GX: Cannot be assessed
+8634,Other (specify):
+Not set,Tumor Extension
+8635,Specify:
+8636,Specimen Margins (select all that apply)
+8637,Cannot be assessed
+8638,Uninvolved by invasive tumor
+8639,Involved by invasive tumor
+8640,Uninvolved by high-grade dysplasia/in situ disease *
+8641,Involved by high-grade dysplasia/in situ disease *
+8642,Distance from closest margin (millimeters):
+8643,Specify location of closest margin, per orientation, if possible:
+8644,Location and distance of other close margins:
+8645,Specify margin(s), per orientation, if possible:
+8646,Distance from closest margin (millimeters):
+8647,Specify location of closest margin, per orientation, if possible:
+8648,Specify margin(s), per orientation, if possible:
+8649,Tumor Bed (Separately Submitted) Margin Orientation *
+8650,Oriented to true margin surface
+8651,Unoriented to true margin surface
+8652,Tumor Bed (Separately Submitted) Margins (select all that apply) *
+8653,Uninvolved by invasive tumor
+8654,Involved by invasive tumor
+8655,Uninvolved by high-grade dysplasia/in situ disease *
+8656,Involved by high-grade dysplasia/in situ disease *
+8657,Specify distance to true margin surface (millimeters):
+8658,Specify margin(s), per part labeling, if possible:
+8659,Specify distance to true margin surface (millimeters):
+8660,Specify margin(s), per orientation, if possible:
+8661,Lymphovascular Invasion
+8662,Not identified
+8663,Present
+8664,Cannot be determined
+8665,Perineural Invasion
+8666,Not identified
+8667,Present
+8668,Cannot be determined
+8669,Extent of perineural invasion (specify):
+8670,Worst Pattern of Invasion (WPOI)
+8671,WPOI 5
+8672,WPOI 1-4
+8673,Regional Lymph Nodes
+8674,Lymph nodes submitted or found
+8675,Number of Lymph Nodes Involved:
+8676,Number cannot be determined (explain):
+8677,Number of Lymph Nodes Examined:
+8678,Number cannot be determined (explain):
+8679,Laterality of Lymph Nodes Involved
+8680,Ipsilateral (including midline)
+8681,Contralateral
+8682,Bilateral
+8683,Cannot be determined
+8684,Size of Largest Metastatic Deposit (centimeters):
+8685,Extranodal Extension (ENE)
+8686,Not identified
+8687,Present
+8688,Cannot be determined
+8689,Distance from lymph node capsule (millimeters):
+8690,ENEma (>2 mm)
+8691,ENEmi (≤2 mm)
+Not set,Pathologic Stage Classification (pTNM, AJCC 8th Edition)
+8692,TNM Descriptors (select all that apply) *
+8693,m (multiple primary tumors)
+8694,r (recurrent)
+8695,y (posttreatment)
+Not set,For All Carcinomas
+8696,Primary Tumor (pT)
+8697,pTX: Primary tumor cannot be assessed
+8698,pTis: Carcinoma in situ
+8699,pT1: Tumor ≤2 cm with depth of invasion (DOI) ≤5 mm
+8700,pT2: Tumor ≤2 cm with DOI >5 mm or tumor >2 cm and ≤4 cm with DOI ≤10 mm
+8701,pT3: Tumor >2 cm and ≤4 cm with DOI >10 mm or tumor >4 cm with DOI ≤10 mm
+8702,pT4: Moderately advanced or very advanced local disease
+8703,pT4a: Moderately advanced local disease. Tumor >4 cm with DOI >10 mm or tumor invades adjacent structures only (eg, through cortical bone of the mandible or maxilla or involves the maxillary sinus or skin of the face)
+8704,pT4b: Very advanced local disease. Tumor invades masticator space, pterygoid plates, or skull base, and/or encases the internal carotid artery
+8705,Regional Lymph Nodes (pN) *
+8706,pNX: Regional lymph nodes cannot be assessed
+8707,pN0: No regional lymph node metastasis
+8708,pN1: pN1: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(−)
+8709,pN2: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(+); or larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−); or metastases in multiple ipsilateral lymph nodes, none larger than 6 cm in greatest dimension and ENE(−); or in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+8710,pN2a: Metastasis in single ipsilateral node 3 cm or smaller in greatest dimension and ENE(+); or a single ipsilateral node larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−)
+8711,pN2b: Metastases in multiple ipsilateral nodes, none larger than 6 cm in greatest dimension and ENE(−)
+8712,pN2c: Metastases in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+8713,pN3: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−); or metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral or bilateral nodes any with ENE(+); or a single contralateral node of any size and ENE(+)
+8714,pN3a: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−)
+8715,pN3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral or bilateral nodes any with ENE(+); or a single contralateral node of any size and ENE(+)
+8716,Distant Metastasis (pM) *
+8717,pM1: Distant metastasis
+8718,Specify site(s), if known:
+Not set,For Mucosal Melanoma
+8719,Primary Tumor (pT)
+8720,pT3: Tumors limited to the mucosa and immediately underlying soft tissue, regardless of thickness or greatest dimension; for example, polypoid nasal disease, pigmented or nonpigmented lesions of the oral cavity, pharynx, or larynx
+8721,pT4: Moderately advanced or very advanced disease
+8722,pT4a: Moderately advanced disease. Tumor involving deep soft tissue, cartilage, bone, or overlying skin
+8723,pT4b: Very advanced disease. Tumor involving brain, dura, skull base, lower cranial nerves (IX, X, XI, XII), masticator space, carotid artery, prevertebral space, or mediastinal structures
+8724,Regional Lymph Nodes (pN)
+8725,pNX: Regional lymph nodes cannot be assessed
+8726,pN0: No regional lymph node metastases
+8727,pN1: Regional lymph node metastases present
+8728,Distant Metastasis (pM) *
+8729,pM1: Distant metastasis present
+8730,Specify site(s), if known:
+8731,Additional Pathologic Findings (select all that apply)
+8732,None identified
+8733,Keratinizing dysplasia, mild
+8734,Keratinizing dysplasia, moderate
+8735,Keratinizing dysplasia, severe (carcinoma in situ)
+8736,Nonkeratinizing dysplasia, mild
+8737,Nonkeratinizing dysplasia, moderate
+8738,Nonkeratinizing dysplasia, severe (carcinoma in situ)
+8739,Inflammation
+8740,Epithelial hyperplasia
+8741,Colonization, fungal
+8742,Colonization, bacterial
+8743,Other
+8744,Inflammation (specify type):
+8745,Other (specify):
+Not set,COMMENT(S)
+8746,COMMENT(S)
+9356,Patient Info
+9357,Page 1
+Not set,Basic information
+9358,Patient name:
+9359,Patient family:
+9360,Gender
+9361,Male
+9362,Female
+9363,Other
+9364,Unknown
+9365,Birth date:
+9366,Activity:
+9367,Active
+9368,Inactive
+9369,Multiple birth:
+9370,True
+9371,False
+9476,System
+9477,Phone
+9478,Fax
+9479,Email
+9480,Pager
+9481,Url
+9482,Sms
+9483,Other
+9484,Phone use
+9485,Home
+9486,Work
+9487,Temp
+9488,Old
+9489,Mobile
+9490,Phone
+9491,Fax use
+9492,Home
+9493,Work
+9494,Temp
+9495,Old
+9496,Mobile
+9497,Fax
+9498,Email use
+9499,Home
+9500,Work
+9501,Temp
+9502,Old
+9503,Mobile
+9504,Email
+9505,Pager use
+9506,Home
+9507,Work
+9508,Temp
+9509,Old
+9510,Mobile
+9511,Pager
+9512,Url use
+9513,Home
+9514,Work
+9515,Temp
+9516,Old
+9517,Mobile
+9518,Url
+9519,Sms use
+9520,Home
+9521,Work
+9522,Temp
+9523,Old
+9524,Mobile
+9525,Sms
+9526,Other use
+9527,Home
+9528,Work
+9529,Temp
+9530,Old
+9531,Mobile
+9532,Other
+9372,Language:
+9373,Serbian
+9374,English
+9375,Spanish
+Not set,Identifiers
+9376,Identifier name:
+9377,UniqueMasterCitizenNumber
+9378,DriverLicence
+9379,SocialNumber
+9380,Value:
+9381,Value:
+9382,Value:
+Not set,Address information
+9383,City:
+9384,State:
+9385,Postal Code:
+9386,Country:
+Not set,Contact person information
+9387,Name:
+9533,System
+9534,Phone
+9535,Fax
+9536,Email
+9537,Pager
+9538,Url
+9539,Sms
+9540,Other
+9541,Phone use
+9542,Home
+9543,Work
+9544,Temp
+9545,Old
+9546,Mobile
+9547,Phone
+9548,Fax use
+9549,Home
+9550,Work
+9551,Temp
+9552,Old
+9553,Mobile
+9554,Fax
+9555,Email use
+9556,Home
+9557,Work
+9558,Temp
+9559,Old
+9560,Mobile
+9561,Email
+9562,Pager use
+9563,Home
+9564,Work
+9565,Temp
+9566,Old
+9567,Mobile
+9568,Pager
+9569,Url use
+9570,Home
+9571,Work
+9572,Temp
+9573,Old
+9574,Mobile
+9575,Url
+9576,Sms use
+9577,Home
+9578,Work
+9579,Temp
+9580,Old
+9581,Mobile
+9582,Sms
+9583,Other use
+9584,Home
+9585,Work
+9586,Temp
+9587,Old
+9588,Mobile
+9589,Other
+9389,City:
+9390,State:
+9391,Postal Code:
+9392,Country:
+9393,Gender
+9394,Male
+9395,Female
+9396,Other
+9397,Unknown
+9398,Relationship:
+8750,Protocol for the Examination of Specimens From Patients With Carcinomas of the Major Salivary Glands
+8751,MAJOR SALIVARY GLANDS:
+8752,Page 1
+Not set,Select a single response unless otherwise indicated.
+8753,Procedure (select all that apply)
+8754,Excision
+8755,Parotidectomy, superficial
+8756,Parotidectomy, deep
+8757,Parotidectomy, total
+8758,Parotidectomy, not specified
+8759,Resection, submandibular gland
+8760,Resection, sublingual gland
+8761,Neck (lymph node) dissection
+8762,Other
+8763,Not specified
+8764,Neck (lymph node) dissection (specify):
+8765,Other (specify):
+8766,Tumor Site
+8767,Parotid gland
+8768,Submandibular gland
+8769,Sublingual gland
+8770,Other
+8771,Not specified
+8772,Parotid gland
+8773,Superficial lobe
+8774,Deep lobe
+8775,Entire parotid gland
+8776,Other (specify):
+8777,Tumor Laterality
+8778,Right
+8779,Left
+8780,Bilateral
+8781,Not specified
+8782,Tumor Focality
+8783,Unifocal
+8784,Multifocal
+8785,Cannot be determined
+Not set,Tumor Size
+8786,Greatest dimension (centimeters):
+8787,Additional dimensions (centimeters):
+8789,Cannot be determined (explain):
+8790,Histologic Type
+8791,Mucoepidermoid carcinoma, low grade
+8792,Mucoepidermoid carcinoma, intermediate grade
+8793,Mucoepidermoid carcinoma, high grade
+8794,Adenoid cystic carcinoma, tubular pattern *
+8795,Adenoid cystic carcinoma, cribriform pattern *
+8796,Adenoid cystic carcinoma, solid pattern *
+8797,Acinic cell carcinoma
+8798,Polymorphous adenocarcinoma, classic, low grade
+8799,Polymorphous adenocarcinoma, classic, intermediate grade
+8800,Polymorphous adenocarcinoma, classic, high grade
+8801,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), low grade
+8802,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), intermediate grade
+8803,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), high grade
+8804,(Mammary analogue) Secretory carcinoma
+8805,Salivary duct carcinoma
+8806,Epithelial-myoepithelial carcinoma
+8807,(Hyalinizing) clear cell carcinoma
+8808,Adenocarcinoma, not otherwise specified, low grade
+8809,Adenocarcinoma, not otherwise specified, intermediate grade
+8810,Adenocarcinoma, not otherwise specified, high grade
+8811,Basal cell adenocarcinoma
+8812,Carcinosarcoma (true malignant mixed tumor)
+8813,Intraductal carcinoma, low grade
+8814,Intraductal carcinoma, high grade
+8815,Lymphoepithelial carcinoma
+8816,Myoepithelial carcinoma
+8817,Oncocytic carcinoma
+8818,Poorly differentiated carcinoma, small cell neuroendocrine
+8819,Poorly differentiated carcinoma, large cell neuroendocrine
+8820,Poorly differentiated carcinoma, undifferentiated
+8821,Sebaceous adenocarcinoma
+8822,Squamous cell carcinoma, primary
+8823,Specify percentage of solid component:
+8824,Specify percentage of solid component:
+8825,Specify percentage of solid component:
+8826,Preexisting pleomorphic adenoma component *
+8827,Carcinoma ex pleomorphic adenoma, minimally invasive
+8828,Carcinoma ex pleomorphic adenoma, invasive
+8829,Carcinoma ex pleomorphic adenoma, intracapsular (noninvasive)
+8830,Carcinoma, type cannot be determined
+8831,Other histologic type not listed
+8832,Other histologic type not listed (specify):
+8833,High-Grade Transformation (if applicable)
+8834,Present
+8835,Not identified
+Not set,Tumor Extension
+8836,Macroscopic Tumor Extension (specify):
+8837,Margins
+8838,Cannot be assessed
+8839,Uninvolved by carcinoma
+8840,Involved by carcinoma
+8841,Distance of tumor from closest margin (millimeters):
+8842,Specify margin, if possible:
+8843,Specify margin(s), if possible:
+8844,Lymphovascular Invasion
+8845,Not identified
+8846,Present
+8847,Cannot be determined
+8848,Perineural Invasion
+8849,Not identified
+8850,Present
+8851,Cannot be determined
+8852,Regional Lymph Nodes
+8853,Lymph nodes submitted or found
+8854,Number of Lymph Nodes Involved:
+8855,Number cannot be determined (explain):
+8856,Number of Lymph Nodes Examined:
+8857,Number cannot be determined (explain):
+8858,Laterality of Lymph Nodes Involved
+8859,Ipsilateral (including midline)
+8860,Contralateral
+8861,Bilateral
+8862,Cannot be determined
+8863,Size of Largest Metastatic Deposit (centimeters):
+8864,Extranodal Extension (ENE)
+8865,Not identified
+8866,Present
+8867,Cannot be determined
+8868,Distance from lymph node capsule (millimeters):
+8869,ENEma (>2 mm)
+8870,ENEmi (≤2 mm)
+Not set,Pathologic Stage Classification (pTNM, AJCC 8th Edition)
+8871,TNM Descriptors (select all that apply) *
+8872,m (multiple primary tumors)
+8873,r (recurrent)
+8874,y (posttreatment)
+8875,Primary Tumor (pT)
+8876,pTX: Primary tumor cannot be assessed
+8877,pT0: No evidence of primary tumor
+8878,pTis: Carcinoma in situ
+8879,pT1: Tumor 2 cm or smaller in greatest dimension without extraparenchymal extension *
+8880,pT2: Tumor larger than 2 cm but not larger than 4 cm in greatest dimension without extraparenchymal extension *
+8881,pT3: Tumor larger than 4 cm and/or tumor having extraparenchymal extension *
+8882,pT4: Moderately advanced or very advanced disease
+8883,pT4a: Moderately advanced disease. Tumor invades skin, mandible, ear canal, and/or facial nerve.
+8884,pT4b: Very advanced disease. Tumor invades skull base and/or pterygoid plates and/or encases carotid artery
+8885,Regional Lymph Nodes (pN) *
+8886,pNX: Regional lymph nodes cannot be assessed
+8887,pN0: No regional lymph node metastasis
+8888,pN1: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(-)
+8889,pN2: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(+); or larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−); or metastases in multiple ipsilateral lymph nodes, none larger than 6 cm in greatest dimension and ENE(−); or in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+8890,pN2a: Metastasis in single ipsilateral node 3 cm or smaller in greatest dimension and ENE(+); or a single ipsilateral node larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−)
+8891,pN2b: Metastases in multiple ipsilateral nodes, none larger than 6 cm in greatest dimension and ENE(−)
+8892,pN2c: Metastases in bilateral or contralateral lymph nodes, none larger than 6 cm in greatest dimension and ENE(−)
+8893,pN3: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−); or in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral, or bilateral nodes any with ENE(+); or a single contralateral node of any size and ENE(+)
+8894,pN3a: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−)
+8895,pN3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral or bilateral nodes any with ENE(+); or a single contralateral node of any size and ENE(+)
+8896,Distant Metastasis (pM) *
+8897,pM1: Distant metastasis
+8898,Specify site(s), if known:
+8899,Additional Pathologic Findings (select all that apply)
+8900,Sialadenitis
+8901,Tumor associated lymphoid proliferation (TALP)
+8902,Other
+8903,Other (specify):
+8904,Comment(s)
+9356,Patient Info
+9357,Page 1
+Not set,Basic information
+9358,Patient name:
+9359,Patient family:
+9360,Gender
+9361,Male
+9362,Female
+9363,Other
+9364,Unknown
+9365,Birth date:
+9366,Activity:
+9367,Active
+9368,Inactive
+9369,Multiple birth:
+9370,True
+9371,False
+9476,System
+9477,Phone
+9478,Fax
+9479,Email
+9480,Pager
+9481,Url
+9482,Sms
+9483,Other
+9484,Phone use
+9485,Home
+9486,Work
+9487,Temp
+9488,Old
+9489,Mobile
+9490,Phone
+9491,Fax use
+9492,Home
+9493,Work
+9494,Temp
+9495,Old
+9496,Mobile
+9497,Fax
+9498,Email use
+9499,Home
+9500,Work
+9501,Temp
+9502,Old
+9503,Mobile
+9504,Email
+9505,Pager use
+9506,Home
+9507,Work
+9508,Temp
+9509,Old
+9510,Mobile
+9511,Pager
+9512,Url use
+9513,Home
+9514,Work
+9515,Temp
+9516,Old
+9517,Mobile
+9518,Url
+9519,Sms use
+9520,Home
+9521,Work
+9522,Temp
+9523,Old
+9524,Mobile
+9525,Sms
+9526,Other use
+9527,Home
+9528,Work
+9529,Temp
+9530,Old
+9531,Mobile
+9532,Other
+9372,Language:
+9373,Serbian
+9374,English
+9375,Spanish
+Not set,Identifiers
+9376,Identifier name:
+9377,UniqueMasterCitizenNumber
+9378,DriverLicence
+9379,SocialNumber
+9380,Value:
+9381,Value:
+9382,Value:
+Not set,Address information
+9383,City:
+9384,State:
+9385,Postal Code:
+9386,Country:
+Not set,Contact person information
+9387,Name:
+9533,System
+9534,Phone
+9535,Fax
+9536,Email
+9537,Pager
+9538,Url
+9539,Sms
+9540,Other
+9541,Phone use
+9542,Home
+9543,Work
+9544,Temp
+9545,Old
+9546,Mobile
+9547,Phone
+9548,Fax use
+9549,Home
+9550,Work
+9551,Temp
+9552,Old
+9553,Mobile
+9554,Fax
+9555,Email use
+9556,Home
+9557,Work
+9558,Temp
+9559,Old
+9560,Mobile
+9561,Email
+9562,Pager use
+9563,Home
+9564,Work
+9565,Temp
+9566,Old
+9567,Mobile
+9568,Pager
+9569,Url use
+9570,Home
+9571,Work
+9572,Temp
+9573,Old
+9574,Mobile
+9575,Url
+9576,Sms use
+9577,Home
+9578,Work
+9579,Temp
+9580,Old
+9581,Mobile
+9582,Sms
+9583,Other use
+9584,Home
+9585,Work
+9586,Temp
+9587,Old
+9588,Mobile
+9589,Other
+9389,City:
+9390,State:
+9391,Postal Code:
+9392,Country:
+9393,Gender
+9394,Male
+9395,Female
+9396,Other
+9397,Unknown
+9398,Relationship:
+8905,Protocol for the Examination of Specimens From Patients With Cancers of the Nasal Cavity and Paranasal Sinuses
+8906,NASAL CAVITY AND PARANASAL SINUSES:
+8907,Page 1
+Not set,Select a single response unless otherwise indicated.
+8908,Procedure (select all that apply)
+8909,Excision
+8910,Partial maxillectomy
+8911,Radical maxillectomy
+8912,Neck (lymph node) dissection
+8913,Other
+8914,Not specified
+8915,Neck (lymph node) dissection (specify):
+8916,Other (specify):
+8917,Tumor Site (select all that apply)
+8918,Nasal septum
+8919,Nasal floor
+8920,Nasal lateral wall
+8921,Nasal vestibule
+8922,Nasal cavity, not otherwise specified
+8923,Paranasal sinus(es), maxillary
+8924,Paranasal sinus(es), ethmoid
+8925,Paranasal sinus(es), frontal
+8926,Paranasal sinus(es), sphenoid
+8927,Other
+8928,Not specified
+8929,Other (specify):
+8930,Tumor Laterality (select all that apply)
+8931,Right
+8932,Left
+8933,Midline
+8934,Not specified
+8935,Tumor Focality
+8936,Unifocal
+8937,Multifocal
+8938,Cannot be determined
+Not set,Tumor Size
+8939,Greatest dimension (centimeters):
+8940,Additional dimensions (centimeters):
+8941,Cannot be determined (explain):
+Not set,Histologic Type
+8942,Squamous Cell Carcinoma and Variants (select all that apply)
+8943,Squamous cell carcinoma, keratinizing
+8944,Squamous cell carcinoma, nonkeratinizing
+8945,Adenosquamous carcinoma
+8946,Basaloid squamous cell carcinoma
+8947,Papillary squamous cell carcinoma
+8948,Spindle cell squamous cell carcinoma
+8949,Verrucous squamous cell carcinoma
+8950,Lymphoepithelial carcinoma (non-nasopharyngeal)
+8951,Sinonasal undifferentiated carcinoma (SNUC)
+8952,NUT carcinoma
+8953,Adenocarcinoma, Non-Salivary Gland Type
+8954,Intestinal adenocarcinoma, papillary pattern
+8955,Intestinal adenocarcinoma, colonic pattern
+8956,Intestinal adenocarcinoma, solid pattern
+8957,Intestinal adenocarcinoma, mucinous pattern
+8958,Intestinal adenocarcinoma, mixed pattern
+8959,Non-intestinal adenocarcinoma, low grade
+8960,Non-intestinal adenocarcinoma, intermediate grade
+8961,Non-intestinal adenocarcinoma, high grade
+8962,Carcinomas of Minor Salivary Glands
+8963,Mucoepidermoid carcinoma, low grade
+8964,Mucoepidermoid carcinoma, intermediate grade
+8965,Mucoepidermoid carcinoma, high grade
+8966,Adenoid cystic carcinoma, tubular pattern *
+8967,Adenoid cystic carcinoma, cribriform pattern *
+8968,Adenoid cystic carcinoma, solid pattern *
+8969,Acinic cell carcinoma
+8970,Polymorphous adenocarcinoma, classic, low grade
+8971,Polymorphous adenocarcinoma, classic, intermediate grade
+8972,Polymorphous adenocarcinoma, classic, high grade
+8973,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), low grade
+8974,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), intermediate grade
+8975,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), high grade
+8976,(Mammary analogue) Secretory carcinoma
+8977,Salivary duct carcinoma
+8978,Epithelial-myoepithelial carcinoma
+8979,(Hyalinizing) clear cell carcinoma
+8980,Adenocarcinoma, not otherwise specified, low grade
+8981,Adenocarcinoma, not otherwise specified, intermediate grade
+8982,Adenocarcinoma, not otherwise specified, high grade
+8983,Specify percentage of solid component:
+8984,Specify percentage of solid component:
+8985,Specify percentage of solid component:
+8986,Preexisting pleomorphic adenoma component *
+8987,Carcinoma ex pleomorphic adenoma, minimally invasive
+8988,Carcinoma ex pleomorphic adenoma, invasive
+8989,Carcinoma ex pleomorphic adenoma, intracapsular (noninvasive)
+8990,Neuroendocrine Carcinoma
+8991,Well-differentiated neuroendocrine carcinoma (typical carcinoid tumor)
+8992,Moderately differentiated neuroendocrine carcinoma (atypical carcinoid tumor)
+8993,Poorly differentiated neuroendocrine carcinoma, small cell type
+8994,Poorly differentiated neuroendocrine carcinoma, large cell type
+8995,Combined (or composite) neuroendocrine carcinoma with
+8996,Mucosal melanoma
+8997,Carcinoma, type cannot be determined
+8998,Other histologic type not listed
+8999,Combined (or composite) neuroendocrine carcinoma with (specify types):
+9000,Other histologic type not listed (specify):
+9001,Histologic Grade *
+9002,G1: Well differentiated
+9003,G2: Moderately differentiated
+9004,G3: Poorly differentiated
+9005,Other
+9006,GX: Cannot be assessed
+9007,Other (specify):
+Not set,Tumor Extension
+9008,Specify:
+9009,Margins (select all that apply)
+9010,Cannot be assessed
+9011,Uninvolved by invasive tumor
+9012,Involved by invasive tumor
+9013,Uninvolved by high grade dysplasia/in situ disease *
+9014,Involved by high grade dysplasia/in situ disease *
+9015,Distance from closest margin (millimeters):
+9016,Specify location of closest margin, per orientation, if possible:
+9017,Location and distance of other close margins:
+9018,Specify margin(s), per orientation, if possible:
+9019,Distance from closest margin (millimeters):
+9020,Specify location of closest margin, per orientation, if possible:
+9021,Specify margin(s), per orientation, if possible:
+9022,Lymphovascular Invasion
+9023,Not identified
+9024,Present
+9025,Cannot be determined
+9026,Perineural Invasion
+9027,Not identified
+9028,Present
+9029,Cannot be determined
+9030,Regional Lymph Nodes
+9031,Lymph nodes submitted or found
+9032,Number of Lymph Nodes Involved:
+9033,Number cannot be determined (explain):
+9034,Number of Lymph Nodes Examined:
+9035,Number cannot be determined (explain):
+9036,Laterality of Lymph Nodes Involved
+9037,Ipsilateral (including midline)
+9038,Contralateral
+9039,Bilateral
+9040,Cannot be determined
+9041,Size of Largest Metastatic Deposit (centimeters):
+9042,Extranodal Extension (ENE)
+9043,Not identified
+9044,Present
+9045,Cannot be determined
+9046,Distance from lymph node capsule (millimeters):
+9047,ENEma (>2 mm)
+9048,ENEmi (≤2 mm)
+Not set,Pathologic Stage Classification (pTNM, AJCC 8th Edition)
+9049,TNM Descriptors (select all that apply) *
+9050,m (multiple primary tumors)
+9051,r (recurrent)
+9052,y (posttreatment)
+Not set,For All Carcinomas
+9053,Primary Tumor (pT)
+9054,pTX: Primary tumor cannot be assessed
+9055,pTis: Carcinoma in situ
+9056,For the Maxillary Sinus
+9057,pT1: Tumor limited to maxillary sinus mucosa with no erosion or destruction of bone
+9058,pT2: pT2: Tumor causing bone erosion or destruction including extension into the hard palate and/or middle nasal meatus, except extension to posterior wall of maxillary sinus and pterygoid plates
+9059,pT3: Tumor invades any of the following: bone of the posterior wall of maxillary sinus, subcutaneous tissues, floor or medial wall of orbit, pterygoid fossa, ethmoid sinuses
+9060,pT4: Moderately advanced or very advanced local diseased
+9061,pT4a: Moderately advanced local disease. Tumor invades anterior orbital contents, skin of cheek, pterygoid plates, infratemporal fossa, cribriform plate, sphenoid or frontal sinuses
+9062,pT4b: Very advanced local disease. Tumor invades any of the following: orbital apex, dura, brain, middle cranial fossa, cranial nerves other than maxillary division of trigeminal nerve (V2), nasopharynx, or clivus
+9063,For the Nasal Cavity and Ethmoid Sinus
+9064,pT1: Tumor restricted to any one subsite, with or without bone invasion
+9065,pT2: Tumor invading two subsites in a single region or extending to involve an adjacent region within the nasoethmoidal complex, with our without bony invasion
+9066,pT3: Tumor extends to invade the medial wall or floor of the orbit, maxillary sinus, palate, or cribriform plate
+9067,pT4: Moderately advanced or very advanced local disease
+9068,pT4a: Moderately advanced local disease. Tumor invades any of the following: anterior orbital contents, skin of nose or cheek, minimal extension to anterior cranial fossa, pterygoid plates, sphenoid or frontal sinuses
+9069,pT4b: Very advanced local disease. Tumor invades any of the following: orbital apex, dura, brain, middle cranial fossa, cranial nerves other than maxillary division of trigeminal nerve (V2), nasopharynx, or clivus
+9070,Regional Lymph Nodes (pN)
+9071,pNX: Regional lymph nodes cannot be assessed
+9072,pN0: No regional lymph node metastasis
+9073,pN1: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(-)
+9074,pN2: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(+); or larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−); or metastases in multiple ipsilateral lymph nodes, none larger than 6 cm in greatest dimension and ENE(−); or in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+9075,pN2a: Metastasis in single ipsilateral node 3 cm or less in greatest dimension and ENE(+); or a single ipsilateral node larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−)
+9076,pN2b: Metastases in multiple ipsilateral nodes, none larger than 6 cm in greatest dimension and ENE(−)
+9077,pN2c: Metastases in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+9078,pN3: Metastases in a lymph node larger than 6 cm in greatest dimension and ENE(−); or in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral, or bilateral nodes, any with ENE(+); or a single contralateral node of any size and ENE(+)
+9079,pN3a: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−)
+9080,pN3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral or bilateral nodes any with ENE(+); or a single contralateral node of any size and ENE(+)
+9081,Distant Metastasis (pM) *
+9082,pM1: Distant metastasis
+9083,Specify site(s), if known:
+Not set,For Mucosal Melanoma
+9084,Primary Tumor (pT)
+9085,pT3: Tumors limited to the mucosa and immediately underlying soft tissue, regardless of thickness or greatest dimension; for example, polypoid nasal disease, pigmented or nonpigmented lesions of the oral cavity, pharynx, or larynx
+9086,pT4: Moderately advanced or very advanced disease
+9087,pT4a: Moderately advanced disease. Tumor involving deep soft tissue, cartilage, bone, or overlying skin
+9088,pT4b: Very advanced disease. Tumor involving brain, dura, skull base, lower cranial nerves (IX, X, XI, XII), masticator space, carotid artery, prevertebral space, or mediastinal structures
+9089,Regional Lymph Nodes (pN)
+9090,pNX: Regional lymph nodes cannot be assessed
+9091,pN0: No regional lymph node metastases
+9092,pN1: Regional lymph node metastases present
+9093,Distant Metastasis (pM) *
+9094,pM1: Distant metastasis present
+9095,Specify site(s), if known:
+9096,Additional Pathologic Findings (select all that apply)
+9097,None identified
+9098,Carcinoma in situ
+9099,Epithelial dysplasia
+9100,Sinonasal papilloma
+9101,Inflammation
+9102,Squamous metaplasia
+9103,Epithelial hyperplasia
+9104,Colonization, fungal
+9105,Colonization, bacterial
+9106,Other
+9107,Epithelial dysplasia (specify type):
+9108,Sinonasal papilloma (specify type):
+9109,Inflammation (specify type):
+9110,Other (specify):
+9111,Comment(s)
+9356,Patient Info
+9357,Page 1
+Not set,Basic information
+9358,Patient name:
+9359,Patient family:
+9360,Gender
+9361,Male
+9362,Female
+9363,Other
+9364,Unknown
+9365,Birth date:
+9366,Activity:
+9367,Active
+9368,Inactive
+9369,Multiple birth:
+9370,True
+9371,False
+9476,System
+9477,Phone
+9478,Fax
+9479,Email
+9480,Pager
+9481,Url
+9482,Sms
+9483,Other
+9484,Phone use
+9485,Home
+9486,Work
+9487,Temp
+9488,Old
+9489,Mobile
+9490,Phone
+9491,Fax use
+9492,Home
+9493,Work
+9494,Temp
+9495,Old
+9496,Mobile
+9497,Fax
+9498,Email use
+9499,Home
+9500,Work
+9501,Temp
+9502,Old
+9503,Mobile
+9504,Email
+9505,Pager use
+9506,Home
+9507,Work
+9508,Temp
+9509,Old
+9510,Mobile
+9511,Pager
+9512,Url use
+9513,Home
+9514,Work
+9515,Temp
+9516,Old
+9517,Mobile
+9518,Url
+9519,Sms use
+9520,Home
+9521,Work
+9522,Temp
+9523,Old
+9524,Mobile
+9525,Sms
+9526,Other use
+9527,Home
+9528,Work
+9529,Temp
+9530,Old
+9531,Mobile
+9532,Other
+9372,Language:
+9373,Serbian
+9374,English
+9375,Spanish
+Not set,Identifiers
+9376,Identifier name:
+9377,UniqueMasterCitizenNumber
+9378,DriverLicence
+9379,SocialNumber
+9380,Value:
+9381,Value:
+9382,Value:
+Not set,Address information
+9383,City:
+9384,State:
+9385,Postal Code:
+9386,Country:
+Not set,Contact person information
+9387,Name:
+9533,System
+9534,Phone
+9535,Fax
+9536,Email
+9537,Pager
+9538,Url
+9539,Sms
+9540,Other
+9541,Phone use
+9542,Home
+9543,Work
+9544,Temp
+9545,Old
+9546,Mobile
+9547,Phone
+9548,Fax use
+9549,Home
+9550,Work
+9551,Temp
+9552,Old
+9553,Mobile
+9554,Fax
+9555,Email use
+9556,Home
+9557,Work
+9558,Temp
+9559,Old
+9560,Mobile
+9561,Email
+9562,Pager use
+9563,Home
+9564,Work
+9565,Temp
+9566,Old
+9567,Mobile
+9568,Pager
+9569,Url use
+9570,Home
+9571,Work
+9572,Temp
+9573,Old
+9574,Mobile
+9575,Url
+9576,Sms use
+9577,Home
+9578,Work
+9579,Temp
+9580,Old
+9581,Mobile
+9582,Sms
+9583,Other use
+9584,Home
+9585,Work
+9586,Temp
+9587,Old
+9588,Mobile
+9589,Other
+9389,City:
+9390,State:
+9391,Postal Code:
+9392,Country:
+9393,Gender
+9394,Male
+9395,Female
+9396,Other
+9397,Unknown
+9398,Relationship:
+9112,Protocol for the Examination of Specimens From Patients With Cancers of the Pharynx
+9113,PHARYNX (OROPHARYNX, HYPOPHARYNX, NASOPHARYNX):
+9114,Page 1
+Not set,Select a single response unless otherwise indicated.
+9115,Procedure (select all that apply)
+9116,Excision
+9117,Tonsillectomy
+9118,Laryngopharyngectomy
+9119,Neck (lymph node) dissection
+9120,Other
+9121,Not specified
+9122,Neck (lymph node) dissection (specify):
+9123,Other (specify):
+9124,Tumor Site *
+9125,Oropharynx
+9126,Nasopharynx
+9127,Hypopharynx
+9128,Other
+9129,Not specified
+9130,Oropharynx
+9131,Palatine tonsil
+9132,Base of tongue, including lingual tonsil
+9133,Soft palate
+9134,Uvula
+9135,Pharyngeal wall (posterior)
+9136,Nasopharynx
+9137,Nasopharyngeal tonsils (adenoids)
+9138,Hypopharynx
+9139,Piriform sinus
+9140,Postcricoid
+9141,Pharyngeal wall (posterior and/or lateral)
+9142,Other (specify):
+9143,Tumor Laterality (select all that apply)
+9144,Left
+9145,Right
+9146,Midline
+9147,Not specified
+9148,Tumor Focality
+9149,Unifocal
+9150,Multifocal
+9151,Cannot be determined
+Not set,Tumor Size
+9152,Greatest dimension (centimeters):
+9153,Additional dimensions (centimeters):
+9154,Cannot be determined (explain):
+Not set,Histologic Type
+9155,Carcinomas of the Oropharynx and Hypopharynx
+9156,Human papillomavirus (HPV)-mediated (positive) squamous cell carcinoma (oropharynx only)
+9157,HPV-unrelated (negative) squamous cell carcinoma (oropharynx)
+9158,Oropharyngeal squamous cell carcinoma, HPV status unknown (see “ancillary studies” for additional notes)
+9159,Hypopharyngeal squamous cell carcinoma
+9160,Squamous Cell Carcinoma and Variants (select all that apply)
+9161,Squamous cell carcinoma, conventional (keratinizing)
+9162,Squamous cell carcinoma, nonkeratinizing
+9163,Acantholytic squamous cell carcinoma
+9164,Adenosquamous carcinoma
+9165,Basaloid squamous cell carcinoma
+9166,Papillary squamous cell carcinoma
+9167,Spindle cell squamous cell carcinoma
+9168,Verrucous squamous cell carcinoma
+9169,Lymphoepithelial carcinoma (non-nasopharyngeal)
+9170,Carcinomas of the Nasopharynx
+9171,Keratinizing squamous cell carcinoma
+9172,Nonkeratinizing squamous cell carcinoma
+9173,Basaloid squamous cell carcinoma
+9174,Carcinomas of Minor Salivary Glands
+9175,Mucoepidermoid carcinoma, low grade
+9176,Mucoepidermoid carcinoma, intermediate grade
+9177,Mucoepidermoid carcinoma, high grade
+9178,Adenoid cystic carcinoma, tubular pattern *
+9179,Adenoid cystic carcinoma, cribriform pattern *
+9180,Adenoid cystic carcinoma, solid pattern *
+9181,Acinic cell carcinoma
+9182,Polymorphous adenocarcinoma, classic, low grade
+9183,Polymorphous adenocarcinoma, classic, intermediate grade
+9184,Polymorphous adenocarcinoma, classic, high grade
+9185,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), low grade
+9186,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), intermediate grade
+9187,Polymorphous adenocarcinoma, cribriform (cribriform adenocarcinoma of salivary origin), high grade
+9188,(Mammary analogue) Secretory carcinoma
+9189,Salivary duct carcinoma
+9190,Epithelial-myoepithelial carcinoma
+9191,(Hyalinizing) clear cell carcinoma
+9192,Adenocarcinoma, not otherwise specified, low grade
+9193,Adenocarcinoma, not otherwise specified, intermediate grade
+9194,Adenocarcinoma, not otherwise specified, high grade
+9195,Basal cell adenocarcinoma
+9196,Carcinosarcoma (true malignant mixed tumor)
+9197,Intraductal carcinoma, low grade
+9198,Intraductal carcinoma, high grade
+9199,Lymphoepithelial carcinoma
+9200,Myoepithelial carcinoma
+9201,Oncocytic carcinoma
+9202,Specify percentage of solid component:
+9203,Specify percentage of solid component:
+9204,Specify percentage of solid component:
+9205,Preexisting pleomorphic adenoma component *
+9206,Carcinoma ex pleomorphic adenoma, minimally invasive
+9207,Carcinoma ex pleomorphic adenoma, invasive
+9208,Carcinoma ex pleomorphic adenoma, intracapsular (noninvasive)
+9209,Adenocarcinomas (Non-Salivary Gland Type)
+9210,Nasopharyngeal papillary adenocarcinoma
+9211,Neuroendocrine Carcinoma
+9212,Small cell neuroendocrine carcinoma, HPV negative
+9213,Small cell neuroendocrine carcinoma, HPV positive
+9214,Large cell neuroendocrine carcinoma, HPV negative
+9215,Large cell neuroendocrine carcinoma, HPV positive
+9216,Mucosal melanoma
+9217,Carcinoma, type cannot be determined
+9218,Other histologic type not listed
+9219,Other histologic type not listed (specify):
+9220,Histologic Grade *
+9221,G1: Well differentiated
+9222,G2: Moderately differentiated
+9223,G3: Poorly differentiated
+9224,Other
+9225,GX: Cannot be assessed
+9226,Other (specify):
+Not set,Tumor Extension
+9227,Specify:
+9228,Margins (select all that apply)
+9229,Cannot be assessed
+9230,Uninvolved by invasive tumor
+9231,Involved by invasive tumor
+9232,Uninvolved by high grade dysplasia/in situ disease *
+9233,Involved by high grade dysplasia/in situ disease *
+9234,Distance from closest margin (millimeters):
+9235,Specify location of closest margin, per orientation, if possible:
+9236,Location and distance of other close margins:
+9237,Specify margin(s), per orientation, if possible:
+9238,Distance from closest margin (millimeters):
+9239,Specify location of closest margin, per orientation, if possible:
+9240,Specify margin(s), per orientation, if possible:
+9241,Lymphovascular Invasion
+9242,Not identified
+9243,Present
+9244,Cannot be determined
+9245,Perineural Invasion
+9246,Not identified
+9247,Present
+9248,Cannot be determined
+9249,Regional Lymph Nodes
+9250,Lymph nodes submitted or found
+9251,Number of Lymph Nodes Involved:
+9252,Number of Lymph Nodes Examined:
+9253,Laterality of Lymph Nodes Involved
+9254,Ipsilateral (including midline)
+9255,Contralateral
+9256,Bilateral
+9257,Cannot be determined
+9258,Size of Largest Metastatic Deposit (centimeters):
+9259,Extranodal Extension (ENE) *
+9260,Not identified
+9261,Present
+9262,Cannot be determined
+9263,Distance from lymph node capsule (millimeters):
+9264,ENEma (>2 mm)
+9265,ENEmi (≤2 mm)
+Not set,Pathologic Stage Classification (pTNM, AJCC 8th Edition)
+9266,TNM Descriptors (select all that apply) *
+9267,m (multiple primary tumors)
+9268,r (recurrent)
+9269,y (posttreatment)
+Not set,For All Carcinomas
+9270,Primary Tumor (pT)
+9271,pT0: No primary identified
+9272,pT1: Tumor 2 cm or smaller in greatest dimension
+9273,pT2: Tumor larger than 2 cm but not larger than 4 cm in greatest dimension
+9274,pT3: Tumor more than 4 cm in greatest dimension or extension to lingual surface of epiglottis
+9275,pT4: Moderately advanced local disease. Tumor invades larynx, extrinsic muscle of tongue, medial pterygoid muscles, hard palate, or mandible or beyond *
+9276,For HPV-Unrelated (Negative) Oropharynx
+9277,pTX: Primary tumor cannot be assessed
+9278,pTis: Carcinoma in situ
+9279,pT1: Tumor 2 cm or smaller in greatest dimension
+9280,pT2: Tumor larger than 2 cm but not larger than 4 cm in greatest dimension
+9281,pT3: Tumor larger than 4 cm in greatest dimension or extension to lingual surface of epiglottis
+9282,pT4: Moderately advanced or very advanced local disease
+9283,pT4a: Moderately advanced local disease. Tumor invades the larynx, extrinsic muscle of tongue, medial pterygoid, hard palate, or mandible *
+9284,pT4b: Very advanced local disease. Tumor invades lateral pterygoid muscle, pterygoid plates, lateral nasopharynx, or skull base or encases carotid artery
+9285,For Nasopharynx
+9286,pTX: Primary tumor cannot be assessed
+9287,pT0: No tumor identified, but EBV-positive cervical node(s) involvement
+9288,pT1: Tumor confined to nasopharynx, or extension to oropharynx and/or nasal cavity without parapharyngeal involvement
+9289,pT2: Tumor with extension to parapharyngeal space, and/or adjacent soft tissue involvement (medial pterygoid, lateral pterygoid, prevertebral muscles)
+9290,pT3: Tumor with infiltration of bony structures at skull base, cervical vertebra, pterygoid structures, and/or paranasal sinuses
+9291,pT4: Tumor with intracranial extension, involvement of cranial nerves, hypopharynx, orbit, parotid gland, and/or extensive soft tissue infiltration beyond the lateral surface of the lateral pterygoid muscle
+9292,For Hypopharynx
+9293,pTX: Primary tumor cannot be assessed
+9294,pTis: Carcinoma in situ
+9295,pT1: Tumor limited to one subsite of hypopharynx and/or 2 cm or smaller in greatest dimension
+9296,pT2: Tumor invades more than one subsite of hypopharynx or an adjacent site, or measures larger than 2 cm but not larger than 4 cm in greatest dimension without fixation of hemilarynx
+9297,pT3: Tumor measures larger than 4 cm in greatest dimension or with fixation of hemilarynx or extension to esophageal mucosa.
+9298,pT4: Moderately advanced and very advanced local disease
+9299,pT4a: Moderately advanced local disease. Tumor invades thyroid/cricoid cartilage, hyoid bone, thyroid gland, esophageal muscle or central compartment soft tissue.
+9300,pT4b: Very advanced local disease. Tumor invades prevertebral fascia, encases carotid artery, or involves mediastinal structures.
+9301,Regional Lymph Nodes (pN)
+9302,pNX: Regional lymph nodes cannot be assessed
+9303,pN0: No regional lymph node metastasis
+9304,pN1: Metastasis in 4 or fewer lymph nodes
+9305,pN2: Metastasis in more than 4 lymph nodes
+9306,For HPV-Unrelated (Negative) Oropharynx and Hypopharynx *
+9307,pNX: Regional lymph nodes cannot be assessed
+9308,pN0: No regional lymph node metastasis
+9309,pN1: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(−)
+9310,pN2: Metastasis in a single ipsilateral lymph node, 3 cm or smaller in greatest dimension and ENE(+); or larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−); or metastases in multiple ipsilateral lymph nodes, none larger than 6 cm in greatest dimension and ENE(−); or in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+9311,pN2a: Metastasis in single ipsilateral node 3 cm or smaller in greatest dimension and ENE(+); or a single ipsilateral node larger than 3 cm but not larger than 6 cm in greatest dimension and ENE(−)
+9312,pN2b: Metastases in multiple ipsilateral nodes, none larger than 6 cm in greatest dimension and ENE(−)
+9313,pN2c: Metastases in bilateral or contralateral lymph node(s), none larger than 6 cm in greatest dimension and ENE(−)
+9314,pN3: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−); or in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral or bilateral nodes, any with ENE(+); or a single contralateral node of any size and ENE(+)
+9315,pN3a: Metastasis in a lymph node larger than 6 cm in greatest dimension and ENE(−)
+9316,pN3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE(+); or multiple ipsilateral, contralateral or bilateral nodes any with ENE(+); or a single contralateral node of any size and ENE(+)
+9317,For Nasopharynx
+9318,pNX: Regional lymph nodes cannot be assessed
+9319,pN0: No regional lymph node metastasis
+9320,pN1: Unilateral metastasis in cervical lymph node(s) and/or unilateral or bilateral metastasis in retropharyngeal lymph node(s), 6 cm or smaller in greatest dimension, above the caudal border of cricoid cartilage
+9321,pN2: Bilateral metastasis in cervical lymph node(s), 6 cm or smaller in greatest dimension, above the caudal border of cricoid cartilage
+9322,pN3: Unilateral or bilateral metastasis in cervical lymph node(s), larger than 6 cm in greatest dimension, and/or extension below the caudal border of cricoid cartilage
+9323,Distant Metastasis (pM) *
+9324,pM1: Distant metastasis
+9325,Specify site(s), if known:
+Not set,For Mucosal Melanoma
+9326,Primary Tumor (pT)
+9327,pT3: Tumors limited to the mucosa and immediately underlying soft tissue, regardless of thickness or greatest dimension; for example, polypoid nasal disease, pigmented or nonpigmented lesions of the oral cavity, pharynx, or larynx
+9328,pT4: Moderately advanced or very advanced disease
+9329,pT4a: Moderately advanced disease. Tumor involving deep soft tissue, cartilage, bone, or overlying skin
+9330,pT4b: Very advanced disease. Tumor involving brain, dura, skull base, lower cranial nerves (IX, X, XI, XII), masticator space, carotid artery, prevertebral space, or mediastinal structures
+9331,Regional Lymph Nodes (pN)
+9332,pNX: Regional lymph nodes cannot be assessed
+9333,pN0: No regional lymph node metastases
+9334,pN1: Regional lymph node metastases present
+9335,Distant Metastasis (pM) *
+9336,pM1: Distant metastasis present
+9337,Specify site(s), if known:
+9338,Additional Pathologic Findings (select all that apply)
+9339,None identified
+9340,Keratinizing dysplasia, mild *
+9341,Keratinizing dysplasia, moderate *
+9342,Keratinizing dysplasia, severe (carcinoma in situ) *
+9343,Nonkeratinizing dysplasia, mild *
+9344,Nonkeratinizing dysplasia, moderate *
+9345,Nonkeratinizing dysplasia, severe (carcinoma in situ) *
+9346,Inflammation
+9347,Squamous metaplasia
+9348,Epithelial hyperplasia
+9349,Colonization, fungal
+9350,Colonization, bacterial
+9351,Other
+9352,Inflammation (specify type):
+9353,Other (specify):
+9354,Comment(s)
+9356,Patient Info
+9357,Page 1
+Not set,Basic information
+9358,Patient name:
+9359,Patient family:
+9360,Gender
+9361,Male
+9362,Female
+9363,Other
+9364,Unknown
+9365,Birth date:
+9366,Activity:
+9367,Active
+9368,Inactive
+9369,Multiple birth:
+9370,True
+9371,False
+9476,System
+9477,Phone
+9478,Fax
+9479,Email
+9480,Pager
+9481,Url
+9482,Sms
+9483,Other
+9484,Phone use
+9485,Home
+9486,Work
+9487,Temp
+9488,Old
+9489,Mobile
+9490,Phone
+9491,Fax use
+9492,Home
+9493,Work
+9494,Temp
+9495,Old
+9496,Mobile
+9497,Fax
+9498,Email use
+9499,Home
+9500,Work
+9501,Temp
+9502,Old
+9503,Mobile
+9504,Email
+9505,Pager use
+9506,Home
+9507,Work
+9508,Temp
+9509,Old
+9510,Mobile
+9511,Pager
+9512,Url use
+9513,Home
+9514,Work
+9515,Temp
+9516,Old
+9517,Mobile
+9518,Url
+9519,Sms use
+9520,Home
+9521,Work
+9522,Temp
+9523,Old
+9524,Mobile
+9525,Sms
+9526,Other use
+9527,Home
+9528,Work
+9529,Temp
+9530,Old
+9531,Mobile
+9532,Other
+9372,Language:
+9373,Serbian
+9374,English
+9375,Spanish
+Not set,Identifiers
+9376,Identifier name:
+9377,UniqueMasterCitizenNumber
+9378,DriverLicence
+9379,SocialNumber
+9380,Value:
+9381,Value:
+9382,Value:
+Not set,Address information
+9383,City:
+9384,State:
+9385,Postal Code:
+9386,Country:
+Not set,Contact person information
+9387,Name:
+9533,System
+9534,Phone
+9535,Fax
+9536,Email
+9537,Pager
+9538,Url
+9539,Sms
+9540,Other
+9541,Phone use
+9542,Home
+9543,Work
+9544,Temp
+9545,Old
+9546,Mobile
+9547,Phone
+9548,Fax use
+9549,Home
+9550,Work
+9551,Temp
+9552,Old
+9553,Mobile
+9554,Fax
+9555,Email use
+9556,Home
+9557,Work
+9558,Temp
+9559,Old
+9560,Mobile
+9561,Email
+9562,Pager use
+9563,Home
+9564,Work
+9565,Temp
+9566,Old
+9567,Mobile
+9568,Pager
+9569,Url use
+9570,Home
+9571,Work
+9572,Temp
+9573,Old
+9574,Mobile
+9575,Url
+9576,Sms use
+9577,Home
+9578,Work
+9579,Temp
+9580,Old
+9581,Mobile
+9582,Sms
+9583,Other use
+9584,Home
+9585,Work
+9586,Temp
+9587,Old
+9588,Mobile
+9589,Other
+9389,City:
+9390,State:
+9391,Postal Code:
+9392,Country:
+9393,Gender
+9394,Male
+9395,Female
+9396,Other
+9397,Unknown
+9398,Relationship:
+9399,CT NECK WITHOUT CONTRAST
+9400,CT NECK WITHOUT CONTRAST
+9401,Page 1
+Not set,HISTORY:
+9402,Patient age
+9403,Patient gender
+9404,Indication for CT
+9405,neck pain
+9406,neck mass
+Not set,TECHNIQUE:
+9407,CTDI (mGy):
+9408,DLP (mGy-cm):
+9409,COMPARISON:
+Not set,FINDINGS:
+9410,PHARYNGEAL MUCOSA:
+9411,ORAL CAVITY:
+9412,LARYNX:
+9413,LYMPH NODES:
+9414,SALIVARY GLANDS:
+9415,THYROID:
+9416,VESSELS AND CAROTID SPACE:
+9417,BONES:
+9418,OTHER:
+9419,IMPRESSION:
+9420,MRI NECK WITHOUT AND WITH CONTRAST
+9421,MRI NECK WITHOUT AND WITH CONTRAST
+9422,Page 1
+Not set,HISTORY:
+9423,Patient age
+9424,Patient gender
+9425,Indication for CT
+Not set,TECHNIQUE:
+9426,MR images of the neck were acquired without and with Gadavist intravenous contrast. (mL)
+9427,COMPARISON:
+Not set,FINDINGS:
+9428,PHARYNGEAL MUCOSA:
+9429,ORAL CAVITY:
+9430,LARYNX:
+9431,LYMPH NODES:
+9432,SALIVARY GLANDS:
+9433,THYROID:
+9434,FLOW VOIDS AND CAROTID SPACE:
+9435,BONES:
+9436,OTHER:
+9437,IMPRESSION:
+9438,MRI TEMPOROMANDIBULAR JOINTS WITHOUT CONTRAST
+9439,MRI TEMPOROMANDIBULAR JOINTS WITHOUT CONTRAST
+9440,Page 1
+Not set,HISTORY:
+9441,Patient age
+9442,Patient gender
+9443,Indication for CT
+9444,jaw pain
+9445,Other
+9446,Other
+Not set,TECHNIQUE:
+9447,COMPARISON:
+9448,None available.
+9449,Other
+9450,Other
+Not set,FINDINGS - RIGHT TMJ:
+9451,MANDIBULAR CONDYLE:
+9452,Normal morphology and signal. Condyle is well seated within the mandibular fossa on the closed-mouth view and appropriately translates to the level of the articular eminence on the open-mouth view.
+9453,Other
+9454,Other
+9455,ARTICULAR DISC:
+9456,Normal position in closed and open mouth positions with normal capturing. Normal signal and bowtie morphology.
+9457,Other
+9458,Other
+Not set,FINDINGS - LEFT TMJ:
+9459,MANDIBULAR CONDYLE:
+9460,Normal morphology and signal. Condyle is well seated within the mandibular fossa on the closed-mouth view and appropriately translates to the level of the articular eminence on the open-mouth view.
+9461,Other
+9462,Other
+9463,ARTICULAR DISC:
+9464,Normal position in closed and open mouth positions with normal capturing. Normal signal and bowtie morphology.
+9465,Other
+9466,Other
+9468,OTHER:
+9469,None
+9470,Other
+9471,Other
+9472,IMPRESSION:
+9473,Normal MRI temporomandibular joints.
+9474,Other
+9475,Other
+,CBCT Maxillofacial Region
+9590,CT Abdomen & Pelvis w Contrast
+9591,MRI TEMPOROMANDIBULAR JOINTS WITHOUT CONTRAST
+9592,Page 1
+Not set,Procedure Information
+9593,Technique:
+9594,Helical images were obtained through the abdomen and pelvis following the protocol administration of nonionic intravenous contrast material and positive oral contrast material. No complications were reported.
+9595,Helical images were obtained through the abdomen and pelvis following the protocol administration of nonionic intravenous contrast material. Since no oral contrast was administered, the sensitivity of this exam for evaluating the bowels, retroperitoneum, and any potential intraabdominal fluid collections is limited. No complications were reported
+9596,Helical images were obtained through the abdomen and pelvis following the protocol administration of positive oral contrast material. IV contrast was not administered, limiting the sensitivity of this exam for solid visceral organs, vascular structures, and retroperitoneum. No complications were reported.
+9597,Were late arterial phase image obtained?
+9598,Because of the provided clinical history late arterial ('pancreatic') phase images were obtained in addition to the standard portal venous phase images.
+9599,Because of the provided clinical history, late arterial and 5 minute delayed images were obtained in addition to the standard portal venous phase images.
+9600,Becaused of the provided clincal history, late arterial phase images were obtained in addition to the standard portal venous phase images.
+9601,Contrast material delivery was optimized for assessment of the arterial system, thus limiting evaluation of the solid visceral organs and venous structures.
+Not set,Clinical Information
+9602,Indication:
+9603,Comparison:
+Not set,Findings
+9604,Liver:
+9605,Gallbladder and Bile Ducts:
+9606,Kidneys:
+9607,Adrenals:
+9608,Spleen:
+9609,Pancreas:
+9610,Bowel and Stomach:
+9611,Appendix:
+9612,Pelvis:
+9613,The prostate and seminal vesicles are unremarkable.
+9614,The uterus is unremarkable. No abnormal adnexal masses.
+9615,The prostate is enlarged, a nonspecific finding but one that is typically secondary to BPH.
+9616,The uterus is not visualized, consistent with a hysterectomy. No abnormal adnexal masses.
+9617,Mesentery/Peritoneum:
+9618,Nodes:
+9619,Vasculature:
+9620,Bone Windows:
+9621,Fluid:
+9622,Lung windows through the lung bases:
+9623,Normal.
+9624,Please see separately dictated but concurrently performed thoracic CT.
+9625,Soft tissues:
+9626,Other findings:
+9627,Impression
+9628,CT Chest wo Contrast
+9629,CT Chest wo Contrast
+9630,Page 1
+Not set,Procedure Information
+9631,Technique:
+Not set,Clinical Information
+9632,Indication:
+9633,Comparison:
+Not set,Findings
+9634,Pulmonary Parenchyma and Airways:
+9635,Pleural Space:
+9636,Heart and Pericardium:
+9637,Mediastinum and Hila:
+9638,Thoracic Vessels:
+9639,Osseous Structures and Chest Wall:
+9640,Upper Abdomen:
+9641,No pathologic process is present in the imaged portion of the upper abdomen.
+9642,Imaging findings in the abdomen and pelvis are reported separately.
+9643,Additional findings:
+9644,Impression
+9645,CT Neck
+9646,CT Neck
+9647,Page 1
+Not set,CT Neck
+9648,CT Neck
+Not set,Clinical information
+9649,Clinical information
+9650,Comparison:
+Not set,Findings
+9651,Orbits, paranasal sinuses, and skull base:
+9652,Nasopharynx:
+9653,Suprahyoid neck:
+9654,Infrahyoid neck:
+9655,Thyroid:
+9656,Thoracic inlet:
+9657,Lymph nodes
+9658,Vascular structures:
+9659,Other findings:
+9660,Impression
+9661,Paranasal Sinuses
+9662,Paranasal Sinuses
+9663,Page 1
+Not set,Paranasal Sinuses
+9664,Paranasal Sinuses
+9665,Clinical information
+9666,Comparison
+9667,Findings
+9668,Impression
+9669,Parathyroid SPECT
+9670,Parathyroid SPECT
+9671,Page 1
+Not set,Parathyroid SPECT
+9672,Parathyroid SPECT
+9673,Dose (mCi)
+9674,Clinical information
+9675,Comparison
+Not set,Findings
+9676,Thyroid tracer washout:
+9677,Parathyroid uptake:
+9678,Normal uptake:
+9679,Impression:
+9680,PET-CT Oncologic
+9681,PET-CT Oncologic Study
+9682,Page 1
+Not set,PET-CT Oncologic Study
+9683,Duration of fast prior to injection:
+9684,Blood glucose prior to injection (mg/dl):
+9685,Scan region:
+9686,Radiopharmaceutical:
+9687,Radiopharmaceutical (mCi IV):
+9688,Calibration time:
+9689,Administration time:
+9690,Injection site:
+9691,Post-injection imaging delay (minutes):
+9692,Attenuation correction:
+9693,Clinical information
+9694,Comparison
+Not set,Findings - Neck
+9695,Hypermetabolic foci:
+9696,Present of visible lymphadenopathy or tumor mass?
+Not set,Findings - Thorax
+9697,Hypermetabolic foci:
+9698,Heart and great vessels:
+9699,Adenopathy:
+9700,Pleural or pericardial effusion:
+9701,Lungs:
+Not set,Findings - Abdomen
+9702,Hypermetabolic foci:
+9703,Liver:
+9704,Gallbladder:
+9705,Spleen:
+9706,Pancreas:
+9707,Great abdominal vessels
+9708,Kidneys:
+9709,Anterior abdominal wall:
+9710,Hypermetabolic lymph nodes:
+Not set,Findings - Pelvis
+9711,Hypermetabolic foci:
+9712,Anterior and inner pelvic walls:
+9713,Pelvic viscera:
+9714,Infradiaphragmatic free air:
+9715,Free pelvic fluid:
+9716,Hypermetabolic lymph nodes:
+Not set,Findings - Bones
+9717,Hypermetabolic foci:
+9718,Presence of lytic or blastic foci?
+9719,Impression
+9720,EORTC response criteria:
+9721,Complete Metabolic Response. MaxSUV < 2.5 or equivalent to background
+9722,Partial Metabolic Response. Decrease in MaxSUV >= 25%
+9723,Progressive Metabolic Disease. Increase in MaxSUV > 25%
+9724,Stable Metabolic Disease. Change in MaxSUV < 25%
+9725,Primary tumor response WHO category:
+9726,CR - No radiologically detectable residual tumor
+9727,PR - At least 30% decrease in longest recordable dimension of tumor
+9728,PD - At least 20% increase in longest recordable dimension of tumor
+9729,NC - No change

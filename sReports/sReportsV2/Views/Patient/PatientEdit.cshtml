@@ -1,0 +1,284 @@
+﻿@using sReportsV2.DTOs.Common;
+@using sReportsV2.DTOs.Common.DTO;
+
+@model sReportsV2.DTOs.Patient.PatientDataOut
+@{
+    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Patient_Create;
+    string hasValue = "-hasvalue";
+
+}
+
+        <form method="post" id="idPatientInfo" class="formPatientInfo" onsubmit="return submitForm(this, event)" novalidate>
+            <input type="hidden" class="form-control" id="patientId" name="Id" value="@( Model != null && Model.Id != null ? Model.Id : "")" />
+            <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
+            <div class="form-row">
+                <div class="col-@(Model != null ? "12" : "6")">
+                    @Html.Partial("IdentifierListTable", Model != null ? Model.Identifiers : null)
+                    <div class="accordion">
+                        <div class="header-accordion always-collapsed" aria-expanded="false" aria-controls="generalInfo">
+                            @sReportsV2.Resources.TextLanguage.GeneralInfo
+                        </div>
+
+                        <div class="accordion-content collapse show" id="generalInfo">
+                            <div class="form-element">
+                                <label for="name" class="form-element-label">@sReportsV2.Resources.TextLanguage.Given:</label>
+                                <input required class="form-element-field" type="text" id="name" name="Name" value="@(Model != null && Model.Name != null ? Model.Name : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="familyName" class="form-element-label">@sReportsV2.Resources.TextLanguage.Family:</label>
+                                <input required class="form-element-field" type="text" id="familyName" name="FamilyName" value="@(Model != null && Model.FamilyName != null ? Model.FamilyName : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element form-select">
+                                <label for="gender" class="form-element-label">@sReportsV2.Resources.TextLanguage.Gender:</label>
+                                <select class="form-element-field @hasValue" id="gender" name="Gender">
+                                    <option value=""></option>
+                                    @foreach (var gender in Enum.GetNames(typeof(sReportsV2.Domain.Enums.Gender)))
+                                    {
+                                        if (Model != null && Model.Gender != null && Model.Gender.Equals(gender.ToString()))
+                                        {
+                                            <option value="@gender" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("Gender_" + gender)</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@gender">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("Gender_" + gender)</option>
+                                        }
+                                    }
+                                </select>
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="birthDate" class="form-element-label">@sReportsV2.Resources.TextLanguage.BirthDate:</label>
+                                <input class="form-element-field" id="birthDate" name="BirthDate" value="@(Model != null && Model.BirthDate != null ? Model.BirthDate.Value.ToString("yyyy-MM-dd") : "")" type="date" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element form-select">
+                                <label for="activity" class="form-element-label">@sReportsV2.Resources.TextLanguage.Activity:</label>
+                                <select class="form-element-field @hasValue" id="activity" name="Activity">
+                                    <option value=""></option>
+                                    <option value="true" @(Model == null || Model.Activity ? "selected" : "")>@sReportsV2.Resources.TextLanguage.Active</option>
+                                    <option value="false" @(Model != null && !Model.Activity ? "selected" : "")>@sReportsV2.Resources.TextLanguage.Inactive</option>
+                                </select>
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element form-select" id="multiple">
+                                <label for="multipleBirth" class="form-element-label">@sReportsV2.Resources.TextLanguage.Multiple_birth:</label>
+                                <select class="form-element-field @hasValue" id="multipleBirth" name="MultipleBirth" onchange="selectChanged()">
+                                    <option value="true" @(Model != null && Model.MultipleBirth ? "selected" : "")>@sReportsV2.Resources.TextLanguage.True</option>
+                                    <option value="false" @(Model == null || !Model.MultipleBirth ? "selected" : "")>@sReportsV2.Resources.TextLanguage.False</option>
+                                </select>
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div id="multipleBirth1" class="multipleBirthNumber form-element" style=" @(Model != null && Model.MultipleBirth ? "" : "display:none") ">
+                                <label class="form-element-label">@sReportsV2.Resources.TextLanguage.MultipleBirthNumber:</label><br>
+                                <input class="form-element-field" type="number" id="multipleBirthNumber" name="MultipleBirth" min="1" max="10" value="@(Model != null ? Model.MultipleBirthNumber : 1)" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="header-accordion" data-toggle="collapse" data-target="#address" aria-expanded="false" aria-controls="address">
+                            @sReportsV2.Resources.TextLanguage.Address_information
+                        </div>
+
+                        <div class="accordion-content collapse" id="address">
+                            <div class="form-element">
+                                <label for="city" class="form-element-label">@sReportsV2.Resources.TextLanguage.City:</label>
+                                <input class="form-element-field" type="text" id="city" name="City" value="@(Model != null && Model.Address != null ? Model.Address.City : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="state" class="form-element-label">@sReportsV2.Resources.TextLanguage.State:</label>
+                                <input class="form-element-field" type="text" id="state" name="State" value="@(Model != null && Model.Address != null ? Model.Address.State : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="postalCode" class="form-element-label">@sReportsV2.Resources.TextLanguage.Postal_code:</label>
+                                <input class="form-element-field" type="text" id="postalCode" name="PostalCode" value="@(Model != null && Model.Address!= null ? Model.Address.PostalCode : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="street" class="form-element-label">@sReportsV2.Resources.TextLanguage.Street:</label>
+                                <input class="form-element-field" type="text" id="street" name="Street" value="@(Model != null && Model.Address != null ? Model.Address.Street : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="country" class="form-element-label">@sReportsV2.Resources.TextLanguage.Country:</label>
+                                <input class="form-element-field" type="text" id="country" name="Country" value="@(Model != null && Model.Address != null ? Model.Address.Country : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <div class="col-@(Model != null ? "12" : "6")">
+                    @Html.Partial("TelecomListTable", new ViewDataDictionary { { "Container", "PatientTelecom" }, { "Telecoms", Model != null ? Model.Telecoms : null } })
+
+                    <div class="accordion">
+                        <div class="header-accordion" data-toggle="collapse" data-target="#contactInformation" aria-expanded="false" aria-controls="contactInformation">
+                            @sReportsV2.Resources.TextLanguage.Contact_information
+                        </div>
+
+                        <div class="accordion-content collapse" id="contactInformation">
+                            <div class="form-element">
+                                <label for="contactName" class="form-element-label">@sReportsV2.Resources.TextLanguage.Given:</label>
+                                <input class="form-element-field" type="text" id="contactName" name="ContactName" value="@(Model != null && Model.ContactName != null ? Model.ContactName : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="contactFamily" class="form-element-label">@sReportsV2.Resources.TextLanguage.Family:</label>
+                                <input class="form-element-field" type="text" id="contactFamily" name="ContactFamily" value="@(Model != null && Model.ContactFamily != null ? Model.ContactFamily : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <h3>
+                                <label>@sReportsV2.Resources.TextLanguage.Contact_address</label>
+                            </h3>
+
+                            <div class="form-element">
+                                <label for="contactCity" class="form-element-label">@sReportsV2.Resources.TextLanguage.City:</label>
+                                <input class="form-element-field" type="text" id="contactCity" name="ContactCity" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.City : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="contactState" class="form-element-label">@sReportsV2.Resources.TextLanguage.State:</label>
+                                <input class="form-element-field" type="text" id="contactState" name="ContactState" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.State : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="contactPostalCode" class="form-element-label">@sReportsV2.Resources.TextLanguage.Postal_code:</label>
+                                <input class="form-element-field" type="text" id="contactPostalCode" name="ContactPostalCode" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.PostalCode : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="contactPostalCode" class="form-element-label">@sReportsV2.Resources.TextLanguage.Street:</label>
+                                <input class="form-element-field" type="text" id="contactStreet" name="ContactStreet" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.Street : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="contactCountry" class="form-element-label">@sReportsV2.Resources.TextLanguage.Country:</label>
+                                <input class="form-element-field" type="text" id="contactCountry" name="ContactCountry" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.Country : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element form-select">
+                                <label for="contactGender" class="form-element-label">@sReportsV2.Resources.TextLanguage.Gender:</label>
+                                <select class="form-element-field @hasValue" id="contactGender" name="ContactGeder">
+                                    <option value=""></option>
+                                    @foreach (var gender in Enum.GetNames(typeof(sReportsV2.Domain.Enums.Gender)))
+                                    {
+                                        <option value="@gender" @(Model != null && Model.Gender != null && Model.Gender.Equals(gender) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("Gender_" + gender)</option>
+                                    }
+                                </select>
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            <div class="form-element">
+                                <label for="relationship" class="form-element-label">@sReportsV2.Resources.TextLanguage.Relationship:</label>
+                                <input class="form-element-field" type="text" id="relationship" name="Relationship" value="@(Model != null && Model.Relationship != null ? Model.Relationship : "")" />
+                                <div class="form-element-bar"></div>
+                            </div>
+
+                            @Html.Partial("TelecomListTable", new ViewDataDictionary { { "Container", "PatientContactTelecom" }, { "Telecoms", Model != null ? Model.ContactTelecoms : null } })
+
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="header-accordion" data-toggle="collapse" data-target="#communicationContainer" aria-expanded="false" aria-controls="communicationContainer">
+                            @sReportsV2.Resources.TextLanguage.Communication
+                        </div>
+
+                        <div class="form-select accordion-content collapse" id="communicationContainer">
+                            <label for="language" class="form-element-label">@sReportsV2.Resources.TextLanguage.Language:</label>
+                            <div class="form-row">
+                                <div class="col-md-11 select-language">
+                                    <select class="form-element-field @hasValue" id="language" name="Language">
+                                        <option value=""></option>
+                                        @foreach (var language in ViewBag.Languages)
+                                        {
+                                            <option value=@language.Value @(Model != null && Model.Communications != null)>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                                        }
+                                    </select>
+                                    <div class="form-element-bar"></div>
+                                </div>
+                                <div class="col-md-1 resize-button-plus">
+                                    <span class="button-plus-language">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div id="listLanguages">
+                                <table id="communicationTable" class="table table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>@sReportsV2.Resources.TextLanguage.Language</th>
+                                            <th>@sReportsV2.Resources.TextLanguage.Preferred</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody">
+                                        @if (Model != null && Model.Communications != null)
+                                        {
+                                            foreach (CommunicationDTO entry in Model.Communications)
+                                            {
+                                                <tr class="tr edit-raw">
+                                                    <td data-property="language" data-value="@entry.Language">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(entry.Language)</td>
+                                                    <td data-property="preferred" data-value="@entry.Preferred">
+                                                        @if (entry.Preferred == true)
+                                                        {
+                                                            <input type="radio" name="radioPreferred" checked value="@entry.Language" class="form-radio-field">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="radio" name="radioPreferred" value="@entry.Language" class="form-radio-field">
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <i class="fas fa-times" onclick="removeLanguage(this)" />
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-element">
+                <input class="btn btn-primary submit-button right-button" type="submit" value="@sReportsV2.Resources.TextLanguage.Patient_submit" />
+                <button class="btn btn-danger right-button" type="button" onclick="cancelPatientEdit()" value="Back">@sReportsV2.Resources.TextLanguage.Back</button>
+            </div>
+        </form>
+
+
+@Html.Partial("IdentifierModal", new ViewDataDictionary { { "ActiveEntity", "Patient" }, { "IdentifierTypes", ViewBag.IdentifierTypes } })
+@Html.Partial("TelecomModal")
+@Html.Partial("TelecomModalForPatient")
+
+@Scripts.Render("~/bundles/patient")

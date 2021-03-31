@@ -1,0 +1,80 @@
+﻿.login {
+    width: 35%;
+    margin: auto;
+
+    @media(max-width : 768px) {
+        width: 50%;
+    }
+
+    @media(max-width : 576px) {
+        width: 100%;
+    }
+
+    .form-control {
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+            border-color: #2a796b;
+        }
+    }
+}
+
+.submit-button {
+    float: right;
+    background-color: #2a796b !important;
+    border-color: #2a796b !important;
+    color: white;
+}
+
+.login-header {
+    margin-left: 29%;
+    margin-right: 29%;
+}
+
+/*.login {
+    position: absolute;
+    width: 360px;
+    z-index: 15;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    form {
+        padding: 30px;
+    }
+
+    .login-password-recover {
+        float: right;
+        padding-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: #2a796b;
+        border-color: #2a796b;
+
+        &:focus,
+        &:hover,
+        &:not(:disabled):not(.disabled):active {
+            background-color: #2a796b;
+            border-color: #2a796b;
+        }
+
+        &:focus,
+        &:not(:disabled):not(.disabled).active:focus,
+        &:not(:disabled):not(.disabled):active:focus {
+            box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+        }
+    }
+
+    .form-control {
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5);
+            border-color: #2a796b;
+        }
+    }
+}*/

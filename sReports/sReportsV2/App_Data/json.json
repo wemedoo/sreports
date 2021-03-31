@@ -1,0 +1,260 @@
+﻿{
+  "About": {
+    "PropertyOf": "this format is a property of niAnalytics & SOTEX (80% niAnalytics : 20% SOTEX)",
+    "FormatType": "sReports",
+    "FormatVersion": "6.0.0",
+    "Links": "'https://nianalytics.com/', ' https://www.sotexsolutions.com/'",
+    "ThesaurusReference": "https://referenceThesaurus.insel.ch",
+    "ThesaurusVersion": "0.0.0",
+    "ThesaurusUpdated": "15.12.2018"
+  },
+  "Title": "Protocol for the Examination of Specimens From Patients With Ductal Carcinoma In Situ (DCIS) of the Breast",
+  
+  "Chapters": [
+    {
+      "Id": "fc1",
+      "Title": "Chapter 1",
+      "Description": "Version: Breast DCIS 4.1.0.0<br/>Protocol Posting Date: January 2018<br/>Includes pTNM requirements from the 8th Edition, AJCC Staging Manual",
+      "ThesaurusId": null,
+      "Pages": [
+        {
+          "Id": "fp1",
+          "Title": "DCIS OF THE BREAST",
+          "Description": "Select a single response unless otherwise indicated.  ",
+          "ThesaurusId": null,
+          "LayoutStyle": {"LayoutType": "vertical"},
+          "FieldSets": [
+            {
+              "Id": "fs1",
+              "Label": "Specimen Identification",
+              "Description": "The following 3 elements identifying the specimen may be listed separately or on 1 line:",
+              "Fields": [
+                {
+                  "Id": "1",
+                  "Label": "Procedure (Note A)",
+                  "Type": "radio",
+                  "Values": [
+                    {
+                      "Label": "Excision (less than total mastectomy)",
+                      "Value": "Excision (less than total mastectomy)"
+                    },
+                    {
+                      "Label": "Total mastectomy (including nipple-sparing and skin-sparing mastectomy)",
+                      "Value": "Total mastectomy (including nipple-sparing and skin-sparing mastectomy)"
+                    },
+                    {
+                      "Label": "Other (specify):",
+                      "Value": "Other (specify):"
+                    },
+                    {
+                      "Label": "Not specified",
+                      "Value": "Not specified"
+                    }
+                  ],
+                  "Dependables": [
+                    {
+                      "Condition": "Other (specify):",
+                      "ActionType": 0,
+                      "ActionParams": "1_1"
+                    }
+                  ]
+                },
+                {
+                  "Id": "1_1",
+                  "Label": "Other (specify)",
+                  "Type": "text",
+                  "IsVisible": false
+                },
+                {
+                  "Id": "2",
+                  "Label": "Specimen Laterality",
+                  "Type": "radio",
+                  "Values": [
+                    {
+                      "Value": "Right",
+                      "Label": "Right"
+                    },
+                    {
+                      "Value": "Left",
+                      "Label": "Left"
+                    },
+                    {
+                      "Value": "Not specified",
+                      "Label": "Not specified"
+                    }
+                  ]
+                },
+                {
+                  "Id": "3",
+                  "Label": "Tumor Site (select all that apply)",
+                  "Type": "checkbox",
+                  "Values": [
+                    {
+                      "Value": "Upper outer quadrant",
+                      "Label": "Upper outer quadrant"
+                    },
+                    {
+                      "Value": "Lower outer quadrant",
+                      "Label": "Lower outer quadrant"
+                    },
+                    {
+                      "Value": "Upper inner quadrant",
+                      "Label": "Upper inner quadrant"
+                    },
+                    {
+                      "Value": "Lower inner quadrant",
+                      "Label": "Lower inner quadrant"
+                    },
+                    {
+                      "Value": "Central",
+                      "Label": "Central"
+                    },
+                    {
+                      "Value": "Nipple",
+                      "Label": "Nipple"
+                    },
+                    {
+                      "Value": "Position",
+                      "Label": "Position"
+                    },
+                    {
+                      "Value": "Other",
+                      "Label": "Other"
+                    },
+                    {
+                      "Value": "Not specified",
+                      "Label": "Not specified"
+                    }
+                  ],
+                  "Dependables": [
+                    {
+                      "Condition": "Position",
+                      "ActionType": 0,
+                      "ActionParams": "3_1"
+                    },
+                    {
+                      "Condition": "Other",
+                      "ActionType": 0,
+                      "ActionParams": "3_2"
+                    }
+                  ]
+                },
+                {
+                  "Id": "3_1",
+                  "Label": "Position (specify)",
+                  "Unit": "o'clock",
+                  "Type": "text",
+                  "IsVisible": false
+                },
+                {
+                  "Id": "3_2",
+                  "Label": "Other (specify)",
+                  "Type": "text",
+                  "IsVisible": false
+                }
+              ]
+            },
+            {
+              "id": "fs4",
+              "Label": "Size (Extent) of DCIS (Note C)",
+              "Description": "Estimated size (extent) of DCIS (greatest dimension using gross and microscopic evaluation)<br/><i>Note: The size (extent) of DCIS is an estimation of the volume of breast tissue occupied by DCIS.</i>",
+              "Fields": [
+                {
+                  "Id": "4",
+                  "Label": "At least",
+                  "Unit": "mm",
+                  "Type": "number"
+                },
+                {
+                  "Id": "41",
+                  "Unit": "mm x mm",
+                  "Type": "number",
+                  "Label": "Additional dimensions"
+                },
+                {
+                  "Id": "42",
+                  "Type": "number",
+                  "Label": "Number of blocks with DCIS"
+                },
+                {
+                  "Id": "43",
+                  "Type": "number",
+                  "Label": "Number of blocks examined:"
+                }
+              ]
+            },
+            {
+              "id": "fs5",
+              "Label": "Histologic Type (Note D)",
+              "Fields": [
+                {
+                  "Id": "5",
+                  "Type": "checkbox",
+                  "Values": [
+                    {
+                      "Value": "Ductal carcinoma in situ",
+                      "Label": "Ductal carcinoma in situ"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "fs6",
+              "Label": "Architectural Patterns (select all that apply) (Note E)",
+              "Fields": [
+                {
+                  "Id": "6",
+                  "Type": "checkbox",
+                  "Values": [
+                    {
+                      "Value": "Comedo",
+                      "Label": "Comedo"
+                    },
+                    {
+                      "Value": "Paget disease (DCIS involving nipple skin)",
+                      "Label": "Paget disease (DCIS involving nipple skin)"
+                    },
+                    {
+                      "Value": "Cribriform",
+                      "Label": "Cribriform"
+                    },
+                    {
+                      "Value": "Micropapillary",
+                      "Label": "Micropapillary"
+                    },
+                    {
+                      "Value": "Papillary",
+                      "Label": "Papillary"
+                    },
+                    {
+                      "Value": "Solid",
+                      "Label": "Solid"
+                    },
+                    {
+                      "Value": "Other",
+                      "Label": "Other"
+                    }
+                  ],
+                  "Dependables": [
+                    {
+                      "Condition": "Other",
+                      "ActionType": 0,
+                      "ActionParams": "6_1"
+                    }
+                  ]
+                },
+                {
+                  "Id": "6_1",
+                  "Label": "Other (specify)",
+                  "Type": "text",
+                  "IsVisible": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
