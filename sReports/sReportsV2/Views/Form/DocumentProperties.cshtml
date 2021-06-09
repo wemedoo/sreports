@@ -1,87 +1,85 @@
 ﻿@using sReportsV2.DTOs.DocumentProperties.DataOut
 @model DocumentPropertiesDataOut
 
-@if(Model != null)
-{
-<div class="document-property">
-    <div class="label">
+
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Class
     </div>
-    <div class="value">
-        @sReportsV2.Resources.TextLanguage.Class
+    <div class="value document-properties document-values">
+        @(Model != null && Model.Class != null ? Model.Class.ToString() : "")
     </div>
 </div>
 
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Administrative_Context
     </div>
-    <div class="value">
-        @sReportsV2.Resources.TextLanguage.Administrative_Context
+    <div class="value document-properties document-values">
+        @(Model != null ? Model.AdministrativeContext.ToString() : "")
     </div>
 </div>
 
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Clinical_Context
     </div>
-    <div class="value">
-        @if (Model.ClinicalContext != null)
+    <div class="value document-properties document-values">
+        @if (Model != null && Model.ClinicalContext != null)
         {
-            @sReportsV2.Resources.TextLanguage.Clinical_Context
+            @Model.ClinicalContext.ClinicalContext
         }
     </div>
 </div>
 
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Clinical_Domain
     </div>
-    <div class="value">
-        @sReportsV2.Resources.TextLanguage.Clinical_Domain
+    <div class="value document-properties document-values">
+        @(Model != null && Model.ClinicalDomain != null ? Model.ClinicalDomainToString() : "")
     </div>
 </div>
 
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Description
     </div>
-    <div class="value">
-        @sReportsV2.Resources.TextLanguage.Description
+    <div class="value document-properties document-values">
+        @(Model != null ? Model.Description : "")
     </div>
 </div>
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Explicit_Purpose
     </div>
-    <div class="value">
-        @if (Model.Purpose != null)
+    <div class="value document-properties document-values">
+        @if (Model != null && Model.Purpose != null)
         {
-            @sReportsV2.Resources.TextLanguage.Explicit_Purpose
+            @Model.Purpose.ExplicitPurpose
         }
     </div>
 </div>
 
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.General_Purpose
     </div>
-    <div class="value">
-        @if (Model.Purpose != null && Model.Purpose.GeneralPurpose != null)
+    <div class="value document-properties document-values">
+        @if (Model != null && Model.Purpose != null && Model.Purpose.GeneralPurpose != null)
         {
-            @sReportsV2.Resources.TextLanguage.General_Purpose
+            @Model.Purpose.GeneralPurpose.GeneralPurpose.Value
         }
     </div>
 </div>
-<div class="document-property">
-    <div class="label">
+<div class="document-property document-border">
+    <div class="label document-properties document-title">
         @sReportsV2.Resources.TextLanguage.Scope_of_Validity
     </div>
-    <div class="value">
-        @if (Model.ScopeOfValidity != null)
+    <div class="value document-properties document-values">
+        @if (Model != null && Model.ScopeOfValidity != null)
         {
-            @sReportsV2.Resources.TextLanguage.Scope_of_Validity
+            @Model.ScopeOfValidity.ScopeOfValidity
         }
     </div>
 </div>
-}

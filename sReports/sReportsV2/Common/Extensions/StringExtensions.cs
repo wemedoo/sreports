@@ -32,5 +32,30 @@ namespace sReportsV2.Common.Extensions
 
             return stringBuilder.ToString();
         }
+
+        public static string GetFieldSetId(this string text)
+        {
+            text = Ensure.IsNotNull(text, nameof(text));
+
+            return text.Split('-')[0];
+        }
+        public static string GetFieldSetCounter(this string text)
+        {
+            text = Ensure.IsNotNull(text, nameof(text));
+
+            return text.Split('-')[1];
+        }
+        public static string GetFieldId(this string text)
+        {
+            text = Ensure.IsNotNull(text, nameof(text));
+
+            return text.Split('-')[2];
+        }
+        public static string GetFieldCounter(this string text)
+        {
+            text = Ensure.IsNotNull(text, nameof(text));
+
+            return text.Split('-')[3];
+        }
     }
 }

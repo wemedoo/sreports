@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+using sReportsV2.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

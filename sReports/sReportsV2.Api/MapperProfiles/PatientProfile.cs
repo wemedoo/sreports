@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using sReportsV2.Api.DTOs.Patient.DataIn;
 using sReportsV2.Domain.Entities.PatientEntities;
 using System;
@@ -13,7 +12,7 @@ namespace sReportsV2.Api.MapperProfiles
     {
         public PatientProfile()
         {
-            CreateMap<PatientFilterDataIn, PatientFhirFilter>();
+            /*CreateMap<PatientFilterDataIn, PatientFhirFilter>();
 
             CreateMap<PatientEntity, Patient>()
               .ForMember(org => org.Id, opt => opt.MapFrom(src => src.Id))
@@ -58,7 +57,7 @@ namespace sReportsV2.Api.MapperProfiles
 
             CreateMap<Telecom, ContactPoint>()
                .ForMember(p => p.Value, opt => opt.MapFrom(src => src.Value))
-               .ForAllOtherMembers(opts => opts.Ignore());
+               .ForAllOtherMembers(opts => opts.Ignore());*/
         }
     }
 }

@@ -1,0 +1,4 @@
+﻿@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+
+<input type="hidden" class="form-control" id="userId" name="Id" value="@( Model != null ? Model.Id.ToString() : "")" />
+<input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />

@@ -54,9 +54,9 @@
       <Project>{cff63edb-8011-4472-9082-f81e227a2f6f}</Project>
       <Name>PdfClasses</Name>
     </ProjectReference>
-    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.Domain.csproj">
+    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">
       <Project>{F6570A48-CAE5-4412-940E-05A081AAD9C4}</Project>
-      <Name>sReportsV2.Domain</Name>
+      <Name>sReportsV2.DAL.MongoDb</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

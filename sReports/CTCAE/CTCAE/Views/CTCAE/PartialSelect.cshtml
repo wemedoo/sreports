@@ -1,16 +1,20 @@
-﻿
-@foreach (var item in Model.SelectItems[Model.SelectId].DefaultList)
+﻿@model CTCAE.Models.Patient
+
+@foreach (var item in Model.SelectItems.FirstOrDefault(x => x.Id == Model.SelectId).DefaultList)
 {
     <div class="margin-top">
         <span class="dermatitis-radiation">@item.CTCAETerm</span>
     </div>
 
     <div class="form-row margin-desc">
-
-        @ShowGradeRectangle(item, "Grade 1", "problem1", item.Grade1)
-        @ShowGradeRectangle(item, "Grade 2", "problem2", item.Grade2)
-        @ShowGradeRectangle(item,"Grade 3", "problem3", item.Grade3)
-        @ShowGradeRectangle(item, "Grade 4", "problem4", item.Grade4)
+        @if (item.Grade1 != "-")
+            @ShowGradeRectangle(item, "Grade 1", "problem1", item.Grade1)
+        @if (item.Grade2 != "-")
+            @ShowGradeRectangle(item, "Grade 2", "problem2", item.Grade2)
+        @if (item.Grade3 != "-")
+            @ShowGradeRectangle(item, "Grade 3", "problem3", item.Grade3)
+        @if (item.Grade4 != "-")
+            @ShowGradeRectangle(item, "Grade 4", "problem4", item.Grade4)
 
     </div>
 

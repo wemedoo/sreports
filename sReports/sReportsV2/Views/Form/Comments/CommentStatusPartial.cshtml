@@ -1,0 +1,10 @@
+﻿@using sReportsV2.Common.Extensions
+@using sReportsV2.DTOs.Form.DataOut
+@model FormCommentDataOut
+
+<div class="com-status @Model.CommentState">
+    <div>
+        <img>
+        Status: <b>@Model.CommentState</b> by <b>@ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper()@Model.User.LastName.Substring(0, 1).ToUpper()</b> on @Model.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("dd. MMM yyyy")
+    </div>
+</div>

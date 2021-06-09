@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - sReports by niAnalytics</title>
+    <title>@ViewBag.Title - sReports by weMedoo</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
     <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
@@ -11,15 +11,15 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
 </head>
-@using sReportsV2.Models.User;
-
 <body class="sidebar-shrink">
     <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
-
+        <img id="notFound" src="~/Content/img/icons/no_results.svg" hidden>
+        <img id="deleteIcon" src="~/Content/img/icons/remove.svg" hidden>
+        <img id="editIcon" src="~/Content/img/icons/edit.svg" hidden>
         <div class="header-wrapper">
             <div class="navbar-brand col-6 col-sm-3 col-md-2">
                 <a href="#" class="dfd-logo">
-                    <img src="~/Content/img/niAnalytics-logo.png">
+                    <img class="navbar-logo" src="~/Content/img/icons/weMedoo-logo.png">
                     sReports
                 </a>
             </div>
@@ -39,6 +39,9 @@
         </div>
     </div>
     <script>
+        var noResultFound = '@sReportsV2.Resources.TextLanguage.NoResultFound';
+        var deleteItem = '@sReportsV2.Resources.TextLanguage.Delete';
+        var editItem = '@sReportsV2.Resources.TextLanguage.Edit';
         var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 5)';
         var simplifiedApp;
     </script>

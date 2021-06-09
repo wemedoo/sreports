@@ -1,0 +1,30 @@
+﻿@using sReportsV2.DTOs.Field.DataOut;
+@model FieldDatetimeDataOut
+
+<fieldset class="form-input">
+    <div class="filter-label form-label-size d-inline-block">
+        <span class="comment-target-item" id="@Model.Id">   @Model.Label </span>
+</div>
+    <div class="repetitive-field filter-input d-inline-block">
+        <div class="row date-time-row datetime-picker-container">
+            <div class="date-wrapper input-border mr-auto w-60 d-flex">
+                <input type="date" class="date-helper d-inline-block border-0 date-width" />
+                <input type="datetime-local" class="date-time-local d-none form-element-field" />
+                <div class="img-wrapper">
+                    <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg">
+                </div>
+            </div>
+            <div class="time-wrapper w-35 input-border">
+                <input type="text" class="time-part time-helper d-inline-block border-0">
+                <div class="clock-wrapper">
+                    <i class="fas fa-clock" onclick="openTimePicker(event)"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+</fieldset>
+<a class="add-comment-link comment-block-hide" onclick="addComment('@Model.Id')">
+    <img class="add-comment-icon" src="~/Content/img/icons/add_comment_1.svg">
+</a>
+

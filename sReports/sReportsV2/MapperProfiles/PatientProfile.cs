@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using sReportsV2.Domain.Entities.OrganizationEntities;
-using sReportsV2.Domain.Entities.PatientEntities;
+using sReportsV2.Domain.Sql.Entities.Common;
+using sReportsV2.Domain.Sql.Entities.Patient;
 using sReportsV2.DTOs.Common;
 using sReportsV2.DTOs.Common.DTO;
+using sReportsV2.DTOs.CTCAE.DataIn;
 using sReportsV2.DTOs.Organization.DataIn;
 using sReportsV2.DTOs.Organization.DataOut;
 using sReportsV2.DTOs.Patient;
@@ -16,25 +17,21 @@ namespace sReportsV2.MapperProfiles
     {
         public PatientProfile()
         {
-            CreateMap<PatientEntity, PatientTableDataOut>()
+            CreateMap<Patient, PatientTableDataOut>()
              .ForMember(o => o.FirstName, opt => opt.MapFrom(src => src.Name.Given))
              .ForMember(o => o.LastName, opt => opt.MapFrom(src => src.Name.Family))
              .ForMember(o => o.BirthDate, opt => opt.MapFrom(src => src.BirthDate))
              .ForAllOtherMembers(opts => opts.Ignore());
 
-            CreateMap<Domain.Entities.PatientEntities.Address, AddressDTO>().ReverseMap();
-            CreateMap<Telecom, TelecomDTO>().ReverseMap();
-            CreateMap<Name, NameDTO>().ReverseMap();
+            CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<Domain.Sql.Entities.Common.Telecom, TelecomDTO>().ReverseMap();
+            CreateMap<Domain.Sql.Entities.Common.Name, NameDTO>().ReverseMap();
             CreateMap<Contact, ContactDTO>().ReverseMap();
 
-            CreateMap<string, IdentifierTypeDataOut>()
-                 .ForMember(o => o.O4MtId, opt => opt.MapFrom(src => src))
-                 .ForAllOtherMembers(opts => opts.Ignore());
-
-            CreateMap<PatientDataIn, PatientEntity>()
+            CreateMap<PatientDataIn, Patient>()
                   .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
                   .ForMember(o => o.Active, opt => opt.MapFrom(src => src.Activity))
-                  .ForMember(o => o.Name, opt => opt.MapFrom(src => new Name()
+                  .ForMember(o => o.Name, opt => opt.MapFrom(src => new Domain.Sql.Entities.Common.Name()
                   {
                       Family = src.FamilyName,
                       Given = src.Name
@@ -54,7 +51,7 @@ namespace sReportsV2.MapperProfiles
                   .ForMember(o => o.Addresss, opt => opt.MapFrom(src => src.Address))
                   .ForAllOtherMembers(opts => opts.Ignore());
           
-            CreateMap<PatientEntity, Contact>()
+            CreateMap<Patient, Contact>()
                 .ForMember(o => o.Relationship, opt => opt.MapFrom(src => src.ContactPerson.Relationship))
                 .ForMember(o => o.Name, opt => opt.MapFrom(src => src.ContactPerson.Name))
                 .ForMember(o => o.Gender, opt => opt.MapFrom(src => src.ContactPerson.Gender))
@@ -71,7 +68,7 @@ namespace sReportsV2.MapperProfiles
                .ForMember(o => o.Address, opt => opt.MapFrom(src => src.ContactAddress))
                .ForMember(o => o.Telecoms, opt => opt.MapFrom(src => src.ContactTelecoms));
 
-            CreateMap<PatientEntity, PatientDataIn>()
+            CreateMap<Patient, PatientDataIn>()
              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id.ToString()))
              .ForMember(o => o.Activity, opt => opt.MapFrom(src => src.Active))
              .ForMember(o => o.Name, opt => opt.MapFrom(src => src.Name.Given))
@@ -88,7 +85,15 @@ namespace sReportsV2.MapperProfiles
             .ForMember(o => o.Identifiers, opt => opt.MapFrom(src => src.Identifiers))
             .ForAllOtherMembers(opts => opts.Ignore());
 
-            CreateMap<PatientDataOut, PatientEntity>()
+            CreateMap<Patient, CTCAEPatient>()
+            .ForMember(o => o.PatientId, opt => opt.MapFrom(src => src.Id))
+            .ForAllOtherMembers(opts => opts.Ignore());
+
+            CreateMap<CTCAEPatient, Patient>()
+           .ForMember(o => o.Id, opt => opt.MapFrom(src => src.PatientId))
+           .ForAllOtherMembers(opts => opts.Ignore());
+
+            CreateMap<PatientDataOut, Patient>()
               .ForMember(o => o.Id, opt => opt.MapFrom(src =>src.Id))
               .ForMember(o => o.Active, opt => opt.MapFrom(src => src.Activity))
               .ForMember(o => o.Name, opt => opt.MapFrom(src => new Name()
@@ -111,7 +116,7 @@ namespace sReportsV2.MapperProfiles
               .ForMember(o => o.Identifiers, opt => opt.MapFrom(src => src.Identifiers))
               .ReverseMap();    
 
-            CreateMap<PatientEntity, PatientDataOut>()
+            CreateMap<Patient, PatientDataOut>()
              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id.ToString()))
              .ForMember(o => o.Activity, opt => opt.MapFrom(src => src.Active))
              .ForMember(o => o.Name, opt => opt.MapFrom(src => src.Name.Given))
@@ -133,8 +138,6 @@ namespace sReportsV2.MapperProfiles
              .ReverseMap();
 
             CreateMap<PatientFilterDataIn, PatientFilter>();
-
-            CreateMap<IdentifierType, IdentifierTypeDataOut>().ReverseMap();
 
             CreateMap<Communication, CommunicationDTO>().ReverseMap();
 

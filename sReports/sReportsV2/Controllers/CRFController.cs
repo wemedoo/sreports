@@ -13,6 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.SqlDomain.Interfaces;
 
 namespace sReportsV2.Controllers
 {
@@ -21,14 +23,19 @@ namespace sReportsV2.Controllers
 
         private List<string> ApprovedLanguages = new List<string>() { "de", "fr", "sr", "sr-Cyrl-RS", "en","ru", "es", "pt" };
         // GET: CRF
-        public ActionResult Create(string id, string language = "en")
+
+        public CRFController(IPatientDAL patientDAL, IEpisodeOfCareDAL episodeOfCareDAL,IUserBLL userBLL, IOrganizationBLL organizationBLL, ICustomEnumBLL customEnumBLL, IFormInstanceBLL formInstanceBLL, IFormBLL formBLL, IEncounterDAL encounterDAL) : base( patientDAL, episodeOfCareDAL,encounterDAL,userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
+        {
+
+        }
+        public ActionResult Create(int id, string language = "en")
         {
             if (string.IsNullOrWhiteSpace(language))
             {
-                id = "14573";
+                id = 14573;
                 language = "en";
             }
-            Form form = formService.GetFormByThesaurusAndLanguage(id, language);
+            Form form = formDAL.GetFormByThesaurusAndLanguage(id, language);
             if (form == null)
             {
                 Log.Warning(SReportsResource.FormNotExists, 404, id);
@@ -41,9 +48,9 @@ namespace sReportsV2.Controllers
             {
                 formFieldDataOut.GetDependablesData(fields, formFieldDataOut.Dependables);
             }
-            Form form1 = form.ThesaurusId == "14573"? form:  formService.GetFormByThesaurusAndLanguage("14573", language);
-            Form form2 = form.ThesaurusId == "14911" ? form : formService.GetFormByThesaurusAndLanguage("14911", language);
-            Form form3 = form.ThesaurusId == "15112" ? form : formService.GetFormByThesaurusAndLanguage("15112", language);
+            Form form1 = form.ThesaurusId == 14573? form: formDAL.GetFormByThesaurusAndLanguage(14573, language);
+            Form form2 = form.ThesaurusId == 14911 ? form : formDAL.GetFormByThesaurusAndLanguage(14911, language);
+            Form form3 = form.ThesaurusId == 15112 ? form : formDAL.GetFormByThesaurusAndLanguage(15112, language);
 
             List<Form> formsForTree = new List<Form>();
             formsForTree.Add(form1);
@@ -83,11 +90,11 @@ namespace sReportsV2.Controllers
             }
             if (string.IsNullOrWhiteSpace(filter.Language))
             {
-                filter.ThesaurusId = "14573";
+                filter.ThesaurusId = 14573;
                 filter.Language = "en";
             }
 
-            FormInstance formInstance = formInstanceService.GetById(filter.FormInstanceId);
+            FormInstance formInstance = formInstanceDAL.GetById(filter.FormInstanceId);
             if (formInstance == null)
             {
                 Log.Warning(SReportsResource.FormInstanceNotExists, 404, filter.FormInstanceId);
@@ -106,7 +113,7 @@ namespace sReportsV2.Controllers
         [HttpPost]
         public ActionResult Create(string language)
         {
-            Form form = this.formService.GetForm(Request.Form["formDefinitionId"]);
+            Form form = this.formDAL.GetForm(Request.Form["formDefinitionId"]);
             if (form == null)
             {
                 Log.Warning(SReportsResource.FormNotExists, 404, Request.Form["formDefinitionId"]);
@@ -114,7 +121,7 @@ namespace sReportsV2.Controllers
             }
             FormInstance formInstance = GetFormInstanceSet(form);
 
-            formInstanceService.InsertOrUpdate(formInstance);
+            formInstanceDAL.InsertOrUpdate(formInstance);
 
             return RedirectToAction("GetAllByFormThesaurus", "FormInstance", new
             {
@@ -139,7 +146,7 @@ namespace sReportsV2.Controllers
             ViewBag.EncounterId = formInstance.EncounterRef;
             ViewBag.FilterFormInstanceDataIn = filter;
             ViewBag.LastUpdate = formInstance.LastUpdate;
-            Form form = formService.GetForm(formInstance.FormDefinitionId);
+            Form form = formDAL.GetForm(formInstance.FormDefinitionId);
             form.SetFields(formInstance.Fields);
             FormDataOut data = Mapper.Map<FormDataOut>(form);
             List<FieldDataOut> fields = Mapper.Map<List<FieldDataOut>>(form.GetAllFields());

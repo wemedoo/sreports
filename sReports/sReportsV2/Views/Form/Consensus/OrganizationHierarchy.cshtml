@@ -1,0 +1,49 @@
+﻿@using sReportsV2.DTOs.Organization.DataOut;
+@model List<OrganizationUsersCountDataOut>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="users-container oh-overflow">
+        @RenderChildren(Model)
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        $('.vertical-line-overview').each(function (index, element) {
+            let count = $(element).closest('.child').children('.child').length;
+            console.log(count);
+            if (count == 1) {
+                $(element).css('height', '27px');
+            }
+        });
+    });
+</script>
+
+@helper RenderChildren(List<OrganizationUsersCountDataOut> elements, int offset = 1)
+{
+    <div class="vertical-line-overview"></div>
+
+    foreach (OrganizationUsersCountDataOut element in elements)
+    {
+        <div class="child @offset" style="margin-left:@(offset == 1 ? 15 : 25)px">
+            @if (offset != 1)
+            {
+                <div class="horizontal-line-consensus"></div>
+            }
+        <div class="d-flex user-children pl-0">
+            <label class="form-checkbox-label" id="checkBoxGroup">
+                <input value="@element.OrganizationId" class="form-checkbox-field organization-checkbox" type="checkbox" name="organizationNames" />
+                <i class="form-checkbox-button table-checkbox"></i>
+            </label>
+            <div class="ml-2">@element.OrganizationName</div>
+            @*<div class="users-count">@element.UsersCount</div>*@
+        </div>
+            @if (element.Children != null && element.Children.Count() > 0)
+            {
+                @RenderChildren(element.Children, offset + 1)
+            }
+        </div>
+    }
+}

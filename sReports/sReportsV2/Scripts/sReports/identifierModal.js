@@ -58,8 +58,7 @@ function addNewIdentifier(e) {
         $(system).attr("data-property", 'system');
         $(system).attr("data-value", $('#newIdentifierSystem').val());
         $(system).html($('#newIdentifierSystem option:selected').text());
-        $(system).addClass('truncate');
-        $(system).addClass("tooltip-tipable");
+        $(system).addClass("custom-td-first");
         $(system).attr("title", $('#newIdentifierSystem option:selected').text());
         $(system).tooltip();
 
@@ -67,8 +66,7 @@ function addNewIdentifier(e) {
         $(value).attr("data-property", 'value');
         $(value).attr("data-value", $('#newIdentifierValue').val());
         $(value).html($('#newIdentifierValue').val());
-        $(value).addClass('truncate');
-        $(value).addClass("tooltip-tipable");
+        $(value).addClass("custom-td");
         $(value).attr("title", $('#newIdentifierValue').val());
         $(value).tooltip();
 
@@ -76,15 +74,19 @@ function addNewIdentifier(e) {
         $(use).attr("data-property", 'use');
         $(use).attr("data-value", $('#newIdentifierUse').val());
         $(use).html($('#newIdentifierUse option:selected').text());
-        $(use).addClass('truncate');
-        $(use).addClass("tooltip-tipable");
+        $(use).addClass("custom-td");
         $(use).attr("title", $('#newIdentifierUse option:selected').text());
         $(use).tooltip();
 
         let identifier = document.createElement('tr');
+        $(identifier).addClass('edit-raw');
 
         $(identifier).append(system).append(value).append(use).append(createRemoveIdentifierButton());
         $('#identifierContainer tbody').append(identifier);
+
+        if ($('#identifierContainer tbody').children(".edit-raw").length == 1 ) {
+            document.getElementById("identifierContainer").classList.remove("identifier-line-bottom");
+        }
         $('#identifierModal').modal('hide');
     }
 }
@@ -94,9 +96,11 @@ function createRemoveIdentifierButton() {
     $(div).addClass('remove-identifier');
 
     let i = document.createElement('i');
-    $(i).addClass('fas fa-times');
+    $(i).addClass('remove-icon');
 
     $(div).append(i);
+    $(div).addClass("custom-td-last");
+    div.style.position = "relative";
     return div;
 }
 
@@ -104,25 +108,32 @@ function GetIdentifiers() {
     let result = [];
     $('#identifierContainer table tr').each(function (index, element) {
 
-        let telecomSystem = $(element).find('[data-property="system"]')[0];
-        let telecomValue = $(element).find('[data-property="value"]')[0];
-        let telecomUse = $(element).find('[data-property="use"]')[0];
+        let identifierSystem = $(element).find('[data-property="system"]')[0];
+        let identifierValue = $(element).find('[data-property="value"]')[0];
+        let identifierUse = $(element).find('[data-property="use"]')[0];
 
 
-        if ($(telecomSystem).data('value') && $(telecomValue).data('value') && $(telecomUse).data('value')) {
+        if ($(identifierSystem).data('value') && $(identifierValue).data('value')) {
             result.push({
-                System: $(telecomSystem).data('value'),
-                Value: $(telecomValue).data('value'),
-                Use: $(telecomUse).data('value')
+                Id: $(element).attr('data-value'),
+                System: $(identifierSystem).data('value'),
+                Value: $(identifierValue).data('value'),
+                Use: $(identifierUse).data('value')
             });
         }
     });
+
+    console.log(result);
     return result;
 }
 
 $(document).on('click', '.remove-identifier', function (e) {
+    if ($('#identifierContainer tbody').children(".edit-raw").length == 1) {
+        document.getElementById("identifierContainer").classList.add("identifier-line-bottom");
+    }
     $(e.currentTarget).closest('tr').remove();
 });
+
 function showIdentifierModal(e) {
     e.stopPropagation();
 

@@ -14,6 +14,7 @@ namespace sReportsV2.Configs
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<FormProfile>();
+                cfg.AddProfile<CommentProfile>();
                 cfg.AddProfile<FormInstanceProfile>();
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<ThesaurusEntryProfile>();
@@ -25,6 +26,14 @@ namespace sReportsV2.Configs
                 cfg.AddProfile<OrganizationProfile>();
                 cfg.AddProfile<FormDistributionProfile>();
                 cfg.AddProfile<FieldProfile>();
+                cfg.AddProfile<DigitalGuidelineProfile>();
+                cfg.AddProfile<ThesaurusEntrySqlProfile>();
+                cfg.AddProfile<CommentProfile>();
+                cfg.AddProfile<GlobalThesaurusUserProfile>();
+                cfg.AddProfile<CommonProfile>();
+                cfg.AddProfile<CustomEnumProfile>();
+
+
             });
         }
     }

@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using sReportsV2.Api.Common.Extensions;
 using sReportsV2.Api.DTOs.FormInstance.DataIn;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Services.Interfaces;
-using static Hl7.Fhir.Model.OperationOutcome;
 
 namespace sReportsV2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public class DiagnosticReportController : CommonController
+    public class DiagnosticReportController //: CommonController
     {
-        public DiagnosticReportController(IMapper mapper,
+        /*public DiagnosticReportController(IMapper mapper,
              IFormInstanceService formInstanceService,
              IEpisodeOfCareService episodeOfCareService,
              IEncounterService encounterService,
@@ -93,7 +91,7 @@ namespace sReportsV2.Api.Controllers
             }
 
             return Ok(formInstance);
-        }
+        }*/
 
     }
 }

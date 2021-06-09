@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Constants;
+using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

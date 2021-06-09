@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using sReportsV2.Domain.Entities.UserEntities;
-using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Services.Implementations;
+using sReportsV2.Domain.Sql.Entities.User;
 using sReportsV2.DTOs.Organization;
-using sReportsV2.Models.User;
+using sReportsV2.DTOs.User.DTO;
+using sReportsV2.DAL.Sql.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
 
@@ -26,12 +26,11 @@ namespace sReportsV2.Common.Extensions
                 var ticketDecrypted = FormsAuthentication.Decrypt(ticket.Value);
                 
 
-                UserService userService = new UserService();
-                OrganizationService organizationService = new OrganizationService();
-
-                User userEntity = userService.GetByUsername(ticketDecrypted.Name);
+                //TO DO PULL ORGANIZATIONS
+                var userDAL = DependencyResolver.Current.GetService<IUserDAL>();
+                User userEntity = userDAL.GetByUsername(ticketDecrypted.Name);
                 userCookieData = Mapper.Map<UserCookieData>(userEntity);
-                userCookieData.Organizations = Mapper.Map<List<OrganizationDataOut>>(organizationService.GetOrganizationsByIds(userEntity.OrganizationRefs));
+                userCookieData.Organizations = null;
                 sessionState["userData"] = userCookieData;
             }
 

@@ -1,122 +1,132 @@
 ﻿@using sReportsV2.Common.Extensions;
-@using sReportsV2.Models.ThesaurusEntry;
+@using sReportsV2.DTOs.ThesaurusEntry.DTO
 
 @{
-    ThesaurusEntryTranslationViewModel translation = null;
+    ThesaurusEntryTranslationDTO translation = null;
     string hasValue = "-hasvalue";
 }
 
-    <div class="form-element form-select">
-        <select id="selectedLanguage" class="form-element-field @hasValue">
-            @foreach (sReportsV2.Models.Common.EnumViewModel language in ViewBag.Languages)
-            {
-            if (language.Value == ViewBag.UserCookieData.ActiveLanguage)
-            {
-            <option value="@language.Value" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
-            }
-            else
-            {
-            <option value="@language.Value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
-            }
-            }
-
-        </select>
-        <div class="form-element-bar"></div>
-    </div>
-
-    <div class="tab-content" id="myTabContent">
-        @foreach (sReportsV2.Models.Common.EnumViewModel language in ViewBag.Languages)
-        {
-            {
-                translation = Model != null ? Model.GetTranslation(language.Value) : null;
-            }
-        <div class="tab-pane fade @(language.Value == ViewBag.UserCookieData.ActiveLanguage ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
-
-            <div class="form-input-container">
-                <label for="preferredTerm-@(language.Value)" class="form-element-label">@sReportsV2.Resources.TextLanguage.Preferred_term</label>
-                <textarea type="text" name="preferredTerm-@(language.Value)" id="preferredTerm-@(language.Value)" class="form-element-field" onchange="auto_grow(this)" oninput="auto_grow(this)" value="@(Model != null ? translation.PreferredTerm : "")" required>@(Model != null ? translation.PreferredTerm : "")</textarea>
-                <div class="form-element-bar"></div>
-                <div class="form-element-description"></div>
-            </div>
-
-            <div class="form-input-container">
-                <label for="definition-@(language.Value)" class="form-element-label">@sReportsV2.Resources.TextLanguage.Definition</label>
-                @if (language.Value == ViewBag.UserCookieData.ActiveLanguage as string)
-                {
-                    <textarea type="text" rows="10" name="definition-@(language.Value)" id="definition-@(language.Value)" class="form-element-field textarea-sm" value="@(Model != null ? translation.Definition : "")" required>@(Model != null ? translation.Definition : "")</textarea>
-                }
-                else
-                {
-                    <textarea type="text" rows="10" name="definition-@(language.Value)" id="definition-@(language.Value)" class="form-element-field textarea-sm" value="@(Model != null ? translation.Definition : "")">@(Model != null ? translation.Definition : "")</textarea>
-                }
-                <div class="form-element-bar"></div>
-                <div class="form-element-description"></div>
-            </div>
-
-            <div class="form-input-container @(Model == null || string.IsNullOrEmpty(Model.O40MTId) ? "d-none" : "")">
-                <label for="sReportsId" class="form-element-label">O4.0MT ID</label>
-                <input type="text" readonly name="O40MTID" data-type="O40MTID" class="form-element-field" disabled value="@(Model != null ? Model.O40MTId : "")" />
-               <div class="form-element-bar"></div>
-            </div>
-
-            <div class="form-input-container tag-container synonym-container">
-                <label for="synonym-@(language.Value)" class="form-element-label">@sReportsV2.Resources.TextLanguage.Synonyms</label>
-                <input type="text" class="form-element-field tag-input @hasValue" data-language="@(language.Value)" data-tag="synonym" placeholder="@sReportsV2.Resources.TextLanguage.Type_synonym" />
-                <div class="form-element-bar"></div>
-                <div class="button-plus" data-language="@(language.Value)" data-tag="synonym"><i class="fas fa-plus"></i></div>
-                <div class="tag-values synonym-values" id="synonym-values-@(language.Value)">
-                    @if (Model != null && translation != null && translation.Synonyms != null)
-                    {
-                        foreach (string s in translation.Synonyms)
-                        {
-                            <div id="tag-@s.ReplaceNonAlphaCharactersWithDash()-synonym-@language.Value" class="single-tag">
-                                <span class="single-tag-value" data-info="tag-value-synonym-@language.Value">@s</span>
-                                <span class="remove-tag-button" data-id="@s.ReplaceNonAlphaCharactersWithDash()" data-action="remove-tag" data-tag="synonym" data-language="@(language.Value)"><i class="fas fa-times"></i></span>
-                            </div>
-                        }
-                    }
+    <div class="translations-language-background">
+        <div class="advanced-filter-item filter-item input-margin margin-bottom-0 translations-language display-container">
+            <div class="atoms margin-right-20">
+                <div class="label filter-label">
+                    @sReportsV2.Resources.TextLanguage.SelectLanguage
                 </div>
-            </div>
-
-            <div class="form-input-container tag-container similar-term-container">
-                <label for="similarTerm-@(language.Value)" class="form-element-label">@sReportsV2.Resources.TextLanguage.Similar_term</label>
-                <input type="text" class="form-element-field tag-input @hasValue" data-language="@(language.Value)" data-tag="similarTerm" placeholder="@sReportsV2.Resources.TextLanguage.Type_term" />
-                <div class="form-element-bar"></div>
-                <div class="button-plus" data-language="@(language.Value)" data-tag="similarTerm"><i class="fas fa-plus"></i></div>
-                <div class="tag-values similar-term-values" id="similarTerm-values-@(language.Value)">
-                    @if (Model != null && translation != null && translation.SimilarTerms != null)
+                <select class="filter-input arrow-select @hasValue patient-background" id="selectedLanguage" style="-webkit-appearance: none;">
+                    @foreach (var language in ViewBag.Languages)
                     {
-                        foreach (string s in translation.SimilarTerms)
+                        if (language.Value == ViewBag.UserCookieData.ActiveLanguage)
                         {
-                            <div id="tag-@s.ReplaceNonAlphaCharactersWithDash()-similarTerm-@language.Value" class="single-tag">
-                                <span class="single-tag-value" data-info="tag-value-similarTerm-@language.Value">@s</span>
-                                <span class="remove-tag-button" data-id="@s.ReplaceNonAlphaCharactersWithDash()" data-action="remove-tag" data-tag="similarTerm" data-language="@(language.Value)"><i class="fas fa-times"></i></span>
-                            </div>
+                            <option value="@language.Value" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                        }
+                        else
+                        {
+                            <option value="@language.Value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
                         }
                     }
+                </select>
+            </div>
+
+            <div class="atoms">
+                <div class="label filter-label">
+                    @sReportsV2.Resources.TextLanguage.State_
                 </div>
-            </div>
-
-            <div class="form-input-container tag-container similar-term-container">
-                <label for="abbreviation-@(language.Value)" class="form-element-label">@sReportsV2.Resources.TextLanguage.Abbreviation</label>
-                <input type="text" class="form-element-field tag-input @hasValue" data-language="@(language.Value)" data-tag="abbreviation" placeholder="@sReportsV2.Resources.TextLanguage.Type_abbreaviation" />
-                <div class="form-element-bar"></div>
-                <div class="button-plus" data-language="@(language.Value)" data-tag="abbreviation"><i class="fas fa-plus"></i></div>
-                <div class="tag-values abbreviation-values" id="abbreviation-values-@(language.Value)">
-                    @if (Model != null && translation != null && translation.Abbreviations != null)
+                <select class="filter-input arrow-select @hasValue patient-background" id="thesaurusState" name="thesaurusState" style="-webkit-appearance: none;" required>
+                    <option value=""></option>
+                    @foreach (var state in Enum.GetNames(typeof(sReportsV2.Common.Enums.ThesaurusState)))
                     {
-                        foreach (string s in translation.Abbreviations)
-                        {
-                            <div id="tag-@s.ReplaceNonAlphaCharactersWithDash()-abbreviation-@language.Value" class="single-tag">
-                                <span class="single-tag-value" data-info="tag-value-abbreviation-@language.Value">@s</span>
-                                <span class="remove-tag-button" data-id="@s.ReplaceNonAlphaCharactersWithDash()" data-action="remove-tag" data-tag="abbreviation" data-language="@(language.Value)"><i class="fas fa-times"></i></span>
-                            </div>
-                        }
+                        <option value="@state" @(Model != null && Model.State != null && Model.State.ToString() == state ? "selected" : "")> @state </option>
                     }
-                </div>  
+                </select>
             </div>
-
         </div>
-        }
     </div>
 
+    <div class="translations-language padding-bottom-10">
+
+        <div class="tab-content" id="myTabContent">
+            @foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages)
+            {
+                {
+                    translation = Model != null ? Model.GetTranslation(language.Value) : null;
+                }
+            <div class="tab-pane fade @(language.Value == ViewBag.UserCookieData.ActiveLanguage ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
+
+                <div style="display: flex">
+                    <div class="advanced-filter-item filter-item input-margin padding-right-10">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Preferred_term
+                        </div>
+                        <input class="filter-input" name="preferredTerm-@(language.Value)" id="preferredTerm-@(language.Value)" type="text" value="@(Model != null ? translation.PreferredTerm : "")" required placeholder="@sReportsV2.Resources.TextLanguage.Preferred"/>
+                    </div>
+                    <div class="advanced-filter-item filter-item input-margin padding-left-10">
+                        <div class="label filter-label">
+                            O4.0MT ID
+                        </div>
+                        <input class="filter-input" readonly name="O40MTID" data-type="O40MTID" disabled value="@(Model != null ? Model.Id.ToString() : "")" style="background-color: white" />
+                    </div>
+                </div>
+
+                <div class="advanced-filter-item filter-item">
+                    <div class="label filter-label">
+                        @sReportsV2.Resources.TextLanguage.Definition
+                    </div>
+                    @if (language.Value == ViewBag.UserCookieData.ActiveLanguage as string)
+                    {
+                        <textarea type="text" rows="10" name="definition-@(language.Value)" id="definition-@(language.Value)" class="filter-input definition-max-height" value="@(Model != null ? translation.Definition : "")" required>@(Model != null ? translation.Definition : "")</textarea>
+                    }
+                    else
+                    {
+                        <textarea type="text" rows="10" name="definition-@(language.Value)" id="definition-@(language.Value)" class="filter-input definition-max-height" value="@(Model != null ? translation.Definition : "")">@(Model != null ? translation.Definition : "")</textarea>
+                    }
+                </div>
+
+                <div class="tag-container synonym-container synonyms-width mb-2">
+                    <div class="advanced-filter-item input-margin margin-bottom-0 padding-right-10">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Synonyms
+                        </div>
+                        <i class="fas fa-plus-circle plus-button-synonym" data-language="@(language.Value)" data-tag="synonym"></i>
+                        <input type="text" class="filter-input tag-input" data-language="@(language.Value)" data-tag="synonym" placeholder="@sReportsV2.Resources.TextLanguage.Type_synonym" />
+                        <div class="tag-values synonym-values" id="synonym-values-@(language.Value)">
+                            @if (Model != null && translation != null && translation.Synonyms != null)
+                            {
+                                foreach (string s in translation.Synonyms)
+                                {
+                                    <div id="tag-@s.ReplaceNonAlphaCharactersWithDash()-synonym-@language.Value" class="tags-element synonyms-element">
+                                        <span class="single-tag-value" data-info="tag-value-synonym-@language.Value">@s</span>
+                                        <img src="../Content/img/icons/Administration_remove.svg" class="ml-2 tag-value tag-value-synonym" data-id="@s.ReplaceNonAlphaCharactersWithDash()" data-action="remove-tag" data-tag="synonym" data-language="@(language.Value)">
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="advanced-filter-item input-margin margin-bottom-0 padding-left-10">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Abbreviation
+                        </div>
+                        <input type="text" class="filter-input tag-input" data-language="@(language.Value)" data-tag="abbreviation" placeholder="@sReportsV2.Resources.TextLanguage.Type_abbreaviation" />
+                        <i class="fas fa-plus-circle plus-button-synonym" data-language="@(language.Value)" data-tag="abbreviation"></i>
+                        <div class="tag-values abbreviation-values" id="abbreviation-values-@(language.Value)">
+                            @if (Model != null && translation != null && translation.Abbreviations != null)
+                            {
+                                foreach (string s in translation.Abbreviations)
+                                {
+                                    <div id="tag-@s.ReplaceNonAlphaCharactersWithDash()-abbreviation-@language.Value" class="tags-element synonyms-element">
+                                        <span class="single-tag-value" data-info="tag-value-abbreviation-@language.Value">@s</span>
+                                        <img src="../Content/img/icons/Administration_remove.svg" class="ml-2 tag-value tag-value-synonym" data-id="@s.ReplaceNonAlphaCharactersWithDash()" data-action="remove-tag" data-tag="abbreviation" data-language="@(language.Value)">
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                   
+                </div>
+
+                
+
+            </div>
+            }
+        </div>
+
+    </div>

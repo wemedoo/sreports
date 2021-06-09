@@ -1,0 +1,42 @@
+﻿<div class="d-flex">
+    <div class="d-flex main-filter mb-2">
+        <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Title
+            </div>
+            <input type="text" class="filter-input" id="TitleTemp">
+        </div>
+        <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Thesaurus
+            </div>
+            <input type="text" class="filter-input" id="ThesaurusIdTemp">
+        </div>
+        <div class="advanced-filter-item filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.State_
+            </div>
+            <select class="filter-input arrow-select" id="StateTemp">
+                <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
+                @foreach (var option in Enum.GetNames(typeof(sReportsV2.Common.Enums.FormDefinitionState)))
+                {
+                    <option value="@option" @(ViewBag.FilterData != null && ViewBag.FilterData.State != null && ViewBag.FilterData.State.ToString() == option ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)</option>
+                }
+            </select>
+        </div>
+        <div class="filter-item border-0 margin-top-15" style="margin-right:10px;">
+            <div class="button-wrapper-filter button-filter" id="submitFilterButton">
+                <button class="btn btn-filter-primary w-100 h-100 float-right" onclick="mainFilter()">  @sReportsV2.Resources.TextLanguage.Filter</button>
+            </div>
+        </div>
+        <div id="advancedId" class=" filter-item border-0 margin-top-15">
+            <div class="button-wrapper-filter" id="submitFilterButton">
+                <button class="btn w-100 h-100 float-right font-size-14 btn-advanced-link" onclick="advancedFilterModal(event)"><img class="display-none" src="/Content/img/icons/advanced_filter.svg">@sReportsV2.Resources.TextLanguage.Advanced_filter</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="filterElements" class="d-flex">
+
+</div>

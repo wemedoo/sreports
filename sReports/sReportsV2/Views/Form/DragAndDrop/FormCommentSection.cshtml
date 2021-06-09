@@ -1,0 +1,28 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+
+@model FormCommentListDataOut
+
+@{
+    ViewBag.Title = "FormCommentSection";
+}
+
+<form class="w-100" method="post" id="idCommentInfo" onsubmit="return submitCommentForm(this, event)" novalidate>
+   
+    <input type="text" name="itemRef" id="itemRef" value="@(ViewBag.ItemRef !=null ? ViewBag.ItemRef : "")" hidden />
+
+    <div class="comment-header">
+        <div class="comm-user-icon">
+            <div class="initial-user">@ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper()</div>
+        </div>
+        <div class="comment-user-information">
+            <label class="user-info-label">@ViewBag.UserCookieData.FirstName @ViewBag.UserCookieData.LastName</label>
+            <label class="create-date-comment">@DateTime.Now.ToString("h:mm tt MMM dd")</label>
+        </div>
+    </div>
+    <input type="text" name="commentText" id="commentText" placeholder="Comment" />
+    <div class="replay-btns">
+        <a class="cancel-new-comment-button" onclick="cancelNewComment()">Cancel</a>
+        <button type="submit" class="save-comment-button">Comment</button>
+    </div>
+</form>
+

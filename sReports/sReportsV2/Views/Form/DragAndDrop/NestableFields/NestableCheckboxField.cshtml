@@ -1,0 +1,56 @@
+﻿@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions;
+@model FieldCheckboxDataOut
+
+<li class="drag-and-drop-element dd-item position-unset d-flex  padding-right-10 margin-bottom-15" data-itemtype="field" @Model.GetDataAttr()>
+    <div class="dd-handle custom-dd-handle checkbox-custom-dd-handle">
+
+        <div class="form-checkbox-legend nestable-checkbox-label  filter-label" title="@Model.Type">
+            <div class="drag-item-icon checkbox-drag-item-icon">
+                <i class="fas fa-arrows-alt"></i>
+            </div>
+            <div class="icon-container">
+                <div class="edit-button">
+                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                </div>
+                <div class="remove-button">
+                    <img src="/Content/img/icons/remove_simulator.svg">
+                </div>
+            </div>
+               @Html.Raw(Model.FullLabel) 
+</div>
+    </div>
+    <ol class="dd-list pl-0 ol-fieldvalue">
+        @foreach (var fieldValue in Model.Values)
+        {
+            <li class="drag-and-drop-element dd-item" data-valuetype="checkbox" data-itemtype="fieldvalue" @fieldValue.GetDataAttr()>
+                <div class="dd-handle custom-dd-handle checkbox-value-custom-dd-handle">
+                    <div class="form-checkbox-label">
+                        <div class="drag-item-icon checkbox-drag-item-icon">
+                            <i class="fas fa-arrows-alt"></i>
+                        </div>                      
+                        <div class="icon-container">
+                            <div class="overlay"></div>
+                            <a class="add-comment-link comment-block-hide" onclick="addComment('@fieldValue.Id')">
+                                <img class="add-comment-icon" src="~/Content/img/icons/add_comment_1.svg">
+                            </a>
+                            <div class="edit-button">
+                                <img src="/Content/img/icons/edit_pencil_03.svg">
+                            </div>
+                            <div class="remove-button">
+                                <img src="/Content/img/icons/remove_simulator.svg">
+                            </div>
+                        </div>
+                        <input class="form-checkbox-field" type="checkbox" />
+                        <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
+                        <span class="radio-break-word checkbox-text comment-target-item" id="@fieldValue.Id">@fieldValue.Label</span>
+                    </div>
+                </div>
+            </li>
+        }
+        <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldvalue" data-valuetype="checkbox" style="display: @(Model.Values.Count == 0 ? "block": "none")">
+            Drag a checkbox option here
+        </li>
+    </ol>
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+</li>

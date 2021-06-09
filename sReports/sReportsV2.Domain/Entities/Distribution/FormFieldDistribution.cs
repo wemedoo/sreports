@@ -13,7 +13,7 @@ namespace sReportsV2.Domain.Entities.Distribution
         public string Id { get; set; }
         public string Label { get; set; }
         public string Type { get; set; }
-        public string ThesaurusId { get; set; }
+        public int ThesaurusId { get; set; }
         public float? Mean { get; set; }
         public float? StandardDeviation { get; set; }
         public List<FormFieldValueDistribution> Values { get; set; }

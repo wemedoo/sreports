@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 37</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.5,0 C5.15914787,0 0,5.15914787 0,11.5 C0,17.8408521 5.15914787,23 11.5,23 C17.8408521,23 23,17.8408521 23,11.5 C23,5.15914787 17.8408521,0 11.5,0 Z" id="path-1"></path>
+        <filter x="-28.3%" y="-23.9%" width="156.5%" height="156.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.833997662   0 0 0 0 0.639368591   0 0 0 0 0.639368591  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-Create-Comments" transform="translate(-218.000000, -2096.000000)" fill-rule="nonzero">
+            <g id="Group-35" transform="translate(200.000000, 1858.000000)">
+                <g id="Group-37" transform="translate(22.000000, 241.000000)">
+                    <g id="checked-(6)">
+                        <g id="Shape">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                        </g>
+                    </g>
+                    <g id="no-phone" transform="translate(5.000000, 5.000000)" fill="#D83A3A">
+                        <path d="M6.5,1.15502177e-15 C2.9238459,1.15502177e-15 0,2.91184525 0,6.5 C0,10.0843347 2.91571847,13 6.5,13 C10.0646131,13 13,10.0966889 13,6.5 C13,2.91574656 10.0842815,0 6.5,1.15502177e-15 Z M6.5,11.5556188 C3.71269506,11.5556188 1.44440832,9.2874095 1.44440832,6.50008128 C1.44440832,5.3666675 1.83289987,4.33029898 2.46537711,3.48615158 L9.51316645,10.5351806 C8.66921326,11.1672752 7.63304616,11.5556188 6.5,11.5556188 Z M10.5345416,9.5139297 L3.48675228,2.46490065 C4.33070546,1.83280607 5.36687256,1.44446251 6.49991873,1.44446251 C9.28722367,1.44446251 11.5554291,3.71267178 11.5554291,6.5 C11.5555917,7.63341378 11.1670189,8.6697823 10.5345416,9.5139297 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

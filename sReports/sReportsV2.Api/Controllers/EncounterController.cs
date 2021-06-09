@@ -1,23 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using sReportsV2.Api.Common.Extensions;
 using sReportsV2.Api.DTOs;
 using sReportsV2.Domain.Entities.Encounter;
 using sReportsV2.Domain.Services.Interfaces;
-using static Hl7.Fhir.Model.OperationOutcome;
 
 namespace sReportsV2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public class EncounterController : CommonController
+    public class EncounterController //: CommonController
     {
-        public EncounterController(IMapper mapper,
+       /* public EncounterController(IMapper mapper,
              IFormInstanceService formInstanceService,
              IEpisodeOfCareService episodeOfCareService,
              IEncounterService encounterService,
@@ -88,6 +86,6 @@ namespace sReportsV2.Api.Controllers
 
             return Ok(encounters);
         }
-
+       */
     }
 }

@@ -10,7 +10,7 @@ namespace sReportsV2.Domain.Entities.Distribution
     {
         public string Label { get; set; }
         public string Value { get; set; }
-        public string ThesaurusId { get; set; }
+        public int ThesaurusId { get; set; }
         public float? SuccessProbability { get; set; }
     }
 }

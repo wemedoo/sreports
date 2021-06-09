@@ -1,0 +1,20 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+
+@model List<FormDataOut>
+
+@foreach(FormDataOut form in Model)
+{
+    <div class="single-form-list-element" data-id="@form.Id">
+        <div class="pin-icon @((ViewBag.UserCookieData.SuggestedForms as List<string>).Contains(form.Id) ? "pinned" : "")">
+        </div>
+        <div class="title">
+            @form.Title
+        </div>
+        <div class="select-button unselect">
+            Unselect
+        </div>
+        <div class="select-button">
+            Select
+        </div>
+    </div>
+}

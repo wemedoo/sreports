@@ -1,0 +1,29 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+
+    <div class="person-margin" style="min-height:40px;">
+       <button class="btn btn-add-new float-right" type="button" onclick="openInstitutionModal(event)">
+            <i class="fas fa-plus-circle resize-circle"></i>
+            <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
+        </button>
+    </div>
+    <div class="institutions" id="institutions">
+        @if (Model != null)
+        {
+            foreach (var organization in Model.Organizations)
+            {
+                @Html.Partial("OrganizationData", organization)
+            }
+        }
+
+        @if (Model == null || Model.Organizations == null || Model.Organizations.Count == 0)
+        {
+            <div class="no-result-content">
+                <img class="margin-" src="~/Content/img/icons/no_results.svg">
+                <br>
+                <div class="no-result-text">@sReportsV2.Resources.TextLanguage.NoResultFound</div>
+            </div>
+        }
+    </div>
+

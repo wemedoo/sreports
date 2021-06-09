@@ -1,27 +1,27 @@
-﻿@using sReportsV2.DTOs.Form.DataOut;
-@model FormFieldDataOut
-@{
-    bool isChapterReadonly = ViewBag.Chapter;
-}
+﻿@*@using sReportsV2.DTOs.Form.DataOut;
+    @model FormFieldDataOut
+    @{
+        bool isChapterReadonly = ViewBag.Chapter;
+    }
 
-    <fieldset id="@Model.Id" @Html.Raw(Model.Visibility)>
-        @if (Model.IsReadonly || isChapterReadonly)
-        {
-            <input type="url" name="@Model.Id-1" placeholder="@Model.DescriptionLabel" @Model.ValidationAttr readonly />
-        }
-        else
-        {
-            <input type="url" name="@Model.Id-1" placeholder="@Model.DescriptionLabel" @Model.ValidationAttr />
-        }
-        <label for="@Model.Id">
-            @Html.Raw(Model.FullLabel)
-            @if (Model.Help != null)
+        <fieldset id="@Model.Id" @Html.Raw(Model.Visibility)>
+            @if (Model.IsReadonly || isChapterReadonly)
             {
-                <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+                <input type="url" name="@Model.Id-1" placeholder="@Model.DescriptionLabel" @Model.ValidationAttr readonly />
             }
-        </label>
+            else
+            {
+                <input type="url" name="@Model.Id-1" placeholder="@Model.DescriptionLabel" @Model.ValidationAttr />
+            }
+            <label for="@Model.Id">
+                @Html.Raw(Model.FullLabel)
+                @if (Model.Help != null)
+                {
+                    <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+                }
+            </label>
 
-        <div class="form-element-description">
-            @Html.Raw(Model.Description)
-        </div>
-    </fieldset>
+            <div class="form-element-description">
+                @Html.Raw(Model.Description)
+            </div>
+        </fieldset>*@

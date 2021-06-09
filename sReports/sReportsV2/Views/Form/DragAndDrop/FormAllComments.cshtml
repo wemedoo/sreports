@@ -1,0 +1,105 @@
+﻿
+@using sReportsV2.DTOs.Form.DataOut
+@using sReportsV2.Common.Extensions
+@model List<sReportsV2.DTOs.Form.DataOut.FormCommentDataOut>
+
+@{
+    ViewBag.Title = "FormCommentSection";
+}
+
+<h2>Comments</h2>
+
+<div id="newComment"></div>
+@foreach (var comment in Model.Where(x => string.IsNullOrEmpty(x.CommentRef)).ToList()){
+
+
+    <div class="comment-group">
+        <div class="comment-section" id="@comment.Id" data-field-id="@comment.ItemRef">
+            <div class="comment-header">
+                <div class="comm-user-icon">
+                    <div class="initial-user">@ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper()</div>
+                </div>
+                <div class="comment-user-information">
+
+
+                    <label class="commented-color">@ViewBag.UserCookieData.FirstName @ViewBag.UserCookieData.LastName Commented</label>
+                    <label class="create-date-comment">@comment.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("h:mm tt MMM dd")</label>
+                </div>
+            </div>
+            <p style="color: #1E90FF;margin-left: 3px;">@comment.Value</p>
+            <div class="button comment-status-button d-flex">
+                @if (comment.CommentState == sReportsV2.Common.Enums.CommentState.Created)
+                {
+                <div class="comment-statuses">
+                    <a class="commstatus" onclick="sendCommentStatus('@comment.Id','Archive')">Archive</a>
+                    <a class="commstatus" onclick="sendCommentStatus('@comment.Id','Resolve')">Resolve</a>
+                    <a class="commstatus" onclick="sendCommentStatus('@comment.Id','Reject')">Reject</a>
+                </div>
+                <div class="ml-auto">
+                    <button type="button" class="replay-button" onclick="replayComment('@comment.Id')">Replay</button>
+                </div>
+
+
+                }
+            </div>
+
+            @foreach (var reply in Model.Where(x => !string.IsNullOrWhiteSpace(x.CommentRef) && x.CommentRef == comment.Id))
+                {
+                    <div class="horizontal-comment-line"></div>
+
+                    <div class="comment-header">
+                        <div class="comm-user-icon">
+                            <div class="initial-user-replay">@reply.User.FirstName.Substring(0, 1).ToUpper()</div>
+                        </div>
+                        <div class="comment-user-information">
+
+
+                            <label class="comment-replay-color">@reply.User.FirstName @reply.User.LastName  Responded</label>
+                            <label class="create-date-comment">@reply.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("h:mm tt MMM dd")</label>
+                        </div>
+                    </div>
+                    <p style="margin-left: 3px;" class="comment-replay-color">@reply.Value</p>
+             }
+            <div class="comment-status-container">
+                @if (comment.CommentState != sReportsV2.Common.Enums.CommentState.Created)
+                {
+                    <div class="horizontal-comment-line"></div>
+
+                    @Html.Partial("~/Views/Form/Comments/CommentStatusPartial.cshtml", comment)
+
+                }
+            </div>
+
+
+        </div>
+        <div class="replay-container">
+            <form class="w-100" method="post" id="idCommentReplay_@comment.Id" onsubmit="return submitReplayComment(this, event)" novalidate>
+                <div class="comment-header">
+                    <div class="comm-user-icon">
+                        <div class="initial-user">@comment.User.FirstName.Substring(0, 1).ToUpper()</div>
+                    </div>
+                    <div class="comment-user-information">
+                        <label class="commented-color">@comment.User.FirstName @comment.User.LastName Commented</label>
+                        <label>@comment.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("h:mm tt MMM dd")</label>
+                    </div>
+                </div>
+                <p class="commented-color">@comment.Value</p>
+
+                <input type="text" name="commentText" id="commentText" />
+                <div class="replay-btns">
+                    <a class="cancel-replay-button" onclick="cancelReplay('@comment.Id')">Cancel</a>
+                    <button type="submit" class="replay-button-confirm">Replay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+}
+
+
+
+

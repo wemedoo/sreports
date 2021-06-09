@@ -9,10 +9,18 @@ namespace sReportsV2.Domain.Entities.Common
 {
     public class Period
     {
-        //[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [BsonDateTimeOptions(DateOnly = true)]
         public DateTime Start { get; set; }
 
-        //[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [BsonDateTimeOptions(DateOnly = true)]
+        public DateTime? End { get; set; }
+    }
+
+    public class PeriodDatetime
+    {
+        public DateTime Start { get; set; }
+
         public DateTime? End { get; set; }
     }
 }
+

@@ -1,0 +1,29 @@
+﻿@model CTCAE.Models.Patient
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body class="ctcae-background">
+    <div class="ctcae-center">
+
+        @Html.Partial("PatientInfo")
+
+        <div class="label-padd center-title">
+            <div class="title-template">
+                <label class="browse-and-add-addit align-left">Template title:</label>
+                <input type="text" class="rectangle padd-left template-title" id="templateTitle" name="templateTitle" value="@(ViewBag.TemplateTitle != "undefined" ? ViewBag.TemplateTitle : "")" />
+            </div>
+        </div>
+
+        @Html.Partial("PartialLetter")
+
+    </div>
+
+</body>
+<script src="~/js/admin.js"></script>
+<script src="~/js/common.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".@Model.FirstLetter").addClass("letter-frame");
+    });
+</script>

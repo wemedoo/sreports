@@ -1,7 +1,13 @@
 ﻿using AutoMapper;
 using sReportsV2.Domain.Entities.FieldEntity;
+using sReportsV2.Domain.Entities.FieldEntity.Custom;
+using sReportsV2.Domain.Entities.FieldEntity.Custom.Action;
 using sReportsV2.DTOs.Field.DataIn;
+using sReportsV2.DTOs.Field.DataIn.Custom;
+using sReportsV2.DTOs.Field.DataIn.Custom.Action;
 using sReportsV2.DTOs.Field.DataOut;
+using sReportsV2.DTOs.Field.DataOut.Custom;
+using sReportsV2.DTOs.Field.DataOut.Custom.Action;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,6 +107,85 @@ namespace sReportsV2.MapperProfiles
             CreateMap<FieldSelectableDataIn, FieldSelectable>()
                  .IncludeBase<FieldDataIn, Field>();
 
+
+            CreateMap<FieldDataIn, FieldDataOut>();
+
+            CreateMap<FieldCalculativeDataIn, FieldCalculativeDataOut>()
+                .IncludeBase<FieldDataIn, FieldDataOut>();
+
+            CreateMap<FieldCheckboxDataIn, FieldCheckboxDataOut>()
+                 .IncludeBase<FieldSelectableDataIn, FieldSelectableDataOut>();
+
+            CreateMap<FieldDateDataIn, FieldDateDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldDatetimeDataIn, FieldDatetimeDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldEmailDataIn, FieldEmailDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldFileDataIn, FieldFileDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldNumericDataIn, FieldNumericDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldRadioDataIn, FieldRadioDataOut>()
+                 .IncludeBase<FieldSelectableDataIn, FieldSelectableDataOut>();
+
+            CreateMap<FieldRegexDataIn, FieldRegexDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldSelectDataIn, FieldSelectDataOut>()
+                 .IncludeBase<FieldSelectableDataIn, FieldSelectableDataOut>();
+
+            CreateMap<FieldTextAreaDataIn, FieldTextAreaDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldTextDataIn, FieldTextDataOut>()
+                 .IncludeBase<FieldStringDataIn, FieldStringDataOut>();
+
+            CreateMap<FieldStringDataIn, FieldStringDataOut>()
+                 .IncludeBase<FieldDataIn, FieldDataOut>();
+
+            CreateMap<FieldSelectableDataIn, FieldSelectableDataOut>()
+                 .IncludeBase<FieldDataIn, FieldDataOut>();
+
+
+            CreateMap<CustomFieldButtonDataIn, CustomFieldButton>()
+                    .IncludeBase<FieldDataIn, Field>();
+
+            CreateMap<CustomFieldButtonDataIn, CustomFieldButtonDataOut>()
+                    .IncludeBase<FieldDataIn, FieldDataOut>();
+
+            CreateMap<CustomFieldButton, CustomFieldButtonDataOut>()
+                    .IncludeBase<Field, FieldDataOut>();
+
+            CreateMap<CustomAction, CustomActionDataOut>();
+            CreateMap<CustomActionDataIn, CustomActionDataOut>();
+            CreateMap<CustomActionDataIn, CustomAction>();
+
+
+            /*Javascript Action mapping*/
+            CreateMap<JavascriptActionDataIn, JavascriptAction>()
+                .IncludeBase<CustomActionDataIn, CustomAction>();
+
+            CreateMap<JavascriptAction, JavascriptActionDataOut>()
+                .IncludeBase<CustomAction, CustomActionDataOut>();
+
+            CreateMap<JavascriptActionDataIn, JavascriptActionDataOut>()
+                .IncludeBase<CustomActionDataIn, CustomActionDataOut>();
+
+            /*Custom Action mapping*/
+            CreateMap<ControllerActionDataIn, ControllerAction>()
+                .IncludeBase<CustomActionDataIn, CustomAction>();
+
+            CreateMap<ControllerAction, ControllerActionDataOut>()
+                .IncludeBase<CustomAction, CustomActionDataOut>();
+
+            CreateMap<ControllerActionDataIn, ControllerActionDataOut>()
+                .IncludeBase<CustomActionDataIn, CustomActionDataOut>();
         }
     }
 }

@@ -1,0 +1,64 @@
+﻿<div class="modal fade" id="similarTermModal" tabindex="-1" role="dialog" aria-labelledby="similarTermModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-content-similar">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+
+                    <form id="similarTermForm">
+                        <div class="d-flex advanced-filter-header">
+                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">Add similar term
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.RootSource
+                            </div>
+                            <select class="filter-input arrow-select" id="similarTermSource" name="similarTermSource">
+                                <option value=""></option>
+                                @foreach (var type in Enum.GetNames(typeof(sReportsV2.Common.Enums.SimilarTermType)))
+                                {
+                                    <option value="@type">@type</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Name
+                            </div>
+                            <input required class="filter-input" type="text" id="similarTermName" name="similarTermName" />
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Definition
+                            </div>
+                            <textarea required class="filter-input" id="similarTermDefinition" name="similarTermDefinition" ></textarea>
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.DateTime
+                            </div>
+                            <input class="filter-input" readonly type="datetime-local" id="similarTermEntryDateTime" name="similarTermEntryDateTime"  />
+                        </div>
+
+
+
+
+                        <div class="button-partial">
+                            <button class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="addNewSimilarTerm(event)" dismiss="modal">
+                                <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
+                            </button>
+                            <div class="button-wrapper-filter float-right" id="close">
+                                <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                    @sReportsV2.Resources.TextLanguage.Cancel
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

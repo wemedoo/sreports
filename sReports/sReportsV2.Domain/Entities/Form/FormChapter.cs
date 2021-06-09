@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using sReportsV2.Domain.Entities.CustomFHIRClasses;
 using sReportsV2.Domain.Entities.FieldEntity;
@@ -15,7 +16,9 @@ namespace sReportsV2.Domain.Entities.Form
         public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string ThesaurusId { get; set; }
+
+        [BsonRepresentation(BsonType.Int32, AllowTruncation = true)]
+        public int ThesaurusId { get; set; }
         public bool IsReadonly { get; set; } 
         public List<FormPage> Pages { get; set; } = new List<FormPage>();
 
@@ -55,9 +58,9 @@ namespace sReportsV2.Domain.Entities.Form
             return result;
         }
 
-        public List<string> GetAllThesaurusIds()
+        public List<int> GetAllThesaurusIds()
         {
-            List<string> thesaurusList = new List<string>();
+            List<int> thesaurusList = new List<int>();
             foreach (FormPage page in Pages)
             {
                 var pageThesaurusId = page.ThesaurusId;
@@ -68,14 +71,23 @@ namespace sReportsV2.Domain.Entities.Form
             return thesaurusList;
         }
 
-        public void GenerateTranslation(List<ThesaurusEntry.ThesaurusEntry> entries, string language, string activeLanguage)
+        public void GenerateTranslation(List<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntry> entries, string language, string activeLanguage)
         {
             foreach (FormPage page in Pages)
             {
-                page.Title = entries.FirstOrDefault(x => x.O40MTId.Equals(page.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
-                page.Description = entries.FirstOrDefault(x => x.O40MTId.Equals(page.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
+                page.Title = entries.FirstOrDefault(x => x.Id.Equals(page.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                page.Description = entries.FirstOrDefault(x => x.Id.Equals(page.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
                 page.GenerateTranslation(entries, language, activeLanguage);
             }  
+        }
+
+        public void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
+        {
+            this.ThesaurusId = this.ThesaurusId == oldThesaurus ? newThesaurus : this.ThesaurusId;
+            foreach (FormPage page in this.Pages)
+            {
+                page.ReplaceThesauruses(oldThesaurus, newThesaurus);
+            }
         }
 
     }

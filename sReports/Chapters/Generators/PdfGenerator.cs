@@ -1,5 +1,4 @@
 ﻿using Chapters.Helpers;
-using Hl7.Fhir.Model;
 using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf;
@@ -18,8 +17,7 @@ using iText.Layout.Font;
 using iText.Layout.Properties;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Entities.UserEntities;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
@@ -30,6 +28,8 @@ using Color = iText.Kernel.Colors.Color;
 using Image = iText.Layout.Element.Image;
 using Math = System.Math;
 using Rectangle = iText.Kernel.Geom.Rectangle;
+using sReportsV2.Domain.Sql.Entities.User;
+using sReportsV2.Domain.Sql.Entities.OrganizationEntities;
 
 namespace Chapters
 {
@@ -64,19 +64,22 @@ namespace Chapters
         private List<RectangleParameters> rectangles = new List<RectangleParameters>();
         private Dictionary<string,int> dicPagePosition = new Dictionary<string, int>();
         private readonly string basePath; 
-        public sReportsV2.Domain.Entities.OrganizationEntities.Organization Organization;
+        public Organization Organization;
         public User User;
         public string Definition;
-        public string Language;
-        public string PostingDateTranslation;
-        public string VersionTranslation;
-        public string LanguageTranslation;
+
+        //public string Language;
+        //public string PostingDateTranslation;
+        //public string VersionTranslation;
+        //public string LanguageTranslation;
         private string Html = string.Empty;
         private int startPosition;
         private int endPosition;
         private int pageTemp = 1;
         private bool isPageChanged = false;
         private int fieldSetPosition = 0;
+
+        public Dictionary<string, string> Translations;
 
         private FileStream fileStream;
 
@@ -136,8 +139,8 @@ namespace Chapters
         {
             pageCounter++;
             // notes, date and formState
-            AddLabelFieldPair("Notes :","note");
-            AddLabelFieldPair("Date (YYYY-MM-DD) :", "date");
+            AddLabelFieldPair(this.Translations["NotesTranslation"] + " :","note");
+            AddLabelFieldPair(this.Translations["DateTranslation"]+" (YYYY-MM-DD) :", "date");
         }
 
         public void AddLabelFieldPair(string Label, string keyName) 
@@ -293,7 +296,7 @@ namespace Chapters
         {
             AddLine(pagePosition, footerX, footerY, footerWidth, footerHeight);
 
-            Paragraph footerParagraph = new Paragraph("Powered by niAnalytics GmbH");
+            Paragraph footerParagraph = new Paragraph("Powered by weMedoo GmbH");
             footerParagraph.SetFixedPosition(pagePosition, 32, 25, 300);
             footerParagraph.SetFontSize(10);
             footerParagraph.SetFontColor(new DeviceRgb(61, 69, 69));
@@ -698,10 +701,11 @@ namespace Chapters
 
         public void AddAboutElements()
         {
+           
             rectangles.Add(new RectangleParameters("sReports", ++counter, pageCounter, "about"));
-            rectangles.Add(new RectangleParameters(formJson.EntryDatetime != null ?$"{PostingDateTranslation}: {formJson.EntryDatetime.ToShortDateString().ToString()}" : "", ++counter, pageCounter, "about"));
-            rectangles.Add(new RectangleParameters(formJson.Version != null ? $"{VersionTranslation}: {formJson.Version.Major}.{formJson.Version.Minor}" : "", ++counter, pageCounter, "about"));
-            rectangles.Add(new RectangleParameters(this.Language != null ?  $"{LanguageTranslation} : {this.Language}" : "", ++counter, pageCounter, "about"));
+            rectangles.Add(new RectangleParameters(formJson.EntryDatetime != null ?$"{this.Translations["PostingDateTranslation"]}: {formJson.EntryDatetime.ToShortDateString().ToString()}" : "", ++counter, pageCounter, "about"));
+            rectangles.Add(new RectangleParameters(formJson.Version != null ? $"{this.Translations["VersionTranslation"]}: {formJson.Version.Major}.{formJson.Version.Minor}" : "", ++counter, pageCounter, "about"));
+            rectangles.Add(new RectangleParameters(this.Translations["Language"] != null ?  $"{this.Translations["LanguageTranslation"]} : {this.Translations["Language"]}" : "", ++counter, pageCounter, "about"));
 
            /* if (!string.IsNullOrEmpty(Definition))
             {
@@ -735,9 +739,9 @@ namespace Chapters
             }
         }
 
-        public void AddRadioInput(PdfButtonFormField group,string thesaurus)
+        public void AddRadioInput(PdfButtonFormField group,int thesaurus)
         {
-            PdfFormField button = PdfFormField.CreateRadioButton(pdfDocument, new Rectangle(FormFieldPadding, PageHeight - Step * counter + additionalPadding, 15, 15), group, thesaurus).SetFont(PdfFontFactory.CreateFont($@"{basePath}\AppResource\roboto-regular.ttf", PdfEncodings.IDENTITY_H, true));
+            PdfFormField button = PdfFormField.CreateRadioButton(pdfDocument, new Rectangle(FormFieldPadding, PageHeight - Step * counter + additionalPadding, 15, 15), group, thesaurus.ToString()).SetFont(PdfFontFactory.CreateFont($@"{basePath}\AppResource\roboto-regular.ttf", PdfEncodings.IDENTITY_H, true));
             group.SetRadio(true);
         }
 
@@ -779,7 +783,7 @@ namespace Chapters
             return radioPara;
         }
 
-        public PdfFormField CreateCheckBoxInput(bool checkedField, int position,int checkBoxCounter, FieldCheckbox formField,string thesaurus, int corector = 0)
+        public PdfFormField CreateCheckBoxInput(bool checkedField, int position,int checkBoxCounter, FieldCheckbox formField,int thesaurus, int corector = 0)
         {
             string checkedValue = checkedField ? "Yes" : "Off";
             PdfButtonFormField checkField = PdfFormField.CreateCheckBox(pdfDocument, new Rectangle(FormFieldPadding + 250 * position, PageHeight - Step * (counter - corector) + Step * position + 0 * (checkBoxCounter - 1)  + additionalPadding, 15, 15), $"Field-{formField.Id}-{counter}-{position}-{thesaurus}", checkedValue, PdfFormField.TYPE_CHECK);
@@ -795,7 +799,7 @@ namespace Chapters
             document.AddParagraph(paraHelper, basePath, false);
         }
 
-        public PdfFormField CreateCheckBoxInput(FieldCheckbox formField, int position, string thesaurus,string fieldSetId, int fieldSetPosition )
+        public PdfFormField CreateCheckBoxInput(FieldCheckbox formField, int position, int thesaurus,string fieldSetId, int fieldSetPosition )
         {
             PdfButtonFormField checkField = PdfFormField.CreateCheckBox(pdfDocument, new Rectangle(FormFieldPadding + 250 * position, PageHeight - Step * counter + additionalPadding, 15, 15), $"{fieldSetId}-{formField.Id}-{counter}-{position}-{thesaurus}-{pageCounter}-{fieldSetPosition}", "Off", PdfFormField.TYPE_CHECK);
             return checkField;

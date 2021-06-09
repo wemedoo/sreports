@@ -1,0 +1,142 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "n1",
+        "title": "Head and neck clinical examination",
+        "type":  "Statement"
+      },
+      "position": {
+        "x": -1484.7949695187287,
+        "y": -443.37606136232915
+      },
+      "group": "nodes",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": false,
+      "classes": "foo bar"
+    },
+    {
+      "data": {
+        "id": "n2",
+        "title": "Head and neck mirror examination",
+        "type": "Statement"
+      },
+      "position": {
+        "x": -1500.895781025154,
+        "y": -625.2754429902761
+      },
+      "group": "nodes",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": false,
+      "classes": "foo bar"
+    },
+    {
+      "data": {
+        "id": "n3",
+        "title": "Head and neck clinical fiberopetic examination",
+        "type": "Statement"
+      },
+      "position": {
+        "x": -1476.8018417843928,
+        "y": -234.17406054513066
+      },
+      "group": "nodes",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": false,
+      "classes": "foo bar"
+    },
+    {
+      "data": {
+        "id": "n4",
+        "title": "Clinical Tumor Status (cT1-cT4b)",
+        "type": "Statement"
+      },
+      "position": {
+        "x": -1138.2787230656177,
+        "y": -452.88834799416946
+      },
+      "group": "nodes",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": false,
+      "classes": "foo bar"
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "e1",
+        "source": "n1",
+        "target": "n4",
+        "type": "Edge"
+      },
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "group": "edges",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": true,
+      "classes": "edge-label-background"
+    },
+    {
+      "data": {
+        "id": "e2",
+        "source": "n2",
+        "target": "n4",
+        "type": "Edge"
+      },
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "group": "edges",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": true,
+      "classes": "edge-label-background"
+    },
+    {
+      "data": {
+        "id": "e3",
+        "source": "n3",
+        "target": "n4",
+        "type": "Edge" 
+      },
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "group": "edges",
+      "removed": false,
+      "selected": false,
+      "selectable": true,
+      "locked": false,
+      "grabbable": true,
+      "pannable": true,
+      "classes": "edge-label-background"
+    }
+  ]
+}

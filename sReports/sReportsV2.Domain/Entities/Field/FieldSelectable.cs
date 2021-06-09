@@ -1,4 +1,5 @@
-﻿using sReportsV2.Domain.Entities.Form;
+﻿using sReportsV2.Common.Extensions;
+using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,9 @@ namespace sReportsV2.Domain.Entities.FieldEntity
                         {
                             result.Add(value.Value);
                         }
-                        else if (field.Value.Contains(copyFromValue.ThesaurusId))
+                        else if (field.Value.Contains(copyFromValue.ThesaurusId.ToString()))
                         {
-                            result.Add(value.ThesaurusId);
+                            result.Add(value.ThesaurusId.ToString());
                         }
                     }
                 }
@@ -40,9 +41,9 @@ namespace sReportsV2.Domain.Entities.FieldEntity
             this.Value = new List<string>() { string.Join(",", result) };
         }
 
-        public override List<string> GetAllThesaurusIds()
+        public override List<int> GetAllThesaurusIds()
         {
-            List<string> thesaurusList = new List<string>();
+            List<int> thesaurusList = new List<int>();
             foreach (FormFieldValue value in Values)
             {
                 var fieldValuehesaurusId = value.ThesaurusId;
@@ -52,11 +53,21 @@ namespace sReportsV2.Domain.Entities.FieldEntity
             return thesaurusList;
         }
 
-        public override void GenerateTranslation(List<ThesaurusEntry.ThesaurusEntry> entries, string language, string activeLanguage)
+        public override void GenerateTranslation(List<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntry> entries, string language, string activeLanguage)
         {
             foreach (FormFieldValue value in Values)
             {
-                value.Label = entries.FirstOrDefault(x => x.O40MTId.Equals(value.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                value.Label = entries.FirstOrDefault(x => x.Id.Equals(value.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+            }
+        }
+
+        public override void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
+        {
+            this.ThesaurusId = this.ThesaurusId == oldThesaurus ? newThesaurus : this.ThesaurusId;
+
+            foreach (FormFieldValue value in this.Values)
+            {
+                value.ReplaceThesauruses(oldThesaurus, newThesaurus);
             }
         }
     }

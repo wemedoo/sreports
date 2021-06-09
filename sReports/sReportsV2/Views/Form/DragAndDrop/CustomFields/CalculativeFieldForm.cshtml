@@ -1,0 +1,29 @@
+﻿
+@using sReportsV2.DTOs.Field.DataOut
+@model FieldCalculativeDataOut
+
+    <div class="designer-form-section">
+    <div class="designer-form-section-title">
+        Formula settings 
+    </div>
+        <div class="designer-form-input-group half-width">
+            <div class="calculative-tree-container" id="calculativeTree"></div>
+
+        </div><!--
+        --><div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Formula
+            </div>
+            <textarea required id="formula" name="formula" class="designer-form-input" value="@(Model != null ? Model.Formula : "") " rows="5">@(Model != null ? Model.Formula : "")</textarea>
+        </div>
+    </div>
+
+    <script>
+
+
+    $(document).ready(function () {
+        let identifierTypes = @Html.Raw(Json.Encode(Model.IdentifiersAndVariables));
+        let fields = getAvailableFieldsForCalculation(identifierTypes);        
+        loadCalculativeTree({data: fields});
+    })
+    </script>

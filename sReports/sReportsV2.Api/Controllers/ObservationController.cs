@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using sReportsV2.Api.Common.Extensions;
@@ -7,20 +6,20 @@ using sReportsV2.Api.DTOs.FormInstance.DataIn;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using static Hl7.Fhir.Model.OperationOutcome;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public class ObservationController : CommonController
+    public class ObservationController //: CommonController
     {
-        public ObservationController(IMapper mapper,
+       /* public ObservationController(IMapper mapper,
             IFormInstanceService formInstanceService,
             IEpisodeOfCareService episodeOfCareService,
             IEncounterService encounterService,
@@ -55,7 +54,7 @@ namespace sReportsV2.Api.Controllers
 
             Observation observation = mapper.Map<Observation>(field);
             observation.Value = new FhirString(field.Value?[0]);
-            observation.Performer.Add(new ResourceReference(formInstance.UserRef));
+            observation.Performer.Add(new ResourceReference(formInstance.UserId.ToString()));
             observation.Subject = new ResourceReference(episodeOfCareService.GetByEncounter(formInstance.EncounterRef)?.PatientId);
             observation.Id = $"{"Observation"}/{formInstance.Id.ToString()}.{field.Id.Replace('_', '-')}";
 
@@ -113,6 +112,6 @@ namespace sReportsV2.Api.Controllers
             Form form = this.formService.GetForm(formInstance?.FormDefinitionId);
             form.SetFields(formInstance.Fields);
             return !formInstanceService.ExistsFormInstance(formInstanceId) || form.GetField(formFieldId.Replace('-', '_')) == null || form.GetField(formFieldId.Replace('-', '_')).FhirType != ResourceTypes.Observation;
-        }
+        }*/
     }
 }

@@ -1020,17 +1020,23 @@
   <data name="Forensic Mental Heal" xml:space="preserve">
     <value>Forenzičke usluge mentalnog zdravlja</value>
   </data>
-  <data name="FormDefinitionState_Disabled" xml:space="preserve">
-    <value>Onemogućen</value>
+  <data name="FormDefinitionState_DesignPending" xml:space="preserve">
+    <value>Dizajn na cekanju</value>
   </data>
-  <data name="FormDefinitionState_OnGoing" xml:space="preserve">
-    <value>U toku</value>
+  <data name="FormDefinitionState_Design" xml:space="preserve">
+    <value>Dizajn</value>
+  </data>
+  <data name="FormDefinitionState_ReviewPending" xml:space="preserve">
+    <value>Pregled na cekanju</value>
+  </data>
+  <data name="FormDefinitionState_Review" xml:space="preserve">
+    <value>Pregled</value>
   </data>
   <data name="FormDefinitionState_ReadyForDataCapture" xml:space="preserve">
     <value>Spreman za snimanje</value>
   </data>
-  <data name="FormDefinitionState_ReadyForReview" xml:space="preserve">
-    <value>Spreman za pregled</value>
+  <data name="FormDefinitionState_Archive" xml:space="preserve">
+    <value>Arhiva</value>
   </data>
   <data name="FormInstances" xml:space="preserve">
     <value>Instance forme</value>
@@ -1186,7 +1192,7 @@
     <value>Praznični programi</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Kucni</value>
+    <value>Kućni</value>
   </data>
   <data name="Home Care/Housekeeping Assistance" xml:space="preserve">
     <value>Kućna nega / pomoć u domaćinstvu</value>
@@ -1243,7 +1249,7 @@
     <value>Hipnoterapija</value>
   </data>
   <data name="Identifiers" xml:space="preserve">
-    <value>Identifikator</value>
+    <value>Identifikatori</value>
   </data>
   <data name="IdentifierType_PatientID" xml:space="preserve">
     <value>O4Mt Pacijent id</value>
@@ -3310,7 +3316,7 @@
     <value>Vratite se na pacijenta</value>
   </data>
   <data name="MultipleBirthNumber" xml:space="preserve">
-    <value>Višestruki broj rođenja (ako je više tačno: 1., 2. ...)</value>
+    <value>Višestruki broj rođenja</value>
   </data>
   <data name="UMLS_Link" xml:space="preserve">
     <value>UMLS link</value>
@@ -3480,17 +3486,26 @@
   <data name="DefineForm" xml:space="preserve">
     <value>Definišite formu</value>
   </data>
-  <data name="Disabled" xml:space="preserve">
-    <value>Onemogućen</value>
+  <data name="DesignPending" xml:space="preserve">
+    <value>Dizajn na cekanju</value>
   </data>
-  <data name="OnGoing" xml:space="preserve">
-    <value>U toku</value>
+  <data name="Design" xml:space="preserve">
+    <value>Dizajn</value>
+  </data>
+  <data name="ReviewPending" xml:space="preserve">
+    <value>Pregled na cekanju</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Pregled</value>
   </data>
   <data name="ReadyForDataCapture" xml:space="preserve">
     <value>Spreman za snimanje podataka</value>
   </data>
   <data name="ReadyForReview" xml:space="preserve">
     <value>Spreman za pregled</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Arhiva</value>
   </data>
   <data name="StatusGraph" xml:space="preserve">
     <value>Grafikon stanja</value>
@@ -3577,15 +3592,423 @@
     <value>Posete</value>
   </data>
   <data name="HomeStart" xml:space="preserve">
-    <value>Pocetna</value>
+    <value>Početna</value>
   </data>
   <data name="DownloadCsvs" xml:space="preserve">
     <value>Preuzmite podatke u CSV formatu</value>
   </data>
+  <data name="DiagnosisRole" xml:space="preserve">
+    <value>Uloga dijagnoze</value>
+  </data>
+  <data name="EncounterClassification" xml:space="preserve">
+    <value>Klasifikacija posete</value>
+  </data>
+  <data name="EncounterStatus" xml:space="preserve">
+    <value>Status posete</value>
+  </data>
+  <data name="EncounterType" xml:space="preserve">
+    <value>Tip posete</value>
+  </data>
+  <data name="EpisodeOfCareType" xml:space="preserve">
+    <value>Tip epizode zdravstvene nege</value>
+  </data>
+  <data name="OrganizationType" xml:space="preserve">
+    <value>Tip organizacije</value>
+  </data>
+  <data name="ServiceType" xml:space="preserve">
+    <value>Servisni tip</value>
+  </data>
+  <data name="IdentifierType" xml:space="preserve">
+    <value>Tip identifikatora</value>
+  </data>
+  <data name="OrganizationIdentifierType" xml:space="preserve">
+    <value>Identifikacioni tip organizacije</value>
+  </data>
+  <data name="PatientIdentifierType" xml:space="preserve">
+    <value>Identifikacioni tip pacijenta</value>
+  </data>
   <data name="Document State" xml:space="preserve">
     <value>Status dokumenta</value>
   </data>
+  <data name="AddNewType" xml:space="preserve">
+    <value>Dodaj novi tip</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Administracija</value>
+  </data>
+  <data name="PredefinedTypes" xml:space="preserve">
+    <value>Predefinisani tipovi</value>
+  </data>
   <data name="PostingDate" xml:space="preserve">
     <value>Datum slanja</value>
+  </data>
+  <data name="SimilarTerms" xml:space="preserve">
+    <value>Slicni termini</value>
+  </data>
+  <data name="ReviewThesaurus" xml:space="preserve">
+    <value>Pregledaj tezaurus</value>
+  </data>
+  <data name="CurrentThesaurusTree" xml:space="preserve">
+    <value>Stablo trenutnog tezurusa</value>
+  </data>
+  <data name="MergeThesauruses" xml:space="preserve">
+    <value>Spoji Tezauruse</value>
+  </data>
+  <data name="TakeBoth" xml:space="preserve">
+    <value>Ostavi oba</value>
+  </data>
+  <data name="TargetThesaurusTree" xml:space="preserve">
+    <value>Stablo izabranog tezaurusa</value>
+  </data>
+  <data name="MergeIntoCurrent" xml:space="preserve">
+    <value>Spoji u trenutni</value>
+  </data>
+  <data name="MergeIntoTarget" xml:space="preserve">
+    <value>Spoji u ciljani</value>
+  </data>
+  <data name="Translations" xml:space="preserve">
+    <value>Prevodi</value>
+  </data>
+  <data name="ChooseWhatToMerge" xml:space="preserve">
+    <value>Izaberite sta zelite da spojite</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Pojavljivanje</value>
+  </data>
+  <data name="ChooseWhichPropertiesToMergeToo" xml:space="preserve">
+    <value>Izaberite dodatne propertije koje zelite da spojite</value>
+  </data>
+  <data name="Serbian Cyrilic" xml:space="preserve">
+    <value>Srpski ćirilica</value>
+  </data>
+  <data name="sr-Cyrl-RS" xml:space="preserve">
+    <value>Srpski ćirilica</value>
+  </data>
+  <data name="pt" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="ru" xml:space="preserve">
+    <value>Ruski</value>
+  </data>
+  <data name="Address Info" xml:space="preserve">
+    <value>Podaci o adresi</value>
+  </data>
+  <data name="Advanced_filter" xml:space="preserve">
+    <value>Napredni filter</value>
+  </data>
+  <data name="Contact Person" xml:space="preserve">
+    <value>Kontakt osoba</value>
+  </data>
+  <data name="Contact Person Info" xml:space="preserve">
+    <value>Informacije o osobi za kontakt</value>
+  </data>
+  <data name="General Infro" xml:space="preserve">
+    <value>Opšte informacije</value>
+  </data>
+  <data name="Language_preferred" xml:space="preserve">
+    <value>Jezik (odaberite željeni)</value>
+  </data>
+  <data name="Person Info" xml:space="preserve">
+    <value>Informacije o osobi</value>
+  </data>
+  <data name="ContactAndAddress" xml:space="preserve">
+    <value>Kontakt i adresa</value>
+  </data>
+  <data name="Select preferred" xml:space="preserve">
+    <value>(odaberite željeni)</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Da li ste sigurni da želite da uklonite ovu stavku?</value>
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Potvrdite brisanje</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalji</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Ponovi</value>
+  </data>
+  <data name="DuplicateException" xml:space="preserve">
+    <value>Ovaj objekat je već dodat u kolekciju</value>
+  </data>
+  <data name="NoResult" xml:space="preserve">
+    <value>Nema rezultata!</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Više</value>
+  </data>
+  <data name="NoResultFound" xml:space="preserve">
+    <value>Nema pronađenih rezultata!</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Jezici</value>
+  </data>
+  <data name="SelectPreferred" xml:space="preserve">
+    <value>( Izaberite Preferirani )</value>
+  </data>
+  <data name="EnterUmls" xml:space="preserve">
+    <value>Unesite UMLS termin</value>
+  </data>
+  <data name="No_Result" xml:space="preserve">
+    <value>NEMA_REZULTATA</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectUMLSConcept" xml:space="preserve">
+    <value>Izaberite UMLS koncept da biste prikazali definicije i atome</value>
+  </data>
+  <data name="Select_" xml:space="preserve">
+    <value>Izabran</value>
+  </data>
+  <data name="Unselect" xml:space="preserve">
+    <value>Unselect</value>
+  </data>
+  <data name="No result found" xml:space="preserve">
+    <value>Nema pronađenih rezultata</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Izaberite jezik</value>
+  </data>
+  <data name="NotDefined" xml:space="preserve">
+    <value>Nije definisano</value>
+  </data>
+  <data name="PleaseSelectOption" xml:space="preserve">
+    <value>Izaberite neku od opcija</value>
+  </data>
+  <data name="SelectAllOrganizationUser" xml:space="preserve">
+    <value>Izaberite sve organizacije kojima korisnik pripada</value>
+  </data>
+  <data name="SelectAllRolesUser" xml:space="preserve">
+    <value>Izaberite sve uloge koje će korisnik imati u sistemu</value>
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value>Izbrišite stavku</value>
+  </data>
+  <data name="Load more" xml:space="preserve">
+    <value>Učitati više</value>
+  </data>
+  <data name="Quick search" xml:space="preserve">
+    <value>Brza pretraga</value>
+  </data>
+  <data name="Adding documents" xml:space="preserve">
+    <value>Dodavanje dokumenata</value>
+  </data>
+  <data name="Number of Users" xml:space="preserve">
+    <value>Broj korisnika</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="Admission to surgical department" xml:space="preserve">
+    <value>Prijem na hirurško odeljenje</value>
+  </data>
+  <data name="Admission to thoracic surgery department" xml:space="preserve">
+    <value>Prijem na odeljenje torakalne hirurgije</value>
+  </data>
+  <data name="Allergic disorder follow-up assessment" xml:space="preserve">
+    <value>Procena praćenja alergijskog poremećaja</value>
+  </data>
+  <data name="Allergic disorder initial assessment" xml:space="preserve">
+    <value>Početna procena alergijskog poremećaja</value>
+  </data>
+  <data name="Assessment of dementia (procedure)" xml:space="preserve">
+    <value>Procena demencije (postupak)</value>
+  </data>
+  <data name="Asthma follow-up" xml:space="preserve">
+    <value>Praćenje astme</value>
+  </data>
+  <data name="Cardiac arrest" xml:space="preserve">
+    <value>Srčani zastoj</value>
+  </data>
+  <data name="Consultation for treatment" xml:space="preserve">
+    <value>Konsultacije za lečenje</value>
+  </data>
+  <data name="Discussion about treatment (procedure)" xml:space="preserve">
+    <value>Diskusija o lečenju (proceduri)</value>
+  </data>
+  <data name="Domiciliary or rest home patient evaluation and management" xml:space="preserve">
+    <value>Procena i upravljanje pacijentom u domovima odmora ili odmorišta</value>
+  </data>
+  <data name="Drug rehabilitation and detoxification" xml:space="preserve">
+    <value>Rehabilitacija i detoksikacija lekovima</value>
+  </data>
+  <data name="Emergency hospital admission (procedure)" xml:space="preserve">
+    <value>Hitni prijem u bolnicu (postupak)</value>
+  </data>
+  <data name="Emergency hospital admission for asthma" xml:space="preserve">
+    <value>Hitni prijem u bolnicu zbog astme</value>
+  </data>
+  <data name="Emergency Room Admission" xml:space="preserve">
+    <value>Prijem za hitne slučajeve</value>
+  </data>
+  <data name="Emergency room admission (procedure)" xml:space="preserve">
+    <value>Prijem u hitnu (postupak)</value>
+  </data>
+  <data name="Encounter for check up (procedure)" xml:space="preserve">
+    <value>Poseta zbog provere (postupak)</value>
+  </data>
+  <data name="Encounter for problem" xml:space="preserve">
+    <value>Poseta zbog problema</value>
+  </data>
+  <data name="Encounter for problem (procedure)" xml:space="preserve">
+    <value>Poseta zbog problema (postupak)</value>
+  </data>
+  <data name="Encounter for symptom" xml:space="preserve">
+    <value>Poseta zbog simptoma</value>
+  </data>
+  <data name="Encounter for symptom (procedure)" xml:space="preserve">
+    <value>Poseta zbog simptoma (postupak)</value>
+  </data>
+  <data name="Follow-up encounter" xml:space="preserve">
+    <value>Sledeći susret</value>
+  </data>
+  <data name="Follow-up encounter (procedure)" xml:space="preserve">
+    <value>Sljedeći susret (postupak)</value>
+  </data>
+  <data name="Follow-up visit (procedure)" xml:space="preserve">
+    <value>Dodatna poseta (postupak)</value>
+  </data>
+  <data name="General examination of patient (procedure)" xml:space="preserve">
+    <value>Opšti pregled pacijenta (postupak)</value>
+  </data>
+  <data name="Gynecology service (qualifier value)" xml:space="preserve">
+    <value>Ginekološka služba (kvalifikovana vrednost)</value>
+  </data>
+  <data name="Hospital admission" xml:space="preserve">
+    <value>Prijem u bolnicu</value>
+  </data>
+  <data name="Initial psychiatric interview with mental status and evaluation (procedure)" xml:space="preserve">
+    <value>Inicijalni psihijatrijski intervju sa mentalnim statusom i procenom (postupak)</value>
+  </data>
+  <data name="Inpatient stay (finding)" xml:space="preserve">
+    <value>Stacionarni boravak (nalaz)</value>
+  </data>
+  <data name="Inpatient stay 3 days" xml:space="preserve">
+    <value>Stacionarni boravak 3 dana</value>
+  </data>
+  <data name="Myocardial Infarction" xml:space="preserve">
+    <value>Infarkt miokarda</value>
+  </data>
+  <data name="Non-urgent orthopedic admission" xml:space="preserve">
+    <value>Nehitni ortopedski prijem</value>
+  </data>
+  <data name="Obstetric emergency hospital admission" xml:space="preserve">
+    <value>Akušerski hitni prijem u bolnicu</value>
+  </data>
+  <data name="Outpatient procedure" xml:space="preserve">
+    <value>Ambulantni postupak</value>
+  </data>
+  <data name="Patient encounter procedure" xml:space="preserve">
+    <value>Postupak susreta sa pacijentom</value>
+  </data>
+  <data name="Patient-initiated encounter" xml:space="preserve">
+    <value>Susret koji je pokrenuo pacijent</value>
+  </data>
+  <data name="Periodic reevaluation and management of healthy individual (procedure)" xml:space="preserve">
+    <value>Periodična ponovna procena i upravljanje zdravim osobama (postupak)</value>
+  </data>
+  <data name="Postnatal visit" xml:space="preserve">
+    <value>Postnatalna poseta</value>
+  </data>
+  <data name="Postoperative follow-up visit (procedure)" xml:space="preserve">
+    <value>Postoperativna naknadna poseta (postupak)</value>
+  </data>
+  <data name="posttraumatic stress disorder" xml:space="preserve">
+    <value>Post traumatski stresni poremećaj</value>
+  </data>
+  <data name="Prenatal initial visit" xml:space="preserve">
+    <value>Prenatalna početna poseta</value>
+  </data>
+  <data name="Prenatal visit" xml:space="preserve">
+    <value>Prenatalna poseta</value>
+  </data>
+  <data name="Screening surveillance (regime/therapy)" xml:space="preserve">
+    <value>Nadzor nad skriningom (režim / terapija)</value>
+  </data>
+  <data name="Telemedicine consultation with patient" xml:space="preserve">
+    <value>Telemedicinska konsultacija sa pacijentom</value>
+  </data>
+  <data name="Telephone encounter (procedure)" xml:space="preserve">
+    <value>Telefonska poseta (postupak)</value>
+  </data>
+  <data name="Urgent care clinic (environment)" xml:space="preserve">
+    <value>Ambulanta za hitnu negu (okruženje)</value>
+  </data>
+  <data name="Well child visit (procedure)" xml:space="preserve">
+    <value>Poseta detetu (postupak)</value>
+  </data>
+  <data name="Add an Episode of Care" xml:space="preserve">
+    <value>Dodajte novu epizodu zdravstvene nege</value>
+  </data>
+  <data name="Add New" xml:space="preserve">
+    <value>Dodajte novu</value>
+  </data>
+  <data name="Add new encounter" xml:space="preserve">
+    <value>Dodajte novu posetu</value>
+  </data>
+  <data name="Episodes of cares" xml:space="preserve">
+    <value>Epizode zdravstvenih nega</value>
+  </data>
+  <data name="There is no any Episode of care added" xml:space="preserve">
+    <value>Nije dodata nijedna epizoda zdravstvene nege</value>
+  </data>
+  <data name="Add new chapter" xml:space="preserve">
+    <value>Dodajte novo poglavlje</value>
+  </data>
+  <data name="Add new field" xml:space="preserve">
+    <value>Dodaj novo polje</value>
+  </data>
+  <data name="Add new fieldset" xml:space="preserve">
+    <value>Dodajte novi skup polja</value>
+  </data>
+  <data name="Add new option" xml:space="preserve">
+    <value>Dodajte novu opciju</value>
+  </data>
+  <data name="Add new page" xml:space="preserve">
+    <value>Dodaj novu stranicu</value>
+  </data>
+  <data name="Collapse All" xml:space="preserve">
+    <value>Skupi sve</value>
+  </data>
+  <data name="DigitalGuidelines" xml:space="preserve">
+    <value>Digitalne smernice</value>
+  </data>
+  <data name="DigitalGuidline" xml:space="preserve">
+    <value>Digitalna smernica</value>
+  </data>
+  <data name="Expand All" xml:space="preserve">
+    <value>Proširi sve</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Verzija (glavna)</value>
+  </data>
+  <data name="Minor" xml:space="preserve">
+    <value>Verzija (manja)</value>
+  </data>
+  <data name="New form" xml:space="preserve">
+    <value>Nova forma</value>
+  </data>
+  <data name="DependentFields" xml:space="preserve">
+    <value>Zavisna polja</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Nastavi</value>
   </data>
 </root>

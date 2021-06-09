@@ -18,7 +18,7 @@ function generateNewPassword() {
 
     $.ajax({
         type: "GET",
-        url: "/User/ChangePassword",
+        url: "/UserAdministration/ChangePassword",
         data: request,
         success: function (data) {
             toastr.options = {

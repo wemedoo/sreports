@@ -1,0 +1,91 @@
+﻿<form id="advancedFilterForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-advanced">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-advanced" id="advancedFilterModalContent">
+                    <div class="d-flex advanced-filter-header">
+                        <img class="mr-3" src="~/Content/img/icons/advanced_filter.svg">@sReportsV2.Resources.TextLanguage.Advanced_filter
+                    </div>
+                    <div class="d-flex margin-top-10 ">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                O40MTID
+                            </div>
+                            <input type="text" class="filter-input" id="o40MtId" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Id : "")">
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Preferred_term
+                            </div>
+                            <input type="text" class="filter-input" id="preferredTerm" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.PreferredTerm : "")">
+                        </div>
+
+                        
+                    </div>
+                    <div class="d-flex margin-top-10 margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">@sReportsV2.Resources.TextLanguage.Similar_term</div>
+                            <input class="filter-input " id="similarTerm" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.SimilarTerm : "")" />
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">@sReportsV2.Resources.TextLanguage.Abbreviation</div>
+                            <input class="filter-input " id="abbreviation" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Abbreviation : "")" />
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-10 margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.UMLS_Code
+                            </div>
+                            <input type="text" class="filter-input" id="umlsCode" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.UmlsCode : "")">
+                        </div>
+
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.UMLS_Name
+                            </div>
+                            <input type="text" class="filter-input" id="umlsName" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.UmlsName : "")">
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-10 margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.State_
+                            </div>
+                            <select class=" filter-input arrow-select" id="state">
+                                <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
+                                @foreach (var option in Enum.GetNames(typeof(sReportsV2.Common.Enums.ThesaurusState)))
+                                {
+                                    <option value="@option" @(ViewBag.FilterData != null && ViewBag.FilterData.State != null && ViewBag.FilterData.State.ToString() == option ? "selected" : "")>@option</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Synonym
+                            </div>
+                            <input type="text" class="filter-input" id="synonym" value="@(ViewBag.FilterData != null && ViewBag.FilterData.Synonym!= null ? ViewBag.FilterData.Synonym : "")">
+                        </div>
+                    </div>
+                    <div class="advanced-filter-line"></div>
+                    <div class="d-flex mt-3 position-relative margin-top-10">
+                        <div class="button-wrapper-filter filter-button" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="advanceFilter()"> @sReportsV2.Resources.TextLanguage.Filter</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

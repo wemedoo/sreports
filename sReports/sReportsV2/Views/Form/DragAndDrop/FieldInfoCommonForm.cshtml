@@ -1,0 +1,217 @@
+﻿
+@using sReportsV2.DTOs.Field.DataOut
+@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
+
+@model FieldDataOut
+
+<form class="designer-item-form" id="fieldGeneralInfoForm">
+    <input type="hidden" id="elementId" value="@(string.IsNullOrWhiteSpace(Model.Id) ? GuidExtension.NewGuidStringWithoutDashes() : Model.Id)" />
+
+    <div class="designer-form-section">
+        <div>
+            <div class="designer-form-input-group two-margins">
+                <div class="label filter-label">
+                    Field type
+                </div>
+                <select required class="designer-form-input select-arrow" id="type" name="type">
+                    <option value="">Select an option</option>
+                    <option value="@FieldTypes.Calculative" @(Model != null && Model.Type == FieldTypes.Calculative ? "selected" : "")>Calculative</option>
+                    <option value="@FieldTypes.Checkbox" @(Model != null && Model.Type == FieldTypes.Checkbox ? "selected" : "")>Checkbox</option>
+                    <option value="@FieldTypes.Date" @(Model != null && Model.Type == FieldTypes.Date ? "selected" : "")>Date</option>
+                    <option value="@FieldTypes.Datetime" @(Model != null && Model.Type == FieldTypes.Datetime ? "selected" : "")>Datetime</option>
+                    <option value="@FieldTypes.Email" @(Model != null && Model.Type == FieldTypes.Email ? "selected" : "")>Email</option>
+                    <option value="@FieldTypes.LongText" @(Model != null && Model.Type == FieldTypes.LongText ? "selected" : "")>Long Text</option>
+                    <option value="@FieldTypes.Number" @(Model != null && Model.Type == FieldTypes.Number ? "selected" : "")>Number</option>
+                    <option value="@FieldTypes.Radio" @(Model != null && Model.Type == FieldTypes.Radio ? "selected" : "")>Radio</option>
+                    <option value="@FieldTypes.Regex" @(Model != null && Model.Type == FieldTypes.Regex ? "selected" : "")>Regex</option>
+                    <option value="@FieldTypes.Select" @(Model != null && Model.Type == FieldTypes.Select ? "selected" : "")>Select</option>
+                    <option value="@FieldTypes.Text" @(Model != null && Model.Type == FieldTypes.Text ? "selected" : "")>Text</option>
+                    <option value="@FieldTypes.File" @(Model != null && Model.Type == FieldTypes.File ? "selected" : "")>File</option>
+                    <option value="@FieldTypes.CustomButton" @(Model != null && Model.Type == FieldTypes.CustomButton ? "selected" : "")>Custom button</option>
+                </select>
+            </div>
+        </div>
+        <div class="designer-form-input-group two-margins">
+            <div class="label filter-label">
+                Field label
+            </div>
+            <input required class="designer-form-input item-title" id="label" name="label" type="text" value="@(Model != null && Model.Label != null ? Model.Label : "")" />
+        </div><!--
+        --><div class="designer-form-input-group two-margins">
+            <div class="label filter-label">
+                Fhir type
+            </div>
+            <select class="designer-form-input" id="fhirType">
+                <option value="">Select an option</option>
+                <option value="procedure" @(Model != null && Model.FhirType != null && Model.FhirType.Equals("procedure") ? "selected" : "")>Procedure</option>
+                <option value="observation" @(Model != null && Model.FhirType != null && Model.FhirType.Equals("observation") ? "selected" : "")>Observation</option>
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group repetitive-field-group short" @Html.Raw((Model is FieldStringDataOut ? "" : "style='display: none'"))>
+            <div class="label filter-label">
+                Repetitive
+            </div>
+            <select class="designer-form-input" id="isRepetitive">
+                <option value="">Select an option</option>
+                <option value="true" @(Model != null && Model is FieldStringDataOut && (Model as FieldStringDataOut).IsRepetitive ? "selected" : "")>Yes</option>
+                <option value="false" @(Model == null || !(Model is FieldStringDataOut) || !(Model as FieldStringDataOut).IsRepetitive ? "selected" : "")>No</option>
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group repetitive-field-group medium-short no-margin-right" @Html.Raw((Model is FieldStringDataOut ? "" : "style='display: none'"))>
+            <div class="label filter-label">
+                Number of repetitions for pdf
+            </div>
+            <input required class="designer-form-input" id="numberOfRepetitions" name="numberOfRepetitions" type="number" value="@(Model != null && Model is FieldStringDataOut ? (Model as FieldStringDataOut).NumberOfRepetitions : 1)" />
+        </div><!--
+        --><div class="designer-form-input-group two-margins">
+            <div class="label filter-label">
+                Field description
+            </div>
+            <textarea class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")" rows="5">@(Model != null ? Model.Description : "")</textarea>
+        </div><!--
+        --><div class="designer-form-input-group checkbox-group-container two-margins">
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>Bolded?</span>
+                    <input name="isBold" value="isBold" @(Model.IsBold ? "checked" : string.Empty) id="isBold" class="form-checkbox-field" type="checkbox" />
+                    <i class="form-checkbox-button table-checkbox"></i>
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>Is hidden on pdf?</span>
+                    <input name="isHiddenOnPdf" value="isHiddenOnPdf" @(Model.IsHiddenOnPdf ? "checked" : string.Empty) id="isHiddenOnPdf" class="form-checkbox-field" type="checkbox" />
+                    <i class="form-checkbox-button table-checkbox"></i>
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>Visible?</span>
+                    <input name="isVisible" value="isVisible" @(Model.IsVisible ? "checked" : string.Empty) id="isVisible" class="form-checkbox-field" type="checkbox" />
+                    <i class="form-checkbox-button table-checkbox"></i>
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>Readonly?</span>
+                    <input name="isReadonly" value="isRequired" @(Model.IsReadonly ? "checked" : string.Empty) id="isReadonly" class="form-checkbox-field" type="checkbox" />
+                    <i class="form-checkbox-button table-checkbox"></i>
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>Required?</span>
+                    <input name="isRequired" value="isRequired" @(Model.IsRequired ? "checked" : string.Empty) id="isRequired" class="form-checkbox-field" type="checkbox" />
+                    <i class="form-checkbox-button table-checkbox"></i>
+                </label>
+            </div>
+        </div><!--
+        --><div class="designer-form-input-group two-margins no-margin-right">
+            <div class="label filter-label">
+                Unit
+            </div>
+            <input class="designer-form-input" id="unit" name="unit" type="number" value="@(Model != null ? Model.Unit : "")" />
+        </div>
+    </div>
+    <div class="designer-form-section thesaurus-section">
+        <div class="designer-form-section-title">
+            @sReportsV2.Resources.TextLanguage.ThesaurusEntry
+        </div>
+        @Html.Partial("~/Views/Form/DragAndDrop/ThesaurusFilterModal.cshtml")
+    </div>
+    <div id="customFields">
+        @if (Model.Type != null)
+        {
+            switch (Model.Type as string)
+            {
+                case FieldTypes.Calculative:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/CalculativeFieldForm.cshtml")
+                    break;
+                case FieldTypes.Checkbox:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/CheckboxFieldForm.cshtml")
+                    break;
+                case FieldTypes.Date:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/DateFieldForm.cshtml")
+                    break;
+                case FieldTypes.Datetime:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/DatetimeFieldForm.cshtml")
+                    break;
+                case FieldTypes.Email:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/EmailFieldForm.cshtml")
+                    break;
+                case FieldTypes.File:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/FileFieldForm.cshtml")
+                    break;
+                case FieldTypes.LongText:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/LongTextFieldForm.cshtml")
+                    break;
+                case FieldTypes.Number:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/NumberFieldForm.cshtml")
+                    break;
+                case FieldTypes.Radio:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/RadioFieldForm.cshtml", Model as FieldRadioDataOut)
+                    break;
+                case FieldTypes.Regex:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/RegexFieldForm.cshtml")
+                    break;
+                case FieldTypes.Select:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/SelectFieldForm.cshtml")
+                    break;
+                case FieldTypes.Text:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/TextFieldForm.cshtml", Model as FieldTextDataOut);
+                    break;
+                case FieldTypes.CustomButton:
+                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/CustomFieldButtonForm.cshtml", Model as FieldTextDataOut);
+                    break;
+                default:
+                    throw new Exception("Invalid template");
+            }
+        }
+    </div>
+    <div class="designer-form-section">
+        <div class="designer-form-section-title">
+            Appendix (Notes)
+        </div>
+        <div>
+            <div class="designer-form-input-group two-margins">
+                <div class="label filter-label">
+                    Title
+                </div>
+                <input class="designer-form-input" id="helpTitle" name="helpTitle" type="text" value="@(Model != null && Model.Help != null ? Model.Help.Title : "")" />
+
+            </div>
+        </div>
+        <div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Content
+            </div>
+            <textarea required class="designer-form-input" id="helpContent" name="helpContent" value="@(Model != null && Model.Help != null ? Model.Help.Content : "")">@(Model != null && Model.Help != null? Model.Help.Content : "")</textarea>
+        </div>
+    </div>
+    <div class="button-container">
+        <div class="cancel-button cancel-modal-action">
+            Back
+        </div>
+        <div class="submit-button" id="submit-field-info">Update data</div>
+    </div>
+</form>
+
+<script>
+    var fieldId;
+    $('#helpContent').ckeditor();
+    $(document).ready(function () {
+        initializeValidator();
+        validateIfHasError();
+    });
+
+    function validateIfHasError() {
+        fieldId = $("#fieldGeneralInfoForm").find("#elementId").val();
+        if ($("#nestable").find(`[data-id='${fieldId}']`).children('.dd-handle').hasClass('nestable-error')) {
+            console.log("working!");
+            $('#fieldGeneralInfoForm').valid();
+        }
+    }
+    
+</script>

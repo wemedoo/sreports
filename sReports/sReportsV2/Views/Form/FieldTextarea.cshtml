@@ -8,80 +8,54 @@
 }
 
     <fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content" @Html.Raw(Model.Visibility)>
-        <label for="@Model.Id" class="form-element-label">
-            @Html.Raw(Model.FullLabel)
+        <div class="repetitive-values d-inline-block form-input-size">
 
-        @if (Model.Help != null)
-        {
-            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
-        }
-    </label>
-
-
-        <div class="repetitive-values">
-           
-                @if (Model.Value != null && Model.Value.Count > 0)
+            @if (Model.Value != null && Model.Value.Count > 0)
+            {
+                foreach (var repetitiveValue in Model.Value)
                 {
-                    foreach (var repetitiveValue in Model.Value)
-                    {
-            <div class="repetitive-field">
-                <textarea id="ta-@Model.Id" name="@fieldSetId-@fieldSetCounter-@Model.Id-@repetitiveCounter" class="form-element-field textarea-repetitive" placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) value="@repetitiveValue" @(Model.IsReadonly || isChapterReadonly ? "readonly" : string.Empty)>@repetitiveValue</textarea>
+                    <div class="field-group">
+                        <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+                            @Html.Raw(Model.FullLabel)
+                        </div>
+                        <div class="repetitive-field filter-input d-inline-block">
+                            <textarea id="ta-@Model.Id" 
+                                      name="@fieldSetId-@fieldSetCounter-@Model.Id-@repetitiveCounter" 
+                                      class="form-element-field textarea-repetitive" 
+                                      placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) 
+                                      value="@repetitiveValue" @(Model.IsReadonly || isChapterReadonly ? "readonly" : string.Empty)>@repetitiveValue</textarea>
 
-                @{repetitiveCounter++;
-                }
-                <div class="form-element-bar repetitive-bar"></div>
+                            @{repetitiveCounter++;
+                            }
 
-                @if (Model.Value.Count == 1)
-                {
-                    <div>
-                        <button type="button" class="btn btn-primary remove-repetitive" style="display:none">
-                            <i class="fas fa-minus-circle"></i>
-                        </button>
+                        </div>
+                        @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
                     </div>
                 }
-                else
-                {
-                    <div>
-                        <button type="button" class="btn btn-primary remove-repetitive">
-                            <i class="fas fa-minus-circle"></i>
-                        </button>
+            }
+            else
+            {
+                <div class="field-group">
+                    <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+                        @Html.Raw(Model.FullLabel)
                     </div>
-                }
-
-            </div>
-                    }
-                }
-                else
-                {
-        <div class="repetitive-field">
-            <textarea id="ta-@Model.Id" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element-field textarea-repetitive" placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) @(Model.IsReadonly || isChapterReadonly ? "readonly" : string.Empty) ></textarea>
-
-                    <div class="form-element-bar repetitive-bar"></div>
-
-                    <div>
-                        <button type="button" class="btn btn-primary remove-repetitive" style="display:none">
-                            <i class="fas fa-minus-circle"></i>
-                        </button>
+                    <div class="repetitive-field filter-input d-inline-block">
+                        <textarea 
+                                  id="ta-@Model.Id" 
+                                  name="@fieldSetId-@fieldSetCounter-@Model.Id-1" 
+                                  class="form-element-field textarea-repetitive" 
+                                  placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) @(Model.IsReadonly || isChapterReadonly ? "readonly" : string.Empty)></textarea>
                     </div>
+                    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
                 </div>
             }
-
-
-          
-            
         </div>
-       
         <div style="margin-top:10px;">
-            <div style="display:inline-block" class="form-element-description">
+            <div style="display:none" class="form-element-description field-desc">
                 @Html.Raw(Model.Description)
             </div>
-            @if (Model.IsRepetitive)
-            {
-                <div class="float-right">
-                    <button type="button" class="btn btn-primary button-plus-repetitive"> <i class="fas fa-plus-circle"></i> Add More</button>
-                </div>
-            }
         </div>
+    </fieldset>
 
-</fieldset>
+
 

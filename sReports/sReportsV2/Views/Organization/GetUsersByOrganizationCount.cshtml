@@ -1,29 +1,55 @@
 ﻿@using sReportsV2.DTOs.Organization.DataOut;
 @model List<OrganizationUsersCountDataOut>
 
-<table class="table table-striped table-sm">
-    <thead>
-        <tr>
-            <th>Organization</th>
-            <th>Number of Users</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="">
+    <div>
+        <div class="d-flex position-relative users-header">
+            <div class="organization-users"><i class="fas fa-arrow-down mr-2 arrow-down"></i><div class="ml-3">@sReportsV2.Resources.TextLanguage.Organization</div></div>
+            <div class="num-users">  @sReportsV2.Resources.TextLanguage.Number_of_Users</div>
+        </div>
+    </div>
+    <div class="users-container">
         @RenderChildren(Model)
-    </tbody>
-</table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
 
-@helper RenderChildren(List<OrganizationUsersCountDataOut> elements, int offset=1)
+    $('.vertical-line-overview').each(function (index, element) {
+        let count = $(element).closest('.child').children('.child').length;
+        console.log(count);
+        if (count == 1) {
+            $(element).css('height', '27px');
+        }
+    });
+
+        $('.child').each(function (index, element) {
+            if ($(element).hasClass('1')) {
+                $(element).children('.user-children').css('background-color', '#f9f9f9');
+            }
+   });
+});
+</script>
+
+@helper RenderChildren(List<OrganizationUsersCountDataOut> elements, int offset = 1)
 {
+        <div class="vertical-line-overview"></div>
+    
     foreach (OrganizationUsersCountDataOut element in elements)
     {
-        <tr>
-            <td style="padding-left:@(offset*10)px">@element.OrganizationName</td>
-            <td>@element.UsersCount</td>
-        </tr>
-        if(element.Children != null && element.Children.Count() > 0)
-        {
-            @RenderChildren(element.Children, ++offset)
-        }
+        <div class="child @offset" style="margin-left:@(offset == 1 ? 15 : 25)px">
+            @if (offset != 1)
+            {
+                <div class="horizontal-line"></div>
+            }
+            <div class="d-flex user-children">
+                <div>@element.OrganizationName</div>
+                <div class="users-count">@element.UsersCount</div>
+            </div>
+            @if (element.Children != null && element.Children.Count() > 0)
+            {
+                @RenderChildren(element.Children, offset + 1 )
+            }
+        </div>
     }
 }

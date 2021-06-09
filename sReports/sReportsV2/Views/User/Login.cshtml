@@ -1,47 +1,59 @@
-﻿@{
+﻿@using sReportsV2.Models.MicrosoftAuthentification
+@{
+    var alerts = TempData.ContainsKey(Alert.AlertKey)
+       ? (List<Alert>)TempData[Alert.AlertKey]
+       : new List<Alert>();
+
     Layout = "";
 }
-@model sReportsV2.Models.User.UserModelView
+@model sReportsV2.DTOs.User.DataIn.UserLoginDataIn
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="sotexsolutions.com">
-    <title>Login - sReports by niAnalytics</title>
+    <title>Login - sReports by weMedoo</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/Content/login.min.css"/>
+    <link rel="stylesheet" href="~/Content/login.min.css" />
 </head>
-<body>
-    <div class="container">        
+<body class="login-background">
+    @foreach (var alert in alerts) 
+    {
+        <div>@alert.Message</div>
+    }
+    <div class="container">
         <div class="login">
             <div class="login-header">
-                <img src="~/Content/img/niAnalytics-logo.png">
-                <h1>sReports</h1>
+                <span class="login-logo"></span>
+                <span class="s-reports">sReports</span>
             </div>
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
             {
-                @Html.AntiForgeryToken()
-                <legend>Log in</legend>
-
-                <label for="loginUsername">Username</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"></span>
+                <div class="login-text">Login</div>
+                <input type="hidden" id="timeZone" name="TimeZone">
+                <div class="login-group margin-12">
+                    <div class="input-icon" id="userIcon">
+                        <span class="input-user" id="basic-addon1"></span>
                     </div>
-                    <input type="text" class="form-control" value="@(Model != null ? Model.Username : "")" placeholder="Enter username" aria-label="Username" aria-describedby="basic-addon1" name="username">
+                    <div>
+                        <label class="username-label">USERNAME</label>
+                    </div>
+                    <input type="text" class="login-input user-input" value="@(Model != null ? Model.Username : "")" aria-label="Username" aria-describedby="basic-addon1" name="username">
                     <div class="w-100">
                         @Html.ValidationMessageFor(m => m.Username)
                     </div>
                 </div>
 
-                <label for="loginPassword">Password</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon2"><i aria-hidden="true" class="fa fa-key"></i></span>
+                <div class="login-group">
+                    <div class="input-icon" id="passwordIcon">
+                        <span class="input-password" id="basic-addon2"></span>
                     </div>
-                    <input type="password" class="form-control" value="@(Model != null ? Model.Password : "")" placeholder="Enter password" aria-label="Password" aria-describedby="basic-addon2" name="password">
+                    <div>
+                        <label class="username-label">PASSWORD</label>
+                    </div>
+                    <input type="password" class="login-input password-input" value="@(Model != null ? Model.Password : "")" aria-label="Password" aria-describedby="basic-addon2" name="password">
                     <div class="w-100">
                         @Html.ValidationMessageFor(m => m.Password)
                     </div>
@@ -58,17 +70,30 @@
                 {
                     <input type="hidden" value="@ViewBag.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
                 }
-                <button class="btn btn-primary submit-button" id="loginButton" type="submit">Log in</button>
-                <!-- <span class="login-password-recover">
-            <a href="#">Forgot password?</a>
-        </span>-->
+                <div style="display:flex">
+                    <div class="forgot-password" onclick="forgotPassword()">Forgot Password?</div>
+                </div>
+                <button class="login-button" id="loginButton" type="submit">Login</button>
+
+                @*<div class="d-flex w-100 mt-2">
+                    <a class="sign-in-button" href="@Url.Action("SignIn", "User")" style="text-decoration: none;">
+                        <img src="~/Content/img/icons/signInMicrosoft.svg">
+                    </a>
+                </div>
+                <div class="d-flex w-100 mt-2">
+                    <a class="sign-in-button" href="@Url.Action("SignInGoogle", "User")" style="text-decoration: none;">
+                        <img class="img-google-btn" src="~/Content/img/icons/googleBtn.png">
+                    </a>
+                </div>*@
+
             }
         </div>
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-   
+    <script src="~/Scripts/sReports/user.js"></script>
 </body>
 </html>

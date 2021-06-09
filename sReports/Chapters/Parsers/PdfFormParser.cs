@@ -13,7 +13,6 @@ using Newtonsoft.Json;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Entities.PatientEntities;
 using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Services.Implementations;
 using sReportsV2.Domain.Services.Interfaces;
@@ -25,6 +24,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using sReportsV2.Domain.FormValues;
+using sReportsV2.Domain.Entities.Encounter;
+using sReportsV2.Domain.Sql.Entities.Common;
+using sReportsV2.Domain.Sql.Entities.Patient;
 
 namespace Chapters
 {
@@ -33,9 +35,9 @@ namespace Chapters
         private PdfDocument pdfDocument;
         private PdfAcroForm pdfAcroForm;
         private Form formJson;
-        public PatientEntity Patient { get; set; }
+        public Patient Patient { get; set; }
         private string basePath;
-        private List<IdentifierType> identifierTypes;
+        private List<CustomEnum> identifierTypes;
 
         public List<sReportsV2.Domain.FormValues.FieldValue> Fields = new List<sReportsV2.Domain.FormValues.FieldValue>();
 
@@ -45,7 +47,7 @@ namespace Chapters
             formJson = JsonConvert.DeserializeObject<Form>(File.ReadAllText(jsonFormPath));
         }
 
-        public PdfFormParser(Form form, PdfDocument document, List<IdentifierType> identifierTypes)
+        public PdfFormParser(Form form, PdfDocument document, List<CustomEnum> identifierTypes)
         {
             pdfDocument = document;
             formJson = form;
@@ -101,6 +103,7 @@ namespace Chapters
                 InsertTelecomCheckboxValue(Patient.ContactPerson.Telecoms, "ContactTelecomCheckBox");
             }
 
+            formJson.FormState = sReportsV2.Common.Enums.FormState.Finished;
             return formJson;
         }
 
@@ -189,6 +192,11 @@ namespace Chapters
                 {
                     formJson.Date = DateTime.Parse(fieldFromPdf.Value.GetValueAsString()).ToUniversalTime();
                 }
+                else 
+                {
+                    formJson.Date = DateTime.Now;
+
+                }
             }
         }
 
@@ -213,10 +221,10 @@ namespace Chapters
             }
             else if (field.Type == PdfGeneratorType.Radio)
             {
-                string thesaurus = fieldFromPdf.Value.GetValueAsString();
-                if (!string.IsNullOrWhiteSpace(thesaurus))
+                int thesaurus = Int32.Parse(fieldFromPdf.Value.GetValueAsString());
+                if (thesaurus > 0)
                 {
-                    field.SetValue(((FieldSelectable)field).Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId);
+                    field.SetValue(((FieldSelectable)field).Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId.ToString());
                 }
             }
             else if (field.Type == PdfGeneratorType.Calculative)
@@ -231,11 +239,12 @@ namespace Chapters
 
         public void SetCalculativeFieldValue(Field field, FieldSet fieldSet) 
         {
-            string formula = ((FieldCalculative)field).Formula;
-            foreach (string id in ((FieldCalculative)field).GetFormulaFields())
+            FieldCalculative fieldCalculative = field as FieldCalculative;
+            string formula = fieldCalculative.Formula;
+            foreach (string id in fieldCalculative.IdentifiersAndVariables.Keys)
             {
                 string value = fieldSet.Fields.FirstOrDefault(x => x.Id.Equals(id)).Value?[0];
-                formula = formula.Replace($"[{id}]", value);
+                formula = formula.Replace($"[{fieldCalculative.IdentifiersAndVariables[id]}]", value);
             }
             DataTable dt = new DataTable();
             field.SetValue(dt.Compute(formula, "").ToString());
@@ -338,7 +347,7 @@ namespace Chapters
                     string thesaurus = field.Value.GetValueAsString();
                     if (!string.IsNullOrWhiteSpace(thesaurus))
                     {
-                        result = formField.Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId;
+                        result = formField.Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId.ToString();
                     }
 
                 }

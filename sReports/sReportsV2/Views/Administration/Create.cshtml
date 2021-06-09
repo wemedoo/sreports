@@ -1,0 +1,67 @@
+﻿@using sReportsV2.DTOs.Common;
+@using sReportsV2.DTOs.Common.DTO;
+
+@model sReportsV2.DTOs.CustomEnum.DataOut.CustomEnumDataOut
+@{
+    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Administration;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Administration }, { "linkLevel1", "/Administration/GetAll" }, { "level2", sReportsV2.Resources.TextLanguage.AddNewType + " - " + sReportsV2.Resources.TextLanguage.ResourceManager.GetString(ViewBag.PredefinedType.ToString()) }, { "activeLevel", 2 } })
+
+    <form method="post" id="idAdministration" class="formAdministration" novalidate>
+        <div class="form-row">
+            <div class="col-md">
+
+                <div class="header header-new padding-top-4">
+                    <span class="administration">@sReportsV2.Resources.TextLanguage.Administration</span>
+                </div>
+
+                <div class="form-row predefined-create">
+                    <div class="advanced-filter-item filter-item input-margin margin-right-10 predefined-size">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Preferred_term
+                        </div>
+                        <input class="filter-input" type="text" id="preferredTerm" name="preferredTerm" />
+                    </div>
+                    <div class="advanced-filter-item filter-item border-0 margin-top-15  margin-right-10">
+                        <div class="button-wrapper-filter button-filter" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100 float-right" type="button" id="filterSearch" onclick="filterThesaurusData('@ViewBag.PredefinedType')"> @sReportsV2.Resources.TextLanguage.Filter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tableContainer">
+                    <div class="table-responsive filter-border">
+                        <table class="table table-striped table-border">
+                            <thead class="color-header">
+                                <tr class="table-header-row">
+                                    <th class="unset-borders">04.0MT ID</th>
+                                    <th class="unset-borders">@sReportsV2.Resources.TextLanguage.Preferred_term.ToUpper()</th>
+                                    <th class="unset-borders">@sReportsV2.Resources.TextLanguage.Definition.ToUpper()</th>
+                                    <th class="unset-borders"></th>
+                                    <th class="unset-borders"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="no-result-content">
+                            <img class="margin-" src="~/Content/img/icons/no_results.svg">
+                            <br>
+                            <div class="no-result-text">@sReportsV2.Resources.TextLanguage.NoResultFound</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-partial">
+            <i class="angle-left fas fa-angle-left"></i>
+            <div class="text-underline right-button" type="button" onclick="cancelAddingNewType('@ViewBag.PredefinedType')">
+                <span class="back">@sReportsV2.Resources.TextLanguage.Back</span>
+            </div>
+        </div>
+    </form>
+@Html.Partial("~/Views/ThesaurusEntry/ThesaurusMore.cshtml")
+@Scripts.Render("~/bundles/administration")
+<script>
+       var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>

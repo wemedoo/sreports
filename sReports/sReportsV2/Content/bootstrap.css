@@ -5372,12 +5372,12 @@ a.badge-dark:focus, a.badge-dark.focus {
   background-color: #fff;
 }
 
-.list-group-item.active {
-  z-index: 2;
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-}
+    .list-group-item.active {
+        z-index: 2;
+        color: #fff !important;
+        background-color: #1c94a3;
+        border-color: #1c94a3;
+    }
 
 .list-group-horizontal {
   -ms-flex-direction: row;

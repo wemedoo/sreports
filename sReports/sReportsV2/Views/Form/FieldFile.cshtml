@@ -2,37 +2,76 @@
 @model FieldFileDataOut
 @{
     bool isChapterReadonly = ViewBag.Chapter;
+    int fieldSetCounter = ViewBag.FieldSetCounter;
+    string fieldSetId = ViewBag.FieldSetId;
 }
 
-<fieldset id="@((Model as FieldDataOut).Id)" class="form-element form-input" @Html.Raw(Model.Visibility)>
-    <label for="@Model.Id" class="form-element-label">
-        @Html.Raw(Model.FullLabel)
-        @if (Model.Help != null)
-        {
-            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
-        }
-    </label>
-    @if (Model.IsReadonly || isChapterReadonly)
-    {
-        <input type="file" class="form-element-field" data-id="field-@Model.Id" placeholder="@Model.DescriptionLabel" disabled />
-        <input type="hidden" class="form-element-field" data-id="field-@Model.Id" placeholder="@Model.DescriptionLabel" readonly />
-    }
-    else
-    {
-        <input type="file" class="form-element-field" data-id="field-@Model.Id" placeholder="@Model.DescriptionLabel" />
-        <input type="hidden" id="field-@Model.Id" name="@Model.Id" placeholder="@Model.DescriptionLabel" value="@(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) ? Model.Value[0] :"")" />
-    }
-    <div class="form-element-bar"></div>
 
-    <div class="form-element-description">
-        @Html.Raw(Model.Description)
-    </div>
 
-    @if (Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]))
-    {
-        <div class="form-image-contaier">
-            <img src="@Model.Value[0]" />
+<fieldset id="@fieldSetId-@fieldSetCounter-@((Model as FieldDataOut).Id)-1" class="form-element form-input position-relative field-set-content" @Html.Raw(Model.Visibility)>
+
+    <div class="repetitive-values d-inline-block form-input-size">
+        <div class="field-group">
+            <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+                @Html.Raw(Model.FullLabel)
+            </div>
+            <div class="repetitive-field d-inline-block">
+                <div class="filter-input  file-field w-100">
+                    @if (Model.IsReadonly || isChapterReadonly)
+                    {
+                        <input type="file"
+                               class="form-element-field file"
+                               data-id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                               placeholder="@Model.DescriptionLabel"
+                               disabled
+                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1" />
+
+                        <input type="hidden"
+                               class="form-element-field file-hid"
+                               data-id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                               placeholder="@Model.DescriptionLabel"
+                               readonly
+                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1" />
+                    }
+                    else
+                    {
+                        <input type="file"
+                               class="form-element-field file"
+                               data-id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                               placeholder="@Model.DescriptionLabel"
+                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1" />
+
+                        <input type="hidden"
+                               class="file-hid"
+                               id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                               placeholder="@Model.DescriptionLabel"
+                               value="@(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) ? Model.Value[0] :"")" />
+                    }
+                    <div class="file-choose">
+                        <div>Browse file</div>
+                        <img src="~/Content/img/icons/browse.svg" class="ml-auto" style="width:20px;">
+                    </div>
+                </div>
+
+                <div class="file-name-div" style="display:@(Model.Value != null && Model.Value.Count > 0 ? "" : "none")">
+                    <i class="fas fa-check file-check"></i>
+
+                    <div class="file-name-text" onclick="downloadImage(event,'@(Model.Value != null && Model.Value.Count > 0 ? Model.Value[0] : "")')">
+                        @HttpUtility.UrlDecode((Model.Value != null && Model.Value.Count > 0 ?  Model.Value[0].Split('/').Last() : ""))
+                    </div>
+                    <a class="remove-predefined ml-auto file-remove" onclick="removeFile(event)"></a>
+
+                </div>
+
+            </div>
+            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
         </div>
-    }
-</fieldset>
 
+    </div>
+    <div style="margin-top:10px;">
+        <div style="display:none" class="form-element-description field-desc">
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+</fieldset>

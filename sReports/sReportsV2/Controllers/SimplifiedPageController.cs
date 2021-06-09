@@ -1,6 +1,8 @@
-﻿using sReportsV2.Domain.Entities.Form;
+﻿using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.Domain.Entities.Form;
 using sReportsV2.DTOs.CRF.DataOut;
 using sReportsV2.DTOs.Form.DataOut;
+using sReportsV2.SqlDomain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,11 @@ namespace sReportsV2.Controllers
 {
     public class SimplifiedPageController : FormCommonController
     {
+
+        public SimplifiedPageController(IPatientDAL patientDAL, IEpisodeOfCareDAL episodeOfCareDAL, IEncounterDAL encounterDAL, IUserBLL userBLL, IOrganizationBLL organizationBLL, ICustomEnumBLL customEnumBLL, IFormInstanceBLL formInstanceBLL, IFormBLL formBLL) : base(patientDAL, episodeOfCareDAL, encounterDAL, userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
+        {
+
+        }
 
         protected List<TreeJsonDataOut> GetFormTreeData(List<Form> forms)
         {

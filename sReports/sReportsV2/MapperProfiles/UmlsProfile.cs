@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using sReportsV2.Models.Umls;
+using sReportsV2.DTOs.Umls.DatOut;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +13,19 @@ namespace sReportsV2.MapperProfiles
     {
         public UmlsProfile()
         {
-            CreateMap<SearchResult, SearchResultViewModel>();
+            CreateMap<SearchResult, SearchResultDataOut>();
 
-            CreateMap<ConceptSearchResult, ConceptSearchResultViewModel>();
+            CreateMap<ConceptSearchResult, ConceptSearchResultDataOut>();
 
-            CreateMap(typeof(UMLSSearchResult), typeof(UmlsViewModel<>));
+            CreateMap(typeof(UMLSSearchResult), typeof(UmlsDataOut<>));
 
-            CreateMap<ConceptDefinition, ConceptDefinitionViewModel>();
+            CreateMap<ConceptDefinition, ConceptDefinitionDataOut>();
 
-            CreateMap(typeof(UMLSConceptDefinition), typeof(UmlsViewModel<>));
+            CreateMap(typeof(UMLSConceptDefinition), typeof(UmlsDataOut<>));
 
-            CreateMap(typeof(UMLSAtomResult), typeof(UmlsViewModel<>));
+            CreateMap(typeof(UMLSAtomResult), typeof(UmlsDataOut<>));
 
-            CreateMap<Atom, AtomViewModel>();
+            CreateMap<Atom, AtomDataOut>();
 
         }
     }

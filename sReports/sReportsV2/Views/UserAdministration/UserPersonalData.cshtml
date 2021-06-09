@@ -1,0 +1,159 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+
+<div class="input-group-title">
+    Personal and general data
+</div>
+<div class="d-flex">
+    <div class="user-input-group">
+        <div class="advanced-filter-item filter-item input-margin margin-top-15">
+            <div class="label filter-label">
+                Prefixes (Mr. Ms.) <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
+            </div>
+            <div class="position-relative d-flex margin-top-10">
+                @foreach (var option in Enum.GetNames(typeof(UserPrefix)))
+                {
+                    <label class="form-radio-label margin-right-20">
+                        <input type="radio"
+                               id="prefix"
+                               name="prefix"
+                               value="@option"
+                               class="form-radio-field"
+                               @(Model != null && Model.Prefix.ToString() == option ? "checked" : string.Empty)>
+
+                        <i class="form-radio-button user-radio"></i>
+                        <span class="user-radio-span">
+                            @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)
+                        </span>
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin margin-top-15">
+            <div class="label filter-label">
+                Academic Position <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
+            </div>
+            <div class="position-relative margin-top-10">
+                @foreach (var option in Enum.GetNames(typeof(AcademicPosition)))
+                {
+                    <label class="form-checkbox-label margin-bottom-15">
+
+                        <input name="academicPosition"
+                               value="@option"
+                               @(Model != null && Model.AcademicPositions != null && Model.AcademicPositions.Select(x => x.ToString()).Contains(option) ? "checked" : "")
+                               class="form-checkbox-field academic-position"
+                               type="checkbox" />
+                        <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
+                        <span class="user-radio-span pt-0">
+                            @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)
+                        </span>
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.FirstName <div class="label-required">*</div>
+            </div>
+            <input required class="filter-input" type="text" id="firstName" name="FirstName" value="@(Model != null && Model.FirstName != null ? Model.FirstName : "")" />
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Middle name
+            </div>
+            <input class="filter-input" type="text" id="middleName" name="MiddleName" value="@(Model != null && Model.MiddleName != null ? Model.MiddleName : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional" />
+        </div>
+    </div>
+    <div class="user-input-group">
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Second name <div class="label-required">*</div>
+            </div>
+            <input required class="filter-input" type="text" id="lastName" name="LastName" value="@(Model != null && Model.LastName != null ? Model.LastName : "")" />
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Day of birth
+            </div>
+            <div class="position-relative datetime-picker-container">
+                <input type="date" class="filter-input" id="dayOfBirth" value="@(Model != null && Model.DayOfBirth != null ? Model.DayOfBirth.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string).Value.ToString("yyyy-MM-dd") : "")" /><img class="date-img dynamic-form" src="~/Content/img/icons/date_field.svg" onclick="openDateTimePicker(event)">
+
+            </div>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Personal E-Mail <div class="label-required">*</div>
+            </div>
+            <div class="position-relative">
+                <input required class="filter-input email" type="text" id="email" name="Email" value="@(Model != null && Model.Email != null ? Model.Email : "")" />
+                <i id="emailValid" class="fas username-validate-icon"></i>
+            </div>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                System ID
+            </div>
+            <div class="position-relative">
+                <input required class="filter-input" type="text" id="systemId" value="@(Model != null ? Model.Id.ToString() : "")" readonly placeholder="@sReportsV2.Resources.TextLanguage.Optional" />
+            </div>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Username <div class="label-required">*</div>
+            </div>
+            <div class="position-relative">
+                <input required class="filter-input" type="text" id="username" name="Username" value="@(Model != null && Model.Username != null ? Model.Username : "")" />
+                <i id="usernameValid" class="fas username-validate-icon"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="input-group-title address-title">
+    User address data
+</div>
+<div class="d-flex">
+    <div class="user-input-group">
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Country
+            </div>
+            <input required class="filter-input" type="text" id="country" value="@(Model != null && Model.Address != null && Model.Address.Country != null ? Model.Address.Country : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.State
+            </div>
+            <input required class="filter-input" type="text" id="state" value="@(Model != null && Model.Address != null && Model.Address.State != null ? Model.Address.State : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                City
+            </div>
+            <input required class="filter-input" type="text" id="city" value="@(Model != null && Model.Address != null && Model.Address.City != null ? Model.Address.City : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+        </div>
+    </div>
+    <div class="user-input-group">
+        @*<div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Municipality
+            </div>
+            <input required class="filter-input" type="text" id="municipality" value="@(Model != null && Model.Address != null && Model.Address.Municipality != null ? Model.Address.Municipality : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+        </div>*@
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Postal Code
+            </div>
+            <input required class="filter-input" type="text" id="postalCode" value="@(Model != null && Model.Address != null && Model.Address.PostalCode != null ? Model.Address.PostalCode : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+        </div>
+        <div class="advanced-filter-item filter-item input-margin">
+            <div class="label filter-label">
+                Street 
+            </div>
+            <input required class="filter-input" type="text" id="street" value="@(Model != null && Model.Address != null && Model.Address.Street != null ? Model.Address.Street : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+        </div>
+    </div>
+
+</div>
+

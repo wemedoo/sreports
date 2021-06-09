@@ -1,4 +1,7 @@
-﻿using sReportsV2.Domain.Extensions;
+﻿using sReportsV2.Common.Entities.User;
+using sReportsV2.Common.Enums;
+using sReportsV2.Common.Extensions;
+using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +19,7 @@ namespace sReportsV2.Domain.Entities.Common
             VersionHistory = new List<Version>();
         }
 
-        public AdministrativeData(UserData userData)
+        public AdministrativeData(UserData userData, ThesaurusState? state)
         {
             userData = Ensure.IsNotNull(userData, nameof(userData));
 
@@ -27,12 +30,13 @@ namespace sReportsV2.Domain.Entities.Common
                 CreatedOn = DateTime.Now,
                 Type = VersionType.MAJOR,
                 Id = Guid.NewGuid().ToString(),
-                UserRef = userData.Id,
-                OrganizationRef = userData.ActiveOrganization
+                UserId = userData.Id,
+                OrganizationId = userData.ActiveOrganization.GetValueOrDefault(),
+                State = state
             });
         }
 
-        public void UpdateVersionHistory(UserData userData)
+        public void UpdateVersionHistory(UserData userData, ThesaurusState? state)
         {
             userData = Ensure.IsNotNull(userData, nameof(userData));
 
@@ -43,8 +47,9 @@ namespace sReportsV2.Domain.Entities.Common
                 CreatedOn = DateTime.Now,
                 Type = VersionType.MAJOR,
                 Id = Guid.NewGuid().ToString(),
-                UserRef = userData.Id,
-                OrganizationRef = userData.ActiveOrganization
+                UserId = userData.Id,
+                OrganizationId = userData.ActiveOrganization.GetValueOrDefault(),
+                State = state
             });
         }
 

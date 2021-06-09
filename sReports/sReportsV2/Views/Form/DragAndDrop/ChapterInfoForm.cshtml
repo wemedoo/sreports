@@ -1,0 +1,49 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+@using sReportsV2.Common.Enums;
+@model FormChapterDataOut
+    <form class="designer-item-form" id="chapterGeneralInfoForm">
+        <input type="hidden" id="elementId" value="@(string.IsNullOrWhiteSpace(Model.Id) ? Guid.NewGuid().ToString() : Model.Id)" />
+        <div class="designer-form-section">
+            <div class="designer-form-input-group half-width">
+                <div class="label filter-label">
+                    Chapter title
+                </div>
+                <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" />
+            </div>
+        </div>
+        <div class="designer-form-section">
+
+            <div class="designer-form-input-group full-width">
+                <div class="label filter-label">
+                    Description
+                </div>
+                <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")">@(Model != null ? Model.Description : "")</textarea>
+            </div>
+        </div>
+        <div class="designer-form-section thesaurus-section">
+            <div class="designer-form-section-title">
+                Thesaurus
+            </div>
+            @Html.Partial("~/Views/Form/DragAndDrop/ThesaurusFilterModal.cshtml")
+        </div>
+        <div class="button-container">
+            <div class="cancel-button cancel-modal-action">
+                Back
+            </div>
+            <div class="submit-button" id="submit-chapter-info">Update data</div>
+        </div>
+    </form>
+
+<script>
+    $(document).ready(function () {
+        $('#chapterGeneralInfoForm').validate({
+            ignore: []
+        });
+
+        let chapterId = $("#chapterGeneralInfoForm").find("#elementId").val();
+
+        if ($("#nestable").find(`[data-id='${chapterId}']`).children('.dd-handle').hasClass('nestable-error')) {
+            $('#chapterGeneralInfoForm').valid();
+        }
+    });
+</script>

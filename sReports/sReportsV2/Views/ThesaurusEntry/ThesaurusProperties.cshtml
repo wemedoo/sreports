@@ -1,0 +1,72 @@
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+
+
+    <div class="thesaurus-properties">
+        <div class="property">
+            <div class="key">
+                Preferred term
+            </div>
+            <div class="value">
+                @(Model != null ? Model.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
+            </div>
+        </div>
+
+        <div class="property">
+            <div class="key">
+                Definition
+            </div>
+            <div class="value">
+                @(Model != null ? Model.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
+            </div>
+        </div>
+        <div class="property">
+            <div class="key">
+                Synonims
+            </div>
+            <div class="value">
+                @if (Model != null)
+                {
+                    foreach (string synonim in Model.GetSynonymsListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
+                    {
+                        <div class="tag">
+                            @synonim
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+        <div class="property">
+            <div class="key">
+                Abbreviations
+            </div>
+            <div class="value">
+                @if (Model != null)
+                {
+                    foreach (string abbreviation in Model.GetAbbreviationListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
+                    {
+                        <div class="tag">
+                            @abbreviation
+                        </div>
+                    }
+                }
+                </div>
+        </div>
+        <div class="property">
+            <div class="key">
+                Similar terms
+            </div>
+            <div class="value">
+                @if (Model != null)
+                {
+                    foreach (var st in Model.GetSimilarTermsListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
+                    {
+                        <div class="tag">
+                            @st.Name
+                        </div>
+                    }
+                }
+                </div>
+        </div>
+    </div>
+

@@ -10,5 +10,7 @@ namespace sReportsV2.Domain.Entities.Common
     {
         public string Key { get; set; }
         public string Value { get; set; }
+        public int ThesaurusId { get; set; }
+
     }
 }

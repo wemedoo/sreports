@@ -2,8 +2,6 @@
 using Serilog;
 using sReportsV2.Common.CustomAttributes;
 using sReportsV2.Common.Singleton;
-using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
-using sReportsV2.Domain.Entities.PatientEntities;
 using sReportsV2.Domain.Services.Implementations;
 using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.DTOs.EpisodeOfCare;
@@ -14,29 +12,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using sReportsV2.Domain.Entities.OrganizationEntities;
 using sReportsV2.Domain.Exceptions;
 using System;
 using MongoDB.Driver.Core.Misc;
+using sReportsV2.Domain.Entities.Common;
+using sReportsV2.Common.Constants;
+using sReportsV2.Domain.Sql.Entities.Common;
+using sReportsV2.Common.Enums;
+using sReportsV2.Common.Entities.User;
+using sReportsV2.SqlDomain.Interfaces;
+using sReportsV2.Domain.Sql.Entities.EpisodeOfCare;
+using sReportsV2.Domain.Sql.Entities.Patient;
 
 namespace sReportsV2.Controllers
 {
     public class EpisodeOfCareController : BaseController
     {
         // GET: EpisodeOfCare
-        private readonly IPatientService patientService;
-        private readonly IEpisodeOfCareService episodeOfCareService;
-        private readonly IOrganizationService organizationService;
-        private readonly IUserService userService;
-        public EpisodeOfCareController()
+        private readonly IPatientDAL patientDAL;
+        private readonly IEpisodeOfCareDAL episodeOfCareDAL;
+        public EpisodeOfCareController(IEpisodeOfCareDAL episodeOfCareDAL, IPatientDAL patientDAL)
         {
-            patientService = new PatientService();
-            episodeOfCareService = new EpisodeOfCareService();
-            organizationService = new OrganizationService();
-            userService = new UserService();
+            this.patientDAL = patientDAL;
+            this.episodeOfCareDAL = episodeOfCareDAL;
         }
 
-        [Authorize]
+        [SReportsAutorize]
         public ActionResult GetAll(EpisodeOfCareFilterDataIn dataIn)
         {
             ViewBag.FilterData = dataIn;
@@ -52,74 +53,63 @@ namespace sReportsV2.Controllers
             
             PaginationDataOut<EpisodeOfCareDataOut, EpisodeOfCareFilterDataIn> result = new PaginationDataOut<EpisodeOfCareDataOut, EpisodeOfCareFilterDataIn>()
             {
-                Count = (int)this.episodeOfCareService.GetAllEntriesCount(filter),
-                Data = Mapper.Map<List<EpisodeOfCareDataOut>>(this.episodeOfCareService.GetAll(filter)),
+                Count = (int)this.episodeOfCareDAL.GetAllEntriesCount(filter),
+                Data = Mapper.Map<List<EpisodeOfCareDataOut>>(this.episodeOfCareDAL.GetAll(filter)),
                 DataIn = dataIn
             };
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetIdentifierTypes();
-            ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEpisodeOfCareTypes();
+            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList();
+            ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.EpisodeOfCareType)).ToList();
             ReloadDiagnosisRoles(result);
 
             return PartialView("EOCEntryTable", result);
         }
 
-        [Authorize]
+        [SReportsAutorize]
         public ActionResult Create(IdentifierDataIn dataIn)
         {
-            PatientEntity patient = patientService.GetByIdentifier(Mapper.Map<IdentifierEntity>(dataIn));
+            Patient patient = patientDAL.GetByIdentifier(Mapper.Map<Identifier>(dataIn));
             if (patient == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             var mappedPatient = Mapper.Map<PatientDataOut>(patient);
 
-            ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetDiagnosisRoles();
+            ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.DiagnosisRole)).ToList();
             ViewBag.Patient = mappedPatient;
-            ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEpisodeOfCareTypes();
+            ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.EpisodeOfCareType)).ToList();
             return View("Edit");
         }
 
-        [Authorize]
-        public ActionResult CreateFromPatient(string patientId)
+        [SReportsAutorize]
+        public ActionResult CreateFromPatient(int patientId)
         {
-            PatientEntity patient = patientService.GetById(patientId);
+            Patient patient = patientDAL.GetById(patientId);
             if (patient == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             var mappedPatient = Mapper.Map<PatientDataOut>(patient);
 
-            ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetDiagnosisRoles();
+            ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.DiagnosisRole)).ToList();
             ViewBag.Patient = mappedPatient;
-            ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEpisodeOfCareTypes();
-            return PartialView("EpisodeOfCareInformation");
+            ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.EpisodeOfCareType)).ToList();
+            return PartialView("PatientEpisodeOfCareForm");
         }
 
-        [Authorize]
+        [SReportsAutorize]
         [SReportsAuditLog]
         [HttpPost]
+        [SReportsEpisodeOfCareValidate]
         public ActionResult Create(EpisodeOfCareDataIn episodeOfCare)
         {
             episodeOfCare = Ensure.IsNotNull(episodeOfCare, nameof(episodeOfCare));
-
-            if (!ModelState.IsValid)
-            {
-                var allErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                Log.Error(string.Join(", ", allErrors));
-
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            EpisodeOfCareEntity mapperEntity = Mapper.Map<EpisodeOfCareEntity>(episodeOfCare);
-            if (episodeOfCare.Id != null)
-            {
-                mapperEntity.ListHistoryStatus = episodeOfCareService.GetStatusHistory(episodeOfCare.Id);
-            }
-            mapperEntity.UpdateHistory();
-            mapperEntity.OrganizationRef = userCookieData.GetActiveOrganizationData().Id;
+            EpisodeOfCare mapperEntity = Mapper.Map<EpisodeOfCare>(episodeOfCare);
+            mapperEntity.OrganizationId = userCookieData.GetActiveOrganizationData().Id;
+            UserData userData = Mapper.Map<UserData>(userCookieData);
 
             try
             {
-                episodeOfCareService.InsertOrUpdate(mapperEntity);
+                episodeOfCareDAL.InsertOrUpdate(mapperEntity, userData);
             }
             catch (MongoDbConcurrencyException ex)
             {
@@ -128,75 +118,36 @@ namespace sReportsV2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.Created);
+            return new HttpStatusCodeResult(HttpStatusCode.Created, mapperEntity.Id.ToString());
         }
 
-        [Authorize]
-        public ActionResult EditFromPatient(string episodeOfCareId)
+        [SReportsAutorize]
+        public ActionResult EditFromPatient(int episodeOfCareId)
         {
-            EpisodeOfCareEntity eoc = episodeOfCareService.GetEOCById(episodeOfCareId);
+            EpisodeOfCare eoc = episodeOfCareDAL.GetById(episodeOfCareId);
             if (eoc != null)
             {
                 var episodeOfCareDataOut = Mapper.Map<EpisodeOfCareDataOut>(eoc);
-                PatientEntity patient = patientService.GetById(eoc.PatientId);
+                Patient patient = patientDAL.GetById(eoc.PatientId);
 
                 if (patient == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
                 }
                 ViewBag.Patient = Mapper.Map<PatientDataOut>(patient);
-                ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetDiagnosisRoles();
-                ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEpisodeOfCareTypes();
-                return PartialView("EpisodeOfCareInformation" , episodeOfCareDataOut);
+                ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.DiagnosisRole)).ToList();
+                ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.EpisodeOfCareType)).ToList();
+                return PartialView("PatientEpisodeOfCareForm", episodeOfCareDataOut);
             }
             return new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
 
-        [Authorize]
-        public ActionResult Edit(string episodeOfCareId)
-        {
-            EpisodeOfCareEntity eoc = episodeOfCareService.GetEOCById(episodeOfCareId);
-            if (eoc != null)
-            {
-                var episodeOfCareDataOut = Mapper.Map<EpisodeOfCareDataOut>(eoc);
-                PatientEntity patient = patientService.GetById(eoc.PatientId);
-
-                if (patient == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-                }
-
-                ViewBag.DiagnosisRoles = SingletonDataContainer.Instance.GetDiagnosisRoles();
-                ViewBag.Patient = Mapper.Map<PatientDataOut>(patient);
-                ViewBag.EpisodeOfCareTypes = SingletonDataContainer.Instance.GetEpisodeOfCareTypes();
-                return View(episodeOfCareDataOut);
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-        }
-
-
-        [Authorize]
+        [SReportsAutorize]
         [System.Web.Http.HttpDelete]
         [SReportsAuditLog]
-        public ActionResult DeleteEOC(string eocId, DateTime lastUpdate)
+        public ActionResult DeleteEOC(int eocId, DateTime lastUpdate)
         {
-            try
-            {
-                episodeOfCareService.Delete(eocId, lastUpdate);
-            }
-            catch (MongoDbConcurrencyException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExDeleteEdit;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
-            catch (MongoDbConcurrencyDeleteException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExDelete;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
-
+            episodeOfCareDAL.Delete(eocId, lastUpdate);
             return new HttpStatusCodeResult(HttpStatusCode.NoContent);
         }
 
@@ -206,7 +157,7 @@ namespace sReportsV2.Controllers
             if(!string.IsNullOrEmpty(dataIn.IdentifierType) && !string.IsNullOrEmpty(dataIn.IdentifierValue))
             {
                 result.FilterByIdentifier = true;
-                result.PatientId = this.patientService.GetByIdentifier(new IdentifierEntity(dataIn.IdentifierType, dataIn.IdentifierValue))?.Id;
+                result.PatientId = this.patientDAL.GetByIdentifier(new Identifier(dataIn.IdentifierType, dataIn.IdentifierValue)) != null ? this.patientDAL.GetByIdentifier(new Identifier(dataIn.IdentifierType, dataIn.IdentifierValue)).Id : 0;
             }
 
             result.OrganizationId = userCookieData.ActiveOrganization;
@@ -217,9 +168,8 @@ namespace sReportsV2.Controllers
         {
             foreach (var item in result.Data)
             {
-                var diagnosisRoles = SingletonDataContainer.Instance.GetDiagnosisRoles();
-                item.DiagnosisRole = diagnosisRoles.FirstOrDefault(x => x.Thesaurus.O40MTId.Equals(item.DiagnosisRole.Thesaurus.O40MTId));
-                item.DiagnosisRole.Label = item.DiagnosisRole?.Thesaurus?.GetPreferredTermByTranslationOrDefault(userCookieData.ActiveLanguage);
+                var diagnosisRoles = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.DiagnosisRole)).ToList();
+                item.DiagnosisRole = diagnosisRoles.FirstOrDefault(x => x.Thesaurus.Id.Equals(item.DiagnosisRole.Thesaurus.Id));
             }
         }
     }

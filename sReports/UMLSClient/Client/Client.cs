@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading;
+using UmlsClient.UMLSClasses;
 using UMLSClient.UMLSClasses;
 
 namespace UMLSClient.Client
@@ -39,6 +40,20 @@ namespace UMLSClient.Client
             if(response.StatusCode == HttpStatusCode.OK)
             {
                 searchResult = JsonConvert.DeserializeObject<UMLSConceptDefinition>(response.Content);
+            }
+
+            return searchResult;
+        }
+
+        public UMLSSemanticTypes GetSemanticTypes(string umlsCode, int pageNumber = 1, int pageSize = 25)
+        {
+            UMLSSemanticTypes searchResult = null;
+            string ticket = this.GetServiceTicket();
+            string endpoint = $"{GetEntityForUmlsCode(umlsCode).Result.SemanticTypes[0].Uri}?ticket={ticket}";
+            IRestResponse response = GetResponse(endpoint);
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                searchResult = JsonConvert.DeserializeObject<UMLSSemanticTypes>(response.Content);
             }
 
             return searchResult;

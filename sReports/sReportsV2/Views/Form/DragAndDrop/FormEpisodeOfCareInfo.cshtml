@@ -1,0 +1,60 @@
+﻿<div class="designer-form-section chechbox-section">
+    <div class="designer-form-section-title">
+        Episode of care
+    </div>
+
+    <div class="designer-form-input-group">
+        <div class="label filter-label">
+            @sReportsV2.Resources.TextLanguage.EOC_DiagnosisRole_Name
+        </div>
+        <select class="designer-form-input" id="episodeOfCareDignosisRole" name="episodeOfCareDiagnosisRole" >
+            <option value=""></option>
+            @foreach (var roleOption in ViewBag.DiagnosisRoles)
+            {
+                <option value="@roleOption.Thesaurus.Id" @(Model != null && Model.EpisodeOfCare != null && Model.EpisodeOfCare.DiagnosisRole != null && Model.EpisodeOfCare.DiagnosisRole.Equals(roleOption.Thesaurus.Id) ? "selected" : "")>
+                    @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(roleOption.Thesaurus.Translations[0].PreferredTerm)
+                </option>
+            }
+        </select>
+    </div><!--
+ --><div class="designer-form-input-group">
+        <div class="label filter-label">
+            @sReportsV2.Resources.TextLanguage.Status:
+        </div>
+        <select class="designer-form-input" id="episodeOfCareStatus" name="episodeOfCareStatus" >
+            <option value=""></option>
+            @foreach (var statusOption in Enum.GetNames(typeof(sReportsV2.Common.Enums.EOCStatus)))
+            {
+                <option value="@statusOption" @(Model != null && Model.EpisodeOfCare != null && Model.EpisodeOfCare.Status != null && Model.EpisodeOfCare.Status.Equals(statusOption) ? "selected" : "")>
+                    @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(statusOption)
+                </option>
+
+            }
+        </select>
+    </div><!--
+  --><div class="designer-form-input-group">
+        <div class="label filter-label">
+            @sReportsV2.Resources.TextLanguage.Type:
+        </div>
+        <select class="designer-form-input">
+            @foreach (var episodeOfCareType in ViewBag.EpisodeOfCareTypes)
+            {
+                <option value="@episodeOfCareType.Thesaurus.Id" @(Model != null && Model.EpisodeOfCare != null && Model.EpisodeOfCare.Type != null && Model.EpisodeOfCare.Type.Equals(episodeOfCareType.Thesaurus.Id) ? "selected" : "")>
+                    @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(episodeOfCareType.Thesaurus.Translations[0].PreferredTerm)
+                </option>
+            }
+        </select>
+    </div><!--
+  --><div class="designer-form-input-group">
+        <div class="label filter-label">
+            @sReportsV2.Resources.TextLanguage.EOC_DiagnosisCondition_Name
+        </div>
+        <input  class="designer-form-input" id="episodeOfCareDiagnosisCondition" name="EpisodeOfCareDiagnosisCondition" type="text" value="@(Model != null && Model.EpisodeOfCare != null ? Model.EpisodeOfCare.DiagnosisCondition : "")" />
+    </div><!--
+ --><div class="designer-form-input-group">
+        <div class="label filter-label">
+            @sReportsV2.Resources.TextLanguage.EOC_DiagnosisRank_Name
+        </div>
+        <input  class="designer-form-input" id="episodeOfCareDiagnosisRank" name="EpisodeOfCareDiagnosisRank" type="text" value="@(Model != null && Model.EpisodeOfCare != null ? Model.EpisodeOfCare.DiagnosisRank : "")" />
+    </div>
+</div>

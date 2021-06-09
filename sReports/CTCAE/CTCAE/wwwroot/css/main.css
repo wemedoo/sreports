@@ -14,6 +14,14 @@
   text-align: center;
   vertical-align: middle; }
 
+.ctcae-table {
+  text-align: center;
+  vertical-align: middle;
+  text-align: -webkit-center; }
+
+.table-resp {
+  width: 768px; }
+
 .ctcae-inline {
   display: inline-block;
   padding-top: 22px; }
@@ -58,6 +66,9 @@
   outline: none; }
 
 .ctcae-button:focus {
+  outline: none; }
+
+.ctcae-edit:focus {
   outline: none; }
 
 .ctcae-calendar {
@@ -328,6 +339,13 @@
   border-bottom-width: 0px;
   border-left-width: 0px; }
 
+.ctcae-edit {
+  width: 80px;
+  border-radius: 10px;
+  background-color: #00986f;
+  border-width: 0px;
+  margin-bottom: 5px; }
+
 .margin-letters {
   margin-bottom: 5px; }
 
@@ -449,7 +467,18 @@
 .margin-desc {
   margin-top: 19px;
   margin-left: 0px;
-  margin-right: 0px; }
+  margin-right: 0px;
+  place-content: center; }
+
+.patient-margin {
+  margin-right: 26px; }
+
+.date-margin {
+  margin-right: 22px; }
+
+.ambulatory-margin {
+  padding-top: 15px;
+  padding-bottom: 18px; }
 
 .rectangle-grade {
   width: 171px;
@@ -802,3 +831,61 @@
   user-select: none;
   /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */ }
+
+.new-template {
+  width: 726px; }
+
+.template-button {
+  float: right;
+  width: 180px;
+  height: 30px; }
+
+.template-title {
+  margin-bottom: 15px; }
+
+.center-title {
+  text-align: -webkit-center; }
+
+.title-template {
+  width: 379px; }
+
+.template-margin {
+  margin-left: 10px; }
+
+.add-template-margin {
+  margin-bottom: 10px; }
+
+.btn-delete {
+  background-color: grey;
+  border-color: grey;
+  color: white; }
+
+.btn-delete:hover {
+  background-color: grey;
+  color: white;
+  box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5); }
+
+.delete-modal {
+  align-self: center;
+  padding-bottom: 0px; }
+
+.delete-modal-body {
+  align-self: center; }
+
+.btn-primary {
+  background-color: #00986f;
+  border-color: #00986f; }
+
+.btn-primary:hover {
+  background-color: #00986f;
+  color: white;
+  box-shadow: 0 0 0 0.2rem rgba(24, 77, 64, 0.5); }
+
+.back-to-home {
+  font-family: Roboto;
+  font-size: 17px;
+  font-style: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #00986f;
+  cursor: pointer; }

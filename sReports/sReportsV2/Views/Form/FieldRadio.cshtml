@@ -11,42 +11,52 @@
 }
 
 <fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-radio form-radio-inline field-set-content" @Html.Raw(Model.Visibility)>
-    <legend class="form-radio-legend" title="@Model.DescriptionLabel">
+    <div class="form-radio-legend d-inline-block form-label-size filter-label" title="@Model.DescriptionLabel">
         @Html.Raw(Model.FullLabel)
-        @if (Model.Help != null)
+    </div>
+
+    <div class="d-inline-block radio-container">
+        @{ int counter = 0;}
+
+        @foreach (FormFieldValueDataOut ffv in Model.Values)
         {
-            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+            <label class="form-radio-label">
+
+                <input type="radio"
+                       id="@(Model.Id)-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
+                       name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
+                       @Model.ValidationAttr
+                       data-value="@ffv.Value"
+                       data-numericvalue="@ffv.NumericValue"
+                       value="@ffv.ThesaurusId"
+                       class="form-radio-field"
+                       onclick="return @((!(Model.IsReadonly || isChapterReadonly)).ToString().ToLower())"
+                       @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId) ? "checked" : string.Empty)>
+
+                <i class="form-radio-button"></i>
+                <span class="radio-break-word">@ffv.Label</span>
+            </label>
+
+            if (Model.Values != null && Model.Values.Count() > 5)
+            {
+                counter++;
+            }
+            if (counter % 2 == 0)
+            {
+                <br />
+            }
         }
-    </legend>
+    </div>
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
 
-    @foreach (FormFieldValueDataOut ffv in Model.Values)
-    {
-        <label class="form-radio-label">
 
-            <input type="radio"
-                   id="@(Model.Id)-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
-                   name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                   @Model.ValidationAttr
-                   data-value="@ffv.Value"
-                   data-numericvalue="@ffv.NumericValue"
-                   value="@ffv.ThesaurusId"
-                   class="form-radio-field"
-                   onclick ="return @((!(Model.IsReadonly || isChapterReadonly)).ToString().ToLower())"
-                   @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId) ? "checked" : string.Empty)>
-
-            <i class="form-radio-button"></i>
-            <span>@ffv.Label</span>
-        </label>
-        <br />
-    }
-
-    <div class="form-element-description">
+    <div style="display:none" class="form-element-description field-desc">
         @Html.Raw(Model.Description)
     </div>
 </fieldset>
 
 <script>
-    
+
     $(document).ready(function () {
             fieldSetIdentificator = @fieldSetCounter;
 
@@ -75,18 +85,19 @@
             @: }
             }
     });
+</script>
 
 @helper ShowDependables(FormFieldDependableDataOut ffd, string fieldSetId)
 {
-    
+
     foreach (FormFieldDependableDataOut ffddo in ffd.Dependables)
     {
         if (ffd.Dependables != null && ffd.Dependables.Count() > 0)
         {
             <text>
-            if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
                 $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
-            }
+                }
             </text>
             @ShowDependables(ffddo, fieldSetId);
         }
@@ -106,4 +117,3 @@
         }
     }
 }
-</script>

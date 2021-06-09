@@ -1,0 +1,71 @@
+﻿
+@{
+    string hasValue = "-hasvalue";
+}
+
+<form id="mergeForm" name="MergeForm" onsubmit="return false">
+    <div class="modal fade" id="mergeModal" tabindex="-1" role="dialog" aria-labelledby="mergeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-merge-thesauruses">
+                <div class="float-right filter-close-btn ">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+                <div class="modal-body thesaurus-merge-modal-padding" id="mergeModalContent" style="padding:unset;">
+                    <div class="d-flex advanced-filter-header documents-header">
+                        <img class="mr-3" src="~/Content/img/icons/merge_thesaurus.svg"> @sReportsV2.Resources.TextLanguage.MergeThesauruses
+                    </div>
+                    <div class="form-margin merge-modal-content" id="checkBoxGroup">
+
+                        <div class="merge-modal-header">@sReportsV2.Resources.TextLanguage.ChooseWhichPropertiesToMergeToo:</div>
+                        <label class="form-checkbox-label" id="checkBoxGroup">
+                            <input value="Translations" class="form-checkbox-field chk" type="checkbox" id="translations" name="mergeValue" />
+                            <i class="form-checkbox-button merge-checkbox"></i>
+                            <span class="checkbox-merge-label"> @sReportsV2.Resources.TextLanguage.Translations (not existing)</span>
+                        </label>
+                        <label class="form-checkbox-label" id="checkBoxGroup">
+                            <input value="Codes" class="form-checkbox-field chk" type="checkbox" id="codes" name="mergeValue" />
+                            <i class="form-checkbox-button merge-checkbox"></i>
+                            <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Codes</span>
+                        </label>
+                        <label class="ml-1" id="checkBoxGroup">
+                            <span> For existing translations:</span>
+                        </label>
+                        <div class="ml-3">
+                           
+                            <label class="form-checkbox-label" id="checkBoxGroup">
+                                <input value="Synonyms" class="form-checkbox-field chk" type="checkbox" id="synonyms" name="mergeValue" />
+                                <i class="form-checkbox-button merge-checkbox"></i>
+                                <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Synonyms</span>
+                            </label>
+                            <label class="form-checkbox-label" id="checkBoxGroup">
+                                <input value="Abbreviations" class="form-checkbox-field chk" type="checkbox" id="abbreviations" name="mergeValue" />
+                                <i class="form-checkbox-button merge-checkbox"></i>
+                                <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Abbreaviations</span>
+                            </label>
+                            <label class="form-checkbox-label" id="checkBoxGroup">
+                                <input value="Definition" class="form-checkbox-field chk" type="checkbox" id="definition" name="mergeValue" />
+                                <i class="form-checkbox-button merge-checkbox"></i>
+                                <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Definition</span>
+                            </label>
+
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex position-relative margin-top-20">
+                        <div class="button-wrapper-filter filter-button float-right d-flex" style="width:unset;right:0px;" id="submitFilterButton">
+                            <a class="btn advanced-cancel mr-2" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                            <button class="btn btn-filter-primary w-100 h-100 thesaurus-merge-submit" onclick="mergeThesauruses(event)"> @sReportsV2.Resources.TextLanguage.MergeThesauruses</button>
+                        </div>
+
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+</form>
+

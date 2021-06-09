@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using sReportsV2.Domain.Entities.OrganizationEntities;
-using sReportsV2.Domain.Entities.UserEntities;
+using sReportsV2.Domain.Entities;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Exceptions;
 using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Mongo;
@@ -10,18 +10,141 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Domain.Services.Implementations
 {
-    public class OrganizationService : IOrganizationService
+    public class OrganizationService //: IOrganizationService
     {
-        private readonly IMongoCollection<Organization> Collection;
-        private readonly IMongoCollection<User> CollectionUser;
+        /*private readonly IMongoCollection<Organization> Collection;
         public OrganizationService()
         {
             IMongoDatabase MongoDatabase = MongoDBInstance.Instance.GetDatabase();
-            Collection = MongoDatabase.GetCollection<Organization>("organizationentity") as IMongoCollection<Organization>;
-            CollectionUser = MongoDatabase.GetCollection<User>("users") as IMongoCollection<User>;
+            Collection = MongoDatabase.GetCollection<Organization>("organizationentity");
+        }
+
+        public long GetAllEntriesCount(OrganizationFilter filter)
+        {
+            filter = Ensure.IsNotNull(filter, nameof(filter));
+
+            return this.GetOrganizationFiltered(filter).Count();
+        }
+
+        public long GetAllCount()
+        {
+            return Collection.AsQueryable().Where(x => !x.IsDeleted).Count();
+        }
+
+        public List<Organization> GetAll(OrganizationFilter filter)
+        {
+            filter = Ensure.IsNotNull(filter, nameof(filter));
+
+            return this.GetOrganizationFiltered(filter)
+                .OrderByDescending(x => x.EntryDatetime)
+                .Skip((filter.Page - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
+        }
+
+        public List<Organization> GetOrganizations()
+        {
+            return Collection
+                .Find(x => !x.IsDeleted)
+                .SortByDescending(x => x.EntryDatetime)
+                .ToList();
+        }
+
+        public Organization GetOrganizationById(string id)
+        {
+            return Collection
+                .Find(x => x.Id.Equals(id) && !x.IsDeleted)
+                .FirstOrDefault();
+        }
+
+        public List<Organization> GetOrganizationByOrganizationId(string id)
+        {
+            return Collection
+                .Find(x => x.Id.Equals(id) && !x.IsDeleted)
+                .ToList();
+        }
+
+        public Organization GetOrganizationByName(string name)
+        {
+            return Collection
+                .Find(x => x.Name.Equals(name) && !x.IsDeleted)
+                .FirstOrDefault();
+        }
+
+        public List<Organization> GetByIds(List<string> ids)
+        {
+            return Collection
+                .AsQueryable()
+                .Where(x => !x.IsDeleted && ids.Contains(x.Id))
+                .ToList();
+        }
+
+        public List<Organization> GetOrganizationsByIds(List<string> ids)
+        {
+            return Collection
+                .AsQueryable()
+                .Where(x => ids.Contains(x.Id) && !x.IsDeleted)
+                .ToList();
+        }
+
+
+
+        public List<Organization> SearchByName(string name, int page, int pageSize)
+        {
+            return Collection
+                .Find(x => x.Name.ToUpper(CultureInfo.InvariantCulture).Contains(name.ToUpper(CultureInfo.InvariantCulture)))
+                .Skip(page * pageSize)
+                .Limit(pageSize)
+                .ToList();
+        }
+
+        public long GetSearchByNameCount(string name)
+        {
+            return Collection
+                .Find(x => x.Name.ToUpper(CultureInfo.InvariantCulture).Contains(name.ToUpper(CultureInfo.InvariantCulture)) && !x.IsDeleted)
+                .CountDocuments();
+        }
+
+        public bool ExistsOrganizationByIdentifier(IdentifierEntity identifier)
+        {
+            return Collection.Find(x => x.Identifiers
+                                   .Any(y => y.System.Equals(identifier.System) && y.Value.Equals(identifier.Value)))
+                                   .CountDocuments() > 0;
+        }
+
+        public bool ExistsOrganizationById(string id)
+        {
+            return Collection
+                .Find(x => x.Id.Equals(id))
+                .CountDocuments() > 0;
+        }
+
+        public List<OrganizationUsersCount> GetOrganizationUsersCount(string term, List<string> countries)
+        {
+            List<OrganizationUsersCount> result = new List<OrganizationUsersCount>();
+            result = Collection.AsQueryable().Where(x => !x.IsDeleted)
+            .Select(organization => new OrganizationUsersCount()
+            {
+                OrganizationName = organization.Name,
+                UsersCount = organization.NumOfUsers,
+                PartOf = organization.PartOf,
+                OrganizationId = organization.Id,
+                Country = organization.Address != null ? organization.Address.Country : string.Empty
+            })
+            .ToList();
+
+            var ancestor = result.Where(x => x.PartOf == null);
+
+            SetOrganizationsChildren(result);
+
+            return ancestor
+                .Where(x => string.IsNullOrWhiteSpace(term) || x.FoundName(term))
+                .Where(x => countries == null || countries.Count == 0 || x.FoundCountry(countries))
+                .ToList();
         }
 
         public void Insert(Organization organization)
@@ -48,136 +171,141 @@ namespace sReportsV2.Domain.Services.Implementations
             }
         }
 
-        public long GetAllEntriesCount()
-        {
-            return Collection.Find(x => !x.IsDeleted).CountDocuments();
-        }
-
-        public List<Organization> GetAll(int pageSize, int page)
-        {
-            return Collection
-                .Find(x => !x.IsDeleted)
-                .SortByDescending(x => x.EntryDatetime)
-                .Skip((page - 1) * pageSize)
-                .Limit(pageSize)
-                .ToList();
-        }
-        public List<Organization> GetOrganizations()
-        {
-            return Collection
-                .Find(x => !x.IsDeleted)
-                .SortByDescending(x => x.EntryDatetime)
-                .ToList();
-        }
-
-        public Organization GetOrganizationById(string id)
-        {
-            return Collection.Find(x => x.Id.Equals(id) && !x.IsDeleted).FirstOrDefault();
-        }
-        public List<Organization> GetOrganizationByOrganizationId(string id)
-        {
-            return Collection.Find(x => x.Id.Equals(id) && !x.IsDeleted).ToList();
-        }
-
         public bool Delete(string id, DateTime lastUpdate)
         {
             Organization forDelete = GetOrganizationById(id);
-            DoConcurrencyCheckForDelete(forDelete);
+            Entity.DoConcurrencyCheckForDelete(forDelete);
             forDelete.DoConcurrencyCheck(lastUpdate);
 
             var filter = Builders<Organization>.Filter.Eq(x => x.Id, id);
-            var update = Builders<Organization>.Update.Set(x => x.IsDeleted, true).Set(x => x.LastUpdate, DateTime.Now);
+            var update = Builders<Organization>
+                .Update
+                .Set(x => x.IsDeleted, true)
+                .Set(x => x.LastUpdate, DateTime.Now);
             return Collection.UpdateOne(filter, update).IsAcknowledged;
         }
 
-        public List<Organization> GetOrganizationsByIds(List<string> ids)
-        {
-            return Collection.AsQueryable().Where(x => ids.Contains(x.Id) && !x.IsDeleted).ToList();
-        }
 
-        public List<Organization> GetByParameters(OrganizationFilter organizationFilter)
+        private IQueryable<Organization> GetOrganizationFiltered(OrganizationFilter filter)
         {
-            organizationFilter = Ensure.IsNotNull(organizationFilter, nameof(organizationFilter));
+            IQueryable<Organization> organizationQuery = this.Collection.AsQueryable().Where(x => !x.IsDeleted);
 
-            IdentifierEntity entity = new IdentifierEntity();
-            if (!string.IsNullOrEmpty(organizationFilter.Identifier))
+            if (!string.IsNullOrEmpty(filter.ClinicalDomain))
             {
-                entity.System = organizationFilter.Identifier.Split('|')[0];
-                entity.Value = organizationFilter.Identifier.Split('|')[1];
+                organizationQuery = organizationQuery.Where(x => x.ClinicalDomain.Equals(filter.ClinicalDomain));
             }
 
-            return Collection.Find(x => (organizationFilter.Type == null || x.Type.Equals(organizationFilter.Type))
-                                                    && (organizationFilter.Name == null || x.Name.Equals(organizationFilter.Name))
-                                                    && (organizationFilter.PartOf == null || x.PartOf.Equals(organizationFilter.PartOf))
-                                                    && (organizationFilter.Identifier == null || (x.Identifiers.Any(y => y.System.Equals(entity.System))) && x.Identifiers.Any(y => y.Value.Equals(entity.Value)))
-                                                    && !x.IsDeleted).ToList();
-        }
-
-        public List<Organization> SearchByName(string name, int page, int pageSize)
-        {
-            return Collection
-                .Find(x => x.Name.ToUpper(CultureInfo.InvariantCulture).Contains(name.ToUpper(CultureInfo.InvariantCulture)))
-                .Skip(page * pageSize)
-                .Limit(pageSize)
-                .ToList();
-        }
-
-        public long GetSearchByNameCount(string name)
-        {
-            return Collection
-                .Find(x => x.Name.ToUpper(CultureInfo.InvariantCulture).Contains(name.ToUpper(CultureInfo.InvariantCulture)) && !x.IsDeleted).CountDocuments();
-        }
-
-        public bool ExistsOrganizationByIdentifier(IdentifierEntity identifier)
-        {
-            return Collection.Find(x => x.Identifiers
-                                   .Any(y => y.System.Equals(identifier.System) && y.Value.Equals(identifier.Value)))
-                                   .CountDocuments() > 0;
-        }
-
-        public bool ExistsOrganizationById(string id)
-        {
-            return Collection.Find(x => x.Id.Equals(id))
-                                   .CountDocuments() > 0;
-        }
-
-        public List<OrganizationUsersCount> GetOrganizationUsersCount()
-        {
-            List<OrganizationUsersCount> result = new List<OrganizationUsersCount>();
-            foreach(Organization organization in Collection.AsQueryable().Where(x => !x.IsDeleted).ToList())
+            if (!string.IsNullOrEmpty(filter.Name))
             {
-                result.Add(new OrganizationUsersCount()
-                {
-                    OrganizationName = organization.Name,
-                    UsersCount = CollectionUser.AsQueryable().Where(x => x.OrganizationRefs.Contains(organization.Id)).Count(),
-                    PartOf = organization.PartOf,
-                    OrganizationId = organization.Id
-                });
+                organizationQuery = organizationQuery.Where(x => x.Name != null && x.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filter.Name.ToUpper(CultureInfo.InvariantCulture)));
             }
-            var ancestor = result.Where(x => x.PartOf == null);
-            var descendants = result.Where(x => x.PartOf != null);
-            SetOrganizationChildren(descendants, ancestor);
-            return ancestor.ToList();
+
+            if (!string.IsNullOrEmpty(filter.City))
+            {
+                organizationQuery = organizationQuery.Where(x => x.Address != null && x.Address.City != null && x.Address.City.ToUpper(CultureInfo.InvariantCulture).Contains(filter.City.ToUpper(CultureInfo.InvariantCulture)));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Type))
+            {
+                organizationQuery = organizationQuery.Where(x => x.Type.Equals(filter.Type));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Alias))
+            {
+                organizationQuery = organizationQuery.Where(x => x.Alias != null && x.Alias.ToUpper(CultureInfo.InvariantCulture).Contains(filter.Alias.ToUpper(CultureInfo.InvariantCulture)));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Activity))
+            {
+                organizationQuery = organizationQuery.Where(x => x.Activity.Equals(filter.Activity));
+            }
+
+            if (!string.IsNullOrEmpty(filter.State))
+            {
+                organizationQuery = organizationQuery
+                    .Where(x => x.Address != null && x.Address.State != null && x.Address.State.ToUpper(CultureInfo.InvariantCulture).Contains(filter.State.ToUpper(CultureInfo.InvariantCulture)));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Country))
+            {
+                organizationQuery = organizationQuery
+                    .Where(x => x.Address != null && x.Address.Country != null && x.Address.Country.ToUpper(CultureInfo.InvariantCulture).Contains(filter.Country.ToUpper(CultureInfo.InvariantCulture)));
+            }
+
+            if (!string.IsNullOrEmpty(filter.PostalCode))
+            {
+                organizationQuery = organizationQuery
+                    .Where(x => x.Address != null && x.Address.PostalCode != null && x.Address.PostalCode.ToUpper(CultureInfo.InvariantCulture).Contains(filter.PostalCode.ToUpper(CultureInfo.InvariantCulture)));
+            }
+
+            if (!string.IsNullOrEmpty(filter.Street))
+            {
+                organizationQuery = organizationQuery
+                    .Where(x => x.Address != null && x.Address.Street != null && x.Address.Street.ToUpper(CultureInfo.InvariantCulture).Contains(filter.Street.ToUpper(CultureInfo.InvariantCulture)));
+            }
+
+            if (!string.IsNullOrEmpty(filter.PartOf))
+            {
+                var partOf = (GetOrganizationByName(filter.PartOf)?.Id) ?? string.Empty;
+                organizationQuery = organizationQuery.Where(x => x.PartOf.Equals(partOf));
+            }
+
+            organizationQuery = FilterByIdentifier(organizationQuery, filter.IdentifierType, filter.IdentifierValue);
+            return organizationQuery;
         }
 
-        private void SetOrganizationChildren(IEnumerable<OrganizationUsersCount> allData, IEnumerable<OrganizationUsersCount> data)
+        private IQueryable<Organization> FilterByIdentifier(IQueryable<Organization> organizationEntities, string system, string value)
         {
-            foreach (OrganizationUsersCount organization in data)
+            IQueryable<Organization> result = null;
+            if (!string.IsNullOrEmpty(system) && !string.IsNullOrEmpty(value))
             {
-                var children = allData.Where(x => x.PartOf.Equals(organization.OrganizationId));
-                if (children.Any())
+                if (system.Equals(ResourceTypes.O4PatientId))
                 {
-                    SetOrganizationChildren(allData.Where(x => !children.Select(y => y.OrganizationId).Contains(x.OrganizationId)), children);
+                    result = organizationEntities.Where(x => x.Id.Equals(value));
                 }
-                organization.Children = children.OrderByDescending(x => x.UsersCount).ToList();
+                else
+                {
+                    result = organizationEntities.Where(x => x.Identifiers.Any(y => !string.IsNullOrEmpty(y.System) && !string.IsNullOrEmpty(y.Value) && y.System.Equals(system) && y.Value.Equals(value)));
+                }
             }
-        }
-        private void DoConcurrencyCheckForDelete(Organization forDelete)
-        {
-            if (forDelete == null)
+            else
             {
-                throw new MongoDbConcurrencyDeleteException();
+                result = organizationEntities;
+            }
+
+            return result;
+        }
+
+        private void SetOrganizationsChildren(List<OrganizationUsersCount> allOrganization)
+        {
+            foreach (OrganizationUsersCount organization in allOrganization)
+            {
+                organization.Children = SetOrganizationChildren(organization.OrganizationId, allOrganization);
             }
         }
+
+        private List<OrganizationUsersCount> SetOrganizationChildren(string organizationId, List<OrganizationUsersCount> allOrganizations)
+        {
+            List<OrganizationUsersCount> allChildren = new List<OrganizationUsersCount>();
+            foreach (OrganizationUsersCount organization in allOrganizations.Where(x => x.PartOf != null && x.PartOf == organizationId))
+            {
+                if (organizationId == organization.PartOf)
+                {
+                    allChildren.Add(organization);
+                }
+            }
+            return allChildren;
+        }
+
+        public long GetAllEntriesCountByCountry(string country)
+        {
+            return Collection.AsQueryable().Where(x => x.Address != null && x.Address.Country == country).Count();
+        }
+
+        public Organization GetFirsOrDefault()
+        {
+            return Collection.AsQueryable().FirstOrDefault(x => !x.IsDeleted);
+        
+        }*/
     }
 }

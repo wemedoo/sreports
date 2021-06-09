@@ -57,9 +57,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.Domain.csproj">
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">
       <Project>{f6570a48-cae5-4412-940e-05a081aad9c4}</Project>
-      <Name>sReportsV2.Domain</Name>
+      <Name>sReportsV2.DAL.MongoDb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

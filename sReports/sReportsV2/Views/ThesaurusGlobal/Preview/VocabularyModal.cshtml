@@ -1,0 +1,54 @@
+﻿@using sReportsV2.DTOs.Common.DataOut;
+@using sReportsV2.DTOs;
+
+<form id="vocabularyForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="vocabularyModal" tabindex="-1" role="dialog" aria-labelledby="vocabularyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content vocabulary-content">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-vocabulary" id="vocabularyModalContent">
+                    <div class="d-flex advanced-filter-header afh-global-thesaurus padding-lr-15">
+                        Select vocabularies:
+                    </div>
+
+                    <div class="vocabulary-container">
+                        @if (ViewBag.CodeSystems != null )
+                        {
+                            foreach (var codeSystem in ViewBag.CodeSystems) 
+                            {
+                                <div class="vocabulary-checkbox">
+                                    <label class="form-checkbox-label vocabulary-checkbox-label">
+
+                                        <input name="vocabulary" 
+                                               value="@codeSystem.Value"
+                                               id="@codeSystem.Value"
+                                               class="form-checkbox-field"
+                                               type="checkbox" />
+                                        <i class="form-checkbox-button vocabulary-checkbox-i"></i>
+                                        <span>@codeSystem.Label</span>
+                                    </label>
+
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <div class="d-flex position-relative margin-top-20 padding-left-15">
+                        <div class="button-wrapper-filter filter-button" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="filterVocabularies(event)"> Apply</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

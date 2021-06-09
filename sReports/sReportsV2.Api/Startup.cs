@@ -14,6 +14,7 @@ using Microsoft.Identity.Web.Resource;
 using System;
 using System.Reflection;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace sReportsV2.Api
 {
@@ -22,7 +23,8 @@ namespace sReportsV2.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            MongoConfiguration.ConnectionString = Configuration.GetConnectionString("MongoDb");
+            MongoConfiguration.ConnectionString = Configuration["MongoDB"];
+            MongoConfiguration.ConnectionString = Configuration["Sql"];
         }
 
         public IConfiguration Configuration { get; }
@@ -35,6 +37,9 @@ namespace sReportsV2.Api
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers().AddNewtonsoftJson();
             ServicesConfig.ConfigureServices(services);
+
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

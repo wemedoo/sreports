@@ -334,7 +334,8 @@
     }
 
 .form-fieldset {
-    padding: 0px 30px;
+    //padding: 0px 30px;
+    padding: 0px 0px;
     border: 0;
 }
 
@@ -342,7 +343,15 @@
     position: relative;
     margin-top: 0;
     margin-bottom: 15px;
+
 }
+    .form-element .fas {
+        position: absolute;
+        right: 7px;
+        top: 44px;
+        cursor: pointer;
+       
+    }
 
 .form-element-hint {
     font-weight: 400;
@@ -389,7 +398,7 @@
     -webkit-transform: translateZ(0px);
     -moz-transform: translateZ(0px);
     transform: translateZ(0px);*/
-    min-height: 50px;
+    min-height: 30px;
 }
 
 .form-element-field {

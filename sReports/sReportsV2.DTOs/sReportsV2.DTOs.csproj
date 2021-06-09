@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9DF5131D-C4AD-4BDA-925F-E073BDADC513}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sReportsV2.DTOs</RootNamespace>
+    <AssemblyName>sReportsV2.DTOs</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JsonSubTypes, Version=1.8.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonSubTypes.1.8.0\lib\net47\JsonSubTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="CustomAttributes\DataPropAttribute.cs" />
+    <Compile Include="DTOs\Administration\AdministrationFilterDataIn.cs" />
+    <Compile Include="DTOs\Autocomplete\DataIn\AutocompleteDataIn.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteDataOut.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\AutocompletePaginatioDataOut.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteResultDataOut.cs" />
+    <Compile Include="DTOs\ClinicalTrials\Icd10ResultDataOut.cs" />
+    <Compile Include="DTOs\CodeSystem\CodeSystemDataIn.cs" />
+    <Compile Include="DTOs\CodeSystem\CodeSystemDataOut.cs" />
+    <Compile Include="DTOs\Common\DataIn\DataIn.cs" />
+    <Compile Include="DTOs\Common\DTO\AddressDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\CommunicationDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\ContactDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\CreateResponseResult.cs" />
+    <Compile Include="DTOs\Common\DTO\EnumDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\KeyValueDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\NameDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\PeriodDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\ReferralInfoDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\SimilarTermDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\TelecomDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\VersionDTO.cs" />
+    <Compile Include="DTOs\Consensus\DataIn\ConsensusDataIn.cs" />
+    <Compile Include="DTOs\Consensus\DataIn\ConsensusFindingProcessDataIn.cs" />
+    <Compile Include="DTOs\Consensus\DataIn\ConsensusInstanceDataIn.cs" />
+    <Compile Include="DTOs\Consensus\DataIn\ConsensusIterationDataIn.cs" />
+    <Compile Include="DTOs\Consensus\DataIn\ConsensusQuestionDataIn.cs" />
+    <Compile Include="DTOs\Consensus\DataIn\OutsideUserDataIn.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusInstanceDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusInstanceTrackerDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusIterationDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusOrganizationUserInfoDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusQuestionDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\IterationTrackerDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\OutsideUserDataOut.cs" />
+    <Compile Include="DTOs\CRF\DataOut\TreeJsonDataOut.cs" />
+    <Compile Include="DTOs\CRF\DataOut\TreeJsonState.cs" />
+    <Compile Include="DTOs\CTCAE\DataIn\CTCAEPatient.cs" />
+    <Compile Include="DTOs\CTCAE\DataIn\ReviewModel.cs" />
+    <Compile Include="DTOs\DfD\DataIn\DfdFormFilterDataIn.cs" />
+    <Compile Include="DTOs\DfD\DfDDataOut\DfDFormTableDataOut.cs" />
+    <Compile Include="DTOs\DfD\DfDDataOut\DoctorDataOut.cs" />
+    <Compile Include="DTOs\DfD\DfDDataOut\SurveySubmittedDataOut.cs" />
+    <Compile Include="DTOs\DiagnosticReport\DataIn\DiagnosticReportFilterDataIn.cs" />
+    <Compile Include="DTOs\DiagnosticReport\DataOut\DiagnosticReportCreateFromPatientDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineDecisionElementDataDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineEdgeElementDataDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineElementDataDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineEventElementDataDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineStatementElementDataDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\EvidenceProperties\EvidenceCategoryDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\EvidenceProperties\EvidencePropertiesDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\EvidenceProperties\NCCNEvidenceCategoryDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\GuidelineDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\GuidelineElementDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataIn\GuidelineFilterDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\ElementData\GuidelineDecisionElementDataDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\ElementData\GuidelineEdgeElementDataDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\ElementData\GuidelineElementDataDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\ElementData\GuidelineEventElementDataDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\ElementData\GuidelineStatementElementDataDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\EvidenceProperties\EvidenceCategoryDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\EvidenceProperties\EvidencePropertiesDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\EvidenceProperties\NCCNEvidenceCategoryDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\GuidelineDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DataOut\GuidelineElementDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DTO\PositionDTO.cs" />
+    <Compile Include="DTOs\DigitalGuideline\DTO\PublicationDTO.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentClassDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentClinicalContextDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentGeneralPurposeDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentPropertiesDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentPurposeDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentScopeOfValidityDataIn.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentClassDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentClinicalContextDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentGeneralPurposeDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentPropertiesDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentPurposeDataOut.cs" />
+    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentScopeOfValidityDataOut.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterDataIn.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterFhirFilterDataIn.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterFilterDataIn.cs" />
+    <Compile Include="DTOs\Encounter\DataIn\EncounterTreeFilterDataIn.cs" />
+    <Compile Include="DTOs\Encounter\DataOut\EncounterDataOut.cs" />
+    <Compile Include="DTOs\Encounter\DataOut\EncounterDetailsPatientTreeDataOut.cs" />
+    <Compile Include="DTOs\EnumDTO\DataIn\CustomEnumDataIn.cs" />
+    <Compile Include="DTOs\EnumDTO\DataOut\EnumDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareDataIn.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareFhirFilterDataIn.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareFilterDataIn.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\DiagnosticReportCreateDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\DiagnosticReportDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\EpisodeOfCareDataOut.cs" />
+    <Compile Include="DTOs\EpisodeOfCare\DataOut\EpisodeOfCareListFormsDataOut.cs" />
+    <Compile Include="DTOs\Field\CalculativeTreeDataDTO.cs" />
+    <Compile Include="DTOs\Field\DataIn\Custom\Action\ControllerActionDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\Custom\Action\CustomActionDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\Custom\Action\JavascriptActionDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\Custom\CustomFieldButtonDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldCalculativeDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldCheckboxDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldDateDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldDatetimeDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldEmailDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldFileDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldNumericDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldRadioDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldRegexDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldSelectableDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldSelectDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldStringDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldTextAreaDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\FieldTextDataIn.cs" />
+    <Compile Include="DTOs\Field\DataOut\Custom\Action\ControllerActionDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\Custom\Action\CustomActionDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\Custom\Action\JavascriptActionDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\Custom\CustomFieldButtonDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldCalculativeDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldCheckboxDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldDateDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldDatetimeDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldEmailDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldFileDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldNumericDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldRadioDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldRegexDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldSelectableDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldSelectDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldStringDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldTextAreaDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\FieldTextDataOut.cs" />
+    <Compile Include="DTOs\FormConsensus\DataIn\ConsensusDefinitionParameter.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionFilterDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDependOnDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionSingleParameterDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldNormalDistributionParametersDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldValueDistributionDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\RelatedVariable.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\SingleDependOnValuDataIn.cs" />
+    <Compile Include="DTOs\FormDistribution\DataIn\VariableDependentRelatedVariables.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionTableDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDependableValue.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionRelatedVariable.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionSingleParameterDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldNormalDistributionParametersDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldValueDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\SingleDependOnValueDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceCovidFilterDataIn.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceDataIn.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceFilterDataIn.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstancePerDomainDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceReferralDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceTableDataOut.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormAboutDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormChapterDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormCommentDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormEpisodeOfCareDataDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFieldDependableDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFieldSetDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFieldValueDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormFilterDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormHelpDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormLayoutStyleDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormPageDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\FormPageImageMapDataIn.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormAboutDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormChapterDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormCommentDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormCommentListDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormEpisodeOfCareDataDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormEpisodeOfCareDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormFieldDependableDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormFieldSetDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormFieldValueDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormHelpDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormLayoutStyleDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormPageDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormPageImageMapDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormStatusDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\FormTreeChapterDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\FormTreeDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\FormTreeFieldDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\FormTreeFieldSetDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\FormTreeFieldValueDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\FormTreePageDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\Tree\TreeDataOut.cs" />
+    <Compile Include="DTOs\Form\DTO\ClinicalDomainDTO.cs" />
+    <Compile Include="DTOs\GlobalThesaurusUser\DataIn\GlobalThesaurusUserDataIn.cs" />
+    <Compile Include="DTOs\GlobalThesaurusUser\DataOut\GlobalThesaurusUserDataOut.cs" />
+    <Compile Include="DTOs\GlobalThesaurus\DataIn\CodesFilterDataIn.cs" />
+    <Compile Include="DTOs\GlobalThesaurus\DataIn\GlobalThesaurusFilterDataIn.cs" />
+    <Compile Include="DTOs\O4CodeableConcept\DataIn\O4CodeableConceptDataIn.cs" />
+    <Compile Include="DTOs\O4CodeableConcept\DataOut\O4CodeableConceptDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataIn\IdentifierDataIn.cs" />
+    <Compile Include="DTOs\Organization\DataIn\OrganizationDataIn.cs" />
+    <Compile Include="DTOs\Organization\DataIn\OrganizationFilterDataIn.cs" />
+    <Compile Include="DTOs\Organization\DataOut\IdentifierDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationAutocompleteDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationUsersCountDataOut.cs" />
+    <Compile Include="DTOs\Organization\DataOut\OrganizationUsersDataOut.cs" />
+    <Compile Include="DTOs\Pagination\PaginationDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataIn\IdentifierTypeDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientEditDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientFhirFilterDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataIn\PatientFilterDataIn.cs" />
+    <Compile Include="DTOs\Patient\DataOut\PatientDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataOut\PatientFormInstanceDataOut.cs" />
+    <Compile Include="DTOs\Patient\DataOut\PatientTableDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryCodingSystemDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryFilterDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryTranslationDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusFilterDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusMergeDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusReviewFilterDataIn.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\AdministrativeDataDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\SimilarTermDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryCountDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryTranslationDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryTreeDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DataOut\VersionDataOut.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DTO\ThesaurusEntryCodingSystemDTO.cs" />
+    <Compile Include="DTOs\ThesaurusEntry\DTO\ThesaurusEntryTranslationDTO.cs" />
+    <Compile Include="DTOs\Umls\DataOut\AtomDataOut.cs" />
+    <Compile Include="DTOs\Umls\DataOut\ConceptDefinitionDataOut.cs" />
+    <Compile Include="DTOs\Umls\DataOut\ConceptResultDataOut.cs" />
+    <Compile Include="DTOs\Umls\DataOut\ConceptSearchResultDataOut.cs" />
+    <Compile Include="DTOs\Umls\DataOut\SearchResultDataOut.cs" />
+    <Compile Include="DTOs\Umls\DataOut\SemanticTypeDataOut.cs" />
+    <Compile Include="DTOs\Umls\DataOut\UmlsDataOut.cs" />
+    <Compile Include="DTOs\Umls\UmlsDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\ArchiveTrialDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\ClinicalTrialWithUserInfoDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\LinkOrganizationDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\UserDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\UserLoginDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\UserOrganizationDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\UserUpdatePageSizeDataIn.cs" />
+    <Compile Include="DTOs\User\DataOut\UserDataOut.cs" />
+    <Compile Include="DTOs\User\DataOut\UserOrganizationDataOut.cs" />
+    <Compile Include="DTOs\User\DataOut\UserShortInfoDataOut.cs" />
+    <Compile Include="DTOs\User\DTO\ClinicalTrialDTO.cs" />
+    <Compile Include="DTOs\User\DTO\RoleDTO.cs" />
+    <Compile Include="DTOs\User\DTO\UserCookieData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">
+      <Project>{F6570A48-CAE5-4412-940E-05A081AAD9C4}</Project>
+      <Name>sReportsV2.DAL.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj">
+      <Project>{406BDC5C-0219-4083-B83F-0A33A46BCCDC}</Project>
+      <Name>sReportsV2.SqlDomain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\GlobalThesaurus\DataOut\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

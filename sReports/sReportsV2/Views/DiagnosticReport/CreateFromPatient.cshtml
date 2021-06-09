@@ -1,0 +1,66 @@
+﻿
+@using sReportsV2.DTOs.DiagnosticReport.DataOut;
+
+@model DiagnosticReportCreateFromPatientDataOut
+
+    <div class="dynamic-form-container">
+        <div class="encounter-title tree-form-title">
+            @(Model.Encounter.ServiceType != null ? Model.Encounter.ServiceType.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "Not defined")
+        </div>
+        <div class="cancel-button cancel-dynamic-form">@sReportsV2.Resources.TextLanguage.Cancel</div>
+
+        <div class="documents-container-horizontal">
+            <div class="scroll-button scroll-left-button">
+                <img src="~/Content/img/icons/arrow_scroll_left.svg" />
+            </div>
+
+            <div class="documents-list-horizontal ">
+                @for (int i = 0; i < Model.FormInstances.Count; i++)
+                {
+                    if (Model.FormInstances[i].Id.Equals(ViewBag.FormInstanceId as string))
+                    {
+                        <script>
+                            $(document).ready(function () {
+                                setBorderRadiusForDocumentList();
+                            })
+                        </script>
+                    }
+                    <div class="document-horizontal-single-item @(Model.FormInstances[i].Id.Equals(ViewBag.FormInstanceId as string) ? "active" : "")" data-id="@Model.FormInstances[i].Id">
+                        @Model.FormInstances[i].Title
+                    </div>
+                }
+            </div>
+
+            <div class="scroll-button scroll-right-button">
+                <img src="~/Content/img/icons/arrow_scroll_right.svg" />
+            </div>
+        </div>
+
+        <div class="form-partial-container">
+            @Html.Partial("~/Views/Form/FormPartial.cshtml", Model.CurrentForm)
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+        let element = $('.documents-list-horizontal')[0];
+        console.log(isOverflown(element));
+        if (!isOverflown(element)) {
+            $('.scroll-button').hide();
+            $(element).parent().addClass('no-overflow')
+            $(element).addClass('no-overflow');
+        }
+
+        let active = $(element).find('.active');
+        if (active && active.length > 0) {
+            $(element).animate({ scrollLeft: $(active).position().left - 40}, 500);
+        }
+    })
+
+    function isOverflown(element) {
+        return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+    }
+
+    function setBorderRadiusForDocumentList() {
+        $('.documents-list-horizontal').addClass('first-active');
+    }
+</script>

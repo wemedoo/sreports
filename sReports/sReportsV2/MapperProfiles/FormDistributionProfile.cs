@@ -22,6 +22,7 @@ namespace sReportsV2.MapperProfiles
                 .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                 .ForMember(d => d.LastUpdate, opt => opt.MapFrom(src => src.LastUpdate))
                 .ForMember(d => d.Fields, opt => opt.MapFrom(src => src.Fields))
+                .ForMember(d => d.VersionId, opt => opt.MapFrom(src => src.VersionId))
                 .ForAllOtherMembers(opts => opts.Ignore());
 
             CreateMap<FormDistribution, FormDistributionTableDataOut>()
@@ -41,6 +42,8 @@ namespace sReportsV2.MapperProfiles
                 .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
                 .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                 .ForMember(d => d.Fields, opt => opt.MapFrom(src => src.GetAllNonPatientFields()))
+                .ForMember(d => d.VersionId, opt => opt.MapFrom(src => src.Version.Id))
+
                 .ForAllOtherMembers(opts => opts.Ignore());
 
             CreateMap<FieldSelectable, FormFieldDistribution>()

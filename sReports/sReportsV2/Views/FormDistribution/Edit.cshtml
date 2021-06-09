@@ -1,5 +1,6 @@
 ﻿@using sReportsV2.DTOs.FormDistribution.DataOut
-@using sReportsV2.Domain.Entities.Constants
+@using sReportsV2.Common.Constants;
+
 @{
     var controller = ViewContext.Controller as sReportsV2.Controllers.FormDistributionController;
 }
@@ -8,135 +9,130 @@
 }
 
 @model FormDistributionDataOut
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Simulator }, { "linkLevel1", "/FormDistribution/GetAll" },{"level2", Model.Title}, { "activeLevel", 2 } })
 <h1>
     @Model.Title
     <div>(@sReportsV2.Resources.TextLanguage.DefineDistributionsParameters)</div>
 </h1>
-<form onsubmit="return submitDistributionConfigForm()" id="distributionForm">
+<form onsubmit="return submitDistributionConfigForm()" id="distributionForm" class="element-background-grey simulator-height">
     <input type="hidden" id="formDistributionId" name="formDistributionId" value="@Model.Id" />
     <input type="hidden" id="lastUpdate" name="lastUpdate" value="@Model.LastUpdate" />
     <input type="hidden" id="thesaurusId" name="thesaurusId" value="@Model.ThesaurusId" />
+    <input type="hidden" id="versionId" name="VersionId" value="@Model.VersionId" />
+
     <div class="row">
-        @foreach (FormFieldDistributionDataOut field in Model.Fields)
-        {
-
-
-                <fieldset id="@field.Id" data-fieldtype="@field.Type" class="form-fieldset field col-md-12 col-lg-6">
-                    <h3 style="padding-top: 50px">
-                        @field.Label
-                        <a href="#" class="add-relation-link" onclick="addRelation(event,'@field.Id')"><b>Add relation +</b></a>
-
-                    </h3>
-                    @*<div class="nondependent-probability">@Html.Raw(fieldData)</div>*@
-                    
-                <div class="dependent-probability" id="@field.Id-probabilities">@Html.Partial("RenderInputs", field)</div>
-                </fieldset>
+        <div class="col-5">
+            @Html.Partial("SimulatorFormTree", (sReportsV2.DTOs.Form.DataOut.FormDataOut)ViewBag.Form)
+        </div>
+        <div class="col-7 rows-container">
+            @foreach (FormFieldDistributionDataOut field in Model.Fields)
+            {
+                <div id="field-distribution-@field.Id">
+                    @Html.Partial("RenderInputs", field)
+                </div>
             }
 
+
+
+
+        </div>
     </div>
-    <div class="form-button-container">
-        <input type="submit" class="btn btn-primary" id='submitBtn' value="Submit" />
+    <div class="row simulator-btn-group">
+        <div class="form-button-container mt-3">
+            <input type="submit" class="btn btn-filter-primary simulator-submit-btn" id='submitBtn' value="Submit" />
+
+            <div class="button-wrapper-filter float-right" id="close" onclick="goBack(event)">
+                <a class="btn advanced-cancel">
+                    @sReportsV2.Resources.TextLanguage.Cancel
+                </a>
+            </div>
+
+        </div>
     </div>
 </form>
 
 <!-- Modal -->
 <div class="modal fade" id="relationModal" tabindex="-1" role="dialog" aria-labelledby="relationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="relationModalLabel">Select relation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="modal-content modal-content-relation">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
             </div>
-            <div class="modal-body">
+            <div class="modal-body modal-body-advanced" style="padding-top:50px;">
+                <div class="d-flex advanced-filter-header documents-header">
+                    <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> Add Relation
+                </div>
                 <form>
-                    <fieldset class="form-element form-select">
-                        <select id="relation-item" class="form-element-field -hasvalue">
+                    <fieldset class="advanced-filter-item filter-item mt-4">
+                        <div class="label">
+                            @sReportsV2.Resources.TextLanguage.Identifier_type
+                        </div>
+                        <select id="relation-item" class="filter-input arrow-select">
                             <option value="">Please select field</option>
                             @foreach (FormFieldDistributionDataOut field in Model.Fields.Where(x => x.Type == FieldTypes.Number || x.Type == FieldTypes.Radio || x.Type == FieldTypes.Digits || x.Type == FieldTypes.Checkbox || x.Type == FieldTypes.Select))
                             {
                                 <option value="@field.Id" data-type="@field.Type">@field.Label</option>
                             }
                         </select>
-                        <div class="form-element-bar"></div>
 
-                        <div class="form-element-description">
-
-                        </div>
                     </fieldset>
 
 
                     <div class="boundaries-container">
-                        <fieldset class="form-element form-input">
-                            <label for="lowerBoundary" class="form-element-label">
+                        <fieldset class="advanced-filter-item filter-item mt-4">
+                            <label for="lowerBoundary" class="label filter-label">
                                 Lower boundary
                             </label>
-                            <input type="number" step="0.01" name="lowerBoundary" required class="form-element-field" id="lowerBoundary" placeholder="Define lower boundary" />
-                            <div class="form-element-bar"></div>
+                            <input type="number" step="0.01" name="lowerBoundary" required class="filter-input" id="lowerBoundary" placeholder="Define lower boundary" />
                         </fieldset>
-                        <fieldset class="form-element form-input">
-                            <label for="upperBoundary" class="form-element-label">
+                        <fieldset class="advanced-filter-item filter-item mt-4">
+                            <label for="upperBoundary" class="label filter-label">
                                 Upper boundary
                             </label>
-                            <input type="number" step="0.01" name="upperBoundary" required class="form-element-field" id="upperBoundary" placeholder="Define upper boundary" />
-                            <div class="form-element-bar"></div>
+                            <input type="number" step="0.01" name="upperBoundary" required class="filter-input" id="upperBoundary" placeholder="Define upper boundary" />
                         </fieldset>
                     </div>
                     <input type="hidden" id="targetVariable" />
                 </form>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="createRelatedField()">Save changes</button>
+                <div class="d-flex position-relative margin-top-20">
+                    <div class="button-wrapper-filter filter-button float-right d-flex" style="width:unset" id="submitFilterButton">
+                        <a class="btn advanced-cancel mr-2" data-dismiss="modal" aria-label="Close">
+                            @sReportsV2.Resources.TextLanguage.Cancel
+                        </a>
+                        <button class="btn btn-filter-primary w-100 h-100" onclick="createRelatedField()"> @sReportsV2.Resources.TextLanguage.Save</button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
+     $('#distributionForm').validate(
+         {
+            rules: {
+                 @foreach (var field in Model.Fields)
+                 {
+                     if (field.Type == "radio")
+                     {
+                         foreach (var combination in field.ValuesCombination)
+                         {
+                             foreach(var value in combination.Values)
+                             {
+                                 for (int i = 1; i < field.ValuesCombination.Count() + 1; i++)
+                                 {
+                                      <text> 'radio-@value.ThesaurusId-@i': {  equalToOne: true },</text>
+                                 }
+                             }
+                         }
 
-    $(document).ready(function () {
-        jQuery.validator.addMethod("sumEqualToZero", function (value, element) {
-            var sumOfVals = +parseFloat($(element).val()).toFixed(2);
-            var parent = $(element).parent();
-            $(parent).siblings('fieldset').each(function (index, element) {
-                let input = $(element).find('input');
-                if (input) {
-                    sumOfVals += +parseFloat($(input).val()).toFixed(2);
-                }
-            });
-            if (+parseFloat(sumOfVals).toFixed(2) == 1) return true;
-            return false;
-        }, "* Sum must be equal to one");
+                     }
+                 }
+            }
 
-        $('#distributionForm').validate({
-            onkeyup: false,
-             @*rules: {
-
-               @foreach (FormFieldDistributionDataOut data in Model.Fields.Where(x => x.Type == FieldTypes.Radio))
-                {
-                    foreach(FormFieldValueDistributionDataOut value in data.Values)
-                    {
-                        <text> 'success_probability_@value.ThesaurusId': { sumEqualToZero: true },</text>
-                    }
-                }
-            },
-            groups: {
-                @foreach (FormFieldDistributionDataOut data in Model.Fields.Where(x => x.Type == FieldTypes.Radio))
-                {
-                    <text>
-                        @data.Id:'@(string.Join(" ",data.Values.Select(x => "success_probability_" +@x.ThesaurusId)))',
-                    </text>
-
-                }
-            }*@
+            
         });
-    })
-
-
-
 </script>
 <script src="~/Scripts/sReports/formDistribution.js"></script>

@@ -1,32 +1,34 @@
 ﻿using Chapters.Resources;
 using sReportsV2.Domain.Entities.Form;
-using sReportsV2.Domain.Entities.PatientEntities;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sReportsV2.Domain.Entities.Encounter;
+using sReportsV2.Domain.Sql.Entities.Common;
+using sReportsV2.Domain.Sql.Entities.Patient;
 
 namespace Chapters
 {
     public class PatientParser
     {
         public List<string> identifierList;
-        private List<IdentifierType> identifierTypes;
+        private List<CustomEnum> identifierTypes;
         public FormChapter patientChapter { get; set; }
 
-        public PatientParser(List<IdentifierType> identifierTypes)
+        public PatientParser(List<CustomEnum> identifierTypes)
         {
             identifierList = Enum.GetNames(typeof(TypeOfIdentifier)).ToList();
             this.identifierTypes = identifierTypes;
         }
 
-        public PatientEntity ParsePatientChapter(FormChapter chapter)
+        public Patient ParsePatientChapter(FormChapter chapter)
         {
             patientChapter = chapter;
-            PatientEntity result = ParseIntoPatient();
+            Patient result = ParseIntoPatient();
 
             if (result != null)
             {
@@ -36,9 +38,9 @@ namespace Chapters
             return result;
         }
 
-        public PatientEntity ParseIntoPatient()
+        public Patient ParseIntoPatient()
         {
-            PatientEntity patient = null;
+            Patient patient = null;
             if (patientChapter != null)
             {
                 List<Field> basicInfoFields = patientChapter.GetFieldsByList(PatientRelatedLists.basicInfoList);
@@ -57,10 +59,10 @@ namespace Chapters
             return patient;
         }
 
-        public List<sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity> GetListIdentifiers(List<Field> identifiersFields)
+        public List<Identifier> GetListIdentifiers(List<Field> identifiersFields)
         {
-            List<sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity> identifiers = new List<sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity>();
-            sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity identifier = ParseIntoIdentifier(identifiersFields);
+            List<Identifier> identifiers = new List<Identifier>();
+            Identifier identifier = ParseIntoIdentifier(identifiersFields);
             if (identifier != null)
             {
                 identifiers.Add(identifier);
@@ -68,18 +70,18 @@ namespace Chapters
 
             return identifiers;
         }
-        public void ConvertPatientIdentifier(PatientEntity patient)
+        public void ConvertPatientIdentifier(Patient patient)
         {
-            IdentifierType type = identifierTypes.FirstOrDefault(x => patient.Identifiers != null && patient.Identifiers.Count() > 0 && x.Name.Equals(patient.Identifiers[0].System));
+            CustomEnum type = identifierTypes.FirstOrDefault(x => patient.Identifiers != null && patient.Identifiers.Count() > 0);
             if(type != null)
             {
-                patient.Identifiers[0].System = type.O4MtId;
+                patient.Identifiers[0].System = type.ThesaurusEntryId.ToString();
             }
         }
 
-        private PatientEntity ParseBasicIntoPatient(List<Field> basicInfoList)
+        private Patient ParseBasicIntoPatient(List<Field> basicInfoList)
         {
-            PatientEntity patientEntity = new PatientEntity();
+            Patient patientEntity = new Patient();
             patientEntity.Name = new Name()
             {
                 Family =!string.IsNullOrWhiteSpace(basicInfoList.FirstOrDefault(x => x.FhirType == PdfParserType.Family).Value?[0]) ? basicInfoList.FirstOrDefault(x => x.FhirType == PdfParserType.Family).Value?[0] : PdfParserType.Unknown,
@@ -109,16 +111,16 @@ namespace Chapters
             return patientEntity;
         }
 
-        private sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity ParseIntoIdentifier(List<Field> identifierFields)
+        private Identifier ParseIntoIdentifier(List<Field> identifierFields)
         {
-            sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity identifier = null;
+            Identifier identifier = null;
             string field = identifierFields.FirstOrDefault(x => x.FhirType == PdfParserType.IdentifierName)?.Value?[0];
             string value = identifierFields.FirstOrDefault(x => x.FhirType == PdfParserType.IdentifierValue)?.Value?[0];
             string use = identifierFields.FirstOrDefault(x => x.FhirType == PdfParserType.IdentifierUse)?.Value?[0];
 
             if (!string.IsNullOrWhiteSpace(field) && !string.IsNullOrWhiteSpace(value))
             {
-                identifier = new sReportsV2.Domain.Entities.OrganizationEntities.IdentifierEntity
+                identifier = new Identifier
                 {
                     System = field,
                     Value = value,

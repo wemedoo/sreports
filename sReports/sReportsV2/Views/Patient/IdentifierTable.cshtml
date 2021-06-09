@@ -1,0 +1,47 @@
+﻿@using sReportsV2.DTOs.Organization.DataOut;
+@model List<IdentifierDataOut>
+
+<div class="person-margin">
+    <span class="identifiers-info identifier-padd">@sReportsV2.Resources.TextLanguage.Identifiers</span>
+    <button type="button" class="btn btn-add-new float-right" onclick="showIdentifierModal(event)">
+        <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
+    </button>
+</div>
+
+<div class="identifier-line"></div>
+
+<div id="identifierContainer" class="@(Model == null || Model.Count == 0 ? "identifier-line-bottom" : "")">
+    <table class="codes-table">
+        <thead>
+            <tr>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Identifier_name</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Identifier_value</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.IdentifierUse</span></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="identifer-table text-table">
+            @if (Model != null)
+            {
+                foreach (IdentifierDataOut identifier in Model)
+                {
+                    <tr class="tr edit-raw" data-value="@identifier.Id">
+                        <td data-property="system" data-value="@identifier.System.Thesaurus.Id" title="@identifier.System.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)" class="custom-td-first">
+                            @identifier.System.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)
+                        </td>
+                        <td data-property="value" data-value="@identifier.Value" title="@identifier.Value" class="custom-td">
+                            @identifier.Value
+                        </td>
+                        <td data-property="use" data-value="@identifier.Use" title="@identifier.Use" class="custom-td">
+                            @identifier.Use
+                        </td>
+                        <td class="custom-td-last"></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

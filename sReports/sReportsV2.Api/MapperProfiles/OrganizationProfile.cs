@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using sReportsV2.Api.DTOs.Organization.DataIn;
-using sReportsV2.Domain.Entities.OrganizationEntities;
 using sReportsV2.Domain.Entities.PatientEntities;
 using System;
 using System.Collections.Generic;
@@ -14,9 +12,9 @@ namespace sReportsV2.Api.MapperProfiles
     {
         public OrganizationProfile()
         {
-            CreateMap<OrganizationFilterDataIn, OrganizationFilter>();
+            /*CreateMap<OrganizationFilterDataIn, OrganizationFilter>();
 
-            CreateMap<Domain.Entities.OrganizationEntities.Organization, Hl7.Fhir.Model.Organization>()
+            CreateMap<Organization, Hl7.Fhir.Model.Organization>()
                 .ForMember(org => org.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(org => org.Active, opt => opt.MapFrom(src => src.Activity))
                 .ForMember(org => org.Type, opt => opt.MapFrom(src => src.Type))
@@ -45,7 +43,7 @@ namespace sReportsV2.Api.MapperProfiles
                .ForMember(p => p.Value, opt => opt.MapFrom(src => src.Value))
                .ForMember(p => p.Use, opt => opt.MapFrom(src => src.Use))
                .ForMember(p => p.Type, opt => opt.MapFrom(src => src.Type))
-               .ForAllOtherMembers(opts => opts.Ignore());
+               .ForAllOtherMembers(opts => opts.Ignore());*/
         }
     }
 }

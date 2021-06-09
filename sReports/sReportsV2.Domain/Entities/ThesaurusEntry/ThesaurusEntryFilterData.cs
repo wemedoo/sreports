@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sReportsV2.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
         public string UmlsName { get; set; }
         public int PageSize { get; set; }
         public int Page { get; set; }
+        public ThesaurusState? State { get; set; }
     }
 }

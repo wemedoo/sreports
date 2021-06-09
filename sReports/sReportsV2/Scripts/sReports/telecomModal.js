@@ -20,8 +20,7 @@ function addNewTelecom(e) {
         $(system).attr("data-property", 'system');
         $(system).attr("data-value", $('#newTelecomSystem').val());
         $(system).html($('#newTelecomSystem option:selected').text());
-        $(system).addClass('truncate');
-        $(system).addClass("tooltip-tipable");
+        $(system).addClass("custom-td-first");
         $(system).attr("title", $('#newTelecomSystem option:selected').text());
         $(system).tooltip();
 
@@ -29,8 +28,7 @@ function addNewTelecom(e) {
         $(value).attr("data-property", 'value');
         $(value).attr("data-value", $('#newTelecomValue').val());
         $(value).html($('#newTelecomValue').val());
-        $(value).addClass('truncate');
-        $(value).addClass( "tooltip-tipable");
+        $(value).addClass("custom-td");
         $(value).attr("title", $('#newTelecomValue').val());
         $(value).tooltip();
        
@@ -39,31 +37,36 @@ function addNewTelecom(e) {
         $(use).attr("data-property", 'use');
         $(use).attr("data-value", $('#newTelecomUse').val());
         $(use).html($('#newTelecomUse option:selected').text());
-        $(use).addClass('truncate');
-        $(use).addClass("tooltip-tipable");
+        $(use).addClass("custom-td");
         $(use).attr("title", $('#newTelecomUse option:selected').text());
         $(use).tooltip();
 
         let identifier = document.createElement('tr');
+        $(identifier).addClass('edit-raw');
 
-        $(identifier).append(system).append(value).append(use).append(createRemoveIdentifierButton());
+        $(identifier).append(system).append(value).append(use).append(createRemoveTelecomButton());
         $(`#telecomsFor${activeTelecomContainer} tbody`).append(identifier);
+
+        if ($(`#telecomsFor${activeTelecomContainer} tbody`).children(".edit-raw").length == 1) {
+            document.getElementById(`telecomsFor${activeTelecomContainer}`).classList.remove("identifier-line-bottom")
+        }
 
         resetTelecomForm();
         activeTelecomContainer = '';
-
         $('#telecomModal').modal('hide');
     }
 }
 
 function createRemoveTelecomButton() {
-    let div = document.createElement('div');
+    let div = document.createElement('td');
     $(div).addClass('remove-telecom');
 
     let i = document.createElement('i');
-    $(i).addClass('fas fa-times');
+    $(i).addClass('remove-icon');
 
     $(div).append(i);
+    $(div).addClass("custom-td-last");
+    div.style.position = "relative";
     return div;
 }
 
@@ -78,6 +81,7 @@ function GetTelecoms(container) {
 
         if ($(telecomSystem).data('value') && $(telecomValue).data('value') && $(telecomUse).data('value')) {
             result.push({
+                Id: $(element).data("value"),
                 System: $(telecomSystem).data('value'),
                 Value: $(telecomValue).data('value'),
                 Use: $(telecomUse).data('value')
@@ -89,6 +93,12 @@ function GetTelecoms(container) {
 }
 
 $(document).on('click', '.remove-telecom', function (e) {
-    $(e.currentTarget).closest('.telecom').remove();
+    if ($(`#telecomsForPatientTelecom tbody`).children(".edit-raw").length == 1) {
+        document.getElementById(`telecomsForPatientTelecom`).classList.add("identifier-line-bottom")
+    }
+    if ($(`#telecomsForPatientContactTelecom tbody`).children(".edit-raw").length == 1) {
+        document.getElementById(`telecomsForPatientContactTelecom`).classList.add("identifier-line-bottom")
+    }
+    $(e.currentTarget).closest('tr').remove();
 });
 

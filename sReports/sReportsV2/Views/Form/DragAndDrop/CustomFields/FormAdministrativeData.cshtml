@@ -1,0 +1,85 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.Common.Helpers;
+@model FormDataOut
+
+
+@if (Model != null && Model.WorkflowHistory != null)
+{
+    <div class="comments-hidden consensus-hidden">
+        <div class="administrative-btn-group">
+            <div class="dropdown dropdown-select menu-state-status">
+                <button class="btn dropdown-state" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                    <span class="change-state-span">Change state</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right menu-state" role="menu" aria-labelledby="dropdownMenu1">
+                    @foreach (var status in ViewBag.States)
+                    {
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" class="dropdown-item form-definition-state state-option @(Model.State == status ? "active" : string.Empty)" data-value="@status">
+                                <i class="fas fa-square" style="color:@Model.GetStateColor(status)"></i>
+                                @status
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="workflow-toggle wt-designer">
+                <button class="eoc-main-content administrative-content workflow-btn wf-designer-btn" id="administrativeButton">
+                    <img style="padding-left: 6px;" src="~/Content/img/icons/administrative_data.svg" />
+                    <span class="administrative-title">@sReportsV2.Resources.TextLanguage.Administative_data</span>
+                    <i class="administrative-arrow" id="administrativeArrow"></i>
+                </button>
+            </div>
+        </div>
+        <div class="administrative-container workflow-hide row" id="workflowId">
+        <span class="arrow-scroll-left-form"></span>
+        <span class="arrow-scroll-right-form"></span>
+        <div class="workflow-container" id="idWorkflow">
+
+            @foreach (var workflow in Model.WorkflowHistory)
+            {
+
+                <div id="" class="workflow d-flex">
+                    <div class="@workflow.Status">
+                        @workflow.Status
+                    </div>
+                    <div class="workflow-content">
+                        <div>
+                            @workflow.User.FirstName @workflow.User.LastName
+                        </div>
+                        <div>
+                            @workflow.Created.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string)
+                        </div>
+                    </div>
+                    <div class="triangle-line-form"></div>
+                    <div class="triangle-line-bottom-form"></div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+    </div>
+}
+
+<script>
+    $(document).on("click", ".workflow-btn", function () {
+        if ($("#workflowId").hasClass("workflow-hide")) {
+            $("#administrativeArrow").addClass("administrative-arrow-up");
+            $("#administrativeArrow").removeClass("administrative-arrow");
+
+            $("#workflowId").addClass("workflow-show")
+            $("#workflowId").removeClass("workflow-hide")
+        } else {
+            $("#administrativeArrow").addClass("administrative-arrow");
+            $("#administrativeArrow").removeClass("administrative-arrow-up");
+
+            $("#workflowId").removeClass("workflow-show")
+            $("#workflowId").addClass("workflow-hide")
+        }
+    });
+
+</script>
+

@@ -1,9 +1,8 @@
-﻿$(document).on('change', '#documentClass', function () {
+﻿$(document).on('change', '#classes', function () {
     $('#documentClassOtherInput').val('');
     if (this.value === "Other") {
         $('#documentClassOther').removeClass("d-none");
     } else {
-        console.log("test");
         $('#documentClassOther').removeClass("d-block");
         $('#documentClassOther').addClass("d-none");
     }
@@ -37,7 +36,10 @@ function getFilterParametersObject() {
         result = getDefaultFilter();
         defaultFilter = null;
     } else {
-        addPropertyToObject(requestObject, 'Classes', $('#documentClass').val());
+        addPropertyToObject(requestObject, 'Title', encodeURIComponent($('#title').val()));
+        addPropertyToObject(requestObject, 'ThesaurusId', $('#thesaurusId').val());
+        addPropertyToObject(requestObject, 'State', $('#state').val());
+        addPropertyToObject(requestObject, 'Classes', $('#classes').val());
         addPropertyToObject(requestObject, 'ClassesOtherValue', $('#documentClassOtherInput').val());
         addPropertyToObject(requestObject, 'GeneralPurpose', $('#generalPurpose').val());
         addPropertyToObject(requestObject, 'ContextDependent', $('#contextDependent').val());
@@ -47,6 +49,8 @@ function getFilterParametersObject() {
         addPropertyToObject(requestObject, 'ClinicalContext', $('#clinicalContext').val());
         addPropertyToObject(requestObject, 'FollowUp', $('#documentFollowUpSelect').val());
         addPropertyToObject(requestObject, 'AdministrativeContext', $('#administrativeContext').val());
+
+
     }
    
     return requestObject;

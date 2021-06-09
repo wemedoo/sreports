@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using sReportsV2.Api.Common.Extensions;
@@ -7,20 +6,20 @@ using sReportsV2.Api.DTOs.FormInstance.DataIn;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using static Hl7.Fhir.Model.OperationOutcome;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public class ProcedureController : CommonController
+    public class ProcedureController //: CommonController
     {
-        public ProcedureController(IMapper mapper,
+        /*public ProcedureController(IMapper mapper,
             IFormInstanceService formInstanceService,
             IEpisodeOfCareService episodeOfCareService,
             IEncounterService encounterService,
@@ -53,7 +52,7 @@ namespace sReportsV2.Api.Controllers
             FieldSelectable field = form.GetField(formFieldId.Replace('-', '_')) as FieldSelectable;
 
             Procedure procedure = mapper.Map<Procedure>(field);
-            procedure.Performer.Add(new Procedure.PerformerComponent() { Actor = new ResourceReference(formInstance.UserRef) });
+            procedure.Performer.Add(new Procedure.PerformerComponent() { Actor = new ResourceReference(formInstance.UserId.ToString()) });
             procedure.Subject = new ResourceReference(episodeOfCareService.GetByEncounter(formInstance.EncounterRef)?.PatientId);
             procedure.Id = $"{"Procedure"}/{formInstance.Id.ToString()}.{field.Id.Replace('_', '-')}";
 
@@ -118,6 +117,6 @@ namespace sReportsV2.Api.Controllers
             Form form = this.formService.GetForm(formInstance?.FormDefinitionId);
             form.SetFields(formInstance.Fields);
             return !formInstanceService.ExistsFormInstance(formInstanceId) || form.GetField(formFieldId.Replace('-', '_')) == null || form.GetField(formFieldId.Replace('-', '_')).FhirType != ResourceTypes.Procedure;
-        }
+        }*/
     }
 }

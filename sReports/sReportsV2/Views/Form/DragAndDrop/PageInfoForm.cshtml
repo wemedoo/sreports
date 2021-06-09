@@ -1,0 +1,95 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@model FormPageDataOut
+    <style>
+        .imagemaps-wrapper {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            position: relative;
+        }
+
+    </style>
+<form class="designer-item-form" id="pageGeneralInfo">
+    <input type="hidden" id="elementId" value="@(string.IsNullOrWhiteSpace(Model.Id) ? GuidExtension.NewGuidStringWithoutDashes() : Model.Id)" />
+    <div class="designer-form-section">
+        <div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Page title
+            </div>
+            <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" />
+        </div>
+    </div>
+    <div class="designer-form-section">
+
+        <div class="designer-form-input-group full-width">
+            <div class="label filter-label">
+                Description
+            </div>
+            <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")">@(Model != null ? Model.Description : "")</textarea>
+        </div>
+    </div>
+    <div class="designer-form-section thesaurus-section">
+        <div class="designer-form-section-title">
+            @sReportsV2.Resources.TextLanguage.ThesaurusEntry
+        </div>
+        @Html.Partial("~/Views/Form/DragAndDrop/ThesaurusFilterModal.cshtml")
+    </div>
+    <div class="designer-form-section">
+        <div class="designer-form-section-title">
+            Image map generator
+        </div>
+        @Html.Partial("~/Views/Form/DragAndDrop/ImageMapGenerator.cshtml")
+    </div>
+    <div class="designer-form-section chechbox-section">
+        <div class="designer-form-section-title">
+            Layout settings
+        </div>
+        <div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Layout style
+            </div>
+            <select class="designer-form-input" id="layoutType">
+                <option value="">Select an option</option>
+                <option value="@LayoutType.Vertical" @(Model.LayoutStyle != null && Model.LayoutStyle.LayoutType == LayoutType.Vertical ? "selected" : "")>Vertical</option>
+                <option value="@LayoutType.Horizontal" @(Model.LayoutStyle != null && Model.LayoutStyle.LayoutType == LayoutType.Horizontal ? "selected" : "")>Horizontal</option>
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Max items
+            </div>
+            <input class="designer-form-input" id="layoutMaxItems" name="layoutMaxItems" type="number" value="@(Model != null && Model.LayoutStyle != null ? Model.LayoutStyle.MaxItems : "")" />
+        </div>
+    </div>
+    <div class="chechbox-container">
+        <div class="checkbox-group right">
+            <label class="form-checkbox-label">
+                <span>Is visible?</span>
+                <input name="isVisible" value="isVisible" @(Model.IsVisible ? "checked" : string.Empty) id="isVisible" class="form-checkbox-field" type="checkbox" />
+                <i class="form-checkbox-button table-checkbox"></i>
+            </label>
+        </div>
+    </div>
+    <div class="button-container">
+        <div class="cancel-button cancel-modal-action">
+            Back
+        </div>
+        <div class="submit-button" id="submit-page-info">Update data</div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#pageGeneralInfo').validate({
+            ignore: []
+        });
+
+        let pageId = $("#pageGeneralInfo").find("#elementId").val();
+
+        if ($("#nestable").find(`[data-id='${pageId}']`).children('.dd-handle').hasClass('nestable-error')) {
+            $('#pageGeneralInfo').valid();
+        }
+    });
+</script>

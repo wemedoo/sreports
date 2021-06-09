@@ -4,15 +4,50 @@
 @model sReportsV2.DTOs.Patient.PatientDataOut
 @{
     ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Patient_Create;
-    string hasValue = "-hasvalue";
+    ViewBag.Action = "/Patient/Edit";
 
 }
+<input type="hidden" name="formPartialIndicator" value="@ViewBag.Action" />
 
-@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Patient }, { "linkLevel1", "/Patient/GetAll" }, { "level2", Model != null ? Model.Id : @sReportsV2.Resources.TextLanguage.Patient_Create }, { "activeLevel", 2 } })
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Patient }, { "linkLevel1", "/Patient/GetAll" }, { "level2", Model != null ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.Patient_Create }, { "activeLevel", 2 } })
 
+<div class="patient-general-info">
+    <div class="patient-general-info-title">
+        @sReportsV2.Resources.TextLanguage.Patient
+    </div>
+    <div class="properties">
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.Name</div>
+            <div class="property-value">@Model.Name</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.FamilyName</div>
+            <div class="property-value">@Model.FamilyName</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.Gender</div>
+            <div class="property-value">@Model.Gender</div>
+        </div>
+        <div class="property">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.BirthDate</div>
+            <div class="property-value">@(Model.BirthDate != null ? Model.BirthDate.Value.ToShortDateString() : "Not known")</div>
+        </div>
+        <div class="property no-border">
+            <div class="property-name">@sReportsV2.Resources.TextLanguage.City</div>
+            <div class="property-value">@(Model.Address == null || string.IsNullOrWhiteSpace(Model.Address.City) ? "Not known" : Model.Address.City)</div>
+        </div>
+        <div class="property no-border">
+            <button class="button-edit edit-patient-button" id="@Model.Id">
+                <i class="fas fa-pen"></i>
+                <span>@sReportsV2.Resources.TextLanguage.Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="patient-main-content edit-patient-background">
     <div class="row">
         <div class="col-4">
-           
+
             <div class="row">
                 <div class=" col-12">
                     @Html.Partial("PatientTree", Model)
@@ -20,51 +55,31 @@
             </div>
         </div>
         <div class="col-8">
-            <div class="row">
-                <div class="col-12">
-                    <div class="entity accordion">
-                        <div  class="header-accordion" data-toggle="collapse" data-target="#patientInfo" aria-expanded="false" aria-controls="patientInfo">
-                           @sReportsV2.Resources.TextLanguage.Patient : @Model.Name @Model.FamilyName (@Model.BirthDate.GetValueOrDefault().ToString("dd/MM/yyyy"))
-                            <button class="btn btn-primary pt-0 pb-0 ml-3"  onclick="createNewDocument(event,'@Model.Id')"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.NewDocument</button>
-                        </div>
-                        <div class=" accordion-content collapse" id="patientInfo">
-                            <div class="property row">
-                                <div class="property-name col-3">@sReportsV2.Resources.TextLanguage.Name:</div>
-                                <div class="property-value col-9">@Model.Name</div>
-                            </div>
-                            <div class="property row">
-                                <div class="property-name col-3">@sReportsV2.Resources.TextLanguage.FamilyName:</div>
-                                <div class="property-value col-9">@Model.FamilyName</div>
-                            </div>
-                            <div class="property row">
-                                <div class="property-name col-3">@sReportsV2.Resources.TextLanguage.Gender:</div>
-                                <div class="property-value col-9">@Model.Gender</div>
-                            </div>
-                            <div class="property row">
-                                <div class="property-name col-3">@sReportsV2.Resources.TextLanguage.BirthDate:</div>
-                                <div class="property-value col-9">@(Model.BirthDate != null ? Model.BirthDate.Value.ToString("dd-MM-yyyy") : "")</div>
-                            </div>
-                            <div class="property row">
-                                <div class="property-name col-3">@sReportsV2.Resources.TextLanguage.City:</div>
-                                <div class="property-value col-9">@Model.Address.City</div>
-                            </div>
-                            <div class="property mb-2 mt-2">
-                                <button class="btn btn-primary patient" id="@Model.Id">@sReportsV2.Resources.TextLanguage.EditPatient</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
             <div class="row">
-                <div class="col-12" id="patientContainer">
+                <div class="col-12 edit-patient" id="patientContainer">
 
                 </div>
             </div>
         </div>
-        
-    </div>
 
+    </div>
+</div>
+
+<div class="custom-modal fade">
+    <div class="custom-modal-body">
+        <div class="close-custom-modal-button">
+
+        </div>
+        <div class="custom-modal-title">
+            <img src="~/Content/img/icons/adding_doc.svg" />
+            @sReportsV2.Resources.TextLanguage.Adding_documents
+        </div>
+        <div id="customModalMainContent" class="custom-modal-main-content">
+            @sReportsV2.Resources.TextLanguage.Test
+        </div>
+    </div>
+</div>
 
 <script src="~/Scripts/sReports/patientTree.js"></script>
-
+<script src="~/Scripts/sReports/datetimepicker.js"></script>

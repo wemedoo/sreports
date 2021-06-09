@@ -1,0 +1,32 @@
+﻿
+@model sReportsV2.DTOs.Field.DataOut.FieldDataOut
+    <div class="btns-group d-inline-block">
+        @if (string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <img title="Definition" class="mr-1 definition" src="~/Content/img/icons/info_grey.svg">
+
+        }
+        else
+        {
+            <img title="Definition" class="mr-1 definition" src="~/Content/img/icons/info_green.svg" onclick="showHideDescription(event)">
+
+        }
+        <img title="Thesaurus" class="mr-1 thesaurus" src=@(Model.ThesaurusId != null ?"../Content/img/icons/thesaurus_green.svg": "../Content/img/icons/thesaurus_grey.svg") onclick="goToThesaurus('@Model.ThesaurusId')">
+        @if (Model.Help != null)
+        {
+            <img title="Info" class="mr-1 info" src="~/Content/img/icons/definition_green.svg" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">
+        }
+        else
+        {
+            <img title="Info" class="mr-1 info" src="~/Content/img/icons/definition_grey.svg">
+
+        }
+
+        @if (Model is sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)
+        {
+            <img title="Add repetitive field" class="mr-1 repeat @(((sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)Model).IsRepetitive ? "button-plus-repetitive" : "")" src="@(((sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)Model).IsRepetitive? "../Content/img/icons/repeat_green.svg" : "../Content/img/icons/repeat_grey.svg")">
+
+        }
+
+        <img title="Remove" class="mr-1 remove remove-repetitive" src="~/Content/img/icons/delete.svg" style="display:@(Model.Value != null && Model.Value.Count() > 1 ? "" : "none")">
+    </div>

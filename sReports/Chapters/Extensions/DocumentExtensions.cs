@@ -3,18 +3,12 @@ using iText.IO.Font;
 using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Font;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Action;
-using iText.Kernel.Pdf.Annot;
+
 using iText.Layout;
 using iText.Layout.Element;
-using sReportsV2.Domain.Entities.OrganizationEntities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Chapters
 {

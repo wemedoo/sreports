@@ -21,6 +21,6 @@ namespace sReportsV2.Domain.Entities.EpisodeOfCareEntities
 
         public DateTime? PeriodEndDate { get; set; }
         public string Description { get; set; }
-        public string OrganizationId { get; set; }
+        public int OrganizationId { get; set; }
     }
 }

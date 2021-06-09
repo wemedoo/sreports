@@ -1,5 +1,5 @@
 ﻿using MathNet.Numerics.Distributions;
-using sReportsV2.Domain.Entities.Constants;
+using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.Distribution;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
@@ -38,7 +38,7 @@ namespace DocumentGenerator
                 skip += daysDistribution[i];
 
                 FormInstance whoDocument = whoDocuments[i];
-                FieldValue patientIdField = whoDocument.Fields.FirstOrDefault(x => x.ThesaurusId == "15114");
+                FieldValue patientIdField = whoDocument.Fields.FirstOrDefault(x => x.ThesaurusId == 15114);
                 SetDailyFormsPatienId(dailyDocuments, patientIdField?.Value?[0]);
             }
             return dailyDocumentsGenerated;
@@ -50,7 +50,7 @@ namespace DocumentGenerator
             {
                 foreach (FormInstance formInstance in dailyForms)
                 {
-                    formInstance.SetValueByThesaurusId("15114", patientId);
+                    formInstance.SetValueByThesaurusId(15114, patientId);
                 }
             }
 
@@ -59,22 +59,26 @@ namespace DocumentGenerator
         private  static Dictionary<string, List<string>> SetNonDependableFields(FormDistribution formDistribution, int numOfDocuments)
         {
             Dictionary<string, List<string>> generatedFields = new Dictionary<string, List<string>>();
-            foreach (FormFieldDistribution field in formDistribution.Fields.Where(x => x.ValuesAll.Where(y => y.DependOn == null || y.DependOn.Count == 0).Count() > 0)) // generate non dependant
+            if (formDistribution.Fields != null) 
             {
-                switch (field.Type)
+                foreach (FormFieldDistribution field in formDistribution.Fields.Where(x => x.ValuesAll.Where(y => y.DependOn == null || y.DependOn.Count == 0).Count() > 0)) // generate non dependant
                 {
-                    case FieldTypes.Radio:
-                    case FieldTypes.Select:
-                        generatedFields.Add(field.Id, GenerateRadioExamples(field.ValuesAll[0].Values, numOfDocuments));
-                        break;
-                    case FieldTypes.Number:
-                        generatedFields.Add(field.Id, GenerateNumberExamples(field.ValuesAll[0].NormalDistributionParameters, numOfDocuments));
-                        break;
+                    switch (field.Type)
+                    {
+                        case FieldTypes.Radio:
+                        case FieldTypes.Select:
+                            generatedFields.Add(field.Id, GenerateRadioExamples(field.ValuesAll[0].Values, numOfDocuments));
+                            break;
+                        case FieldTypes.Number:
+                            generatedFields.Add(field.Id, GenerateNumberExamples(field.ValuesAll[0].NormalDistributionParameters, numOfDocuments));
+                            break;
 
-                    case FieldTypes.Checkbox:
-                        generatedFields.Add(field.Id, GenerateCheckboxExamples(field.ValuesAll[0].Values, numOfDocuments));
-                        break;
+                        case FieldTypes.Checkbox:
+                            generatedFields.Add(field.Id, GenerateCheckboxExamples(field.ValuesAll[0].Values, numOfDocuments));
+                            break;
+                    }
                 }
+
             }
 
             return generatedFields;
@@ -82,22 +86,26 @@ namespace DocumentGenerator
 
         private static void SetDependableFields(FormDistribution formDistribution, List<FormInstance> generated)
         {
-            foreach (FormFieldDistribution field in formDistribution.Fields.Where(x => x.ValuesAll.Where(y => y.DependOn != null && y.DependOn.Count > 0).Count() > 0)) // generate dependant
+            if (formDistribution.Fields != null) 
             {
-                switch (field.Type)
+                foreach (FormFieldDistribution field in formDistribution.Fields.Where(x => x.ValuesAll.Where(y => y.DependOn != null && y.DependOn.Count > 0).Count() > 0)) // generate dependant
                 {
-                    case FieldTypes.Radio:
-                    case FieldTypes.Select:
-                        GenerateDependantRadioExamples(field, generated);
-                        break;
-                    case FieldTypes.Number:
-                        GenerateDependantNumberExamples(field, generated);
-                        break;
+                    switch (field.Type)
+                    {
+                        case FieldTypes.Radio:
+                        case FieldTypes.Select:
+                            GenerateDependantRadioExamples(field, generated);
+                            break;
+                        case FieldTypes.Number:
+                            GenerateDependantNumberExamples(field, generated);
+                            break;
 
-                    case FieldTypes.Checkbox:
-                        GenerateDependentCheckboxExamples(field, generated);
-                        break;
+                        case FieldTypes.Checkbox:
+                            GenerateDependentCheckboxExamples(field, generated);
+                            break;
+                    }
                 }
+
             }
         }
 
@@ -143,9 +151,9 @@ namespace DocumentGenerator
 
         private static void SetPatientIdentification(FormInstance formInstance)
         {
-            if (formInstance.ThesaurusId == "14573")
+            if (formInstance.ThesaurusId == 14573)
             {
-                FieldValue patientIdField = formInstance.Fields.FirstOrDefault(x => x.ThesaurusId == "15114");
+                FieldValue patientIdField = formInstance.Fields.FirstOrDefault(x => x.ThesaurusId == 15114);
                 patientIdField.Value = new List<string>() { Guid.NewGuid().ToString() };
             }
         }
@@ -173,7 +181,7 @@ namespace DocumentGenerator
                 var samples = multinomial.Samples().Take(1).ToList();
                 for (int i = 0; i < samples[0].Count(); i++)
                 {
-                    string value = fieldValues[i].ThesaurusId;
+                    string value = fieldValues[i].ThesaurusId.ToString();
                     if (samples[0][i] > 0)
                     {
                         for (int j = 0; j < samples[0][i]; j++)

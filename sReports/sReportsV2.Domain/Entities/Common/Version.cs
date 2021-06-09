@@ -1,4 +1,5 @@
-﻿using sReportsV2.Domain.Entities.Common;
+﻿using sReportsV2.Common.Enums;
+using sReportsV2.Domain.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,11 @@ namespace sReportsV2.Domain.Entities.Common
         public VersionType Type { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? RevokedOn { get; set; }
-        public string UserRef { get; set; }
+        public int UserId { get; set; }
 
-        public string OrganizationRef { get; set; }
+        public int OrganizationId { get; set; }
+
+        public ThesaurusState? State { get; set; }
+
     }
 }

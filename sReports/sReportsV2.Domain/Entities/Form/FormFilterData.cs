@@ -1,17 +1,20 @@
 ﻿using sReportsV2.Domain.Entities.DocumentProperties;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sReportsV2.Common.Enums.DocumentPropertiesEnums;
 
 namespace sReportsV2.Domain.Entities.Form
 {
     public class FormFilterData
     {
+        public string Title { get; set; }
+        public int ThesaurusId { get; set; }
         public FormDefinitionState? State { get; set; }
-        public string OrganizationId { get; set; }
+        public int OrganizationId { get; set; }
 
         public string ActiveLanguage { get; set; }
 
@@ -38,5 +41,8 @@ namespace sReportsV2.Domain.Entities.Form
         public FollowUp? FollowUp { get; set; }
 
         public AdministrativeContext? AdministrativeContext { get; set; }
+
+        public DateTime? DateTimeTo { get; set; }
+        public DateTime? DateTimeFrom { get; set; }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using sReports.PathoLink.Entities;
-using sReportsV2.Domain.Entities.Constants;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Entities.Form;
-using sReportsV2.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;

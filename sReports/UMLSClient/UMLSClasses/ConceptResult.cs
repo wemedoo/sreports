@@ -19,8 +19,8 @@ namespace UMLSClient.UMLSClasses
         [JsonProperty("dateAdded")]
         public DateTime DateAdded { get; set; }
 
-        [JsonProperty("majorRevisionDate")]
-        public DateTime MajorRevisionDate { get; set; }
+        //[JsonProperty("majorRevisionDate")]
+        //public DateTime MajorRevisionDate { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }

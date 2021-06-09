@@ -30,11 +30,17 @@ function searchByTerm(clearTable) {
 
 function handleNonEmptrySearchResult(data) {
     $('#loadMoreButtonContainer').show();
+    $('#conceptNoResult').hide();
     $('#conceptsTableBody').append(data);
+    document.getElementById("conceptHeaderId").classList.add("atoms-border");
+    document.getElementById("conceptTableId").classList.remove("table-border");
 }
 
 function handleEmptySearchResult() {
     $('#loadMoreButtonContainer').hide();
+    $('#conceptNoResult').show();
+    document.getElementById("conceptHeaderId").classList.remove("atoms-border");
+    document.getElementById("conceptTableId").classList.add("table-border");
     currentPage = currentPage + 1;
 }
 
@@ -49,24 +55,22 @@ function getSearchRequestObject() {
 
 function restartTable() {
     $('#conceptsTableBody').empty();
-    $('.umls-clearable-content').empty();
-    $('#loadMoreButtonContainer').hide();    
+    $('#loadMoreButtonContainer').hide();
+    loadDefinitions("");
+    loadAtoms("");
 
     currentPage = 1;
 }
 
 function showModal(event) {
-    /*$('#conceptsTableBody').html('');
-    $('#umlsTerm').val('');*/
     event.stopPropagation();
     $('#loadMoreButtonContainer').hide();
     $('#umlsModal').modal('show');
 }
 
-
-
 function loadDetails(event, id) {
     $(event.srcElement).closest('tr').addClass('selected').siblings().removeClass('selected');
+    $(event.srcElement).closest('tr').addClass('active-umls').siblings().removeClass('active-umls');
     loadAtoms(id);
     loadDefinitions(id);
 }
@@ -91,7 +95,6 @@ function loadDefinitions(id) {
         success: function (data) {
             $('#definitionsData').html(data);
             $('#collapseO4MTSpecificFields').collapse('show');
-
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             toastr.error(`Error ${errorThrown}`);
@@ -101,18 +104,12 @@ function loadDefinitions(id) {
 
 
 function selectDefinition(event) {
-
-    if ($(event.srcElement).html().trim() === "NO_RESULT") {
-        return;
-    }
-
     if ($(event.srcElement).hasClass("single-definition")) {
         $(event.srcElement).addClass('active').siblings().removeClass('active');
     } else {
         var element = $(event.srcElement).closest('.single-definition');
         $(element).addClass('active').siblings().removeClass('active');
     }
-    
 }
 
 function confirmUmlsSelection() {
@@ -152,9 +149,14 @@ function populateUmlsDefinitions() {
     }
     $('#UmlsDefinitions').html('');
     $.each($('.definition-data .single-definition'), function (key, value) {
+        value.children[2].remove();
+        var definitionIcon = document.createElement('i');
+        definitionIcon.classList.add('definition-icon');
+        $('#UmlsDefinitions').append(definitionIcon);
         $('#UmlsDefinitions').append($(value).html());
         $('#UmlsDefinitions').append("<hr />");
     });
+    $('#UmlsDefinitions').addClass("definition-padding");
 }
 
 function populateSynonyms() {
@@ -167,6 +169,13 @@ function populateSynonyms() {
 }
 
 $(document).ready(function () {
-
     $('#collapseO4MTSpecificFields').collapse('show');
 })
+
+$(document).on('click', '.close-custom-modal-button', function (e) {
+    closeCustomModal();
+});
+
+function closeCustomModal() {
+    $('#umlsModal').modal('hide');
+}

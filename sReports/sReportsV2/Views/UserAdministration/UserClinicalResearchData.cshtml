@@ -1,0 +1,6 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+    <div id="clinicalTrialData">
+        @Html.Partial("ClinicalTrialLists", Model != null ? Model.ClinicalTrials : null)
+    </div>

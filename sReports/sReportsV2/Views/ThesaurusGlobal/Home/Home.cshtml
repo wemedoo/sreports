@@ -1,0 +1,89 @@
+﻿<div class="home-container">
+    <div class="info-items">
+        <div class="info-item">
+            <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/number_1.svg" />
+            <div class="info-value">
+                1 0250 500
+            </div>
+            <div class="info-label">
+                Number of thesaurus entries
+            </div>
+        </div>
+        <div class="info-item">
+            <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/number_2.svg" />
+            <div class="info-value">
+                785 300+
+            </div>
+            <div class="info-label">
+                Number of documents
+            </div>
+        </div>
+        <div class="info-item">
+            <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/number_3.svg" />
+            <div class="info-value">
+                60 500+
+            </div>
+            <div class="info-label">
+                Number of datasets
+            </div>
+        </div>
+    </div>
+    <div class="search-button-container">
+        <div class="search-input">
+            <img class="search-book" src="~/Content/img/icons/SwissOpenOncology/search_icon.svg">
+            <input type="text" class="search-btn-gt" placeholder="Search by Name, Code or Property" id="homeSearch" />
+            <img class="search-i" id="homeSearchIcon" src="~/Content/img/icons/search_green.svg">
+            <div class="advanced-search-btn" onclick="advancedFilterModal(event)">Advanced Search</div>
+        </div>
+    </div>
+    <div class="icon-title">
+        <img class="swiss-icon" src="~/Content/img/icons/SwissOpenOncology/swiss.svg" />
+        <div class="text-green"> Swiss Open Oncology</div>
+    </div>
+    <div class="home-text">
+        <div class="text-bb">
+            Smart oncology thesaurus
+        </div>
+        is one open-source initiative started bysupport of the
+        <div class=" text-bg"> Swiss Cancer Foundation</div>
+        and Department of Radiation Oncology, Intelspital, Bern University Hospital, University of Bern. Tehnical development is provided by
+        <div class="text-bg">
+            Wemedoo AG
+        </div>
+        , Sumpfstrasse 24, 6312 Steinhausen, Switzerland.
+
+    </div>
+
+    <div class="img-center">
+        <img src="~/Content/img/icons/SwissOpenOncology/goal.svg" />
+    </div>
+    <div class="icon-title">
+        <div class="text-green">
+            The goal of the Smart Oncology Thesaurus is to :
+        </div>
+    </div>
+    <div class="home-li-item">
+        <i class="fas fa-circle"></i> Provide an open-source collaborative environment focused on cliniciasns and other healthcare workers involved in direct patient care.
+    </div>
+    <div class="home-li-item">
+        <i class="fas fa-circle"></i>Set a basic for semantic interoperability across oncological and other clinical disciplines.
+    </div>
+    <div class="home-li-item">
+        <i class="fas fa-circle"></i> Reduce complexity of clinical terminology development.
+    </div>
+    <div class="home-li-item">
+        <i class="fas fa-circle"></i>Avoid administrative obstacles.
+    </div>
+    <div class="home-li-item">
+        <i class="fas fa-circle"></i>To provide data sxchange platform capable of managing inherited complexity of clinical enviroment.
+    </div>
+</div>
+
+<div id="gtAdvancedSearch">
+    @Html.Partial("~/Views/ThesaurusGlobal/Search/AdvancedFilterModal.cshtml")
+
+</div>
+
+
+@*<script src="~/Scripts/sReports/tableCommon.js"></script>*@
+<script src="~/Scripts/SwissOpenOncology/home.js"></script>

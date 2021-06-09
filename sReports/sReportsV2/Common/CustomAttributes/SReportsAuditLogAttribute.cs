@@ -1,8 +1,8 @@
 ﻿using MongoDB.Driver;
+using sReportsV2.Common.Extensions;
 using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Mongo;
-using sReportsV2.Models.User;
 using sReportsV2.Security;
 using System;
 using System.Threading.Tasks;

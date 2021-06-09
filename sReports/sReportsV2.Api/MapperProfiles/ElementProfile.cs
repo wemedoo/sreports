@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
-using sReportsV2.Domain.Entities.Constants;
+using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.CustomFHIRClasses;
 using sReportsV2.Domain.Entities.FieldEntity;
 using System;
@@ -12,7 +11,7 @@ namespace sReportsV2.Api.MapperProfiles
 {
     public class ElementProfile : Profile
     {
-        public ElementProfile()
+        /*public ElementProfile()
         {
             CreateMap<Field, Observation>()
                .ForMember(o => o.Status, opt => opt.MapFrom(src => ObservationStatus.Final))
@@ -49,6 +48,6 @@ namespace sReportsV2.Api.MapperProfiles
                 .ForMember(p => p.Code, opt => opt.MapFrom(src => src.Code))
                 .ForMember(p => p.Result, opt => opt.MapFrom(src => src.Result))
                 .ForAllOtherMembers(opts => opts.Ignore());
-        }
+        }*/
     }
 }

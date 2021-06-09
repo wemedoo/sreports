@@ -1,0 +1,158 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Consensus.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions
+@using System.Linq;
+@model FormDataOut
+@{
+    var iteration = ViewBag.Consensus != null ? (ViewBag.Consensus.Iterations as List<ConsensusIterationDataOut>).Last() : null;
+}
+
+<input type="hidden" id="consensusId" value="@(ViewBag.Consensus != null ? ViewBag.Consensus.Id : string.Empty)">
+<input type="hidden" id="iterationId" value="@(ViewBag.Consensus != null ? iteration.Id.ToString() : string.Empty)">
+
+<div class="cf nestable-lists ">
+    <div class="dd" id="nestableConsensus">
+        <ol class="dd-list dd-scrollable-container">
+            <li class="dd-item dd-nodrag"
+                data-id="@(Model != null ? Model.Id : FormDataOut.DefaultIdPlaceholder)"
+                data-itemtype="form"
+                data-activeversion='@(Model != null ? Model.GetActiveVersionJsonString() : null)'
+                @(Html.Raw(Model != null ? Model.GetDataAttr() : FormDataOut.GetInitialDataAttributes()))>
+
+                <div class="dd-nohandle" data-toggle="tooltip" data-placement="left" title="@(Model != null ? Model.Title : FormDataOut.DefaultFormPlaceholder)">
+                    @(Model != null ? Model.Title : FormDataOut.DefaultFormPlaceholder)
+                    <i class="fas fa-plus-circle btn-add-question"
+                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == Model.Id) != null) || ViewBag.Consensus == null ? "none" : "block")"
+                       onclick="openAddQuestion('@Model.Id')"></i>
+                    <i class="fas fa-check-circle btn-check-question"
+                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == Model.Id) != null) || ViewBag.Consensus == null ? "block" : "none")">
+                    </i>
+                </div>
+                @Html.Partial("~/Views/Form/Consensus/CreateOrPreviewQuestion.cshtml", Model.Id)
+
+                <ol class="dd-list">
+                    @if (Model != null && Model.Chapters != null)
+                    {
+                        foreach (FormChapterDataOut chapterDataOut in Model.Chapters)
+                        {
+                            <li class="dd-item addnewlist"
+                                @Html.Raw(chapterDataOut.GetDataAttr()) data-itemtype="chapter">
+                                <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@chapterDataOut.Title">
+                                    @chapterDataOut.Title
+                                    <i class="fas fa-plus-circle btn-add-question"
+                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == chapterDataOut.Id) != null) || ViewBag.Consensus == null ? "none" : "block")"
+                                       onclick="openAddQuestion('@chapterDataOut.Id')">
+                                    </i>
+                                    <i class="fas fa-check-circle btn-check-question"
+                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == chapterDataOut.Id) != null) || ViewBag.Consensus == null ? "block" : "none")">
+                                    </i>
+                                </div>
+                                @Html.Partial("~/Views/Form/Consensus/CreateOrPreviewQuestion.cshtml", chapterDataOut.Id)
+
+                                <ol class="dd-list">
+                                    @if (chapterDataOut.Pages != null && chapterDataOut.Pages.Count > 0)
+                                    {
+                                        foreach (FormPageDataOut pageDataOut in chapterDataOut.Pages)
+                                        {
+                                            <li class="dd-item" data-itemtype="page" @pageDataOut.GetDataAttr()>
+                                                <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@pageDataOut.Title">
+                                                    @pageDataOut.Title
+                                                    <i class="fas fa-plus-circle btn-add-question"
+                                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == pageDataOut.Id) != null) || ViewBag.Consensus == null ? "none" : "block")"
+                                                       onclick="openAddQuestion('@pageDataOut.Id')"></i>
+                                                    <i class="fas fa-check-circle btn-check-question"
+                                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == pageDataOut.Id) != null) || ViewBag.Consensus == null ? "block" : "none")">
+                                                    </i>
+                                                </div>
+                                                @Html.Partial("~/Views/Form/Consensus/CreateOrPreviewQuestion.cshtml", pageDataOut.Id)
+
+                                                <ol class="dd-list">
+                                                    @if (pageDataOut.ListOfFieldSets != null && pageDataOut.ListOfFieldSets.Count > 0)
+                                                    {
+                                                        foreach (List<FormFieldSetDataOut> formFieldSet in pageDataOut.ListOfFieldSets)
+                                                        {
+                                                            <li class="dd-item" @Html.Raw(formFieldSet[0].GetDataAttr()) data-itemtype="fieldset">
+                                                                <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@formFieldSet[0].Label">
+                                                                    @(string.IsNullOrEmpty(formFieldSet[0].Label) ? "Label is not defined" : formFieldSet[0].Label)
+                                                                    <i class="fas fa-plus-circle btn-add-question"
+                                                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == formFieldSet[0].Id) != null) || ViewBag.Consensus == null ? "none" : "block")"
+                                                                       onclick="openAddQuestion('@formFieldSet[0].Id')"></i>
+                                                                    <i class="fas fa-check-circle btn-check-question"
+                                                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == formFieldSet[0].Id) != null) || ViewBag.Consensus == null ? "block" : "none")">
+                                                                    </i>
+                                                                </div>
+                                                                @Html.Partial("~/Views/Form/Consensus/CreateOrPreviewQuestion.cshtml", formFieldSet[0].Id)
+
+                                                                <ol class="dd-list">
+                                                                    @if (formFieldSet[0].Fields != null && formFieldSet[0].Fields.Count > 0)
+                                                                    {
+                                                                        foreach (FieldDataOut field in formFieldSet[0].Fields)
+                                                                        {
+                                                                            <li class="dd-item" data-itemtype="field" @field.GetDataAttr()>
+                                                                                <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@field.Label">
+                                                                                    @field.Label
+                                                                                    <i class="fas fa-plus-circle btn-add-question"
+                                                                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == field.Id) != null) || ViewBag.Consensus == null ? "none" : "block")"
+                                                                                       onclick="openAddQuestion('@field.Id')"></i>
+                                                                                    <i class="fas fa-check-circle btn-check-question"
+                                                                                       style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == field.Id) != null) || ViewBag.Consensus == null ? "block" : "none")">
+                                                                                    </i>
+                                                                                </div>
+                                                                                @Html.Partial("~/Views/Form/Consensus/CreateOrPreviewQuestion.cshtml", field.Id)
+
+                                                                                @if (field is FieldSelectableDataOut)
+                                                                                {
+                                                                                    <ol class="dd-list">
+
+                                                                                        @if ((field as FieldSelectableDataOut).Values != null && (field as FieldSelectableDataOut).Values.Count > 0)
+                                                                                        {
+                                                                                            foreach (FormFieldValueDataOut valueDataOut in (field as FieldSelectableDataOut).Values)
+                                                                                            {
+                                                                                                <li class="dd-item" data-itemtype="fieldvalue" @valueDataOut.GetDataAttr()>
+                                                                                                    <div @*style="max-width:400px;"*@ class="dd-handle" data-toggle="tooltip" data-placement="left" title="@valueDataOut.Label">
+                                                                                                        @valueDataOut.Label
+                                                                                                        <i class="fas fa-plus-circle btn-add-question"
+                                                                                                           style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == valueDataOut.Id) != null) || ViewBag.Consensus == null ? "none" : "block")"
+                                                                                                           onclick="openAddQuestion('@valueDataOut.Id')"></i>
+                                                                                                        <i class="fas fa-check-circle btn-check-question"
+                                                                                                           style="display:@((ViewBag.Consensus != null && (iteration.Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == valueDataOut.Id) != null) || ViewBag.Consensus == null ? "block" : "none")">
+                                                                                                        </i>
+                                                                                                    </div>
+                                                                                                    @Html.Partial("~/Views/Form/Consensus/CreateOrPreviewQuestion.cshtml", valueDataOut.Id)
+
+                                                                                                </li>
+                                                                                            }
+                                                                                        }
+                                                                                    </ol>
+
+                                                                                }
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ol>
+                                                            </li>
+
+                                                        }
+                                                    }
+                                                </ol>
+                                            </li>
+                                        }
+                                    }
+                                </ol>
+                            </li>
+                        }
+                    }
+                </ol>
+
+            </li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadOutsideUsers();
+        loadInsideUsers();
+    })
+</script>

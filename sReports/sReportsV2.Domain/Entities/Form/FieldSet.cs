@@ -2,13 +2,16 @@
 using MongoDB.Bson.Serialization.Attributes;
 using sReportsV2.Domain.Entities.CustomFHIRClasses;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sReportsV2.Common.Constants;
+using sReportsV2.Common.Extensions;
+using MongoDB.Bson;
 
 namespace sReportsV2.Domain.Entities.Form
 {
@@ -20,7 +23,9 @@ namespace sReportsV2.Domain.Entities.Form
         public string Id { get; set; }
         public string Label { get; set; }
         public string Description { get; set; }
-        public string ThesaurusId { get; set;}
+
+        [BsonRepresentation(BsonType.Int32, AllowTruncation = true)]
+        public int ThesaurusId { get; set;}
         public List<Field> Fields { get; set; } = new List<Field>();
         public LayoutStyle LayoutStyle { get; set; }
         public Help Help { get; set; }
@@ -104,9 +109,9 @@ namespace sReportsV2.Domain.Entities.Form
             patient.Identifier.Add(id);
         }
 
-        public List<string> GetAllThesaurusIds()
+        public List<int> GetAllThesaurusIds()
         {
-            List<string> thesaurusList = new List<string>();
+            List<int> thesaurusList = new List<int>();
             foreach (Field field in Fields)
             {
                 var fieldhesaurusId = field.ThesaurusId;
@@ -117,12 +122,12 @@ namespace sReportsV2.Domain.Entities.Form
             return thesaurusList;
         }
 
-        public void GenerateTranslation(List<ThesaurusEntry.ThesaurusEntry> entries, string language, string activeLanguage)
+        public void GenerateTranslation(List<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntry> entries, string language, string activeLanguage)
         {
             foreach (Field field in Fields)
             {
-                field.Label = entries.FirstOrDefault(x => x.O40MTId.Equals(field.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
-                field.Description = entries.FirstOrDefault(x => x.O40MTId.Equals(field.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
+                field.Label = entries.FirstOrDefault(x => x.Id.Equals(field.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                field.Description = entries.FirstOrDefault(x => x.Id.Equals(field.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
                 field.GenerateTranslation(entries, language, activeLanguage);
             }
         }
@@ -139,7 +144,7 @@ namespace sReportsV2.Domain.Entities.Form
                 {
                     foreach (Field targetField in this.Fields)
                     {
-                        if (field.ThesaurusId == targetField.ThesaurusId) 
+                        if (field.ThesaurusId == targetField.ThesaurusId && targetField.Type == field.Type) 
                         {
                             matchedFieldCounter++;
                             break;
@@ -156,5 +161,13 @@ namespace sReportsV2.Domain.Entities.Form
             return result;
         }
 
+        public void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
+        {
+            this.ThesaurusId = this.ThesaurusId == oldThesaurus ? newThesaurus : this.ThesaurusId;
+            foreach (Field field in this.Fields)
+            {
+                field.ReplaceThesauruses(oldThesaurus, newThesaurus);
+            }
+        }
     }
 }

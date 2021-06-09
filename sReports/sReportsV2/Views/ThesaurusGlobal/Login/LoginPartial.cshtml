@@ -1,0 +1,37 @@
+﻿
+    <div id="loginPartial" class="registration-part" style="display:@(ViewBag.IsLogin ? "" : "none")">
+        <div class="registration-title">Log in</div>
+
+        <form id="registrationForm" onsubmit="return loginUser(this, event)">
+            <div class="sub-title">
+                Please fill in the form bellow
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-100">
+                    <div class="input-title">
+                        Username (email)
+                    </div>
+                    <input type="text" id="username" required />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-100">
+                    <div class="input-title">
+                        Password
+                    </div>
+                    <input type="password" id="password" required />
+                </div>
+            </div>
+            @if(Html.ValidationMessage("General") != null)
+            {
+                <div>@Html.ValidationMessage("General")</div>
+            }
+            <div class="input-row">
+                <div class="go-to-link" onclick="goToRegister()">Register</div>
+                <button class="login-button register-btn" id="loginButton" type="submit">Login</button>
+            </div>
+        </form>
+
+    </div>
+
+

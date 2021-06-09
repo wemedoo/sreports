@@ -12,16 +12,16 @@
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - sReports by niAnalytics</title>
+    <title>@ViewBag.Title - sReports by weMedoo</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
     <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/sReports/bootstrap-treeview.js"></script>
     <style>
-
     </style>
 </head>
 @{
@@ -31,30 +31,32 @@
 
 <body class="sidebar-shrink">
     <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
-
-        <div class="header-wrapper-simplified">
+        <img id="notFound" src="~/Content/img/icons/no_results.svg" hidden>
+        <img id="deleteIcon" src="~/Content/img/icons/remove.svg" hidden>
+        <img id="editIcon" src="~/Content/img/icons/edit.svg" hidden>
+        <div class="header-wrapper-simplified color-header header-wrapper-height">
             <button class="menu-btn-md" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>
             <div class="navbar-brand col-5  col-sm-2 col-md-1">
-                <a class="logo-link" href="#">
-                    <img src="~/Content/img/niAnalytics-logo.png">
+                <a class="logo-link color-text layout-header-group" href="#">
+                    <img class="navbar-logo" src="~/Content/img/icons/weMedoo-logo.png">
                     sReports
                 </a>
             </div>
             <div class="mobile-hidden">
                 <ul class="inline-list">
-                    @foreach (sReportsV2.Models.Common.EnumViewModel language in (ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>).Where(x => !x.Value.Equals("it")))
+                    @foreach (sReportsV2.DTOs.EnumDTO language in (ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>).Where(x => !x.Value.Equals("it")))
                     {
                         if (language.Value.Equals((ViewBag.Language as string)))
                         {
-                            <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="language active">
+                            <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="crf-language active">
                                 <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
                             </li>
                         }
                         else
                         {
-                            <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="language">
+                            <li onclick="setActiveLanguage(event, '@language.Value')" data-value="@language.Value" class="crf-language">
                                 <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
                             </li>
                         }
@@ -70,7 +72,7 @@
                         <span> Select language </span>
                     </a>
                     <ul class="dropdown-menu level-1" aria-labelledby="navbarDropdown">
-                        @foreach (sReportsV2.Models.Common.EnumViewModel language in (ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>).Where(x => !x.Value.Equals("it")))
+                        @foreach (sReportsV2.DTOs.EnumDTO language in (ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>).Where(x => !x.Value.Equals("it")))
                         {
                             if (ViewBag != null && language.Value.Equals((ViewBag.Language as string)))
                             {
@@ -114,20 +116,26 @@
             <div class="sidebar" id="sidebar">
                 <ul class="nav flex-column flex-nowrap">
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="http://c19.nianalytics.com/">
-                            <i class="fas fa-chart-line"></i>
+                        <a class="nav-link  d-flex nav-link-remove-padding" target="_blank" href="http://c19.nianalytics.com/">
+                            <div class="sidebar-img">
+                            <i class="fas fa-chart-line crf-fa-icon"></i>
+                            </div>
                             <span> Graph </span>
                         </a>
                     </li>
                     <li class="nav-item @(((action.ToLower().Equals("instructions")) && controller.ToLower().Equals("crf")) ? "active" : "")">
-                        <a class="nav-link" href="~/CRF/Instructions?language=@ViewBag.Language">
-                            <i class="fas fa-info"></i>
+                        <a class="nav-link d-flex nav-link-remove-padding" href="~/CRF/Instructions?language=@ViewBag.Language">
+                            <div class="sidebar-img">
+                                <i class="fas fa-info w-100 crf-fa-icon"></i>
+                            </div>
                             <span> Instructions </span>
                         </a>
                     </li>
                     <li class="nav-item @(((action.ToLower().Equals("create")) && controller.ToLower().Equals("crf")) ? "active" : "")">
-                        <a class="nav-link" href="~/crf/create?id=14573&language=@ViewBag.Language">
-                            <i class="fas fa-plus"></i>
+                        <a class="nav-link d-flex nav-link-remove-padding" href="~/crf/create?id=14573&language=@ViewBag.Language">
+                            <div class="sidebar-img">
+                                <i class="fas fa-plus crf-fa-icon"></i>
+                            </div>
                             <span> Data capture </span>
                         </a>
                     </li>
@@ -143,8 +151,10 @@
                         }
                     }
                     <li class="nav-item @(((action.ToLower().Equals("getallbyformthesaurus")) && controller.ToLower().Equals("forminstance")) ? "active" : "")">
-                        <a class="nav-link" href="~/@("FormInstance/GetAllByFormThesaurus?ThesaurusId=" + current + "&IsSimplifiedLayout=True&Language="+  ViewBag.Language ?? "en")">
-                            <i class="fas fa-list"></i>
+                        <a class="nav-link d-flex nav-link-remove-padding" href="~/@("FormInstance/GetAllByFormThesaurus?ThesaurusId=" + current + "&IsSimplifiedLayout=True&Language="+  ViewBag.Language ?? "en")">
+                            <div class="sidebar-img">
+                                <i class="fas fa-list crf-fa-icon"></i>
+                            </div>
                             <span> Data </span>
                         </a>
                     </li>
@@ -160,6 +170,9 @@
         </div>
     </div>
     <script>
+        var noResultFound = '@sReportsV2.Resources.TextLanguage.NoResultFound';
+        var deleteItem = '@sReportsV2.Resources.TextLanguage.Delete';
+        var editItem = '@sReportsV2.Resources.TextLanguage.Edit';
         var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 20)';
         var simplifiedApp = "/CRF/Edit";
     </script>

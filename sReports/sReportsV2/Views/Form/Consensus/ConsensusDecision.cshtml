@@ -1,0 +1,50 @@
+﻿@using sReportsV2.Common.Enums;
+
+<div class="consensus-visible consensus-container">
+    <div class="consensus-proceed">
+        <div class="proceed-half">
+            <div class="proceed-half-title">
+                Do you want to apply same question for form elements?
+            </div>
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>One question for whole form</span>
+                    <input name="@FormItemLevel.Form.ToString()" class="form-checkbox-field consensus-checkbox" type="checkbox" value="" />
+                    <i class="form-checkbox-button table-checkbox top-0"></i>
+                </label>
+                @foreach (var option in Enum.GetNames(typeof(FormItemLevel)).Where(x => x != FormItemLevel.Form.ToString()))
+                {
+                    <label class="form-checkbox-label">
+                        <span>Same question must be answered for every @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)</span>
+                        <input data-same="true" name="@option" class="form-checkbox-field consensus-checkbox" type="checkbox" value="@option" />
+                        <i class="form-checkbox-button table-checkbox top-0"></i>
+                    </label>
+                }
+            </div>
+        </div>
+        <div class="proceed-half">
+            <div class="proceed-half-title">
+                Does consensus-finding process require different questions for form elements?
+            </div>
+            <div class="checkbox-group">
+                @foreach (var option in Enum.GetNames(typeof(FormItemLevel)).Where(x => x != FormItemLevel.Form.ToString()))
+                {
+                    <label class="form-checkbox-label">
+                        <span>Every @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option) has unique question</span>
+                        <input data-same="false" name="@option" class="form-checkbox-field consensus-checkbox" type="checkbox" value="@option" />
+                        <i class="form-checkbox-button table-checkbox top-0"></i>
+                    </label>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="button-partial margin-top-15">
+        <button class="submit-patient right-button" type="submit" style="outline: none;" onclick="proceed()">
+            <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Proceed</span>
+        </button>
+        <i class="angle-left fas fa-angle-left"></i>
+        <div class="text-underline right-button" type="button" onclick="cancelConsensus()">
+            <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
+        </div>
+    </div>
+</div>

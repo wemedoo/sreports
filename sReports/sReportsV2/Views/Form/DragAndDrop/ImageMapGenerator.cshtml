@@ -1,0 +1,88 @@
+﻿@using sReportsV2.Common.Extensions;
+@{
+    string mapId = Model.ImageMap != null ? Model.ImageMap.MapId : GuidExtension.NewGuidStringWithoutDashes();
+}
+<div class="input-file-container">
+    <input type="file"
+           id="imgMapImgFile"
+           style="display: none"
+           data-id="imagemapUrl" />
+    <input type="hidden" id="imagemapUrl" value="@(Model != null && Model.ImageMap != null ? Model.ImageMap.Url.ToString() : "")" />
+    <div class="remove-file-icon">
+        <img src="~/Content/img/icons/close_black.svg" />
+    </div>
+</div>
+<div class="imagemap-generator">
+    <div class="imagemaps-wrapper" id="draggableContainer">
+        <img src="@(Model != null && Model.ImageMap != null ? Model.ImageMap.Url.ToString() : "")"
+             id="imageWithMap"
+             draggable="false"
+             usemap="#designer-@mapId"
+             style="display: @(Model != null && Model.ImageMap  != null && !string.IsNullOrEmpty(Model.ImageMap.Url.ToString()) ? "block" : "none");">
+        <map class="imagemaps"
+             id="designer-@mapId"
+             name="designer-@mapId">
+            @Html.Raw(Model != null && Model.ImageMap != null ? Model.ImageMap.Map : "")
+        </map>
+        <div class="file-upload-button" style="display: @(Model != null && Model.ImageMap  != null && !string.IsNullOrEmpty(Model.ImageMap.Url.ToString()) ? "none" : "block");">
+
+            <div>
+                <img src="~/Content/img/icons/browse_green.svg" />
+            </div>
+            <div>
+                Browse image
+            </div>
+
+        </div>
+    </div>
+    <div class="imagemaps-control" @(Html.Raw(Model.ImageMap != null && Model.ImageMap.Url != null ? "": "style='display:none'"))>
+        <div class="add-new-button-wrapper">
+            <button type="button" class="btn btn-add-new btn-add-map">Add New</button>
+        </div>
+
+        <fieldset>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="imagemaps-output">
+                    <tr class="item-###">
+                        <th scope="row">###</th>
+                        <td><select class="filter-input area-fieldset"></select></td>
+                        <td>
+                            <img class="btn-delete" src="~/Content/img/icons/close_black.svg" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+<script>
+    window['newTemplate'] = loadFieldSets($('.imagemaps-output'), $('#elementId').val());
+    localStorage.setItem('imageMapsItemTemplate', $(window['newTemplate']).html());
+
+    $(document).ready(function () {
+        $('.imagemaps-wrapper').imageMaps({
+            addBtn: '.btn-add-map',
+            // rectWidth: 100,
+            // rectHeight: 60,
+            // areaHref: '.area-href',
+            // areaTarget: '.area-target',
+            // btnDelete: '.btn-delete',
+            output: '.imagemaps-output',
+            stopCallBack: function (active, coords) {
+                // console.log(active);
+                // console.log(coords);
+            }
+        });
+
+        $('.btn-get-map').on('click', function () {
+            alert(getImageMapAreas());
+        });
+    })
+</script>

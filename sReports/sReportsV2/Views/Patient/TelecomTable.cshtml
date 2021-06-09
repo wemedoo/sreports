@@ -1,0 +1,46 @@
+﻿@using sReportsV2.DTOs.Common;
+
+<div class="person-margin">
+    <span class="identifiers-info identifier-padd">@sReportsV2.Resources.TextLanguage.Telecoms</span>
+    <button type="button" class="btn btn-add-new float-right" onclick="showTelecomModal(event,'@this.ViewData["Container"].ToString()')">
+        <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
+    </button>
+</div>
+
+<div class="identifier-line"></div>
+
+<div id="telecomsFor@(this.ViewData["Container"].ToString())" class="@(this.ViewData["TelecomsCount"] == null || this.ViewData["TelecomsCount"].ToString() == "0" ? "identifier-line-bottom" : "")">
+    <table class="codes-table">
+        <thead>
+            <tr>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Telecom_System</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Telecom_Value</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Telecom_Use</span></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody class="identifer-table text-table">
+            @if (this.ViewData.ContainsKey("Telecoms") && this.ViewData["Telecoms"] != null)
+            {
+                foreach (TelecomDTO telecom in this.ViewData["Telecoms"] as List<TelecomDTO>)
+                {
+                    <tr data-value="@telecom.Id">
+                        <td title="@telecom.System" data-property="system" data-value="@telecom.System" class="custom-td-first">
+                            @telecom.System
+                        </td>
+                        <td title="@telecom.Value" data-property="value" data-value="@telecom.Value" class="custom-td">
+                            @telecom.Value
+                        </td>
+                        <td title="@telecom.Use" data-property="use" data-value="@telecom.Use" class="custom-td">
+                            @telecom.Use
+                        </td>
+                        <td class="custom-td-last"></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+

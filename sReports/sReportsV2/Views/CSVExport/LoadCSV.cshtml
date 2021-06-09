@@ -1,0 +1,28 @@
+﻿<div>
+    <div class="margin-down">
+        <div>
+            <label for="file">Upload first CSV:</label>
+        </div>
+        <div class="csvUpload input.upload margin-down">
+            <input id="uploadFile" class="f-input" placeholder="No Content" />
+            <button type="button" class="fileUpload btn upload-button" style="width: 10%; background-color:#1c94a3"><span style="color:white">Choose file</span></button>
+            <input id="file" name="file" type="file" class="upload upload-input" />
+        </div>
+    </div>
+    <div class="margin-down">
+        <div>
+            <label for="file">Upload second CSV:</label>
+        </div>
+        <div class="csvUpload input.upload margin-down">
+            <input id="uploadFile2" class="f-input" placeholder="No Content" />
+            <button type="button" class="fileUpload btn upload-button" style="width: 10%; background-color:#1c94a3"><span style="color:white">Choose file</span></button>
+            <input id="file2" name="file2" type="file" class="upload upload-input"/>
+        </div>
+    </div>
+    <div>
+        <button type="button" class="export-button" onclick="exportCSV(event)"><span class="export">Export to CSV</span></button>
+    </div>
+</div>
+
+
+<script src="~/Scripts/sReports/export_csv.js"></script>

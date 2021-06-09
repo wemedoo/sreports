@@ -7,7 +7,7 @@ namespace CTCAE.Models
 {
     public class SelectItemModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Label { get; set; }
         public List<CTCAEModel> DefaultList { get; set; } = new List<CTCAEModel>();
     }

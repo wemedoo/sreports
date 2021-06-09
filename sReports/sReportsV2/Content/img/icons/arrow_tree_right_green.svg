@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow_tree_4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-3.5%" y="-4.0%" width="107.0%" height="111.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.820764243   0 0 0 0 0.820764243   0 0 0 0 0.820764243  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-dynamic-form-final-a" transform="translate(-228.000000, -218.000000)" fill-rule="nonzero">
+            <g id="Group-5" transform="translate(76.000000, 223.000000)">
+                <g id="Group-3" filter="url(#filter-1)">
+                    <g id="arrow_tree_4" transform="translate(159.000000, 0.000000)">
+                        <circle id="Oval" fill="#1C94A3" cx="7.5" cy="7.5" r="7.5"></circle>
+                        <g id="left-and-right-arrows" transform="translate(6.000000, 4.000000)" fill="#FFFFFF">
+                            <path d="M3.89139428,3.38051994 L0.86147609,0.117153519 C0.791397781,0.0416148378 0.697849327,0 0.598101212,0 C0.498353097,0 0.404804642,0.0416148378 0.334726333,0.117153519 L0.111593896,0.357422568 C-0.0335999478,0.513984981 -0.0335999478,0.768443617 0.111593896,0.924767549 L2.65589043,3.66514635 L0.108770836,6.40856578 C0.0386925263,6.48410447 0,6.58480283 0,6.69217865 C0,6.79967372 0.0386925263,6.90037208 0.108770836,6.97597039 L0.331903273,7.21617981 C0.402036937,7.2917185 0.495530037,7.33333333 0.595278152,7.33333333 C0.695026267,7.33333333 0.788574721,7.2917185 0.858653031,7.21617981 L3.89139428,3.94983239 C3.96163865,3.87405522 4.00022047,3.7728799 3.99999905,3.66532521 C4.00022047,3.55735319 3.96163865,3.45623748 3.89139428,3.38051994 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

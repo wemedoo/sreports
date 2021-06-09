@@ -1,0 +1,45 @@
+﻿
+<form id="sessionBreakForm" name="SessionBreakForm" onsubmit="return false">
+    <div class="modal fade" id="sessionBreakModal" tabindex="-1" role="dialog" aria-labelledby="sessionBreakModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-session">
+                <div class="float-right filter-close-btn">
+                    <img id="sessionBreakBtn" class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body session-modal-body" id="sessionBreakModalContent">
+                    <img class="ml-auto mr-auto d-block" src="~/Content/img/icons/session_time.svg">
+                    <div class="session-break">
+                        @sReportsV2.Resources.TextLanguage.SessionBreak
+                    </div>
+                    <div class="session-expiration">
+                        @sReportsV2.Resources.TextLanguage.SessionExpiration
+                    </div>
+                    <div class="d-flex ml-auto mr-auto width-fc">
+                        <div id="seconds">
+
+                        </div>
+                        <div class="sec">/sec</div>
+                    </div>
+                    <div id="secondsLine" class="seconds-line">
+                        <div id="remainingSeconds"></div>
+                        <div id="expiredSeconds"></div>
+                    </div>
+                    <div class="session-info mt-4">
+                        @sReportsV2.Resources.TextLanguage.SessionInfo
+                    </div>
+                    <div class="d-flex mt-3 position-relative margin-top-10">
+                        <div class="button-wrapper-filter filter-button width-100px right-0" id="submitFilterButton"onclick="continueSession()">
+                            <button class="btn btn-filter-primary w-100 h-100"> @sReportsV2.Resources.TextLanguage.Continue</button>
+                        </div>
+                        <div id="sessionBreakLogout" class="button-wrapper-filter cancel-filter-btn float-right right-102" onclick="logout(event)">
+                            <a class="btn advanced-cancel" data-dismiss="modal">
+                                @sReportsV2.Resources.TextLanguage.Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

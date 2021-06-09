@@ -2,7 +2,6 @@
 using sReportsV2.Domain.Entities.DocumentProperties;
 using sReportsV2.DTOs.DocumentProperties.DataIn;
 using sReportsV2.DTOs.DocumentProperties.DataOut;
-using sReportsV2.Models.Common;
 
 namespace sReportsV2.MapperProfiles
 {
@@ -10,15 +9,13 @@ namespace sReportsV2.MapperProfiles
     {
         public DocumentPropertiesProfile()
         {
-            CreateMap<Domain.Entities.Common.Version, VersionViewModel>()
-                .ReverseMap();
-
             /*DATA Out*/
             CreateMap<DocumentProperties, DocumentPropertiesDataOut>();
             CreateMap<DocumentPurpose, DocumentPurposeDataOut>();
             CreateMap<DocumentGeneralPurpose, DocumentGeneralPurposeDataOut>();
             CreateMap<DocumentScopeOfValidity, DocumentScopeOfValidityDataOut>();
             CreateMap<DocumentClinicalContext, DocumentClinicalContextDataOut>();
+            CreateMap<DocumentClassDataOut, DocumentClass>();
 
             /*DATA IN*/
             CreateMap<DocumentPropertiesDataIn, DocumentProperties>();
@@ -26,6 +23,16 @@ namespace sReportsV2.MapperProfiles
             CreateMap<DocumentGeneralPurposeDataIn, DocumentGeneralPurpose>();
             CreateMap<DocumentScopeOfValidityDataIn, DocumentScopeOfValidity>();
             CreateMap<DocumentClinicalContextDataIn, DocumentClinicalContext>();
+            CreateMap<DocumentClassDataIn, DocumentClass>();
+
+
+            CreateMap<DocumentPropertiesDataIn, DocumentPropertiesDataOut>();
+            CreateMap<DocumentPurposeDataIn, DocumentPurposeDataOut>();
+            CreateMap<DocumentGeneralPurposeDataIn, DocumentGeneralPurposeDataOut>();
+            CreateMap<DocumentScopeOfValidityDataIn, DocumentScopeOfValidityDataOut>();
+            CreateMap<DocumentClinicalContextDataIn, DocumentClinicalContextDataOut>();
+            CreateMap<DocumentClassDataIn, DocumentClassDataOut>();
+
 
         }
     }

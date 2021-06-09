@@ -1,0 +1,140 @@
+﻿@using sReportsV2.DTOs.ThesaurusEntry.DTO
+@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+@{
+    ThesaurusEntryTranslationDTO translation = null;
+}
+@Html.Partial("~/Views/ThesaurusGlobal/Create/TranslationsTitle.cshtml", Model)
+
+
+<div class="language-input-create">
+    <div class="language-input-title input-label">
+        Language:
+    </div>
+    <div class="languages-select w-50">
+        <select class="languages-input" id="selectedLanguage" style="-webkit-appearance: none;">
+            @foreach (var language in ViewBag.Languages)
+            {
+                if (language.Value == "en")
+                {
+                    <option value="@language.Value" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                }
+                else
+                {
+                    <option value="@language.Value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                }
+            }
+        </select>
+        <img class="languages-arrow" />
+    </div>
+</div>
+
+<div class="translations-language-gt margin-top-20">
+
+    <div class="tab-content" id="myTabContent">
+        @foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages)
+        {
+            {
+                translation = Model != null ? Model.GetTranslation(language.Value) : null;
+            }
+        <div class="tab-pane fade @(language.Value == "en" ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
+            <input type="hidden" class="translation-id" value="@(translation != null ? translation.Id : 0)">
+
+            <div class="input-item" style="margin-bottom:20px !important;">
+                <div class="input-label">
+                    Preferred term:
+                </div>
+                <div class="translations-item-value input-value">
+                    <input class=" w-100 thesaurus-term"
+                              data-id="preferredTerm"
+                              value="@(translation != null ? translation.PreferredTerm : string.Empty)">
+                </div>
+            </div>
+            <div class="input-item">
+                <div class="input-label">
+                    Preferred Definition:
+                </div>
+                <div class="translations-item-value input-value">
+                    <textarea class="thesaurus-textarea w-100 thesaurus-definition"
+                              data-id="definition"
+                              value="@(translation != null ? translation.Definition : string.Empty)">@(translation != null ? translation.Definition : "")</textarea>
+                </div>
+            </div>
+
+            <div class="gt-items d-block">
+                <div class="translations-item-label d-flex input-item">
+                    <div class="d-inline-block input-label">Synonyms: </div>
+                    <div class="input-value input">
+                        <input type="text" class="add-input synonym-input input-value" />
+                        <img class="add-btn synonym-add" src="~/Content/img/icons/SwissOpenOncology/add.svg" />
+                    </div>
+                </div>
+                <div class="items-container items-container-create">
+                    @if (translation != null && translation.Synonyms != null)
+                    {
+                        foreach (var synonym in translation.Synonyms)
+                        {
+                            <div class="rounded-item synonym-color" data-value="@synonym">
+                                @synonym <div class="synonym-remove item-remove"></div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="gt-items d-block margin-top-20">
+                <div class="translations-item-label d-flex input-item">
+                    <div class="d-inline-block input-label">Abbreviations: </div>
+                    <div class="input-value input">
+                        <input type="text" class="add-input abbreviation-input input-value" />
+                        <img class="add-btn abbreviation-add" src="~/Content/img/icons/SwissOpenOncology/add.svg" />
+                    </div>
+                </div>
+                <div class="items-container items-container-create">
+
+                    @if (translation != null && translation.Abbreviations != null)
+                    {
+                        foreach (var abbreviation in translation.Abbreviations)
+                        {
+                            <div class="rounded-item abbreviation-color" data-value="@abbreviation">
+                                @abbreviation <div class="abbreviation-remove item-remove"></div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+
+</div>
+
+@if (Model != null && Model.Codes != null)
+{
+    <div class="codes-container">
+        <div class="codes-title">
+            <div>
+                Coding and Classification Systems:
+            </div>
+            <div class="codes-title-btns">
+                <div class="filter-vocabulary" onclick="openCodingSystemModal(event)">
+                    <img src="~/Content/img/icons/SwissOpenOncology/add_small.svg">Add C&C System
+                </div>
+                <div class="view-all">
+                    <img class="mr-2" src="~/Content/img/icons/SwissOpenOncology/browse.svg">Browse
+                </div>
+            </div>
+        </div>
+
+        <div id="codesTableContainer">
+
+        </div>
+    </div>
+
+}
+
+
+
+
+@Html.Partial("~/Views/ThesaurusGlobal/Create/CodesModal.cshtml")

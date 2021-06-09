@@ -2,6 +2,7 @@
     window.location.href = `/Patient/Edit?patientId=${id}`;
     event.preventDefault();
 }
+
 function createPatientEntry() {
     window.location.href = "/Patient/Create";
 }
@@ -10,6 +11,7 @@ function showEpisodeOfCares(id, event) {
     event.preventDefault();
     window.location.href = `/EpisodeOfCare/GetAll?IdentifierType=O4MtPatientId&IdentifierValue=${id}`;
 }
+
 function removePatientEntry(event, id, lastUpdate) {
     event.stopPropagation();
     $.ajax({
@@ -26,7 +28,10 @@ function removePatientEntry(event, id, lastUpdate) {
         }
     });
 }
+
 function reloadTable() {
+    $('#advancedFilterModal').modal('hide');
+    setFilterElements();
     setFilterFromUrl();
     let requestObject = getFilterParametersObject();
     requestObject.Page = getPageNum();
@@ -62,15 +67,14 @@ function getFilterParametersObject() {
         if ($('#city').val()) {
             result['City'] = $('#city').val().trim();
         }
-        if ($('#birthDate').val()) {
-            console.log(new Date($('#birthDate').val().trim()).toUTCString());
-            result['BirthDate'] = new Date($('#birthDate').val().trim()).toUTCString();
+        if ($('#BirthDateTemp').val()) {
+            result['BirthDate'] = new Date($('#BirthDateTemp').val().trim()).toLocaleDateString();
         }
-        if ($('#given').val()) {
-            result['Given'] = $('#given').val().trim();
+        if ($('#GivenTemp').val()) {
+            result['Given'] = $('#GivenTemp').val().trim();
         }
-        if ($('#family').val()) {
-            result['Family'] = $('#family').val().trim();
+        if ($('#FamilyTemp').val()) {
+            result['Family'] = $('#FamilyTemp').val().trim();
         }
         if ($('#postalCode').val()) {
             result['PostalCode'] = $('#postalCode').val().trim();
@@ -80,3 +84,55 @@ function getFilterParametersObject() {
     
     return result;
 }
+
+function advanceFilter() {
+    $('#FamilyTemp').val($('#family').val());
+    $('#GivenTemp').val($('#given').val());
+    $('#BirthDateTemp').val($('#birthDate').val());
+
+    $('#advancedId').children('div:first').addClass('btn-advanced');
+    $('#advancedId').find('button:first').removeClass('btn-advanced-link');
+    $('#advancedId').find('img:first').css('display', 'inline-block');
+
+    filterData();
+    //clearFilters();
+    
+}
+function mainFilter() {
+    $('#family').val($('#FamilyTemp').val());
+    $('#given').val($('#GivenTemp').val());
+    $('#birthDate').val(new Date($("#BirthDateTemp").val()).toLocaleDateString());
+
+    $('#advancedId').children('div:first').removeClass('btn-advanced');
+    $('#advancedId').find('button:first').addClass('btn-advanced-link');
+    $('#advancedId').find('img:first').css('display', 'none');
+
+    filterData();
+    //clearFilters();
+}
+
+function clearFilters() {
+    $('#family').val('');
+    $('#given').val('');
+    $('#birthDate').val('');
+    $('#identifierType').val('');
+    $('#identifierValue').val('');
+    $('#city').val('');
+    $('#country').val('');
+    $('#postalCode').val('');
+    $('#FamilyTemp').val('');
+    $('#GivenTemp').val('');
+    $('#BirthDateTemp').val('');
+}
+
+$('#mainFilterBirthCalendar').click(function () {
+    $("#BirthDateTemp").datepicker({
+        dateFormat: df
+    }).focus();
+});
+
+$('#advancedFilterBirthCalendar').click(function () {
+    $("#birthDate").datepicker({
+        dateFormat: df
+    }).focus();
+});

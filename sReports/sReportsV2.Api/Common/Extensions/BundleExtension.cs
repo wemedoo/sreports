@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using sReportsV2.Domain.Services.Implementations;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Api.Common.Extensions
 {
     public static class BundleExtension
     {
-        public static void AddProceduresIntoBundle(this Bundle bundle, FormInstance formInstance, string patientId, string basePath)
+        /*public static void AddProceduresIntoBundle(this Bundle bundle, FormInstance formInstance, string patientId, string basePath)
         {
             FormService service = new FormService();
             Form formm = service.GetForm(formInstance.FormDefinitionId);
@@ -32,7 +32,7 @@ namespace sReportsV2.Api.Common.Extensions
                         procedure.ReasonCode.Add(new CodeableConcept(ResourceTypes.O40MtId, reasonCode.ThesaurusId, reasonCode.Value, ""));
                     }
                 }
-                procedure.Performer.Add(new Procedure.PerformerComponent() { Actor = new ResourceReference(formInstance.UserRef) });
+                procedure.Performer.Add(new Procedure.PerformerComponent() { Actor = new ResourceReference(formInstance.UserId.ToString()) });
                 procedure.Subject = new ResourceReference(patientId);
                 procedure.Id = $"{"Procedure"}/{formInstance.Id.ToString()}.{field.Id.Replace('_', '-')}";
 
@@ -53,14 +53,14 @@ namespace sReportsV2.Api.Common.Extensions
                 observation.Status = ObservationStatus.Final;
                 observation.Code = new CodeableConcept("O40MtId", field.ThesaurusId, field.Label);
                 observation.Value = new FhirString(field.Value[0]);
-                observation.Performer.Add(new ResourceReference(formInstance.UserRef));
+                observation.Performer.Add(new ResourceReference(formInstance.UserId.ToString()));
                 observation.Subject = new ResourceReference(patientId);
                 observation.Id = $"{"Observation"}/{formInstance.Id.ToString()}.{field.Id.Replace('_', '-')}";
 
                 string path = $"{basePath}/{"api/Observation"}/{formInstance.Id}.{field.Id.Replace('_', '-')}";
                 bundle.AddResourceEntry(observation, path);
             }
-        }
+        }*/
 
     }
 }

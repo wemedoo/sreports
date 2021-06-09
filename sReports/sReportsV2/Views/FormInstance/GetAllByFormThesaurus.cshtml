@@ -9,7 +9,12 @@
 }
 @if (!ViewBag.FilterFormInstanceDataIn.IsSimplifiedLayout)
 {
-    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Engine }, { "linkLevel1", "/FormInstance/GetAllFormDefinitions" }, { "level2", ViewBag.FilterFormInstanceDataIn.Title != null ? ViewBag.FilterFormInstanceDataIn.Title : "" }, { "activeLevel", 2 } })
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { 
+    { "level1", sReportsV2.Resources.TextLanguage.Engine },
+    { "linkLevel1", "/FormInstance/GetAllFormDefinitions" },
+    { "level2", ViewBag.FilterFormInstanceDataIn.Title != null ? ViewBag.FilterFormInstanceDataIn.Title : "" },
+    { "activeLevel", 2 } 
+})
 
 }
 else
@@ -19,30 +24,32 @@ else
     </script>
 }
 <div class="d-none" id="thesaurusId">@ViewBag.FilterFormInstanceDataIn.ThesaurusId</div>
-<div class="table-container">
-    <div class="header">
+<div class="table-container border-0">
+    <div class="header header-new">
 
         @ViewBag.FilterFormInstanceDataIn.Title
-        @if (filterDataIn == null || !filterDataIn.IsSimplifiedLayout)
-        {
-            <div class="filter-button-collapse" data-toggle="collapse" data-target="#filterData" aria-expanded="false" aria-controls="filterData">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" /></svg>
-            </div>
-        }
-        @{ 
+       
+        @{
             string current = Request.Params["ThesaurusId"];
             string language = ViewBag.Language;
         }
-        <button class="btn btn-primary add-new-button" onclick="createFormInstance('@current', '@language')"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
-        <button class="btn btn-primary add-new-button " onclick="createPdfFormInstance('@ViewBag.FilterFormInstanceDataIn.FormId')"><i class="fas fa-plus-circle"></i> Create new patient using PDF tool</button>
-        <button class="btn btn-primary add-new-button " onclick="showUploadModal(event)"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.UploadPdf</button>
-        @if (filterDataIn == null || !filterDataIn.IsSimplifiedLayout)
-        {
-            <button class="btn btn-primary add-new-button wide" onclick="downloadJsons(event)"><i class="fas fa-plus-circle"></i>@sReportsV2.Resources.TextLanguage.Export_Patholink</button>
-            <button class="btn btn-primary add-new-button wide" onclick="downloadTxt(event)"><i class="fas fa-plus-circle"></i>@sReportsV2.Resources.TextLanguage.ExportToTxt</button>
-            @*<button class="btn btn-primary add-new-button wide" onclick="redirectToDistributionParams('@ViewBag.FilterFormInstanceDataIn.ThesaurusId')"><i class="fas fa-plus-circle"></i>Distribution parameters</button>*@
+        <div class="dropdown show float-right dropleft">
+            <a class="dropdown-button" href="#" role="button" id="dropdownMenuLink-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="btns" class="btn btn-filter-primary btns" style="height:unset"><img src="~/Content/img/icons/dropdown.svg" /></button>
+            </a>
+            <div class="dropdown-menu-customize dropdown-menu dropdown-shadow" aria-labelledby="dropdownMenuLink-group">
+                <a class="dropdown-item" href="#" onclick="createPdfFormInstance(event,'@ViewBag.FilterFormInstanceDataIn.FormId')"><i class="fas fa-plus mr-2"></i>Create new patient using PDF tool</a>
+                <a class="dropdown-item" href="#" onclick="showUploadModal(event)"><i class="fas fa-arrow-up mr-2"></i>@sReportsV2.Resources.TextLanguage.UploadPdf</a>
+                @if (filterDataIn == null || !filterDataIn.IsSimplifiedLayout)
+                {
+                    <a class="dropdown-item" href="#" onclick="downloadJsons(event)"><i class="fas fa-arrow-right mr-2 size"></i>@sReportsV2.Resources.TextLanguage.Export_Patholink</a>
+                    <a class="dropdown-item" href="#" onclick="downloadTxt(event)"><i class="fas fa-arrow-right mr-2"></i>@sReportsV2.Resources.TextLanguage.ExportToTxt</a>
+                }
 
-        }
+
+            </div>
+        </div>
+        <button class="btn btn-create float-right" style="margin-right:10px;" onclick="createFormInstance('@current', '@language')"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
 
     </div>
     @Html.Partial("FilterFormInstancesPartial")

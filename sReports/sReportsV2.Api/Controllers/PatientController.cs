@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -9,9 +8,8 @@ using sReportsV2.Api.DTOs.Patient.DataIn;
 using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Entities.OrganizationEntities;
 using sReportsV2.Domain.Entities.PatientEntities;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,21 +17,21 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
-using static Hl7.Fhir.Model.OperationOutcome;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using sReportsV2.Api.Common.Extensions;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public class PatientController : CommonController
+    public class PatientController //: CommonController
     {
-        private readonly IPatientService patientService;
+       /* private readonly IPatientService patientService;
 
         public PatientController(IMapper mapper,
             IFormInstanceService formInstanceService,
@@ -209,7 +207,7 @@ namespace sReportsV2.Api.Controllers
             }
 
             return Ok(patients);
-        }
+        }*/
 
     }
 }

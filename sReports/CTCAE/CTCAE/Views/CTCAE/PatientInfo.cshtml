@@ -1,0 +1,20 @@
+﻿@model CTCAE.Models.Patient
+<div class="form-row position">
+    <div class="patient-margin">
+        <label class="pat-ID">Patient ID:</label>
+        <span class="pat-ID pat-ID-input">@(Model != null && Model.PatientId != null ? Model.PatientId : "")</span>
+    </div>
+    <div class="date-margin">
+        <label class="date">Date:</label>
+        <span class="date date-input">@(Model != null && Model.Date != null ? Model.Date.Value.ToString("MM/dd/yyyy") : "")</span>
+    </div>
+    <div>
+        <label class="visit-no">Visit No:</label>
+        <span class="visit-no visit-no-input">@(Model != null && Model.VisitNo != null ? Model.VisitNo : "")</span>
+    </div>
+    <input type="hidden" id="selectId" name="selectId" value="@(Model.SelectItems.Find(x => x.Id == Model.SelectId).Id)" />
+</div>
+
+<div class="ambulatory-Toxicity-center">
+    <div class="ambulatory-Toxicity amb-margin">Ambulatory Toxicity Evaluation—CTCAE V5</div>
+</div>

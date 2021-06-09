@@ -1,4 +1,5 @@
-﻿using sReportsV2.Domain.Extensions;
+﻿using sReportsV2.Common.Extensions;
+using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

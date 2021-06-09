@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.User_Administration;
+}
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Users }, { "activeLevel", 1 } })
+
+    <div class="table-container border-0">
+        <div class="header header-new">
+            @sReportsV2.Resources.TextLanguage.Users
+            <button class="btn btn-create float-right" onclick="createUserEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        </div>
+        <div id="tableContainer">
+
+        </div>
+
+    </div>
+
+@Scripts.Render("~/bundles/userGetAll")

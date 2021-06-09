@@ -1,14 +1,22 @@
-﻿@using sReportsV2.Models.Umls;
+﻿@using sReportsV2.DTOs.Umls.DatOut
 
-@if (Model != null && (Model.Result.Results[0] as ConceptSearchResultViewModel).Ui != "NONE")
+@if (Model != null && (Model.Result.Results[0] as ConceptSearchResultDataOut).Ui != "NONE")
 {
-    foreach (ConceptSearchResultViewModel concept in Model.Result.Results as List<ConceptSearchResultViewModel>)
+    foreach (ConceptSearchResultDataOut concept in Model.Result.Results as List<ConceptSearchResultDataOut>)
     {
-        <tr class="table-row" onclick="loadDetails(event,'@concept.Ui')">
-            <td data-field="ui">@concept.Ui</td>
-            <td data-field="rootSource">@concept.RootSource</td>
-            <td data-field="name">@concept.Name</td>
-        </tr>
+    <tr class="table-content-row" onclick="loadDetails(event,'@concept.Ui')">
+        <td class="umls-elements-bold size-14" data-field="ui">@concept.Ui</td>
+        <td class="umls-element" data-field="rootSource">@concept.RootSource</td>
+        <td class="umls-element" data-field="name">@concept.Name</td>
+        <td class="umls-element td-select" data-field="select" style="padding-right: 48px">
+            <div class="select-button unselect select-definition">
+                @sReportsV2.Resources.TextLanguage.Unselect
+            </div>
+            <div class="select-button select-definition">
+                @sReportsV2.Resources.TextLanguage.Select
+            </div>
+        </td>
+    </tr>
     }
 
     <script>

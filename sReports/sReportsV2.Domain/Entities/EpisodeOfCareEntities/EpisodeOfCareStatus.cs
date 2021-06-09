@@ -1,4 +1,4 @@
-﻿using sReportsV2.Domain.Enums;
+﻿using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

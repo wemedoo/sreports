@@ -1,18 +1,28 @@
-﻿@using sReportsV2.Models.Umls
+﻿@using sReportsV2.DTOs.Umls.DatOut
     <ul class="list-group">
         @if (Model.Result.Count > 0)
         {
-            foreach (ConceptDefinitionViewModel definition in Model.Result)
+            foreach (ConceptDefinitionDataOut definition in Model.Result)
             {
-                <li class="list-group-item single-definition" onclick="selectDefinition(event)">
-                    <span class="root-source" data-field="rootSource">@definition.RootSource:</span> <span> @Html.Raw(definition.Value)</span>
+                <li class="list-group-item single-definition display-flex" onclick="selectDefinition(event)">
+                    <span class="root-source source-root" data-field="rootSource">@definition.RootSource:</span>
+                    <span class="source-definition"> @Html.Raw(definition.Value)</span>
+                    <div class="select-position">
+                        <div class="select-button unselect select-definition">
+                            @sReportsV2.Resources.TextLanguage.Unselect
+                        </div>
+                        <div class="select-button select-definition" id="selectDefinition">
+                            @sReportsV2.Resources.TextLanguage.Select
+                        </div>
+                    </div>
+                  
                 </li>
             }
         }
         else
         {
-            <li class="list-group-item single-definition" onclick="selectDefinition(event)">
-                NO_RESULT
+            <li class="list-group-item single-definition">
+                @sReportsV2.Resources.TextLanguage.No_Result
             </li>
         }
     </ul>

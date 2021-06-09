@@ -1,0 +1,99 @@
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+
+
+    <div class="thesaurus-preview-container">
+        
+        <table class="table table-striped table-sreports search-thesaurus-table" style="height:11%;">
+            <thead>
+                <tr>
+                    <th>Preview</th>
+                    <th>Select</th>
+                    <th>
+                        <img onclick="closeThesaurusPreview()" class="set-right mr-2" src="~/Content/img/icons/close_black.svg">
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <div class="thesaurus-properties" style="max-height:unset !important; height:89%;">
+            <div class="d-flex mb-3">
+                <div class="o4mtid-preview">@Model.Id</div>
+                <div class="ml-auto d-flex">
+                    <div class="right-button" type="button" onclick="closeThesaurusPreview()">
+                        <span class="close-btn">@sReportsV2.Resources.TextLanguage.Close</span>
+                    </div>
+                    <div data-o4mtid="@Model.Id">
+                        <div class="select-button selected @(Model.Id == ViewBag.ActiveThesaurus ?"":"hide")">Select</div>
+                        <div class="select-button @(Model.Id == ViewBag.ActiveThesaurus ?"hide":"")">Select</div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="property">
+                <div class="key">
+                    Preferred term
+                </div>
+                <div class="value">
+                    @(Model != null ? Model.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
+                </div>
+            </div>
+            <div class="property">
+                <div class="key">
+                    Definition
+                </div>
+                <div class="value">
+                    @(Model != null ? Model.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
+                </div>
+            </div>
+            <div class="property">
+                <div class="key">
+                    Synonims
+                </div>
+                <div class="value">
+                    @if (Model != null)
+                    {
+                        foreach (string synonim in Model.GetSynonymsListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
+                        {
+                            <div class="tag">
+                                @synonim
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+            <div class="property">
+                <div class="key">
+                    Abbreviations
+                </div>
+                <div class="value">
+                    @if (Model != null)
+                    {
+                        foreach (string abbreviation in Model.GetAbbreviationListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
+                        {
+                            <div class="tag">
+                                @abbreviation
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="property">
+                <div class="key">
+                    Similar terms
+                </div>
+                <div class="value">
+                    @if (Model != null)
+                    {
+                        foreach (var st in Model.GetSimilarTermsListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
+                        {
+                            <div class="tag">
+                                @st.Name
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+

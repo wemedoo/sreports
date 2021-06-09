@@ -1,0 +1,119 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+@model List<OutsideUserDataOut>
+<div class="outside-users">
+    <div class="c-user-filter-title d-flex">
+        <img class="user-filter-icon" src="~/Content/img/icons/select_users.svg">
+        <div class="ml-2">Select Users outside sReports system</div>
+    </div>
+    <div id="addedUsers" style="width:100%;">
+        @foreach (var user in Model)
+        {
+        <div class="outside-user" id="@user.Id">
+            <img src="../Content/img/icons/profile_silver.svg">
+            <div class="outside-user-item" data-modal-id="firstName" data-modal-value="@user.FirstName">
+                <div class="item-label" title="@user.FirstName">
+                    @sReportsV2.Resources.TextLanguage.FirstName
+                </div>
+                <div class="item-value color-green-primary">
+                    @user.FirstName
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="lastName" data-modal-value="@user.LastName">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.LastName
+                </div>
+                <div class="item-value color-green-primary" title="@user.LastName">
+                    @user.LastName
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="email" data-modal-value="@user.Email">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Email
+                </div>
+                <div class="item-value color-green-primary" title="@user.Email">
+                    @user.Email
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="institution" data-modal-value="@user.Institution">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Institution
+                </div>
+                <div class="item-value" title="@user.Institution">
+                    @user.Institution
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="institutionAddress" data-modal-value="@user.InstitutionAddress">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Institution  @sReportsV2.Resources.TextLanguage.Address
+                </div>
+                <div class="item-value" title="@user.InstitutionAddress">
+                    @user.InstitutionAddress
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="state" data-modal-value="@(user.Address != null ? user.Address.Country : string.Empty)">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Country
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.Country : string.Empty)">
+                    @(user.Address != null ? user.Address.Country : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="city" data-modal-value="@(user.Address != null ? user.Address.City : string.Empty)">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.City
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.City : string.Empty)">
+                    @(user.Address != null ? user.Address.City : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="postalCode" data-modal-value="@(user.Address != null ? user.Address.PostalCode : string.Empty)">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Postal_code
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.PostalCode : string.Empty)">
+                    @(user.Address != null ? user.Address.PostalCode : string.Empty)
+                </div>
+            </div>
+            <div class="outside-user-item" data-modal-id="street" data-modal-value="@(user.Address != null ? user.Address.Street : string.Empty)">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Street
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.Street : string.Empty)">
+                    @(user.Address != null ? user.Address.Street : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item" data-modal-id="streetNumber" data-modal-value="@(user.Address != null ? user.Address.StreetNumber : string.Empty)">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.StreetNumber
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.StreetNumber : string.Empty)">
+                    @(user.Address != null ? user.Address.StreetNumber : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-edit" onclick="editOutsideUser('@user.Id')">
+               <img src="~/Content/img/icons/edit_pencil_02.svg">
+                <div class="pl-2">Edit</div> 
+            </div>
+            <img class="remove-outside-user" onclick="deleteOutsideUser('@user.Id')" src="~/Content/img/icons/Administration_remove.svg">
+
+        </div>
+        }
+    </div>
+    <button class="btn btn-create float-right" onclick="openAddUserModal(event)">Add new user</button>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        updateNumberOfSelectedUsers();
+    });
+</script>

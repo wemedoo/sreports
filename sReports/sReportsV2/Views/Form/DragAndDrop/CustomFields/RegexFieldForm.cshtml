@@ -1,0 +1,31 @@
+﻿@using sReportsV2.DTOs.Field.DataOut
+@model FieldRegexDataOut
+    <div class="designer-form-section">
+        <div class="designer-form-section-title extended">
+            Regular expression settings
+        </div>
+        <div class="absolute-designer-form-input-group">
+            <div class="label filter-label d-inline-block green-label">
+                Predefined regular expression
+            </div>
+            <select class="filter-input" id="regexPredefined" name="regexPredefined" type="text">
+                <option value="">Select regular expression</option>
+                <option value="[abc]">A,B or C</option>
+                <option value="[DEF]">D,E or F</option>
+            </select>
+        </div>
+        <div class="designer-form-input-group">
+            <div class="label filter-label">
+                Regular expression
+            </div>
+            <input required class="designer-form-input" id="regex" name="regex" type="text" value="@(Model != null ? Model.Regex : "")" />
+            <img class="question-icon" src="~/Content/img/icons/regex_question.svg"/>
+        </div>
+        <div class="designer-form-input-group">
+            <div class="label filter-label">
+                Regular expression description
+            </div>
+            <textarea required class="designer-form-input" rows="4" id="regexDescription" name="regexDescription" value="@(Model != null ? Model.RegexDescription : "")">@(Model != null ? Model.RegexDescription : "")</textarea>
+        </div>
+    </div>
+

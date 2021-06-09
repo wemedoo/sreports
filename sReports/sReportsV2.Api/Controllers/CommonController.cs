@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Mvc;
 using sReportsV2.Api.Common.Extensions;
 using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Hl7.Fhir.Model.OperationOutcome;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Api.Controllers
 {
-    public class CommonController : ControllerBase
+    public class CommonController //: ControllerBase
     {
-        protected readonly IMapper mapper;
+        /*protected readonly IMapper mapper;
         protected readonly IFormInstanceService formInstanceService;
         protected readonly IEpisodeOfCareService episodeOfCareService;
         protected readonly IEncounterService encounterService;
@@ -115,7 +114,7 @@ namespace sReportsV2.Api.Controllers
             }
 
             return report;
-        }
+        }*/
 
     }
 }

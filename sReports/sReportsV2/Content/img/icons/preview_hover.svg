@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-thesaurus-preview" transform="translate(-680.000000, -1443.000000)">
+            <g id="Group-4" transform="translate(185.000000, 120.000000)">
+                <g id="Group" transform="translate(50.000000, 1282.000000)">
+                    <g id="Group-4" transform="translate(0.000000, 41.000000)">
+                        <g id="Group-2" transform="translate(445.000000, 0.000000)">
+                            <g id="Group-12" fill="#1C94A3">
+                                <rect id="Rectangle-9" x="0" y="0" width="25" height="25" rx="3"></rect>
+                            </g>
+                            <path d="M19.9480841,13.26 C18.71999,16.1391667 15.993139,18 13.0002917,18 C10.0074443,18 7.28059333,16.1391667 6.05249927,13.26 C5.98250024,13.095 5.98250024,12.9058333 6.05249927,12.7408333 C7.28059333,9.86083333 10.0074443,8 13.0002917,8 C15.993139,8 18.71999,9.86083333 19.9480841,12.74 C20.0173053,12.905 20.0173053,13.095 19.9480841,13.26 Z" id="Path" stroke="#1C94A3" fill="#FFFFFF" fill-rule="nonzero"></path>
+                            <circle id="Oval" fill="#1C94A3" fill-rule="nonzero" cx="13" cy="13" r="2"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

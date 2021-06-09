@@ -1,0 +1,64 @@
+﻿@model CTCAE.Models.Patient
+<div>
+    <div class="browse-and-add-addit-center">
+        <div class="browse-and-add-addit">
+            Browse and add additional adverse events
+        </div>
+    </div>
+    <div class="ctcae-inline letters-box">
+        <div class="a-b-c-d">
+            <div class="radiowrapper2">
+                <div id="group">
+                    @for (char letter = 'A'; letter <= 'Z'; letter++)
+                    {
+                        <input class="chk3" type="radio" name="group" id="@letter" value="@letter" />
+                        <label for="@letter" class="@letter letter" onclick="submitToList('@letter', 'existingTemplate')">@letter</label>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="items-inline symptoms">
+    <ul class="list-group list-desc">
+        <li class="search-letter">
+            @Model.FirstLetter
+        </li>
+        @foreach (var item in ViewBag.Models)
+        {
+            if (@item.CTCAETerm[0] == Model.FirstLetter)
+            {
+                if (Model.SelectItems.Find(x => x.Id == Model.SelectId).DefaultList.Any(s => s.CTCAETerm == @item.CTCAETerm))
+                {
+                    <li id="@item.MedDraCode" class="symptoms-active" value="@item.CTCAETerm" onclick="removeSympClass(this, '@item.MedDraCode', '@item.CTCAETerm')">
+                        <div class="browse-items" value="@item.CTCAETerm">
+                            <span class="check">
+                            </span>
+                            <input class="@item.MedDraCode" type="checkbox" name="chkbx" id="@item.MedDraCode" value="@item.CTCAETerm" />
+                            <label for="medDraCode+@item.MedDraCode" class="item-text item-list">@item.CTCAETerm</label>
+                            <span class="remove" id="remove">
+                            </span>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li value="@item.CTCAETerm">
+                        <div class="browse-items" value="@item.CTCAETerm">
+                            <span class="check">
+                            </span>
+                            <input class="chkbx" type="checkbox" name="chkbx" id="medDraCode+@item.MedDraCode" value="@item.CTCAETerm" onclick="addItemToList('@item.CTCAETerm', '@item.MedDraCode')" />
+                            <label for="medDraCode+@item.MedDraCode" id="@item.MedDraCode" class="item-text item-list">@item.CTCAETerm</label>
+                            <span class="remove" id="remove">
+                            </span>
+                        </div>
+                    </li>
+                }
+            }
+        }
+    </ul>
+
+    <div class="ctcae-done-button">
+        <button class="ctcae-done" id="doneButton" type="submit" onclick="submitItem()"><i class="done">Done</i></button>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut;
+@using sReportsV2.DTOs.DigitalGuideline.DataIn;
+
+
+@model sReportsV2.DTOs.Pagination.PaginationDataOut<GuidelineDataOut, GuidelineFilterDataIn>
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Designer;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.DigitalGuidelines }, { "activeLevel", 1 } })
+
+<div class="table-container border-0">
+    <div class="header header-new">
+        @sReportsV2.Resources.TextLanguage.DigitalGuidelines
+        <button class="btn btn-create float-right" onclick="redirectToCreate()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+    </div>
+    @Html.Partial("GuidelineFilterGroup")
+
+    <div id="tableContainer">
+
+    </div>
+</div>
+@Html.Partial("AdvancedFilterModal")
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>
+
+@Scripts.Render("~/bundles/digitalGuidelineTable")

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" />
   <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" />
@@ -19,11 +20,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>sReportsV2</RootNamespace>
     <AssemblyName>sReportsV2</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -71,8 +73,32 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.5.0.0\lib\net461\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.5.0.0\lib\net461\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=6.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core, Version=1.4.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.4.1\lib\netstandard2.0\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.1.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.1.1\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Security.KeyVault.Keys, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Security.KeyVault.Keys.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Keys.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Blobs, Version=12.6.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Blobs.12.6.0\lib\netstandard2.0\Azure.Storage.Blobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Storage.Common, Version=12.5.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Storage.Common.12.5.2\lib\netstandard2.0\Azure.Storage.Common.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.8.1.3\lib\net40\BouncyCastle.Crypto.dll</HintPath>
@@ -86,8 +112,51 @@
     <Reference Include="Crc32C.NET, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Crc32C.NET.1.0.5.0\lib\net20\Crc32C.NET.dll</HintPath>
     </Reference>
-    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
-      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
+    <Reference Include="DnsClient, Version=1.3.1.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.3.1\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.8\lib\net40\en-html2enml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Evernote, Version=1.0.5377.16918, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.8\lib\net40\Evernote.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EvernoteOAuthNet, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.8\lib\net40\EvernoteOAuthNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EvernoteSDK, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.8\lib\net40\EvernoteSDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hl7.Fhir.ElementModel, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.Fhir.ElementModel.1.9.0\lib\net45\Hl7.Fhir.ElementModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.R4.Core, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.Fhir.R4.1.9.0\lib\net45\Hl7.Fhir.R4.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.R4.Specification, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.Fhir.Specification.R4.1.9.0\lib\net45\Hl7.Fhir.R4.Specification.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.Serialization, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.Fhir.Serialization.1.9.0\lib\net45\Hl7.Fhir.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.Support, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.Fhir.Support.1.9.0\lib\net45\Hl7.Fhir.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.Support.Poco, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.Fhir.Support.Poco.1.9.0\lib\net45\Hl7.Fhir.Support.Poco.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.FhirPath, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.FhirPath.1.9.0\lib\net45\Hl7.FhirPath.dll</HintPath>
     </Reference>
     <Reference Include="itext.barcodes, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.barcodes.dll</HintPath>
@@ -116,8 +185,8 @@
     <Reference Include="itext.svg, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.svg.dll</HintPath>
     </Reference>
-    <Reference Include="JsonSubTypes, Version=1.6.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
-      <HintPath>..\packages\JsonSubTypes.1.6.0\lib\net47\JsonSubTypes.dll</HintPath>
+    <Reference Include="JsonSubTypes, Version=1.8.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonSubTypes.1.8.0\lib\net47\JsonSubTypes.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -137,25 +206,115 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.12.0.21496, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.12.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.2.3.2\lib\net452\Microsoft.Azure.KeyVault.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.WebKey, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.WebKey.2.0.7\lib\net452\Microsoft.Azure.KeyVault.WebKey.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Services.AppAuthentication, Version=1.6.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Services.AppAuthentication.1.6.1\lib\net461\Microsoft.Azure.Services.AppAuthentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Framework.16.9.0\lib\netstandard2.0\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Utilities.Core.16.9.0\lib\netstandard2.0\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Azure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Azure.1.0.1\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.1.0.1\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Graph, Version=3.25.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.3.25.0\lib\net461\Microsoft.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph.Core, Version=1.24.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.Core.1.24.0\lib\net45\Microsoft.Graph.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.27.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.27.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.0\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.3.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.3.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.3.0\lib\net461\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.5.3.0\lib\net461\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.1.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.1.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.4.1.1\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.7\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.3.0\lib\net46\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Bson.2.10.0\lib\net452\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.11.3\lib\net452\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.2.10.0\lib\net452\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.11.3\lib\net452\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.Core.2.10.0\lib\net452\MongoDB.Driver.Core.dll</HintPath>
+    <Reference Include="MongoDB.Driver.Core, Version=2.11.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.11.3\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver.Legacy, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.2.10.0\lib\net452\MongoDB.Driver.Legacy.dll</HintPath>
@@ -163,8 +322,14 @@
     <Reference Include="MongoDB.Libmongocrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Libmongocrypt.1.0.0\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.LinkedIn, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1328b8c16b108c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.Security.Providers.LinkedIn.2.26.0\lib\net45\Owin.Security.Providers.LinkedIn.dll</HintPath>
     </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -200,29 +365,76 @@
       <HintPath>..\packages\Snappy.NET.1.1.1.8\lib\net45\Snappy.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.CodeDom, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.4.4.0\lib\net461\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.5.0.0\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.3.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.1.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.TypeExtensions.4.1.0\lib\net462\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Resources.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Resources.Extensions.4.6.0\lib\netstandard2.0\System.Resources.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -230,9 +442,66 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Pkcs.4.7.0\lib\net461\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.4.5.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.7.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.7.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.0.1\lib\net46\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Cors, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -240,7 +509,6 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -274,220 +542,96 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Net.Http">
-    </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Thrift, Version=0.8.0.16918, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.8\lib\net40\Thrift.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TimeZoneConverter, Version=3.5.0.0, Culture=neutral, PublicKeyToken=e20ab7d0d9479841, processorArchitecture=MSIL">
+      <HintPath>..\packages\TimeZoneConverter.3.5.0\lib\net461\TimeZoneConverter.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsAdministrationValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsAuditLogAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsAutorizeAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsEncounterValidateAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsEpisodeOfCareValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsFormValidateAttribute.cs" />
-    <Compile Include="Common\Extensions\HttpSessionStateExtension.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsOrganizationValidateAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsPatientValidateAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsThesaurusValidateAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsUserValidateAttribute.cs" />
+    <Compile Include="Common\Extensions\ObjectExtension.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />
+    <Compile Include="Common\Extensions\HttpSessionStateExtension.cs" />
     <Compile Include="Common\JsonModelBinder\JsonNetModelBinder.cs" />
     <Compile Include="Common\Localization\SpokenLang.cs" />
+    <Compile Include="Common\MicrosoftAuthentificationHelper\GraphHelper.cs" />
+    <Compile Include="Common\MicrosoftAuthentificationHelper\SameSiteCookieManager.cs" />
     <Compile Include="Common\Singleton\SingletonDataContainer.cs" />
     <Compile Include="Configs\AutoMapperWebConfiguration.cs" />
     <Compile Include="Configs\SerilogConfiguration.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlobController.cs" />
+    <Compile Include="Controllers\ClinicalTrialsController.cs" />
     <Compile Include="Controllers\CRFController.cs" />
-    <Compile Include="Controllers\DFDController.cs" />
+    <Compile Include="Controllers\CSVExportController.cs" />
+    <Compile Include="Controllers\CustomController.cs" />
+    <Compile Include="Controllers\DiagnosticReportCommonController.cs" />
     <Compile Include="Controllers\DiagnosticReportController.cs" />
+    <Compile Include="Controllers\DigitalGuidelineController.cs" />
     <Compile Include="Controllers\EncounterController.cs" />
     <Compile Include="Controllers\EpisodeOfCareController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FormCommonController.cs" />
+    <Compile Include="Controllers\FormConsensusController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\FormDistributionController.cs" />
+    <Compile Include="Controllers\FormDragAndDropController.cs" />
+    <Compile Include="Controllers\FormInstanceCommonController.cs" />
+    <Compile Include="Controllers\FormInstanceController.cs" />
+    <Compile Include="Controllers\ImportDataController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatholinkController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
-    <Compile Include="Controllers\SimplifiedPageController.cs" />
-    <Compile Include="Controllers\UmlsController.cs" />
-    <Compile Include="Controllers\FormController.cs" />
-    <Compile Include="Controllers\FormInstanceController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ThesaurusEntryController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
+    <Compile Include="Controllers\SimplifiedPageController.cs" />
+    <Compile Include="Controllers\ThesaurusEntryController.cs" />
+    <Compile Include="Controllers\ThesaurusGlobalController.cs" />
+    <Compile Include="Controllers\ThesaurusMergeController.cs" />
+    <Compile Include="Controllers\UmlsController.cs" />
+    <Compile Include="Controllers\UserAdministrationController.cs" />
+    <Compile Include="Controllers\UserConfigurationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DTOs\Autocomplete\DataOut\AutocompletePaginatioDataOut.cs" />
-    <Compile Include="DTOs\CodeSystem\CodeSystemDataOut.cs" />
-    <Compile Include="DTOs\Common\DTO\AddressDTO.cs" />
-    <Compile Include="DTOs\Common\DataIn\DataIn.cs" />
-    <Compile Include="DTOs\Autocomplete\DataIn\AutocompleteDataIn.cs" />
-    <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteDataOut.cs" />
-    <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteResultDataOut.cs" />
-    <Compile Include="DTOs\Common\DataOut\EnumDataOut.cs" />
-    <Compile Include="DTOs\Common\DTO\CommunicationDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\ContactDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\KeyValueDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\NameDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\PeriodDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\ReferralInfoDTO.cs" />
-    <Compile Include="DTOs\CRF\DataOut\TreeJsonDataOut.cs" />
-    <Compile Include="DTOs\CRF\DataOut\TreeJsonState.cs" />
-    <Compile Include="DTOs\DfD\DataIn\DfdFormFilterDataIn.cs" />
-    <Compile Include="DTOs\DfD\DfDDataOut\DfDFormTableDataOut.cs" />
-    <Compile Include="DTOs\DfD\DfDDataOut\DoctorDataOut.cs" />
-    <Compile Include="DTOs\DfD\DfDDataOut\SurveySubmittedDataOut.cs" />
-    <Compile Include="DTOs\CTCAE\DataIn\CTCAEPatient.cs" />
-    <Compile Include="DTOs\CTCAE\DataIn\ReviewModel.cs" />
-    <Compile Include="DTOs\DiagnosticReport\DataIn\DiagnosticReportFilterDataIn.cs" />
-    <Compile Include="DTOs\EmailHelper\EmailSender.cs" />
-    <Compile Include="DTOs\Encounter\DataIn\EncounterFhirFilterDataIn.cs" />
-    <Compile Include="DTOs\EnumDTO\DataIn\EnumDataIn.cs" />
-    <Compile Include="DTOs\EnumDTO\DataOut\EnumDataOut.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareFhirFilterDataIn.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareFilterDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldCalculativeDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldCheckboxDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldDateDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldDatetimeDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldEmailDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldFileDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldNumericDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldRadioDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldRegexDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldSelectableDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldSelectDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldStringDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldTextAreaDataIn.cs" />
-    <Compile Include="DTOs\Field\DataIn\FieldTextDataIn.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldCalculativeDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldCheckboxDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldDateDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldDatetimeDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldEmailDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldFileDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldNumericDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldRadioDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldRegexDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldSelectableDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldSelectDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldStringDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldTextAreaDataOut.cs" />
-    <Compile Include="DTOs\Field\DataOut\FieldTextDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionFilterDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDependOnDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionSingleParameterDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldNormalDistributionParametersDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\FormFieldValueDistributionDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\RelatedVariable.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\SingleDependOnValuDataIn.cs" />
-    <Compile Include="DTOs\FormDistribution\DataIn\VariableDependentRelatedVariables.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionTableDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDependableValue.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionRelatedVariable.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionSingleParameterDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldNormalDistributionParametersDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\FormFieldValueDistributionDataOut.cs" />
-    <Compile Include="DTOs\FormDistribution\DataOut\SingleDependOnValueDataOut.cs" />
-    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceCovidFilterDataIn.cs" />
-    <Compile Include="DTOs\FormInstance\DataOut\FormInstancePerDomainDataOut.cs" />
-    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceReferralDataOut.cs" />
-    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceTableDataOut.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormPageImageMapDataIn.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormPageImageMapDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormStatusDataOut.cs" />
-    <Compile Include="DTOs\O4CodeableConcept\DataIn\O4CodeableConceptDataIn.cs" />
-    <Compile Include="DTOs\O4CodeableConcept\DataOut\O4CodeableConceptDataOut.cs" />
-    <Compile Include="DTOs\Organization\DataOut\OrganizationUsersCountDataOut.cs" />
-    <Compile Include="DTOs\Patient\DataIn\PatientFhirFilterDataIn.cs" />
-    <Compile Include="DTOs\Patient\DataIn\PatientFilterDataIn.cs" />
-    <Compile Include="DTOs\Patient\DataOut\PatientFormInstanceDataOut.cs" />
-    <Compile Include="DTOs\Patient\DataOut\PatientTableDataOut.cs" />
-    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryCountDataOut.cs" />
-    <Compile Include="DTOs\User\DataIn\UserDataDataIn.cs" />
-    <Compile Include="DTOs\User\DataIn\UserUpdatePageSizeDataIn.cs" />
-    <Compile Include="DTOs\User\DataOut\UserDataDataOut.cs" />
-    <Compile Include="DTOs\Common\DataOut\VersionDataOut.cs" />
-    <Compile Include="DTOs\Common\DTO\EnumDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\ServiceTypeDTO.cs" />
-    <Compile Include="DTOs\Common\DTO\TelecomDTO.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentClinicalContextDataIn.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentGeneralPurposeDataIn.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentPropertiesDataIn.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentPurposeDataIn.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataIn\DocumentScopeOfValidityDataIn.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentClinicalContextDataOut.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentGeneralPurposeDataOut.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentPropertiesDataOut.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentPurposeDataOut.cs" />
-    <Compile Include="DTOs\DocumentProperties\DataOut\DocumentScopeOfValidityDataOut.cs" />
-    <Compile Include="DTOs\Encounter\DataIn\EncounterDataIn.cs" />
-    <Compile Include="DTOs\Encounter\DataOut\EncounterDataOut.cs" />
-    <Compile Include="DTOs\Encounter\DataIn\EncounterFilterDataIn.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataIn\EpisodeOfCareDataIn.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataOut\DiagnosticReportCreateDataOut.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataOut\DiagnosticReportDataOut.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataOut\EpisodeOfCareDataOut.cs" />
-    <Compile Include="DTOs\EpisodeOfCare\DataOut\EpisodeOfCareListFormsDataOut.cs" />
-    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceDataIn.cs" />
-    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceFilterDataIn.cs" />
-    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceDataOut.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormAboutDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormChapterDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormEpisodeOfCareDataDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormFieldDependableDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormFieldSetDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormFieldValueDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormFilterDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormHelpDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormLayoutStyleDataIn.cs" />
-    <Compile Include="DTOs\Form\DataIn\FormPageDataIn.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormAboutDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormChapterDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormEpisodeOfCareDataDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormEpisodeOfCareDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormFieldDependableDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormFieldSetDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormFieldValueDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormHelpDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormLayoutStyleDataOut.cs" />
-    <Compile Include="DTOs\Form\DataOut\FormPageDataOut.cs" />
-    <Compile Include="DTOs\Organization\DataIn\OrganizationDataIn.cs" />
-    <Compile Include="DTOs\Organization\DataIn\OrganizationFilterDataIn.cs" />
-    <Compile Include="DTOs\Organization\DataIn\IdentifierDataIn.cs" />
-    <Compile Include="DTOs\Organization\DataOut\OrganizationAutocompleteDataOut.cs" />
-    <Compile Include="DTOs\Organization\DataOut\OrganizationDataOut.cs" />
-    <Compile Include="DTOs\Organization\DataOut\IdentifierDataOut.cs" />
-    <Compile Include="DTOs\Pagination\PaginationDataOut.cs" />
-    <Compile Include="DTOs\Patient\DataIn\IdentifierTypeDataIn.cs" />
-    <Compile Include="DTOs\Patient\DataIn\PatientDataIn.cs" />
-    <Compile Include="DTOs\Patient\DataOut\IdentifierTypeDataOut.cs" />
-    <Compile Include="DTOs\Patient\DataOut\PatientDataOut.cs" />
-    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryCodingSystemDataIn.cs" />
-    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryDataIn.cs" />
-    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryFilterDataIn.cs" />
-    <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryTranslationDataIn.cs" />
-    <Compile Include="DTOs\ThesaurusEntry\DataOut\ThesaurusEntryTreeDataOut.cs" />
-    <Compile Include="DTOs\Umls\UmlsDataIn.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MapperProfiles\CommentProfile.cs" />
+    <Compile Include="MapperProfiles\CommonProfile.cs" />
+    <Compile Include="MapperProfiles\CustomEnumProfile.cs" />
+    <Compile Include="MapperProfiles\DigitalGuidelineProfile.cs" />
     <Compile Include="MapperProfiles\DocumentPropertiesProfile.cs" />
     <Compile Include="MapperProfiles\EncounterProfile.cs" />
     <Compile Include="MapperProfiles\EpisodeOfCareProfile.cs" />
@@ -495,34 +639,15 @@
     <Compile Include="MapperProfiles\FormDistributionProfile.cs" />
     <Compile Include="MapperProfiles\FormProfile.cs" />
     <Compile Include="MapperProfiles\FormInstanceProfile.cs" />
+    <Compile Include="MapperProfiles\GlobalThesaurusUserProfile.cs" />
     <Compile Include="MapperProfiles\OrganizationProfile.cs" />
     <Compile Include="MapperProfiles\PatientProfile.cs" />
+    <Compile Include="MapperProfiles\ThesaurusEntrySqlProfile.cs" />
     <Compile Include="MapperProfiles\ThesaurusEntryProfile.cs" />
     <Compile Include="MapperProfiles\UmlsProfile.cs" />
     <Compile Include="MapperProfiles\UserProfile.cs" />
-    <Compile Include="Models\Common\EnumViewModel.cs" />
-    <Compile Include="Models\Common\VersionViewModel.cs" />
-    <Compile Include="Models\Form\Tree\FormTreeChapterDataOut.cs" />
-    <Compile Include="Models\Form\Tree\FormTreeViewModel.cs" />
-    <Compile Include="Models\Form\Tree\FormTreeFieldViewModel.cs" />
-    <Compile Include="Models\Form\Tree\FormTreeFieldSetViewModel.cs" />
-    <Compile Include="Models\Form\Tree\FormTreeFieldValueViewModel.cs" />
-    <Compile Include="Models\Form\Tree\FormTreePageViewModel.cs" />
-    <Compile Include="Models\Form\Tree\TreeViewModel.cs" />
-    <Compile Include="Models\ThesaurusEntry\AdministrativeDataViewModel.cs" />
-    <Compile Include="Models\ThesaurusEntry\ThesaurusEntryCodingSystemViewModel.cs" />
-    <Compile Include="Models\ThesaurusEntry\ThesaurusEntryTranslationViewModel.cs" />
-    <Compile Include="Models\ThesaurusEntry\ThesaurusEntryViewModel.cs" />
-    <Compile Include="Models\Umls\AtomViewModel.cs" />
-    <Compile Include="Models\Umls\ConceptDefinitionViewModel.cs" />
-    <Compile Include="Models\Umls\ConceptResultViewModel.cs" />
-    <Compile Include="Models\Umls\ConceptSearchResultViewModel.cs" />
-    <Compile Include="Models\Umls\UmlsViewModel.cs" />
-    <Compile Include="Models\Umls\SearchResultViewModel.cs" />
-    <Compile Include="Models\Umls\SemanticTypeViewModel.cs" />
-    <Compile Include="Models\Common\UserDataViewModel.cs" />
-    <Compile Include="Models\User\UserCookieData.cs" />
-    <Compile Include="Models\User\UserModelView.cs" />
+    <Compile Include="Models\MicrosoftAuthentification\Alert.cs" />
+    <Compile Include="Models\MicrosoftAuthentification\CachedUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\TextLanguage.sr-Cyrl-RS.Designer.cs">
       <DependentUpon>TextLanguage.sr-Cyrl-RS.resx</DependentUpon>
@@ -545,19 +670,269 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SReportsResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="TokenStorage\SessionTokenStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\AppResource\fieldSetBackground.jpg" />
     <Content Include="App_Data\AppResource\footerIcons.png" />
     <Content Include="App_Data\AppResource\icon1.jpg" />
     <Content Include="App_Data\AppResource\insel.png" />
+    <Content Include="App_Data\domains.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="App_Data\SwissHospitals.csv" />
+    <Content Include="App_Data\countriesData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\serviceTypes.csv" />
+    <Content Include="App_Data\countries-50m.json" />
+    <None Include="Content\digital-guideline.scss" />
+    <Content Include="Content\digital-guideline.css">
+      <DependentUpon>digital-guideline.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\digital-guideline.min.css">
+      <DependentUpon>digital-guideline.css</DependentUpon>
+    </Content>
     <Content Include="Content\form_style_1.css" />
+    <Content Include="Content\img\avatar.jpg" />
+    <Content Include="Content\img\icons\3dots.png" />
+    <Content Include="Content\img\icons\3dots.svg" />
+    <Content Include="Content\img\icons\add.svg" />
+    <Content Include="Content\img\icons\adding_doc.svg" />
+    <Content Include="Content\img\icons\add_new.svg" />
+    <Content Include="Content\img\icons\add_relation.svg" />
+    <Content Include="Content\img\icons\Administration_remove.svg" />
+    <Content Include="Content\img\icons\administrative_data.svg" />
+    <Content Include="Content\img\icons\administrative_data_arrow_down.svg" />
+    <Content Include="Content\img\icons\administrative_data_arrow_up.svg" />
+    <Content Include="Content\img\icons\advanced_filter.svg" />
+    <Content Include="Content\img\icons\archive_1.svg" />
+    <Content Include="Content\img\icons\archive_black.svg" />
+    <Content Include="Content\img\icons\archive_green.svg" />
+    <Content Include="Content\img\icons\archive_white.svg" />
+    <Content Include="Content\img\icons\arrow.svg" />
+    <Content Include="Content\img\icons\arrow_back_black.svg" />
+    <Content Include="Content\img\icons\arrow_back_green.svg" />
+    <Content Include="Content\img\icons\arrow_combobox.svg" />
+    <Content Include="Content\img\icons\arrow_down.svg" />
+    <Content Include="Content\img\icons\arrow_left.svg" />
+    <Content Include="Content\img\icons\arrow_relation.svg" />
+    <Content Include="Content\img\icons\arrow_relation_legend.svg" />
+    <Content Include="Content\img\icons\arrow_right.svg" />
+    <Content Include="Content\img\icons\arrow_scroll_left.svg" />
+    <Content Include="Content\img\icons\arrow_scroll_right.svg" />
+    <Content Include="Content\img\icons\arrow_select_white.svg" />
+    <Content Include="Content\img\icons\arrow_tree_1.svg" />
+    <Content Include="Content\img\icons\arrow_tree_2.svg" />
+    <Content Include="Content\img\icons\arrow_tree_3.svg" />
+    <Content Include="Content\img\icons\arrow_tree_4.svg" />
+    <Content Include="Content\img\icons\arrow_tree_right_green.svg" />
+    <Content Include="Content\img\icons\arrow_up.svg" />
+    <Content Include="Content\img\icons\block.svg" />
+    <Content Include="Content\img\icons\browse.svg" />
+    <Content Include="Content\img\icons\browse_green.svg" />
+    <Content Include="Content\img\icons\calendar_green.svg" />
+    <Content Include="Content\img\icons\change_password.svg" />
+    <Content Include="Content\img\icons\chapter.svg" />
+    <Content Include="Content\img\icons\check.svg" />
+    <Content Include="Content\img\icons\clinical_research_green.svg" />
+    <Content Include="Content\img\icons\clinical_research_silver.svg" />
+    <Content Include="Content\img\icons\clinical_trials_black.svg" />
+    <Content Include="Content\img\icons\clinical_trials_green.svg" />
+    <Content Include="Content\img\icons\close_black.svg" />
+    <Content Include="Content\img\icons\combobox.svg" />
+    <Content Include="Content\img\icons\combobox_hover.svg" />
+    <Content Include="Content\img\icons\comments_green.svg" />
+    <Content Include="Content\img\icons\comments_white.svg" />
+    <Content Include="Content\img\icons\conected_with_ulms.svg" />
+    <Content Include="Content\img\icons\contact_person_black.svg" />
+    <Content Include="Content\img\icons\bars.png" />
+    <Content Include="Content\img\icons\contact_person_white.svg" />
+    <Content Include="Content\img\icons\datetime_field.svg" />
+    <Content Include="Content\img\icons\date_field.svg" />
+    <Content Include="Content\img\icons\definition_green.svg" />
+    <Content Include="Content\img\icons\definition_grey.svg" />
+    <Content Include="Content\img\icons\delete.svg" />
+    <Content Include="Content\img\icons\delete_item.svg" />
+    <Content Include="Content\img\icons\designer_black.svg" />
+    <Content Include="Content\img\icons\designer_silver.svg" />
+    <Content Include="Content\img\icons\doc_silver.svg" />
+    <Content Include="Content\img\icons\doc_white.svg" />
+    <Content Include="Content\img\icons\dots-active.png" />
+    <Content Include="Content\img\icons\double-left.png" />
+    <Content Include="Content\img\icons\double-right.png" />
+    <Content Include="Content\img\icons\Drag and drop\calculative.svg" />
+    <Content Include="Content\img\icons\Drag and drop\chapter.svg" />
+    <Content Include="Content\img\icons\Drag and drop\check.svg" />
+    <Content Include="Content\img\icons\Drag and drop\date.svg" />
+    <Content Include="Content\img\icons\Drag and drop\datetime.svg" />
+    <Content Include="Content\img\icons\Drag and drop\email.svg" />
+    <Content Include="Content\img\icons\Drag and drop\fieldset.svg" />
+    <Content Include="Content\img\icons\Drag and drop\file.svg" />
+    <Content Include="Content\img\icons\Drag and drop\long_text.svg" />
+    <Content Include="Content\img\icons\Drag and drop\number.svg" />
+    <Content Include="Content\img\icons\Drag and drop\page.svg" />
+    <Content Include="Content\img\icons\Drag and drop\radio.svg" />
+    <Content Include="Content\img\icons\Drag and drop\select.svg" />
+    <Content Include="Content\img\icons\Drag and drop\text.svg" />
+    <Content Include="Content\img\icons\Drag and drop\url.svg" />
+    <Content Include="Content\img\icons\drag_and_drop_1.svg" />
+    <Content Include="Content\img\icons\drag_and_drop_2.svg" />
+    <Content Include="Content\img\icons\drag_and_drop_3.svg" />
+    <Content Include="Content\img\icons\dropdown.svg" />
+    <Content Include="Content\img\icons\dropdown_close.svg" />
+    <Content Include="Content\img\icons\dropdown_open.svg" />
+    <Content Include="Content\img\icons\dropdown_open_2.svg" />
+    <Content Include="Content\img\icons\edit.svg" />
+    <Content Include="Content\img\icons\editing.svg" />
+    <Content Include="Content\img\icons\edit_pencil.svg" />
+    <Content Include="Content\img\icons\edit_pencil_02.svg" />
+    <Content Include="Content\img\icons\edit_pencil_03.svg" />
+    <Content Include="Content\img\icons\edit_pencil_03_hover.svg" />
+    <Content Include="Content\img\icons\edit_simulator.svg" />
+    <Content Include="Content\img\icons\edit_simulator.svg" />
+    <Content Include="Content\img\icons\edit_user.svg" />
+    <Content Include="Content\img\icons\encounter_black.svg" />
+    <Content Include="Content\img\icons\encounter_silver.svg" />
+    <Content Include="Content\img\icons\engine_black.svg" />
+    <Content Include="Content\img\icons\engine_silver.svg" />
+    <Content Include="Content\img\icons\episodesofcare_black.svg" />
+    <Content Include="Content\img\icons\episodesofcare_silver.svg" />
+    <Content Include="Content\img\icons\faceboogSignIn.png" />
+    <Content Include="Content\img\icons\field_set.svg" />
+    <Content Include="Content\img\icons\find_consensus_green.svg" />
+    <Content Include="Content\img\icons\find_consensus_white.svg" />
+    <Content Include="Content\img\icons\folder.png" />
+    <Content Include="Content\img\icons\general_info_black.png" />
+    <Content Include="Content\img\icons\general_info_green.svg" />
+    <Content Include="Content\img\icons\generate_ translate_12x12.svg" />
+    <Content Include="Content\img\icons\generate_documents.svg" />
+    <Content Include="Content\img\icons\generate_document_small.svg" />
+    <Content Include="Content\img\icons\general_info_white.svg" />
+    <Content Include="Content\img\icons\googleBtn.png" />
+    <Content Include="Content\img\icons\googleBtnFocus.png" />
+    <Content Include="Content\img\icons\group-13.svg" />
+    <Content Include="Content\img\icons\image_login.png" />
+    <Content Include="Content\img\icons\info_green.svg" />
+    <Content Include="Content\img\icons\info_grey.svg" />
+    <Content Include="Content\img\icons\institution_data_green.svg" />
+    <Content Include="Content\img\icons\institution_data_silver.svg" />
+    <Content Include="Content\img\icons\interface-1.svg" />
+    <Content Include="Content\img\icons\left-angle.png" />
+    <Content Include="Content\img\icons\local.svg" />
+    <Content Include="Content\img\icons\logout .svg" />
+    <Content Include="Content\img\icons\menu_burger.svg" />
+    <Content Include="Content\img\icons\merge.svg" />
+    <Content Include="Content\img\icons\merge_thesaurus.svg" />
+    <Content Include="Content\img\icons\merge_thesauruses.svg" />
+    <Content Include="Content\img\icons\minus.svg" />
+    <Content Include="Content\img\icons\minus_green.svg" />
+    <Content Include="Content\img\icons\minus_white.svg" />
+    <Content Include="Content\img\icons\nianalitycs-logo.png" />
+    <Content Include="Content\img\icons\notes_button.svg" />
+    <Content Include="Content\img\icons\no_results.svg" />
+    <Content Include="Content\img\icons\organization_black.svg" />
+    <Content Include="Content\img\icons\organization_silver.svg" />
+    <Content Include="Content\img\icons\overview_black.svg" />
+    <Content Include="Content\img\icons\overview_silver.svg" />
+    <Content Include="Content\img\icons\parameterize.svg" />
+    <Content Include="Content\img\icons\pass.svg" />
+    <Content Include="Content\img\icons\password.svg" />
+    <Content Include="Content\img\icons\patients_black.svg" />
+    <Content Include="Content\img\icons\patients_silver.svg" />
+    <Content Include="Content\img\icons\pdf_remove_file.svg" />
+    <Content Include="Content\img\icons\pdf_upload.svg" />
+    <Content Include="Content\img\icons\person_data_green.svg" />
+    <Content Include="Content\img\icons\person_data_silver.svg" />
+    <Content Include="Content\img\icons\phone.svg" />
+    <Content Include="Content\img\icons\pinned_doc.svg" />
+    <Content Include="Content\img\icons\pinned_doc_white.svg" />
+    <Content Include="Content\img\icons\pinned_red.svg" />
+    <Content Include="Content\img\icons\pinned_silver.svg" />
+    <Content Include="Content\img\icons\placeholder_languages.svg" />
+    <Content Include="Content\img\icons\placeholder_patient.svg" />
+    <Content Include="Content\img\icons\plus.svg" />
+    <Content Include="Content\img\icons\plus_green.svg" />
+    <Content Include="Content\img\icons\plus_white.svg" />
+    <Content Include="Content\img\icons\preview.svg" />
+    <Content Include="Content\img\icons\preview_hover.svg" />
+    <Content Include="Content\img\icons\profile_black.svg" />
+    <Content Include="Content\img\icons\profile_silver.svg" />
+    <Content Include="Content\img\icons\question.svg" />
+    <Content Include="Content\img\icons\regex_question.svg" />
+    <Content Include="Content\img\icons\remove.svg" />
+    <Content Include="Content\img\icons\remove_button.svg" />
+    <Content Include="Content\img\icons\remove_simulator.svg" />
+    <Content Include="Content\img\icons\repeat_green.svg" />
+    <Content Include="Content\img\icons\repeat_grey.svg" />
+    <Content Include="Content\img\icons\right-angle.png" />
+    <Content Include="Content\img\icons\rotate_left.svg" />
+    <Content Include="Content\img\icons\search_green.svg" />
+    <Content Include="Content\img\icons\search_ulms.svg" />
+    <Content Include="Content\img\icons\select_table.svg" />
+    <Content Include="Content\img\icons\select_users.svg" />
+    <Content Include="Content\img\icons\session_time.svg" />
+    <Content Include="Content\img\icons\signInMicrosoft.svg" />
+    <Content Include="Content\img\icons\simulator_black.svg" />
+    <Content Include="Content\img\icons\simulator_silver.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\Abbreviations_remove.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\add.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\add_small.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\arrow_close.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\arrow_open.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\Arrow_up.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\background.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\browse.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\close.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\created_by.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\delete.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\dots.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\dots_hover.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\edit.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\filter.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\goal.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\google.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\header_backround.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\linkedin.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\microsoft.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\number_1.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\number_2.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\number_3.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\primary_language.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\search.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\search_icon.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\sec_language.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\status_arrow.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\submit_new_term.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\swiss.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\swissopen logo.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\synonyms_remove.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\translation.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\tree_black.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\tree_white.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\verified_by.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\wemedooLogo.png" />
+    <Content Include="Content\img\icons\telecoms_black.svg" />
+    <Content Include="Content\img\icons\telecoms_white.svg" />
+    <Content Include="Content\img\icons\thesaurus_black.svg" />
+    <Content Include="Content\img\icons\thesaurus_entries.svg" />
+    <Content Include="Content\img\icons\thesaurus_green.svg" />
+    <Content Include="Content\img\icons\thesaurus_grey.svg" />
+    <Content Include="Content\img\icons\thesaurus_silver.svg" />
+    <Content Include="Content\img\icons\translation.svg" />
+    <Content Include="Content\img\icons\ulms_arrow_down.svg" />
+    <Content Include="Content\img\icons\ulms_definition.svg" />
+    <Content Include="Content\img\icons\user .svg" />
+    <Content Include="Content\img\icons\user_administration_black.svg" />
+    <Content Include="Content\img\icons\user_administration_silver.svg" />
+    <Content Include="Content\img\icons\warning.svg" />
+    <Content Include="Content\img\icons\weMedoo-logo.png" />
+    <Content Include="Content\img\icons\world_level.svg" />
     <Content Include="Content\img\niAnalytics-logo.png" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -567,7 +942,12 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="App_Data\AppResource\Roboto-Regular.ttf" />
     <Content Include="App_Data\DataRequest_With_Data.json" />
+    <Content Include="App_Data\DocumentOntology.csv" />
+    <Content Include="App_Data\DocumentOntology.owl" />
+    <Content Include="App_Data\exported.csv" />
+    <Content Include="App_Data\exported.xlsx" />
     <None Include="Content\login.scss" />
+    <Content Include="Content\jquery.nestable.css" />
     <Content Include="Content\login.css">
       <DependentUpon>login.scss</DependentUpon>
     </Content>
@@ -580,7 +960,25 @@
     <Content Include="Content\main.min.css">
       <DependentUpon>main.css</DependentUpon>
     </Content>
+    <Content Include="Content\newMain.css">
+      <DependentUpon>newMain.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\newMain.min.css">
+      <DependentUpon>newMain.css</DependentUpon>
+    </Content>
+    <Content Include="Content\nestable.css">
+      <DependentUpon>nestable.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\nestable.min.css">
+      <DependentUpon>nestable.css</DependentUpon>
+    </Content>
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\swissOpenOncology.css">
+      <DependentUpon>swissOpenOncology.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\swissOpenOncology.min.css">
+      <DependentUpon>swissOpenOncology.css</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -624,6 +1022,9 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
+    <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
+    <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\additional-methods.js" />
@@ -646,7 +1047,419 @@
     </None>
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Content\newMain.scss" />
+    <None Include="Content\nestable.scss" />
+    <Content Include="libman.json" />
+    <Content Include="Content\swissOpenOncology.scss" />
     <None Include="packages.config" />
+    <Content Include="Scripts\ckeditor\adapters\jquery.js" />
+    <Content Include="Scripts\ckeditor\build-config.js" />
+    <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\config.js" />
+    <Content Include="Scripts\ckeditor\contents.css" />
+    <Content Include="Scripts\ckeditor\lang\af.js" />
+    <Content Include="Scripts\ckeditor\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\lang\az.js" />
+    <Content Include="Scripts\ckeditor\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\lang\bn.js" />
+    <Content Include="Scripts\ckeditor\lang\bs.js" />
+    <Content Include="Scripts\ckeditor\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\lang\da.js" />
+    <Content Include="Scripts\ckeditor\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\lang\el.js" />
+    <Content Include="Scripts\ckeditor\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\lang\es.js" />
+    <Content Include="Scripts\ckeditor\lang\et.js" />
+    <Content Include="Scripts\ckeditor\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\lang\he.js" />
+    <Content Include="Scripts\ckeditor\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\lang\id.js" />
+    <Content Include="Scripts\ckeditor\lang\is.js" />
+    <Content Include="Scripts\ckeditor\lang\it.js" />
+    <Content Include="Scripts\ckeditor\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\lang\ka.js" />
+    <Content Include="Scripts\ckeditor\lang\km.js" />
+    <Content Include="Scripts\ckeditor\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\lang\ms.js" />
+    <Content Include="Scripts\ckeditor\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\lang\no.js" />
+    <Content Include="Scripts\ckeditor\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\lang\si.js" />
+    <Content Include="Scripts\ckeditor\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\lang\th.js" />
+    <Content Include="Scripts\ckeditor\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\lang\tt.js" />
+    <Content Include="Scripts\ckeditor\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
+    <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor.svg" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\styles\copyformatting.css" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\styles\dialog.css" />
+    <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Scripts\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Scripts\ckeditor\plugins\icons.png" />
+    <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromgdocs\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastetools\filter\common.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastetools\filter\image.js" />
+    <Content Include="Scripts\ckeditor\plugins\preview\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Scripts\ckeditor\plugins\preview\styles\screen.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\dialog.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
+    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Scripts\ckeditor\samples\css\samples.css" />
+    <Content Include="Scripts\ckeditor\samples\img\github-top.png" />
+    <Content Include="Scripts\ckeditor\samples\img\header-bg.png" />
+    <Content Include="Scripts\ckeditor\samples\img\header-separator.png" />
+    <Content Include="Scripts\ckeditor\samples\img\logo.png" />
+    <Content Include="Scripts\ckeditor\samples\img\logo.svg" />
+    <Content Include="Scripts\ckeditor\samples\img\navigation-tip.png" />
+    <Content Include="Scripts\ckeditor\samples\index.html" />
+    <Content Include="Scripts\ckeditor\samples\js\sample.js" />
+    <Content Include="Scripts\ckeditor\samples\js\sf.js" />
+    <Content Include="Scripts\ckeditor\samples\old\ajax.html" />
+    <Content Include="Scripts\ckeditor\samples\old\api.html" />
+    <Content Include="Scripts\ckeditor\samples\old\appendto.html" />
+    <Content Include="Scripts\ckeditor\samples\old\assets\inlineall\logo.png" />
+    <Content Include="Scripts\ckeditor\samples\old\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Scripts\ckeditor\samples\old\assets\posteddata.php" />
+    <Content Include="Scripts\ckeditor\samples\old\assets\sample.jpg" />
+    <Content Include="Scripts\ckeditor\samples\old\assets\uilanguages\languages.js" />
+    <Content Include="Scripts\ckeditor\samples\old\datafiltering.html" />
+    <Content Include="Scripts\ckeditor\samples\old\dialog\assets\my_dialog.js" />
+    <Content Include="Scripts\ckeditor\samples\old\dialog\dialog.html" />
+    <Content Include="Scripts\ckeditor\samples\old\divreplace.html" />
+    <Content Include="Scripts\ckeditor\samples\old\enterkey\enterkey.html" />
+    <Content Include="Scripts\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="Scripts\ckeditor\samples\old\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="Scripts\ckeditor\samples\old\htmlwriter\outputforflash.html" />
+    <Content Include="Scripts\ckeditor\samples\old\htmlwriter\outputhtml.html" />
+    <Content Include="Scripts\ckeditor\samples\old\index.html" />
+    <Content Include="Scripts\ckeditor\samples\old\inlineall.html" />
+    <Content Include="Scripts\ckeditor\samples\old\inlinebycode.html" />
+    <Content Include="Scripts\ckeditor\samples\old\inlinetextarea.html" />
+    <Content Include="Scripts\ckeditor\samples\old\jquery.html" />
+    <Content Include="Scripts\ckeditor\samples\old\magicline\magicline.html" />
+    <Content Include="Scripts\ckeditor\samples\old\readonly.html" />
+    <Content Include="Scripts\ckeditor\samples\old\replacebyclass.html" />
+    <Content Include="Scripts\ckeditor\samples\old\replacebycode.html" />
+    <Content Include="Scripts\ckeditor\samples\old\sample.css" />
+    <Content Include="Scripts\ckeditor\samples\old\sample.js" />
+    <Content Include="Scripts\ckeditor\samples\old\sample_posteddata.php" />
+    <Content Include="Scripts\ckeditor\samples\old\tabindex.html" />
+    <Content Include="Scripts\ckeditor\samples\old\toolbar\toolbar.html" />
+    <Content Include="Scripts\ckeditor\samples\old\uicolor.html" />
+    <Content Include="Scripts\ckeditor\samples\old\uilanguages.html" />
+    <Content Include="Scripts\ckeditor\samples\old\wysiwygarea\fullpage.html" />
+    <Content Include="Scripts\ckeditor\samples\old\xhtmlstyle.html" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\css\fontello.css" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\index.html" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\ckeditor\vendor\promise.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -659,9 +1472,223 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="Scripts\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\sReports\common\clinicalDomainAutocomplete.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.cjs.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.esm.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.esm.min.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.min.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.umd.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\license-update.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\rollup.config.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\animation.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\cjs.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\a-star.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\affinity-propagation.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\bellman-ford.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\betweenness-centrality.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\bfs-dfs.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\closeness-centrality.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\clustering-distances.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\degree-centrality.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\dijkstra.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\floyd-warshall.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\hierarchical-clustering.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\hierholzer.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\hopcroft-tarjan-biconnected.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\k-clustering.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\karger-stein.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\kruskal.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\markov-clustering.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\page-rank.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\algorithms\tarjan-strongly-connected.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\animation.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\cache-traversal-call.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\class.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\comparators.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\compounds.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\data.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\degree.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\dimensions\bounds.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\dimensions\edge-points.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\dimensions\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\dimensions\position.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\dimensions\width-height.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\element.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\events.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\filter.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\group.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\iteration.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\layout.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\style.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\switch-functions.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\traversing.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\collection\zsort.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\add-remove.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\cubic-bezier.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\ease.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\easings.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\spring.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\start.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\step-all.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\animation\step.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\data.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\events.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\export.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\layout.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\notification.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\renderer.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\search.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\style.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\core\viewport.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\define\animation.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\define\data.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\define\events.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\define\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\emitter.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\event.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extension.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\breadthfirst.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\circle.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\concentric.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\cose.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\grid.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\null.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\preset.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\layout\random.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\arrow-shapes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\coords.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\edge-arrows.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\edge-control-points.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\edge-endpoints.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\edge-projection.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\labels.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\nodes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\rendered-style.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\coord-ele-math\z-ordering.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\images.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\load-listeners.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\node-shapes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\base\redraw.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\arrow-shapes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-edges.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-elements.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-images.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-label-text.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-nodes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-redraw.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\drawing-shapes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\ele-texture-cache-lookup.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\ele-texture-cache.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\export-image.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\layered-texture-cache.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\node-shapes.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\canvas\texture-cache-defs.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\extensions\renderer\null\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\heap.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\is.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\map.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\math.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\promise.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\data.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\expressions.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\matching.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\new-query.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\parse.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\query-type-match.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\state.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\tokens.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\selector\type.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\set.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\stylesheet.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\apply.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\bypass.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\container.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\get-for-ele.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\json.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\parse.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\properties.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\style\string-sheet.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\test.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\colors.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\extend.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\hash.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\maps.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\memoize.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\regex.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\sort.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\strings.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\util\timing.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\version.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\src\window.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\index.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\lib\heap.js" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\lodash.debounce\index.js" />
+    <Content Include="Scripts\sReports\datetimepicker.js" />
+    <Content Include="Scripts\sReports\designer\consensus.js" />
+    <Content Include="Scripts\sReports\designer\consensusInstance.js" />
+    <Content Include="Scripts\sReports\designer\d3map.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\calculativeField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\chapterGeneralInfo.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\checkboxField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\customFieldButton.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\fieldGeneralInfo.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fieldsetGeneralInfo.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fieldValue.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\filter.thesaurus.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\formGeneralInfo.js" />
+    <Content Include="Scripts\sReports\designer\designer.js" />
+    <Content Include="Scripts\sReports\designer\nestable\jquery.nestable.customization.js" />
+    <Content Include="Scripts\sReports\designer\nestable\jquery.nestable.js" />
+    <Content Include="Scripts\sReports\designer\nestable\jquery.nestable2.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\numberField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\pageGeneralInfo.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\radioField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\regexField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\selectableField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\selectField.js" />
+    <Content Include="Scripts\sReports\designer\designer-items\fields\textField.js" />
+    <Content Include="Scripts\sReports\administration\administration.js" />
+    <Content Include="Scripts\sReports\administration\administrationPredefinedTable.js" />
     <Content Include="Scripts\sReports\bootstrap-treeview.js" />
+    <Content Include="Scripts\sReports\designer\validation.js" />
+    <Content Include="Scripts\sReports\digitalGuideline\digital-guideline.js" />
+    <Content Include="Scripts\sReports\digitalGuideline\digital-guideline.style.js" />
+    <Content Include="Scripts\sReports\digitalGuideline\digitalGuidelineTable.js" />
+    <Content Include="Scripts\sReports\digitalGuideline\json-editor.js" />
+    <Content Include="Scripts\sReports\dynamicForm.js" />
+    <Content Include="Scripts\sReports\export_csv.js" />
+    <Content Include="Scripts\sReports\designer\formDefinitionTable.js" />
     <Content Include="Scripts\sReports\formDistribution.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -679,9 +1706,8 @@
     <Content Include="Scripts\sReports\autoscroll.js" />
     <Content Include="Scripts\sReports\dataCaptureFormDefinitions.js" />
     <Content Include="Scripts\sReports\encounter.js" />
-    <Content Include="Scripts\sReports\encounterEoc.js" />
     <Content Include="Scripts\sReports\episodeOfCare.js" />
-    <Content Include="Scripts\sReports\episodeOfCareTable.js" />
+    <Content Include="Scripts\sReports\formEngine.js" />
     <Content Include="Scripts\sReports\formFilter.js" />
     <Content Include="Scripts\sReports\dataCaptureFormInstances.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
@@ -743,14 +1769,23 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\sReports\form.js" />
     <Content Include="Scripts\sReports\changePasswordModal.js" />
+    <Content Include="Scripts\sReports\formJson.js" />
     <Content Include="Scripts\sReports\identifierModal.js" />
+    <Content Include="Scripts\sReports\image-map\jquery.imagemaps.js" />
     <Content Include="Scripts\sReports\imageMapResize.js" />
-    <Content Include="Scripts\sReports\organization.js" />
+    <Content Include="Scripts\sReports\jquery.line.js" />
+    <Content Include="Scripts\sReports\organization\organization.js" />
+    <Content Include="Scripts\sReports\schema-json.js" />
+    <Content Include="Scripts\sReports\thesaurusDetails.js" />
+    <Content Include="Scripts\sReports\reviewTree.js" />
+    <Content Include="Scripts\sReports\thesaurusTree.js" />
+    <Content Include="Scripts\sReports\uploadModal.js" />
+    <Content Include="Scripts\sReports\userAdministration.js" />
     <Content Include="Scripts\sReports\user.js" />
-    <Content Include="Scripts\sReports\userTable.js" />
-    <Content Include="Scripts\sReports\organizationTable.js" />
+    <Content Include="Scripts\sReports\administration\administrationTable.js" />
+    <Content Include="Scripts\sReports\userAdministrationTable.js" />
+    <Content Include="Scripts\sReports\organization\organizationTable.js" />
     <Content Include="Scripts\sReports\overview.js" />
     <Content Include="Scripts\sReports\patient.js" />
     <Content Include="Scripts\sReports\patientTable.js" />
@@ -763,6 +1798,11 @@
     <Content Include="Scripts\sReports\telecomModal.js" />
     <Content Include="Scripts\sReports\thesaurusEntry.js" />
     <Content Include="Scripts\sReports\umlsCodingSystem.js" />
+    <Content Include="Scripts\SwissOpenOncology\browse.js" />
+    <Content Include="Scripts\SwissOpenOncology\globalLogin.js" />
+    <Content Include="Scripts\SwissOpenOncology\home.js" />
+    <Content Include="Scripts\SwissOpenOncology\swissOpenOncology.js" />
+    <Content Include="Scripts\SwissOpenOncology\thesaurusPreview.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
@@ -815,7 +1855,6 @@
     <Content Include="Scripts\jsoneditor\src\docs\which files do I need.md" />
     <Content Include="Scripts\jsoneditor\src\js\assets\jsonlint\README.md" />
     <Content Include="Scripts\jsoneditor\src\js\assets\selectr\README.md" />
-    <Content Include="Views\Form\Get.cshtml" />
     <Content Include="Views\Form\Edit.cshtml" />
     <Content Include="Views\FormInstance\GetAllByFormThesaurus.cshtml" />
     <Content Include="Views\FormInstance\GetAllFormDefinitions.cshtml" />
@@ -823,7 +1862,6 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\ThesaurusEntry\GetAll.cshtml" />
     <Content Include="Views\ThesaurusEntry\Edit.cshtml" />
-    <Content Include="Views\Form\FormFilter.cshtml" />
     <Content Include="Views\Form\FormsTable.cshtml" />
     <Content Include="Views\Shared\Pagination.cshtml" />
     <Content Include="Views\FormInstance\FormsTable.cshtml" />
@@ -841,18 +1879,10 @@
     <Content Include="Views\Patient\Edit.cshtml" />
     <Content Include="Views\Patient\GetAll.cshtml" />
     <Content Include="Views\Patient\PatientEntryTable.cshtml" />
-    <Content Include="Views\EpisodeOfCare\Edit.cshtml" />
-    <Content Include="Views\EpisodeOfCare\EOCEntryTable.cshtml" />
     <Content Include="Views\Organization\OrganizationEntryTable.cshtml" />
-    <Content Include="Views\EpisodeOfCare\GetAll.cshtml" />
     <Content Include="Views\Organization\GetAll.cshtml" />
     <Content Include="Views\Organization\Organization.cshtml" />
-    <Content Include="Views\ThesaurusEntry\ThesaurusEntryFilter.cshtml" />
-    <Content Include="Views\Encounter\Create.cshtml" />
-    <Content Include="Views\Encounter\EncounterEntryTable.cshtml" />
-    <Content Include="Views\Encounter\GetAll.cshtml" />
     <Content Include="Views\Encounter\EOCEntryTable.cshtml" />
-    <Content Include="Views\Encounter\GetAllEncounter.cshtml" />
     <Content Include="Views\Patient\IdentifierModal.cshtml" />
     <Content Include="Views\DiagnosticReport\DiagnosticReportsList.cshtml" />
     <Content Include="Views\DiagnosticReport\ListForms.cshtml" />
@@ -862,7 +1892,7 @@
     <Content Include="Views\Form\Form.cshtml" />
     <Content Include="Views\Patient\TelecomModal.cshtml" />
     <Content Include="Views\Patient\TelecomModalForPatient.cshtml" />
-    <Content Include="Views\Organization\OrganizationStructure.cshtml" />
+    <Content Include="Views\Organization\OrganizationHierarchy.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -878,17 +1908,10 @@
     <Content Include="Views\FormInstance\FilterFormInstancesPartial.cshtml" />
     <Content Include="Views\Blob\Create.cshtml" />
     <Content Include="Views\Form\FieldFile.cshtml" />
-    <Content Include="Views\Patient\PatientFilter.cshtml" />
-    <Content Include="Views\EpisodeOfCare\EpisodeOfCareFilter.cshtml" />
-    <Content Include="Views\Patient\IdentifierListTable.cshtml" />
-    <Content Include="Views\Patient\TelecomListTable.cshtml" />
     <Content Include="Views\Organization\GetUsersByOrganizationCount.cshtml" />
     <Content Include="Views\ThesaurusEntry\CodeModal.cshtml" />
     <Content Include="Views\ThesaurusEntry\CodesTable.cshtml" />
     <Content Include="Views\FormDistribution\Edit.cshtml" />
-    <Content Include="Views\FormDistribution\NormalDistributionParameters.cshtml" />
-    <Content Include="Views\FormDistribution\BinominalDistributionParameters.cshtml" />
-    <Content Include="Views\FormDistribution\MultinominalDistributionParameters.cshtml" />
     <Content Include="Views\FormDistribution\GetAll.cshtml" />
     <Content Include="Views\FormDistribution\ReloadTable.cshtml" />
     <Content Include="Views\FormDistribution\ReloadForms.cshtml" />
@@ -910,72 +1933,222 @@
     <Content Include="Views\DFD\InfoMesasge.cshtml" />
     <Content Include="Views\ThesaurusEntry\InsertedThesaurusFromForm.cshtml" />
     <Content Include="Views\ThesaurusEntry\InsertNewThesaurusFromForm.cshtml" />
-    <Content Include="Views\User\GetAll.cshtml" />
-    <Content Include="Views\User\UserEntryTable.cshtml" />
-    <Content Include="Views\User\User.cshtml" />
-    <Content Include="Views\User\ChangePasswordModal.cshtml" />
     <Content Include="Views\Patient\PatientTree.cshtml" />
-    <Content Include="Views\EpisodeOfCare\EpisodeOfCareInformation.cshtml" />
     <Content Include="Views\Patient\PatientEdit.cshtml" />
-    <Content Include="Views\Encounter\Encounter.cshtml" />
+    <Content Include="Views\Encounter\EncounterForm.cshtml" />
     <Content Include="Views\DiagnosticReport\ModalListForms.cshtml" />
-    <Content Include="Views\Patient\CreateDocument.cshtml" />
-    <None Include="Web.Dev.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="Views\ThesaurusEntry\ReviewTree.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusMergeModal.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusReviewList.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusInfo.cshtml" />
+    <Content Include="Views\Patient\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\Patient\GeneralInfo.cshtml" />
+    <Content Include="Views\Patient\PatientTelecom.cshtml" />
+    <Content Include="Views\Patient\ContactPerson.cshtml" />
+    <Content Include="Views\Patient\PatientFilterGroup.cshtml" />
+    <Content Include="Views\Form\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\Form\FormFilterGroup.cshtml" />
+    <Content Include="Views\ThesaurusEntry\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusFilterGroup.cshtml" />
+    <Content Include="Views\Patient\IdentifierTable.cshtml" />
+    <Content Include="Views\Patient\TelecomTable.cshtml" />
+    <Content Include="Views\Administration\GetAll.cshtml" />
+    <Content Include="Views\Administration\PredefinedTypeTable.cshtml" />
+    <Content Include="Views\Administration\Create.cshtml" />
+    <Content Include="Views\Administration\ThesaurusTable.cshtml" />
+    <Content Include="Views\Administration\DeleteModal.cshtml" />
+    <Content Include="Views\Organization\OrganizationFilterGroup.cshtml" />
+    <Content Include="Views\Organization\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusMore.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusMoreContent.cshtml" />
+    <Content Include="Views\Form\Custom\FieldCustomButton.cshtml" />
+    <Content Include="Views\EpisodeOfCare\PatientEpisodeOfCareForm.cshtml" />
+    <Content Include="Views\Encounter\PatientEncounter.cshtml" />
+    <Content Include="Views\Encounter\DocumentsForEncounter.cshtml" />
+    <Content Include="Views\Encounter\SuggestedForms.cshtml" />
+    <Content Include="Views\Encounter\ListReferralsAndForms.cshtml" />
+    <Content Include="Views\Encounter\ListForms.cshtml" />
+    <Content Include="Views\CSVExport\Index.cshtml" />
+    <Content Include="Views\CSVExport\LoadCSV.cshtml" />
+    <Content Include="Web.Dev.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web.GlobalThesaurusProd.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\DiagnosticReport\CreateFromPatient.cshtml" />
+    <Content Include="Scripts\sReports\designer\nestable\README.md" />
+    <Content Include="Views\Form\DragAndDrop\Create.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormGeneralInfo.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\ThesaurusFilterModal.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ReloadSearchTable.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusProperties.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormGeneralInfoDocumentProperties.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\ChapterInfoForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormEpisodeOfCareInfo.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FieldSetInfoForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FieldInfoCommonForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\CalculativeFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\CheckboxFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\DateFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\DatetimeFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\EmailFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\FileFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\LongTextFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\NumberFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\RadioFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\RegexFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\SelectFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\TextFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\SelectableFieldForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FieldValueInfoForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\CustomFieldButtonForm.cshtml" />
+    <Content Include="Views\Form\GetCalculativeTree.cshtml" />
+    <Content Include="Views\FormDistribution\GenerateDocumentsModal.cshtml" />
+    <Content Include="Views\FormDistribution\SimulatorFormTree.cshtml" />
+    <Content Include="Views\Form\FormThesaurusTree.cshtml" />
+    <Content Include="Views\Form\Custom\FieldButtonGroup.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\PageInfoForm.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\ImageMapGenerator.cshtml" />
+    <Content Include="Views\Form\FormThesaurusTreePartial.cshtml" />
+    <Content Include="Views\Form\FormTreePartial.cshtml" />
+    <Content Include="Views\ThesaurusEntry\SimilarTermModal.cshtml" />
+    <Content Include="Views\DigitalGuideline\Index.cshtml" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.browserslist" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.eslintrc.json" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.github\ISSUE_TEMPLATE.md" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.github\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.github\stale.yml" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.size-snapshot.json" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\.travis.yml" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\LICENSE" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\package.json" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\README.md" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\.npmignore" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\.travis.yml" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\bower.json" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\Makefile" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\package.json" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\README.md" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\src\heap.coffee" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\test\heap.test.coffee" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\lodash.debounce\LICENSE" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\lodash.debounce\package.json" />
+    <Content Include="Scripts\sReports\Cytoscape\node_modules\lodash.debounce\README.md" />
+    <Content Include="Scripts\sReports\digitalGuideline\pathway-elements-example.json" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\FormAdministrativeData.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\ClinicalDomainValues.cshtml" />
+    <Content Include="Views\UserAdministration\ChangePasswordModal.cshtml" />
+    <Content Include="Views\UserAdministration\User.cshtml" />
+    <Content Include="Views\UserAdministration\UserEntryTable.cshtml" />
+    <Content Include="Views\UserAdministration\GetAll.cshtml" />
+    <Content Include="Views\DigitalGuideline\PreviewNode.cshtml" />
+    <Content Include="Views\DigitalGuideline\GetAll.cshtml" />
+    <Content Include="Views\DigitalGuideline\DigitalGuidelineTable.cshtml" />
+    <Content Include="Views\DigitalGuideline\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\DigitalGuideline\GuidelineFilterGroup.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\DragAndDropFormPartial.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableFieldRadio.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableCheckboxField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormJson.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormTreeContainer.cshtml" />
+    <Content Include="Views\Encounter\PatientTreeEncounterItems.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormTreeNestable.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\PredefinedFormElements.cshtml" />
+    <Content Include="Views\UserAdministration\UserPersonalData.cshtml" />
+    <Content Include="Views\UserAdministration\UserInstitutionalData.cshtml" />
+    <Content Include="Views\UserAdministration\OrganizationData.cshtml" />
+    <Content Include="Views\UserAdministration\AddInstitutionModal.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\UserAdministration\UserClinicalResearchData.cshtml" />
+    <Content Include="Views\UserAdministration\UserClinicalTrial.cshtml" />
+    <Content Include="Views\UserAdministration\UserIdAndLastUpdate.cshtml" />
+    <Content Include="Views\UserAdministration\ClinicalTrialLists.cshtml" />
+    <Content Include="Views\User\ChooseActiveOrganization.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableTextField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableEmailField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableNumberField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableFileField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableTextAreaField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableDateField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableDatetimeField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableSelectField.cshtml" />
+    <Content Include="Views\Shared\SessionBreakModal.cshtml" />
+    <Content Include="Views\ThesaurusEntry\ThesaurusPreview.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormCommentSection.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\FormAllComments.cshtml" />
+    <Content Include="Views\Form\Comments\CommentStatusPartial.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusPartial.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusFormTree.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusDecision.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusCreateQuestion.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusQuestionPreview.cshtml" />
+    <Content Include="Views\Form\Consensus\CreateOrPreviewQuestion.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusUserFilter.cshtml" />
+    <Content Include="Views\Form\Consensus\MapFilterPartial.cshtml" />
+    <Content Include="Views\Form\Consensus\OrganizationFilter.cshtml" />
+    <Content Include="Views\Form\Consensus\OrganizationHierarchy.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusUsers.cshtml" />
+    <Content Include="Views\Form\Consensus\ConsensusOrganizationUserInfo.cshtml" />
+    <Content Include="Views\Form\Consensus\AddUserModal.cshtml" />
+    <Content Include="Views\Form\Consensus\OutsideUsers.cshtml" />
+    <Content Include="Views\Form\Consensus\CreateConsensusInstance.cshtml" />
+    <Content Include="Views\Form\Consensus\InsideUsers.cshtml" />
+    <Content Include="Views\Form\Consensus\TrackerPartial.cshtml" />
+    <Content Include="Views\User\LoginGlobal.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Login\RegistrationPartial.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Login\LoginPartial.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Home\Home.cshtml" />
+    <Content Include="Views\Shared\_GT_Layout.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Shared\Footer.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Search\Browse.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Search\GlobalThesaurusTable.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Search\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Preview\ThesaurusPreview.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Preview\TranslationsPreview.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Preview\TranslationsTitle.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Preview\CodesTable.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Preview\VocabularyModal.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\Create.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\TranslationsPreview.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\TranslationsTitle.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\CodesModal.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableCalculativeField.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DTOs\DiagnosticReport\DataOut\" />
+    <Folder Include="Common\EmailHelper\" />
+    <Folder Include="Models\OAuthProviders\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Scripts\nestable\" />
+    <Folder Include="Scripts\sReports\formDefinition\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\ClinicalTrials\" />
+    <Folder Include="Views\FormConsensus\" />
+    <Folder Include="Views\FormDragAndDrop\" />
+    <Folder Include="Views\FormInstanceCommon\" />
+    <Folder Include="Views\ImportData\" />
     <Folder Include="Views\Patholink\" />
     <Folder Include="Views\SimplifiedPage\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Chapters\Chapters.csproj">
-      <Project>{3c891d95-8b3d-4b5b-ae0a-f4b579d13296}</Project>
-      <Name>Chapters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DfD.SMSApi.Client\DfD.SMSApi.Client.csproj">
-      <Project>{9099C856-FE46-4833-BA7F-C43B5EF8D174}</Project>
-      <Name>DfD.SMSApi.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DocumentGenerator\DocumentGenerator.csproj">
-      <Project>{d2faff68-2149-4e4e-b2d9-305d75e8f959}</Project>
-      <Name>DocumentGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DocumentsParser\DocumentsParser.csproj">
-      <Project>{14188c48-7304-447d-a44e-b136db087d8f}</Project>
-      <Name>DocumentsParser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Generator\Generator.csproj">
-      <Project>{8c537fcd-e4df-4e0d-90f7-ce669fbe958c}</Project>
-      <Name>Generator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\sReports.PathoLink\sReports.PathoLink.csproj">
-      <Project>{c0d61448-9433-433a-906b-deeb72a500d2}</Project>
-      <Name>sReports.PathoLink</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.Domain.csproj">
-      <Project>{f6570a48-cae5-4412-940e-05a081aad9c4}</Project>
-      <Name>sReportsV2.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UmlsClient\UmlsClient.csproj">
-      <Project>{e73fbb54-341d-4c9f-bea4-7cc29443ef6a}</Project>
-      <Name>UmlsClient</Name>
-    </ProjectReference>
+    <Folder Include="Views\ThesaurusMerge\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\TextLanguage.sr-Cyrl-RS.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TextLanguage.sr-Cyrl-RS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TextLanguage.sr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TextLanguage.sr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TextLanguage.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TextLanguage.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SReportsResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -999,6 +2172,64 @@
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chapters\Chapters.csproj">
+      <Project>{3c891d95-8b3d-4b5b-ae0a-f4b579d13296}</Project>
+      <Name>Chapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSVExport\CSVExport.csproj">
+      <Project>{56cd5899-1d81-4dc1-b674-115205ab0387}</Project>
+      <Name>CSVExport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentGenerator\DocumentGenerator.csproj">
+      <Project>{d2faff68-2149-4e4e-b2d9-305d75e8f959}</Project>
+      <Name>DocumentGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Generator\Generator.csproj">
+      <Project>{8c537fcd-e4df-4e0d-90f7-ce669fbe958c}</Project>
+      <Name>Generator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReports.PathoLink\sReports.PathoLink.csproj">
+      <Project>{c0d61448-9433-433a-906b-deeb72a500d2}</Project>
+      <Name>sReports.PathoLink</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.BusinessLayer\sReportsV2.BusinessLayer.csproj">
+      <Project>{108d6343-92e5-4959-bcbb-063ff21585d0}</Project>
+      <Name>sReportsV2.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj">
+      <Project>{406bdc5c-0219-4083-b83f-0a33a46bccdc}</Project>
+      <Name>sReportsV2.DAL.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
+      <Project>{b409aa17-11c7-4e45-9382-fe1ff764a31d}</Project>
+      <Name>sReportsV2.Domain.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">
+      <Project>{f6570a48-cae5-4412-940e-05a081aad9c4}</Project>
+      <Name>sReportsV2.DAL.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DTOs\sReportsV2.DTOs.csproj">
+      <Project>{9df5131d-c4ad-4bda-925f-e073bdadc513}</Project>
+      <Name>sReportsV2.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Initializer\sReportsV2.Initializer.csproj">
+      <Project>{5715FE95-B5F5-4C98-A8A1-D8F190363FBE}</Project>
+      <Name>sReportsV2.Initializer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.UMLS\sReportsV2.UMLS.csproj">
+      <Project>{e4668bea-b4f7-4292-af48-9ad6b414d88e}</Project>
+      <Name>sReportsV2.UMLS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UmlsClient\UmlsClient.csproj">
+      <Project>{e73fbb54-341d-4c9f-bea4-7cc29443ef6a}</Project>
+      <Name>UmlsClient</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -1006,6 +2237,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <CodeAnalysisRuleSet>sReportsV2.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
@@ -1049,6 +2283,9 @@
     <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Driver.Core.2.11.3\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Core.2.11.3\build\MongoDB.Driver.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.10.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.10.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
@@ -1059,6 +2296,11 @@
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
   </Target>
+  <PropertyGroup>
+    <AutoParameterizationWebConfigConnectionStrings>false</AutoParameterizationWebConfigConnectionStrings>
+  </PropertyGroup>
+  <Import Project="..\packages\MongoDB.Driver.Core.2.11.3\build\MongoDB.Driver.Core.targets" Condition="Exists('..\packages\MongoDB.Driver.Core.2.11.3\build\MongoDB.Driver.Core.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- <Target Name="AfterBuild">
   </Target> -->
 </Project>

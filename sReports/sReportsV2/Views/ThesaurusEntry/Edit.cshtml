@@ -1,144 +1,118 @@
-﻿@using sReportsV2.Models.User
-@using sReportsV2.Models.ThesaurusEntry;
-@using sReportsV2.DTOs.O4CodeableConcept.DataOut;
-@model sReportsV2.Models.ThesaurusEntry.ThesaurusEntryViewModel
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
 
 @{
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.CreateThesaurus;
 }
 
-@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Thesaurus }, { "linkLevel1", "/ThesaurusEntry/GetAll" }, { "level2", Model != null && Model.Id != null ? Model.O40MTId : @sReportsV2.Resources.TextLanguage.Form_create }, { "activeLevel", 2 } })
-
-<input id="lastUpdate" type="text" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : null )" hidden />
-<div class="col-12">
-    <div class="row">
-        <div class="col-md-12 col-lg-5 col-xl-6 ">
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <form class="thesaurus-entry-form" onsubmit="return submitThesaurusEntryForm(this)" novalidate id="thesaurusEntryForm">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" value="@(Model != null && !string.IsNullOrEmpty(Model.O40MTId) ? Model.O40MTId: "")" id="O40MTID" />
-                            <input type="hidden" name="parentId" id="parentId" />
-                            @if (Model != null && !string.IsNullOrEmpty(Model.Id))
-                            {
-                                <input type="hidden" name="Id" value="@Model.Id" id="Id" />
-                            }
-                            <div class="form-horizontal">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                                <div class="accordion">
-                                    <div class="header-accordion" data-toggle="collapse" data-target="#collapseO4MTSpecificFields" aria-expanded="false" aria-controls="collapseO4MTSpecificFields">
-                                        @sReportsV2.Resources.TextLanguage.MTSpecificFields
-                                    </div>
-                                    <div class="collapse" id="collapseO4MTSpecificFields">
-
-                                        @Html.Partial("TranslationsPartial")
-                                    </div>
-                                </div>
-                                <div class="accordion">
-                                    <div class="header-accordion" data-toggle="collapse" data-target="#collapseUmlsspecificFields" aria-expanded="false" aria-controls="collapseUmlsspecificFields">
-                                        @sReportsV2.Resources.TextLanguage.UMLSSpecificFields
-                                        <button class="btn btn-primary add-new-button" type="button" href="#" onclick="showModal(event)">@sReportsV2.Resources.TextLanguage.UMLS_Select</button>
-                                    </div>
-                                    <div class="collapse" id="collapseUmlsspecificFields">
-                                        <div class="form-input-container">
-                                            <label for="UmlsCode" class="form-element-label">@sReportsV2.Resources.TextLanguage.UMLS_Code</label>
-                                            <input type="text" name="UmlsCode" id="UmlsCode" class="form-element-field" value="@(Model != null && Model.UmlsCode != null ? Model.UmlsCode : "")" />
-                                            <div class="form-element-bar"></div>
-                                        </div>
-                                        <div class="form-input-container">
-                                            <label for="UmlsName" class="form-element-label">@sReportsV2.Resources.TextLanguage.UMLS_Name</label>
-                                            <input type="text" name="UmlsName" id="UmlsName" class="form-element-field" value="@(Model != null && Model.UmlsName != null ? Model.UmlsName : "")" />
-                                            <div class="form-element-bar"></div>
-                                        </div>
-                                        <div class="form-input-container">
-                                            <label for="UmlsName" class="form-element-label">@sReportsV2.Resources.TextLanguage.UMLS_Link</label>
-                                            <div>
-                                                @if (Model != null && !string.IsNullOrEmpty(Model.UmlsCode))
-                                                {
-                                                    <a id="umlsLink" target="_blank" href="https://uts.nlm.nih.gov/metathesaurus.html?cui=@Model.UmlsCode">https://uts.nlm.nih.gov/metathesaurus.html?cui=@Model.UmlsCode</a>
-
-                                                }
-                                                else
-                                                {
-                                                    <a id="umlsLink" target="_blank" href="#"></a>
-
-                                                }
-                                            </div>
-                                        </div>
-                                        <div class="form-input-container">
-                                            <label for="UmlsDefinitions" class="form-element-label">@sReportsV2.Resources.TextLanguage.UMLS_Definitions</label>
-                                            <div type="text" rows="10" name="UmlsDefinitions" id="UmlsDefinitions" class="form-element-desc-field umls-definitions">
-                                                @(Html.Raw(Model != null && Model.UmlsDefinitions != null ? Model.UmlsDefinitions : ""))
-                                            </div>
-                                            <div class="form-element-bar"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @Html.Partial("CodesTable")
-                                <div class="col-12">
-                                    <div class="row d-none d-lg-block">
-                                        <div class="submit-button-container">
-                                            <button type="submit" form="thesaurusEntryForm" class="btn btn-primary">@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</button>
-                                            <button type="button" onclick="backToList()" class="btn btn-danger">@sReportsV2.Resources.TextLanguage.Cancel</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </form>
-                        @Html.Partial("CodingSystemPartial")
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-12 col-lg-3">
+<div>
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Thesaurus }, { "linkLevel1", "/ThesaurusEntry/GetAll" }, { "level2", Model != null && Model.Id != 0 ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus }, { "activeLevel", 2 } })
+    <div class="col-12">
+        <div class="row margin-bottom-8">
+            @if (Model == null)
+            {
+                <div class="thesaurus-id padding-bottom-5 margin-bottom-8">@(Model != null && Model.Id != null ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus)</div>
+            }
+            else
+            {
+                <div class="thesaurus-id padding-bottom-5">@(Model != null && Model.Id != null ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus)</div>
+            }
             @Html.Partial("AdministrativeData")
-        </div>
-        <div class="col-md-12 col-lg-4 col-xl-3 order-lg-first">
-            <div class="row pr-lg-3">
-                <div class="tree-wrapper" style="width:100%">
-                    <div class="header-tree">
-                        @sReportsV2.Resources.TextLanguage.FoundIn:
-                    </div>
-                    <div class="tree">
-                        <div id="treeContainer"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row pr-lg-3">
-                <div class="document-properties">
-                    <div class="header-tree">
-                        @sReportsV2.Resources.TextLanguage.DocumentProperties
-                    </div>
-                    <div class="content" id="documentPropertiesData">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row d-block d-lg-none">
-        <div class="col-12 col-lg-9">
-            <div class="row">
-                <div class="submit-button-container">
-                    <button type="submit" form="thesaurusEntryForm" class="btn btn-primary">@sReportsV2.Resources.TextLanguage.Create)</button>
-                    <button type="button" onclick="backToList()" class="btn btn-danger">@sReportsV2.Resources.TextLanguage.Cancel</button>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
 
+<input id="lastUpdate" type="text" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : null )" hidden />
+
+<div class="display-container thesaurus-content-modals thesaurus-elements user-border">
+
+    <div class="col-4">
+
+        <div class="advanced-filter-item search-term-margin">
+            <input class="filter-input" name="quickSearch" id="quickSearch" type="text" placeholder="@sReportsV2.Resources.TextLanguage.Quick_search" />
+            <img class="search-img search-pointer" src="~/Content/img/icons/search_green.svg" onclick="quickSearchTerm()">
+        </div>
+
+        <div class="thesaurus-properties">
+            <div class="eoc-main-content umls-content reset-padding umls-border" data-toggle="collapse" data-target="#collapseFoundIn" aria-expanded="false" aria-controls="collapseFoundIn" id="foundIn">
+                <img id="foundArrow" class="arrow-tree">
+                <span class="umls-found-in-title umls-title-padding">@sReportsV2.Resources.TextLanguage.FoundIn</span>
+                <span class="found-in-count-thesaurus" id="foundInTotal" style="display: none">@ViewBag.TotalAppeareance</span>
+            </div>
+            <div class="collapse tree-background" id="collapseFoundIn">
+                <div id="treeThesaurusContainer"></div>
+            </div>
+        </div>
+
+        <div class="thesaurus-document-properties">
+            <div class="eoc-main-content umls-content reset-padding document-border-bottom" data-toggle="collapse" data-target="#collapseDocumentProperties" aria-expanded="false" aria-controls="collapseDocumentProperties" id="documentProperties">
+                <img class="arrow-tree-inactive" id="documentArrow">
+                <span class="umls-found-in-title umls-title-padding">@sReportsV2.Resources.TextLanguage.DocumentProperties</span>
+            </div>
+            <div class="collapse" id="collapseDocumentProperties">
+                <div class="content document-all-border" id="documentPropertiesData">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-8">
+
+        <form class="thesaurus-entry-form" onsubmit="return submitThesaurusEntryForm(this)" novalidate id="thesaurusEntryForm">
+            <input type="hidden" value="@(Model != null && Model.Id != 0 ? Model.Id.ToString(): "")" id="O40MTID" />
+            <input type="hidden" name="parentId" id="parentId" />
+            @if (Model != null && Model.Id != 0)
+            {
+                <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+            }
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="eoc-information margin-bottom-10">
+                    <div class="eoc-main-content umls-content-active" data-toggle="collapse" data-target="#collapseO4MTSpecificFields" aria-expanded="false" aria-controls="collapseO4MTSpecificFields" id="collapseO4MTSpecificField">
+                        <i class="administrative-state-arrow-up arrow-icon-umls" id="specificFieldsArrow"></i>
+                        <span class="umls-title">@sReportsV2.Resources.TextLanguage.MTSpecificFields</span>
+                    </div>
+                    <div class="collapse translations-style" id="collapseO4MTSpecificFields">
+                        @Html.Partial("TranslationsPartial")
+                    </div>
+                </div>
+
+                @Html.Partial("CodesTable")
+
+                <div class="row">
+                    <div class="button-partial col-12">
+                        @*@if (Model != null && Model.State.Equals(sReportsV2.Common.Enums.ThesaurusState.Draft))
+                            {
+                                <button type="button" onclick="reviewThesaurus(event,$('#Id').val())" class="submit-patient right-button" style="outline: none;">
+                                    <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.ReviewThesaurus</span>
+                                </button>
+
+                            }*@
+                        <button class="submit-button right-button margin-left-17" form="thesaurusEntryForm" type="submit" style="outline: none;">
+                            <span class="submit-patient-info">@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
+                        </button>
+                        <div class="text-underline right-button" type="button" onclick="backToList()">
+                            <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        @Html.Partial("CodingSystemPartial")
+    </div>
+
+</div>
+
 @Html.Partial("CodeModal")
+@Html.Partial("SimilarTermModal")
+
+@Scripts.Render("~/bundles/thesaurusGetAll")
 
 <script>
-    var languages =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>, Newtonsoft.Json.Formatting.Indented));
+    var languages =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>, Newtonsoft.Json.Formatting.Indented));
     var activeLanguage = '@(ViewBag.UserCookieData.ActiveLanguage as string)';
 </script>
-<script src="~/Scripts/sReports/thesaurusEntry.js"></script>

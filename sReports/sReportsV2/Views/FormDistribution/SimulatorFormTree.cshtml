@@ -1,0 +1,107 @@
+﻿@model sReportsV2.DTOs.Form.DataOut.FormDataOut
+
+    <div class="sim-childs simulator-tree"> 
+
+        <div class="sim-group">
+            <div class="sim-child">
+                @Model.Title
+            </div>
+            <div class="sim-vertical-line"></div>
+            <div class="sim-childs">
+                @foreach (var chapter in Model.Chapters)
+                {
+                <div class="sim-group">
+                    <div class=" horizontal-line sim-horizontal-line-top"></div>
+
+                    <div class="sim-child">
+                        @chapter.Title
+                    </div>
+                    <div class="sim-childs">
+                        @foreach (var page in chapter.Pages)
+                        {
+                            <div class="sim-group">
+                                <div class=" horizontal-line sim-horizontal-line-top"></div>
+
+                                <div class="sim-child">
+                                    @page.Title
+                                </div>
+                                <div class="sim-vertical-line"></div>
+
+                                <div class="sim-childs">
+                                    @foreach (var fs in page.ListOfFieldSets)
+                                    {
+                                        <div class="sim-group">
+                                            <div class=" horizontal-line sim-horizontal-line-top"></div>
+                                            <div class="sim-child">
+                                                @(string.IsNullOrWhiteSpace(fs[0].Description) ? "Field set title" : fs[0].Description)
+                                            </div>
+                                            <div class="sim-vertical-line"></div>
+
+                                            <div class="sim-childs">
+                                                @foreach (var field in fs[0].Fields)
+                                                {
+                                                <div class="sim-group">
+                                                    <div class=" horizontal-line sim-horizontal-line-top"></div>
+                                                    <div class="sim-child @(field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut || field is sReportsV2.DTOs.Field.DataOut.FieldNumericDataOut ? "editable" : "")" id="@field.Id" onclick="showFieldDistribution(event)">
+                                                        @field.Label
+                                                        @if (field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut || field is sReportsV2.DTOs.Field.DataOut.FieldNumericDataOut)
+                                                        {
+                                                            <img class="sim-editable" src="~/Content/img/icons/edit_simulator.svg">
+                                                        }
+                                                    </div>
+                                                    <div class="sim-vertical-line"></div>
+
+                                                    <div class="sim-childs">
+                                                        @if (field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut)
+                                                        {
+                                                            foreach (var value in ((sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut)field).Values)
+                                                            {
+                                                                <div class="sim-group">
+                                                                    <div class=" horizontal-line sim-horizontal-line-top"></div>
+                                                                    <div class="sim-child">
+                                                                        @value.Label
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="sim-vertical-line"></div>
+                </div>
+                    
+                }
+            </div>
+        </div>
+        
+    </div>
+<script>
+    $(document).ready(function () {
+
+        $('.sim-vertical-line').each(function (index, element) {
+            let count = $(element).closest('.sim-group').children('.sim-childs').children('.sim-group').length;
+            if (count == 1) {
+                $(element).css('height', '27px');
+            }
+        });
+
+        $('.sim-group').each(function (index, element) {
+            let count = $(element).find('.sim-childs').children('.sim-group').length;
+            if (count == 0) {
+                $(element).children('.sim-vertical-line').css('display','none');
+            }
+            let heightLast = $(element).closest('.sim-childs').children('.sim-group:last').css('height').split('p')[0];
+            let lineHeight = $(element).closest('.sim-childs').css('height').split('p')[0];
+
+            $(element).closest('.sim-childs').closest('.sim-group').children('.sim-vertical-line').css('height', `${lineHeight - heightLast + 27}px`)
+
+        });
+    });
+</script>

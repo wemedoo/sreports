@@ -56,22 +56,24 @@
 
         }
     </select>
-        <ul class="pagination">
-            <li><a href="#" onclick="changePage(1, event, '@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">&laquo;</a></li>
-            <li class="@(Model.DataIn.Page == 1 ? "disabled" : "")">
+    <ul class="pagination">
+        <li class="@(Model.DataIn.Page == 1 ? "disabled" : "")">
 
-                <a href="#" @if (Model.DataIn.Page != 1) { <text> onclick="changePage(@Model.DataIn.Page-1, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')" </text> }>&lsaquo;</a>
-            </li>
-            @for (var i = startVal; i <= endVal; i++)
-            {
-                <li class="page-item @(i == Model.DataIn.Page ? "active" : "")">
-                    <a onclick="changePage(@i, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">@i</a>
-                </li>
-            }
-            <li class="@((Model.DataIn.Page == totalPages) ? "disabled" : "")">
+            <a class="pagination-item" href="#" @if (Model.DataIn.Page != 1) { <text> onclick="changePage(@Model.DataIn.Page-1, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')" </text> }><img class="angle-size" src="~/Content/img/icons/left-angle.png"></a>
+        </li>
+        <li><a class="pagination-item" href="#" onclick="changePage(1, event, '@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')"><img class="double-angle-size" src="~/Content/img/icons/double-left.png"></a></li>
 
-                <a href="#" @if (Model.DataIn.Page != totalPages) { <text> onclick="changePage(@Model.DataIn.Page+1, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')" </text> }>&rsaquo;</a>
+        @for (var i = startVal; i <= endVal; i++)
+        {
+            <li class="page-item @(i == Model.DataIn.Page ? "active" : "")">
+                <a class="pagination-item pagination-item-num" onclick="changePage(@i, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">@i</a>
             </li>
-            <li><a href="#" onclick="changePage(@totalPages, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')">&raquo;</a></li>
-        </ul>
+        }
+        <li><a class="pagination-item" href="#" onclick="changePage(@totalPages, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')"><img class="double-angle-size" src="~/Content/img/icons/double-right.png"></a></li>
+
+        <li class="@((Model.DataIn.Page == totalPages) ? "disabled" : "")">
+
+            <a class="pagination-item" href="#" @if (Model.DataIn.Page != totalPages) { <text> onclick="changePage(@Model.DataIn.Page+1, event,'@ViewBag.Url', '@ViewBag.Container','@ViewBag.PageNumIdentifier')" </text> }><img class="angle-size" src="~/Content/img/icons/right-angle.png"></a>
+        </li>
+    </ul>
 

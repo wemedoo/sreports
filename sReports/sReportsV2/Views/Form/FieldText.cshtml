@@ -6,33 +6,54 @@
     string fieldSetId = ViewBag.FieldSetId;
 }
 
-<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content" @Html.Raw(Model.Visibility)>
-    <label for="@Model.Id" class="form-element-label">
-        @Html.Raw(Model.FullLabel)
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content">
 
-        @if (Model.Help != null)
-        {
-            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
-        }
-    </label>
-
-    <div class="repetitive-values">
+    <div class="repetitive-values d-inline-block form-input-size">
 
         @AddField(isChapterReadonly, fieldSetId, fieldSetCounter)
 
     </div>
     <div style="margin-top:10px;">
-        <div style="display:inline-block" class="form-element-description">
+        <div style="display:none" class="form-element-description field-desc">
             @Html.Raw(Model.Description)
         </div>
-        @if (Model.IsRepetitive)
-        {
-            <div class="float-right">
-                <button type="button" class="btn btn-primary button-plus-repetitive"> <i class="fas fa-plus-circle"></i> Add More</button>
-            </div>
-        }
     </div>
 </fieldset>
+
+@helper AddField(bool isChapterReadonly, string fieldSetId, int fieldSetCounter)
+{
+    if (Model.Value != null && Model.Value.Count > 0)
+    {
+        int repetitiveCounter = 1;
+
+        foreach (var repetitiveValue in Model.Value)
+        {
+            <div class="field-group">
+                <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+                    @Html.Raw(Model.FullLabel)
+                </div>
+                <div class="repetitive-field filter-input d-inline-block">
+                    @AddInput(isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, Model.IsRepetitive)
+                    @{repetitiveCounter++;}
+                </div>
+                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+            </div>
+        }
+    }
+    else
+    {
+        <div class="field-group">
+            <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+                @Html.Raw(Model.FullLabel)
+            </div>
+            <div class="repetitive-field filter-input d-inline-block">
+                @AddInput(isChapterReadonly, fieldSetId, fieldSetCounter, 1, "", Model.IsRepetitive)
+            </div>
+            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+        </div>
+
+    }
+}
 
 @helper AddInput(bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetititve)
 {
@@ -48,30 +69,5 @@
     </div>
 }
 
-@helper AddField(bool isChapterReadonly, string fieldSetId, int fieldSetCounter)
-{
-    if (Model.Value != null && Model.Value.Count > 0)
-    {
-        int repetitiveCounter = 1;
-
-        foreach (var repetitiveValue in Model.Value)
-        {
-            <div class="repetitive-field">
-                @AddInput(isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, Model.IsRepetitive)
-                <div class="form-element-bar @(Model.IsRepetitive ? "repetitive-bar" : string.Empty)"></div>
-                @AddRemoveButton(Model.Value.Count == 1 ? "none" : "")
-                @{repetitiveCounter++;}
-            </div>
-        }
-    }
-    else
-    {
-        <div class="repetitive-field">
-            @AddInput(isChapterReadonly, fieldSetId, fieldSetCounter, 1, "", Model.IsRepetitive)
-            <div class="form-element-bar @(Model.IsRepetitive ? "repetitive-bar" : string.Empty)"></div>
-            @AddRemoveButton("none")
-        </div>
-    }
-}
 
 

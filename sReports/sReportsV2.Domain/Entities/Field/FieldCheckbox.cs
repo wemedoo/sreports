@@ -1,5 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using sReportsV2.Domain.Entities.Constants;
+using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.Form;
 using System;
 using System.Collections.Generic;

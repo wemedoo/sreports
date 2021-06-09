@@ -1,0 +1,99 @@
+﻿@using sReportsV2.DTOs.Common.DataOut;
+
+<form id="advancedFilterForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-advanced digital-guidelines-content">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+
+                </div>
+
+                <div class="modal-body modal-body-advanced" id="advancedFilterModalContent">
+                    <div class="d-flex advanced-filter-header">
+                        <img class="mr-3" src="~/Content/img/icons/advanced_filter.svg">@sReportsV2.Resources.TextLanguage.Advanced_filter
+                    </div>
+
+
+
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Title
+                            </div>
+                            <input type="text" class="filter-input" id="title" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Title : "")">
+                        </div>
+                        <div class="advanced-filter-item filter-item d-flex">
+                            <div class="w-50 mr-1">
+                                <div class="label filter-label">
+                                    @sReportsV2.Resources.TextLanguage.Major
+                                </div>
+                                <input type="text" class="filter-input" id="major" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Major : "")">
+                            </div>
+                            <div class="w-50 ml-1">
+                                <div class="label filter-label">
+                                    @sReportsV2.Resources.TextLanguage.Minor
+                                </div>
+                                <input type="text" class="filter-input" id="minor" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Minor : "")">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.From
+                            </div>
+                            <div class="filter-date-time datetime-picker-container">
+                                <div class="date-wrapper input-border mr-auto w-60 d-flex">
+                                    <input type="date" class="date-helper d-inline-block border-0 date-width input-padding filter-input" value="@(ViewBag.FilterData != null && ViewBag.FilterData.DateTimeFrom != null ? ViewBag.FilterData.DateTimeFrom.ToString("s").Split('T')[0] : "")" />
+                                    <input id="dateTimeFrom" type="datetime-local" class="date-time-local d-none form-element-field filter-input" value="@(ViewBag.FilterData != null && ViewBag.FilterData.DateTimeFrom != null ? ViewBag.FilterData.DateTimeFrom.ToString("s") : "")" />
+                                    <div class="img-wrapper">
+                                        <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg" onclick="openDateTimePicker(event)">
+                                    </div>
+                                </div>
+                                <div class="time-wrapper w-35 input-border">
+                                    <input type="text" class=" time-part time-helper d-inline-block border-0 input-padding filter-input w-90" value="@(ViewBag.FilterData != null && ViewBag.FilterData.DateTimeFrom != null ? ViewBag.FilterData.DateTimeFrom.ToString("s").Split('T')[1] : "")">
+                                    <div class="clock-wrapper">
+                                        <i class="fas fa-clock" onclick="openTimePicker(event)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.To
+                            </div>
+                            <div class="filter-date-time datetime-picker-container">
+                                <div class="date-wrapper input-border mr-auto w-60 d-flex">
+                                    <input type="date" class="date-helper d-inline-block border-0 date-width input-padding filter-input" value="@(ViewBag.FilterData != null && ViewBag.FilterData.DateTimeTo != null ? ViewBag.FilterData.DateTimeTo.ToString("s").Split('T')[0] : "")" />
+                                    <input id="dateTimeTo" type="datetime-local" class="date-time-local d-none form-element-field filter-input" value="@(ViewBag.FilterData != null && ViewBag.FilterData.DateTimeTo != null ? ViewBag.FilterData.DateTimeTo.ToString("s") : "")" />
+                                    <div class="img-wrapper">
+                                        <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg" onclick="openDateTimePicker(event)">
+                                    </div>
+                                </div>
+                                <div class="time-wrapper w-35 input-border">
+                                    <input type="text" class="time-part time-helper d-inline-block border-0 input-padding filter-input w-90" value="@(ViewBag.FilterData != null && ViewBag.FilterData.DateTimeTo != null ? ViewBag.FilterData.DateTimeTo.ToString("s").Split('T')[1] : "")">
+                                    <div class="clock-wrapper">
+                                        <i class="fas fa-clock" onclick="openTimePicker(event)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="advanced-filter-line"></div>
+                    <div class="d-flex mt-3 position-relative margin-top-10">
+                        <div class="button-wrapper-filter filter-button" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="advanceFilter()"> @sReportsV2.Resources.TextLanguage.Filter</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

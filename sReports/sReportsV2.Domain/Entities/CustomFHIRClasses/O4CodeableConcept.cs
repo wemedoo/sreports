@@ -1,4 +1,5 @@
 ﻿using Hl7.Fhir.Model;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace sReportsV2.Domain.Entities.CustomFHIRClasses
         public string Version { get; set; }
         public string Code { get; set; }
         public string Value { get; set; }
+
+        [BsonDateTimeOptions(DateOnly = true)]
         public DateTime? VersionPublishDate { get; set; }
 
         public O4CodeableConcept() { }

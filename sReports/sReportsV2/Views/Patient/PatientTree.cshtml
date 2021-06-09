@@ -1,81 +1,100 @@
 ﻿@using sReportsV2.DTOs.EpisodeOfCare;
 @using System.Linq;
+@using sReportsV2.Common.Extensions;
 
 @model sReportsV2.DTOs.Patient.PatientDataOut
 
 @if (Model != null)
 {
-    <div class="accordion" id="patientTree" name="@Model.Id">
-        <div class="header-accordion always-collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="patientTree">
-            @sReportsV2.Resources.TextLanguage.Episodes_Of_Care
-            <button class="btn btn-primary pt-0 pb-0" onclick="addNewEpisodeOfCare('@Model.Id')"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.AddNewEpisodeOfCare </button>
-
+    <div class="patient-tree" id="patientTree" data-patientid="@Model.Id">
+        <div class="patient-tree-header">
+            <div class="patient-tree-title tree-form-title">
+                @sReportsV2.Resources.TextLanguage.Episodes_of_cares
+            </div>
+            <button type="button" class="btn btn-add-new float-right" onclick="addNewEpisodeOfCare('@Model.Id')">
+                <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.Add_New</span>
+            </button>
         </div>
-
-        <div class="accordion-content tree collapse show" id="patientTree">
-
-
-            <ul class="tree-ul">
-                @for (int i = 0; i < Model.EpisodeOfCares.Count; i++)
-                {
-                    <li class="parent">
-                        <div class="content episode-of-care" id="@Model.EpisodeOfCares[i].Id">
-                            <i class="fas fa-plus"></i>
-                            <span class="item-form">@(Model.EpisodeOfCares[i].DiagnosisCondition) (@Model.EpisodeOfCares[i].Period.ToString()) - @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.EpisodeOfCares[i].Status) </span>
+        @if (Model.EpisodeOfCares != null && Model.EpisodeOfCares.Count > 0)
+        {
+            for (int i = 0; i < Model.EpisodeOfCares.Count; i++)
+            {
+                <div class="single-episode-of-care-container" id="@Model.EpisodeOfCares[i].Id">
+                    <div class="vertical-line" style="display: none;">&nbsp;</div>
+                    <div class="eoc-information">
+                        <div class="eoc-main-content">
+                            <span class="arrow-icon">
+                            </span>
+                            <span class="title">
+                                @(Model.EpisodeOfCares[i].DiagnosisRole != null ? Model.EpisodeOfCares[i].DiagnosisRole.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "Not defined")
+                            </span>
+                            <span class="status">
+                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.EpisodeOfCares[i].Status)
+                            </span>
                         </div>
+                        <div class="dates">
+                            <div class="start-date">
+                                <span class="calendar-icon">
+                                    <img src="~/Content/img/icons/calendar_green.svg" />
+                                </span>
+                                <span class="calendar-text">
+                                    @(Model.EpisodeOfCares[i].Period.StartDate.ToShortDateString())
+                                </span>
+                            </div>
+                            <div class="end-date">
+                                <span class="calendar-icon">
+                                    @if (Model.EpisodeOfCares[i].Period.EndDate != null)
+                                    {
+                                        <img src="~/Content/img/icons/calendar_green.svg" />
 
-                        <ul class="nested-tree-ul expandable">
-                            @for (int j = 0; j < Model.EpisodeOfCares[i].Encounters.Count; j++)
+                                    }
+                                </span>
+                                <span class="calendar-text">
+                                    @(Model.EpisodeOfCares[i].Period.EndDate != null ? Model.EpisodeOfCares[i].Period.EndDate.Value.ToShortDateString() : "")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="encounter-container">
+                        <div class="add-new-button" onclick="addNewEncounter(event, '@Model.EpisodeOfCares[i].Id')">
+                            <span class="icon-plus">
+                                <img src="~/Content/img/icons/add_new.svg" />
+                            </span>
+                            <span class="label">
+                                @sReportsV2.Resources.TextLanguage.Add_new_encounter
+                            </span>
+                        </div>
+                        <div class="encounter-container-items">
+                            @if (Model.EpisodeOfCares[i].Encounters != null)
                             {
-                                <li class="child-item enc">
-                                    <div class="content encounter level-1" id="@Model.EpisodeOfCares[i].Encounters[j].Id">
-                                        <i class="fas fa-plus"></i>
-                                        <span class="item-form">@Model.EpisodeOfCares[i].Encounters[j].LastUpdate.Value.ToString("dd/MM/yyyy HH:mm") - @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.EpisodeOfCares[i].Encounters[j].ServiceType.GetDisplay()) (@(Model.EpisodeOfCares[i].Encounters[j].FormInstances.Count))</span>
-                                    </div>
-                                    <ul class="nested-tree-ul no-children expandable">
-                                        @foreach (var formInstance in Model.EpisodeOfCares[i].Encounters[j].FormInstances)
-                                        {
-                                            <li class="child-item">
-                                                <div class="content form-instance level-2" id="@formInstance.Id">
-                                                    <span class="item-form">@formInstance.Title</span>
-                                                    
-                                                </div>
-                                            </li>
-                                        }
-                                    </ul>
-                                </li>
-
+                                @Html.Partial("~/Views/Encounter/PatientTreeEncounterItems.cshtml", Model.EpisodeOfCares[i].Encounters)
                             }
-                        </ul>
-                    </li>
-                }
-            </ul>
-        </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-episode-of-care-placeholder">
+                <img src="~/Content/img/icons/placeholder_patient.svg" />
+                <div class="no-result-text">
+                    @sReportsV2.Resources.TextLanguage.There_is_no_any_Episode_of_care_added<br />
+                    @sReportsV2.Resources.TextLanguage.Add_an_Episode_of_Care
+                </div>
+            </div>
+        }
     </div>
 }
 
 
 <script>
-
+    @if (ViewBag.IsPageReload != null && ViewBag.IsPageReload)
+    {
+        <text>
+            $(document).ready(function () {
+                setDefaultTreeSelectedValue('@ViewBag.ActiveElementParent', '@ViewBag.ActiveElement', '@ViewBag.ActiveElementType')
+            })
+        </text>
+    }
 </script>
-
-<div class="modal fade" id="diagnosticReport" tabindex="-1" role="dialog" aria-labelledby="diagnosticReportLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <form method="post" enctype="multipart/form-data" ">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="diagnosticReportLabel">@sReportsV2.Resources.TextLanguage.DiagnosticReports</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div id="diagnosticReportModalContent" class="modal-body">
-
-                </div>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-

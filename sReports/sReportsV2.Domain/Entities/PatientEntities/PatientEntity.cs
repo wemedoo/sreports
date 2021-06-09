@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using sReportsV2.Domain.Entities.OrganizationEntities;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
+using sReportsV2.Domain.Sql.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +16,12 @@ namespace sReportsV2.Domain.Entities.PatientEntities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public List<IdentifierEntity> Identifiers { get; set; }
+        public List<Identifier> Identifiers { get; set; }
         public bool Active { get; set; }
         public Name Name { get; set; }
         public Gender Gender { get; set; }
+
+        [BsonDateTimeOptions(DateOnly = true)]
         public DateTime? BirthDate { get; set; }
         public Address Addresss { get; set; }
         public MultipleBirth MultipleB { get; set; }
@@ -27,8 +29,6 @@ namespace sReportsV2.Domain.Entities.PatientEntities
         public List<Telecom> Telecoms { get; set; }
         public List<Communication> Communications { get; set; }
 
-        [BsonIgnore]
-        public List<EpisodeOfCareEntities.EpisodeOfCareEntity> EpisodeOfCares { get; set; }
 
 
         public void SetGenderFromString(string gender)

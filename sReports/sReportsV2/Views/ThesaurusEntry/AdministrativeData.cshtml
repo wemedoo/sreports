@@ -1,85 +1,67 @@
-﻿@{
-    sReportsV2.Models.Common.VersionViewModel initialData = Model != null && Model.AdministrativeData != null ? Model.AdministrativeData.GetInitialData() : null;
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.ThesaurusEntry.DataOut;
+
+@{
+    VersionDataOut initialData = Model != null && Model.AdministrativeData != null ? Model.AdministrativeData.GetInitialData() : null;
 }
-@if(Model != null)
+
+
+@if (Model != null)
 {
-    <div class="row pl-lg-3">
-        <div class="administrative-data">
-            <div class="header-tree">
-                @sReportsV2.Resources.TextLanguage.Administative_data
-            </div>
-            <div class="content">
-                <div class="document-property">
-                    <div class="label">
-                        @sReportsV2.Resources.TextLanguage.Created_by
-                    </div>
-                    <div class="value">
-                        @if (initialData != null && initialData.User != null)
-                        {
-                            @(initialData.User.FirstName)
-                        }
+    <div class="margin-bottom-8">
+        <div data-toggle="collapse" data-target="#collapseAdministrativeData" aria-expanded="false" aria-controls="collapseAdministrativeData" id="administrativeData" style="width: fit-content;">
+            <button class="eoc-main-content administrative-content administrative-button" id="administrativeButton">
+                <img style="padding-left: 6px;" src="~/Content/img/icons/administrative_data.svg" />
+                <span class="administrative-title">@sReportsV2.Resources.TextLanguage.Administative_data</span>
+                <i class="administrative-arrow" id="administrativeArrow"></i>
+            </button>
+        </div>
 
-                        @if (initialData != null && initialData.User != null)
-                        {
-                            @(initialData.User.LastName)
-                        }
-                    </div>
-                </div>
-                <div class="document-property">
-                    <div class="label">
-                        @sReportsV2.Resources.TextLanguage.Created_on
-                    </div>
-                    <div class="value">
-                        @if (initialData != null)
-                        {
-
-                            @initialData.CreatedOn
-                        }
-                    </div>
-                </div>
-                @if (Model.AdministrativeData != null)
-                {
-                    <div class="version-history">
-                        <div class="title">
-                            @sReportsV2.Resources.TextLanguage.Version_History
-                        </div>
-                        @foreach (sReportsV2.Models.Common.VersionViewModel version in Model.AdministrativeData.VersionHistory)
-                        {
-                            <div class="single-version">
-                                <div class="document-property">
-                                    <div class="label">
-                                        @sReportsV2.Resources.TextLanguage.Type
+        <div class="collapse position-relative" id="collapseAdministrativeData">
+            @if (Model.AdministrativeData != null)
+            {
+                <span class="arrow-scroll-left"></span>
+                <span class="arrow-scroll-right"></span>
+                <div class="margin-top-40 container-state" id="arrowRight">
+                    @foreach (VersionDataOut version in Model.AdministrativeData.VersionHistory)
+                    {
+                        <div class="item-state administrative-border margin-right-41 margin-forms">
+                            <div class="" id="misublog">
+                                <div id="misublog">
+                                    <div class="@version.GetStateColor(version.State)">
+                                        <span class="administrative-state-style">@version.State</span>
                                     </div>
-                                    <div class="value">
+                                </div>
+                                <div id="misublog" class="padding-top-3">
+                                    <div class="administrative-type">
+                                        @sReportsV2.Resources.TextLanguage.Type.ToUpper()
+                                    </div>
+                                    <div class="administrative-type-style">
                                         @version.Type
                                     </div>
                                 </div>
-                                <div class="document-property">
-                                    <div class="label">
-                                        @sReportsV2.Resources.TextLanguage.Created_on
-                                    </div>
-                                    <div class="value">
-                                        @version.CreatedOn
+                                <div id="misublog" class="padding-top-3">
+                                    <div class="administrative-line">
                                     </div>
                                 </div>
-                                @if (version.RevokedOn != null)
-                                {
-                                    <div class="document-property">
-                                        <div class="label">
-                                            @sReportsV2.Resources.TextLanguage.Revoked_on
-                                        </div>
-                                        <div class="value">
-                                            @version.RevokedOn
-                                        </div>
+                                <div id="misublog" class="padding-top-3 administrative-width">
+                                    <div class="administrative-user ">
+                                        @(version.User.FirstName) @(version.User.LastName)
                                     </div>
-                                }
+                                    <div class="administrative-user ">
+                                        @version.CreatedOn.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string)
+                                    </div>
+                                </div>
                             </div>
-                        }
-                    </div>
-                }
+                            <div class="triangle-line"></div>
+                            <div class="triangle-line-bottom"></div>
+                        </div>
+                    }
+                </div>
 
-            </div>
+            }
+
         </div>
-     </div>
-        }
+    </div>
+}
 

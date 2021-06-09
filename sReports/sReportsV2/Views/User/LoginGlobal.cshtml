@@ -1,0 +1,100 @@
+﻿@using sReportsV2.Models.MicrosoftAuthentification
+@{
+    var alerts = TempData.ContainsKey(Alert.AlertKey)
+       ? (List<Alert>)TempData[Alert.AlertKey]
+       : new List<Alert>();
+
+    Layout = "";
+}
+@model sReportsV2.DTOs.User.DataIn.UserLoginDataIn
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="sotexsolutions.com">
+    <title>Login - Swiss Open Oncology by weMedoo</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/Content/login.min.css" />
+    <link rel="stylesheet" href="~/Content/toastr.min.css" />
+
+</head>
+<body>
+    @foreach (var alert in alerts)
+    {
+        <div>@alert.Message</div>
+    }
+    <div class="login-page">
+        <div class="login-info">
+            <div class="login-info-logo">
+                <img src="~/Content/img/icons/SwissOpenOncology/swissopen logo.svg">
+
+            </div>
+            <div class="info-values">
+                <div class="login-info-title">In Numbers</div>
+                <div class="login-info-value">1025500</div>
+                <div class="login-info-label">Number of thesaurus entries</div>
+                <div class="login-info-value">785300+</div>
+                <div class="login-info-label">Number of documents</div>
+                <div class="login-info-value">60500+</div>
+                <div class="login-info-label">Number of datasets</div>
+            </div>
+        </div>
+        <div class="login-registration">
+            <div class="d-flex">
+
+                @Html.Partial("~/Views/ThesaurusGlobal/Login/RegistrationPartial.cshtml")
+                @Html.Partial("~/Views/ThesaurusGlobal/Login/LoginPartial.cshtml")
+
+                <div class="sign-in-part">
+                    <div class="sub-title mb-48">
+                        Or sign in with...
+                    </div>
+                    <a class="sign-in-button" href="@Url.Action("SignInGoogle", "User")" style="text-decoration: none;">
+                        <div class="elipsis"></div>
+                        <div class="sb-content">
+                            <div class="sb-img">
+                                <img src="~/Content/img/icons/SwissOpenOncology/google.svg">
+                            </div>
+                            <div class="sign-in-text"> Sign In with Google</div>
+                        </div>
+                        <div class="elipsis"></div>
+
+                    </a>
+                    @*<a class="sign-in-button" href="@Url.Action("SignInLinkedIn", "User")" style="text-decoration: none;">
+                            <div class="elipsis"></div>
+                            <div class="sb-content">
+                                <div class="sb-img">
+                                    <img src="~/Content/img/icons/SwissOpenOncology/linkedin.svg">
+                                </div>
+                                <div class="sign-in-text"> Sign In with LinkedIn</div>
+                            </div>
+                            <div class="elipsis"></div>
+                        </a>*@
+                    <a class="sign-in-button" href="@Url.Action("SignIn", "User")" style="text-decoration: none;">
+                        <div class="elipsis"></div>
+                        <div class="sb-content">
+                            <div class="sb-img" style="width:37px;">
+                                <img class="microsoft-icon" src="~/Content/img/icons/SwissOpenOncology/microsoft.svg">
+                            </div>
+                            <div class="sign-in-text"> Sign In with Microsoft</div>
+                        </div>
+                        <div class="elipsis"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/ThesaurusGlobal/Shared/Footer.cshtml")
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="~/Scripts/SwissOpenOncology/globalLogin.js"></script>
+    <script src="~/Scripts/SwissOpenOncology/swissOpenOncology.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+
+</body>
+</html>

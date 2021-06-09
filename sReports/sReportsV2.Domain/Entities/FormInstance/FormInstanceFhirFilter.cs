@@ -9,6 +9,6 @@ namespace sReportsV2.Domain.Entities.FormInstance
     public class FormInstanceFhirFilter
     {
         public string Encounter { get; set; }
-        public string Performer { get; set; }
+        public int Performer { get; set; }
     }
 }

@@ -1,62 +1,66 @@
-﻿@using sReportsV2.DTOs.Patient;
-@{
-    string hasValue = "-hasvalue";
-}
-<form id="newIdentifierForm" onsubmit="return false">
+﻿@using sReportsV2.DTOs.CustomEnum.DataOut
+<div class="modal fade" id="identifierModal" tabindex="-1" role="dialog" aria-labelledby="identifierModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-content-password">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
 
-    <div class="modal fade" id="identifierModal" tabindex="-1" role="dialog" aria-labelledby="identifierModal" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="identifierModalLabel">@sReportsV2.Resources.TextLanguage.Patient_Identificator</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+                    <form id="newIdentifierForm">
+                        <div class="d-flex advanced-filter-header">
+                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">@sReportsV2.Resources.TextLanguage.Identifier_add
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Identifier_name
+                            </div>
+                            <select class="filter-input arrow-select" id="newIdentifierSystem" name="newIdentifierSystem">
+                                <option value=""></option>
+                                @foreach (CustomEnumDataOut type in ViewBag.IdentifierTypes as List<CustomEnumDataOut>)
+                                {
+                                    <option value="@type.Thesaurus.Id">@type.Thesaurus.GetPreferredTermByTranslationOrDefault(this.ViewData["ActiveLanguage"].ToString())</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Value
+                            </div>
+                            <input required class="filter-input" type="text" id="newIdentifierValue" name="newIdentifierValue" />
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.IdentifierUse
+                            </div>
+                            <select class="filter-input arrow-select" id="newIdentifierUse" name="newIdentifierUse">
+                                <option value=""></option>
+                                @foreach (var identifierUse in Enum.GetValues(typeof(sReportsV2.Common.Enums.IdentifierUseType)))
+                                {
+                                    <option value="@identifierUse">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(identifierUse.ToString())</option>
+                                }
+                            </select>
+                        </div>
 
-                    <div class="form-element form-select">
-                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Identifier_name:</label>
-                        <select class="form-element-field @hasValue" id="newIdentifierSystem" name="newIdentifierSystem" required>
-                            @foreach (IdentifierTypeDataOut type in this.ViewData["IdentifierTypes"] as List<IdentifierTypeDataOut>)
-                            {
-                                <option value="@type.O4MtId">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(type.Name)</option>
-                            }
-                        </select>
-                        <div class="form-element-bar"></div>
-                    </div>
+                        <div class="button-partial">
+                            <button class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="addNewIdentifier(event)" dismiss="modal">
+                                <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
+                            </button>
+                            <div class="button-wrapper-filter float-right" id="close">
+                                <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                    @sReportsV2.Resources.TextLanguage.Cancel
+                                </a>
+                            </div>
+                        </div>
 
-                    <div class="form-element">
-                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Value:</label>
-                        <input class="form-element-field" type="text" id="newIdentifierValue" name="newIdentifierValue" required />
-                        <div class="form-element-bar"></div>
-                    </div>
-
-                    <div class="form-element form-select">
-                        <label class="form-element-label @hasValue">@sReportsV2.Resources.TextLanguage.IdentifierUse:</label>
-                        <select class="form-element-field @hasValue " id="newIdentifierUse" name="newIdentifierUse" required>
-                            <option value=""></option>
-                            @foreach (var identifierUse in Enum.GetValues(typeof(sReportsV2.Domain.Enums.IdentifierUseType)))
-                            {
-                                <option value="@identifierUse">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(identifierUse.ToString())</option>
-                            }
-                        </select>
-                        <div class="form-element-bar"></div>
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@sReportsV2.Resources.TextLanguage.Close</button>
-                    <button type="button" class="btn btn-primary" onclick="addNewIdentifier(event)">@sReportsV2.Resources.TextLanguage.SaveChanges</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
 
 <script>
     var activeEntity = '@(this.ViewData.ContainsKey("ActiveEntity") ? this.ViewData["ActiveEntity"].ToString() : string.Empty)';
 </script>
-
-

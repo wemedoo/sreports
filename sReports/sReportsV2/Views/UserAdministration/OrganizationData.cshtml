@@ -1,0 +1,209 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.User.DataOut.UserOrganizationDataOut
+<div class="institution-container" id="institution-@Model.OrganizationId">
+
+    <div class="d-flex institution-header" data-toggle="collapse" role="button" onclick="collapseChapter(this)" data-target="#@Model.OrganizationId" aria-expanded="false" aria-controls="@Model.OrganizationId">
+        <i class="fas fa-angle-down institution-icon"></i>
+        <div class="institution-header-name">@Model.Organization.Name</div>
+        <div class="institution-header-role">
+            <div class="user-td-color">Roles</div>
+            <div>  @( Model.Roles!= null && Model.Roles.Count() > 0 ?string.Join(",", Model.Roles.Select(x => x.Name).ToArray()) : "Unknown")</div>
+        </div>
+        <div class="institution-header-status">
+            <div class="user-td-color">Legal form</div>
+            <div class="user-status-item">@(Model.LegalForm != null? Model.LegalForm.ToString() : "Unknown")</div>
+        </div>
+    </div>
+    <div class="single-institution collapse chapter" id="@Model.OrganizationId">
+        <input type="hidden" class="form-control" id="organizationState-@Model.OrganizationId" value="@(Model.State != null ? Model.State : UserState.Active)" />
+        <div class="input-group-title">
+            Institution and work-related data
+        </div>
+        <div class="d-flex">
+            <div class="user-input-group">
+                <div class="advanced-filter-item filter-item input-margin margin-top-15">
+                    <div class="label filter-label">
+                        Institutional legal form <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
+                    </div>
+                    <div class="position-relative margin-top-10">
+                        @foreach (var option in Enum.GetNames(typeof(InstitutionalLegalForm)))
+                        {
+                            <label class="form-radio-label margin-right-20">
+                                <input type="radio"
+                                       id="legalForm-@Model.OrganizationId"
+                                       name="legalForm-@Model.OrganizationId"
+                                       value="@option"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.LegalForm.ToString() == option ? "checked" : string.Empty)>
+
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="user-radio-span">
+                                    @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)
+                                </span>
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin margin-top-15">
+                    <div class="label filter-label">
+                        Institutional organizational form <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
+                    </div>
+                    <div class="position-relative margin-top-10">
+                        @foreach (var option in Enum.GetNames(typeof(InstitutionalOrganizationalForm)))
+                        {
+                            <label class="form-radio-label margin-right-20">
+                                <input type="radio"
+                                       id="organizationalForm-@Model.OrganizationId"
+                                       name="organizationalForm-@Model.OrganizationId"
+                                       value="@option"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.OrganizationalForm.ToString() == option ? "checked" : string.Empty)>
+
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="user-radio-span">
+                                    @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)
+                                </span>
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Institution name
+                    </div>
+                    <input readonly class="filter-input" type="text" id="institutionalName-@Model.OrganizationId" value="@(Model != null && Model.Organization != null && Model.Organization.Name != null ?  Model.Organization.Name : "")" />
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Department name
+                    </div>
+                    <input class="filter-input" type="text" id="departmentName-@Model.OrganizationId" value="@(Model != null && Model.DepartmentName != null ?  Model.DepartmentName : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Team
+                    </div>
+                    <input required class="filter-input" type="text" id="team-@Model.OrganizationId" value="@(Model != null && Model.Team != null ?  Model.Team : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                </div>
+            </div>
+            <div class="user-input-group">
+                <div class="advanced-filter-item filter-item input-margin margin-top-15">
+                    <div class="label filter-label">
+                        Is Practitioner? <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
+                    </div>
+                    <div class="position-relative margin-top-10">
+                        <label class="form-radio-label margin-right-20">
+                            <input type="radio"
+                                   id="isPractitioner-@Model.OrganizationId"
+                                   name="isPractitioner-@Model.OrganizationId"
+                                   value="true"
+                                   class="form-radio-field"
+                                   @(Model != null && Model.IsPracticioner != null && Model.IsPracticioner.Value ? "checked" : string.Empty)>
+
+                            <i class="form-radio-button user-radio"></i>
+                            <span class="user-radio-span">
+                                @sReportsV2.Resources.TextLanguage.Yes
+                            </span>
+                        </label>
+                        <label class="form-radio-label margin-right-20">
+                            <input type="radio"
+                                   id="isPractitioner-@Model.OrganizationId"
+                                   name="isPractitioner-@Model.OrganizationId"
+                                   value="false"
+                                   class="form-radio-field"
+                                   @(Model != null && Model.IsPracticioner != null && !Model.IsPracticioner.Value ? "checked" : string.Empty)>
+
+                            <i class="form-radio-button user-radio"></i>
+                            <span class="user-radio-span">
+                                @sReportsV2.Resources.TextLanguage.No
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Qualification
+                    </div>
+                    <input required class="filter-input" type="text" id="qualification-@Model.OrganizationId" value="@(Model != null && Model.Qualification != null ?  Model.Qualification : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label organization-item margin-bottom-14">
+                        @sReportsV2.Resources.TextLanguage.SelectAllRolesUser <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
+                    </div>
+                    <div class="form-row form-checkbox-inline chk2">
+                        <div class="form-margin col-md-6" id="checkBoxGroup2">
+                            @for (int i = 0; i < ViewBag.Roles.Count; i++)
+                            {
+                                <label class="form-checkbox-label reset-margin" id="checkBoxGroup2">
+                                    <input value="@ViewBag.Roles[i].Id" class="form-checkbox-field chk2" type="checkbox" id="@ViewBag.Roles[i].Id" checked="@(Model !=null && Model.Roles != null ? Model.Roles.Any(x => x.Id == ViewBag.Roles[i].Id): false)" />
+                                    <i class="form-checkbox-button custom-checkbox"></i>
+                                    <span class="organization-types">@ViewBag.Roles[i].Name</span>
+                                </label>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Seniority level
+                    </div>
+                    <input required class="filter-input" type="text" id="seniority-@Model.OrganizationId" value="@(Model != null && Model.SeniorityLevel != null ?  Model.SeniorityLevel : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Speciality
+                    </div>
+                    <input required class="filter-input" type="text" id="speciality-@Model.OrganizationId" value="@(Model != null && Model.Speciality != null ?  Model.Speciality : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Subspeciality
+                    </div>
+                    <input required class="filter-input" type="text" id="subspeciality-@Model.OrganizationId" value="@(Model != null && Model.SubSpeciality != null ?  Model.SubSpeciality : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        InstitutionalId
+                    </div>
+                    <input readonly class="filter-input" type="text" id="id-@Model.OrganizationId" value="@(Model != null ?  Model.OrganizationId.ToString() : "")" />
+                </div>
+            </div>
+
+        </div>
+        <div class="input-group-title mb-3">
+            Institution contact data
+        </div>
+        <div class="d-flex">
+            <div class="user-input-group">
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Country
+                    </div>
+                    <input readonly required class="filter-input" type="text" id="country-@Model.OrganizationId" value="@(Model != null && Model.Organization != null && Model.Organization.Address != null ?  Model.Organization.Address.Country : "")" />
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        State
+                    </div>
+                    <input readonly required class="filter-input" type="text" id="state-@Model.OrganizationId" value="@(Model != null && Model.Organization != null && Model.Organization.Address != null ?  Model.Organization.Address.State : "")" />
+                </div>
+            </div>
+            <div class="user-input-group">
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Postal number
+                    </div>
+                    <input readonly required class="filter-input" type="text" id="postalNumber-@Model.OrganizationId" value="@(Model != null && Model.Organization != null && Model.Organization.Address != null ?  Model.Organization.Address.PostalCode : "")" />
+                </div>
+                <div class="advanced-filter-item filter-item input-margin">
+                    <div class="label filter-label">
+                        Business E-Mail
+                    </div>
+                    <input readonly required class="filter-input" type="text" id="postalNumber-@Model.OrganizationId" value="@(Model != null && Model.Organization != null ?  Model.Organization.Email : "")" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

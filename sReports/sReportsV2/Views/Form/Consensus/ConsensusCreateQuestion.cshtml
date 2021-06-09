@@ -1,0 +1,61 @@
+﻿@model string
+
+<div class="qc-container" id="qc-@Model">
+    <div class="d-flex question-bb">
+        <div class="qc-half-container">
+            <div class="question-label">
+                Define Question
+            </div>
+            <textarea class="question-value"></textarea>
+        </div>
+        <div class="qc-half-container">
+            <div class="question-label">
+                Define Answers
+            </div>
+            <div id="answers-@Model">
+                <div class="answer">
+                    <div class="answer-label">
+                        Answer 1:
+                    </div>
+                    <input type="text" class="answer-value">
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-add-new float-right mt-1" onclick="adddNewAnswer('@Model')">
+                <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.Add_New</span>
+            </button>
+        </div>
+    </div>
+    <div>
+        <div class="submit-button-container">
+            <button type="button" class="sreports-primary-button" onclick="finalizeQuestion('@Model')">
+                Finalize
+            </button>
+            <div class="text-underline right-button" type="button" onclick="clearCreateQuestion()">
+                <i class="fas fa-angle-left"></i>
+                <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
+            </div>
+
+        </div>
+    </div>
+    <i class="fas fa-arrows-alt-h question-item-conector"></i>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.consensus-tree:first').find('.dd-item').each(function (index, element) {
+            if ($(element).attr('data-id') == '@Model') {
+                let backgroundColor;
+                if ($(element).children('.dd-handle').length) {
+                    backgroundColor = $(element).children('.dd-handle').css('background-color');
+                } else {
+                    backgroundColor = $(element).children('.dd-nohandle').css('background-color');
+                }
+                $(`#qc-@Model`).css('background-color', backgroundColor);
+            }
+        });
+    });
+
+</script>
+

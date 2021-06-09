@@ -1,0 +1,74 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.DTOs.Field.DataOut.Custom;
+@using sReportsV2.DTOs.Field.DataOut.Custom.Action;
+
+@model CustomFieldButtonDataOut
+
+
+@{
+    bool isChapterReadonly = ViewBag.Chapter;
+    int fieldSetCounter = ViewBag.FieldSetCounter;
+    string fieldSetId = ViewBag.FieldSetId;
+}
+
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content">
+
+    <div class="repetitive-values d-inline-block form-input-size">
+
+        @AddField(isChapterReadonly, fieldSetId, fieldSetCounter)
+
+    </div>
+    <div style="margin-top:10px;">
+        <div style="display:none" class="form-element-description field-desc">
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+</fieldset>
+
+@helper AddField(bool isChapterReadonly, string fieldSetId, int fieldSetCounter)
+{
+    <div class="field-group">
+        <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+            Call to action:
+        </div>
+        <div class="repetitive-field filter-input d-inline-block">
+            @AddInput(isChapterReadonly, fieldSetId, fieldSetCounter, 0, "", false)
+        </div>
+        @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+    </div>
+
+}
+
+@helper AddInput(bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetititve)
+{
+    <button name="@fieldSetId-@fieldSetCounter-@Model.Id-@repetitiveCounter" id="@Model.Id" type="button" class="btn custom-button btn-filter-primary">@Model.Label</button>
+}
+
+
+
+<script>
+    console.log('button');
+    $(document).on('click', '#@Model.Id', function (e) {
+            @if (Model.CustomAction is ControllerActionDataOut)
+            {
+                <text>
+            let action = $('#fid').attr('action');
+        let splitted = action.split('/');
+        let actionAndQuery = splitted[2].split('?');
+        actionAndQuery[0] = '@((Model.CustomAction as ControllerActionDataOut).ActionName)';
+        splitted[2] = actionAndQuery.join('?')
+            splitted[1] = '@((Model.CustomAction as ControllerActionDataOut).ControllerName)';
+        $('#fid').attr('action', `${splitted.join('/')}`);
+        console.log($('#fid').attr('action'))
+                    $('#fid').submit();
+                </text>
+                }
+                else
+                {
+                <text>@((Model.CustomAction as JavascriptActionDataOut).MethodName)()</text>
+                }
+    })
+</script>
+

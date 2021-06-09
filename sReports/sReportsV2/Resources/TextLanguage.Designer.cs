@@ -277,6 +277,78 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add an Episode of Care.
+        /// </summary>
+        public static string Add_an_Episode_of_Care {
+            get {
+                return ResourceManager.GetString("Add an Episode of Care", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New.
+        /// </summary>
+        public static string Add_New {
+            get {
+                return ResourceManager.GetString("Add New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new chapter.
+        /// </summary>
+        public static string Add_new_chapter {
+            get {
+                return ResourceManager.GetString("Add new chapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new encounter.
+        /// </summary>
+        public static string Add_new_encounter {
+            get {
+                return ResourceManager.GetString("Add new encounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new field.
+        /// </summary>
+        public static string Add_new_field {
+            get {
+                return ResourceManager.GetString("Add new field", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new fieldset.
+        /// </summary>
+        public static string Add_new_fieldset {
+            get {
+                return ResourceManager.GetString("Add new fieldset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new option.
+        /// </summary>
+        public static string Add_new_option {
+            get {
+                return ResourceManager.GetString("Add new option", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new page.
+        /// </summary>
+        public static string Add_new_page {
+            get {
+                return ResourceManager.GetString("Add new page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add code.
         /// </summary>
         public static string AddCode {
@@ -286,7 +358,34 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add new.
+        ///   Looks up a localized string similar to AddictionMedicine.
+        /// </summary>
+        public static string AddictionMedicine {
+            get {
+                return ResourceManager.GetString("AddictionMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddictionPsychiatry.
+        /// </summary>
+        public static string AddictionPsychiatry {
+            get {
+                return ResourceManager.GetString("AddictionPsychiatry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding documents.
+        /// </summary>
+        public static string Adding_documents {
+            get {
+                return ResourceManager.GetString("Adding documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New.
         /// </summary>
         public static string AddNew {
             get {
@@ -304,11 +403,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new type.
+        /// </summary>
+        public static string AddNewType {
+            get {
+                return ResourceManager.GetString("AddNewType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string Address {
             get {
                 return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address Info.
+        /// </summary>
+        public static string Address_Info {
+            get {
+                return ResourceManager.GetString("Address Info", resourceCulture);
             }
         }
         
@@ -327,6 +444,15 @@ namespace sReportsV2.Resources {
         public static string Administative_data {
             get {
                 return ResourceManager.GetString("Administative_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administration.
+        /// </summary>
+        public static string Administration {
+            get {
+                return ResourceManager.GetString("Administration", resourceCulture);
             }
         }
         
@@ -367,11 +493,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admission to surgical department.
+        /// </summary>
+        public static string Admission_to_surgical_department {
+            get {
+                return ResourceManager.GetString("Admission to surgical department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admission to thoracic surgery department.
+        /// </summary>
+        public static string Admission_to_thoracic_surgery_department {
+            get {
+                return ResourceManager.GetString("Admission to thoracic surgery department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adolescent Mental Health Services.
         /// </summary>
         public static string Adolescent_Mental_Health_Services {
             get {
                 return ResourceManager.GetString("Adolescent Mental Health Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AdolescentMedicine.
+        /// </summary>
+        public static string AdolescentMedicine {
+            get {
+                return ResourceManager.GetString("AdolescentMedicine", resourceCulture);
             }
         }
         
@@ -403,6 +556,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced Filter.
+        /// </summary>
+        public static string Advanced_filter {
+            get {
+                return ResourceManager.GetString("Advanced_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advanced Practice Registered Nurse number.
         /// </summary>
         public static string Advanced_Practice_Registered_Nurse_number {
@@ -426,6 +588,24 @@ namespace sReportsV2.Resources {
         public static string Advocacy {
             get {
                 return ResourceManager.GetString("Advocacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AerodigestiveMedicine.
+        /// </summary>
+        public static string AerodigestiveMedicine {
+            get {
+                return ResourceManager.GetString("AerodigestiveMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AerospaceMedicine.
+        /// </summary>
+        public static string AerospaceMedicine {
+            get {
+                return ResourceManager.GetString("AerospaceMedicine", resourceCulture);
             }
         }
         
@@ -565,6 +745,33 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allergic disorder follow-up assessment.
+        /// </summary>
+        public static string Allergic_disorder_follow_up_assessment {
+            get {
+                return ResourceManager.GetString("Allergic disorder follow-up assessment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allergic disorder initial assessment.
+        /// </summary>
+        public static string Allergic_disorder_initial_assessment {
+            get {
+                return ResourceManager.GetString("Allergic disorder initial assessment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allergy.
+        /// </summary>
+        public static string Allergy {
+            get {
+                return ResourceManager.GetString("Allergy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alzheimer.
         /// </summary>
         public static string Alzheimer {
@@ -646,6 +853,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anesthesiology.
+        /// </summary>
+        public static string Anesthesiology {
+            get {
+                return ResourceManager.GetString("Anesthesiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Annual diabetes mellitus screening.
         /// </summary>
         public static string Annual_Diabetes_Mellitus_Screening {
@@ -678,6 +894,42 @@ namespace sReportsV2.Resources {
         public static string Anxiety {
             get {
                 return ResourceManager.GetString("Anxiety", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        public static string Appearance {
+            get {
+                return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appendix (Notes).
+        /// </summary>
+        public static string Appendix {
+            get {
+                return ResourceManager.GetString("Appendix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archive.
+        /// </summary>
+        public static string Archive {
+            get {
+                return ResourceManager.GetString("Archive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to want to delete the item?.
+        /// </summary>
+        public static string AreYouSure {
+            get {
+                return ResourceManager.GetString("AreYouSure", resourceCulture);
             }
         }
         
@@ -732,6 +984,15 @@ namespace sReportsV2.Resources {
         public static string Assessment {
             get {
                 return ResourceManager.GetString("Assessment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assessment of dementia (procedure).
+        /// </summary>
+        public static string Assessment_of_dementia__procedure_ {
+            get {
+                return ResourceManager.GetString("Assessment of dementia (procedure)", resourceCulture);
             }
         }
         
@@ -799,6 +1060,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assistant Professsor.
+        /// </summary>
+        public static string AssistantProfesssor {
+            get {
+                return ResourceManager.GetString("AssistantProfesssor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assistive Equip-General Tasks.
         /// </summary>
         public static string Assistive_Equip_General_Tasks {
@@ -831,6 +1101,15 @@ namespace sReportsV2.Resources {
         public static string Asthma {
             get {
                 return ResourceManager.GetString("Asthma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asthma follow-up.
+        /// </summary>
+        public static string Asthma_follow_up {
+            get {
+                return ResourceManager.GetString("Asthma follow-up", resourceCulture);
             }
         }
         
@@ -921,6 +1200,15 @@ namespace sReportsV2.Resources {
         public static string Bank_Card_Number {
             get {
                 return ResourceManager.GetString("Bank Card Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BariatricSurgery.
+        /// </summary>
+        public static string BariatricSurgery {
+            get {
+                return ResourceManager.GetString("BariatricSurgery", resourceCulture);
             }
         }
         
@@ -1069,6 +1357,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BirthDefects.
+        /// </summary>
+        public static string BirthDefects {
+            get {
+                return ResourceManager.GetString("BirthDefects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthing Options.
         /// </summary>
         public static string Birthing_Options {
@@ -1083,6 +1380,15 @@ namespace sReportsV2.Resources {
         public static string BIST {
             get {
                 return ResourceManager.GetString("BIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block.
+        /// </summary>
+        public static string Block {
+            get {
+                return ResourceManager.GetString("Block", resourceCulture);
             }
         }
         
@@ -1123,6 +1429,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BloodBankingAndTransfusionMedicine.
+        /// </summary>
+        public static string BloodBankingAndTransfusionMedicine {
+            get {
+                return ResourceManager.GetString("BloodBankingAndTransfusionMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bolded.
+        /// </summary>
+        public static string Bolded {
+            get {
+                return ResourceManager.GetString("Bolded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bone.
         /// </summary>
         public static string Bone {
@@ -1137,6 +1461,15 @@ namespace sReportsV2.Resources {
         public static string Bone_Drilling_Bone_Marrow_Punction_In_Clinic {
             get {
                 return ResourceManager.GetString("Bone Drilling Bone Marrow Punction In Clinic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BoneMarrowTransplant.
+        /// </summary>
+        public static string BoneMarrowTransplant {
+            get {
+                return ResourceManager.GetString("BoneMarrowTransplant", resourceCulture);
             }
         }
         
@@ -1164,6 +1497,15 @@ namespace sReportsV2.Resources {
         public static string Brain {
             get {
                 return ResourceManager.GetString("Brain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BrainInjury.
+        /// </summary>
+        public static string BrainInjury {
+            get {
+                return ResourceManager.GetString("BrainInjury", resourceCulture);
             }
         }
         
@@ -1200,6 +1542,15 @@ namespace sReportsV2.Resources {
         public static string Brokerage {
             get {
                 return ResourceManager.GetString("Brokerage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BurnManagement.
+        /// </summary>
+        public static string BurnManagement {
+            get {
+                return ResourceManager.GetString("BurnManagement", resourceCulture);
             }
         }
         
@@ -1267,11 +1618,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cardiac Arrest.
+        /// </summary>
+        public static string Cardiac_arrest {
+            get {
+                return ResourceManager.GetString("Cardiac arrest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cardiac Rehabilitation Service.
         /// </summary>
         public static string Cardiac_Rehabilitati {
             get {
                 return ResourceManager.GetString("Cardiac Rehabilitati", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CardiacSurgery.
+        /// </summary>
+        public static string CardiacSurgery {
+            get {
+                return ResourceManager.GetString("CardiacSurgery", resourceCulture);
             }
         }
         
@@ -1299,6 +1668,15 @@ namespace sReportsV2.Resources {
         public static string Cardiovascular_Disea {
             get {
                 return ResourceManager.GetString("Cardiovascular Disea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CardiovascularDisease.
+        /// </summary>
+        public static string CardiovascularDisease {
+            get {
+                return ResourceManager.GetString("CardiovascularDisease", resourceCulture);
             }
         }
         
@@ -1366,6 +1744,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        public static string Center {
+            get {
+                return ResourceManager.GetString("Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Centrelink.
         /// </summary>
         public static string Centrelink {
@@ -1389,6 +1776,42 @@ namespace sReportsV2.Resources {
         public static string Change_password {
             get {
                 return ResourceManager.GetString("Change_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        public static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chapter.
+        /// </summary>
+        public static string Chapter {
+            get {
+                return ResourceManager.GetString("Chapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checkbox Fieldvalue.
+        /// </summary>
+        public static string CheckboxFieldvalue {
+            get {
+                return ResourceManager.GetString("CheckboxFieldvalue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ChemicalPathology.
+        /// </summary>
+        public static string ChemicalPathology {
+            get {
+                return ResourceManager.GetString("ChemicalPathology", resourceCulture);
             }
         }
         
@@ -1456,6 +1879,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChildAndAdolescentPsychiatry.
+        /// </summary>
+        public static string ChildAndAdolescentPsychiatry {
+            get {
+                return ResourceManager.GetString("ChildAndAdolescentPsychiatry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ChildAndAdolescentPsychology.
+        /// </summary>
+        public static string ChildAndAdolescentPsychology {
+            get {
+                return ResourceManager.GetString("ChildAndAdolescentPsychology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Child psyhiatry.
         /// </summary>
         public static string ChildPsyhiatry {
@@ -1510,6 +1951,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChiropracticMedicine.
+        /// </summary>
+        public static string ChiropracticMedicine {
+            get {
+                return ResourceManager.GetString("ChiropracticMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cholesterol.
         /// </summary>
         public static string Cholesterol {
@@ -1524,6 +1974,24 @@ namespace sReportsV2.Resources {
         public static string ChooseFile {
             get {
                 return ResourceManager.GetString("ChooseFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which properties to merge too.
+        /// </summary>
+        public static string ChooseWhatToMerge {
+            get {
+                return ResourceManager.GetString("ChooseWhatToMerge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which properties to merge too.
+        /// </summary>
+        public static string ChooseWhichPropertiesToMergeToo {
+            get {
+                return ResourceManager.GetString("ChooseWhichPropertiesToMergeToo", resourceCulture);
             }
         }
         
@@ -1560,6 +2028,24 @@ namespace sReportsV2.Resources {
         public static string Class {
             get {
                 return ResourceManager.GetString("Class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CleftAndCraniofacial.
+        /// </summary>
+        public static string CleftAndCraniofacial {
+            get {
+                return ResourceManager.GetString("CleftAndCraniofacial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clinic.
+        /// </summary>
+        public static string Clinic {
+            get {
+                return ResourceManager.GetString("Clinic", resourceCulture);
             }
         }
         
@@ -1627,6 +2113,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ClinicalBiochemicalGenetics.
+        /// </summary>
+        public static string ClinicalBiochemicalGenetics {
+            get {
+                return ResourceManager.GetString("ClinicalBiochemicalGenetics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClinicalCardiacElectrophysiology.
+        /// </summary>
+        public static string ClinicalCardiacElectrophysiology {
+            get {
+                return ResourceManager.GetString("ClinicalCardiacElectrophysiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clinical chemistry.
         /// </summary>
         public static string ClinicalChemistry {
@@ -1636,11 +2140,65 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ClinicalGenetics.
+        /// </summary>
+        public static string ClinicalGenetics {
+            get {
+                return ResourceManager.GetString("ClinicalGenetics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clinical neurophysiology.
         /// </summary>
         public static string ClinicalNeurophysiology {
             get {
                 return ResourceManager.GetString("ClinicalNeurophysiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClinicalPathology.
+        /// </summary>
+        public static string ClinicalPathology {
+            get {
+                return ResourceManager.GetString("ClinicalPathology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ClinicalPharmacology.
+        /// </summary>
+        public static string ClinicalPharmacology {
+            get {
+                return ResourceManager.GetString("ClinicalPharmacology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clinical Research.
+        /// </summary>
+        public static string ClinicalResearch {
+            get {
+                return ResourceManager.GetString("ClinicalResearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clinical Research Administrator.
+        /// </summary>
+        public static string ClinicalResearchAdministrator {
+            get {
+                return ResourceManager.GetString("ClinicalResearchAdministrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clinical Trial Pharmacist.
+        /// </summary>
+        public static string ClinicalTrialPharmacist {
+            get {
+                return ResourceManager.GetString("ClinicalTrialPharmacist", resourceCulture);
             }
         }
         
@@ -1677,6 +2235,33 @@ namespace sReportsV2.Resources {
         public static string Codes {
             get {
                 return ResourceManager.GetString("Codes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Co-Investigator.
+        /// </summary>
+        public static string CoInvestigator {
+            get {
+                return ResourceManager.GetString("CoInvestigator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collapse All.
+        /// </summary>
+        public static string Collapse_All {
+            get {
+                return ResourceManager.GetString("Collapse All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ColonAndRectalSurgery.
+        /// </summary>
+        public static string ColonAndRectalSurgery {
+            get {
+                return ResourceManager.GetString("ColonAndRectalSurgery", resourceCulture);
             }
         }
         
@@ -1816,6 +2401,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CommunityHealthCare.
+        /// </summary>
+        public static string CommunityHealthCare {
+            get {
+                return ResourceManager.GetString("CommunityHealthCare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comorbidity diagnosis.
         /// </summary>
         public static string Comorbidity_Diagnosis {
@@ -1839,6 +2433,24 @@ namespace sReportsV2.Resources {
         public static string Companionship {
             get {
                 return ResourceManager.GetString("Companionship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company With Limited Liabilities.
+        /// </summary>
+        public static string CompanyWithLimitedLiabilities {
+            get {
+                return ResourceManager.GetString("CompanyWithLimitedLiabilities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        public static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
         
@@ -1888,11 +2500,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm deletion.
+        /// </summary>
+        public static string ConfirmDeletion {
+            get {
+                return ResourceManager.GetString("ConfirmDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         public static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consensus status.
+        /// </summary>
+        public static string ConsensusStatus {
+            get {
+                return ResourceManager.GetString("ConsensusStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consultation for treatment.
+        /// </summary>
+        public static string Consultation_for_treatment {
+            get {
+                return ResourceManager.GetString("Consultation for treatment", resourceCulture);
             }
         }
         
@@ -1933,11 +2572,47 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact Person.
+        /// </summary>
+        public static string Contact_Person {
+            get {
+                return ResourceManager.GetString("Contact Person", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Person Info.
+        /// </summary>
+        public static string Contact_Person_Info {
+            get {
+                return ResourceManager.GetString("Contact Person Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact phone.
         /// </summary>
         public static string Contact_phone {
             get {
                 return ResourceManager.GetString("Contact_phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact and Address.
+        /// </summary>
+        public static string ContactAndAddress {
+            get {
+                return ResourceManager.GetString("ContactAndAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string Content {
+            get {
+                return ResourceManager.GetString("Content", resourceCulture);
             }
         }
         
@@ -1956,6 +2631,15 @@ namespace sReportsV2.Resources {
         public static string ContextDependent {
             get {
                 return ResourceManager.GetString("ContextDependent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
@@ -2221,6 +2905,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CriticalCareMedicine.
+        /// </summary>
+        public static string CriticalCareMedicine {
+            get {
+                return ResourceManager.GetString("CriticalCareMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Culturally Tailored Health Promotion.
         /// </summary>
         public static string Culturally_Tailored_Health_Promotion {
@@ -2235,6 +2928,15 @@ namespace sReportsV2.Resources {
         public static string Culturally_Tailored_Support_Groups {
             get {
                 return ResourceManager.GetString("Culturally Tailored Support Groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Thesaurus Tree.
+        /// </summary>
+        public static string CurrentThesaurusTree {
+            get {
+                return ResourceManager.GetString("CurrentThesaurusTree", resourceCulture);
             }
         }
         
@@ -2356,6 +3058,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Item.
+        /// </summary>
+        public static string DeleteItem {
+            get {
+                return ResourceManager.GetString("DeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivered Meals (Meals On Wheels).
         /// </summary>
         public static string Delivered_Meals__Meals_On_Wheels_ {
@@ -2419,6 +3130,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dependent Fields.
+        /// </summary>
+        public static string DependentFields {
+            get {
+                return ResourceManager.GetString("DependentFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Depression.
         /// </summary>
         public static string Depression {
@@ -2455,11 +3175,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Design.
+        /// </summary>
+        public static string Design {
+            get {
+                return ResourceManager.GetString("Design", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Designer.
         /// </summary>
         public static string Designer {
             get {
                 return ResourceManager.GetString("Designer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Design Pending.
+        /// </summary>
+        public static string DesignPending {
+            get {
+                return ResourceManager.GetString("DesignPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
             }
         }
         
@@ -2491,6 +3238,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DevelopmentalBehavioralPediatrics.
+        /// </summary>
+        public static string DevelopmentalBehavioralPediatrics {
+            get {
+                return ResourceManager.GetString("DevelopmentalBehavioralPediatrics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diabetes.
         /// </summary>
         public static string Diabetes {
@@ -2518,6 +3274,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Diabetology.
+        /// </summary>
+        public static string Diabetology {
+            get {
+                return ResourceManager.GetString("Diabetology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diag. Radiology /Xray /CT /Fluoroscopy.
         /// </summary>
         public static string Diag__Radiology__Xray__CT__Fluoroscopy {
@@ -2533,6 +3298,15 @@ namespace sReportsV2.Resources {
             get {
                 return ResourceManager.GetString("Diagnosis of Oncological Diseases and Staging Procedures - Head and Neck Cancer C" +
                         "linical Pathway of Inselspital Bern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnosis Role.
+        /// </summary>
+        public static string DiagnosisRole {
+            get {
+                return ResourceManager.GetString("DiagnosisRole", resourceCulture);
             }
         }
         
@@ -2560,6 +3334,15 @@ namespace sReportsV2.Resources {
         public static string DiagnosticReports {
             get {
                 return ResourceManager.GetString("DiagnosticReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dialysis.
+        /// </summary>
+        public static string Dialysis {
+            get {
+                return ResourceManager.GetString("Dialysis", resourceCulture);
             }
         }
         
@@ -2596,6 +3379,24 @@ namespace sReportsV2.Resources {
         public static string DifferentOutcomes {
             get {
                 return ResourceManager.GetString("DifferentOutcomes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Digital Guidelines.
+        /// </summary>
+        public static string DigitalGuidelines {
+            get {
+                return ResourceManager.GetString("DigitalGuidelines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Digital Guidline.
+        /// </summary>
+        public static string DigitalGuidline {
+            get {
+                return ResourceManager.GetString("DigitalGuidline", resourceCulture);
             }
         }
         
@@ -2726,6 +3527,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discussion about treatment (procedure).
+        /// </summary>
+        public static string Discussion_about_treatment__procedure_ {
+            get {
+                return ResourceManager.GetString("Discussion about treatment (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to District Nursing.
         /// </summary>
         public static string District_Nursing {
@@ -2749,6 +3559,15 @@ namespace sReportsV2.Resources {
         public static string Doctor_number {
             get {
                 return ResourceManager.GetString("Doctor number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doctor Of Philosophy - PhD.
+        /// </summary>
+        public static string DoctorOfPhilosophy {
+            get {
+                return ResourceManager.GetString("DoctorOfPhilosophy", resourceCulture);
             }
         }
         
@@ -2803,6 +3622,15 @@ namespace sReportsV2.Resources {
         public static string Documents_per_group {
             get {
                 return ResourceManager.GetString("Documents_per_group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Domiciliary or rest home patient evaluation and management.
+        /// </summary>
+        public static string Domiciliary_or_rest_home_patient_evaluation_and_management {
+            get {
+                return ResourceManager.GetString("Domiciliary or rest home patient evaluation and management", resourceCulture);
             }
         }
         
@@ -2924,11 +3752,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drug rehabilitation and detoxification.
+        /// </summary>
+        public static string Drug_rehabilitation_and_detoxification {
+            get {
+                return ResourceManager.GetString("Drug rehabilitation and detoxification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dual Diagnosis Services.
         /// </summary>
         public static string Dual_Diagnosis_Servi {
             get {
                 return ResourceManager.GetString("Dual Diagnosis Servi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This object has already been added to the collection.
+        /// </summary>
+        public static string DuplicateException {
+            get {
+                return ResourceManager.GetString("DuplicateException", resourceCulture);
             }
         }
         
@@ -2987,6 +3833,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EatingDisorders.
+        /// </summary>
+        public static string EatingDisorders {
+            get {
+                return ResourceManager.GetString("EatingDisorders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -3041,6 +3896,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emergency hospital admission (procedure).
+        /// </summary>
+        public static string Emergency_hospital_admission__procedure_ {
+            get {
+                return ResourceManager.GetString("Emergency hospital admission (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emergency hospital admission for asthma.
+        /// </summary>
+        public static string Emergency_hospital_admission_for_asthma {
+            get {
+                return ResourceManager.GetString("Emergency hospital admission for asthma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Emergency Medical.
         /// </summary>
         public static string Emergency_Medical {
@@ -3055,6 +3928,33 @@ namespace sReportsV2.Resources {
         public static string Emergency_Relief {
             get {
                 return ResourceManager.GetString("Emergency Relief", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emergency Room Admission.
+        /// </summary>
+        public static string Emergency_Room_Admission {
+            get {
+                return ResourceManager.GetString("Emergency Room Admission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emergency room admission (procedure).
+        /// </summary>
+        public static string Emergency_room_admission__procedure_ {
+            get {
+                return ResourceManager.GetString("Emergency room admission (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EmergencyMedicine.
+        /// </summary>
+        public static string EmergencyMedicine {
+            get {
+                return ResourceManager.GetString("EmergencyMedicine", resourceCulture);
             }
         }
         
@@ -3131,6 +4031,51 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encounter for check up (procedure).
+        /// </summary>
+        public static string Encounter_for_check_up__procedure_ {
+            get {
+                return ResourceManager.GetString("Encounter for check up (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter for problem.
+        /// </summary>
+        public static string Encounter_for_problem {
+            get {
+                return ResourceManager.GetString("Encounter for problem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter for problem (procedure).
+        /// </summary>
+        public static string Encounter_for_problem__procedure_ {
+            get {
+                return ResourceManager.GetString("Encounter for problem (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter for symptom.
+        /// </summary>
+        public static string Encounter_for_symptom {
+            get {
+                return ResourceManager.GetString("Encounter for symptom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter for symptom (procedure).
+        /// </summary>
+        public static string Encounter_for_symptom__procedure_ {
+            get {
+                return ResourceManager.GetString("Encounter for symptom (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Service type.
         /// </summary>
         public static string Encounter_ServiceType_Name {
@@ -3158,11 +4103,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encounter Classification.
+        /// </summary>
+        public static string EncounterClassification {
+            get {
+                return ResourceManager.GetString("EncounterClassification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encounters.
         /// </summary>
         public static string Encounters {
             get {
                 return ResourceManager.GetString("Encounters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter Status.
+        /// </summary>
+        public static string EncounterStatus {
+            get {
+                return ResourceManager.GetString("EncounterStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encounter Type.
+        /// </summary>
+        public static string EncounterType {
+            get {
+                return ResourceManager.GetString("EncounterType", resourceCulture);
             }
         }
         
@@ -3212,6 +4184,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enrolling by invitation.
+        /// </summary>
+        public static string EnrollingByInvitation {
+            get {
+                return ResourceManager.GetString("EnrollingByInvitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter value.
         /// </summary>
         public static string Enter_value {
@@ -3230,6 +4211,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter UMLS term.
+        /// </summary>
+        public static string EnterUmls {
+            get {
+                return ResourceManager.GetString("EnterUmls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter url.
         /// </summary>
         public static string EnterUrl {
@@ -3244,6 +4234,15 @@ namespace sReportsV2.Resources {
         public static string Environment {
             get {
                 return ResourceManager.GetString("Environment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EnvironmentalHealth.
+        /// </summary>
+        public static string EnvironmentalHealth {
+            get {
+                return ResourceManager.GetString("EnvironmentalHealth", resourceCulture);
             }
         }
         
@@ -3329,6 +4328,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Epilepsy.
+        /// </summary>
+        public static string Epilepsy {
+            get {
+                return ResourceManager.GetString("Epilepsy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Episode Of Care Type.
+        /// </summary>
+        public static string EpisodeOfCareType {
+            get {
+                return ResourceManager.GetString("EpisodeOfCareType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Episodes of care.
         /// </summary>
         public static string Episodes_Of_Care {
@@ -3338,7 +4355,16 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EpisodesOfCare.
+        ///   Looks up a localized string similar to Episodes of cares.
+        /// </summary>
+        public static string Episodes_of_cares {
+            get {
+                return ResourceManager.GetString("Episodes of cares", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Episodes Of Care.
         /// </summary>
         public static string EpisodesOfCare {
             get {
@@ -3374,6 +4400,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ethics.
+        /// </summary>
+        public static string Ethics {
+            get {
+                return ResourceManager.GetString("Ethics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Evaluation of Therapeutic Effect.
         /// </summary>
         public static string EvaluationOfTherapeuticEffect {
@@ -3397,6 +4432,15 @@ namespace sReportsV2.Resources {
         public static string Exercise_Physiology {
             get {
                 return ResourceManager.GetString("Exercise Physiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand All.
+        /// </summary>
+        public static string Expand_All {
+            get {
+                return ResourceManager.GetString("Expand All", resourceCulture);
             }
         }
         
@@ -3572,6 +4616,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FamilyMedicine.
+        /// </summary>
+        public static string FamilyMedicine {
+            get {
+                return ResourceManager.GetString("FamilyMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Family name.
         /// </summary>
         public static string FamilyName {
@@ -3626,11 +4679,137 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fhir type.
+        /// </summary>
+        public static string FhirType {
+            get {
+                return ResourceManager.GetString("FhirType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field.
         /// </summary>
         public static string Field {
             get {
                 return ResourceManager.GetString("Field", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Checkbox.
+        /// </summary>
+        public static string FieldCheckbox {
+            get {
+                return ResourceManager.GetString("FieldCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Date.
+        /// </summary>
+        public static string FieldDate {
+            get {
+                return ResourceManager.GetString("FieldDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Date Time.
+        /// </summary>
+        public static string FieldDateTime {
+            get {
+                return ResourceManager.GetString("FieldDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Email.
+        /// </summary>
+        public static string FieldEmail {
+            get {
+                return ResourceManager.GetString("FieldEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field File.
+        /// </summary>
+        public static string FieldFile {
+            get {
+                return ResourceManager.GetString("FieldFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Number.
+        /// </summary>
+        public static string FieldNumber {
+            get {
+                return ResourceManager.GetString("FieldNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Radio.
+        /// </summary>
+        public static string FieldRadio {
+            get {
+                return ResourceManager.GetString("FieldRadio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Regex.
+        /// </summary>
+        public static string FieldRegex {
+            get {
+                return ResourceManager.GetString("FieldRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Set.
+        /// </summary>
+        public static string FieldSet {
+            get {
+                return ResourceManager.GetString("FieldSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fieldset label.
+        /// </summary>
+        public static string FieldsetLabel {
+            get {
+                return ResourceManager.GetString("FieldsetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Text.
+        /// </summary>
+        public static string FieldText {
+            get {
+                return ResourceManager.GetString("FieldText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Textarea.
+        /// </summary>
+        public static string FieldTextarea {
+            get {
+                return ResourceManager.GetString("FieldTextarea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to option.
+        /// </summary>
+        public static string FieldValue {
+            get {
+                return ResourceManager.GetString("FieldValue", resourceCulture);
             }
         }
         
@@ -3698,6 +4877,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First logged.
+        /// </summary>
+        public static string FirstLogged {
+            get {
+                return ResourceManager.GetString("FirstLogged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First name.
         /// </summary>
         public static string FirstName {
@@ -3730,6 +4918,33 @@ namespace sReportsV2.Resources {
         public static string Flying_Doctor_Service {
             get {
                 return ResourceManager.GetString("Flying Doctor Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow-up encounter.
+        /// </summary>
+        public static string Follow_up_encounter {
+            get {
+                return ResourceManager.GetString("Follow-up encounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow-up encounter (procedure).
+        /// </summary>
+        public static string Follow_up_encounter__procedure_ {
+            get {
+                return ResourceManager.GetString("Follow-up encounter (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow-up visit (procedure).
+        /// </summary>
+        public static string Follow_up_visit__procedure_ {
+            get {
+                return ResourceManager.GetString("Follow-up visit (procedure)", resourceCulture);
             }
         }
         
@@ -3788,6 +5003,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ForensicMedicine.
+        /// </summary>
+        public static string ForensicMedicine {
+            get {
+                return ResourceManager.GetString("ForensicMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create form.
         /// </summary>
         public static string Form_create {
@@ -3806,20 +5030,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Design.
+        /// </summary>
+        public static string FormDefinitionState_Design {
+            get {
+                return ResourceManager.GetString("FormDefinitionState_Design", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Design pending.
+        /// </summary>
+        public static string FormDefinitionState_DesignPending {
+            get {
+                return ResourceManager.GetString("FormDefinitionState_DesignPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string FormDefinitionState_Disabled {
             get {
                 return ResourceManager.GetString("FormDefinitionState_Disabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OnGoing.
-        /// </summary>
-        public static string FormDefinitionState_OnGoing {
-            get {
-                return ResourceManager.GetString("FormDefinitionState_OnGoing", resourceCulture);
             }
         }
         
@@ -3838,6 +5071,24 @@ namespace sReportsV2.Resources {
         public static string FormDefinitionState_ReadyForReview {
             get {
                 return ResourceManager.GetString("FormDefinitionState_ReadyForReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review.
+        /// </summary>
+        public static string FormDefinitionState_Review {
+            get {
+                return ResourceManager.GetString("FormDefinitionState_Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review pending.
+        /// </summary>
+        public static string FormDefinitionState_ReviewPending {
+            get {
+                return ResourceManager.GetString("FormDefinitionState_ReviewPending", resourceCulture);
             }
         }
         
@@ -3901,6 +5152,15 @@ namespace sReportsV2.Resources {
         public static string Friendly_Visiting {
             get {
                 return ResourceManager.GetString("Friendly Visiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
             }
         }
         
@@ -4040,6 +5300,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General examination of patient (procedure).
+        /// </summary>
+        public static string General_examination_of_patient__procedure_ {
+            get {
+                return ResourceManager.GetString("General examination of patient (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Info.
+        /// </summary>
+        public static string General_Infro {
+            get {
+                return ResourceManager.GetString("General Infro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General ledger number.
         /// </summary>
         public static string General_ledger_number {
@@ -4094,7 +5372,7 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General info.
+        ///   Looks up a localized string similar to General Info.
         /// </summary>
         public static string GeneralInfo {
             get {
@@ -4108,6 +5386,15 @@ namespace sReportsV2.Resources {
         public static string Generalist_Counselling {
             get {
                 return ResourceManager.GetString("Generalist Counselling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeneralMedicine.
+        /// </summary>
+        public static string GeneralMedicine {
+            get {
+                return ResourceManager.GetString("GeneralMedicine", resourceCulture);
             }
         }
         
@@ -4180,6 +5467,15 @@ namespace sReportsV2.Resources {
         public static string Geriatric_Medicine {
             get {
                 return ResourceManager.GetString("Geriatric Medicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GeriatricMedicine.
+        /// </summary>
+        public static string GeriatricMedicine {
+            get {
+                return ResourceManager.GetString("GeriatricMedicine", resourceCulture);
             }
         }
         
@@ -4319,6 +5615,33 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GynecologicOncology.
+        /// </summary>
+        public static string GynecologicOncology {
+            get {
+                return ResourceManager.GetString("GynecologicOncology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gynecology.
+        /// </summary>
+        public static string Gynecology {
+            get {
+                return ResourceManager.GetString("Gynecology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gynecology service (qualifier value).
+        /// </summary>
+        public static string Gynecology_service__qualifier_value_ {
+            get {
+                return ResourceManager.GetString("Gynecology service (qualifier value)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HACC.
         /// </summary>
         public static string HACC {
@@ -4436,6 +5759,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HeartFailure.
+        /// </summary>
+        public static string HeartFailure {
+            get {
+                return ResourceManager.GetString("HeartFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Help {
@@ -4477,6 +5809,15 @@ namespace sReportsV2.Resources {
         public static string Higher_Education {
             get {
                 return ResourceManager.GetString("Higher Education", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HIV.
+        /// </summary>
+        public static string HIV {
+            get {
+                return ResourceManager.GetString("HIV", resourceCulture);
             }
         }
         
@@ -4621,6 +5962,15 @@ namespace sReportsV2.Resources {
         public static string Hospice_Care {
             get {
                 return ResourceManager.GetString("Hospice Care", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hospital admission.
+        /// </summary>
+        public static string Hospital_admission {
+            get {
+                return ResourceManager.GetString("Hospital admission", resourceCulture);
             }
         }
         
@@ -4778,6 +6128,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identifier Type.
+        /// </summary>
+        public static string IdentifierType {
+            get {
+                return ResourceManager.GetString("IdentifierType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O4Mt Patient id.
         /// </summary>
         public static string IdentifierType_PatientID {
@@ -4886,6 +6245,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InfectiousDisease.
+        /// </summary>
+        public static string InfectiousDisease {
+            get {
+                return ResourceManager.GetString("InfectiousDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Infectious diseases.
         /// </summary>
         public static string InfectiousDiseases {
@@ -4918,6 +6286,15 @@ namespace sReportsV2.Resources {
         public static string InformationPresentation {
             get {
                 return ResourceManager.GetString("InformationPresentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial psychiatric interview with mental status and evaluation (procedure).
+        /// </summary>
+        public static string Initial_psychiatric_interview_with_mental_status_and_evaluation__procedure_ {
+            get {
+                return ResourceManager.GetString("Initial psychiatric interview with mental status and evaluation (procedure)", resourceCulture);
             }
         }
         
@@ -4958,6 +6335,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inpatient stay (finding).
+        /// </summary>
+        public static string Inpatient_stay__finding_ {
+            get {
+                return ResourceManager.GetString("Inpatient stay (finding)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inpatient stay 3 days.
+        /// </summary>
+        public static string Inpatient_stay_3_days {
+            get {
+                return ResourceManager.GetString("Inpatient stay 3 days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inpatients.
         /// </summary>
         public static string Inpatients {
@@ -4967,11 +6362,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Institute.
+        /// </summary>
+        public static string Institute {
+            get {
+                return ResourceManager.GetString("Institute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Institution.
         /// </summary>
         public static string Institution {
             get {
                 return ResourceManager.GetString("Institution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Institution data.
+        /// </summary>
+        public static string InstitutionData {
+            get {
+                return ResourceManager.GetString("InstitutionData", resourceCulture);
             }
         }
         
@@ -5017,6 +6430,15 @@ namespace sReportsV2.Resources {
         public static string Integrated_Family_Services {
             get {
                 return ResourceManager.GetString("Integrated Family Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IntegrativeMedicine.
+        /// </summary>
+        public static string IntegrativeMedicine {
+            get {
+                return ResourceManager.GetString("IntegrativeMedicine", resourceCulture);
             }
         }
         
@@ -5089,6 +6511,24 @@ namespace sReportsV2.Resources {
         public static string Intervention {
             get {
                 return ResourceManager.GetString("Intervention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InterventionalCardiology.
+        /// </summary>
+        public static string InterventionalCardiology {
+            get {
+                return ResourceManager.GetString("InterventionalCardiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InterventionalRadiology.
+        /// </summary>
+        public static string InterventionalRadiology {
+            get {
+                return ResourceManager.GetString("InterventionalRadiology", resourceCulture);
             }
         }
         
@@ -5183,6 +6623,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kinesiotherapy.
+        /// </summary>
+        public static string Kinesiotherapy {
+            get {
+                return ResourceManager.GetString("Kinesiotherapy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kinship Care.
         /// </summary>
         public static string Kinship_Care {
@@ -5228,6 +6677,33 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language (select preferred).
+        /// </summary>
+        public static string Language_preferred {
+            get {
+                return ResourceManager.GetString("Language_preferred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        public static string Languages {
+            get {
+                return ResourceManager.GetString("Languages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last logged.
+        /// </summary>
+        public static string LastLogged {
+            get {
+                return ResourceManager.GetString("LastLogged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string LastName {
@@ -5242,6 +6718,24 @@ namespace sReportsV2.Resources {
         public static string LastUpdate {
             get {
                 return ResourceManager.GetString("LastUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layout settings.
+        /// </summary>
+        public static string LayoutSettings {
+            get {
+                return ResourceManager.GetString("LayoutSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layout style.
+        /// </summary>
+        public static string LayoutStyle {
+            get {
+                return ResourceManager.GetString("LayoutStyle", resourceCulture);
             }
         }
         
@@ -5318,6 +6812,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load more.
+        /// </summary>
+        public static string Load_more {
+            get {
+                return ResourceManager.GetString("Load more", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load more concepts.
         /// </summary>
         public static string LoadConcept {
@@ -5363,7 +6866,7 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logout.
+        ///   Looks up a localized string similar to Log Out.
         /// </summary>
         public static string Logout {
             get {
@@ -5413,6 +6916,15 @@ namespace sReportsV2.Resources {
         public static string Magnetic_Therapy {
             get {
                 return ResourceManager.GetString("Magnetic Therapy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version (Major).
+        /// </summary>
+        public static string Major {
+            get {
+                return ResourceManager.GetString("Major", resourceCulture);
             }
         }
         
@@ -5480,11 +6992,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MaternalAndFetalMedicine.
+        /// </summary>
+        public static string MaternalAndFetalMedicine {
+            get {
+                return ResourceManager.GetString("MaternalAndFetalMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maternity Shared Care.
         /// </summary>
         public static string Maternity_Shared_Car {
             get {
                 return ResourceManager.GetString("Maternity Shared Car", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max items.
+        /// </summary>
+        public static string MaxItems {
+            get {
+                return ResourceManager.GetString("MaxItems", resourceCulture);
             }
         }
         
@@ -5575,6 +7105,60 @@ namespace sReportsV2.Resources {
         public static string Medical_Specialists {
             get {
                 return ResourceManager.GetString("Medical Specialists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MedicalAidInDying.
+        /// </summary>
+        public static string MedicalAidInDying {
+            get {
+                return ResourceManager.GetString("MedicalAidInDying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MedicalGenetics.
+        /// </summary>
+        public static string MedicalGenetics {
+            get {
+                return ResourceManager.GetString("MedicalGenetics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MedicalMicrobiologyPathology.
+        /// </summary>
+        public static string MedicalMicrobiologyPathology {
+            get {
+                return ResourceManager.GetString("MedicalMicrobiologyPathology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical Monitor.
+        /// </summary>
+        public static string MedicalMonitor {
+            get {
+                return ResourceManager.GetString("MedicalMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MedicalOncology.
+        /// </summary>
+        public static string MedicalOncology {
+            get {
+                return ResourceManager.GetString("MedicalOncology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MedicalToxicology.
+        /// </summary>
+        public static string MedicalToxicology {
+            get {
+                return ResourceManager.GetString("MedicalToxicology", resourceCulture);
             }
         }
         
@@ -5732,6 +7316,42 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MentalHealth.
+        /// </summary>
+        public static string MentalHealth {
+            get {
+                return ResourceManager.GetString("MentalHealth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge into current.
+        /// </summary>
+        public static string MergeIntoCurrent {
+            get {
+                return ResourceManager.GetString("MergeIntoCurrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge into target.
+        /// </summary>
+        public static string MergeIntoTarget {
+            get {
+                return ResourceManager.GetString("MergeIntoTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge Thesauruses.
+        /// </summary>
+        public static string MergeThesauruses {
+            get {
+                return ResourceManager.GetString("MergeThesauruses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Methadone.
         /// </summary>
         public static string Methadone {
@@ -5777,6 +7397,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Version (Minor).
+        /// </summary>
+        public static string Minor {
+            get {
+                return ResourceManager.GetString("Minor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mixed information presentation and collection.
         /// </summary>
         public static string MixedInformationPresentationAndCollection {
@@ -5813,11 +7442,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More.
+        /// </summary>
+        public static string More {
+            get {
+                return ResourceManager.GetString("More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Motor Neurone.
         /// </summary>
         public static string Motor_Neurone {
             get {
                 return ResourceManager.GetString("Motor Neurone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mr..
+        /// </summary>
+        public static string Mr {
+            get {
+                return ResourceManager.GetString("Mr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ms..
+        /// </summary>
+        public static string Ms {
+            get {
+                return ResourceManager.GetString("Ms", resourceCulture);
             }
         }
         
@@ -5867,11 +7523,20 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multiple birth number (if multiple true : 1st, 2nd...).
+        ///   Looks up a localized string similar to Multiple birth number.
         /// </summary>
         public static string MultipleBirthNumber {
             get {
                 return ResourceManager.GetString("MultipleBirthNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MultiSpecialtyProgram.
+        /// </summary>
+        public static string MultiSpecialtyProgram {
+            get {
+                return ResourceManager.GetString("MultiSpecialtyProgram", resourceCulture);
             }
         }
         
@@ -5881,6 +7546,15 @@ namespace sReportsV2.Resources {
         public static string Music_Therapy {
             get {
                 return ResourceManager.GetString("Music Therapy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Myocardial Infarction.
+        /// </summary>
+        public static string Myocardial_Infarction {
+            get {
+                return ResourceManager.GetString("Myocardial Infarction", resourceCulture);
             }
         }
         
@@ -6003,6 +7677,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NeonatalPerinatalMedicine.
+        /// </summary>
+        public static string NeonatalPerinatalMedicine {
+            get {
+                return ResourceManager.GetString("NeonatalPerinatalMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neonatology &amp; Perinatology.
         /// </summary>
         public static string Neonatology___Perinatology {
@@ -6021,11 +7704,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NeurologicalSurgery.
+        /// </summary>
+        public static string NeurologicalSurgery {
+            get {
+                return ResourceManager.GetString("NeurologicalSurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neurology.
         /// </summary>
         public static string Neurology {
             get {
                 return ResourceManager.GetString("Neurology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NeurologyWSpecialQualificationsInChildNeuro.
+        /// </summary>
+        public static string NeurologyWSpecialQualificationsInChildNeuro {
+            get {
+                return ResourceManager.GetString("NeurologyWSpecialQualificationsInChildNeuro", resourceCulture);
             }
         }
         
@@ -6039,11 +7740,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Neuropsychology.
+        /// </summary>
+        public static string Neuropsychology {
+            get {
+                return ResourceManager.GetString("Neuropsychology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neurosurgery.
         /// </summary>
         public static string Neurosurgery {
             get {
                 return ResourceManager.GetString("Neurosurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New form.
+        /// </summary>
+        public static string New_form {
+            get {
+                return ResourceManager.GetString("New form", resourceCulture);
             }
         }
         
@@ -6075,11 +7794,47 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Iteration.
+        /// </summary>
+        public static string NewIteration {
+            get {
+                return ResourceManager.GetString("NewIteration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password.
         /// </summary>
         public static string NewPassword {
             get {
                 return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NO_RESULT.
+        /// </summary>
+        public static string No_Result {
+            get {
+                return ResourceManager.GetString("No_Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No result found.
+        /// </summary>
+        public static string No_result_found {
+            get {
+                return ResourceManager.GetString("No result found", resourceCulture);
             }
         }
         
@@ -6129,11 +7884,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Non-urgent orthopedic admission.
+        /// </summary>
+        public static string Non_urgent_orthopedic_admission {
+            get {
+                return ResourceManager.GetString("Non-urgent orthopedic admission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string None {
             get {
                 return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No result!.
+        /// </summary>
+        public static string NoResult {
+            get {
+                return ResourceManager.GetString("NoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No result found!.
+        /// </summary>
+        public static string NoResultFound {
+            get {
+                return ResourceManager.GetString("NoResultFound", resourceCulture);
             }
         }
         
@@ -6156,11 +7938,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not defined.
+        /// </summary>
+        public static string NotDefined {
+            get {
+                return ResourceManager.GetString("NotDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notes.
         /// </summary>
         public static string Notes {
             get {
                 return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not recruiting.
+        /// </summary>
+        public static string NotRecruiting {
+            get {
+                return ResourceManager.GetString("NotRecruiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not yet recruiting.
+        /// </summary>
+        public static string NotYetRecruiting {
+            get {
+                return ResourceManager.GetString("NotYetRecruiting", resourceCulture);
             }
         }
         
@@ -6183,11 +7992,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of Users.
+        /// </summary>
+        public static string Number_of_Users {
+            get {
+                return ResourceManager.GetString("Number of Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of documents.
         /// </summary>
         public static string NumberOfDocuments {
             get {
                 return ResourceManager.GetString("NumberOfDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of repetitions for pdf.
+        /// </summary>
+        public static string NumberOfRepetitionOnPdf {
+            get {
+                return ResourceManager.GetString("NumberOfRepetitionOnPdf", resourceCulture);
             }
         }
         
@@ -6255,11 +8082,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NutritionAndDietetics.
+        /// </summary>
+        public static string NutritionAndDietetics {
+            get {
+                return ResourceManager.GetString("NutritionAndDietetics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Obesity.
         /// </summary>
         public static string Obesity {
             get {
                 return ResourceManager.GetString("Obesity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ObesityMedicine.
+        /// </summary>
+        public static string ObesityMedicine {
+            get {
+                return ResourceManager.GetString("ObesityMedicine", resourceCulture);
             }
         }
         
@@ -6278,6 +8123,15 @@ namespace sReportsV2.Resources {
         public static string Observation_Instance {
             get {
                 return ResourceManager.GetString("Observation Instance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obstetric emergency hospital admission.
+        /// </summary>
+        public static string Obstetric_emergency_hospital_admission {
+            get {
+                return ResourceManager.GetString("Obstetric emergency hospital admission", resourceCulture);
             }
         }
         
@@ -6314,6 +8168,15 @@ namespace sReportsV2.Resources {
         public static string ObstetricsAndGynaecology {
             get {
                 return ResourceManager.GetString("ObstetricsAndGynaecology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ObstetricsAndGynecology.
+        /// </summary>
+        public static string ObstetricsAndGynecology {
+            get {
+                return ResourceManager.GetString("ObstetricsAndGynecology", resourceCulture);
             }
         }
         
@@ -6359,6 +8222,15 @@ namespace sReportsV2.Resources {
         public static string OccupationalMedicine {
             get {
                 return ResourceManager.GetString("OccupationalMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OccupationalTherapy.
+        /// </summary>
+        public static string OccupationalTherapy {
+            get {
+                return ResourceManager.GetString("OccupationalTherapy", resourceCulture);
             }
         }
         
@@ -6460,6 +8332,15 @@ namespace sReportsV2.Resources {
         public static string Ophthalmology {
             get {
                 return ResourceManager.GetString("Ophthalmology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to optional.
+        /// </summary>
+        public static string Optional {
+            get {
+                return ResourceManager.GetString("Optional", resourceCulture);
             }
         }
         
@@ -6671,6 +8552,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User is alredy part of selected organization!.
+        /// </summary>
+        public static string OrganizationExist {
+            get {
+                return ResourceManager.GetString("OrganizationExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Identifier Type.
+        /// </summary>
+        public static string OrganizationIdentifierType {
+            get {
+                return ResourceManager.GetString("OrganizationIdentifierType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organizations.
         /// </summary>
         public static string Organizations {
@@ -6685,6 +8584,15 @@ namespace sReportsV2.Resources {
         public static string OrganizationStreet {
             get {
                 return ResourceManager.GetString("OrganizationStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organization Type.
+        /// </summary>
+        public static string OrganizationType {
+            get {
+                return ResourceManager.GetString("OrganizationType", resourceCulture);
             }
         }
         
@@ -6712,6 +8620,24 @@ namespace sReportsV2.Resources {
         public static string Orthopaedics {
             get {
                 return ResourceManager.GetString("Orthopaedics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OrthopaedicSurgery.
+        /// </summary>
+        public static string OrthopaedicSurgery {
+            get {
+                return ResourceManager.GetString("OrthopaedicSurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OrthoticsProsthetics.
+        /// </summary>
+        public static string OrthoticsProsthetics {
+            get {
+                return ResourceManager.GetString("OrthoticsProsthetics", resourceCulture);
             }
         }
         
@@ -6752,6 +8678,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Otolaryngology.
+        /// </summary>
+        public static string Otolaryngology {
+            get {
+                return ResourceManager.GetString("Otolaryngology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Otolaryngology/Head &amp; Neck Surgery.
         /// </summary>
         public static string Otolaryngology_Head___Neck_Surgery {
@@ -6775,6 +8710,15 @@ namespace sReportsV2.Resources {
         public static string Outpatient_Kenacort_Injection {
             get {
                 return ResourceManager.GetString("Outpatient Kenacort Injection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outpatient procedure.
+        /// </summary>
+        public static string Outpatient_procedure {
+            get {
+                return ResourceManager.GetString("Outpatient procedure", resourceCulture);
             }
         }
         
@@ -7031,6 +8975,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        public static string Page {
+            get {
+                return ResourceManager.GetString("Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pager.
         /// </summary>
         public static string Pager {
@@ -7049,11 +9002,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PainMedicine.
+        /// </summary>
+        public static string PainMedicine {
+            get {
+                return ResourceManager.GetString("PainMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Palliative Medicine.
         /// </summary>
         public static string Palliative_Medicine {
             get {
                 return ResourceManager.GetString("Palliative Medicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PalliativeCare.
+        /// </summary>
+        public static string PalliativeCare {
+            get {
+                return ResourceManager.GetString("PalliativeCare", resourceCulture);
             }
         }
         
@@ -7126,6 +9097,15 @@ namespace sReportsV2.Resources {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PastoralCare.
+        /// </summary>
+        public static string PastoralCare {
+            get {
+                return ResourceManager.GetString("PastoralCare", resourceCulture);
             }
         }
         
@@ -7211,6 +9191,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Patient encounter procedure.
+        /// </summary>
+        public static string Patient_encounter_procedure {
+            get {
+                return ResourceManager.GetString("Patient encounter procedure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Patient external identifier.
         /// </summary>
         public static string Patient_external_identifier {
@@ -7243,6 +9232,15 @@ namespace sReportsV2.Resources {
         public static string Patient_Identificator {
             get {
                 return ResourceManager.GetString("Patient_Identificator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient-initiated encounter.
+        /// </summary>
+        public static string Patient_initiated_encounter {
+            get {
+                return ResourceManager.GetString("Patient-initiated encounter", resourceCulture);
             }
         }
         
@@ -7312,6 +9310,15 @@ namespace sReportsV2.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Patient Identifier Type.
         /// </summary>
+        public static string PatientIdentifierType {
+            get {
+                return ResourceManager.GetString("PatientIdentifierType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient Identifier Type.
+        /// </summary>
         public static string PatientIdType {
             get {
                 return ResourceManager.GetString("PatientIdType", resourceCulture);
@@ -7355,11 +9362,164 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PediatricCardiology.
+        /// </summary>
+        public static string PediatricCardiology {
+            get {
+                return ResourceManager.GetString("PediatricCardiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricCriticalCareMedicine.
+        /// </summary>
+        public static string PediatricCriticalCareMedicine {
+            get {
+                return ResourceManager.GetString("PediatricCriticalCareMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricDermatology.
+        /// </summary>
+        public static string PediatricDermatology {
+            get {
+                return ResourceManager.GetString("PediatricDermatology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricEndocrinology.
+        /// </summary>
+        public static string PediatricEndocrinology {
+            get {
+                return ResourceManager.GetString("PediatricEndocrinology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricGastroenterology.
+        /// </summary>
+        public static string PediatricGastroenterology {
+            get {
+                return ResourceManager.GetString("PediatricGastroenterology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricHematologyOncology.
+        /// </summary>
+        public static string PediatricHematologyOncology {
+            get {
+                return ResourceManager.GetString("PediatricHematologyOncology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricInfectiousDiseases.
+        /// </summary>
+        public static string PediatricInfectiousDiseases {
+            get {
+                return ResourceManager.GetString("PediatricInfectiousDiseases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricNephrology.
+        /// </summary>
+        public static string PediatricNephrology {
+            get {
+                return ResourceManager.GetString("PediatricNephrology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricOtolaryngology.
+        /// </summary>
+        public static string PediatricOtolaryngology {
+            get {
+                return ResourceManager.GetString("PediatricOtolaryngology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricPulmonology.
+        /// </summary>
+        public static string PediatricPulmonology {
+            get {
+                return ResourceManager.GetString("PediatricPulmonology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricRehabilitationMedicine.
+        /// </summary>
+        public static string PediatricRehabilitationMedicine {
+            get {
+                return ResourceManager.GetString("PediatricRehabilitationMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricRheumatology.
+        /// </summary>
+        public static string PediatricRheumatology {
+            get {
+                return ResourceManager.GetString("PediatricRheumatology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pediatrics.
+        /// </summary>
+        public static string Pediatrics {
+            get {
+                return ResourceManager.GetString("Pediatrics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricSurgery.
+        /// </summary>
+        public static string PediatricSurgery {
+            get {
+                return ResourceManager.GetString("PediatricSurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricTransplantHepatology.
+        /// </summary>
+        public static string PediatricTransplantHepatology {
+            get {
+                return ResourceManager.GetString("PediatricTransplantHepatology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PediatricUrology.
+        /// </summary>
+        public static string PediatricUrology {
+            get {
+                return ResourceManager.GetString("PediatricUrology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pension Number.
         /// </summary>
         public static string Pension_Number {
             get {
                 return ResourceManager.GetString("Pension Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Periodic reevaluation and management of healthy individual (procedure).
+        /// </summary>
+        public static string Periodic_reevaluation_and_management_of_healthy_individual__procedure_ {
+            get {
+                return ResourceManager.GetString("Periodic reevaluation and management of healthy individual (procedure)", resourceCulture);
             }
         }
         
@@ -7378,6 +9538,15 @@ namespace sReportsV2.Resources {
         public static string Permanent_Resident_Card_Number {
             get {
                 return ResourceManager.GetString("Permanent Resident Card Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Person Info.
+        /// </summary>
+        public static string Person_Info {
+            get {
+                return ResourceManager.GetString("Person Info", resourceCulture);
             }
         }
         
@@ -7436,6 +9605,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal data.
+        /// </summary>
+        public static string PersonalData {
+            get {
+                return ResourceManager.GetString("PersonalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pharmacies.
         /// </summary>
         public static string Pharmacies {
@@ -7450,6 +9628,15 @@ namespace sReportsV2.Resources {
         public static string Pharmacist_license_number {
             get {
                 return ResourceManager.GetString("Pharmacist license number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pharmacogenomics.
+        /// </summary>
+        public static string Pharmacogenomics {
+            get {
+                return ResourceManager.GetString("Pharmacogenomics", resourceCulture);
             }
         }
         
@@ -7553,11 +9740,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PhysicalMedicineAndRehab.
+        /// </summary>
+        public static string PhysicalMedicineAndRehab {
+            get {
+                return ResourceManager.GetString("PhysicalMedicineAndRehab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Physical medicine and rehabilitation.
         /// </summary>
         public static string PhysicalMedicineAndRehabilitation {
             get {
                 return ResourceManager.GetString("PhysicalMedicineAndRehabilitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PhysicalTherapy.
+        /// </summary>
+        public static string PhysicalTherapy {
+            get {
+                return ResourceManager.GetString("PhysicalTherapy", resourceCulture);
             }
         }
         
@@ -7661,6 +9866,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select some text here.
+        /// </summary>
+        public static string PleaseSelectOption {
+            get {
+                return ResourceManager.GetString("PleaseSelectOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Podiatric surgery.
         /// </summary>
         public static string PodiatricSurgery {
@@ -7684,6 +9898,15 @@ namespace sReportsV2.Resources {
         public static string Podiatry {
             get {
                 return ResourceManager.GetString("Podiatry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polytrauma.
+        /// </summary>
+        public static string Polytrauma {
+            get {
+                return ResourceManager.GetString("Polytrauma", resourceCulture);
             }
         }
         
@@ -7751,6 +9974,33 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Postnatal visit.
+        /// </summary>
+        public static string Postnatal_visit {
+            get {
+                return ResourceManager.GetString("Postnatal visit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postoperative follow-up visit (procedure).
+        /// </summary>
+        public static string Postoperative_follow_up_visit__procedure_ {
+            get {
+                return ResourceManager.GetString("Postoperative follow-up visit (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posttraumatic stress disorder.
+        /// </summary>
+        public static string posttraumatic_stress_disorder {
+            get {
+                return ResourceManager.GetString("posttraumatic stress disorder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Practitioner Medicaid number.
         /// </summary>
         public static string Practitioner_Medicaid_number {
@@ -7796,6 +10046,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Predefined types.
+        /// </summary>
+        public static string PredefinedTypes {
+            get {
+                return ResourceManager.GetString("PredefinedTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preferred.
         /// </summary>
         public static string Preferred {
@@ -7828,6 +10087,24 @@ namespace sReportsV2.Resources {
         public static string Pregnancy_Tests {
             get {
                 return ResourceManager.GetString("Pregnancy Tests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prenatal initial visit.
+        /// </summary>
+        public static string Prenatal_initial_visit {
+            get {
+                return ResourceManager.GetString("Prenatal initial visit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prenatal visit.
+        /// </summary>
+        public static string Prenatal_visit {
+            get {
+                return ResourceManager.GetString("Prenatal visit", resourceCulture);
             }
         }
         
@@ -7904,11 +10181,56 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PrimaryCare.
+        /// </summary>
+        public static string PrimaryCare {
+            get {
+                return ResourceManager.GetString("PrimaryCare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Primary color.
         /// </summary>
         public static string PrimaryColor {
             get {
                 return ResourceManager.GetString("PrimaryColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Principal Investigator.
+        /// </summary>
+        public static string PrincipalInvestigator {
+            get {
+                return ResourceManager.GetString("PrincipalInvestigator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privatdozent - PD.
+        /// </summary>
+        public static string Privatdozent {
+            get {
+                return ResourceManager.GetString("Privatdozent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private Company.
+        /// </summary>
+        public static string PrivateCompany {
+            get {
+                return ResourceManager.GetString("PrivateCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private Practice.
+        /// </summary>
+        public static string PrivatePractice {
+            get {
+                return ResourceManager.GetString("PrivatePractice", resourceCulture);
             }
         }
         
@@ -7927,6 +10249,24 @@ namespace sReportsV2.Resources {
         public static string Problem_Gambling_Counselling {
             get {
                 return ResourceManager.GetString("Problem Gambling Counselling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proceed.
+        /// </summary>
+        public static string Proceed {
+            get {
+                return ResourceManager.GetString("Proceed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Professor.
+        /// </summary>
+        public static string Professor {
+            get {
+                return ResourceManager.GetString("Professor", resourceCulture);
             }
         }
         
@@ -8075,6 +10415,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Portuguese.
+        /// </summary>
+        public static string pt {
+            get {
+                return ResourceManager.GetString("pt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public Health Case Identifier.
         /// </summary>
         public static string Public_Health_Case_Identifier {
@@ -8120,6 +10469,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Public Company.
+        /// </summary>
+        public static string PublicCompany {
+            get {
+                return ResourceManager.GetString("PublicCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public health.
         /// </summary>
         public static string PublicHealth {
@@ -8138,11 +10496,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PulmonaryDisease.
+        /// </summary>
+        public static string PulmonaryDisease {
+            get {
+                return ResourceManager.GetString("PulmonaryDisease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QA number.
         /// </summary>
         public static string QA_number {
             get {
                 return ResourceManager.GetString("QA number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick search.
+        /// </summary>
+        public static string Quick_search {
+            get {
+                return ResourceManager.GetString("Quick search", resourceCulture);
             }
         }
         
@@ -8170,6 +10546,15 @@ namespace sReportsV2.Resources {
         public static string RadiationOncology {
             get {
                 return ResourceManager.GetString("RadiationOncology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radio Fieldvalue.
+        /// </summary>
+        public static string RadioFieldvalue {
+            get {
+                return ResourceManager.GetString("RadioFieldvalue", resourceCulture);
             }
         }
         
@@ -8224,6 +10609,24 @@ namespace sReportsV2.Resources {
         public static string Recreation {
             get {
                 return ResourceManager.GetString("Recreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RecreationalTherapy.
+        /// </summary>
+        public static string RecreationalTherapy {
+            get {
+                return ResourceManager.GetString("RecreationalTherapy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recruiting.
+        /// </summary>
+        public static string Recruiting {
+            get {
+                return ResourceManager.GetString("Recruiting", resourceCulture);
             }
         }
         
@@ -8390,11 +10793,47 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reminder.
+        /// </summary>
+        public static string Reminder {
+            get {
+                return ResourceManager.GetString("Reminder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rent Assistance.
         /// </summary>
         public static string Rent_Assistance {
             get {
                 return ResourceManager.GetString("Rent Assistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat.
+        /// </summary>
+        public static string Repeat {
+            get {
+                return ResourceManager.GetString("Repeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repetitive.
+        /// </summary>
+        public static string Repetitive {
+            get {
+                return ResourceManager.GetString("Repetitive", resourceCulture);
             }
         }
         
@@ -8440,6 +10879,15 @@ namespace sReportsV2.Resources {
         public static string Reproductive_Endocrinology_Infertility {
             get {
                 return ResourceManager.GetString("Reproductive Endocrinology/Infertility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ReproductiveEndocrinologyAndInfertility.
+        /// </summary>
+        public static string ReproductiveEndocrinologyAndInfertility {
+            get {
+                return ResourceManager.GetString("ReproductiveEndocrinologyAndInfertility", resourceCulture);
             }
         }
         
@@ -8525,6 +10973,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RespiratoryTherapy.
+        /// </summary>
+        public static string RespiratoryTherapy {
+            get {
+                return ResourceManager.GetString("RespiratoryTherapy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Respite Care.
         /// </summary>
         public static string Respite_Care {
@@ -8539,6 +10996,33 @@ namespace sReportsV2.Resources {
         public static string Response {
             get {
                 return ResourceManager.GetString("Response", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review.
+        /// </summary>
+        public static string Review {
+            get {
+                return ResourceManager.GetString("Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review Pending.
+        /// </summary>
+        public static string ReviewPending {
+            get {
+                return ResourceManager.GetString("ReviewPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review thesaurus.
+        /// </summary>
+        public static string ReviewThesaurus {
+            get {
+                return ResourceManager.GetString("ReviewThesaurus", resourceCulture);
             }
         }
         
@@ -8584,6 +11068,15 @@ namespace sReportsV2.Resources {
         public static string RootSource {
             get {
                 return ResourceManager.GetString("RootSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Russian.
+        /// </summary>
+        public static string ru {
+            get {
+                return ResourceManager.GetString("ru", resourceCulture);
             }
         }
         
@@ -8670,6 +11163,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screening surveillance (regime/therapy).
+        /// </summary>
+        public static string Screening_surveillance__regime_therapy_ {
+            get {
+                return ResourceManager.GetString("Screening surveillance (regime/therapy)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -8724,11 +11226,65 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select_ {
+            get {
+                return ResourceManager.GetString("Select_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (select preferred).
+        /// </summary>
+        public static string Select_preferred {
+            get {
+                return ResourceManager.GetString("Select preferred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all organization to which user belongs.
+        /// </summary>
+        public static string SelectAllOrganizationUser {
+            get {
+                return ResourceManager.GetString("SelectAllOrganizationUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all roles that user will have in the system.
+        /// </summary>
+        public static string SelectAllRolesUser {
+            get {
+                return ResourceManager.GetString("SelectAllRolesUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select identifier.
         /// </summary>
         public static string SelectIdentifier {
             get {
                 return ResourceManager.GetString("SelectIdentifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Language.
+        /// </summary>
+        public static string SelectLanguage {
+            get {
+                return ResourceManager.GetString("SelectLanguage", resourceCulture);
             }
         }
         
@@ -8742,11 +11298,20 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecet option.
+        ///   Looks up a localized string similar to Select option.
         /// </summary>
         public static string SelectOption {
             get {
                 return ResourceManager.GetString("SelectOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ( Select Preferred ).
+        /// </summary>
+        public static string SelectPreferred {
+            get {
+                return ResourceManager.GetString("SelectPreferred", resourceCulture);
             }
         }
         
@@ -8774,6 +11339,15 @@ namespace sReportsV2.Resources {
         public static string SelectType {
             get {
                 return ResourceManager.GetString("SelectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select UMLS concept to show definitions and atoms.
+        /// </summary>
+        public static string SelectUMLSConcept {
+            get {
+                return ResourceManager.GetString("SelectUMLSConcept", resourceCulture);
             }
         }
         
@@ -8828,6 +11402,42 @@ namespace sReportsV2.Resources {
         public static string Services {
             get {
                 return ResourceManager.GetString("Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Type.
+        /// </summary>
+        public static string ServiceType {
+            get {
+                return ResourceManager.GetString("ServiceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session Interruption.
+        /// </summary>
+        public static string SessionBreak {
+            get {
+                return ResourceManager.GetString("SessionBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your session stands out for.
+        /// </summary>
+        public static string SessionExpiration {
+            get {
+                return ResourceManager.GetString("SessionExpiration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose &quot;Continue&quot; to continue with work or choose &quot;Logout&quot; to end your session.Session will break automaticly after 60s..
+        /// </summary>
+        public static string SessionInfo {
+            get {
+                return ResourceManager.GetString("SessionInfo", resourceCulture);
             }
         }
         
@@ -8949,6 +11559,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Similar terms.
+        /// </summary>
+        public static string SimilarTerms {
+            get {
+                return ResourceManager.GetString("SimilarTerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Simulator.
         /// </summary>
         public static string Simulator {
@@ -8963,6 +11582,15 @@ namespace sReportsV2.Resources {
         public static string Sleep_Medicine {
             get {
                 return ResourceManager.GetString("Sleep Medicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SleepMedicine.
+        /// </summary>
+        public static string SleepMedicine {
+            get {
+                return ResourceManager.GetString("SleepMedicine", resourceCulture);
             }
         }
         
@@ -9030,6 +11658,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SolidOrganTransplant.
+        /// </summary>
+        public static string SolidOrganTransplant {
+            get {
+                return ResourceManager.GetString("SolidOrganTransplant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spanish.
         /// </summary>
         public static string Spanish {
@@ -9071,6 +11708,33 @@ namespace sReportsV2.Resources {
         public static string Speech_Therapist {
             get {
                 return ResourceManager.GetString("Speech Therapist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpeechLanguagePathology.
+        /// </summary>
+        public static string SpeechLanguagePathology {
+            get {
+                return ResourceManager.GetString("SpeechLanguagePathology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpinalCordInjuryMedicine.
+        /// </summary>
+        public static string SpinalCordInjuryMedicine {
+            get {
+                return ResourceManager.GetString("SpinalCordInjuryMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SpinalSurgery.
+        /// </summary>
+        public static string SpinalSurgery {
+            get {
+                return ResourceManager.GetString("SpinalSurgery", resourceCulture);
             }
         }
         
@@ -9120,11 +11784,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SportsMedicine.
+        /// </summary>
+        public static string SportsMedicine {
+            get {
+                return ResourceManager.GetString("SportsMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Serbian.
         /// </summary>
         public static string sr {
             get {
                 return ResourceManager.GetString("sr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serbian Cyrilic.
+        /// </summary>
+        public static string sr_Cyrl_RS {
+            get {
+                return ResourceManager.GetString("sr-Cyrl-RS", resourceCulture);
             }
         }
         
@@ -9152,6 +11834,15 @@ namespace sReportsV2.Resources {
         public static string StandardDeviationDistribution {
             get {
                 return ResourceManager.GetString("StandardDeviationDistribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Consensus Finding Process.
+        /// </summary>
+        public static string StartConsensusBtn {
+            get {
+                return ResourceManager.GetString("StartConsensusBtn", resourceCulture);
             }
         }
         
@@ -9197,6 +11888,15 @@ namespace sReportsV2.Resources {
         public static string State_registry_ID {
             get {
                 return ResourceManager.GetString("State registry ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State University Hospital.
+        /// </summary>
+        public static string StateUniversityHospital {
+            get {
+                return ResourceManager.GetString("StateUniversityHospital", resourceCulture);
             }
         }
         
@@ -9282,6 +11982,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Street Number.
+        /// </summary>
+        public static string StreetNumber {
+            get {
+                return ResourceManager.GetString("StreetNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stroke.
         /// </summary>
         public static string Stroke {
@@ -9296,6 +12005,15 @@ namespace sReportsV2.Resources {
         public static string Study_Permit {
             get {
                 return ResourceManager.GetString("Study Permit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Study Nurse.
+        /// </summary>
+        public static string StudyNurse {
+            get {
+                return ResourceManager.GetString("StudyNurse", resourceCulture);
             }
         }
         
@@ -9363,11 +12081,56 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Surgery.
+        /// </summary>
+        public static string Surgery {
+            get {
+                return ResourceManager.GetString("Surgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Surgery - General.
         /// </summary>
         public static string Surgery___General {
             get {
                 return ResourceManager.GetString("Surgery - General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SurgeryOfTheHand.
+        /// </summary>
+        public static string SurgeryOfTheHand {
+            get {
+                return ResourceManager.GetString("SurgeryOfTheHand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SurgicalCriticalCare.
+        /// </summary>
+        public static string SurgicalCriticalCare {
+            get {
+                return ResourceManager.GetString("SurgicalCriticalCare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SurgicalOncology.
+        /// </summary>
+        public static string SurgicalOncology {
+            get {
+                return ResourceManager.GetString("SurgicalOncology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suspended.
+        /// </summary>
+        public static string Suspended {
+            get {
+                return ResourceManager.GetString("Suspended", resourceCulture);
             }
         }
         
@@ -9404,6 +12167,24 @@ namespace sReportsV2.Resources {
         public static string System {
             get {
                 return ResourceManager.GetString("System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take Both.
+        /// </summary>
+        public static string TakeBoth {
+            get {
+                return ResourceManager.GetString("TakeBoth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target Thesaurus Tree.
+        /// </summary>
+        public static string TargetThesaurusTree {
+            get {
+                return ResourceManager.GetString("TargetThesaurusTree", resourceCulture);
             }
         }
         
@@ -9480,11 +12261,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telemedicine consultation with patient.
+        /// </summary>
+        public static string Telemedicine_consultation_with_patient {
+            get {
+                return ResourceManager.GetString("Telemedicine consultation with patient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Telephone Counselling.
         /// </summary>
         public static string Telephone_Counselling {
             get {
                 return ResourceManager.GetString("Telephone Counselling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telephone encounter (procedure).
+        /// </summary>
+        public static string Telephone_encounter__procedure_ {
+            get {
+                return ResourceManager.GetString("Telephone encounter (procedure)", resourceCulture);
             }
         }
         
@@ -9561,6 +12360,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Terminated.
+        /// </summary>
+        public static string Terminated {
+            get {
+                return ResourceManager.GetString("Terminated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        public static string Test {
+            get {
+                return ResourceManager.GetString("Test", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test Message.
         /// </summary>
         public static string Test_Message {
@@ -9588,11 +12405,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TherapeuticApheresis.
+        /// </summary>
+        public static string TherapeuticApheresis {
+            get {
+                return ResourceManager.GetString("TherapeuticApheresis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Therapy.
         /// </summary>
         public static string Therapy {
             get {
                 return ResourceManager.GetString("Therapy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no any Episode of care added.
+        /// </summary>
+        public static string There_is_no_any_Episode_of_care_added {
+            get {
+                return ResourceManager.GetString("There is no any Episode of care added", resourceCulture);
             }
         }
         
@@ -9606,11 +12441,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thesaurus entry.
+        /// </summary>
+        public static string ThesaurusEntry {
+            get {
+                return ResourceManager.GetString("ThesaurusEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thesaurus id.
         /// </summary>
         public static string ThesaurusId {
             get {
                 return ResourceManager.GetString("ThesaurusId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you dont select thesaurus, a new thesaurus will be created and selected.
+        /// </summary>
+        public static string ThesaurusNotSelectedWarning {
+            get {
+                return ResourceManager.GetString("ThesaurusNotSelectedWarning", resourceCulture);
             }
         }
         
@@ -9633,6 +12486,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ThoracicAndCardiacSurgery.
+        /// </summary>
+        public static string ThoracicAndCardiacSurgery {
+            get {
+                return ResourceManager.GetString("ThoracicAndCardiacSurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thoracic surgery.
         /// </summary>
         public static string ThoracicSurgery {
@@ -9642,11 +12504,29 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thromboembolism.
+        /// </summary>
+        public static string Thromboembolism {
+            get {
+                return ResourceManager.GetString("Thromboembolism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         
@@ -9714,6 +12594,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Translations.
+        /// </summary>
+        public static string Translations {
+            get {
+                return ResourceManager.GetString("Translations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Translator.
         /// </summary>
         public static string Translator {
@@ -9723,11 +12612,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TransplantCardiology.
+        /// </summary>
+        public static string TransplantCardiology {
+            get {
+                return ResourceManager.GetString("TransplantCardiology", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TransplantSurgery.
+        /// </summary>
+        public static string TransplantSurgery {
+            get {
+                return ResourceManager.GetString("TransplantSurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transport.
         /// </summary>
         public static string Transport {
             get {
                 return ResourceManager.GetString("Transport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trauma.
+        /// </summary>
+        public static string Trauma {
+            get {
+                return ResourceManager.GetString("Trauma", resourceCulture);
             }
         }
         
@@ -9792,6 +12708,15 @@ namespace sReportsV2.Resources {
         public static string True {
             get {
                 return ResourceManager.GetString("True", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TumorBoard.
+        /// </summary>
+        public static string TumorBoard {
+            get {
+                return ResourceManager.GetString("TumorBoard", resourceCulture);
             }
         }
         
@@ -9922,6 +12847,24 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unblock.
+        /// </summary>
+        public static string Unblock {
+            get {
+                return ResourceManager.GetString("Unblock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnderseaAndHyperbaricMedicine.
+        /// </summary>
+        public static string UnderseaAndHyperbaricMedicine {
+            get {
+                return ResourceManager.GetString("UnderseaAndHyperbaricMedicine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unique Specimen ID.
         /// </summary>
         public static string Unique_Specimen_ID {
@@ -9958,11 +12901,38 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unselect.
+        /// </summary>
+        public static string Unselect {
+            get {
+                return ResourceManager.GetString("Unselect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unspecified identifier.
         /// </summary>
         public static string Unspecified_identifier {
             get {
                 return ResourceManager.GetString("Unspecified identifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updata data.
+        /// </summary>
+        public static string UpdateData {
+            get {
+                return ResourceManager.GetString("UpdateData", resourceCulture);
             }
         }
         
@@ -9981,6 +12951,15 @@ namespace sReportsV2.Resources {
         public static string UploadPdf {
             get {
                 return ResourceManager.GetString("UploadPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Urgent care clinic (environment).
+        /// </summary>
+        public static string Urgent_care_clinic__environment_ {
+            get {
+                return ResourceManager.GetString("Urgent care clinic (environment)", resourceCulture);
             }
         }
         
@@ -10098,6 +13077,15 @@ namespace sReportsV2.Resources {
         public static string Vascular_Surgery {
             get {
                 return ResourceManager.GetString("Vascular Surgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VascularNeurology.
+        /// </summary>
+        public static string VascularNeurology {
+            get {
+                return ResourceManager.GetString("VascularNeurology", resourceCulture);
             }
         }
         
@@ -10273,6 +13261,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VocationalRehabilitation.
+        /// </summary>
+        public static string VocationalRehabilitation {
+            get {
+                return ResourceManager.GetString("VocationalRehabilitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waitlist.
         /// </summary>
         public static string Waitlist {
@@ -10318,6 +13315,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Well child visit (procedure).
+        /// </summary>
+        public static string Well_child_visit__procedure_ {
+            get {
+                return ResourceManager.GetString("Well child visit (procedure)", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Western Herbal Medicine.
         /// </summary>
         public static string Western_Herbal_Medicine {
@@ -10345,6 +13351,15 @@ namespace sReportsV2.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Withdrawn.
+        /// </summary>
+        public static string Withdrawn {
+            get {
+                return ResourceManager.GetString("Withdrawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Women&apos;s Health.
         /// </summary>
         public static string Women_s_Health {
@@ -10359,6 +13374,15 @@ namespace sReportsV2.Resources {
         public static string Women_s_Health_Clinic {
             get {
                 return ResourceManager.GetString("Women\'s Health Clinic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WomensHealth.
+        /// </summary>
+        public static string WomensHealth {
+            get {
+                return ResourceManager.GetString("WomensHealth", resourceCulture);
             }
         }
         
@@ -10413,6 +13437,33 @@ namespace sReportsV2.Resources {
         public static string Wound_Management {
             get {
                 return ResourceManager.GetString("Wound Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WoundCareManagement.
+        /// </summary>
+        public static string WoundCareManagement {
+            get {
+                return ResourceManager.GetString("WoundCareManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WoundOstomyAndContinenceCare.
+        /// </summary>
+        public static string WoundOstomyAndContinenceCare {
+            get {
+                return ResourceManager.GetString("WoundOstomyAndContinenceCare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

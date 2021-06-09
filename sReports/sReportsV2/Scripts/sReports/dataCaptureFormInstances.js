@@ -8,7 +8,10 @@ function createFormInstance(id, language) {
     }
 }
 
-function createPdfFormInstance(formId) {
+function createPdfFormInstance(event, formId) {
+    event.stopPropagation();
+    event.preventDefault();
+    
     $(window).unbind('beforeunload');
     window.location.href = `/Pdf/GetPdfForFormId?formId=${formId}`;
 
@@ -18,6 +21,8 @@ function createPdfFormInstance(formId) {
 }
 
 function showUploadModal(e) {
+ 
+    e.preventDefault();
     e.stopPropagation();
 
     $('#uploadModal').modal('show');
@@ -52,7 +57,9 @@ function editFormDefinition(id) {
     window.location.href = `/Form/Edit?formId=${id}`;
 }
 
-function downloadTxt() {
+function downloadTxt(event) {
+    event.stopPropagation();
+    event.preventDefault();
     var chkArray = [];
     $("input:checkbox[name=checkboxDownload]:checked").each(function (index, element) {
         chkArray.push(element);
@@ -165,7 +172,9 @@ document.getElementById("file").onchange = function () {
     document.getElementById("uploadFile").value = this.value.replace("C:\\fakepath\\", "");
 };
 
-function downloadJsons() {
+function downloadJsons(event) {
+    event.preventDefault();
+    event.stopPropagation();
     var chkArray = [];
     $("input:checkbox[name=checkboxDownload]:checked").each(function (index, element) {
         chkArray.push(element);
@@ -219,6 +228,7 @@ function clickedRow(e, id) {
     if (!$(e.target).hasClass('dropdown-button')
         && !$(e.target).hasClass('fa-bars')
         && !$(e.target).hasClass('dropdown-item')
+        && !$(e.target).hasClass('dots')
         && !$(e.target).hasClass('form-checkbox-button')
         && !$(e.target).hasClass('form-checkbox-field')
         && !$(e.target).find('.form-checkbox-button').length > 0) {
@@ -231,6 +241,8 @@ $(document).on('change', '#selectAllCheckboxes', function () {
     var c = this.checked;
     $(':checkbox').prop('checked', c);
 });
+
+
 
 
 

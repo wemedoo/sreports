@@ -1,83 +1,219 @@
 ﻿@using sReportsV2.DTOs.FormDistribution.DataOut;
-@using sReportsV2.Domain.Entities.Constants;
+@using sReportsV2.Common.Constants;
 
 @model FormFieldDistributionDataOut
 
-@foreach (FormFieldDistributionSingleParameterDataOut singleParameter in Model.ValuesCombination)
-{
-    <fieldset class="">
-        @if (Model.Type == "radio" || Model.Type == "select")
-        {
-            <div class='form-fieldset-description'>@sReportsV2.Resources.TextLanguage.ProbabilitiesOfEachOfThe @Model.ValuesCombination[0].Values.Count @sReportsV2.Resources.TextLanguage.DifferentOutcomes</div>
-        }
+    <div class="row distribution-field" id="row-@Model.Id" style="display:none" data-validate="true">
+        <div class="dependent-probability" id="@Model.Id-probabilities">
+            <fieldset id="@Model.Id" data-fieldtype="@Model.Type" class=" field col-md-12 @*col-lg-6*@">
+                <div class="sim-field-title">
+                    <img class="sim-merge-icon" src="~/Content/img/icons/merge.svg"> @Model.Label
+                </div>
+                <div style="padding-top: 27px;display:flex;padding-left:23px;">
+                    <div class="d-flex">
 
-        @if (Model.Type == FieldTypes.Number)
-        {
-            <fieldset class="form-element form-input">
-                <label class="form-element-label">
-                    @Html.Raw((singleParameter.DependOn != null && singleParameter.DependOn.Count > 0 ? string.Join(" | ", singleParameter.DependOn.Select(x => "<b>" + x.ValueLabel + "</b>" + " - " + x.FieldLabel + "")) + " | " : "")) @sReportsV2.Resources.TextLanguage.Mean
-                </label>
-                <input type="number" 
-                       class="form-element-field" 
-                       value="@(singleParameter.NormalDistributionParameters != null ? singleParameter.NormalDistributionParameters.Mean : 0 )" 
-                       step="0.0001" data-model="@Uri.EscapeDataString(Json.Encode(singleParameter))" 
-                       data-field="mean" data-id="@Model.Id" 
-                       data-label="@Model.Label" 
-                       data-fieldthesaurusid="@Model.ThesaurusId" 
-                       data-relatedvariables="@Uri.EscapeDataString(Json.Encode(Model.RelatedVariables))" 
-                       data-type="@Model.Type" />
-                <div class="form-element-bar"></div>
-                <div class="form-element-description">@sReportsV2.Resources.TextLanguage.MeanCentreDistribution</div>
-            </fieldset>
-            <fieldset class="form-element form-input">
-                <label class="form-element-label">
-                    @Html.Raw((singleParameter.DependOn != null && singleParameter.DependOn.Count > 0 ? string.Join(" | ", singleParameter.DependOn.Select(x => "<b>" + x.ValueLabel + "</b>" + " - " + x.FieldLabel + "")) + " | " : ""))  @sReportsV2.Resources.TextLanguage.StandardDeviation
-                </label>
-                <input type="number" 
-                       class="form-element-field" 
-                       value="@(singleParameter.NormalDistributionParameters != null ? singleParameter.NormalDistributionParameters.Deviation : 0 )" 
-                       data-field="deviation" step="0.0001" 
-                       data-model="@Uri.EscapeDataString(Json.Encode(singleParameter))" 
-                       data-relatedvariables="@Uri.EscapeDataString(Json.Encode(Model.RelatedVariables))" 
-                       data-id="@Model.Id" 
-                       data-label="@Model.Label" 
-                       data-fieldthesaurusid="@Model.ThesaurusId" 
-                       data-type="@Model.Type" 
-                       />
-                <div class="form-element-bar"></div>
-                <div class="form-element-description">@sReportsV2.Resources.TextLanguage.StandardDeviationDistribution</div>
-            </fieldset>
-        }
-        else
-        {
-            foreach (var value in singleParameter.Values)
-            {
-    <fieldset class="form-element form-input">
-        <label for="lowerBoundary" class="form-element-label">
-            @value.Label  @Html.Raw((singleParameter.DependOn != null && singleParameter.DependOn.Count > 0 ? " | " + string.Join(" | ", singleParameter.DependOn.Select(x => "<b>" + x.ValueLabel + "</b>" + " - " + x.FieldLabel + "")) : ""))
-        </label>
-        <input type="number" step="0.0001" name="field" 
-               value="@value.SuccessProbability" 
-               class="form-element-field" 
-               placeholder="@sReportsV2.Resources.TextLanguage.SuccessProbability" 
-               data-field="selectable" 
-               data-value="@value.ThesaurusId" 
-               data-id="@Model.Id" 
-               data-type="@Model.Type" 
-               data-label="@Model.Label" 
-               data-fieldthesaurusid="@Model.ThesaurusId" 
-               data-model="@Uri.EscapeDataString(Json.Encode(singleParameter))" 
-               data-relatedvariables="@Uri.EscapeDataString(Json.Encode(Model.RelatedVariables))" 
-               />
-        <div class="form-element-bar"></div>
-        @if (Model.Type == "checkbox")
-        {
-            <div class="form-element-description">
-                @sReportsV2.Resources.TextLanguage.TheSuccessProbability
+                        <div class="depend-on relation-item-1">
+                            @Model.Label
+                        </div>
+                        @if (Model.RelatedVariables != null && Model.RelatedVariables.Count > 0)
+                        {
+                            int counter = 1;
+
+                            foreach (var rel in Model.RelatedVariables)
+                            {
+
+                                <img class="arrow-relation" style="margin-bottom:unset;" src="~/Content/img/icons/arrow_relation.svg">
+
+                                { counter++; }
+                                <div class="depend-on relation-item-@counter">
+                                    @rel.Label
+                                </div>
+                            }
+
+                        }
+                    </div>
+                    <button type="button" class="btn btn-add-new float-right add-relation-btn" onclick="addRelation(event,'@Model.Id')">
+                        <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> Add Relation</span>
+                    </button>
+
+                </div>
+
+            <div style="padding-left:23px;">
+                @{int valueCount = 0; }
+
+                @foreach (FormFieldDistributionSingleParameterDataOut singleParameter in Model.ValuesCombination)
+                {
+                    valueCount++;
+                    <fieldset class="field-container">
+
+                        <div class="prob-line"></div>
+                        @if (Model.Type == "radio" || Model.Type == "select")
+                        {
+                            <div class='probabilities'>@sReportsV2.Resources.TextLanguage.ProbabilitiesOfEachOfThe @Model.ValuesCombination[0].Values.Count @sReportsV2.Resources.TextLanguage.DifferentOutcomes</div>
+                        }
+
+                        @if (Model.Type == FieldTypes.Number)
+                        {
+                            <fieldset class="form-element form-input d-flex form-element-margin">
+                                <div class="d-flex">
+                                    <div for="lowerBoundary" class="form-element-label d-flex">
+                                        <div class="depend-on relation-item-1">
+                                            @sReportsV2.Resources.TextLanguage.Mean
+                                        </div>
+
+                                        @if (singleParameter.DependOn != null && singleParameter.DependOn.Count > 0)
+                                        {
+                                            int numCounter = 1;
+                                            foreach (var dep in singleParameter.DependOn)
+                                            {
+                                                <img class="arrow-relation" src="~/Content/img/icons/arrow_relation.svg">
+
+                                                { numCounter++; }
+                                                <div class="depend-on relation-item-@numCounter">
+                                                    @dep.ValueLabel
+                                                </div>
+                                            }
+
+                                        }
+
+                                    </div>
+
+                                    <div class="max-w-fit">
+                                        <input type="number"
+                                               class="simulator-field-input"
+                                               value="@(singleParameter.NormalDistributionParameters != null ? singleParameter.NormalDistributionParameters.Mean : 0 )"
+                                               step="0.0001" data-model="@Uri.EscapeDataString(Json.Encode(singleParameter))"
+                                               data-field="mean" data-id="@Model.Id"
+                                               data-label="@Model.Label"
+                                               data-fieldthesaurusid="@Model.ThesaurusId"
+                                               data-relatedvariables="@Uri.EscapeDataString(Json.Encode(Model.RelatedVariables))"
+                                               data-type="@Model.Type" />
+                                        <div class="form-element-description">@sReportsV2.Resources.TextLanguage.MeanCentreDistribution</div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-element form-input d-flex form-element-margin">
+
+                                <div class="d-flex">
+                                    <div for="lowerBoundary" class="form-element-label d-flex">
+                                        <div class="depend-on relation-item-1">
+                                            @sReportsV2.Resources.TextLanguage.StandardDeviation
+                                        </div>
+
+                                        @if (singleParameter.DependOn != null && singleParameter.DependOn.Count > 0)
+                                        {
+                                            int numCounter = 1;
+                                            foreach (var dep in singleParameter.DependOn)
+                                            {
+                                                <img class="arrow-relation" src="~/Content/img/icons/arrow_relation.svg">
+
+                                                { numCounter++; }
+                                                <div class="depend-on relation-item-@numCounter">
+                                                    @dep.ValueLabel
+                                                </div>
+                                            }
+
+                                        }
+
+                                        @* @value.Label  @Html.Raw((singleParameter.DependOn != null && singleParameter.DependOn.Count > 0 ? " | " + string.Join(" | ", singleParameter.DependOn.Select(x => "<b>" + x.ValueLabel + "</b>" + " - " + x.FieldLabel + "")) : ""))*@
+                                    </div>
+
+                                    <div class="input-description-container">
+                                        <input type="number"
+                                               class="simulator-field-input"
+                                               value="@(singleParameter.NormalDistributionParameters != null ? singleParameter.NormalDistributionParameters.Deviation : 0 )"
+                                               data-field="deviation" step="0.0001"
+                                               data-model="@Uri.EscapeDataString(Json.Encode(singleParameter))"
+                                               data-relatedvariables="@Uri.EscapeDataString(Json.Encode(Model.RelatedVariables))"
+                                               data-id="@Model.Id"
+                                               data-label="@Model.Label"
+                                               data-fieldthesaurusid="@Model.ThesaurusId"
+                                               data-type="@Model.Type" />
+                                        <div class="form-element-description m-0">@sReportsV2.Resources.TextLanguage.StandardDeviationDistribution</div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        }
+                        else
+                        {
+                            foreach (var value in singleParameter.Values)
+                            {
+                                int count = 1;
+
+                                <fieldset class="form-element form-input d-flex form-element-margin">
+                                    <div class="d-flex">
+                                        <div for="lowerBoundary" class="form-element-label d-flex">
+                                            <div class="depend-on relation-item-1">
+                                                @value.Label
+                                            </div>
+
+                                            @if (singleParameter.DependOn != null && singleParameter.DependOn.Count > 0)
+                                            {
+                                                foreach (var dep in singleParameter.DependOn)
+                                                {
+                                                    <img class="arrow-relation" src="~/Content/img/icons/arrow_relation.svg">
+
+                                                    { count++; }
+                                                    <div class="depend-on relation-item-@count">
+                                                        @dep.ValueLabel
+                                                    </div>
+                                                }
+
+                                            }
+
+                                        </div>
+                                        <div class="distribution-max-width">
+                                            <input type="number" step="0.0001" name="@(Model.Type == "radio" ? "radio-" + value.ThesaurusId + "-" + valueCount : "field")"
+                                                   value="@value.SuccessProbability"
+                                                   class="simulator-field-input distribution-max-width @(Model.Type == "radio" ? "radio" : "")"
+                                                   placeholder="@sReportsV2.Resources.TextLanguage.SuccessProbability"
+                                                   data-field="selectable"
+                                                   data-value="@value.ThesaurusId"
+                                                   data-id="@Model.Id"
+                                                   data-type="@Model.Type"
+                                                   data-label="@Model.Label"
+                                                   data-fieldthesaurusid="@Model.ThesaurusId"
+                                                   data-model="@Uri.EscapeDataString(Json.Encode(singleParameter))"
+                                                   data-relatedvariables="@Uri.EscapeDataString(Json.Encode(Model.RelatedVariables))" />
+                                            @if (Model.Type == "checkbox")
+                                            {
+                                                <div class="form-element-description m-0">
+                                                    @sReportsV2.Resources.TextLanguage.TheSuccessProbability
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    
+                                </fieldset>
+                            }
+                        }
+                    </fieldset>
+                }
+
             </div>
-        }
-    </fieldset>
-            }
-        }
-    </fieldset>
-}
+            </fieldset>
+        </div>
+
+        @*<div class="form-button-container mb-2">
+            <button class="btn btn-filter-primary simulator-submit-btn" onclick="validate(event, '@Model.Type')">Submit group</button>
+
+        </div>*@
+    </div>
+
+    <script>
+     
+
+        $(document).ready(function () {
+
+            $(document).find('.radio').each(function (index, element) {
+                 $(element).rules("add", {
+                    equalToOne: true
+                  });
+            });
+
+        });
+    </script>
+
+

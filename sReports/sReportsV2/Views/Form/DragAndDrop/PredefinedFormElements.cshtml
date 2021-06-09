@@ -1,0 +1,576 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Form.DTO;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+
+
+@{
+    var controller = ViewContext.Controller as sReportsV2.Controllers.FormCommonController;
+    var id = GuidExtension.NewGuidStringWithoutDashes();
+}
+<div class="cf nestable-lists">
+    <div class="dd" id="predefinedItemsContainer">
+        <ol class="dd-list dd-scrollable-container form-preview-container predefined-items-container">
+            <li class="dd-item dd-nodrag">
+                <div class="drag-and-drop-title">
+                    <div class="dd-nohandle predefined-items-title">
+                        Drag and drop
+                    </div>
+                </div>
+                <ol class="dd-list">
+                    <li class="drag-and-drop-element dd-item" data-itemtype="chapter" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-title="Chapter title">
+                        <div class="dd-handle custom-dd-handle">
+                            <div class="predefined-item-placeholder chapter-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Chapter title
+                                </div>
+                            </div>
+                            <div class="form-accordion d-none">
+                                <div class="form-accordion-header">
+                                    <div class="drag-item-icon chapter-drag-item-icon">
+                                        <i class="fas fa-arrows-alt"></i>
+                                    </div>
+                                    <img class="nestable-accordion-header-icon" src="~/Content/img/icons/chapter.svg">
+                                    Chapter
+                                    <div class="icon-container">
+                                        <div class="overlay"></div>
+                                        <div class="edit-button">
+                                            <img src="/Content/img/icons/edit_pencil_03.svg">
+                                        </div>
+                                        <div class="remove-button">
+                                            <img src="/Content/img/icons/remove_simulator.svg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ol class="drag-container dd-list ol-page d-none">
+                            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="page">
+                                Drag a page here
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="drag-and-drop-element dd-item" data-itemtype="page" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-title="Page title">
+                        <div class="dd-handle custom-dd-handle page-custom-dd-handle">
+                            <div class="predefined-item-placeholder page-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Page
+                                </div>
+                            </div>
+                            <div class="nestable-page d-none">
+                                <div class="page-header">
+                                    <div class="drag-item-icon page-drag-item-icon">
+                                        <i class="fas fa-arrows-alt"></i>
+                                    </div>
+                                    <div class="icon-container page-icon-container">
+                                        <div class="overlay"></div>
+
+                                        <div class="edit-button d-none">
+                                            <img src="/Content/img/icons/edit_pencil_03.svg">
+                                        </div>
+                                        <div class="remove-button d-none">
+                                            <img src="/Content/img/icons/remove_simulator.svg">
+                                        </div>
+                                    </div>
+                                    Page title
+                                </div>
+                            </div>
+                        </div>
+
+                        <ol class="drag-container dd-list ol-fieldset d-none">
+                            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldset">
+                                Drag a fieldset here
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="drag-and-drop-element dd-item" data-itemtype="fieldset" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-title="Fieldset title">
+                        <div class="dd-handle custom-dd-handle fieldset-custom-dd-handle">
+                            <div class="predefined-item-placeholder fieldset-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Fieldset
+                                </div>
+                            </div>
+                            <div class="d-none">
+                                <div class="d-flex field-set-content">
+                                    <div class="field-set-title d-flex">
+                                        <div class="drag-item-icon fieldset-drag-item-icon">
+                                            <i class="fas fa-arrows-alt"></i>
+                                        </div>
+                                        <div class="icon-container">
+                                            <div class="overlay"></div>
+                                            <div class="edit-button">
+                                                <img src="/Content/img/icons/edit_pencil_03.svg">
+                                            </div>
+                                            <div class="remove-button">
+                                                <img src="/Content/img/icons/remove_simulator.svg">
+                                            </div>
+                                        </div>
+                                        <img class="field-set-img" src="~/Content/img/icons/field_set.svg">
+                                        <span>Fieldset label</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ol class="drag-container dd-list ol-field d-none">
+                            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="field">
+                                Drag a field here
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Text" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Text field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder text-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Text Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Field text label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <input type="text" class="form-element-field" placeholder="" />
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldTextDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Calculative" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Calculative field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder calculative-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Calculative Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Calculative field label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <input type="text" class="form-element-field" placeholder="" />
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldCalculativeDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+
+                    <!--Start date field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Date" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Date field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder date-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Date Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Date field label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <input type="text" class="form-element-field" placeholder="" />
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldDateDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End date field-->
+                    <!--Start datetime field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Datetime" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Datetime field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder datetime-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Datetime Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Datetime field label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <div class="row date-time-row datetime-picker-container">
+                                        <div class="date-wrapper input-border mr-auto w-60 d-flex">
+                                            <input type="date" class="date-helper d-inline-block border-0 date-width" />
+                                            <input type="datetime-local" class="date-time-local date-time-local-hidden form-element-field" />
+                                            <div class="img-wrapper">
+                                                <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg">
+                                            </div>
+                                        </div>
+                                        <div class="time-wrapper w-35 input-border">
+                                            <input type="text" class="time-part time-helper d-inline-block border-0">
+                                            <div class="clock-wrapper">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldDatetimeDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End datetime field-->
+                    <!--Start email field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Email" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Email field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder email-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Email Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Email field label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <input type="email" class="form-element-field email" placeholder="example@gmail.com" />
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldEmailDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End email field-->
+                    <!--Start file field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.File" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="File field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder file-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    File Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+
+                            <fieldset class="form-input d-none">
+                                <div class="repetitive-values d-inline-block form-input-size">
+                                    <div class="filter-label form-label-size d-inline-block">
+                                        Field Field label
+                                    </div>
+                                    <div class="repetitive-field d-inline-block">
+                                        <div class="filter-input  file-field w-100">
+                                            <input type="file" class="form-element-field file" placeholder="" />
+                                            <input type="hidden" />
+                                            <div class="file-choose">
+                                                <div>Browse file</div>
+                                                <img src="~/Content/img/icons/browse.svg" class="ml-auto" style="width:20px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldFileDataOut())
+                                </div>
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End file field-->
+                    <!--Start textarea field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.LongText" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Long Text field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder longtext-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Long Text Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Long Text Field
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <textarea class="form-element-field textarea-repetitive" placeholder=""></textarea>
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldTextAreaDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End textarea field-->
+                    <!--Start number field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Number" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Number field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder number-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Number Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Number field label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <input type="number" class="form-element-field" placeholder="" />
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldNumericDataOut())
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End number field-->
+                    <!--Start regex field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Regex" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Regex field title">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder regex-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Regex Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+                            <fieldset class="form-input d-none">
+                                <div class="filter-label form-label-size d-inline-block">
+                                    Regex field label
+                                </div>
+                                <div class="repetitive-field filter-input d-inline-block">
+                                    <input type="text" class="form-element-field" placeholder="" />
+                                </div>
+                                @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldRegexDataOut())
+                            </fieldset>
+
+                        </div>
+                    </li>
+                    <!--End regex field-->
+                    <!--Start radio field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Radio" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Radio field title">
+                        <div class="dd-handle custom-dd-handle radio-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder radio-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Radio Field
+                                </div>
+                            </div>
+                            <div class="form-checkbox-legend nestable-checkbox-label filter-label d-none" title="">
+                                <div class="drag-item-icon radio-drag-item-icon">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </div>
+                                <div class="icon-container">
+                                    <div class="overlay"></div>
+                                    <div class="edit-button">
+                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    </div>
+                                    <div class="remove-button">
+                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                    </div>
+                                </div>
+                                Radio Field Label
+                            </div>
+
+
+                        </div>
+                        <ol class="dd-list ol-fieldvalue d-none">
+                            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldvalue" data-valuetype="radio">
+                                Drag a radio option here
+                            </li>
+                        </ol>
+                        <div class="d-none">
+                            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldRadioDataOut())
+                        </div>
+                    </li>
+                    <!--End radio field-->
+                    <!--Start checkbox field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Checkbox" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Checkbox field title">
+                        <div class="dd-handle custom-dd-handle checkbox-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder checkbox-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Checkbox Field
+                                </div>
+                            </div>
+                            <div class="form-checkbox-legend nestable-checkbox-label  filter-label d-none" title="">
+                                <div class="drag-item-icon checkbox-drag-item-icon">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </div>
+                                <div class="icon-container">
+                                    <div class="edit-button">
+                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    </div>
+                                    <div class="remove-button">
+                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                    </div>
+                                </div>
+                                Checkbox Field Label
+                            </div>
+                        </div>
+                        <ol class="dd-list pl-0 ol-fieldvalue d-none">
+                            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldvalue" data-valuetype="checkbox">
+                                Drag a checkbox option here
+                            </li>
+                        </ol>
+                        <div class="d-none">
+                            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldCheckboxDataOut())
+                        </div>
+                    </li>
+                    <!--End checkbox field-->
+                    <!--Start radio option-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="fieldvalue" data-valuetype="radio" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Radio option title">
+                        <div class="dd-handle custom-dd-handle radio-value-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder radio-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Radio Option
+                                </div>
+
+                            </div>
+                            <div class="form-radio-label d-none">
+                                <div class="drag-item-icon radio-drag-item-icon">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </div>
+                                <div class="icon-container">
+                                    <div class="overlay"></div>
+                                    <div class="edit-button">
+                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    </div>
+                                    <div class="remove-button">
+                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                    </div>
+                                </div>
+                                <input type="radio" class="form-radio-field">
+                                <i class="form-radio-button"></i>
+                                <span class="radio-break-word radio-text">Radio Option Title</span>
+                            </div>
+                        </div>
+                    </li>
+                    <!--End radio option-->
+                    <!--Start checkbox option-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="fieldvalue" data-valuetype="checkbox" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Checkbox option title">
+                        <div class="dd-handle custom-dd-handle checkbox-value-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder checkbox-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Checkbox Option
+                                </div>
+
+                            </div>
+                            <div class="form-checkbox-label d-none">
+                                <div class="drag-item-icon checkbox-drag-item-icon">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </div>
+                                <div class="icon-container">
+                                    <div class="overlay"></div>
+                                    <div class="edit-button">
+                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    </div>
+                                    <div class="remove-button">
+                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                    </div>
+                                </div>
+                                <input class="form-checkbox-field" type="checkbox" />
+                                <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
+                                <span class="radio-break-word checkbox-text">Checkbox Option Title</span>
+                            </div>
+                        </div>
+                    </li>
+                    <!--End checkbox option-->
+                </ol>
+            </li>
+        </ol>
+    </div>
+</div>
+<script>
+    $(document).ready(function (e) {
+        $('#predefinedItemsContainer').nestable({
+            group: 1,
+            maxDepth: 7
+        });
+
+    });
+</script>

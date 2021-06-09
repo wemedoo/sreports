@@ -1,0 +1,19 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+
+    <div class="w-100 " >
+        <div class="back-to-tree" onclick="goToTree()"><i class="fas fa-angle-left mr-5px"></i>Back to tree</div>
+        <div id="jsoneditorContainer" class="d-flex w-100 form-json-height">
+            <div id="jsoneditorTree" class="json-editor w-50 mr-3">
+            </div>
+            <div id="jsoneditorCode" class="json-editor w-50 ml-3">
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    $(document).ready(function (e) {
+        showJsonEditor(@Html.Raw(Model != null ? Newtonsoft.Json.JsonConvert.SerializeObject(Model.ToJson()) : new FormDataOut().ToJson()));
+    });
+</script>

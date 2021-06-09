@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using sReportsV2.Domain.Entities.Common;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +17,24 @@ namespace sReportsV2.Domain.Entities.Encounter
         public string Id { get; set; }
         [BsonRepresentation(BsonType.ObjectId)]
         public string EpisodeOfCareId { get; set; }
-        public string Status { get; set; }
-        public string Class { get; set; }
-        public string Type { get; set; }
-        public string ServiceType { get; set; }
-        public Period Period { get; set; }
+        public int Status { get; set; }
+        public int Class { get; set; }
+        public int Type { get; set; }
+        public int ServiceType { get; set; }
+        public PeriodDatetime Period { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string PatientId { get; set; }
         [BsonIgnore]
         public List<FormInstance.FormInstance> FormInstances { get; set; }
+
+        public void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
+        {
+            this.Status = this.Status == oldThesaurus ? newThesaurus : this.Status;
+            this.Class = this.Class == oldThesaurus ? newThesaurus : this.Class;
+            this.Type = this.Type == oldThesaurus ? newThesaurus : this.Type;
+            this.ServiceType = this.ServiceType == oldThesaurus ? newThesaurus : this.ServiceType;
+        }
 
     }
 }

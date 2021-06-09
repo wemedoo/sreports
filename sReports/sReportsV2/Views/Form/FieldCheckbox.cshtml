@@ -9,30 +9,40 @@
 }
 
 <div id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-checkbox form-checkbox-inline field-set-content" @Html.Raw(Model.Visibility)>
-    <div class="form-checkbox-legend" title="@Model.DescriptionLabel">
+
+    <div class="form-checkbox-legend d-inline-block form-label-size filter-label" title="@Model.DescriptionLabel">
         @Html.Raw(Model.FullLabel)
-        @if (Model.Help != null)
+    </div>
+    <div class="d-inline-block checkbox-container">
+        @{ int counter = 0;}
+        @foreach (FormFieldValueDataOut ffv in Model.Values)
         {
-            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
+
+            <label class="form-checkbox-label">
+
+                @AddCheckBox(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Contains(ffv.Value), Model.IsReadonly || isChapterReadonly, ffv, fieldSetId, fieldSetCounter)
+
+                <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
+                <span>@ffv.Label</span>
+            </label>
+            if (Model.Values != null && Model.Values.Count() > 5)
+            {
+                counter++;
+            }
+            if (counter % 2 == 0)
+            {
+                <br />
+
+            }
         }
     </div>
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+    <div style="display:none" class="form-element-description field-desc">
+        @Html.Raw(Model.Description)
+    </div>
 
-    @foreach (FormFieldValueDataOut ffv in Model.Values)
-    {
-        <label class="form-checkbox-label">
-
-            @AddCheckBox(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Contains(ffv.Value) , Model.IsReadonly || isChapterReadonly , ffv, fieldSetId, fieldSetCounter)
-
-            <i class="form-checkbox-button"></i>
-            <span>@ffv.Label</span>
-        </label>
-        <br />
-    }
 </div>
 
-<div class="form-element-description">
-    @Html.Raw(Model.Description)
-</div>
 
 <script>
     $(document).ready(function () {
@@ -67,6 +77,19 @@
             @: }
             }
     });
+</script>
+@helper AddCheckBox(bool isChecked, bool isReadonly, FormFieldValueDataOut ffv, string fieldSetId, int fieldSetCounter)
+{
+    <input name="@fieldSetId-@fieldSetCounter-@Model.Id-1" @Model.ValidationAttr
+           value="@ffv.Value"
+           id="@Model.Id-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
+           @(isChecked ? "checked" : "")
+           class="form-checkbox-field"
+           type="checkbox"
+           data-numericvalue="@ffv.NumericValue"
+           onclick="return @((!isReadonly).ToString().ToLower())" />
+}
+
 
 @helper ShowDependables(FormFieldDependableDataOut ffd, string fieldSetId)
 {
@@ -76,9 +99,9 @@
         if (ffd.Dependables != null && ffd.Dependables.Count() > 0)
         {
             <text>
-            if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
                 $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
-            }
+                }
             </text>
             @ShowDependables(ffddo, fieldSetId);
         }
@@ -98,15 +121,3 @@
         }
     }
 }
-@helper AddCheckBox(bool isChecked, bool isReadonly, FormFieldValueDataOut ffv, string fieldSetId, int fieldSetCounter)
-{
-  <input name="@fieldSetId-@fieldSetCounter-@Model.Id-1" @Model.ValidationAttr
-        value="@ffv.Value"
-        id="@Model.Id-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
-        @(isChecked ? "checked": "") 
-        class="form-checkbox-field"
-        type="checkbox"
-        data-numericvalue="@ffv.NumericValue"
-        onclick="return @((!isReadonly).ToString().ToLower())"    />
-}
-</script>

@@ -1,0 +1,28 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions
+@model FormDataOut
+@{
+    string formId = Model != null ? Model.Id : "formIdPlaceHolder";
+}
+<div class="nestable-main-container comments-hidden consensus-hidden">
+    <div class="nestable-tree-menu">
+        <div class="expand-button" type="button" data-action="expand-all">Expand All</div>
+        <!--
+        -->
+        <div class="expand-button" type="button" data-action="collapse-all">Collapse All</div>
+        <!--
+        -->
+        <div class="expand-button" onclick="showFormJson()">Show Json</div>
+    </div>
+    <div id="formTreeNestable">
+        @Html.Partial("~/Views/Form/DragAndDrop/FormTreeNestable.cshtml", Model)
+    </div>
+</div>
+<div id="formPreviewContainer" class="form-container">
+    @Html.Partial("~/Views/Form/DragAndDrop/DragAndDropFormPartial.cshtml", Model)
+</div>
+<div id="nestableFormElements" class="dd-predefined-elements sticky consensus-hidden">
+</div>
+<div id="commentSection"></div>
+

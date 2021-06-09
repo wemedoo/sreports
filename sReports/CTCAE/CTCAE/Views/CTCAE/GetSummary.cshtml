@@ -4,44 +4,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <body class="ctcae-background">
-        <div class="col-md">
-            <div class="ctcae-center">
+<body class="ctcae-background">
+    <div class="col-md">
+        <div class="ctcae-center">
 
-                <div class="review">Summary</div>
-                <span class="review-logo"></span>
-                <div class="ambulatory-Toxicity-center">
-                    <div class="ambulatory-Toxicity amb-margin review-margin-bottom">Ambulatory Toxicity Evaluation—CTCAE V5</div>
+            <div class="review">Summary</div>
+            <span class="review-logo"></span>
+            <div class="ambulatory-Toxicity-center">
+                <div class="ambulatory-Toxicity amb-margin review-margin-bottom">Ambulatory Toxicity Evaluation—CTCAE V5</div>
+            </div>
+            <div class="space-txt">
+                <div class="txt-area">
+                    Patient <span class="bold-txt">@(Model != null && Model.PatientId != null ? Model.PatientId : "")</span>
+                    was examined on <span class="bold-txt">@(Model != null && Model.Date != null ? Model.Date.Value.ToString("MM/dd/yyyy") : "")</span>
+                    in Ambulatory Visit No <span class="bold-txt">@(Model != null && Model.VisitNo != null ? Model.VisitNo : "")</span> .
                 </div>
-                <div class="space-txt">
-                    <div class="txt-area">
-                        Patient <span class="bold-txt">@(Model != null && Model.PatientId != null ? Model.PatientId : "")</span>
-                        was examined on <span class="bold-txt">@(Model != null && Model.Date != null ? Model.Date.Value.ToString("MM/dd/yyyy") : "")</span>
-                        in Ambulatory Visit No <span class="bold-txt">@(Model != null && Model.VisitNo != null ? Model.VisitNo : "")</span> .
-                    </div>
-                    <div class="during-a-visit ">
-                        During a visit following therapy-associated adverse events were recorded:
-                    </div>
+                <div class="during-a-visit ">
+                    During a visit following therapy-associated adverse events were recorded:
                 </div>
-                @foreach (var item in Model.ReviewModels)
-                {
-                    <div>
-                        <div class="items-inline review-margin">
-                            <div class="review-input">
-                                <div class="form-row">
-                                    <div class="review-txt">
-                                        <span class="dermatitis-rad">@item.CTCAETerms</span>
-                                    </div>
-                                    <div class="review-rect">
-                                        <span class="review-grade">
-                                            <span class="grade-2">@item.Grades</span>
-                                        </span>
-                                    </div>
+            </div>
+            @foreach (var item in Model.ReviewModels)
+            {
+                <div>
+                    <div class="items-inline review-margin">
+                        <div class="review-input">
+                            <div class="form-row">
+                                <div class="review-txt">
+                                    <span class="dermatitis-rad">@item.CTCAETerms</span>
+                                </div>
+                                <div class="review-rect">
+                                    <span class="review-grade">
+                                        <span class="grade-2">@item.Grades</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                </div>
+            }
+
+            <div class="review-buttons">
+                <a id="backHome" onclick="backToHome()"><i class="back-to-home">Back to home</i></a>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
+<script src="~/js/patient.js"></script>
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">toastr.success("@TempData["Message"]");</script>
+}

@@ -15,5 +15,6 @@ namespace sReportsV2.Domain.Entities.DFD
         public string FormThesaurusId { get; set; }
         public string FormTitle { get; set; }
         public string Language { get; set; }
+
     }
 }

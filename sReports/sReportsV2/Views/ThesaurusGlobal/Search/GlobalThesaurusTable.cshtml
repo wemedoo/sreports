@@ -1,0 +1,49 @@
+﻿@using sReportsV2.DTOs.ThesaurusEntry.DataOut
+@using System.Linq;
+
+
+    <div class="search-info-title">
+        Results for:
+        <div class="search-param"> @Model.DataIn.Term </div>
+    </div>
+    <div class="result-container">
+        <div class="search-info">
+            Results @((Model.DataIn.Page - 1) * Model.DataIn.PageSize) - @(Model.DataIn.Page * Model.DataIn.PageSize < Model.Count ? Model.DataIn.Page * Model.DataIn.PageSize : Model.Count) of @Model.Count for:
+            <div class="search-param"> @Model.DataIn.Term </div>
+        </div>
+        @if (Model.Data.Count == 0)
+        {
+            <div class="no-result-content">
+                <img class="margin-" src="~/Content/img/icons/no_results.svg">
+                <br>
+                <div class="no-result-text">No result found!</div>
+            </div>
+        }
+
+        @foreach (var entity in Model.Data)
+        {
+            <div class="single-result w-100" onclick="previewThesaurus('@entity.Id')">
+                @(entity.Translations != null && ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).Count() > 0 && ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.PreferredTerm)) != null ?
+                ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.PreferredTerm)).PreferredTerm: "No preferred term")
+            </div>
+        }
+    </div>
+
+    
+
+
+@if (Model.Data.Count > 0)
+{
+    <div>
+        <div class="pager-container pager-container-gt" style="height:unset;">
+            @Html.Partial("Pagination")
+        </div>
+    </div>
+}
+
+<div class="search-info" style="margin-top:19px;">
+    Results @((Model.DataIn.Page - 1) * Model.DataIn.PageSize) - @(Model.DataIn.Page * Model.DataIn.PageSize < Model.Count ? Model.DataIn.Page * Model.DataIn.PageSize : Model.Count) of @Model.Count for:
+    <div class="search-param"> @Model.DataIn.Term </div>
+</div>
+
+

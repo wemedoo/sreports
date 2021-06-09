@@ -1,0 +1,70 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+
+<input type="hidden" id="formId" value="@Model.Id">
+
+<div class="consensus-visible" style=" margin-left: 20px;">
+    <button class="btn btn-create float-right" onclick="startNewIteration()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.NewIteration</button>
+
+    <div class="consensus-tabs-container">
+        <div class="consensus-tab expand-button active-item" onclick="showConsensusQuestionaire('consensus', this)">
+            Consensus questionnaire
+        </div>
+        <div class="consensus-tab expand-button" onclick="showConsensusFormPreview('consensusFormPreview', this)">
+            Form preview
+        </div>
+        <div id="usersCosensusTab" class="consensus-tab expand-button @(ViewBag.Consensus != null ? "" : "d-none" )" onclick="showConsensusQuestionaire('usersCosensus',this)">
+            Users managment
+        </div>
+        <div id="trackerTab" class="consensus-tab expand-button @(ViewBag.Consensus != null ? "" : "d-none" )" onclick="loadConsensusTrackerData('consensusTracker',this)">
+            Track proccess
+        </div>
+    </div>
+
+    <div class="consensus consensus-tab-target consensus-questionaire" id="consensus">
+        <div class="consensus-tree" id="consensusTree">
+        </div>
+        <div class="consensus-decision">
+            @if (ViewBag.Consensus == null)
+            {
+                @Html.Partial("~/Views/Form/Consensus/ConsensusDecision.cshtml", Model)
+            }
+        </div>
+    </div>
+    <div class="consensus-form-preview consensus-tab-target consensus-questionaire" id="consensusFormPreview">
+
+    </div>
+
+    <div id="usersCosensus" class="consensus-tab-target consensus-organization-partial" style="display:none;">
+        @Html.Partial("~/Views/Form/Consensus/ConsensusUserFilter.cshtml")
+
+        <div class="email-message-container" >
+            <div class="d-flex">
+                <div class="email-message-label"> Write message to the users</div>
+                <div class="num-of-users"> Number of users: <div class="users-count-value" id="numOfSelectedUsers"></div></div>
+            </div>
+            <textarea id="emailMessage" class="email-message"></textarea>
+
+            <div class="button-partial margin-top-15" style="height:50px;">
+                <button class="submit-patient right-button" type="submit" style="outline: none;" onclick="startConsensusFindingProcess()">
+                    <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.StartConsensusBtn</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="consensusTracker" class="consensus-tab-target" style="display:none;">
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        reloadOrganizationUsersInfo();
+        loadConsensusTree();
+    });
+</script>
+
+

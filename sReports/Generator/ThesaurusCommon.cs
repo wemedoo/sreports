@@ -1,4 +1,4 @@
-﻿using sReportsV2.Domain.Entities.ThesaurusEntry;
+﻿using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
 using System;
 using System.Collections.Generic;
 using System.Linq;

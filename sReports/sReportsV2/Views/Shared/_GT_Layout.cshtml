@@ -1,0 +1,121 @@
+﻿@using System
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title -  Swiss Open Oncology by weMedoo</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
+    <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="~/Content/login.min.css">
+
+    @Styles.Render("~/Content/css")
+    @RenderSection("Stylesheet", false)
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("Scripts", false)
+
+    <link rel="stylesheet" href="~/Content/swissOpenOncology.min.css">
+
+</head>
+@{
+    string action = ViewContext.RouteData.Values["Action"].ToString();
+    string controller = ViewContext.RouteData.Values["Controller"].ToString();
+}
+
+<body class="sidebar-shrink">
+    <div class="d-none">Environment(@ViewBag.Env)</div>
+    <img id="notFound" src="~/Content/img/icons/no_results.svg" hidden>
+    <img id="deleteIcon" src="~/Content/img/icons/remove.svg" hidden>
+    <img id="editIcon" src="~/Content/img/icons/edit.svg" hidden>
+    <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
+
+        <div class="header-wrapper soo-header-color">
+            <div class="navbar-brand col-6 col-sm-3 col-md-2" style="padding-left:7px;">
+                <a href="#" class="color-text layout-header-group">
+                    <img class="gt-navbar-logo" src="~/Content/img/icons/SwissOpenOncology/swissopen logo.svg">
+                </a>
+            </div>
+            <div class="navbar-right-part">
+                <div class="header-btn" onclick="goToBrowse()">
+                    <img src="~/Content/img/icons/SwissOpenOncology/browse.svg" />
+                    Browse
+                </div>
+                <div class="header-btn" onclick="goToCreateThesaurus()">
+                    <img src="~/Content/img/icons/SwissOpenOncology/submit_new_term.svg" />
+                    Submit new term
+                </div>
+                @if (ViewBag.UserCookieData != null)
+                {
+                    <div class="logged-user">
+                        <div class="layout-avatar">
+                            <div>@(!string.IsNullOrWhiteSpace(ViewBag.UserCookieData.FirstName) ? ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper() : "U" )</div>
+                        </div>
+                        <div class="user-label">
+                            @ViewBag.UserCookieData.Username
+                        </div>
+                        <div class="log-out" onclick="logout(event)">
+                            Log Out 
+                        </div>
+                    </div>
+                }
+                else
+                {
+            <div class="login-register">
+                <div class="go-to-login" onclick="goToLogin()">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <div> Login </div>
+                </div>
+                <div class="go-to-register" onclick="goToRegistration()">
+                    <div> Register </div>
+                </div>
+            </div>
+                }
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="containerFluid">
+        <div class="row">
+            <div class="col-12">
+                <main role="main" class="main-content mc-min-height">
+                    @RenderBody()
+                </main>
+                <div id="loaderOverlay" class="loader-overlay">
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gt-footer">
+        @Html.Partial("~/Views/ThesaurusGlobal/Shared/Footer.cshtml")
+    </div>
+
+    <script>
+        var noResultFound = '@sReportsV2.Resources.TextLanguage.NoResultFound';
+        var deleteItem = '@sReportsV2.Resources.TextLanguage.Delete';
+        var editItem = '@sReportsV2.Resources.TextLanguage.Edit';
+        var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 5)';
+        var simplifiedApp;
+        var df = '@ViewBag.DateFormat';
+    </script>
+    <script src="~/Scripts/jsoneditor/dist/jsoneditor.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="~/Scripts/SwissOpenOncology/swissOpenOncology.js"></script>
+
+
+
+</body>
+</html>

@@ -1,19 +1,15 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using sReportsV2.Domain.Entities.UserEntities;
 using sReportsV2.Domain.Entities.Form;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using sReportsV2.Domain.Enums;
-using sReportsV2.Domain.Entities.OrganizationEntities;
-using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Entities.PatientEntities;
 using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.FormValues;
-using sReportsV2.Domain.Entities.Form;
-using sReportsV2.Domain.Services.Implementations;
+using sReportsV2.Common.Extensions;
 
 namespace sReportsV2.Domain.Entities.FormInstance
 {
@@ -26,20 +22,12 @@ namespace sReportsV2.Domain.Entities.FormInstance
         public string FormDefinitionId { get; set; }
         public string Title { get; set; }
         public sReportsV2.Domain.Entities.Form.Version Version { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string UserRef { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string OrganizationRef { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string EncounterRef { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string PatientRef { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string EpisodeOfCareRef { get; set; }
+        public int EncounterRef { get; set; }
+        public int EpisodeOfCareRef { get; set; }
         public string Notes { get; set; }
         public FormState? FormState { get; set; }
         public DateTime? Date { get; set; }
-        public string ThesaurusId { get; set; }
+        public int ThesaurusId { get; set; }
         public string Language { get; set; }
         public List<FieldValue> Fields { get; set; }
 
@@ -48,15 +36,11 @@ namespace sReportsV2.Domain.Entities.FormInstance
         public DocumentProperties.DocumentProperties DocumentProperties { get; set; }
         public List<string> Referrals { get; set; }
 
-        [BsonIgnore]
-        public UserEntities.User User { get; set; }
+        public int UserId { get; set; }
         
-        [BsonIgnore]
-        public Organization Organization { get; set; }
+        public int OrganizationId { get; set; }
 
-        [BsonIgnore]
-        public PatientEntity Patient { get; set; }
-
+        public int PatientId { get; set; }
 
         public FormInstance() { }
         public FormInstance(Form.Form form)
@@ -106,7 +90,7 @@ namespace sReportsV2.Domain.Entities.FormInstance
                         ).ToList();
         }*/
 
-        public void SetValueByThesaurusId(string thesaurusId, string value)
+        public void SetValueByThesaurusId(int thesaurusId, string value)
         {
             FieldValue field = this.Fields.FirstOrDefault(x => x.ThesaurusId == thesaurusId);
             if (field != null)
@@ -134,6 +118,15 @@ namespace sReportsV2.Domain.Entities.FormInstance
             WaitingForVerify,
             Verified,
             Notified
+        }
+
+        public void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
+        {
+            this.ThesaurusId = this.ThesaurusId == oldThesaurus ? newThesaurus : this.ThesaurusId;
+            foreach (FieldValue field in this.Fields)
+            {
+                field.ThesaurusId = field.ThesaurusId == oldThesaurus ? newThesaurus : field.ThesaurusId;
+            }
         }
 
     }

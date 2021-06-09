@@ -8,19 +8,30 @@
 }
 
 @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Engine }, { "activeLevel", 1 } })
-<div class="table-container">
-    <div class="header">
+<div class="table-container border-0">
+    <div class="header header-new">
         @sReportsV2.Resources.TextLanguage.Engine
-        <div class="filter-button-collapse" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+        @*<div class="filter-button-collapse" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" /></svg>
+        </div>*@
+        <div class="dropdown show float-right dropleft">
+            <a class="dropdown-button" href="#" role="button" id="dropdownMenuLink-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="btns" class="btn btn-filter-primary btns" style="height:unset"><img src="~/Content/img/icons/dropdown.svg" /></button>
+            </a>
+            <div class="dropdown-menu-customize dropdown-menu" aria-labelledby="dropdownMenuLink-group">
+                <a class="dropdown-item" href="#" onclick="downloadCSVs(event)"><i class="fas fa-arrow-down mr-2"></i>@sReportsV2.Resources.TextLanguage.DownloadCsvs</a>
+                <a class="dropdown-item" href="#"onclick="downloadPdfs(event)"><i class="fas fa-arrow-down mr-2"></i>@sReportsV2.Resources.TextLanguage.DownloadPdfs</a>
+               
+            </div>
         </div>
-        <button class="btn btn-primary add-new-button" onclick="downloadPdfs()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.DownloadPdfs</button>
-                <button class="btn btn-primary add-new-button" onclick="downloadCSVs()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.DownloadCsvs</button>
-
     </div>
+    @Html.Partial("~/Views/Form/FormFilterGroup.cshtml")
+
     <div id="tableContainer"></div>
 
 </div>
+@Html.Partial("~/Views/Form/AdvancedFilterModal.cshtml")
+
 
 <script>
     var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));

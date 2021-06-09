@@ -1,19 +1,22 @@
-﻿@using sReportsV2.DTOs.Form;
-<div class="modal fade" id="generateModal" tabindex="-1" role="dialog" aria-labelledby="generateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-small">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="generateModalLabel">@sReportsV2.Resources.TextLanguage.GenerateNew</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+﻿<div class="modal fade" id="generateModal" tabindex="-1" role="dialog" aria-labelledby="generateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-content-generate">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal set-right" src="~/Content/img/icons/close_black.svg">
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
+
                     <form id="newGenerateForm">
-                        <label for="language" class="form-group col-md-2">@sReportsV2.Resources.TextLanguage.Language:</label>
-                        <div class="form-group col-md-12">
-                            <select class="form-control" id="language" name="Language" required>
+                        <div class="d-flex advanced-filter-header" style="margin-bottom:18px;">
+                            <img class="mr-3" src="~/Content/img/icons/translation.svg">@sReportsV2.Resources.TextLanguage.GenerateNew
+                        </div>
+
+                        <div class="advanced-filter-item filter-item input-margin generate-translation-input">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Language
+                            </div>
+                            <select class="filter-input arrow-select" id="language">
                                 <option value=""></option>
                                 @foreach (var language in ViewBag.Languages)
                                 {
@@ -21,12 +24,17 @@
                                 }
                             </select>
                         </div>
+
+                        <div class="button-partial">
+                            <button class="submit-patient right-button generate-translation-btn" style="outline:none;    padding-top: 8px; padding-bottom: 9px;" type="button"  id="buttonSubmitGenerate" onclick="generateNewLanguage()" dismiss="modal">
+                                <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Generate</span>
+                            </button>
+                        </div>
+
                     </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="buttonSubmitGenerate" class="btn btn-primary" onclick="generateNewLanguage()" dismiss="modal">@sReportsV2.Resources.TextLanguage.Generate</button>
             </div>
         </div>
     </div>
 </div>
+

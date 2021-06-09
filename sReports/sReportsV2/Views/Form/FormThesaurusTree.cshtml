@@ -1,0 +1,18 @@
+﻿@using sReportsV2.DTOs.Form.DataOut.Tree
+
+@model TreeDataOut
+
+@if (Model.Forms.Count() == 0)
+{
+    <div class="no-result-content">
+        <img class="margin-" src="~/Content/img/icons/no_results.svg">
+        <br>
+        <div class="no-result-text">@sReportsV2.Resources.TextLanguage.No_result_found!</div>
+    </div>
+}
+else
+{
+    <div class="tree-element-style" id="thesaurusTreeItems">
+        @Html.Partial("FormThesaurusTreePartial")
+    </div>
+}

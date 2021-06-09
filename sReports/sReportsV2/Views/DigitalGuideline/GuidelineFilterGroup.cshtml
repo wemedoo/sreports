@@ -1,0 +1,24 @@
+﻿<div class="d-flex">
+    <div class="d-flex main-filter mb-2">
+        <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Title
+            </div>
+            <input type="text" class="filter-input" id="TitleTemp">
+        </div>
+        <div class="filter-item border-0 margin-top-15" style="margin-right:10px;">
+            <div class="button-wrapper-filter button-filter" id="submitFilterButton">
+                <button class="btn btn-filter-primary w-100 h-100 float-right" onclick="mainFilter()">@sReportsV2.Resources.TextLanguage.Filter</button>
+            </div>
+        </div>
+        <div id="advancedId" class=" filter-item border-0 margin-top-15">
+            <div class="button-wrapper-filter" id="submitFilterButton">
+                <button class="btn w-100 h-100 float-right font-size-14 btn-advanced-link" onclick="advancedFilterModal(event)"><img class="display-none" src="/Content/img/icons/advanced_filter.svg">@sReportsV2.Resources.TextLanguage.Advanced_filter</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="filterElements" class="d-flex">
+
+</div>

@@ -3,46 +3,48 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutForIndex.cshtml";
 }
-<body class="ctcae-background">
-    <div class="col-md">
+    <body class="ctcae-background">
+        <input type="hidden" id="formInstanceId" name="formInstanceId" value="@(Model != null && Model.FormInstanceId != null ? Model.FormInstanceId : " ")" />
+        <input type="hidden" id="organizationRef" name="organizationRef" value="@(Model != null && Model.OrganizationRef != null ? Model.OrganizationRef : " ")" />
+        <div class="col-md">
 
-        <div class="ctcae-center">
-            <div class="ambulatory-Toxicity-center">
-                <div class="ambulatory-Toxicity amb-margin">Ambulatory Toxicity Evaluation—CTCAE V5</div>
-            </div>
+            <div class="ctcae-center">
+                <div class="ambulatory-Toxicity-center">
+                    <div class="ambulatory-Toxicity amb-margin">Ambulatory Toxicity Evaluation—CTCAE V5</div>
+                </div>
 
-            <div class="ctcae-inline">
-                <div class="ctcae-form-width">
+                <div class="ctcae-inline">
+                    <div class="ctcae-form-width">
 
-                    <div class="align-left padd-top-between">
-                        <div class="label-padd">
-                            <label class="ctcae-label">Patient ID:</label>
+                        <div class="align-left padd-top-between">
+                            <div class="label-padd">
+                                <label class="ctcae-label">Patient ID:</label>
+                            </div>
+                            <input type="text" class="rectangle padd-left" id="patientId" name="patientId" value="@(Model != null && Model.PatientId != null ? Model.PatientId : " ")" />
                         </div>
-                        <input type="text" class="rectangle padd-left" id="patientId" name="patientId" value="@(Model != null && Model.PatientId != null ? Model.PatientId : " ")" />
-                    </div>
 
-                    <div class="align-left padd-top-between">
-                        <div class="label-padd">
-                            <label class="ctcae-label">Date:</label>
+                        <div class="align-left padd-top-between">
+                            <div class="label-padd">
+                                <label class="ctcae-label">Date:</label>
+                            </div>
+                            <input type="date" class="unstyled rectangle padd-left ctcae-calendar" id="date" name="date" value="@(Model != null && Model.Date != null ? Model.Date.Value.ToString(" yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd") )" />
                         </div>
-                        <input type="date" class="unstyled rectangle padd-left ctcae-calendar" id="date" name="date" value="@(Model != null && Model.Date != null ? Model.Date.Value.ToString(" yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd") )" />
-                    </div>
 
-                    <div class="align-left padd-top-button">
-                        <div class="label-padd">
-                            <label class="ctcae-label">Visit No:</label>
+                        <div class="align-left padd-top-button">
+                            <div class="label-padd">
+                                <label class="ctcae-label">Visit No:</label>
+                            </div>
+                            <input type="text" class="rectangle padd-left" id="visitNo" name="visitNo" value="@(Model != null && Model.VisitNo != null ? Model.VisitNo : " ")" />
                         </div>
-                        <input type="text" class="rectangle padd-left" id="visitNo" name="visitNo" value="@(Model != null && Model.VisitNo != null ? Model.VisitNo : " ")" />
-                    </div>
 
-                    <div>
-                        <button class="ctcae-button" id="nextButton" type="submit" onclick="submitPatient(this)"><span class="next">Next</span></button>
+                        <div>
+                            <button class="ctcae-button" id="nextButton" type="submit" onclick="submitPatient(this)"><span class="next">Next</span></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
-</body>
+        </div>
+    </body>
 
 <script src="~/js/patient.js"></script>

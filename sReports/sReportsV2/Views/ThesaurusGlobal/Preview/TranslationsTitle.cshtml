@@ -1,0 +1,36 @@
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+
+
+<div class="translations-title">
+    <div class="thesaurus-preview-o40mtid">
+        O4.0MT ID: @(Model != null ? Model.Id : 0)
+    </div>
+    <div class="preview-users">
+        <div class="preview-user">
+            <div class="img-container">
+                <img class="created-by" src="~/Content/img/icons/SwissOpenOncology/created_by.svg" />
+            </div>
+            <div class="preview-user-info">
+                <div class="pu-title">
+                    Created by:
+                </div>
+                <div class="pu-value">
+                    Nikola Cihoric MD
+                </div>
+            </div>
+        </div>
+        <div class="preview-user">
+            <div class="img-container">
+                <img class="verified-by" src="~/Content/img/icons/SwissOpenOncology/verified_by.svg" />
+            </div>
+            <div class="preview-user-info">
+                <div class="pu-title">
+                    Verified by:
+                </div>
+                <div class="pu-value">
+                    Peter Schuchmacher
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using sReportsV2.Domain.Entities.Constants;
+using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.Form;
 using System;
 using System.Collections.Generic;
@@ -14,10 +14,11 @@ namespace sReportsV2.Domain.Entities.FieldEntity
     public class FieldRadio : FieldSelectable
     {
         public override string Type { get; set; } = FieldTypes.Radio;
+        
         public override string GetSelectedValue()
         {
-            var selectedValue = this.Values.FirstOrDefault(x => x.ThesaurusId.Equals(this.Value));
-            return selectedValue != null ? selectedValue.ThesaurusId : string.Empty;
+            var selectedValue = this.Values.FirstOrDefault(x => x.ThesaurusId.ToString().Equals(this.Value));
+            return selectedValue != null ? selectedValue.ThesaurusId.ToString() : string.Empty;
         }
 
         public override string GetReferrableValue(string referalValue)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using sReportsV2.Common.Extensions;
 using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace sReportsV2.Controllers
             MemoryStream stream = new MemoryStream();
             file = Ensure.IsNotNull(file, nameof(file));
             file.InputStream.CopyTo(stream);
-            CloudStorageAccount account = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AccountStorage"].ConnectionString);
+            CloudStorageAccount account = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["AccountStorage"]);
             CloudBlobClient serviceClient = account.CreateCloudBlobClient();
             CloudBlobContainer container = serviceClient.GetContainerReference("sreportscontainer");
 

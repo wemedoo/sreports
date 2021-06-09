@@ -1,0 +1,11 @@
+﻿
+@using sReportsV2.DTOs.Encounter.DataOut
+
+@model EncounterDetailsPatientTreeDataOut
+
+ 
+    @Html.Partial("EncounterForm", Model.Encounter)
+    <div class="container-documents-pinned">
+        @Html.Partial("DocumentsForEncounter", Model.FormInstances)
+        @Html.Partial("SuggestedForms", Model.Forms)
+    </div>

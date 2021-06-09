@@ -1,0 +1,24 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@model List<FormDataOut>
+    <div class="suggested-forms">
+        <div class="title">
+            Suggested forms
+        </div>
+        <div class="suggested-forms-container">
+            @foreach (FormDataOut formDataOut in Model)
+            {
+                <div class="single-pinned-item" data-id="@formDataOut.Id">
+                    <div class="icon">
+                    </div>
+                    <div class="pinned-icon"></div>
+                    <div class="title">
+                        @formDataOut.Title
+                    </div>
+                    <div class="select-button">
+                        New
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+

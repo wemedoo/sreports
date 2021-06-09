@@ -1,0 +1,44 @@
+﻿@using sReportsV2.DTOs.ThesaurusEntry.DataOut;
+    <div id="activeThesaurus" data-value="@ViewBag.ActiveThesaurus"></div>
+    <div class="single-table thesaurus-search-table">
+        <table class="table table-striped table-sreports search-thesaurus-table">
+            <thead>
+                <tr>
+                    <th>04.0MT ID</th>
+                    <th>@sReportsV2.Resources.TextLanguage.Preferred_term</th>
+                    <th>@sReportsV2.Resources.TextLanguage.Definition</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (ThesaurusEntryDataOut entry in Model.Data)
+                {
+                    <tr id="row-@entry.Id">
+                        <td>@entry.Id</td>
+                        <td>@entry.GetTranslation(ViewBag.UserCookieData.ActiveLanguage as string).PreferredTerm</td>
+                        <td>@entry.GetTranslation(ViewBag.UserCookieData.ActiveLanguage as string).Definition</td>
+                        <td data-o4mtid="@entry.Id" class="td-o4mtid"> 
+                            <div class="select-button selected @(entry.Id == ViewBag.ActiveThesaurus ?"":"hide")">Select</div>
+                           <div class="select-button @(entry.Id == ViewBag.ActiveThesaurus ?"hide":"")">Select</div>
+                            <div class="thesaurus-review" data-id="" onclick="showThesaurusReview('@entry.Id', event)"></div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (Model.Data.Count == 0)
+    {
+        <div class="no-result-content">
+            <img class="margin-" src="~/Content/img/icons/no_results.svg">
+            <br>
+            <div class="no-result-text">@sReportsV2.Resources.TextLanguage.NoResultFound</div>
+        </div>
+    }
+    <div class="pager-container">
+        @{ 
+            ViewBag.PreventPushHistoryState = true;
+        }
+        @Html.Partial("Pagination")
+    </div>

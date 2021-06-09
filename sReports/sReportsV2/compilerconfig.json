@@ -6,5 +6,21 @@
   {
     "outputFile": "Content/login.css",
     "inputFile": "Content/login.scss"
+  },
+  {
+    "outputFile": "Content/nestable.css",
+    "inputFile": "Content/nestable.scss"
+  },
+  {
+    "outputFile": "Content/newMain.css",
+    "inputFile": "Content/newMain.scss"
+  },
+  {
+    "outputFile": "Content/digital-guideline.css",
+    "inputFile": "Content/digital-guideline.scss"
+  },
+  {
+    "outputFile": "Content/swissOpenOncology.css",
+    "inputFile": "Content/swissOpenOncology.scss"
   }
 ]

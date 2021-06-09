@@ -1,47 +1,59 @@
-﻿<div class="collapse-filter-container collapse" id="filterData">
-    <div class="filter-data">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.DocumentClass:</div>
-                    <div class="property-value" id="DocumentClass"> @(ViewBag.FilterFormInstanceDataIn.DocumentClass != null ? ViewBag.FilterFormInstanceDataIn.DocumentClass.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property" style="display: @((ViewBag.FilterFormInstanceDataIn.DocumentClass != null && ViewBag.FilterFormInstanceDataIn.DocumentClass == sReportsV2.Domain.Entities.DocumentProperties.DocumentClassEnum.Other ) ? "" : "none")">
-                    <div class="property-name">Other:</div>
-                    <div class="property-value" id="DocumentClass"> @(ViewBag.FilterFormInstanceDataIn.ClassesOtherValue != null ? ViewBag.FilterFormInstanceDataIn.ClassesOtherValue : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.General_Purpose:</div>
-                    <div class="property-value" id="GeneralPurpose">@(ViewBag.FilterFormInstanceDataIn.GeneralPurpose != null ? ViewBag.FilterFormInstanceDataIn.GeneralPurpose.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.Explicit_Purpose:</div>
-                    <div class="property-value" id="ExplicitPurpose"> @(ViewBag.FilterFormInstanceDataIn.ExplicitPurpose != null ? ViewBag.FilterFormInstanceDataIn.ExplicitPurpose.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.Scope_of_Validity:</div>
-                    <div class="property-value" id="ScopeOfValidity">@(ViewBag.FilterFormInstanceDataIn.ScopeOfValidity != null ? ViewBag.FilterFormInstanceDataIn.ScopeOfValidity.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
+﻿<div class="d-flex">
+    @if (ViewBag.FilterFormInstanceDataIn != null)
+    {
+        if (ViewBag.FilterFormInstanceDataIn.DocumentClass != null)
+        {
+            <div class="filter-element w-auto">
+                @ViewBag.FilterFormInstanceDataIn.DocumentClass.ToString()
             </div>
-
-            <div class="col-md-6">
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.Clinical_Domain:</div>
-                    <div class="property-value" id="ClinicalDomain">@(ViewBag.FilterFormInstanceDataIn.ClinicalDomain != null ? ViewBag.FilterFormInstanceDataIn.ClinicalDomain.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.Clinical_Context:</div>
-                    <div class="property-value" id="ClinicalContext">@(ViewBag.FilterFormInstanceDataIn.ClinicalContext != null ? ViewBag.FilterFormInstanceDataIn.ClinicalContext.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property" style="display: @((ViewBag.FilterFormInstanceDataIn.ClinicalContext != null && ViewBag.FilterFormInstanceDataIn.ClinicalContext == sReportsV2.Domain.Entities.DocumentProperties.DocumentClinicalContextEnum.FollowUp ) ? "" : "none")">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.FollowUp:</div>
-                    <div class="property-value" id="FollowUp"> @(ViewBag.FilterFormInstanceDataIn.FollowUp != null ? ViewBag.FilterFormInstanceDataIn.FollowUp.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
-                <div class="property">
-                    <div class="property-name">@sReportsV2.Resources.TextLanguage.Administative_data:</div>
-                    <div class="property-value" id="AdministrativeData"> @(ViewBag.FilterFormInstanceDataIn.AdministrativeContext != null ? ViewBag.FilterFormInstanceDataIn.AdministrativeContext.ToString() : sReportsV2.Resources.TextLanguage.Not_selected)</div>
-                </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.ClassesOtherValue != null && ViewBag.FilterFormInstanceDataIn.ClassesOtherValue != "null" &&  ViewBag.FilterFormInstanceDataIn.ClassesOtherValue != "undefined")
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.ClassesOtherValue.ToString()
             </div>
-        </div>
-    </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.GeneralPurpose != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.GeneralPurpose.ToString()
+            </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.ExplicitPurpose != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.ExplicitPurpose.ToString()
+            </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.ScopeOfValidity != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.ScopeOfValidity.ToString()
+            </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.ClinicalDomain != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.Clinical_Domain.ToString()
+            </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.ClinicalContext != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.Clinical_Context.ToString()
+            </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.FollowUp != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.FollowUp.ToString()
+            </div>
+        }
+        if (ViewBag.FilterFormInstanceDataIn.AdministrativeContext != null)
+        {
+            <div class="filter-element">
+                @ViewBag.FilterFormInstanceDataIn.AdministrativeContext.ToString()
+            </div>
+        }
+    }
 </div>

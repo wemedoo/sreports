@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
 using MongoDB.Bson;
 using sReportsV2.Domain.Entities.Common;
+using sReportsV2.Domain.Entities.Consensus;
 using sReportsV2.Domain.Entities.Distribution;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.Form;
+using sReportsV2.DTOs;
 using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.DTOs.Common.DTO;
+using sReportsV2.DTOs.Consensus.DataIn;
+using sReportsV2.DTOs.Consensus.DataOut;
 using sReportsV2.DTOs.Form;
 using sReportsV2.DTOs.Form.DataIn;
 using sReportsV2.DTOs.Form.DataOut;
-using sReportsV2.Models.Common;
-using sReportsV2.Models.Form;
-using sReportsV2.Models.Form.Tree;
+using sReportsV2.DTOs.Form.DataOut.Tree;
 using System.Linq;
 
 namespace sReportsV2.MapperProfiles
@@ -20,58 +22,92 @@ namespace sReportsV2.MapperProfiles
     {
         public FormProfile()
         {
-            CreateMap<EnumData, EnumViewModel>().ReverseMap();
+           
+
+
+            CreateMap<ConsensusInstance, ConsensusInstanceDataIn>()
+                .ForMember(o => o.UserRef, opt => opt.MapFrom(src => src.UserId))
+                .ReverseMap();
+            CreateMap<ConsensusInstance, ConsensusInstanceDataOut>().ReverseMap();
+            CreateMap<ConsensusInstance, ConsensusDataIn>().ReverseMap();
+
+            CreateMap<ConsensusInstance, ConsensusDataOut>()
+                .ForMember(o => o.Id, opt => opt.MapFrom(src => src.ConsensusRef))
+                .ReverseMap();
+
+            CreateMap<OutsideUser, OutsideUserDataIn>().ReverseMap();
+            CreateMap<OutsideUser, OutsideUserDataOut>().ReverseMap();
+
+            CreateMap<sReportsV2.Domain.Sql.Entities.OutsideUser.OutsideUser, OutsideUserDataIn>().ReverseMap();
+            CreateMap<sReportsV2.Domain.Sql.Entities.OutsideUser.OutsideUser, OutsideUserDataOut>().ReverseMap();
+
+            CreateMap<sReportsV2.Domain.Sql.Entities.Consensus.Consensus, ConsensusDataIn>().ReverseMap();
+            CreateMap<sReportsV2.Domain.Sql.Entities.Consensus.Consensus, ConsensusDataOut>().ReverseMap();
+
+            CreateMap<sReportsV2.Domain.Sql.Entities.Consensus.ConsensusQuestion, ConsensusQuestionDataIn>().ReverseMap();
+            CreateMap<sReportsV2.Domain.Sql.Entities.Consensus.ConsensusQuestion, ConsensusQuestionDataOut>().ReverseMap();
+
+            CreateMap<sReportsV2.Domain.Sql.Entities.Consensus.ConsensusIteration, ConsensusIterationDataIn>().ReverseMap();
+            CreateMap<sReportsV2.Domain.Sql.Entities.Consensus.ConsensusIteration, ConsensusIterationDataOut>().ReverseMap();
+
+
+            CreateMap<Consensus, ConsensusDataIn>().ReverseMap();
+            CreateMap<Consensus, ConsensusDataOut>().ReverseMap();
+
+            CreateMap<ConsensusQuestion, ConsensusQuestionDataIn>().ReverseMap();
+            CreateMap<ConsensusQuestion, ConsensusQuestionDataOut>().ReverseMap();
+
+            CreateMap<ConsensusIteration, ConsensusIterationDataIn>().ReverseMap();
+            CreateMap<ConsensusIteration, ConsensusIterationDataOut>().ReverseMap();
+
+            CreateMap<sReportsV2.Domain.Entities.Form.Version, VersionDTO>().ReverseMap();
+
+            CreateMap<EnumData, EnumDTO>().ReverseMap();
 
             CreateMap<FormFilterDataIn, FormFilterData>().ReverseMap();
 
-            CreateMap<Form, FormTreeViewModel>()
+            CreateMap<Form, FormTreeDataOut>()
                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(d => d.Chapters, opt => opt.MapFrom(src => src.Chapters))
                .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
                .ReverseMap();
 
-            CreateMap<FormChapter, FormTreeChapterViewModel>()
+            CreateMap<FormChapter, FormTreeChapterDataOut>()
                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(d => d.Pages, opt => opt.MapFrom(src => src.Pages))
                .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
                .ReverseMap();
 
-            CreateMap<FormPage, FormTreePageViewModel>()
+            CreateMap<FormPage, FormTreePageDataOut>()
                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(d => d.FieldSets, opt => opt.MapFrom(src => src.ListOfFieldSets.SelectMany(x => x)))
                .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
                .ReverseMap();
 
-            CreateMap<FieldSet, FormTreeFieldSetViewModel>()
+            CreateMap<FieldSet, FormTreeFieldSetDataOut>()
                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(d => d.Fields, opt => opt.MapFrom(src => src.Fields))
                .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
                .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                .ReverseMap();
 
-            CreateMap<Field, FormTreeFieldViewModel>()
+            CreateMap<Field, FormTreeFieldDataOut>()
            .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
            .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
            .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
            .ReverseMap();
 
-            CreateMap<FieldSelectable, FormTreeFieldViewModel>()
-               .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
-               .ForMember(d => d.Values, opt => opt.MapFrom(src => src.Values))
-               .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
-               .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
-               .ReverseMap();
+            CreateMap<FieldSelectable, FormTreeFieldDataOut>()
+               .IncludeBase<Field, FormTreeFieldDataOut>()
+               .ForMember(d => d.Values, opt => opt.MapFrom(src => src.Values));
 
-            CreateMap<FieldString, FormTreeFieldViewModel>()
-               .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
-               .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
-               .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
-               .ReverseMap();
+            CreateMap<FieldString, FormTreeFieldDataOut>()
+               .IncludeBase<Field, FormTreeFieldDataOut>();
 
-            CreateMap<FormFieldValue, FormTreeFieldValueViewModel>()
+            CreateMap<FormFieldValue, FormTreeFieldValueDataOut>()
                .ForMember(d => d.Value, opt => opt.MapFrom(src => src.Value))
                .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
                .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
@@ -84,7 +120,7 @@ namespace sReportsV2.MapperProfiles
                 .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id));
 
             /*DATA OUT*/
-            CreateMap<EnumData, EnumDataOut>();
+            CreateMap<EnumData, EnumDTO>();
 
             CreateMap<Form, FormDataOut>()
             .ForMember(d => d.About, opt => opt.MapFrom(src => src.About))
@@ -103,7 +139,7 @@ namespace sReportsV2.MapperProfiles
             .ForMember(d => d.LastUpdate, opt => opt.MapFrom(src => src.LastUpdate))
             .ForMember(d => d.WorkflowHistory, opt => opt.MapFrom(src => src.WorkflowHistory))
             .ReverseMap();
-
+            CreateMap<FormDataIn, FormDataOut>().ReverseMap();
             CreateMap<FormAbout, FormAboutDataOut>();
             CreateMap<FormChapter, FormChapterDataOut>();
             CreateMap<FormPage, FormPageDataOut>();
@@ -132,18 +168,24 @@ namespace sReportsV2.MapperProfiles
             .ReverseMap();
 
             CreateMap<DTOs.Form.DataIn.FormEpisodeOfCareDataDataIn, FormEpisodeOfCare>();
+            CreateMap<DTOs.Form.DataIn.FormEpisodeOfCareDataDataIn, FormEpisodeOfCareDataDataOut>();
 
             CreateMap<FormAboutDataIn, FormAbout>();
+            CreateMap<FormAboutDataIn, FormAboutDataOut>();
 
             CreateMap<FormPageImageMap, FormPageImageMapDataOut>();
 
             CreateMap<FormPageImageMapDataIn, FormPageImageMap>();
+            CreateMap<FormPageImageMapDataIn, FormPageImageMapDataOut>();
 
             CreateMap<FormChapterDataIn, FormChapter>();
+            CreateMap<FormChapterDataIn, FormChapterDataOut>();
 
             CreateMap<FormPageDataIn, FormPage>();
+            CreateMap<FormPageDataIn, FormPageDataOut>();
 
             CreateMap<FormFieldSetDataIn, FieldSet>();
+            CreateMap<FormFieldSetDataIn, FormFieldSetDataOut>();
 
 
             //CreateMap<FormFieldDataIn, FormField>();
@@ -153,8 +195,10 @@ namespace sReportsV2.MapperProfiles
             CreateMap<FormFieldValueDataIn, FormFieldValue>();
 
             CreateMap<FormLayoutStyleDataIn, LayoutStyle>();
+            CreateMap<FormLayoutStyleDataIn, FormLayoutStyleDataOut>();
 
             CreateMap<FormHelpDataIn, Help>();
+            CreateMap<FormHelpDataIn, FormHelpDataOut>();
 
             CreateMap<KeyValue, KeyValueDTO>().ReverseMap();
             CreateMap<ReferalInfo, ReferralInfoDTO>().ReverseMap();
@@ -163,6 +207,10 @@ namespace sReportsV2.MapperProfiles
                 .ForMember(d => d.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(d => d.Status, opt => opt.MapFrom(src => src.Status))
                 .ForAllOtherMembers(d => d.Ignore());
+
+            CreateMap<FormFieldDependableDataIn, FormFieldDependableDataOut>().ReverseMap();
+            CreateMap<FormFieldValueDataIn, FormFieldValueDataOut>().ReverseMap();
+
         }
     }
 }

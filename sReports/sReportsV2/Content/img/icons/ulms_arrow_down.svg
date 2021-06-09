@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="5px" viewBox="0 0 10 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>left-and-right-arrows</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-Thesaurus-example-1" transform="translate(-508.000000, -787.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="Group-15" transform="translate(508.000000, 727.000000)">
+                <g id="Group-12">
+                    <g id="left-and-right-arrows" transform="translate(5.000000, 62.500000) rotate(90.000000) translate(-5.000000, -62.500000) translate(2.500000, 57.500000)">
+                        <path d="M4.67506537,4.60979992 L1.03496504,0.159754799 C0.950773962,0.0567475061 0.838386189,0 0.718550232,0 C0.598714274,0 0.486326501,0.0567475061 0.402135424,0.159754799 L0.134067308,0.487394411 C-0.0403664961,0.700888611 -0.0403664961,1.04787766 0.134067308,1.26104666 L3.19074874,4.99792685 L0.130675725,8.73895334 C0.0464846471,8.84196063 0,8.97927659 0,9.12569817 C0,9.27228234 0.0464846471,9.4095983 0.130675725,9.51268689 L0.39874384,9.8402452 C0.483001419,9.94325249 0.595322691,10 0.715158648,10 C0.834994605,10 0.947382379,9.94325249 1.03157346,9.8402452 L4.67506537,5.38613507 C4.75945595,5.28280258 4.80580759,5.14483622 4.80554159,4.99817075 C4.80580759,4.85093617 4.75945595,4.71305111 4.67506537,4.60979992 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

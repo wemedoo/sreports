@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Hl7.Fhir.Model;
 using sReportsV2.Api.DTOs.EpisodeOfCare.DataIn;
 using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
 using System;
@@ -13,11 +12,10 @@ namespace sReportsV2.Api.MapperProfiles
     {
         public EpisodeOfCareProfile()
         {
-            CreateMap<EpisodeOfCareFilterDataIn, EpisodeOfCareFhirFilter>();
+           /* CreateMap<EpisodeOfCareFilterDataIn, EpisodeOfCareFhirFilter>();
 
             CreateMap<EpisodeOfCareEntity, EpisodeOfCare>()
                 .ForMember(org => org.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(eoc => eoc.StatusHistory, opt => opt.MapFrom(src => src.ListHistoryStatus))
                 .ForMember(eoc => eoc.Patient, opt => opt.MapFrom(src => new ResourceReference() { Reference = src.PatientId }))
                 .ForMember(eoc => eoc.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(eoc => eoc.Type, opt => opt.MapFrom(src => new List<CodeableConcept>() { new CodeableConcept() { Text = src.Type } }))
@@ -49,7 +47,7 @@ namespace sReportsV2.Api.MapperProfiles
 
             CreateMap<string, CodeableConcept>()
                 .ForMember(org => org.Coding, opt => opt.MapFrom(src => new List<Coding>() { new Coding() { Display = src } }))
-                .ForAllOtherMembers(opts => opts.Ignore());
+                .ForAllOtherMembers(opts => opts.Ignore());*/
         }
     }
 }

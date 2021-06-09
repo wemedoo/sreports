@@ -1,0 +1,28 @@
+﻿<div class="c-user-filter-title">
+    <img class="user-filter-icon" src="~/Content/img/icons/select_table.svg"> Select all user entering in consensus finding
+</div>
+<div class="d-flex" id="consensusUserFilter">
+    @Html.Partial("~/Views/Form/Consensus/MapFilterPartial.cshtml")
+    @Html.Partial("~/Views/Form/Consensus/OrganizationFilter.cshtml")
+
+    <div id="consensusUsers" class="user-filter-part" style="margin-top:45px;">
+
+    </div>
+</div>
+<div id="consensusOrganizationUserInfo" class="d-flex">
+
+</div>
+
+<div id="usersInsideSystem" class="d-flex">
+
+</div>
+
+<div id="usersOutsideSystem" class="d-flex">
+
+</div>
+
+
+@Html.Partial("~/Views/Form/Consensus/AddUserModal.cshtml")
+
+
+

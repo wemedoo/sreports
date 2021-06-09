@@ -25,11 +25,11 @@
     });
 }
 
-function generateDocuments(formId) {
-    let numOfDocuments = +$(`#num_of_documents_${formId}`).val();
+function generateDocuments() {
+    let numOfDocuments = +$(`#generateDocumentsCount`).val();
     if (numOfDocuments && numOfDocuments > 0) {
         let requestObject = {};
-        requestObject['formDistributionId'] = formId;
+        requestObject['formId'] = $('#formId').val();
         requestObject['numOfDocuments'] = numOfDocuments;
         $.ajax({
             type: 'GET',
@@ -37,6 +37,8 @@ function generateDocuments(formId) {
             data: requestObject,
             success: function (data) {
                 toastr.success('Documents are generated');
+                $('#generateDocumentsModal').modal('hide');
+
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -47,6 +49,15 @@ function generateDocuments(formId) {
     } else {
         toastr.warning('Please define number of documents');
     }
+}
+
+function openGenerateDocumentsModal(event, formTitle, formId) {
+    //event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
+    $('#formId').val(formId);
+    $('#formTitle').text(formTitle);
+    $('#generateDocumentsModal').modal('show');
 }
 
 function editEntity(id) {

@@ -1,0 +1,52 @@
+﻿<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-delete-item">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
+            <div class="modal-body modal-delete-body">
+                <form id="deleteModalForm">
+                    <div class="d-flex advanced-filter-header margin-bottom-14">
+                        <img class="mr-3" src="~/Content/img/icons/delete_item.svg">@sReportsV2.Resources.TextLanguage.DeleteItem
+                    </div>
+                    <div class="confirm-deletion">@sReportsV2.Resources.TextLanguage.AreYouSure</div>
+                    <div class="button-partial">
+                        <button class="submit-button right-button margin-left-13 yes-button remove-modal-button" data-remove-status="confirm" type="button" style="outline: none;" onclick="removeItem(event)" dismiss="modal" id="buttonSubmitDelete">
+                            <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Yes</span>
+                        </button>
+                        <div class="button-wrapper-filter float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function removeItem(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var callingFunction = document.getElementById("buttonSubmitDelete").getAttribute('data-callingfunction');
+
+        window[callingFunction](e);
+    //if (callingFunction == "removePredefinedType")
+    //        removePredefinedType(e);
+    //if (callingFunction == "deleteFormItem")
+    //        deleteFormItem(e);
+}
+
+function showDeleteModal(e, id, callingFunction) {
+    e.stopPropagation();
+    e.preventDefault();
+    var predefinedType = $("#predefinedType").val();
+    document.getElementById("buttonSubmitDelete").setAttribute('data-id', id);
+    document.getElementById("buttonSubmitDelete").setAttribute('data-callingfunction', callingFunction);
+
+    $('#deleteModal').modal('show');
+}
+</script>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 36</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-d&amp;d-icons" transform="translate(-1582.000000, -479.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="Group-36" transform="translate(1582.000000, 479.000000)">
+                <g id="text-format">
+                    <path d="M16.625,19 L2.375,19 C1.0659,19 0,17.9341 0,16.625 L0,2.375 C0,1.0659 1.0659,0 2.375,0 L16.625,0 C17.9341,0 19,1.0659 19,2.375 L19,16.625 C19,17.9341 17.9341,19 16.625,19 Z M2.375,0.95 C1.58935,0.95 0.95,1.58935 0.95,2.375 L0.95,16.625 C0.95,17.41065 1.58935,18.05 2.375,18.05 L16.625,18.05 C17.41065,18.05 18.05,17.41065 18.05,16.625 L18.05,2.375 C18.05,1.58935 17.41065,0.95 16.625,0.95 L2.375,0.95 Z" id="Shape"></path>
+                </g>
+                <g id="bleach" transform="translate(9.500000, 10.000000) scale(1, -1) translate(-9.500000, -10.000000) translate(7.000000, 8.000000)">
+                    <path d="M4.95625882,3.56901099 L2.7603002,0.138153581 C2.64238995,-0.0460511937 2.35759482,-0.0460511937 2.23968458,0.138153581 L0.0437357218,3.56901099 C-0.077680382,3.7586901 0.0680814426,4 0.304038645,4 L4.6959559,4 C4.93192287,4 5.07768469,3.7586901 4.95625882,3.56901099 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

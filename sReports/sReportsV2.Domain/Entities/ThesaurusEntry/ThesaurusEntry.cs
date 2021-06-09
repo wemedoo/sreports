@@ -2,11 +2,14 @@
 using MongoDB.Bson.Serialization.Attributes;
 using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Entities.CustomFHIRClasses;
+using sReportsV2.Common.Enums;
+using sReportsV2.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sReportsV2.Common.Extensions;
 
 namespace sReportsV2.Domain.Entities.ThesaurusEntry
 {
@@ -22,8 +25,12 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
         public string UmlsDefinitions { get; set; }
         public List<ThesaurusEntryTranslation> Translations { get; set; }
         //public List<ThesaurusEntryCodingSystem> CodingSystems { get; set; }
-        public AdministrativeData AdministrativeData { get; set; }
+       // public AdministrativeData AdministrativeData { get; set; }
         public List<O4CodeableConcept> Codes { get; set; }
+
+        public ThesaurusState? State { get; set; }
+        
+        
         public string GetDefinitionByTranslationOrDefault(string language, string activeLanguage)
         {
             string result = string.Empty;
@@ -54,6 +61,11 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
             }
 
             return result;
+        }
+
+        public string GetPreferredTermByActiveLanguage(string language)
+        {
+            return Translations.FirstOrDefault(x => x.Language.Equals(language))?.PreferredTerm != null ? Translations.FirstOrDefault(x => x.Language.Equals(language))?.PreferredTerm : "";
         }
 
         public void SetPrefferedTermAndDescriptionForLang(string language, string preferredTerm, string definition)
@@ -89,7 +101,7 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
             return result;
         }
 
-        private string GetPreferredTermTranslation(string language)
+        public string GetPreferredTermTranslation(string language)
         {
             return Translations.FirstOrDefault(x => x.Language.Equals(language))?.PreferredTerm;
         }
@@ -104,6 +116,141 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
             }
 
             return result;
+        }
+
+        public void MergeTranslations(ThesaurusEntry fromThesaurus) 
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+
+            this.AddMissingTranslations(fromThesaurus);
+
+            foreach (var translation in this.Translations) 
+            {
+                if (string.IsNullOrWhiteSpace(translation.PreferredTerm)) 
+                {
+                    ThesaurusEntryTranslation trans = fromThesaurus.Translations.FirstOrDefault(x => x.Language == translation.Language);
+                    translation.PreferredTerm = trans?.PreferredTerm;
+                    translation.SimilarTerms = trans?.SimilarTerms;
+                    translation.Synonyms = trans?.Synonyms;
+                    translation.Definition = trans?.Definition;
+                    translation.Abbreviations = trans?.Abbreviations;
+                }
+            }
+        }
+
+        private void AddMissingTranslations(ThesaurusEntry fromThesaurus) 
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+
+            foreach (var tr in fromThesaurus.Translations)
+            {
+                if (this.Translations?.FirstOrDefault(x => x.Language == tr.Language) == null)
+                {
+                    this.Translations.Add(tr);
+                }
+            }
+        }
+
+        public void MergeSimilarTerms(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+            if (this.Translations != null) 
+            {
+                foreach (ThesaurusEntryTranslation translation in this.Translations)
+                {
+                    ThesaurusEntryTranslation fromThesaurusTranslation = fromThesaurus.Translations.FirstOrDefault(x => x.Language == translation.Language);
+                    if (fromThesaurusTranslation != null && fromThesaurusTranslation.SimilarTerms != null) 
+                    {
+                        foreach (SimilarTerm similarTerm in fromThesaurusTranslation.SimilarTerms)
+                        {
+                            if (translation.SimilarTerms!= null && translation.SimilarTerms.FirstOrDefault(x => x.Definition == similarTerm.Definition && x.Name == similarTerm.Name && x.Source == similarTerm.Source) == null)
+                            {
+                                translation.SimilarTerms.Add(similarTerm);
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        public void MergeSynonyms(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+
+            foreach (ThesaurusEntryTranslation translation in this.Translations)
+            {
+                ThesaurusEntryTranslation fromThesaurusTranslation = fromThesaurus.Translations.FirstOrDefault(x => x.Language == translation.Language);
+
+                if (fromThesaurusTranslation != null && fromThesaurusTranslation.Synonyms != null) 
+                {
+                    foreach (string synonym in fromThesaurusTranslation.Synonyms)
+                    {
+                        if (translation.Synonyms != null && !translation.Synonyms.Contains(synonym, StringComparer.OrdinalIgnoreCase))
+                        {
+                            translation.Synonyms.Add(synonym);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void MergeAbbreviations(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+
+            foreach (ThesaurusEntryTranslation translation in this.Translations)
+            {
+                ThesaurusEntryTranslation fromThesaurusTranslation = fromThesaurus.Translations.FirstOrDefault(x => x.Language == translation.Language);
+                if (fromThesaurusTranslation != null && fromThesaurusTranslation.Abbreviations != null)
+                {
+                    foreach (string abbreviation in fromThesaurusTranslation.Abbreviations.Where(x => translation.Abbreviations != null && !translation.Abbreviations.Contains(x, StringComparer.OrdinalIgnoreCase)))
+                    {
+                            translation.Abbreviations.Add(abbreviation);
+                    }
+                }
+                
+
+            }
+        }
+        public void MergeUmlsCode(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+            this.UmlsCode = string.IsNullOrWhiteSpace(this.UmlsCode) ? fromThesaurus.UmlsCode : this.UmlsCode;
+        }
+        public void MergeUmlsName(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+            this.UmlsName = string.IsNullOrWhiteSpace(this.UmlsName) ? fromThesaurus.UmlsName : this.UmlsName;
+        }
+
+        public void MergeUmlsDefinitions(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+            this.UmlsDefinitions = string.IsNullOrWhiteSpace(this.UmlsDefinitions) ? fromThesaurus.UmlsDefinitions : this.UmlsDefinitions;
+        }
+
+        public void MergeCodes(ThesaurusEntry fromThesaurus)
+        {
+            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
+
+            if (fromThesaurus.Codes != null) 
+            {
+                foreach (var code in fromThesaurus.Codes)
+                {
+                    if (this.Codes.FirstOrDefault(x => x.System == code.System) == null)
+                    {
+                        this.Codes.Add(code);
+                    }
+                }
+            }
+        }
+
+        public void SetSimilarTermEntryDate()
+        {
+            foreach (SimilarTerm similarTerm in this.Translations.Where(c => c.SimilarTerms != null).Select(x => x.SimilarTerms).SelectMany(y => y).Where(z => z.EntryDateTime == null))
+            {
+                similarTerm.EntryDateTime = DateTime.Now;
+            }
         }
     }
 }

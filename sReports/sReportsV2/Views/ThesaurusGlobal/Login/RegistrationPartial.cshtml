@@ -1,0 +1,75 @@
+﻿
+    <div id="registrationPartial" class="registration-part" style="display:@(!ViewBag.IsLogin ? "" : "none")">
+        <div class="registration-title">Register</div>
+        <form id="registrationForm" onsubmit="return registerUser(this, event)">
+            <div class="sub-title">
+                Please fill in the form bellow
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-50 mr-1">
+                    <div class="input-title">
+                        First name
+                    </div>
+                    <input type="text" id="firstName" required />
+                </div>
+                <div class="registration-input w-50 ml-1">
+                    <div class="input-title">
+                        Second name
+                    </div>
+                    <input type="text" id="secondName" required />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-50 mr-1">
+                    <div class="input-title">
+                        Password
+                    </div>
+                    <input type="password" id="password" required />
+                </div>
+                <div class="registration-input w-50 ml-1">
+                    <div class="input-title">
+                        Confirm Password
+                    </div>
+                    <input type="password" id="confirmPassword" required />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-100">
+                    <div class="input-title">
+                        Intitutional (Business) email
+                    </div>
+                    <input type="email" id="email" required />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-100">
+                    <div class="input-title">
+                        Affiliation
+                    </div>
+                    <input type="text" id="affiliation" required />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-100">
+                    <div class="input-title">
+                        Country
+                    </div>
+                    <input type="text" id="country" />
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="registration-input w-100">
+                    <div class="input-title">
+                        Phone
+                    </div>
+                    <input type="text" id="phone" />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="go-to-link" onclick="goToSignIn()">Sign In</div>
+                <button class="login-button register-btn" id="registerButton" type="submit">Register</button>
+            </div>
+
+        </form>
+    </div>

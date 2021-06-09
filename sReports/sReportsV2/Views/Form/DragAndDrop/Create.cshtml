@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Form_create;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions
+@model FormDataOut
+
+@{
+    string formId = Model != null ? Model.Id : "formIdPlaceHolder";
+}
+<link href="~/Content/nestable.min.css" rel="stylesheet" />
+
+
+<div class="designer-main-content position-relative">
+    <canvas id="designerCanvas">
+    </canvas>
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Designer }, { "linkLevel1", "/Form/GetAll" }, { "level2", Model != null && Model.Title != null ? Model.Title : @sReportsV2.Resources.TextLanguage.Form_create }, { "activeLevel", 2 } })
+
+    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/FormAdministrativeData.cshtml", Model)
+
+
+    <div class="dd-main-container" id="formTreeContainer">
+        @Html.Partial("~/Views/Form/DragAndDrop/FormTreeContainer.cshtml", Model)
+
+    </div>
+    <div id="consensusPartialContainer">
+        @*@if (Model != null)
+            {
+                @Html.Partial("~/Views/Form/Consensus/ConsensusPartial.cshtml", Model)
+            }*@
+    </div>
+
+    <div class="submit-button-container">
+        <button type="button" id="submit-full-form-definition" class="sreports-primary-button comments-hidden consensus-hidden">Submit</button>
+    </div>
+
+</div>
+
+
+
+
+@Html.Partial("~/Views/Administration/DeleteModal.cshtml")
+<div class="designer-form-modal fade">
+    <div class="designer-form-modal-body">
+        <div class="close-designer-form-modal-button">
+
+        </div>
+        <div class="designer-form-modal-title">
+            <img src="~/Content/img/icons/editing.svg" />
+            <span class="designer-form-title-text"></span>
+        </div>
+        <div id="designerFormModalMainContent" class="designer-form-modal-main-content">
+            @sReportsV2.Resources.TextLanguage.Test
+        </div>
+    </div>
+</div>
+
+<!--<textarea id="nestable-output"></textarea>-->
+<script src="~/Scripts/sReports/image-map/jquery.imagemaps.js"></script>
+<script src="~/Scripts/sReports/imageMapResize.js"></script>
+<script src="~/Scripts/sReports/designer/nestable/jquery.nestable.js"></script>
+<script src="~/Scripts/sReports/designer/nestable/jquery.nestable.customization.js"></script>
+<script src="~/Scripts/sReports/designer/designer.js"></script>
+<script src="~/Scripts/sReports/designer/validation.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/filter.thesaurus.js"></script>
+<script src="~/Scripts/sReports/tableCommon.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/formGeneralInfo.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/chapterGeneralInfo.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/pageGeneralInfo.js"></script>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script src="~/Scripts/sReports/jquery.line.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fieldsetGeneralInfo.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/fieldGeneralInfo.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/selectableField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/calculativeField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/checkboxField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/customFieldButton.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/numberField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/radioField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/regexField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/textField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fields/selectField.js"></script>
+<script src="~/Scripts/sReports/designer/designer-items/fieldValue.js"></script>
+<script src="~/Scripts/sReports/dynamicForm.js"></script>
+<script src="~/Scripts/sReports/formJson.js"></script>
+<script src="~/Scripts/sReports/schema-json.js"></script>
+<script src="~/Scripts/sReports/designer/consensus.js"></script>
+<script src="~/Scripts/sReports/common/clinicalDomainAutocomplete.js"></script>
+
+

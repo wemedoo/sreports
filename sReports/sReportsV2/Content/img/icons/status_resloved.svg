@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>checked (6)</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.5,0 C5.15914787,0 0,5.15914787 0,11.5 C0,17.8408521 5.15914787,23 11.5,23 C17.8408521,23 23,17.8408521 23,11.5 C23,5.15914787 17.8408521,0 11.5,0 Z" id="path-1"></path>
+        <filter x="-28.3%" y="-23.9%" width="156.5%" height="156.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.65815349   0 0 0 0 0.761745323   0 0 0 0 0.570918261  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-Create-Comments" transform="translate(-218.000000, -1793.000000)" fill-rule="nonzero">
+            <g id="checked-(6)" transform="translate(222.000000, 1796.000000)">
+                <g id="Shape">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                </g>
+                <path d="M17.6679438,10.0673384 L11.6117497,16.647579 C11.1966794,17.0970004 10.532567,17.1269618 10.0898255,16.6775404 L6.35419327,12.9922851 C5.91145168,12.5428637 5.88378033,11.7938281 6.27117923,11.3144453 C6.68624947,10.8350625 7.37803321,10.805101 7.8207748,11.2545224 L10.8129556,12.9922851 L16.0906769,8.35953711 C16.5334185,7.8801543 17.2252022,7.8801543 17.6679438,8.35953711 C18.1106854,8.83891991 18.1106854,9.58795555 17.6679438,10.0673384 Z" id="Path" fill="#73B33D"></path>
+            </g>
+        </g>
+    </g>
+</svg>

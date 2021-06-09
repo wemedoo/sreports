@@ -1,20 +1,23 @@
-﻿@using sReportsV2.Domain.Entities.OrganizationEntities;
-
-@{
+﻿@{
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.Organization;
 }
 
 @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Organization }, { "activeLevel", 1 } })
 
-<div class="table-container">
-    <div class="header">
+<div class="table-container border-0">
+    <div class="header header-new">
         @sReportsV2.Resources.TextLanguage.Organizations
-        <button class="btn btn-primary add-new-button" onclick="createOrganizationEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        <button class="btn btn-create float-right" onclick="createOrganizationEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
     </div>
+    @Html.Partial("OrganizationFilterGroup")
     <div id="tableContainer">
 
     </div>
-
 </div>
+@Html.Partial("AdvancedFilterModal")
+
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>
 
 @Scripts.Render("~/bundles/organizationGetAll")

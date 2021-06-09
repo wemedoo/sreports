@@ -1,27 +1,36 @@
 ﻿<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
-        <div class="modal-content upload-modal" style="height:30%">
+        <div class="modal-content modal-content-upload">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
             <form method="post" enctype="multipart/form-data" onsubmit="upload()">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">@sReportsV2.Resources.TextLanguage.UploadPdf</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <label for="file">@sReportsV2.Resources.TextLanguage.UploadFile:</label>
+
+                <div class="modal-body upload-modal-body">
+                    <div class="d-flex advanced-filter-header documents-header upload-header">
+                        <img class="mr-3" src="~/Content/img/icons/pdf_upload.svg"> @sReportsV2.Resources.TextLanguage.UploadPdf
                     </div>
-                    <div class="fileUpload input.upload">
+
+                    <div class="fileUpload input.upload position-relative">
                         <input id="uploadFile" class="f-input" placeholder="@sReportsV2.Resources.TextLanguage.NoContent" />
-                        <button type="button" class="fileUpload btn btn-primary upload-button">@sReportsV2.Resources.TextLanguage.ChooseFile</button>
+                        @*<button type="button" class="fileUpload btn btn-primary upload-button">@sReportsV2.Resources.TextLanguage.ChooseFile</button>*@
                         <input id="file" name="file" type="file" class="upload upload-input" />
+                        <img src="~/Content/img/icons/browse.svg" class="upload-plus-btn">
+
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">@sReportsV2.Resources.TextLanguage.UploadFile</button>
+                <div class="d-flex position-relative margin-top-20">
+                    <div class="button-wrapper-filter filter-button float-right d-flex unset-width" id="submitFilterButton" style="right:50px;">
+                        <a class="btn advanced-cancel mr-2" data-dismiss="modal" aria-label="Close">
+                            @sReportsV2.Resources.TextLanguage.Cancel
+                        </a>
+                        <button id="uploadSubmit" disabled class="btn btn-filter-primary w-100 h-100" type="submit">@sReportsV2.Resources.TextLanguage.UploadFile</button>
+                    </div>
                 </div>
+
             </form>
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/sReports/uploadModal.js"></script>

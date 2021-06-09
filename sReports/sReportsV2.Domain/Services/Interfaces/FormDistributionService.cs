@@ -14,7 +14,12 @@ namespace sReportsV2.Domain.Services.Interfaces
         int GetAllCount();
 
         FormDistribution GetById(string id);
-        FormDistribution GetByThesaurusId(string id);
+        FormDistribution GetByThesaurusIdAndVersion(int id, string versionId);
+        FormDistribution GetByThesaurusId(int id);
         FormDistribution InsertOrUpdate(FormDistribution formDistribution);
+        List<FormDistribution> GetAll();
+        List<FormDistribution> GetAllVersionAndThesaurus();
+        bool ExistThesaurus(int thesaurusId);
+
     }
 }

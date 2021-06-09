@@ -1,58 +1,64 @@
-﻿@using sReportsV2.DTOs.Patient;
-@model sReportsV2.DTOs.Patient.PatientDataOut
-@{
-    string hasValue = "-hasvalue";
-}
-<form id="newTelecomFormForPatient" onsubmit="return false">
-    <div class="modal fade" id="telecomModalForPatient" tabindex="-1" role="dialog" aria-labelledby="telecomModalForPatientLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="telecomModalForPatientLabel">@sReportsV2.Resources.TextLanguage.Identifier_add</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+﻿<div class="modal fade" id="telecomModalForPatient" tabindex="-1" role="dialog" aria-labelledby="telecomModalForPatientLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-content-password">
+            <div class="float-right filter-close-btn">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+
+                    <form id="newTelecomFormForPatient">
+                        <div class="d-flex advanced-filter-header">
+                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">@sReportsV2.Resources.TextLanguage.Telecom_Add
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Telecom_System
+                            </div>
+                            <select class="filter-input arrow-select" id="telecomSystemForPatient" name="telecomSystemForPatient">
+                                <option value=""></option>
+                                @foreach (var systemTypeTelecom in Enum.GetNames(typeof(sReportsV2.Common.Enums.TelecomSystemType)))
+                                {
+                                    <option value="@systemTypeTelecom">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(systemTypeTelecom as string)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Telecom_Value
+                            </div>
+                            <input required class="filter-input" type="text" id="telecomValueForPatient" name="telecomValueForPatient" />
+                        </div>
+                        <div class="advanced-filter-item filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Telecom_Use
+                            </div>
+                            <select class="filter-input arrow-select" id="telecomUseForPatient" name="telecomUseForPatient">
+                                <option value=""></option>
+                                @foreach (var telecomUse in Enum.GetNames(typeof(sReportsV2.Common.Enums.TelecomUseType)))
+                                {
+                                    <option value="@telecomUse">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(telecomUse as string)</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="button-partial">
+                            <button class="submit-patient right-button" type="button" style="outline: none;" onclick="addNewTelecomForPatient(event)" dismiss="modal">
+                                <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
+                            </button>
+                            <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                                <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                    @sReportsV2.Resources.TextLanguage.Cancel
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
-                <div class="modal-body">
-
-                    <div class="form-element form-select">
-                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Telecom_System:</label>
-                        <select class="form-element-field @hasValue" id="telecomSystemForPatient" name="TelecomSystemForPatient" required>
-                            <option value=""></option>
-                            @foreach (var systemTypeTelecom in Enum.GetNames(typeof(sReportsV2.Domain.Enums.TelecomSystemType)))
-                            {
-                                <option value="@systemTypeTelecom">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(systemTypeTelecom as string)</option>
-                            }
-                        </select>
-                        <div class="form-element-bar"></div>
-                    </div>
-
-                    <div class="form-element">
-                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Telecom_Value:</label>
-                        <input required class="form-element-field" type="text" id="telecomValueForPatient" name="telecomValueForPatient" />
-                        <div class="form-element-bar"></div>
-                    </div>
-
-                    <div class="form-element form-select">
-                        <label class="form-element-label">@sReportsV2.Resources.TextLanguage.Telecom_Use:</label>
-                        <select class="form-element-field @hasValue" id="telecomUseForPatient" name="TelecomUseForPatient" required>
-                            <option value=""></option>
-                            @foreach (var telecomUse in Enum.GetNames(typeof(sReportsV2.Domain.Enums.TelecomUseType)))
-                            {
-                                <option value="@telecomUse">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(telecomUse as string)</option>
-                            }
-                        </select>
-                        <div class="form-element-bar"></div>
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@sReportsV2.Resources.TextLanguage.Close</button>
-                    <button type="button" class="btn btn-primary" onclick="addNewTelecomForPatient(event)">@sReportsV2.Resources.TextLanguage.SaveChanges</button>
-                </div>
-
             </div>
         </div>
     </div>
-</form>
+</div>
+

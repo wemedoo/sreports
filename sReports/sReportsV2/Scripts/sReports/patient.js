@@ -1,31 +1,6 @@
 ﻿var PatientId;
 /*-------------------Episode of care------------------------*/
-function reloadTable() {
-    if ($('#patientId').val()) {
-        $('#episodeOfCares').show();
-        let requestObject = {};
-        checkUrlPageParams();
-        requestObject.Page = currentPage;
-        requestObject.IdentifierType = 'O4MtPatientId';
-        requestObject.IdentifierValue = $('#patientId').val();
-        requestObject.PageSize = getPageSize();
 
-        $.ajax({
-            type: 'GET',
-            url: '/EpisodeOfCare/ReloadTable',
-            data: requestObject,
-            success: function (data) {
-                $("#episodeOfCaresContainer").html(data);
-                $("#episodeOfCaresContainer").find('#collapseFilter').hide();
-                $('#episodeOfCaresContainer').collapse('show');
-
-            },
-            error: function (xhr, textStatus, thrownError) {
-                toastr.error(`Error: ${thrownError}`);
-            }
-        });
-    }
-}
 function newEpisodeOfCare() {
     history.pushState({}, '', `?patientId=${$('#patientId').val()}`);
     window.location.href = `/EpisodeOfCare/Create?System=O4MtPatientId&Value=${$('#patientId').val()}`;
@@ -103,7 +78,7 @@ function submitForm(form,e) {
         request['FamilyName'] = $('#familyName').val();
         request['Name'] = $("#name").val();
         request['Gender'] = $("#gender").val();
-        request['BirthDate'] = $("#birthDate").val() ? new Date($("#birthDate").val()).toUTCString() : "";
+        request['BirthDate'] = $("#birthDate").val() ? new Date($("#birthDate").val()).toDateString() : "";
         request['LastUpdate'] = $("#lastUpdate").val();
         request['MultipleBirth'] = $("#multipleBirth").val();
         request['MultipleBirthNumber'] = $("#multipleBirthNumber").val();
@@ -168,50 +143,107 @@ function getCommunications() {
     let selected = $('input[name=radioPreferred]:checked').val();
 
     $('input[name=radioPreferred]').each(function (index, element) {
-        result.push({ preferred: $(element).val() == selected ? true : false, language: $(element).val() })
+        result.push({
+            preferred: $(element).val() == selected ? true : false,
+            language: $(element).val()
+            //Id: $(element).attr("data-id")
+        })
     })
 
     return result;
 }
 
-$(document).on('click', '.button-plus-language', function (e) {
-    if (ValidateLanguage() && $('#language').val()) {
-        let language = document.createElement('td');
-        $(language).attr("data-property", 'language');
-        $(language).attr("data-value", $('#language').val());
-        $(language).html($('#language option:selected').text());
+$(document).ready(function () {
+    $("input[name=radioPreferred]").each(function () {
+        if ($(this).is(":checked")) {
+            let preferredText = document.createElement('span');
+            $(preferredText).addClass("preferred-text-class");
+            preferredText.innerHTML = " (Preferred)";
+            $(this).closest('div').addClass("preferred-language-text-active").append(preferredText);;
+        } else {
+            $(this).closest('div').removeClass("preferred-language-text-active");
+        }
+    });
+});
 
-        let input = document.createElement('input');
-        $(input).addClass("form-radio-field");
-        $(input).attr("value", $('#language').val());
-        $(input).attr("name", 'radioPreferred');
-        $(input).attr("type", 'radio');
+$(document).on('click', '.plus-button', function (e) {
+    if (ValidateLanguage() && $('#language').val()) {
+        let language = createLanguageElement();
+        let input = createRadioInput();
+
+        let removeButton = createRemoveLanguageButton();
+        removeButton.id = "removeButtonId";
+
+        let preferredText = createPreferredText();
 
         if ($('#tableBody').find('input:radio[name=radioPreferred]').length == 0) {
             $(input).attr('checked', true);
+            $(language).addClass("preferred-language-text-active");
+            $(language).append(preferredText);
+            $(removeButton).addClass("preferred-language-text-active");
         }
 
-        let preferred = document.createElement('td');
-        $(preferred).attr("data-property", 'preferred');
-        $(preferred).attr("data-value", $('#preferred').val());
+        $(removeButton).addClass("right-remove-button");
+
+        let preferred = createRadioField();
+
+        let preferred2 = document.createElement('div');
+        $(preferred2).addClass("preferred-language-group");
+
+        let divElement = document.createElement('div');
 
         $(preferred).append(input);
+        $(preferred2).append(preferred).append(language).append(removeButton)
 
-        let trElement = document.createElement('tr');
-        $(trElement).addClass("tr edit-raw");
+        $("#tableBody").append(preferred2).append(divElement);
 
-        $(trElement).append(language).append(preferred).append(createRemoveLanguageButton());
-
-        $("#tableBody").append(trElement);
     }
 });
+
+function createLanguageElement() {
+    let language = document.createElement('span');
+    $(language).attr("data-property", 'language');
+    $(language).attr("data-value", $('#language').val());
+    $(language).addClass("preferred-language-text");
+    language.id = "firstLanguage";
+    $(language).html($('#language option:selected').text());
+
+    return language;
+}
+
+function createRadioInput() {
+    let input = document.createElement('input');
+    $(input).addClass("form-radio-field");
+    $(input).attr("value", $('#language').val());
+    $(input).attr("name", 'radioPreferred');
+    $(input).attr("type", 'radio');
+
+    return input;
+}
+
+function createPreferredText() {
+    let preferredText = document.createElement('span');
+    $(preferredText).addClass("preferred-text-class");
+    preferredText.innerHTML = " (Preferred)";
+
+    return preferredText;
+}
+
+function createRadioField() {
+    let preferred = document.createElement('span');
+    $(preferred).attr("data-property", 'preferred');
+    $(preferred).attr("data-value", $('#preferred').val());
+    $(preferred).addClass("radio-space");
+
+    return preferred;
+}
 
 function ValidateLanguage() {
     var isValid = true;
     let language = $("#language").val();
 
-    $(`#communicationTable > tbody > tr`).each(function () {
-        if ($(this).find("td:eq(0)").data('value') == language) {
+    $(`#tableBody > div`).each(function () {
+        if ($(this).find("span:eq(1)").data('value') == language) {
             isValid = false;
             toastr.error(`This language already added`);
         }
@@ -221,23 +253,22 @@ function ValidateLanguage() {
 }
 
 function createRemoveLanguageButton() {
-    let div = document.createElement('td');
-    $(div).addClass('remove-language');
+    let span = document.createElement('span');
+    $(span).addClass('remove-language-button');
 
     let i = document.createElement('i');
     $(i).addClass('fas fa-times');
 
-    $(div).append(i);
-    return div;
+    $(span).append(i);
+    return span;
 }
 
-
-$(document).on('click', '.remove-language', function (e) {
-    $(e.currentTarget).closest('tr').remove();
+$(document).on('click', '.remove-language-button', function (e) {
+    $(e.currentTarget).closest('div').remove();
 });
 
 function removeLanguage(r) {
-    $(r).closest("tr").remove();
+    $(r).closest("div").remove();
 }
 
 $(document).ready(function () {
@@ -259,5 +290,75 @@ function pushStateWithoutFilter(num) {
     }
 }
 
+function showGeneralInfo(event, element){
+    event.stopPropagation();
+    setTagActiveClass(element);
+    setTagIconActiveClass("general-icon");
 
+    $("#contactPersonPartial").hide();
+    $("#patientTelecomPartial").hide();
+    $("#patientInfoPartial").show();
+}
 
+function showTelecomInfo(event, element) {
+    event.stopPropagation();
+    setTagActiveClass(element);
+    setTagIconActiveClass("telecom-icon");
+
+    $("#contactPersonPartial").hide();
+    $("#patientTelecomPartial").show();
+    $("#patientInfoPartial").hide();
+}
+
+function showContactPerson(event, element) {
+    event.stopPropagation();
+    setTagActiveClass(element);
+    setTagIconActiveClass("contact-icon");
+
+    $("#contactPersonPartial").show();
+    $("#patientTelecomPartial").hide();
+    $("#patientInfoPartial").hide();
+}
+
+function setTagActiveClass(element) {
+    $('.tab-item').removeClass('active');
+    $(element).addClass('active');
+}
+
+function setTagIconActiveClass(iconId) {
+    $('.tab-icon').removeClass('active');
+    document.getElementById(iconId).classList.add('active');
+}
+
+$(document).ready(function () {
+    document.getElementById("generalButton").click();
+});
+
+$(document).on('click', '[name="radioPreferred"]', function () {
+    let selected = $('input[name=radioPreferred]:checked').val();
+    var element = document.getElementById("firstLanguage");
+    element.classList.remove("preferred-language-text-active");
+    var removeElement = document.getElementById("removeButtonId");
+    removeElement.classList.remove("preferred-language-text-active");
+    removeElement.classList.add("right-remove-button");
+
+    let preferredText = document.createElement('span');
+    $(preferredText).addClass("preferred-text-class");
+    preferredText.innerHTML = " (Preferred)";
+
+    $(`#tableBody > div`).each(function () {
+        $(this).removeClass("preferred-language-text-active");
+        $(this).find(".preferred-text-class").remove();
+
+        if ($(this).find("span:eq(1)").data('value') == selected) {
+            $(this).find("span:eq(1)").append(preferredText);
+            $(this).addClass("preferred-language-text-active");
+        }
+    });
+});
+
+$('#birthDateCalendar').click(function () {
+    $("#birthDate").datepicker({
+        dateFormat: df
+    }).focus();
+});

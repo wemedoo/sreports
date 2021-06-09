@@ -1,0 +1,124 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.Resources
+
+@model FormFieldSetDataOut
+
+<form class="designer-item-form" id="fieldsetGeneralInfoForm">
+    <input type="hidden" id="elementId" value="@(string.IsNullOrWhiteSpace(Model.Id) ? GuidExtension.NewGuidStringWithoutDashes() : Model.Id)" />
+    <div class="designer-form-section">
+        <div class="designer-form-input-group half-width short-bottom-margin">
+            <div class="label filter-label">
+                Fieldset label
+            </div>
+            <input required class="designer-form-input item-title" id="label" name="label" type="text" value="@(Model != null && Model.Label != null ? Model.Label : "")" />
+        </div><!--
+        --><div class="designer-form-input-group half-width short-bottom-margin no-margin-right">
+            <div class="label filter-label">
+                Fhir type
+            </div>
+            <select class="designer-form-input" id="fhirType">
+                <option value="">Select an option</option>
+                <option value="procedure" @(Model != null && Model.FhirType != null && Model.FhirType.Equals("procedure") ? "selected" : "")>Procedure</option>
+                <option value="observation" @(Model != null && Model.FhirType != null && Model.FhirType.Equals("observation") ? "selected" : "")>Observation</option>
+            </select>
+        </div><!--
+        --><div class="chechbox-container inside-section">
+            <div class="checkbox-group">
+                <label class="form-checkbox-label">
+                    <span>Bolded?</span>
+                    <input name="isBold" value="isBold" @(Model.IsBold ? "checked" : string.Empty) id="isBold" class="form-checkbox-field" type="checkbox" />
+                    <i class="form-checkbox-button table-checkbox"></i>
+                </label>
+            </div>
+        </div><!--
+        --><div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Repetitive
+            </div>
+            <select class="designer-form-input" id="isRepetitive">
+                <option value="">Select an option</option>
+                <option value="true" @(Model != null && Model.IsRepetitive ? "selected" : "")>Yes</option>
+                <option value="false" @(Model == null || !Model.IsRepetitive ? "selected" : "")>No</option>
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group half-width no-margin-right">
+            <div class="label filter-label">
+                Number of repetitions for pdf
+            </div>
+            <input required class="designer-form-input" id="numberOfRepetitions" name="numberOfRepetitions" type="number" value="@(Model != null ? Model.NumberOfRepetitions : 1)" />
+        </div><!--
+        --><div class="designer-form-input-group half-width ">
+            <div class="label filter-label">
+                Fieldset description
+            </div>
+            <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")" rows="5">@(Model != null ? Model.Description : "")</textarea>
+        </div>
+    </div>
+    <div class="designer-form-section thesaurus-section">
+        <div class="designer-form-section-title">
+            @sReportsV2.Resources.TextLanguage.ThesaurusEntry
+        </div>
+        @Html.Partial("~/Views/Form/DragAndDrop/ThesaurusFilterModal.cshtml")
+    </div>
+    <div class="designer-form-section">
+        <div class="designer-form-section-title">
+            Layout settings
+        </div>
+        <div class="designer-form-input-group half-width ">
+            <div class="label filter-label">
+                Layout style
+            </div>
+            <select class="designer-form-input" id="layoutType">
+                <option value="">Select an option</option>
+                <option value="@LayoutType.Vertical" @(Model.LayoutStyle != null && Model.LayoutStyle.LayoutType == LayoutType.Vertical ? "selected" : "")>Vertical</option>
+                <option value="@LayoutType.Horizontal" @(Model.LayoutStyle != null && Model.LayoutStyle.LayoutType == LayoutType.Horizontal ? "selected" : "")>Horizontal</option>
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group half-width no-margin-right">
+            <div class="label filter-label">
+                Max items
+            </div>
+            <input class="designer-form-input" id="layoutMaxItems" name="layoutMaxItems" type="number" value="@(Model != null && Model.LayoutStyle != null ? Model.LayoutStyle.MaxItems : "")" />
+        </div>
+    </div>
+    <div class="designer-form-section">
+        <div class="designer-form-section-title">
+            Appendix (Notes)
+        </div>
+        <div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Title
+            </div>
+            <input class="designer-form-input" id="helpTitle" name="helpTitle" type="text" value="@(Model != null && Model.Help != null ? Model.Help.Title : "")" />
+
+        </div>
+        <div class="designer-form-input-group half-width">
+            <div class="label filter-label">
+                Content
+            </div>
+            <textarea class="designer-form-input" id="helpContent" name="helpContent" value="@(Model != null && Model.Help != null ? Model.Help.Content : "")">@(Model != null && Model.Help != null? Model.Help.Content : "")</textarea>
+        </div>
+    </div>
+    <div class="button-container">
+        <div class="cancel-button cancel-modal-action">
+            @sReportsV2.Resources.TextLanguage.Back
+
+        </div>
+        <div class="submit-button" id="submit-fieldset-info">Update data</div>
+    </div>
+</form>
+<script>
+    $('#helpContent').ckeditor();
+    $(document).ready(function () {
+        $('#fieldsetGeneralInfoForm').validate({
+            ignore: []
+        });
+
+        let fieldSetId = $("#fieldsetGeneralInfoForm").find("#elementId").val();
+        if ($("#nestable").find(`[data-id='${fieldSetId}']`).children('.dd-handle').hasClass('nestable-error')) {
+            $('#fieldsetGeneralInfoForm').valid();
+        }
+    });
+</script>

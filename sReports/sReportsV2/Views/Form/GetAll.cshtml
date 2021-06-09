@@ -9,19 +9,24 @@
 
 @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Designer }, { "activeLevel", 1 } })
 
-<div class="table-container">
-    <div class="header">
-        @sReportsV2.Resources.TextLanguage.Form_definitions
-        <div class="filter-button-collapse" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" /></svg>
+    <div class="table-container border-0">
+        <div class="header header-new">
+            @sReportsV2.Resources.TextLanguage.Form_definitions
+            @*<div class="filter-button-collapse" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" /></svg>
+            </div>*@
+            <button class="btn btn-create float-right" onclick="redirectToCreate()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
         </div>
-        <button class="btn btn-primary add-new-button" onclick="redirectToCreate()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+
+        @Html.Partial("FormFilterGroup")
+
+        <div id="tableContainer">
+
+        </div>
 
     </div>
-    <div id="tableContainer">
+@Html.Partial("AdvancedFilterModal")
 
-    </div>
-</div>
 <script>
     var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
 </script>

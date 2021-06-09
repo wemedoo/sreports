@@ -52,18 +52,20 @@
     <Compile Include="UMLSClasses\ContentViewMembership.cs" />
     <Compile Include="UMLSClasses\SearchResult.cs" />
     <Compile Include="UMLSClasses\SemanticType.cs" />
+    <Compile Include="UMLSClasses\SemanticTypes.cs" />
     <Compile Include="UMLSClasses\TGT.cs" />
     <Compile Include="UMLSClasses\UMLSAtomResult.cs" />
     <Compile Include="UMLSClasses\UMLSConcept.cs" />
     <Compile Include="UMLSClasses\UMLSConceptDefinition.cs" />
     <Compile Include="UMLSClasses\UMLSSearchResult.cs" />
+    <Compile Include="UMLSClasses\UMLSSemanticTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="RestSharp">
-      <Version>106.6.10</Version>
+      <Version>106.10.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>exchange</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-Thesaurus-Umls-&amp;-Code" transform="translate(-589.000000, -612.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="exchange" transform="translate(589.000000, 612.000000)">
+                <path d="M0,0 L0,16 L12,16 L12,3.07552239 L8.96970588,0 L0,0 Z M9.17647059,1.22298507 L10.795,2.86567164 L9.17647059,2.86567164 L9.17647059,1.22298507 Z M0.705882353,15.2835821 L0.705882353,0.71641791 L8.47058824,0.71641791 L8.47058824,3.58208955 L11.2941176,3.58208955 L11.2941176,15.2835821 L0.705882353,15.2835821 Z" id="Shape"></path>
+                <path d="M6,3 L2,3 L2,6 L6,6 L6,3 Z M5.36842105,5.18181818 L2.63157895,5.18181818 L2.63157895,3.81818182 L5.36842105,3.81818182 L5.36842105,5.18181818 Z" id="Shape"></path>
+                <polygon id="Shape" points="2 9 10 9 10 10 2 10"></polygon>
+                <polygon id="Shape" points="2 7 10 7 10 8 2 8"></polygon>
+                <polygon id="Shape" points="2 11 10 11 10 12 2 12"></polygon>
+                <polygon id="Shape" points="2 13 8 13 8 14 2 14"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

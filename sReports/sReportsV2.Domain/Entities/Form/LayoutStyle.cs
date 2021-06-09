@@ -1,4 +1,4 @@
-﻿using sReportsV2.Domain.Enums;
+﻿using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace sReportsV2.Domain.Entities.Form
 {
     public class LayoutStyle
     {
-        public LayoutType LayoutType { get; set; }
+        public LayoutType? LayoutType { get; set; }
         public string MaxItems { get; set; }
     }
 }

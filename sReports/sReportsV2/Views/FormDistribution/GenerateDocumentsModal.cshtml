@@ -1,0 +1,38 @@
+﻿
+<form id="generateDocumentsForm" name="GenerateDocumentsForm" onsubmit="return false">
+    <div class="modal fade" id="generateDocumentsModal" tabindex="-1" role="dialog" aria-labelledby="generateDocumentsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-generate-documents">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-advanced" id="generateDocumentsModalContent">
+                    <div class="d-flex advanced-filter-header documents-header">
+                        <img class="mr-3" src="~/Content/img/icons/generate_documents.svg"> @sReportsV2.Resources.TextLanguage.GenerateDocuments
+                    </div>
+                    <div class="label documents-form-title" id="formTitle"></div>
+                    <div class="d-flex margin-top-10">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.NumberOfDocuments
+                            </div>
+                            <input type="number" class="filter-input" id="generateDocumentsCount">
+                        </div>
+
+                    </div>
+                    <div class="d-flex position-relative margin-top-20">
+                        <div class="button-wrapper-filter filter-button float-right d-flex unset-width" id="submitFilterButton">
+                            <a class="btn advanced-cancel mr-2" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="generateDocuments()"> @sReportsV2.Resources.TextLanguage.GenerateDocuments</button>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

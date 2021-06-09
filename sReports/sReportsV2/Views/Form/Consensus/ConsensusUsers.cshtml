@@ -1,0 +1,39 @@
+﻿@using sReportsV2.DTOs.Organization.DataOut;
+@model List<OrganizationUsersDataOut>
+
+<div class="selected-users-container">
+    <div class="selected-users-title">
+        <img src="~/Content/img/icons/select_users.svg"> Selected Users
+        <button type="button" class="btn btn-add-new float-right" onclick="saveSelectedUsers()">
+            <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> Save selected users</span>
+        </button>
+    </div>
+
+    <div class="organizations-users-container">
+        @foreach (var organization in Model)
+        {
+            <div class="organization-with-users">
+                <div class="d-flex organization-children pl-0">
+                    <label class="form-checkbox-label" id="organizationGroup">
+                        <input value="@organization.Id" class="form-checkbox-field consensus-organization-checkbox" type="checkbox" name="orgNames" />
+                        <i class="form-checkbox-button table-checkbox"></i>
+                    </label>
+                    <div class="ml-2">@organization.Name</div>
+                </div>
+                <div class="user-childs">
+                    @foreach (var user in organization.Users)
+                    {
+                        <div class="d-flex user-children pl-0">
+                            <label class="form-checkbox-label" id="@organization.Id-group">
+                                <input value="@user.Id" class="form-checkbox-field consensus-user-checkbox" type="checkbox" name="@organization.Id-users" />
+                                <i class="form-checkbox-button table-checkbox"></i>
+                            </label>
+                            <div class="ml-2">@user.FirstName @user.LastName</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

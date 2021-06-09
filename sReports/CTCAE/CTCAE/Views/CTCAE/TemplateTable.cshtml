@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "TemplateTable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body class="ctcae-background">
+    <div class="ctcae-table">
+        <div class="table-responsive table-resp">
+            <button class="ctcae-submit template-button add-template-margin" id="templateButton" type="submit" onclick="submitToAdmin()"><i class="preview">Add new template</i></button>
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Template title</th>
+                        <th>CTCAE Terms</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (SelectItemModel entry in ViewBag.Templates)
+                    {
+                        <tr>
+                            <td>@entry.Label</td>
+                            <td>
+                                @for (int i = 0; i < entry.DefaultList.Count; i++)
+                                {
+                                    @(entry.DefaultList != null ? entry.DefaultList[i].CTCAETerm : "")
+                                    if (i < entry.DefaultList.Count - 1)
+                                    {
+                                        <text>, </text>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <button class="ctcae-edit" onclick="editEntity(event,'@entry.Id')"><i class="preview">Edit</i></button>
+                                <button class="ctcae-edit" onclick="showDeleteModal(event, '@entry.Id')"><i class="preview">Delete</i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div style="margin-top:20px">
+                <button class="ctcae-submit template-button" id="backButton" type="submit" onclick="backToPatient()"><i class="preview">Back</i></button>
+            </div>
+        </div>
+        @Html.Partial("DeleteModal")
+    </div>
+</body>
+<script src="~/js/patient.js"></script>

@@ -19,5 +19,11 @@ namespace sReports.PathoLink.Entities
         public string type { get; set; }
 
         public string defaultValue { get; set; }
+
+        public void RemoveFormIdFromO4MTId()
+        {
+            string[] splitted = o40MtId.Split('-').Skip(1).ToArray();
+            this.o40MtId = string.Join("-", splitted);
+        }
     }
 }

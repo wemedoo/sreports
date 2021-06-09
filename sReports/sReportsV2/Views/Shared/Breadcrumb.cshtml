@@ -1,29 +1,29 @@
 ﻿<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb " style="padding: 6px 0px; background-color: transparent; padding-top: 12px;">
         @if ((int)ViewData["activeLevel"] == 0)
         {
-            <li class="breadcrumb-item active" aria-current="page">
-                <i class="fas fa-home"></i>
-                <a href="~/Home/Index">@sReportsV2.Resources.TextLanguage.HomeStart</a>
-            </li>
+        <li class="breadcrumb-item active breadcrumb-active" aria-current="page">
+            <img src="../Content/img/icons/overview_silver.svg" class="breadcrumb-icon">
+            <a href="~/Home/Index" >@sReportsV2.Resources.TextLanguage.HomeStart</a>
+        </li>
         }
         else
         {
-            <li class="breadcrumb-item">
-                <i class="fas fa-home"></i>
-                <a href="~/Home/Index">@sReportsV2.Resources.TextLanguage.HomeStart</a>
-            </li>
+    <li class="breadcrumb-item breadcrumb-pasive">
+        <img style="margin-bottom:3px;width:13px;" src="../Content/img/icons/overview_silver.svg" >
+        <a class="breadcrumb-pasive" href="~/Home/Index">@sReportsV2.Resources.TextLanguage.HomeStart</a>
+    </li>
         }
 
         @if (ViewData["level1"] != null)
         {
             if ((int)ViewData["activeLevel"] == 1)
             {
-                <li class="breadcrumb-item active" aria-current="page"><a>@ViewData["level1"]</a></li>
+                <li class="breadcrumb-item active breadcrumb-active" aria-current="page"><a>@ViewData["level1"]</a></li>
             }
             else
             {
-                <li class="breadcrumb-item"><a href="@ViewData["linkLevel1"]">@ViewData["level1"]</a></li>
+                <li class="breadcrumb-item breadcrumb-pasive"><a href="@ViewData["linkLevel1"]">@ViewData["level1"]</a></li>
             }
 
         }
@@ -31,11 +31,11 @@
         {
             if ((int)ViewData["activeLevel"] == 2)
             {
-                <li class="breadcrumb-item active" aria-current="page"><a>@ViewData["level2"]</a></li>
+                <li class="breadcrumb-item active breadcrumb-active" aria-current="page"><a>@ViewData["level2"]</a></li>
             }
             else
             {
-                <li class="breadcrumb-item"><a href="@ViewData["linkLevel2"]">@ViewData["level2"]</a></li>
+                <li class="breadcrumb-item breadcrumb-pasive"><a href="@ViewData["linkLevel2"]">@ViewData["level2"]</a></li>
             }
         }
 
@@ -43,11 +43,11 @@
         {
             if ((int)ViewData["activeLevel"] == 3)
             {
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">@ViewData["level3"]</a></li>
+                <li class="breadcrumb-item active breadcrumb-active" aria-current="page"><a href="#">@ViewData["level3"]</a></li>
             }
             else
             {
-                <li class="breadcrumb-item"><a href="#">@ViewData["level3"]</a></li>
+                <li class="breadcrumb-item breadcrumb-pasive"><a href="#">@ViewData["level3"]</a></li>
             }
         }
     </ol>

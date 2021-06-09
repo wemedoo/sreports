@@ -1,4 +1,4 @@
-﻿using sReportsV2.Domain.Enums;
+﻿using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,6 @@ namespace sReportsV2.Domain.Entities.Form
     {
         public FormDefinitionState Status { get; set; }
         public DateTime Created { get; set; }
-        public string User { get; set; }
+        public int UserId { get; set; }
     }
 }

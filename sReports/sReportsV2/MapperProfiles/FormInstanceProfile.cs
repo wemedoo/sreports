@@ -14,6 +14,10 @@ namespace sReportsV2.MapperProfiles
     {
         public FormInstanceProfile()
         {
+            CreateMap<FormInstancePerDomain, FormInstancePerDomainDataOut>()
+           .ForMember(d => d.Count, opt => opt.MapFrom(src => src.Count))
+           .ForMember(d => d.Domain, opt => opt.MapFrom(src => src.Domain.ToString()));
+
             CreateMap<FormInstance, PatientFormInstanceDataOut>()
             .ReverseMap();
 
@@ -25,8 +29,8 @@ namespace sReportsV2.MapperProfiles
            .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
            .ForMember(d => d.Language, opt => opt.MapFrom(src => src.Language))
            .ForMember(d => d.Version, opt => opt.MapFrom(src => src.Version))
-           .ForMember(d => d.User, opt => opt.MapFrom(src => src.User))
-           .ForMember(d => d.Patient, opt => opt.MapFrom(src => src.Patient))
+           //.ForMember(d => d.User, opt => opt.MapFrom(src => src.User))
+           //.ForMember(d => d.Patient, opt => opt.MapFrom(src => src.Patient))
            .ReverseMap();
 
             CreateMap<FormInstance, FormInstanceDataOut>()
@@ -38,8 +42,8 @@ namespace sReportsV2.MapperProfiles
             .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
             .ForMember(d => d.Language, opt => opt.MapFrom(src => src.Language))
             .ForMember(d => d.Version, opt => opt.MapFrom(src => src.Version))
-            .ForMember(d => d.User, opt => opt.MapFrom(src => src.User))
-            .ForMember(d => d.Patient, opt => opt.MapFrom(src => src.Patient))
+            //.ForMember(d => d.User, opt => opt.MapFrom(src => src.User))
+            //.ForMember(d => d.Patient, opt => opt.MapFrom(src => src.Patient))
             .ForMember(d => d.Referrals, opt => opt.Ignore())
             .ReverseMap();
 
@@ -59,7 +63,7 @@ namespace sReportsV2.MapperProfiles
             .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(d => d.Title, opt => opt.MapFrom(src => src.Title))
             .ForMember(d => d.LastUpdate, opt => opt.MapFrom(src => src.LastUpdate))
-            .ForMember(d => d.User, opt => opt.MapFrom(src => src.User))
+            //.ForMember(d => d.User, opt => opt.MapFrom(src => src.User))
             .ForMember(d => d.Version, opt => opt.MapFrom(src => src.Version))
             .ReverseMap();
 

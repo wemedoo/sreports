@@ -1,0 +1,84 @@
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+
+
+<div class="label thesaurus-more-label">
+    04.OMT ID
+</div>
+<div class="thesaurus-o4mtid">
+    @Model.Id
+</div>
+
+<div class="thesaurus-modal-content">
+    <div class="d-flex thesaurus-more-content-label">
+        <div class="dot">
+
+        </div>
+        @sReportsV2.Resources.TextLanguage.Preferred_term.ToUpper()
+    </div>
+    <div class="d-flex thesaurus-more-content-padding">
+        @(Model.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) != null ? Model.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : sReportsV2.Resources.TextLanguage.NotDefined)
+    </div>
+
+    <div class="d-flex thesaurus-more-content-label">
+        <div class="dot">
+
+        </div>
+        @sReportsV2.Resources.TextLanguage.Definition.ToUpper()
+    </div>
+    <div class="d-flex thesaurus-more-content-padding">
+        @(Model.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) != null ? Model.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : sReportsV2.Resources.TextLanguage.NotDefined)
+    </div>
+
+    <div class="d-flex thesaurus-more-content-label">
+        <div class="dot">
+
+        </div>
+        @sReportsV2.Resources.TextLanguage.Synonyms.ToUpper()
+    </div>
+    <div class=" thesaurus-more-content-padding">
+        @if (Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Synonyms.Count > 0)
+        {
+           foreach (var synonym in Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Synonyms)
+            {
+                <div class="filter-element d-inline-block mr-0 mb-0">
+                    @synonym
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                @sReportsV2.Resources.TextLanguage.NotDefined
+            </div>
+        }
+    </div>
+
+  
+    <div class="d-flex thesaurus-more-content-label">
+        <div class="dot">
+
+        </div>
+        @sReportsV2.Resources.TextLanguage.Abbreaviations.ToUpper()
+    </div>
+    <div class=" thesaurus-more-content-padding">
+        @if (Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Abbreviations.Count > 0)
+        {
+            foreach (var abbreaviation in Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Abbreviations)
+            {
+                <div class="filter-element d-inline-block  mr-0 mb-0">
+                    @abbreaviation
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                @sReportsV2.Resources.TextLanguage.NotDefined
+            </div>
+        }
+    </div>
+</div>
+
+<button type="button" class="btn btn-filter-primary float-right thesaurus-more-close" data-dismiss="modal" aria-label="Close">
+    @sReportsV2.Resources.TextLanguage.Close
+</button>

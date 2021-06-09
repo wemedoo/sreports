@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="16px" viewBox="0 0 22 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="eReports-dynamic-form-final-a" transform="translate(-15.000000, -23.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="Group" transform="translate(15.000000, 23.000000)">
+                <path d="M20.6851151,16 L0.930063075,16 C0.416358237,16 0,15.5523333 0,15 C0,14.4476667 0.416358237,14 0.930063075,14 L20.6848051,14 C21.1985099,14 21.6148682,14.4476667 21.6148682,15 C21.6148682,15.5523333 21.1988199,16 20.6851151,16 Z" id="Shape"></path>
+                <path d="M20.6851151,9 L0.930063075,9 C0.416358237,9 0,8.55233333 0,8 C0,7.44766667 0.416358237,7 0.930063075,7 L20.6848051,7 C21.1985099,7 21.6148682,7.44766667 21.6148682,8 C21.6148682,8.55233333 21.1988199,9 20.6851151,9 Z" id="Shape"></path>
+                <path d="M20.6851151,2 L0.930063075,2 C0.416358237,2 0,1.55233333 0,1 C0,0.447666667 0.416358237,0 0.930063075,0 L20.6848051,0 C21.1985099,0 21.6148682,0.447666667 21.6148682,1 C21.6148682,1.55233333 21.1988199,2 20.6851151,2 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,5 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using sReportsV2.Domain.Entities.Constants;
+using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.Form;
 using System;
 using System.Collections.Generic;
@@ -28,6 +28,15 @@ namespace sReportsV2.Domain.Entities.FieldEntity
             string selectValue = selectedValue != null ? selectedValue.Value : "";
 
             return selectValue;
+        }
+
+        public override void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
+        {
+            this.ThesaurusId = this.ThesaurusId == oldThesaurus ? newThesaurus : this.ThesaurusId;
+            foreach (FormFieldValue value in this.Values)
+            {
+                value.ReplaceThesauruses(oldThesaurus, newThesaurus);
+            }
         }
     }
 }

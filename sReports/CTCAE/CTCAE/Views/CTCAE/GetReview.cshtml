@@ -22,7 +22,7 @@
                 <div class="during-a-visit ">
                     During a visit following therapy-associated adverse events were recorded:
                 </div>
-                <input type="hidden" id="selectId" name="selectId" value="@(Model.SelectItems[Model.SelectId].Id)" />
+                <input type="hidden" id="selectId" name="selectId" value="@(Model.SelectItems.Find(x=>x.Id==Model.SelectId).Id)" />
             </div>
             @foreach (var item in Model.ReviewModels)
             {

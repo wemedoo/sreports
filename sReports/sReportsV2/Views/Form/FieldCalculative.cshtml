@@ -6,40 +6,52 @@
     int fieldSetCounter = ViewBag.FieldSetCounter;
     string fieldSetId = ViewBag.FieldSetId;
 }
-<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content calculative" @Html.Raw(Model.Visibility)>
-    <label for="@Model.Id" class="form-element-label">
-        @Html.Raw(Model.FullLabel)
-        @if (Model.Help != null)
-        {
-            <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
-        }
-    </label>
-    <input type="text" class="form-element-field" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" readonly placeholder="@Model.DescriptionLabel" data-formulafield="@(string.Join(",", Model.GetFormulaFields()))" @Html.Raw(Model.ValidationAttr) value="@(Model.Value != null && Model.Value.Count > 0 ? Model.Value[0] : string.Empty)" />
-    <div class="form-element-bar"></div>
+    <fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content calculative" @Html.Raw(Model.Visibility)>
 
-    <div class="form-element-description">
-        @Html.Raw(Model.Description)
-    </div>
-</fieldset>
+        <div class=" field-group">
+            <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+                @Html.Raw(Model.FullLabel)
+            </div>
+            <div class="repetitive-field filter-input d-inline-block calculative-background">
+                <input type="text" class="form-element-field" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" readonly placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) value="@(Model.Value != null && Model.Value.Count > 0 ? Model.Value[0] : string.Empty)" />
+            </div>
+            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+        </div>
 
-<script>
+        <div style="display:none" class="form-element-description field-desc">
+            @Html.Raw(Model.Description)
+        </div>
+    </fieldset>
+
+    <script>
     $(document).ready(function () {
-        @foreach (string fieldId in Model.GetFormulaFields())
-        {
-            <text>
-        $(document).on('change', '[name*="-@fieldId-"]', function () {
-            if ($(this).is('input') || $(this).is('select')) {
-                try {
-                    let name = $(this).attr("name");
-                    let nameValues = name.split("-");
-                    let idPrefix = `${nameValues[0]}-${nameValues[1]}`;
-                    calculateFormula('@Model.Id', '@Model.Formula', @Html.Raw(Json.Encode(@Model.GetFormulaFields())), idPrefix);
-                } catch(err){
-                    console.log(err);
-                }
+        let identifiersAndVariablesDictionary = [];
+        @if (Model.IdentifiersAndVariables != null) {
+            foreach(string fieldId in Model.IdentifiersAndVariables.Keys)
+            {
+                <text>
+                    identifiersAndVariablesDictionary['@fieldId'] = '@Model.IdentifiersAndVariables[fieldId]'
+                </text>
             }
-            })
-            </text>
+
+            foreach (string fieldId in Model.IdentifiersAndVariables.Keys)
+            {
+                <text>
+                    $(document).on('change', '[name*="-@fieldId-"]', function () {
+                        if ($(this).is('input') || $(this).is('select')) {
+                            try {
+                                let name = $(this).attr("name");
+                                let nameValues = name.split("-");
+                                let idPrefix = `${nameValues[0]}-${nameValues[1]}`;
+                                calculateFormula('@Model.Id', '@Model.Formula', identifiersAndVariablesDictionary, idPrefix);
+                            } catch(err){
+                                console.log(err);
+                            }
+                        }
+                    })
+                </text>
+            }
         }
+
     })
 </script>

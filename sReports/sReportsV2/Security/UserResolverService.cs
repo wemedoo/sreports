@@ -1,4 +1,4 @@
-﻿using sReportsV2.Models.User;
+﻿using sReportsV2.DTOs.User.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

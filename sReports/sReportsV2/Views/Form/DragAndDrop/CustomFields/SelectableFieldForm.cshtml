@@ -1,0 +1,83 @@
+﻿<!--IMPORTANT: DO NOT USE COMMENTS BETWEEN ELEMENTS, IT'S ADDED TO ELIMINATE WHITE SPACE-->
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.DTOs.Form.DataOut;
+@model FieldSelectableDataOut
+
+<div class="designer-form-section">
+    <div class="designer-form-section-title">
+        @sReportsV2.Resources.TextLanguage.DependentFields
+    </div>
+    <div class="dependable-list">
+        <div class="dependable-header">
+            <div class="dependable-header-item">Condition</div><!--
+            --><div class="dependable-header-item">Action type</div><!--
+            --><div class="dependable-header-item last-cell">Action params</div>
+        </div>
+            @if (Model.Dependables != null)
+            {
+                foreach (FormFieldDependableDataOut dependableDataOut in Model.Dependables)
+                {
+                    <div class="dependable-item-row">
+                        <div class="dependable-item-cell" data-dependablefieldname="condition" data-dependablefieldvalue="@dependableDataOut.Condition">
+                            @dependableDataOut.Condition
+                        </div><!--
+                        --><div class="dependable-item-cell" data-dependablefieldname="actionParams" data-dependablefieldvalue="@dependableDataOut.ActionParams">
+                            @*@dependableDataOut.ActionParams*@
+                        </div><!--
+                        --><div class="dependable-item-cell last-cell" data-dependablefieldname="actionType" data-dependablefieldvalue="@dependableDataOut.ActionType">
+                            @dependableDataOut.ActionType
+                        </div>
+
+                        <div class="remove-dependable-item">
+                            <i class="fas fa-minus-circle"></i>
+                        </div>
+                    </div>
+                }
+        <div class="dependable-item-row dependable-inputs">
+            <div class="dependable-item-cell">
+                <div class="designer-form-input-group">
+                    <div class="label filter-label">
+                        Condition
+                    </div>
+                    <select class="designer-form-input  manual-validation" required name="condition" id="condition">
+                        <option value="">Select condition</option>
+                    </select>
+                </div>
+            </div><!--
+        --><div class="dependable-item-cell">
+               <div class="designer-form-input-group">
+                   <div class="label filter-label">
+                       Action parameter
+                   </div>
+                   <select class="designer-form-input manual-validation" required name="actionParams" id="actionParams">
+                       <option value="">Select action parameter</option>
+                   </select>
+               </div>
+            </div><!--
+         --><div class="dependable-item-cell last-cell">
+                <div class="designer-form-input-group last-group">
+                    <div class="label filter-label">
+                        Action type
+                    </div>
+                    <select class="designer-form-input  manual-validation" required name="actionType" id="actionType">
+                        <option value="">Select action type</option>
+                        <option value="toggle">Toggle</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+            </div><!--
+            --><div class="submitDependableForm">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+            }
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function () {
+        setLabels();
+        loadOptions($('#elementId').val());
+        loadFields();
+    })
+</script>

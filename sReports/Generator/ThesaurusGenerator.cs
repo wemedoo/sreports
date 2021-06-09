@@ -1,20 +1,22 @@
 ﻿using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Entities.ThesaurusEntry;
 using sReportsV2.Domain.Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sReportsV2.SqlDomain.Implementations;
+using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
+using sReportsV2.Common.Entities.User;
 
 namespace Generator
 {
     public class ThesaurusGenerator : ThesaurusCommon
     {
-        public ThesaurusEntryService thesaurusService = new ThesaurusEntryService();
-        public FormService formService = new FormService();
+        public ThesaurusDAL thesaurusDAL = new ThesaurusDAL(new sReportsV2.DAL.Sql.Sql.SReportsContext());
+        public FormDAL formService = new FormDAL();
         UserData userData;
 
         public void GenerateThesauruses(Form form, UserData user) 
@@ -100,12 +102,12 @@ namespace Generator
             }
         }
 
-        private string GetNewThesaurus(string label, string description = null)
+        private int GetNewThesaurus(string label, string description = null)
         {
             ThesaurusEntry thesaurus = CreateThesaurus(label, description);
-            thesaurusService.InsertOrUpdate(thesaurus, userData);
+            thesaurusDAL.InsertOrUpdate(thesaurus);
 
-            return thesaurus.O40MTId;
+            return thesaurus.Id;
         }
     }
 }

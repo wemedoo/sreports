@@ -1,0 +1,75 @@
+﻿@model sReportsV2.DTOs.Pagination.PaginationDataOut<sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut, sReportsV2.DTOs.Common.DataIn>
+
+<div class="mb-3 max-height-thesaurus">
+   
+    <div id="currentThesaurusInfo" style="display:none">
+        @Html.Partial("ThesaurusInfo", (sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut)ViewBag.Thesaurus as sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut)
+
+    </div>
+
+    <div class="d-flex mb-2">
+        <input class="filter-input w-25" placeholder="@sReportsV2.Resources.TextLanguage.Preferred_term" type="text" id="preferredTerm" value="@(ViewBag.PreferredTerm != null ? ViewBag.PreferredTerm : string.Empty)">
+        <button class="btn btn-filter-primary ml-2 mb-1" style="padding: 2px 15px;height:unset; font-size: 14px; letter-spacing: 0.8px;" onclick="reloadTable(true)">@sReportsV2.Resources.TextLanguage.Filter</button>
+    </div>
+   
+    <div id="accordion" style="max-height:50%; border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+        @foreach (var thesaurus in Model.Data)
+        {
+            <div class="card" style="border-radius:4px;">
+                <div class="card-header" id="@thesaurus.Id">
+                    <div class="target" data-toggle="collapse" data-target="#collapse-@thesaurus.Id" aria-expanded="true" aria-controls="collapse-@thesaurus.Id" onclick="loadTargetThesaurusTree('@thesaurus.Id', this)">
+                        <i class="fas fa-angle-down mr-2"></i>
+                        @thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) - @thesaurus.Id
+                    </div>
+                </div>
+
+                <div id="collapse-@thesaurus.Id" class="collapse" aria-labelledby="@thesaurus.Id" data-parent="#accordion">
+                    <div class="card-body c-body">
+                        <div class="row">
+                            <div class="col-6 draft-thesaurus">
+
+                            </div>
+                            <div class="col-6 production-thesaurus">
+                                @Html.Partial("ThesaurusInfo", thesaurus)
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <button type="button" onclick="openMergeModal(event)" class="btn btn-filter-primary thesaurus-merge-btn" style="right:10px;">
+                                        <img src="~/Content/img/icons/merge_thesauruses.svg"> @sReportsV2.Resources.TextLanguage.MergeThesauruses
+                                    </button>
+                                    <div class="triangle-right"></div>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <button type="button" onclick="takeBoth(event)" class="btn btn-filter-primary thesaurus-merge-btn">@sReportsV2.Resources.TextLanguage.TakeBoth</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    @if (Model.Data.Count == 0)
+    {
+        <div class="no-result-content">
+            <img class="margin-" src="~/Content/img/icons/no_results.svg">
+            <br>
+            <div class="margin-top-10">No result found!</div>
+        </div>
+    }
+</div>
+
+<div class="pager-container">
+    @Html.Partial("Pagination")
+</div>
+
+
+

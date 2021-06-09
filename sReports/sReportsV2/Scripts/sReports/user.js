@@ -1,80 +1,73 @@
-﻿function submitForm(form,e) {
- 
-    $(form).validate({
-        ignore: []
-    }); 
+﻿$(document).on('focus', '.user-input', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var user = document.getElementById("userIcon");
+    user.style.borderRight = "solid 1px #4dbbc8";
+})
 
-    if ($(form).valid()) {
+$(document).on('blur', '.user-input', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var user = document.getElementById("userIcon");
+    user.style.borderRight = "solid 1px #e5e5e5";
+})
 
-        var request = {};
+$(document).on('focus', '.password-input', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var password = document.getElementById("passwordIcon");
+    password.style.borderRight = "solid 1px #4dbbc8";
+})
 
-        request['Id'] = $("#userId").val();
-        request['LastUpdate'] = $("#lastUpdate").val();
-        request['Username'] = $("#username").val();
-        request['FirstName'] = $("#firstName").val();
-        request['LastName'] = $("#lastName").val();
-        var email = validateEmail($("#email").val());
-        if (email == true)
-            request['Email'] = $("#email").val();
-        else
-            $(error).closest('.email').collapse("show");
+$(document).on('blur', '.password-input', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var password = document.getElementById("passwordIcon");
+    password.style.borderRight = "solid 1px #e5e5e5";
+})
 
-        request['ContactPhone'] = $("#contactPhone").val();
-        request['Organizations'] = getSelectedOrganizations();
-        request['Roles'] = getSelectedRoles();
+function forgotPassword() {
+    window.location.href = '/User/ForgotPassword';
+}
 
+function generatePassword(e, email, goToLogin) {
+    e.preventDefault();
+    e.stopPropagation();
+    var userEmail = validateEmail(email);
+    if (userEmail == true) {
         $.ajax({
             type: "POST",
-            url: "/User/Create",
-            data: request,
-            success: function (data) {
+            url: `/User/GeneratePassword?Email=${email}`,
+            success: function () {
                 toastr.options = {
-                    timeOut: 100
+                    timeOut: 500
                 }
-                toastr.options.onHidden = function () { window.location.href = `/User/GetAll`; }
-                toastr.success("Success");
+                if (goToLogin) {
+                    toastr.options.onHidden = function () { window.location.href = `/User/Login?ReturnUrl=%2f`; };
+                }
+                toastr.success("Successfully changed password");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                toastr.error(`Email address not found!`);
             }
         });
-
     }
-    var errors = $('.error').get();
-    if (errors.length !== 0) {
-        $.each(errors, function (index, error) {
-            $(error).closest('.collapse').collapse("show");
-        });
-    };
-
-    return false;
-}
-
-function cancelUserEdit() {
-    window.location.href = '/User/GetAll';
-}
-
-function getSelectedOrganizations() {
-    var chkArray = [];
-
-    $(".chk:checked").each(function () {
-        chkArray.push($(this).val());
-    });
-
-    return chkArray;
-}
-
-function getSelectedRoles() {
-    var chkArray = [];
-
-    $(".chk2:checked").each(function () {
-        chkArray.push($(this).val());
-    });
-
-    return chkArray;
+    else
+        $("#userEmail").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter valid email address</div>");
 }
 
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+$(document).ready(function () {
+    /*let timeZone = -(new Date().getTimezoneOffset() / 60);
+    console.log(timeZone);*/
+
+    $("#timeZone").val(Intl.DateTimeFormat().resolvedOptions().timeZone);
+});
+
+function signInMicrosoft() {
+    location.href = "/User/SignIn"
 }

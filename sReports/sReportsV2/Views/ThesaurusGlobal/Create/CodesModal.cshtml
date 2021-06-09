@@ -1,0 +1,70 @@
+﻿@using sReportsV2.DTOs.Common.DataOut;
+@using sReportsV2.DTOs;
+
+<form id="codesForm" name="CodesFilterForm" onsubmit="return false">
+    <div class="modal fade" id="codesModal" tabindex="-1" role="dialog" aria-labelledby="codesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content codes-modal-content">
+
+                <input type="hidden" id="codeId" />
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-vocabulary" id="codesModalContent">
+                    <div class="d-flex advanced-filter-header afh-global-thesaurus codes-header">
+                        Coding and Classification Systems:
+                    </div>
+
+                    <div class="codes-item">
+                        <div class="codes-label">
+                            Code:
+                        </div>
+                        <input type="text" class="codes-input" id="code" />
+                    </div>
+
+                    <div class="codes-item">
+                        <div class="codes-label">
+                            String:
+                        </div>
+                        <input type="text" class="codes-input" id="string" />
+                    </div>
+
+                    <div class="codes-item">
+                        <div class="codes-label">
+                            System full name:
+                        </div>
+                        <select type="text" class="codes-input codes-select" id="system">
+                            <option value=""></option>
+                            @foreach (var codeSystem in ViewBag.CodeSystems)
+                            {
+                                <option value="@codeSystem.Id">@codeSystem.Label</option>
+                            }
+                        </select>
+                        <img class="arrow-select-codes"/>
+                    </div>
+
+                    <div class="codes-item">
+                        <div class="codes-label">
+                            Link:
+                        </div>
+                        <input type="text" class="codes-input" id="link" />
+                    </div>
+
+
+                    <div class="codes-btns ">
+                        <div class="button-wrapper-filter filter-button" id="submitFilterButton" style="right:0px;">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="addCode(event)"> Save</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close" style="right: 90px;">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

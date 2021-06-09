@@ -913,7 +913,7 @@
     <value>Type</value>
   </data>
   <data name="EpisodesOfCare" xml:space="preserve">
-    <value>EpisodesOfCare</value>
+    <value>Episodes Of Care</value>
   </data>
   <data name="Episodes_Of_Care" xml:space="preserve">
     <value>Episodes of care</value>
@@ -1023,8 +1023,17 @@
   <data name="FormDefinitionState_Disabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
-  <data name="FormDefinitionState_OnGoing" xml:space="preserve">
-    <value>OnGoing</value>
+  <data name="FormDefinitionState_DesignPending" xml:space="preserve">
+    <value>Design pending</value>
+  </data>
+  <data name="FormDefinitionState_Design" xml:space="preserve">
+    <value>Design</value>
+  </data>
+  <data name="FormDefinitionState_ReviewPending" xml:space="preserve">
+    <value>Review pending</value>
+  </data>
+  <data name="FormDefinitionState_Review" xml:space="preserve">
+    <value>Review</value>
   </data>
   <data name="FormDefinitionState_ReadyForDataCapture" xml:space="preserve">
     <value>Ready for data capture</value>
@@ -1384,7 +1393,7 @@
     <value>Loans</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
+    <value>Log Out</value>
   </data>
   <data name="Long Day Child Care" xml:space="preserve">
     <value>Long Day Child Care</value>
@@ -2158,7 +2167,7 @@
     <value>Select one of definitions</value>
   </data>
   <data name="SelectOption" xml:space="preserve">
-    <value>Selecet option</value>
+    <value>Select option</value>
   </data>
   <data name="SelectReportCreate" xml:space="preserve">
     <value>Select report to create</value>
@@ -3310,13 +3319,13 @@
     <value>Back to patient</value>
   </data>
   <data name="MultipleBirthNumber" xml:space="preserve">
-    <value>Multiple birth number (if multiple true : 1st, 2nd...)</value>
+    <value>Multiple birth number</value>
   </data>
   <data name="UMLS_Link" xml:space="preserve">
     <value>UMLS link</value>
   </data>
   <data name="GeneralInfo" xml:space="preserve">
-    <value>General info</value>
+    <value>General Info</value>
   </data>
   <data name="Given" xml:space="preserve">
     <value>Given name</value>
@@ -3400,7 +3409,7 @@
     <value>Version publish date</value>
   </data>
   <data name="AddNew" xml:space="preserve">
-    <value>Add new</value>
+    <value>Add New</value>
   </data>
   <data name="Oncology" xml:space="preserve">
     <value>Oncology</value>
@@ -3483,8 +3492,17 @@
   <data name="Disabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
-  <data name="OnGoing" xml:space="preserve">
-    <value>On Going</value>
+  <data name="DesignPending" xml:space="preserve">
+    <value>Design Pending</value>
+  </data>
+  <data name="Design" xml:space="preserve">
+    <value>Design</value>
+  </data>
+  <data name="ReviewPending" xml:space="preserve">
+    <value>Review Pending</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
   </data>
   <data name="ReadyForDataCapture" xml:space="preserve">
     <value>Ready For Data Capture</value>
@@ -3585,10 +3603,1009 @@
   <data name="DownloadCsvs" xml:space="preserve">
     <value>Download Data to CSV format</value>
   </data>
+  <data name="DiagnosisRole" xml:space="preserve">
+    <value>Diagnosis Role</value>
+  </data>
+  <data name="EncounterClassification" xml:space="preserve">
+    <value>Encounter Classification</value>
+  </data>
+  <data name="EncounterStatus" xml:space="preserve">
+    <value>Encounter Status</value>
+  </data>
+  <data name="EncounterType" xml:space="preserve">
+    <value>Encounter Type</value>
+  </data>
+  <data name="EpisodeOfCareType" xml:space="preserve">
+    <value>Episode Of Care Type</value>
+  </data>
+  <data name="OrganizationType" xml:space="preserve">
+    <value>Organization Type</value>
+  </data>
+  <data name="ServiceType" xml:space="preserve">
+    <value>Service Type</value>
+  </data>
+  <data name="IdentifierType" xml:space="preserve">
+    <value>Identifier Type</value>
+  </data>
+  <data name="OrganizationIdentifierType" xml:space="preserve">
+    <value>Organization Identifier Type</value>
+  </data>
+  <data name="PatientIdentifierType" xml:space="preserve">
+    <value>Patient Identifier Type</value>
+  </data>
   <data name="Document State" xml:space="preserve">
     <value>Document State</value>
   </data>
   <data name="PostingDate" xml:space="preserve">
     <value>Posting date</value>
+  </data>
+  <data name="SimilarTerms" xml:space="preserve">
+    <value>Similar terms</value>
+  </data>
+  <data name="ReviewThesaurus" xml:space="preserve">
+    <value>Review thesaurus</value>
+  </data>
+  <data name="CurrentThesaurusTree" xml:space="preserve">
+    <value>Current Thesaurus Tree</value>
+  </data>
+  <data name="MergeThesauruses" xml:space="preserve">
+    <value>Merge Thesauruses</value>
+  </data>
+  <data name="TakeBoth" xml:space="preserve">
+    <value>Take Both</value>
+  </data>
+  <data name="TargetThesaurusTree" xml:space="preserve">
+    <value>Target Thesaurus Tree</value>
+  </data>
+  <data name="MergeIntoCurrent" xml:space="preserve">
+    <value>Merge into current</value>
+  </data>
+  <data name="MergeIntoTarget" xml:space="preserve">
+    <value>Merge into target</value>
+  </data>
+  <data name="Translations" xml:space="preserve">
+    <value>Translations</value>
+  </data>
+  <data name="ChooseWhatToMerge" xml:space="preserve">
+    <value>Choose which properties to merge too</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="ChooseWhichPropertiesToMergeToo" xml:space="preserve">
+    <value>Choose which properties to merge too</value>
+  </data>
+  <data name="sr-Cyrl-RS" xml:space="preserve">
+    <value>Serbian Cyrilic</value>
+  </data>
+  <data name="pt" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="ru" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="Address Info" xml:space="preserve">
+    <value>Address Info</value>
+  </data>
+  <data name="Advanced_filter" xml:space="preserve">
+    <value>Advanced Filter</value>
+  </data>
+  <data name="Contact Person" xml:space="preserve">
+    <value>Contact Person</value>
+  </data>
+  <data name="Contact Person Info" xml:space="preserve">
+    <value>Contact Person Info</value>
+  </data>
+  <data name="General Infro" xml:space="preserve">
+    <value>General Info</value>
+  </data>
+  <data name="Language_preferred" xml:space="preserve">
+    <value>Language (select preferred)</value>
+  </data>
+  <data name="Person Info" xml:space="preserve">
+    <value>Person Info</value>
+  </data>
+  <data name="ContactAndAddress" xml:space="preserve">
+    <value>Contact and Address</value>
+  </data>
+  <data name="Select preferred" xml:space="preserve">
+    <value>(select preferred)</value>
+  </data>
+  <data name="AddNewType" xml:space="preserve">
+    <value>Add new type</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="PredefinedTypes" xml:space="preserve">
+    <value>Predefined types</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Are you sure to want to delete the item?</value>
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="DuplicateException" xml:space="preserve">
+    <value>This object has already been added to the collection</value>
+  </data>
+  <data name="NoResult" xml:space="preserve">
+    <value>No result!</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="NoResultFound" xml:space="preserve">
+    <value>No result found!</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="SelectPreferred" xml:space="preserve">
+    <value>( Select Preferred )</value>
+  </data>
+  <data name="EnterUmls" xml:space="preserve">
+    <value>Enter UMLS term</value>
+  </data>
+  <data name="No_Result" xml:space="preserve">
+    <value>NO_RESULT</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectUMLSConcept" xml:space="preserve">
+    <value>Select UMLS concept to show definitions and atoms</value>
+  </data>
+  <data name="Select_" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Unselect" xml:space="preserve">
+    <value>Unselect</value>
+  </data>
+  <data name="No result found" xml:space="preserve">
+    <value>No result found</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Select Language</value>
+  </data>
+  <data name="NotDefined" xml:space="preserve">
+    <value>Not defined</value>
+  </data>
+  <data name="PleaseSelectOption" xml:space="preserve">
+    <value>Please select some text here</value>
+  </data>
+  <data name="SelectAllOrganizationUser" xml:space="preserve">
+    <value>Select all organization to which user belongs</value>
+  </data>
+  <data name="SelectAllRolesUser" xml:space="preserve">
+    <value>Select all roles that user will have in the system</value>
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value>Delete Item</value>
+  </data>
+  <data name="Load more" xml:space="preserve">
+    <value>Load more</value>
+  </data>
+  <data name="Quick search" xml:space="preserve">
+    <value>Quick search</value>
+  </data>
+  <data name="AddictionMedicine" xml:space="preserve">
+    <value>AddictionMedicine</value>
+  </data>
+  <data name="AddictionPsychiatry" xml:space="preserve">
+    <value>AddictionPsychiatry</value>
+  </data>
+  <data name="AdolescentMedicine" xml:space="preserve">
+    <value>AdolescentMedicine</value>
+  </data>
+  <data name="AerodigestiveMedicine" xml:space="preserve">
+    <value>AerodigestiveMedicine</value>
+  </data>
+  <data name="AerospaceMedicine" xml:space="preserve">
+    <value>AerospaceMedicine</value>
+  </data>
+  <data name="Anesthesiology" xml:space="preserve">
+    <value>Anesthesiology</value>
+  </data>
+  <data name="BariatricSurgery" xml:space="preserve">
+    <value>BariatricSurgery</value>
+  </data>
+  <data name="BirthDefects" xml:space="preserve">
+    <value>BirthDefects</value>
+  </data>
+  <data name="BloodBankingAndTransfusionMedicine" xml:space="preserve">
+    <value>BloodBankingAndTransfusionMedicine</value>
+  </data>
+  <data name="BoneMarrowTransplant" xml:space="preserve">
+    <value>BoneMarrowTransplant</value>
+  </data>
+  <data name="BrainInjury" xml:space="preserve">
+    <value>BrainInjury</value>
+  </data>
+  <data name="BurnManagement" xml:space="preserve">
+    <value>BurnManagement</value>
+  </data>
+  <data name="CardiacSurgery" xml:space="preserve">
+    <value>CardiacSurgery</value>
+  </data>
+  <data name="CardiovascularDisease" xml:space="preserve">
+    <value>CardiovascularDisease</value>
+  </data>
+  <data name="ChemicalPathology" xml:space="preserve">
+    <value>ChemicalPathology</value>
+  </data>
+  <data name="ChildAndAdolescentPsychiatry" xml:space="preserve">
+    <value>ChildAndAdolescentPsychiatry</value>
+  </data>
+  <data name="ChildAndAdolescentPsychology" xml:space="preserve">
+    <value>ChildAndAdolescentPsychology</value>
+  </data>
+  <data name="ChiropracticMedicine" xml:space="preserve">
+    <value>ChiropracticMedicine</value>
+  </data>
+  <data name="CleftAndCraniofacial" xml:space="preserve">
+    <value>CleftAndCraniofacial</value>
+  </data>
+  <data name="ClinicalBiochemicalGenetics" xml:space="preserve">
+    <value>ClinicalBiochemicalGenetics</value>
+  </data>
+  <data name="ClinicalCardiacElectrophysiology" xml:space="preserve">
+    <value>ClinicalCardiacElectrophysiology</value>
+  </data>
+  <data name="ClinicalGenetics" xml:space="preserve">
+    <value>ClinicalGenetics</value>
+  </data>
+  <data name="ClinicalPathology" xml:space="preserve">
+    <value>ClinicalPathology</value>
+  </data>
+  <data name="ClinicalPharmacology" xml:space="preserve">
+    <value>ClinicalPharmacology</value>
+  </data>
+  <data name="ColonAndRectalSurgery" xml:space="preserve">
+    <value>ColonAndRectalSurgery</value>
+  </data>
+  <data name="CommunityHealthCare" xml:space="preserve">
+    <value>CommunityHealthCare</value>
+  </data>
+  <data name="CriticalCareMedicine" xml:space="preserve">
+    <value>CriticalCareMedicine</value>
+  </data>
+  <data name="DevelopmentalBehavioralPediatrics" xml:space="preserve">
+    <value>DevelopmentalBehavioralPediatrics</value>
+  </data>
+  <data name="Diabetology" xml:space="preserve">
+    <value>Diabetology</value>
+  </data>
+  <data name="Dialysis" xml:space="preserve">
+    <value>Dialysis</value>
+  </data>
+  <data name="EatingDisorders" xml:space="preserve">
+    <value>EatingDisorders</value>
+  </data>
+  <data name="EmergencyMedicine" xml:space="preserve">
+    <value>EmergencyMedicine</value>
+  </data>
+  <data name="EnvironmentalHealth" xml:space="preserve">
+    <value>EnvironmentalHealth</value>
+  </data>
+  <data name="Epilepsy" xml:space="preserve">
+    <value>Epilepsy</value>
+  </data>
+  <data name="Ethics" xml:space="preserve">
+    <value>Ethics</value>
+  </data>
+  <data name="FamilyMedicine" xml:space="preserve">
+    <value>FamilyMedicine</value>
+  </data>
+  <data name="ForensicMedicine" xml:space="preserve">
+    <value>ForensicMedicine</value>
+  </data>
+  <data name="GeneralMedicine" xml:space="preserve">
+    <value>GeneralMedicine</value>
+  </data>
+  <data name="GeriatricMedicine" xml:space="preserve">
+    <value>GeriatricMedicine</value>
+  </data>
+  <data name="GynecologicOncology" xml:space="preserve">
+    <value>GynecologicOncology</value>
+  </data>
+  <data name="Gynecology" xml:space="preserve">
+    <value>Gynecology</value>
+  </data>
+  <data name="HeartFailure" xml:space="preserve">
+    <value>HeartFailure</value>
+  </data>
+  <data name="HIV" xml:space="preserve">
+    <value>HIV</value>
+  </data>
+  <data name="InfectiousDisease" xml:space="preserve">
+    <value>InfectiousDisease</value>
+  </data>
+  <data name="IntegrativeMedicine" xml:space="preserve">
+    <value>IntegrativeMedicine</value>
+  </data>
+  <data name="InterventionalCardiology" xml:space="preserve">
+    <value>InterventionalCardiology</value>
+  </data>
+  <data name="InterventionalRadiology" xml:space="preserve">
+    <value>InterventionalRadiology</value>
+  </data>
+  <data name="Kinesiotherapy" xml:space="preserve">
+    <value>Kinesiotherapy</value>
+  </data>
+  <data name="MaternalAndFetalMedicine" xml:space="preserve">
+    <value>MaternalAndFetalMedicine</value>
+  </data>
+  <data name="MedicalAidInDying" xml:space="preserve">
+    <value>MedicalAidInDying</value>
+  </data>
+  <data name="MedicalGenetics" xml:space="preserve">
+    <value>MedicalGenetics</value>
+  </data>
+  <data name="MedicalMicrobiologyPathology" xml:space="preserve">
+    <value>MedicalMicrobiologyPathology</value>
+  </data>
+  <data name="MedicalOncology" xml:space="preserve">
+    <value>MedicalOncology</value>
+  </data>
+  <data name="MedicalToxicology" xml:space="preserve">
+    <value>MedicalToxicology</value>
+  </data>
+  <data name="MentalHealth" xml:space="preserve">
+    <value>MentalHealth</value>
+  </data>
+  <data name="MultiSpecialtyProgram" xml:space="preserve">
+    <value>MultiSpecialtyProgram</value>
+  </data>
+  <data name="NeonatalPerinatalMedicine" xml:space="preserve">
+    <value>NeonatalPerinatalMedicine</value>
+  </data>
+  <data name="NeurologicalSurgery" xml:space="preserve">
+    <value>NeurologicalSurgery</value>
+  </data>
+  <data name="NeurologyWSpecialQualificationsInChildNeuro" xml:space="preserve">
+    <value>NeurologyWSpecialQualificationsInChildNeuro</value>
+  </data>
+  <data name="Neuropsychology" xml:space="preserve">
+    <value>Neuropsychology</value>
+  </data>
+  <data name="NutritionAndDietetics" xml:space="preserve">
+    <value>NutritionAndDietetics</value>
+  </data>
+  <data name="ObesityMedicine" xml:space="preserve">
+    <value>ObesityMedicine</value>
+  </data>
+  <data name="ObstetricsAndGynecology" xml:space="preserve">
+    <value>ObstetricsAndGynecology</value>
+  </data>
+  <data name="OccupationalTherapy" xml:space="preserve">
+    <value>OccupationalTherapy</value>
+  </data>
+  <data name="OrthopaedicSurgery" xml:space="preserve">
+    <value>OrthopaedicSurgery</value>
+  </data>
+  <data name="OrthoticsProsthetics" xml:space="preserve">
+    <value>OrthoticsProsthetics</value>
+  </data>
+  <data name="Otolaryngology" xml:space="preserve">
+    <value>Otolaryngology</value>
+  </data>
+  <data name="PainMedicine" xml:space="preserve">
+    <value>PainMedicine</value>
+  </data>
+  <data name="PalliativeCare" xml:space="preserve">
+    <value>PalliativeCare</value>
+  </data>
+  <data name="PastoralCare" xml:space="preserve">
+    <value>PastoralCare</value>
+  </data>
+  <data name="PediatricCardiology" xml:space="preserve">
+    <value>PediatricCardiology</value>
+  </data>
+  <data name="PediatricCriticalCareMedicine" xml:space="preserve">
+    <value>PediatricCriticalCareMedicine</value>
+  </data>
+  <data name="PediatricDermatology" xml:space="preserve">
+    <value>PediatricDermatology</value>
+  </data>
+  <data name="PediatricEndocrinology" xml:space="preserve">
+    <value>PediatricEndocrinology</value>
+  </data>
+  <data name="PediatricGastroenterology" xml:space="preserve">
+    <value>PediatricGastroenterology</value>
+  </data>
+  <data name="PediatricHematologyOncology" xml:space="preserve">
+    <value>PediatricHematologyOncology</value>
+  </data>
+  <data name="PediatricInfectiousDiseases" xml:space="preserve">
+    <value>PediatricInfectiousDiseases</value>
+  </data>
+  <data name="PediatricNephrology" xml:space="preserve">
+    <value>PediatricNephrology</value>
+  </data>
+  <data name="PediatricOtolaryngology" xml:space="preserve">
+    <value>PediatricOtolaryngology</value>
+  </data>
+  <data name="PediatricPulmonology" xml:space="preserve">
+    <value>PediatricPulmonology</value>
+  </data>
+  <data name="PediatricRehabilitationMedicine" xml:space="preserve">
+    <value>PediatricRehabilitationMedicine</value>
+  </data>
+  <data name="PediatricRheumatology" xml:space="preserve">
+    <value>PediatricRheumatology</value>
+  </data>
+  <data name="Pediatrics" xml:space="preserve">
+    <value>Pediatrics</value>
+  </data>
+  <data name="PediatricSurgery" xml:space="preserve">
+    <value>PediatricSurgery</value>
+  </data>
+  <data name="PediatricTransplantHepatology" xml:space="preserve">
+    <value>PediatricTransplantHepatology</value>
+  </data>
+  <data name="PediatricUrology" xml:space="preserve">
+    <value>PediatricUrology</value>
+  </data>
+  <data name="Pharmacogenomics" xml:space="preserve">
+    <value>Pharmacogenomics</value>
+  </data>
+  <data name="PhysicalMedicineAndRehab" xml:space="preserve">
+    <value>PhysicalMedicineAndRehab</value>
+  </data>
+  <data name="PhysicalTherapy" xml:space="preserve">
+    <value>PhysicalTherapy</value>
+  </data>
+  <data name="Polytrauma" xml:space="preserve">
+    <value>Polytrauma</value>
+  </data>
+  <data name="PrimaryCare" xml:space="preserve">
+    <value>PrimaryCare</value>
+  </data>
+  <data name="PulmonaryDisease" xml:space="preserve">
+    <value>PulmonaryDisease</value>
+  </data>
+  <data name="RecreationalTherapy" xml:space="preserve">
+    <value>RecreationalTherapy</value>
+  </data>
+  <data name="ReproductiveEndocrinologyAndInfertility" xml:space="preserve">
+    <value>ReproductiveEndocrinologyAndInfertility</value>
+  </data>
+  <data name="RespiratoryTherapy" xml:space="preserve">
+    <value>RespiratoryTherapy</value>
+  </data>
+  <data name="SleepMedicine" xml:space="preserve">
+    <value>SleepMedicine</value>
+  </data>
+  <data name="SolidOrganTransplant" xml:space="preserve">
+    <value>SolidOrganTransplant</value>
+  </data>
+  <data name="SpeechLanguagePathology" xml:space="preserve">
+    <value>SpeechLanguagePathology</value>
+  </data>
+  <data name="SpinalCordInjuryMedicine" xml:space="preserve">
+    <value>SpinalCordInjuryMedicine</value>
+  </data>
+  <data name="SpinalSurgery" xml:space="preserve">
+    <value>SpinalSurgery</value>
+  </data>
+  <data name="SportsMedicine" xml:space="preserve">
+    <value>SportsMedicine</value>
+  </data>
+  <data name="Surgery" xml:space="preserve">
+    <value>Surgery</value>
+  </data>
+  <data name="SurgeryOfTheHand" xml:space="preserve">
+    <value>SurgeryOfTheHand</value>
+  </data>
+  <data name="SurgicalCriticalCare" xml:space="preserve">
+    <value>SurgicalCriticalCare</value>
+  </data>
+  <data name="SurgicalOncology" xml:space="preserve">
+    <value>SurgicalOncology</value>
+  </data>
+  <data name="TherapeuticApheresis" xml:space="preserve">
+    <value>TherapeuticApheresis</value>
+  </data>
+  <data name="ThoracicAndCardiacSurgery" xml:space="preserve">
+    <value>ThoracicAndCardiacSurgery</value>
+  </data>
+  <data name="Thromboembolism" xml:space="preserve">
+    <value>Thromboembolism</value>
+  </data>
+  <data name="TransplantCardiology" xml:space="preserve">
+    <value>TransplantCardiology</value>
+  </data>
+  <data name="TransplantSurgery" xml:space="preserve">
+    <value>TransplantSurgery</value>
+  </data>
+  <data name="Trauma" xml:space="preserve">
+    <value>Trauma</value>
+  </data>
+  <data name="TumorBoard" xml:space="preserve">
+    <value>TumorBoard</value>
+  </data>
+  <data name="UnderseaAndHyperbaricMedicine" xml:space="preserve">
+    <value>UnderseaAndHyperbaricMedicine</value>
+  </data>
+  <data name="VascularNeurology" xml:space="preserve">
+    <value>VascularNeurology</value>
+  </data>
+  <data name="VocationalRehabilitation" xml:space="preserve">
+    <value>VocationalRehabilitation</value>
+  </data>
+  <data name="WomensHealth" xml:space="preserve">
+    <value>WomensHealth</value>
+  </data>
+  <data name="WoundCareManagement" xml:space="preserve">
+    <value>WoundCareManagement</value>
+  </data>
+  <data name="WoundOstomyAndContinenceCare" xml:space="preserve">
+    <value>WoundOstomyAndContinenceCare</value>
+  </data>
+  <data name="Allergy" xml:space="preserve">
+    <value>Allergy</value>
+  </data>
+  <data name="Adding documents" xml:space="preserve">
+    <value>Adding documents</value>
+  </data>
+  <data name="Number of Users" xml:space="preserve">
+    <value>Number of Users</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Admission to surgical department" xml:space="preserve">
+    <value>Admission to surgical department</value>
+  </data>
+  <data name="Admission to thoracic surgery department" xml:space="preserve">
+    <value>Admission to thoracic surgery department</value>
+  </data>
+  <data name="Allergic disorder follow-up assessment" xml:space="preserve">
+    <value>Allergic disorder follow-up assessment</value>
+  </data>
+  <data name="Allergic disorder initial assessment" xml:space="preserve">
+    <value>Allergic disorder initial assessment</value>
+  </data>
+  <data name="Assessment of dementia (procedure)" xml:space="preserve">
+    <value>Assessment of dementia (procedure)</value>
+  </data>
+  <data name="Asthma follow-up" xml:space="preserve">
+    <value>Asthma follow-up</value>
+  </data>
+  <data name="Cardiac arrest" xml:space="preserve">
+    <value>Cardiac Arrest</value>
+  </data>
+  <data name="Consultation for treatment" xml:space="preserve">
+    <value>Consultation for treatment</value>
+  </data>
+  <data name="Discussion about treatment (procedure)" xml:space="preserve">
+    <value>Discussion about treatment (procedure)</value>
+  </data>
+  <data name="Domiciliary or rest home patient evaluation and management" xml:space="preserve">
+    <value>Domiciliary or rest home patient evaluation and management</value>
+  </data>
+  <data name="Drug rehabilitation and detoxification" xml:space="preserve">
+    <value>Drug rehabilitation and detoxification</value>
+  </data>
+  <data name="Emergency hospital admission (procedure)" xml:space="preserve">
+    <value>Emergency hospital admission (procedure)</value>
+  </data>
+  <data name="Emergency hospital admission for asthma" xml:space="preserve">
+    <value>Emergency hospital admission for asthma</value>
+  </data>
+  <data name="Emergency Room Admission" xml:space="preserve">
+    <value>Emergency Room Admission</value>
+  </data>
+  <data name="Emergency room admission (procedure)" xml:space="preserve">
+    <value>Emergency room admission (procedure)</value>
+  </data>
+  <data name="Encounter for check up (procedure)" xml:space="preserve">
+    <value>Encounter for check up (procedure)</value>
+  </data>
+  <data name="Encounter for problem" xml:space="preserve">
+    <value>Encounter for problem</value>
+  </data>
+  <data name="Encounter for problem (procedure)" xml:space="preserve">
+    <value>Encounter for problem (procedure)</value>
+  </data>
+  <data name="Encounter for symptom" xml:space="preserve">
+    <value>Encounter for symptom</value>
+  </data>
+  <data name="Encounter for symptom (procedure)" xml:space="preserve">
+    <value>Encounter for symptom (procedure)</value>
+  </data>
+  <data name="Follow-up encounter" xml:space="preserve">
+    <value>Follow-up encounter</value>
+  </data>
+  <data name="Follow-up encounter (procedure)" xml:space="preserve">
+    <value>Follow-up encounter (procedure)</value>
+  </data>
+  <data name="Follow-up visit (procedure)" xml:space="preserve">
+    <value>Follow-up visit (procedure)</value>
+  </data>
+  <data name="General examination of patient (procedure)" xml:space="preserve">
+    <value>General examination of patient (procedure)</value>
+  </data>
+  <data name="Gynecology service (qualifier value)" xml:space="preserve">
+    <value>Gynecology service (qualifier value)</value>
+  </data>
+  <data name="Hospital admission" xml:space="preserve">
+    <value>Hospital admission</value>
+  </data>
+  <data name="Initial psychiatric interview with mental status and evaluation (procedure)" xml:space="preserve">
+    <value>Initial psychiatric interview with mental status and evaluation (procedure)</value>
+  </data>
+  <data name="Inpatient stay (finding)" xml:space="preserve">
+    <value>Inpatient stay (finding)</value>
+  </data>
+  <data name="Inpatient stay 3 days" xml:space="preserve">
+    <value>Inpatient stay 3 days</value>
+  </data>
+  <data name="Myocardial Infarction" xml:space="preserve">
+    <value>Myocardial Infarction</value>
+  </data>
+  <data name="Non-urgent orthopedic admission" xml:space="preserve">
+    <value>Non-urgent orthopedic admission</value>
+  </data>
+  <data name="Obstetric emergency hospital admission" xml:space="preserve">
+    <value>Obstetric emergency hospital admission</value>
+  </data>
+  <data name="Outpatient procedure" xml:space="preserve">
+    <value>Outpatient procedure</value>
+  </data>
+  <data name="Patient encounter procedure" xml:space="preserve">
+    <value>Patient encounter procedure</value>
+  </data>
+  <data name="Patient-initiated encounter" xml:space="preserve">
+    <value>Patient-initiated encounter</value>
+  </data>
+  <data name="Periodic reevaluation and management of healthy individual (procedure)" xml:space="preserve">
+    <value>Periodic reevaluation and management of healthy individual (procedure)</value>
+  </data>
+  <data name="Postnatal visit" xml:space="preserve">
+    <value>Postnatal visit</value>
+  </data>
+  <data name="Postoperative follow-up visit (procedure)" xml:space="preserve">
+    <value>Postoperative follow-up visit (procedure)</value>
+  </data>
+  <data name="posttraumatic stress disorder" xml:space="preserve">
+    <value>Posttraumatic stress disorder</value>
+  </data>
+  <data name="Prenatal initial visit" xml:space="preserve">
+    <value>Prenatal initial visit</value>
+  </data>
+  <data name="Prenatal visit" xml:space="preserve">
+    <value>Prenatal visit</value>
+  </data>
+  <data name="Screening surveillance (regime/therapy)" xml:space="preserve">
+    <value>Screening surveillance (regime/therapy)</value>
+  </data>
+  <data name="Telemedicine consultation with patient" xml:space="preserve">
+    <value>Telemedicine consultation with patient</value>
+  </data>
+  <data name="Telephone encounter (procedure)" xml:space="preserve">
+    <value>Telephone encounter (procedure)</value>
+  </data>
+  <data name="Urgent care clinic (environment)" xml:space="preserve">
+    <value>Urgent care clinic (environment)</value>
+  </data>
+  <data name="Well child visit (procedure)" xml:space="preserve">
+    <value>Well child visit (procedure)</value>
+  </data>
+  <data name="DigitalGuidline" xml:space="preserve">
+    <value>Digital Guidline</value>
+  </data>
+  <data name="DigitalGuidelines" xml:space="preserve">
+    <value>Digital Guidelines</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Version (Major)</value>
+  </data>
+  <data name="Minor" xml:space="preserve">
+    <value>Version (Minor)</value>
+  </data>
+  <data name="Add an Episode of Care" xml:space="preserve">
+    <value>Add an Episode of Care</value>
+  </data>
+  <data name="Add New" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="Add new encounter" xml:space="preserve">
+    <value>Add new encounter</value>
+  </data>
+  <data name="Episodes of cares" xml:space="preserve">
+    <value>Episodes of cares</value>
+  </data>
+  <data name="There is no any Episode of care added" xml:space="preserve">
+    <value>There is no any Episode of care added</value>
+  </data>
+  <data name="Add new chapter" xml:space="preserve">
+    <value>Add new chapter</value>
+  </data>
+  <data name="Add new field" xml:space="preserve">
+    <value>Add new field</value>
+  </data>
+  <data name="Add new fieldset" xml:space="preserve">
+    <value>Add new fieldset</value>
+  </data>
+  <data name="Add new option" xml:space="preserve">
+    <value>Add new option</value>
+  </data>
+  <data name="Add new page" xml:space="preserve">
+    <value>Add new page</value>
+  </data>
+  <data name="Collapse All" xml:space="preserve">
+    <value>Collapse All</value>
+  </data>
+  <data name="Expand All" xml:space="preserve">
+    <value>Expand All</value>
+  </data>
+  <data name="New form" xml:space="preserve">
+    <value>New form</value>
+  </data>
+  <data name="Chapter" xml:space="preserve">
+    <value>Chapter</value>
+  </data>
+  <data name="CheckboxFieldvalue" xml:space="preserve">
+    <value>Checkbox Fieldvalue</value>
+  </data>
+  <data name="FieldCheckbox" xml:space="preserve">
+    <value>Field Checkbox</value>
+  </data>
+  <data name="FieldDate" xml:space="preserve">
+    <value>Field Date</value>
+  </data>
+  <data name="FieldDateTime" xml:space="preserve">
+    <value>Field Date Time</value>
+  </data>
+  <data name="FieldEmail" xml:space="preserve">
+    <value>Field Email</value>
+  </data>
+  <data name="FieldFile" xml:space="preserve">
+    <value>Field File</value>
+  </data>
+  <data name="FieldNumber" xml:space="preserve">
+    <value>Field Number</value>
+  </data>
+  <data name="FieldRadio" xml:space="preserve">
+    <value>Field Radio</value>
+  </data>
+  <data name="FieldRegex" xml:space="preserve">
+    <value>Field Regex</value>
+  </data>
+  <data name="FieldSet" xml:space="preserve">
+    <value>Field Set</value>
+  </data>
+  <data name="FieldText" xml:space="preserve">
+    <value>Field Text</value>
+  </data>
+  <data name="FieldTextarea" xml:space="preserve">
+    <value>Field Textarea</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="RadioFieldvalue" xml:space="preserve">
+    <value>Radio Fieldvalue</value>
+  </data>
+  <data name="ThesaurusEntry" xml:space="preserve">
+    <value>Thesaurus entry</value>
+  </data>
+  <data name="DependentFields" xml:space="preserve">
+    <value>Dependent Fields</value>
+  </data>
+  <data name="Appendix" xml:space="preserve">
+    <value>Appendix (Notes)</value>
+  </data>
+  <data name="Bolded" xml:space="preserve">
+    <value>Bolded</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="FhirType" xml:space="preserve">
+    <value>Fhir type</value>
+  </data>
+  <data name="FieldsetLabel" xml:space="preserve">
+    <value>Fieldset label</value>
+  </data>
+  <data name="LayoutSettings" xml:space="preserve">
+    <value>Layout settings</value>
+  </data>
+  <data name="LayoutStyle" xml:space="preserve">
+    <value>Layout style</value>
+  </data>
+  <data name="MaxItems" xml:space="preserve">
+    <value>Max items</value>
+  </data>
+  <data name="NumberOfRepetitionOnPdf" xml:space="preserve">
+    <value>Number of repetitions for pdf</value>
+  </data>
+  <data name="Repetitive" xml:space="preserve">
+    <value>Repetitive</value>
+  </data>
+  <data name="UpdateData" xml:space="preserve">
+    <value>Updata data</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="Unblock" xml:space="preserve">
+    <value>Unblock</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="ClinicalResearch" xml:space="preserve">
+    <value>Clinical Research</value>
+  </data>
+  <data name="InstitutionData" xml:space="preserve">
+    <value>Institution data</value>
+  </data>
+  <data name="PersonalData" xml:space="preserve">
+    <value>Personal data</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Clinic" xml:space="preserve">
+    <value>Clinic</value>
+  </data>
+  <data name="CompanyWithLimitedLiabilities" xml:space="preserve">
+    <value>Company With Limited Liabilities</value>
+  </data>
+  <data name="Institute" xml:space="preserve">
+    <value>Institute</value>
+  </data>
+  <data name="PrivateCompany" xml:space="preserve">
+    <value>Private Company</value>
+  </data>
+  <data name="PrivatePractice" xml:space="preserve">
+    <value>Private Practice</value>
+  </data>
+  <data name="PublicCompany" xml:space="preserve">
+    <value>Public Company</value>
+  </data>
+  <data name="StateUniversityHospital" xml:space="preserve">
+    <value>State University Hospital</value>
+  </data>
+  <data name="AssistantProfesssor" xml:space="preserve">
+    <value>Assistant Professsor</value>
+  </data>
+  <data name="DoctorOfPhilosophy" xml:space="preserve">
+    <value>Doctor Of Philosophy - PhD</value>
+  </data>
+  <data name="Mr" xml:space="preserve">
+    <value>Mr.</value>
+  </data>
+  <data name="Ms" xml:space="preserve">
+    <value>Ms.</value>
+  </data>
+  <data name="Privatdozent" xml:space="preserve">
+    <value>Privatdozent - PD</value>
+  </data>
+  <data name="Professor" xml:space="preserve">
+    <value>Professor</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="EnrollingByInvitation" xml:space="preserve">
+    <value>Enrolling by invitation</value>
+  </data>
+  <data name="NotRecruiting" xml:space="preserve">
+    <value>Not recruiting</value>
+  </data>
+  <data name="NotYetRecruiting" xml:space="preserve">
+    <value>Not yet recruiting</value>
+  </data>
+  <data name="Recruiting" xml:space="preserve">
+    <value>Recruiting</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="Terminated" xml:space="preserve">
+    <value>Terminated</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Withdrawn" xml:space="preserve">
+    <value>Withdrawn</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>optional</value>
+  </data>
+  <data name="ClinicalResearchAdministrator" xml:space="preserve">
+    <value>Clinical Research Administrator</value>
+  </data>
+  <data name="ClinicalTrialPharmacist" xml:space="preserve">
+    <value>Clinical Trial Pharmacist</value>
+  </data>
+  <data name="CoInvestigator" xml:space="preserve">
+    <value>Co-Investigator</value>
+  </data>
+  <data name="MedicalMonitor" xml:space="preserve">
+    <value>Medical Monitor</value>
+  </data>
+  <data name="PrincipalInvestigator" xml:space="preserve">
+    <value>Principal Investigator</value>
+  </data>
+  <data name="StudyNurse" xml:space="preserve">
+    <value>Study Nurse</value>
+  </data>
+  <data name="OrganizationExist" xml:space="preserve">
+    <value>User is alredy part of selected organization!</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="SessionBreak" xml:space="preserve">
+    <value>Session Interruption</value>
+  </data>
+  <data name="SessionExpiration" xml:space="preserve">
+    <value>Your session stands out for</value>
+  </data>
+  <data name="SessionInfo" xml:space="preserve">
+    <value>Choose "Continue" to continue with work or choose "Logout" to end your session.Session will break automaticly after 60s.</value>
+  </data>
+  <data name="ThesaurusNotSelectedWarning" xml:space="preserve">
+    <value>If you dont select thesaurus, a new thesaurus will be created and selected</value>
+  </data>
+  <data name="OnGoing" xml:space="preserve">
+    <value>On Going</value>
+  </data>
+  <data name="FieldValue" xml:space="preserve">
+    <value>option</value>
+  </data>
+  <data name="Proceed" xml:space="preserve">
+    <value>Proceed</value>
+  </data>
+  <data name="StreetNumber" xml:space="preserve">
+    <value>Street Number</value>
+  </data>
+  <data name="StartConsensusBtn" xml:space="preserve">
+    <value>Start Consensus Finding Process</value>
+  </data>
+  <data name="NewIteration" xml:space="preserve">
+    <value>New Iteration</value>
+  </data>
+  <data name="ConsensusStatus" xml:space="preserve">
+    <value>Consensus status</value>
+  </data>
+  <data name="FirstLogged" xml:space="preserve">
+    <value>First logged</value>
+  </data>
+  <data name="LastLogged" xml:space="preserve">
+    <value>Last logged</value>
+  </data>
+  <data name="Reminder" xml:space="preserve">
+    <value>Reminder</value>
   </data>
 </root>

@@ -4,13 +4,13 @@ function showGenerateModal(e, id) {
     e.preventDefault();
     $('#language').val('');
 
-    $('#buttonSubmitGenerate').attr('data-formid', id);
+    document.getElementById("buttonSubmitGenerate").setAttribute('data-formid', id);
     $('#generateModal').modal('show');
 }
 
 function generateNewLanguage() {
     var request = {
-        formId: $('#buttonSubmitGenerate').data('formid'),
+        formId: document.getElementById("buttonSubmitGenerate").getAttribute('data-formid'),
         language: $('#language').val()
     };
 

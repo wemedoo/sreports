@@ -1,0 +1,42 @@
+﻿@using sReportsV2.DTOs.Organization;
+@{
+    var counter = 0;
+ }
+@model List<OrganizationDataOut>
+    <div class="organization-hierarchy">
+        @if (Model != null)
+        {
+            foreach (OrganizationDataOut organization in Model)
+            {
+                <div class="organization-hierarchy-item organization-relative">
+                    <div class="organization-oval">
+                        <i class="fas fa-arrow-down mr-2 arrow-size"></i>
+                    </div>
+                    @if (counter == 0)
+                    {
+                        <div class="organization-structure-first">
+                            <div class="name text-structure">@organization.Name, @organization.Address.City</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="organization-structure">
+                            <div class="name text-structure">@organization.Name, @organization.Address.City</div>
+                        </div>
+                    }
+
+                    <div class="line-organization"></div>
+                </div>
+                counter++;
+            }
+        }
+
+        <div class="organization-hierarchy-item active organization-relative">
+            <div class="organization-oval-active">
+                <i class="fas fa-arrow-right mr-2 arrow-size-active"></i>
+            </div>
+            <div class="organization-structure-active">
+                <div class="name text-structure" id="organizationHierarchyActiveName" />
+            </div>
+        </div>
+    </div>

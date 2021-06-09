@@ -1,0 +1,101 @@
+﻿@using sReportsV2.DTOs.CustomEnum.DataOut;
+
+<form id="advancedFilterForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-advanced">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-advanced" id="advancedFilterModalContent">
+                    <div class="d-flex advanced-filter-header">
+                        <img class="mr-3" src="~/Content/img/icons/advanced_filter.svg"> @sReportsV2.Resources.TextLanguage.Advanced_filter
+                    </div>
+                    <div class="d-flex margin-top-10">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Family
+                            </div>
+                            <input type="text" class="filter-input" id="family" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Family : "")">
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Given
+                            </div>
+                            <input type="text" class="filter-input" id="given" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Given : "")">
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-20">
+
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Identifier_type
+                            </div>
+                            <select class="filter-input arrow-select" id="identifierType">
+                                <option value="">@sReportsV2.Resources.TextLanguage.SelectIdentifier</option>
+                                <option @(ViewBag.FilterData.IdentifierType == "O4MtPatientId" ? "selected" : "") value="O4MtPatientId">@sReportsV2.Resources.TextLanguage.IdentifierType_PatientID</option>
+                                @foreach (var option in ViewBag.IdentifierTypes as List<CustomEnumDataOut>)
+                                {
+                                    <option value="@option.Thesaurus.Id" @(ViewBag.FilterData.IdentifierType == option.Thesaurus.Id ? "selected" : "")>@option.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">@sReportsV2.Resources.TextLanguage.Identifier_value</div>
+                            <input class="filter-input " id="identifierValue" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.IdentifierValue : "")" />
+                        </div>
+                    </div>
+
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.BirthDate
+                            </div>
+                            <input type="text" class="filter-input" id="birthDate" value="@(ViewBag.FilterData != null && ViewBag.FilterData.BirthDate!= null ? ViewBag.FilterData.BirthDate.ToString("yyyy-MM-dd") : "")">
+                            <img class="date-img" src="~/Content/img/icons/date_field.svg" id="advancedFilterBirthCalendar">
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.City
+                            </div>
+                            <input type="text" class="filter-input" id="city" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.City : "")">
+                        </div>
+                    </div>
+
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Country
+                            </div>
+                            <input type="text" class="filter-input" id="country" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Country : "")">
+                        </div>
+                        <div class="filter-item advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Postal_code
+                            </div>
+                            <input type="text" class="filter-input" id="postalCode" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.PostalCode : "")">
+                        </div>
+                    </div>
+                    <div class="advanced-filter-line">
+
+                    </div>
+
+                    <div class="d-flex mt-3 position-relative margin-top-20">
+                        <div class="button-wrapper-filter filter-button float-right" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="advanceFilter()"> @sReportsV2.Resources.TextLanguage.Filter</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

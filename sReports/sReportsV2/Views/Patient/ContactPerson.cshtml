@@ -1,0 +1,106 @@
+﻿@model sReportsV2.DTOs.Patient.PatientDataOut
+@{
+    string hasValue = "-hasvalue";
+}
+    
+    <div class="form-row contact-person remove-right-margin">
+        <div class="contact-info">
+
+            <div class="form-row remove-margin-left">
+            
+                <div class="contact-partial">
+                    <div class="person-margin">
+                        <span class="person-info">@sReportsV2.Resources.TextLanguage.Person_Info</span>
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Given
+                        </div>
+                        <input type="text" class="filter-input" id="contactName" value="@(Model != null && Model.ContactName != null ? Model.ContactName : "")">
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Family
+                        </div>
+                        <input type="text" class="filter-input" id="contactFamily" value="@(Model != null && Model.ContactFamily != null ? Model.ContactFamily : "")">
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Gender
+                        </div>
+                        <select class="filter-input arrow-select @hasValue patient-background" id="contactGender">
+                            <option value=""></option>
+                            @foreach (var gender in Enum.GetNames(typeof(sReportsV2.Common.Enums.Gender)))
+                            {
+                                if (Model != null && Model.ContactGender != null && Model.ContactGender.Equals(gender.ToString()))
+                                {
+                                    <option value="@gender" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("Gender_" + gender)</option>
+                                }
+                                else
+                                {
+                                    <option value="@gender">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString("Gender_" + gender)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Relationship
+                        </div>
+                        <input type="text" class="filter-input" id="relationship" value="@(Model != null && Model.Relationship != null ? Model.Relationship : "")">
+                    </div>
+                </div>
+
+                <div class="contact-partial contact-space">
+                    <div class="person-margin">
+                        <span class="person-info">@sReportsV2.Resources.TextLanguage.Address_Info</span>
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.City
+                        </div>
+                        <input type="text" class="filter-input" id="contactCity" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.City : "")">
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.State
+                        </div>
+                        <input type="text" class="filter-input" id="contactState" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.State : "")">
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Postal_code
+                        </div>
+                        <input type="text" class="filter-input" id="contactPostalCode" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.PostalCode : "")">
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Street
+                        </div>
+                        <input type="text" class="filter-input" id="contactStreet" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.Street : "")">
+                    </div>
+
+                    <div class="advanced-filter-item filter-item input-margin">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Country
+                        </div>
+                        <input type="text" class="filter-input" id="contactCountry" value="@(Model != null && Model.ContactAddress != null ? Model.ContactAddress.Country : "")">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="telecom-contact-space">
+            @Html.Partial("TelecomTable", new ViewDataDictionary { { "Container", "PatientContactTelecom" }, { "Telecoms", Model != null ? Model.ContactTelecoms : null }, { "TelecomsCount", Model != null && Model.ContactTelecoms != null ? Model.ContactTelecoms.Count : 0 } })
+        </div>
+
+    </div>

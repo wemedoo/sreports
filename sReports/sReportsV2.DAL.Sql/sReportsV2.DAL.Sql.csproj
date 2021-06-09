@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{406BDC5C-0219-4083-B83F-0A33A46BCCDC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sReportsV2.SqlDomain</RootNamespace>
+    <AssemblyName>sReportsV2.SqlDomain</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.DynamicLinq, Version=1.2.6.0, Culture=neutral, PublicKeyToken=6586a8658ac2670d, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.DynamicLinq.1.2.6\lib\net46\EntityFramework.DynamicLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic.Core, Version=1.2.6.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.Core.1.2.6\lib\net46\System.Linq.Dynamic.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Filter\OrganizationFilter.cs" />
+    <Compile Include="Implementations\AddressDAL.cs" />
+    <Compile Include="Implementations\ClinicalDomainDAL.cs" />
+    <Compile Include="Implementations\CommentDAL.cs" />
+    <Compile Include="Implementations\CustomEnumDAL.cs" />
+    <Compile Include="Implementations\CodeSystemDAL.cs" />
+    <Compile Include="Implementations\EncounterDAL.cs" />
+    <Compile Include="Implementations\EpisodeOfCareDAL.cs" />
+    <Compile Include="Implementations\GlobalUserDAL.cs" />
+    <Compile Include="Implementations\O4CodeableConceptDAL.cs" />
+    <Compile Include="Implementations\OrganizationDAL.cs" />
+    <Compile Include="Implementations\OrganizationRelationDAL.cs" />
+    <Compile Include="Implementations\OutsideUserDAL.cs" />
+    <Compile Include="Implementations\PatientDAL.cs" />
+    <Compile Include="Implementations\ThesaurusDAL.cs" />
+    <Compile Include="Implementations\ThesaurusTranslationDAL.cs" />
+    <Compile Include="Implementations\UserDAL.cs" />
+    <Compile Include="Interfaces\IAddressDAL.cs" />
+    <Compile Include="Interfaces\IClinicalDomainDAL.cs" />
+    <Compile Include="Interfaces\ICodeSystemDAL.cs" />
+    <Compile Include="Interfaces\ICommentDAL.cs" />
+    <Compile Include="Interfaces\IEncounterDAL.cs" />
+    <Compile Include="Interfaces\IEpisodeOfCareDAL.cs" />
+    <Compile Include="Interfaces\IGlobalUserDAL.cs" />
+    <Compile Include="Interfaces\ICustomEnumDAL.cs" />
+    <Compile Include="Interfaces\IO4CodeableConceptDAL.cs" />
+    <Compile Include="Interfaces\IOrganizationDAL.cs" />
+    <Compile Include="Interfaces\IOrganizationRelationDAL.cs" />
+    <Compile Include="Interfaces\IOutsideUserDAL.cs" />
+    <Compile Include="Interfaces\IPatientDAL.cs" />
+    <Compile Include="Interfaces\IThesaurusDAL.cs" />
+    <Compile Include="Interfaces\IThesaurusTranslationDAL.cs" />
+    <Compile Include="Interfaces\IUserDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
+      <Project>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</Project>
+      <Name>sReportsV2.Domain.Sql</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

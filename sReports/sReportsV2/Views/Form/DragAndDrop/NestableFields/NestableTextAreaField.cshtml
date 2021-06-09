@@ -1,0 +1,20 @@
+﻿@using sReportsV2.DTOs.Field.DataOut;
+@model FieldTextAreaDataOut
+
+<fieldset class="form-input">
+
+    <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+        <span class="comment-target-item" id="@Model.Id"> @Html.Raw(Model.FullLabel) </span>
+    </div>
+    <div class="repetitive-field filter-input d-inline-block">
+        <textarea class="form-element-field textarea-repetitive" placeholder="@Model.DescriptionLabel"></textarea>
+    </div>
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+</fieldset>
+<a class="add-comment-link comment-block-hide" onclick="addComment('@Model.Id')">
+
+    <img class="add-comment-icon" src="~/Content/img/icons/add_comment_1.svg">
+</a>
+
+
+

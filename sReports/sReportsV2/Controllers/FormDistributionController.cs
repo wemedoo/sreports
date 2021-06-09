@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Chapters;
-using DocumentGenerator;
 using sReportsV2.Common.CustomAttributes;
-using sReportsV2.Domain.Entities.Constants;
+using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.Distribution;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
 using sReportsV2.Domain.Entities.PatientEntities;
-using sReportsV2.Domain.Enums;
+using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Services.Implementations;
 using sReportsV2.Domain.Services.Interfaces;
@@ -24,18 +23,26 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using sReportsV2.Domain.Entities.FieldEntity;
+using sReportsV2.Domain.Entities.Common;
+using DocumentGenerator;
+using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.Common.Extensions;
+using sReportsV2.Common.Entities.User;
+using sReportsV2.SqlDomain.Interfaces;
+using sReportsV2.Domain.Sql.Entities.Patient;
+
 namespace sReportsV2.Controllers
 {
     public class FormDistributionController : FormCommonController
     {
         private IFormDistributionService formDistributionService;
-        public FormDistributionController()
+        public FormDistributionController(IPatientDAL patientDAL, IEpisodeOfCareDAL episodeOfCareDAL, IUserBLL userBLL, IOrganizationBLL organizationBLL, ICustomEnumBLL customEnumBLL, IFormInstanceBLL formInstanceBLL, IFormBLL formBLL, IEncounterDAL encounterDAL) : base(patientDAL, episodeOfCareDAL,encounterDAL,userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
         {
             formDistributionService = new FormDistributionService();
         }
 
         [SReportsAuditLog]
-        [Authorize]
+        [SReportsAutorize]
         public ActionResult GetAll(FormFilterDataIn dataIn)
         {
             ViewBag.FilterData = dataIn;
@@ -59,14 +66,31 @@ namespace sReportsV2.Controllers
         [SReportsAutorize]
         public ActionResult ReloadForms(FormFilterDataIn dataIn)
         {
+            dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
+            dataIn.State = FormDefinitionState.ReadyForDataCapture;
+
             FormFilterData filterData = GetFormFilterData(dataIn);
+
             PaginationDataOut<FormDataOut, FormFilterDataIn> result = new PaginationDataOut<FormDataOut, FormFilterDataIn>()
             {
-                Count = (int)this.formService.GetAllFormsCount(filterData),
-                Data = Mapper.Map<List<FormDataOut>>(this.formService.GetAll(filterData)),
+                Count = (int)this.formDAL.GetAllFormsCount(filterData),
+                Data = Mapper.Map<List<FormDataOut>>(this.formDAL.GetAll(filterData)),
                 DataIn = dataIn
             };
+
+            ReloadFormDataOut(result.Data);
+
             return PartialView(result);
+        }
+
+        public void ReloadFormDataOut(List<FormDataOut> forms) 
+        {
+            var formDistributions = formDistributionService.GetAllVersionAndThesaurus();
+
+            foreach (FormDataOut form in forms)
+            {
+                    form.IsParameterize = formDistributions.Any(x => x.ThesaurusId == form.ThesaurusId && x.VersionId != null && x.VersionId == form.Version.Id);
+            }
         }
 
         public ActionResult Edit(string formDistributionId)
@@ -76,23 +100,35 @@ namespace sReportsV2.Controllers
 
             return View(result);
         }
-        public ActionResult GetByThesaurusId(string thesaurusId)
+        public ActionResult GetByThesaurusId(int thesaurusId, string versionId)
         {
             FormDistributionDataOut dataOut = null;
-            FormDistribution formDistribution = formDistributionService.GetByThesaurusId(thesaurusId);
+            FormDistribution formDistribution = formDistributionService.GetByThesaurusIdAndVersion(thesaurusId, versionId);
+            Form form = formDAL.GetFormByThesaurusAndVersion(thesaurusId, versionId);
+
             if (formDistribution != null)
             {
                 dataOut = Mapper.Map<FormDistributionDataOut>(formDistribution);
             }
             else
             {
-                Form form = formService.GetFormByThesaurus(thesaurusId);
                 if (form != null)
                 {
                     formDistribution = GetFromForm(form);
                     dataOut = Mapper.Map<FormDistributionDataOut>(formDistribution);
                 }
             }
+
+            List<Field> fields = form.GetAllFields();
+            foreach (var field in dataOut.Fields) 
+            {
+                foreach(var rel in field.RelatedVariables) 
+                {
+                    rel.Label = fields.FirstOrDefault(x => x.Id == rel.Id).Label;
+                }
+            }
+
+            ViewBag.Form = GetFormDataOut(form);
 
             return View("Edit", dataOut);
         }
@@ -103,7 +139,8 @@ namespace sReportsV2.Controllers
                 EntryDatetime = form.EntryDatetime,
                 ThesaurusId = form.ThesaurusId,
                 Title = form.Title,
-                Fields = GetDistributionFields(form.GetAllFields().Where(x => x is FieldCheckbox || x is FieldRadio || x is FieldSelect || x is FieldNumeric).ToList())
+                Fields = GetDistributionFields(form.GetAllFields().Where(x => x is FieldCheckbox || x is FieldRadio || x is FieldSelect || x is FieldNumeric).ToList()),
+                VersionId = form.Version.Id
             };
         }
 
@@ -151,7 +188,7 @@ namespace sReportsV2.Controllers
             }
             else
             {
-                Form form = formService.GetFormByThesaurus(dataIn.ThesaurusId);
+                Form form = formDAL.GetFormByThesaurusAndVersion(dataIn.ThesaurusId, dataIn.VersionId);
                 formDistribution = GetFromForm(form);
             }
 
@@ -161,25 +198,27 @@ namespace sReportsV2.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
         
-        public ActionResult GenerateDocuments(string formDistributionId, int numOfDocuments)
+        public ActionResult GenerateDocuments(string formId, int numOfDocuments)
         {
-            FormDistribution formDistribution = formDistributionService.GetById(formDistributionId);
-            if (formDistribution == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            Form form = formDAL.GetForm(formId);
+            if (form == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 
-            Form form = formService.GetFormByThesaurus(formDistribution.ThesaurusId);
-            if(form == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);            
+            FormDistribution formDistribution = formDistributionService.GetByThesaurusIdAndVersion(form.ThesaurusId, form.Version.Id);
+            if (formDistribution == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            UserData userData = Mapper.Map<UserData>(userCookieData);
+
 
             List<FormInstance> generated = FormInstanceGenerator.Generate(form, formDistribution, numOfDocuments);
             foreach (FormInstance formInstance in generated)
             {
-                SetFormInstanceAdditionalData(form, formInstance);
+                SetFormInstanceAdditionalData(form, formInstance, userData);
             }
 
             InsertListOfFormInstances(generated);
 
-            if(formDistribution.ThesaurusId == "14573")
+            if(formDistribution.ThesaurusId == 14573)
             {
-                GenerateDailyFormInstances(generated);
+                GenerateDailyFormInstances(generated, userData);
             }
             return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
@@ -187,7 +226,7 @@ namespace sReportsV2.Controllers
         [HttpPost]
         public ActionResult RenderInputsForDependentVariable(DependentVariableRelatedVariables dataIn)
         {
-            Form form = formService.GetFormByThesaurus(dataIn.ThesaurusId);
+            Form form = formDAL.GetFormByThesaurus(dataIn.ThesaurusId);
             List<Field> formFields = form.GetAllFields();
             List<FormFieldDistributionSingleParameterDataOut> variables = new List<FormFieldDistributionSingleParameterDataOut>();
 
@@ -226,7 +265,8 @@ namespace sReportsV2.Controllers
                 ValuesCombination = variables,
                 Label = targetField.Label,
                 Id = targetField.Id,
-                ThesaurusId = targetField.ThesaurusId
+                ThesaurusId = targetField.ThesaurusId,
+                RelatedVariables = dataIn.RelatedVariables
             };
 
             return PartialView("RenderInputs",dataOut);
@@ -286,23 +326,31 @@ namespace sReportsV2.Controllers
 
         private FormFieldDistributionSingleParameterDataOut GetFormFieldDistributionSingleParameterDataOut(List<SingleDependOnValueDataOut> dependOn, Field targetField)
         {
-            return new FormFieldDistributionSingleParameterDataOut()
+            FormFieldDistributionSingleParameterDataOut result = new FormFieldDistributionSingleParameterDataOut()
             {
                 DependOn = dependOn,
-                NormalDistributionParameters = new FormFieldNormalDistributionParametersDataOut(),
-                Values = (targetField as FieldSelectable).Values.Select(x => new FormFieldValueDistributionDataOut()
+                NormalDistributionParameters = new FormFieldNormalDistributionParametersDataOut()
+            };
+
+            if(targetField is FieldSelectable) 
+            {
+                result.Values = (targetField as FieldSelectable).Values.Select(x => new FormFieldValueDistributionDataOut()
                 {
                     Label = x.Label,
                     ThesaurusId = x.ThesaurusId,
                     Value = x.Value
-                }).ToList()
-            };
+                }).ToList();
+            }
+
+            return result;
         }
 
-        private string ParseAndInsertPatient(FormChapter chapter)
+        private int ParseAndInsertPatient(FormChapter chapter)
         {
-            PatientParser patientParser = new PatientParser(patientService.GetIdentifierTypes(IdentifierKind.Patient));
-            PatientEntity patient = patientParser.ParsePatientChapter(chapter);
+            //TO DO
+            //PatientParser patientParser = new PatientParser(identifierTypeService.GetAll().Where(x => x.Type == IdentifierKind.PatientIdentifierType.ToString()).ToList());
+            PatientParser patientParser = new PatientParser(new List<Domain.Sql.Entities.Common.CustomEnum>());
+            Patient patient = patientParser.ParsePatientChapter(chapter);
 
             return InsertPatient(patient);
         }
@@ -371,41 +419,41 @@ namespace sReportsV2.Controllers
         private FormFilterData GetFormFilterData(FormFilterDataIn formDataIn)
         {
             FormFilterData result = Mapper.Map<FormFilterData>(formDataIn);
-            result.OrganizationId = userCookieData.GetActiveOrganizationData()?.Id;
+            result.OrganizationId = (userCookieData.GetActiveOrganizationData()?.Id).GetValueOrDefault();
             result.ActiveLanguage = userCookieData.ActiveLanguage;
             return result;
         }
 
         /*HACKATON*/
 
-        private void GenerateDailyFormInstances(List<FormInstance> generated)
+        private void GenerateDailyFormInstances(List<FormInstance> generated, UserData user)
         {
-            FormDistribution dailyFormDistribution = formDistributionService.GetByThesaurusId("14911");
-            Form formDaily = formService.GetFormByThesaurus(dailyFormDistribution.ThesaurusId);
+            FormDistribution dailyFormDistribution = formDistributionService.GetByThesaurusId(14911);
+            Form formDaily = formDAL.GetFormByThesaurus(dailyFormDistribution.ThesaurusId);
             List<FormInstance> dailyGenerated = FormInstanceGenerator.GenerateDailyForms(generated, formDaily, dailyFormDistribution);
 
             foreach (FormInstance formInstance in dailyGenerated)
             {
-                SetFormInstanceAdditionalData(formDaily, formInstance);
+                SetFormInstanceAdditionalData(formDaily, formInstance, user);
             }
 
             InsertListOfFormInstances(dailyGenerated);
 
         }
 
-        private void SetFormInstanceAdditionalData(Form form, FormInstance formInstance)
+        private void SetFormInstanceAdditionalData(Form form, FormInstance formInstance, UserData user)
         {
             if (!form.DisablePatientData)
             {
-                string patientId = ParseAndInsertPatient(form.Chapters.FirstOrDefault(x => x.ThesaurusId.Equals("9356")));
-                string eocId = InsertEpisodeOfCare(patientId, form.EpisodeOfCare, "Simulator", DateTime.Now);
-                formInstance.PatientRef = patientId;
+                int patientId = ParseAndInsertPatient(form.Chapters.FirstOrDefault(x => x.ThesaurusId.Equals("9356")));
+                int eocId = InsertEpisodeOfCare(patientId, form.EpisodeOfCare, "Simulator", DateTime.Now, user);
+                formInstance.PatientId = patientId;
                 formInstance.EpisodeOfCareRef = eocId;
                 formInstance.EncounterRef = InsertEncounter(eocId);
             }
 
-            formInstance.UserRef = userCookieData.Id;
-            formInstance.OrganizationRef = userCookieData.ActiveOrganization;
+            formInstance.UserId = userCookieData.Id;
+            formInstance.OrganizationId = userCookieData.ActiveOrganization;
         }
         private void InsertListOfFormInstances(List<FormInstance> formInstances)
         {
@@ -413,7 +461,7 @@ namespace sReportsV2.Controllers
             int take = 50;
             while (skip < formInstances.Count)
             {
-                formInstanceService.InsertMany(formInstances.Skip(skip).Take(take).ToList());
+                formInstanceDAL.InsertMany(formInstances.Skip(skip).Take(take).ToList());
                 skip += take;
             }
         }

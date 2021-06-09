@@ -1,0 +1,16 @@
+﻿@using sReportsV2.DTOs.Field.DataOut;
+@model FieldNumericDataOut
+
+<fieldset class="form-input">
+    <div class="filter-label form-label-size d-inline-block">
+      <span class="comment-target-item" id="@Model.Id">  @Model.Label </span>
+    </div>
+    <div class="repetitive-field filter-input d-inline-block">
+        <input type="number" class="form-element-field" placeholder="@Model.DescriptionLabel" />
+    </div>
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+</fieldset>
+<a class="add-comment-link comment-block-hide" onclick="addComment('@Model.Id')">
+
+    <img class="add-comment-icon" src="~/Content/img/icons/add_comment_1.svg">
+</a>

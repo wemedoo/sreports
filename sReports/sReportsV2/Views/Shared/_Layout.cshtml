@@ -3,55 +3,68 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - sReports by niAnalytics</title>
+
+    <title>@ViewBag.Title - sReports by weMedoo</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
     <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
     @Styles.Render("~/Content/css")
+    @RenderSection("Stylesheet", false)
+
     @Scripts.Render("~/bundles/jquery")
+    @RenderSection("Scripts", false)
+
 </head>
-@using sReportsV2.Models.User;
 @{ 
     string action = ViewContext.RouteData.Values["Action"].ToString();
     string controller = ViewContext.RouteData.Values["Controller"].ToString();
 }
 
 <body class="sidebar-shrink">
+    <div class="d-none">Environment(@ViewBag.Env)</div>
+    <img id="notFound" src="~/Content/img/icons/no_results.svg" hidden>
+    <img id="deleteIcon" src="~/Content/img/icons/remove.svg" hidden>
+    <img id="editIcon" src="~/Content/img/icons/edit.svg" hidden>
     <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
 
-        <div class="header-wrapper">
+        <div class="header-wrapper color-header header-wrapper-height">
             <button class="menu-btn-md" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
             </button>
-            <div class="navbar-brand col-6 col-sm-3 col-md-2">
-                <button class="menu-shrink-btn" id="menuShrinkBtn">
-                    <i class="fas fa-bars"></i>
+            <div class="navbar-brand col-6 col-sm-3 col-md-2" style="padding-left:7px;">
+                <button class="menu-shrink-btn-new" id="menuShrinkBtn">
+                    <img src="~/Content/img/icons/menu_burger.svg">
                 </button>
-                <a href="#">
-                    <img src="~/Content/img/niAnalytics-logo.png">
+                <a href="#" class="color-text layout-header-group">
+                    <img class="navbar-logo" src="~/Content/img/icons/weMedoo-logo.png">
                     sReports
                 </a>
             </div>
-            <ul class="navbar-nav ml-auto px-4 mobile-hidden">
+            <ul class="navbar-nav ml-auto pl-4 mobile-hidden" style="padding-right:10px;">
                 <li class="nav-item">
-                    <!--<a class="nav-link px-4" href="#">
-                <i class="fas fa-bell"></i>
-            </a>-->
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link px-4 dropdown-toggle" href="#" id="dropdownAcc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i>
-                        <div class="dropdown-doubleline">
-                            @(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.Username : "")<br />
-                            <span>@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.GetActiveOrganizationData().Name : "")</span>
+                    <a class="nav-link pl-4 dropdown-toggle color-text" href="#" id="dropdownAcc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-hospital-symbol avatar default-organization-icon"></i>
+                        <div class="dropdown-doubleline color-text ml-2 mr-2" style="font-weight:700;font-size:13px;">
+                            <div class="d-flex position-relative">
+                                <div>@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.Username : "")</div>
+                                <div class="language-indicator"> @(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.ActiveLanguage : "")</div>
+                            </div>
+                            <span class="color-dark-grey font-weight-500">@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.GetActiveOrganizationData().Name : "")</span>
                         </div>
+                        <img class="ml-2" src="~/Content/img/icons/arrow.svg">
+
                     </a>
-                    <ul class="dropdown-menu first-level" aria-labelledby="dropdownAcc">
-                        <li class="dropdown-submenu parent">
-                            <a class="dropdown-item dropdown-toggle dropdown-toggle-left" href="#">@sReportsV2.Resources.TextLanguage.Language</a>
-                            <ul class="dropdown-menu dropdown-left">
-                                @foreach (sReportsV2.Models.Common.EnumViewModel language in ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>)
+                    <ul class="dropdown-menu first-level dropdown-border-radius w-50" aria-labelledby="dropdownAcc">
+                        <li class="dropdown-submenu parent dropdown-item-custom">
+                            <a class="dropdown-item dropdown-toggle dropdown-toggle-left h-100" href="#"><div class="mt-2"><i class="fas fa-angle-right"></i>@sReportsV2.Resources.TextLanguage.Language</div></a>
+                            <ul class="dropdown-menu dropdown-left dropdown-border-radius">
+                                @foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>)
                                 {
                                     if (ViewBag.UserCookieData != null && language.Value == (ViewBag.UserCookieData.ActiveLanguage as string))
                                     {
@@ -68,11 +81,11 @@
                                 }
                             </ul>
                         </li>
-                        <li class="dropdown-submenu parent">
-                            <a class="dropdown-item dropdown-toggle dropdown-toggle-left" href="#">@sReportsV2.Resources.TextLanguage.Institution</a>
+                        <li class="dropdown-submenu parent dropdown-item-custom margin-bottom-35">
+                            <a class="dropdown-item dropdown-toggle dropdown-toggle-left h-100" href="#"><div class="mt-2"><i class="fas fa-angle-right"></i>@sReportsV2.Resources.TextLanguage.Institution</div></a>
                             @if (ViewBag.UserCookieData != null)
                             {
-                                <ul class="dropdown-menu dropdown-left dropdown-institutions">
+                                <ul class="dropdown-menu dropdown-left dropdown-institutions dropdown-border-radius">
 
                                     @foreach (sReportsV2.DTOs.Organization.OrganizationDataOut organization in ViewBag.UserCookieData.Organizations as List
                                     <sReportsV2.DTOs.Organization.OrganizationDataOut>
@@ -95,8 +108,9 @@
                                 </ul>
                             }
                         </li>
-                        <li class="dropdown-item logout-menu-item" onclick="logout(event)">
-                            <a href="#">@sReportsV2.Resources.TextLanguage.Logout</a>
+                        <li class="dropdown-item logout-menu-item dropdown-item-custom border-0" onclick="logout(event)">
+                            <img src="~/Content/img/icons/logout .svg">
+                            <a class="h-100 ml-2" href="#"><u>@sReportsV2.Resources.TextLanguage.Logout</u></a>
                         </li>
                     </ul>
                 </li>
@@ -135,21 +149,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/EpisodeOfCare/GetAll">
-                        <i class="fas fa-id-card-alt"></i>
-                        <span> @sReportsV2.Resources.TextLanguage.EpisodesOfCare </span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="~/Organization/GetAll">
                         <i class="fas fa-sitemap"></i>
                         <span> @sReportsV2.Resources.TextLanguage.Organization </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Encounter/GetAll">
-                        <i class="fas fa-handshake"></i>
-                        <span> @sReportsV2.Resources.TextLanguage.Encounter </span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -159,15 +161,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/User/GetAll">
+                    <a class="nav-link" href="~/UserAdministration/GetAll">
                         <i class="fas fa-user"></i>
                         <span> @sReportsV2.Resources.TextLanguage.User_Administration </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/User/UserProfile?userId=@ViewBag.UserCookieData.Id">
+                    <a class="nav-link" href="~/UserAdministration/UserProfile?userId=@ViewBag.UserCookieData.Id">
                         <i class="far fa-user"></i>
                         <span> @sReportsV2.Resources.TextLanguage.Profile </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Administration/GetAll">
+                        <i class="fas fa-pencil-alt"></i>
+                        <span> @sReportsV2.Resources.TextLanguage.Administration </span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -197,7 +205,7 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle nav-link" href="#" id="navbarLanguage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</a>
                             <ul class="dropdown-menu level-1" aria-labelledby="navbarLanguage">
-                                @foreach (sReportsV2.Models.Common.EnumViewModel language in ViewBag.Languages as List<sReportsV2.Models.Common.EnumViewModel>)
+                                @foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>)
                                 {
                                     if (ViewBag.UserCookieData != null && language.Value == (ViewBag.UserCookieData.ActiveLanguage as string))
                                     {
@@ -226,96 +234,133 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="containerFluid">
         <div class="row">
-            <div class="sidebar" id="sidebar">
-                <ul class="nav flex-column flex-nowrap">
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Home/Index">
-                            <i class="fas fa-home"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Overview </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @(action.Equals("GetAll") && controller.Equals("Form") ? "active" : "")">
-                        <a class="nav-link" href="~/Form/GetAll">
-                            <i class="fas fa-pen-square"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Designer </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @(((action.Equals("Create") || action.Equals("GetAllByFormThesaurus") || action.Equals("GetAllFormDefinitions")) && controller.Equals("FormInstance")) ? "active" : "")">
-                        <a class="nav-link" href="~/FormInstance/GetAllFormDefinitions">
-                            <i class="fas fa-cogs"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Engine </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create")) && controller.Equals("ThesaurusEntry") ? "active" : "")">
-                        <a class="nav-link" href="~/ThesaurusEntry/GetAll">
-                            <i class="fas fa-exchange-alt"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Thesaurus </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Patient") ? "active" : "")">
-                        <a class="nav-link" href="~/Patient/GetAll">
-                            <i class="fas fa-users"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Patients </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create"))&& controller.Equals("EpisodeOfCare") ? "active" : "")">
-                        <a class="nav-link" href="~/EpisodeOfCare/GetAll">
-                            <i class="fas fa-id-card-alt"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.EpisodesOfCare </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Organization") ? "active" : "")">
-                        <a class="nav-link" href="~/Organization/GetAll">
-                            <i class="fas fa-sitemap"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Organization </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll") || action.Equals("GetAllEncounter") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Encounter") ? "active" : "")">
-                        <a class="nav-link" href="~/Encounter/GetAll">
-                            <i class="fas fa-handshake"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Encounter </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll"))&& controller.Equals("FormDistribution") ? "active" : "")">
-                        <a class="nav-link" href="~/FormDistribution/GetAll">
-                            <i class="fas fa-play"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Simulator </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("GetAll"))&& controller.Equals("User") ? "active" : "")">
-                        <a class="nav-link" href="~/User/GetAll">
-                            <i class="fas fa-user"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.User_Administration </span>
-                        </a>
-                    </li>
-                    <li class="nav-item @((action.Equals("UserProfile"))&& controller.Equals("User") ? "active" : "")">
-                        <a class="nav-link" href="~/User/UserProfile?userId=@ViewBag.UserCookieData.Id">
-                            <i class="far fa-user"></i>
-                            <span> @sReportsV2.Resources.TextLanguage.Profile </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <div class="col-12">
+                <div class="sidebar" id="sidebar">
+                    <ul class="nav flex-column flex-nowrap">
+                        <li class="nav-item @(action.Equals("Index") && controller.Equals("Home") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/Home/Index">
+                                <div class="sidebar-img">
+                                    <img src="@(action.Equals("Index") && controller.Equals("Home") ? "../Content/img/icons/overview_black.svg" : "../Content/img/icons/overview_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Overview </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("CreateForm")) && controller.Equals("Form") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/Form/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("CreateForm")) && controller.Equals("Form") ? "../Content/img/icons/designer_black.svg" : "../Content/img/icons/designer_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Designer </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @(((action.Equals("Edit") || action.Equals("Create") || action.Equals("GetAllByFormThesaurus") || action.Equals("GetAllFormDefinitions")) && controller.Equals("FormInstance")) ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/FormInstance/GetAllFormDefinitions">
+                                <div class="sidebar-img">
+                                    <img src="@(((action.Equals("Edit") || action.Equals("Create") || action.Equals("GetAllByFormThesaurus") || action.Equals("GetAllFormDefinitions")) && controller.Equals("FormInstance")) ? "../Content/img/icons/engine_black.svg" : "../Content/img/icons/engine_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Engine </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create") || action.Equals("GetReviewTree")) && controller.Equals("ThesaurusEntry") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/ThesaurusEntry/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create") || action.Equals("GetReviewTree")) && controller.Equals("ThesaurusEntry") ? "../Content/img/icons/thesaurus_black.svg" : "../Content/img/icons/thesaurus_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Thesaurus </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Patient") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/Patient/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Patient") ? "../Content/img/icons/patients_black.svg" : "../Content/img/icons/patients_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Patients </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Organization") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/Organization/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Organization") ? "../Content/img/icons/organization_black.svg" : "../Content/img/icons/organization_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Organization </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll")&& controller.Equals("FormDistribution") || (action.Equals("GetByThesaurusId")&& controller.Equals("FormDistribution"))) ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/FormDistribution/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") && controller.Equals("FormDistribution") || (action.Equals("GetByThesaurusId")&& controller.Equals("FormDistribution"))) ? "../Content/img/icons/simulator_black.svg" : "../Content/img/icons/simulator_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Simulator </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("UserAdministration") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/UserAdministration/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("UserAdministration") ? "../Content/img/icons/user_administration_black.svg" : "../Content/img/icons/user_administration_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.User_Administration </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("UserProfile"))&& controller.Equals("UserAdministration") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/UserAdministration/UserProfile?userId=@ViewBag.UserCookieData.Id">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("UserProfile"))&& controller.Equals("UserAdministration") ? "../Content/img/icons/profile_black.svg" : "../Content/img/icons/profile_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Profile </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll"))&& controller.Equals("Administration") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/Administration/GetAll">
+                                <div class="sidebar-img">
+                                    <img src="@((action.Equals("GetAll") || action.Equals("Create")) && controller.Equals("Administration") ? "../Content/img/icons/designer_black.svg" : "../Content/img/icons/designer_silver.svg")">
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.Administration </span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit") )&& controller.Equals("DigitalGuideline") ? "active" : "")">
+                            <a class="nav-link d-flex nav-link-remove-padding" href="~/DigitalGuideline/GetAll">
+                                <div class="sidebar-img padding-right-8">
+                                    <i class="fas fa-book @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("DigitalGuideline") ? "active" : "")"></i>
+                                </div>
+                                <span> @sReportsV2.Resources.TextLanguage.DigitalGuidline </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-            <main role="main" class="main-content">
-                @RenderBody()
-            </main>
-            <div id="loaderOverlay" class="loader-overlay">
-                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <main role="main" class="main-content">
+                    @RenderBody()
+                </main>
+                <div id="loaderOverlay" class="loader-overlay">
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div>
             </div>
         </div>
     </div>
+
+    @Html.Partial("SessionBreakModal")
+
+
     <script>
+        var noResultFound = '@sReportsV2.Resources.TextLanguage.NoResultFound';
+        var deleteItem = '@sReportsV2.Resources.TextLanguage.Delete';
+        var editItem = '@sReportsV2.Resources.TextLanguage.Edit';
         var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 5)';
         var simplifiedApp;
+        var df = '@ViewBag.DateFormat';
     </script>
     <script src="~/Scripts/jsoneditor/dist/jsoneditor.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
 
-    @RenderSection("scripts", required: false)
+
+
 </body>
 </html>

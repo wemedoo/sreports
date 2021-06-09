@@ -1,0 +1,64 @@
+﻿
+@if (Model != null && Model.Data != null)
+{
+    <table id="codesTable" class="codes-table-gt">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Value</th>
+                <th>System full name</th>
+                <th>Link</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var code in Model.Data)
+            {
+            <tr id="@code.Id">
+                <td class="code-value" data-value="@code.Code">
+                    <div class="td-code">
+                        @code.Code
+                    </div>
+                </td>
+                <td class="value-value" data-value="@code.Value">
+                    @code.Value
+                </td>
+                <td class="system-value" data-value="@code.System.Id">
+                    @code.System.Label
+                </td>
+                <td class="td-link link-value" data-value="@code.Link">
+                    @code.Link
+                </td>
+                <td>
+                    <div class="dropdown show">
+                        <a class="dropdown-button" href="#" role="button" id="dropdownMenuLink-@code.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="dots" src="../Content/img/icons/3dots.png">
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-gt" aria-labelledby="dropdownMenuLink-@code.Id" style="left:0px !important;">
+                                <a class="dropdown-item-gt mb-2" onclick="editCode(event , '@code.Id')"><img class="edit-img" src="~/Content/img/icons/SwissOpenOncology/edit.svg">@sReportsV2.Resources.TextLanguage.Edit</a>
+                                <a class="dropdown-item-gt" onclick="deleteCode(event, '@code.Id')"> <img class="delete-img" src="~/Content/img/icons/SwissOpenOncology/delete.svg">@sReportsV2.Resources.TextLanguage.Delete</a>
+                            </div>
+                     </div>
+                </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+}
+
+@if (Model != null && Model.Data.Count > 0)
+{
+    <div class="position-relative">
+        <div class="table-results">
+            Results @((Model.DataIn.Page - 1) * Model.DataIn.PageSize + 1) - @(Model.DataIn.Page * Model.DataIn.PageSize < Model.Count ? Model.DataIn.Page * Model.DataIn.PageSize : Model.Count) of @Model.Count 
+
+        </div>
+        <div class="pager-container pager-container-gt">
+            @Html.Partial("Pagination")
+        </div>
+    </div>
+}

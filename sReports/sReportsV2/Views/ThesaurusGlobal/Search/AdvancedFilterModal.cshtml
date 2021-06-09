@@ -1,0 +1,85 @@
+﻿@using sReportsV2.DTOs.Common.DataOut;
+@using sReportsV2.DTOs;
+
+<form id="advancedFilterForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content search-advanced-content">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+
+                </div>
+
+                <div class="modal-body modal-body-soo" id="advancedFilterModalContent">
+                    <div class="d-flex advanced-filter-header afh-global-thesaurus padding-lr-15">
+                        Advanced Search
+                    </div>
+                    <div class="d-flex">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="search-input advanced-search">
+                                <img class="search-book" src="~/Content/img/icons/SwissOpenOncology/search_icon.svg">
+                                <input type="text" class="search-btn-gt w-100" placeholder="Search by Name, Code or Property" id="searchModal" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Term : "")" />
+                                <img class="search-i" src="~/Content/img/icons/search_green.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex margin-top-10 padding-lr-15">
+                        <div class="radio-input">
+                            <input type="radio" id="exact" name="exact" value="exact" @(ViewBag.FilterData != null && ViewBag.FilterData.TermIndicator == "exact" ? "checked":"" )/>
+                            <label class="mb-0" for="exact">Exact Match</label>
+                        </div>
+                        <div class="radio-input">
+                            <input type="radio" id="contains" name="exact" value="contains" @(ViewBag.FilterData != null && ViewBag.FilterData.TermIndicator == "contains" ? "checked":"" )/>
+                            <label class="mb-0" for="contains">Contains</label>
+                        </div>
+
+
+
+                    </div>
+                    <div class="d-flex margin-top-20 padding-lr-15">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                By primary language
+                            </div>
+                            <select class="filter-input arrow-select" id="language" style="background-color: #f7f7f7">
+                                <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
+                                @foreach (var option in ViewBag.Languages)
+                                {
+                                    <option class="advanced-select" value="@option.Value" @(ViewBag.FilterData != null && ViewBag.FilterData.Language == option.Value? "selected"  : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option.Label)</option>
+                                }
+                            </select>                        
+                        </div>
+                    </div>
+
+                    <div class="d-flex margin-top-20 padding-lr-15">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                By Author
+                            </div>
+                            <input type="text" class="filter-input" id="author" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Author : "")">
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                By License
+                            </div>
+                            <input type="text" class="filter-input" id="license" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.License : "")">
+                        </div>
+                    </div>
+
+                    <div class="d-flex position-relative margin-top-20 padding-left-15">
+                        <div class="button-wrapper-filter filter-button" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="advanceFilter()"> Apply</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

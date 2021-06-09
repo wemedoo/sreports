@@ -2,11 +2,14 @@
 using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Entities.CustomFHIRClasses;
 using sReportsV2.Domain.Entities.ThesaurusEntry;
+using sReportsV2.DTOs.Administration;
 using sReportsV2.DTOs.CodeSystem;
+using sReportsV2.DTOs.Common.DTO;
 using sReportsV2.DTOs.O4CodeableConcept.DataIn;
 using sReportsV2.DTOs.O4CodeableConcept.DataOut;
 using sReportsV2.DTOs.ThesaurusEntry;
-using sReportsV2.Models.ThesaurusEntry;
+using sReportsV2.DTOs.ThesaurusEntry.DataOut;
+using sReportsV2.DTOs.ThesaurusEntry.DTO;
 
 namespace sReportsV2.MapperProfiles
 {
@@ -14,26 +17,42 @@ namespace sReportsV2.MapperProfiles
     {
         public ThesaurusEntryProfile()
         {
+            CreateMap<Version, VersionDataOut>()
+    .ReverseMap();
+
+            CreateMap<SimilarTerm, SimilarTermDTO>()
+                .ReverseMap();
+
             CreateMap<CodeSystem, CodeSystemDataOut>()
                 .ReverseMap();
 
-            CreateMap<ThesaurusEntry, ThesaurusEntryViewModel>()
+            CreateMap<ThesaurusEntry, ThesaurusEntryDataOut>()
                 .ReverseMap();
 
-            CreateMap<ThesaurusEntryViewModel, ThesaurusEntry>()
+            CreateMap<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntry, ThesaurusEntryDataOut>()
+                .ReverseMap();
+            CreateMap<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.O4CodeableConcept, sReportsV2.DTOs.O4CodeableConcept.DataOut.O4CodeableConceptDataOut>()
                 .ReverseMap();
 
-            CreateMap<ThesaurusEntryTranslation, ThesaurusEntryTranslationViewModel>()
+
+            CreateMap<ThesaurusEntryDataOut, ThesaurusEntry>()
                 .ReverseMap();
 
-            CreateMap<ThesaurusEntryTranslationViewModel, ThesaurusEntryTranslation>()
+            CreateMap<ThesaurusEntryTranslation, ThesaurusEntryTranslationDTO>()
+                .ReverseMap();
+
+            CreateMap<ThesaurusEntryTranslationDTO, ThesaurusEntryTranslation>()
+                .ReverseMap();
+
+            CreateMap<ThesaurusEntryTranslationDTO, sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntryTranslation>()
                 .ReverseMap();
 
             CreateMap<ThesaurusEntryDataIn, ThesaurusEntry>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(d => d.O40MTId, opt => opt.MapFrom(src => src.O40MTId))
                 .ForMember(d => d.Translations, opt => opt.MapFrom(src => src.Translations))
+                .ForMember(d => d.State, opt => opt.MapFrom(src => src.State))
                 .ReverseMap();
+
 
             CreateMap<ThesaurusEntryTranslationDataIn, ThesaurusEntryTranslation>()
                 .ForMember(d => d.Abbreviations, opt => opt.MapFrom(src => src.Abbreviations))
@@ -47,15 +66,24 @@ namespace sReportsV2.MapperProfiles
             CreateMap<ThesaurusEntryTree, ThesaurusEntryTreeDataOut>()
                 .ReverseMap();
 
-            CreateMap<ThesaurusEntryCodingSystem, ThesaurusEntryCodingSystemViewModel>()
+            CreateMap<ThesaurusEntryCodingSystem, ThesaurusEntryCodingSystemDTO>()
                 .ReverseMap();
 
             CreateMap<ThesaurusEntryCodingSystemDataIn, ThesaurusEntryCodingSystem>();
 
-            CreateMap<AdministrativeData, AdministrativeDataViewModel>()
+            CreateMap<AdministrativeData, AdministrativeDataDataOut>()
                 .ReverseMap();
 
             CreateMap<ThesaurusEntryFilterDataIn, ThesaurusEntryFilterData>()
+                .ReverseMap();
+
+            CreateMap<ThesaurusReviewFilterDataIn, ThesaurusReviewFilterData>()
+                .ReverseMap();
+
+            CreateMap<AdministrationFilterDataIn, ThesaurusEntryFilterData>()
+                .ForMember(d => d.PreferredTerm, opt => opt.MapFrom(src => src.PreferredTerm))
+                .ForMember(d => d.Page, opt => opt.MapFrom(src => src.Page))
+                .ForMember(d => d.PageSize, opt => opt.MapFrom(src => src.PageSize))
                 .ReverseMap();
 
             CreateMap<O4CodeableConcept, O4CodeableConceptDataIn>().ReverseMap();

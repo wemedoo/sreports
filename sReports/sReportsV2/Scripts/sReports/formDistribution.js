@@ -1,4 +1,5 @@
 ﻿var dependantElements = [];
+var formValidator;
 /*function submitDistributionConfigForm() {
     $('#distributionForm').validate();
     if ($('#distributionForm').valid()) {
@@ -24,11 +25,14 @@
 }*/
 
 function submitDistributionConfigForm() {
+    if (formValidator = $('#distributionForm').valid()) {
         let postData = {};
         postData['LastUpdate'] = $('#lastUpdate').val();
         postData['Fields'] = getParametersFromData();
         postData['ThesaurusId'] = $('#thesaurusId').val();
         postData['FormDistributionId'] = $('#formDistributionId').val();
+        postData['VersionId'] = $('#versionId').val();
+
         $.ajax({
             type: "POST",
             url: `/FormDistribution/SetParameters`,
@@ -41,7 +45,7 @@ function submitDistributionConfigForm() {
             }
         });
         return false;
-
+    }
 }
 
 function getParametersFromData() {
@@ -238,7 +242,8 @@ function createRelatedField() {
     let dependent = dependantElements[$('#targetVariable').val()];
 
     let relatedVariable = {
-        Id: $(selected).val()
+        Id: $(selected).val(),
+        Label: $(selected).text()
     };
 
     if (type == 'number') {
@@ -263,7 +268,8 @@ function createRelatedField() {
         data: postData,
         url: '/FormDistribution/RenderInputsForDependentVariable',
         success: function (data) {
-            $(`#${postData.TargetVariable}-probabilities`).html(data);
+            $(`#field-distribution-${postData.TargetVariable}`).html(data);
+            $(`#field-distribution-${postData.TargetVariable}`).children('.row:first').show();
             $('#relationModal').modal('hide');
 
         },
@@ -272,3 +278,118 @@ function createRelatedField() {
         }
     });
 }
+
+function remoevErrorClassFromInputs() {
+    $('input').each(function (inde, elem) {
+        if ($(elem).hasClass('error')) {
+            $(elem).removeClass('error');
+        }
+    });
+}
+
+function clearInputIfNotValid() {
+    $('.distribution-field').each(function (index, element) {
+        if ($(element).attr('data-validate') == 'false') {
+            $(element).find('input').each(function (ind, ele) {
+                $(ele).val('');
+            });
+        }
+    });
+}
+
+function hideAllDistributionFields() {
+    $('.distribution-field').each(function (index, element) {
+        $(element).hide();
+    });
+}
+
+function showFieldDistribution(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    $('label.error').remove();
+
+    remoevErrorClassFromInputs();
+    clearInputIfNotValid();
+    hideAllDistributionFields();
+
+    $(`#row-${$(event.currentTarget).attr('id')}`).show();
+}
+
+function goBack(event) {
+    window.location.href = `/FormDistribution/GetAll`;
+}
+
+function validate(event, type) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    $(event.currentTarget).closest('.distribution-field').find('.form-element').each(function (ind, el) {
+        $(el).find('input:first').removeClass('error');
+    });
+    let valid = false;
+    if (type == "radio") {
+        let counter = 0
+
+        $(event.currentTarget).closest('.distribution-field').find('.field-container').each(function (index, element) {
+            let result = 0;
+            $(element).find('.form-element').each(function (ind, ele) {
+                result += parseFloat($(ele).find('input:first').val());
+            });
+
+            if (result == 1) {
+                counter++;
+            }
+
+            let groupCount = $(event.currentTarget).closest('.distribution-field').find('.field-container').length;
+            if (counter == groupCount) {
+                valid = true;
+            }
+        });
+
+    } else {
+        valid = true;
+    }
+    $(event.currentTarget).closest('.distribution-field').attr('data-validate', valid)
+
+    formValidator = $('#distributionForm').valid();
+}
+
+
+
+$.validator.addMethod('equalToOne', function (val, el, options) {
+    
+    let valid = false;
+    let counter = 0
+    let element =  $(el).closest('.field-container')
+
+    let result = 0;
+    $(element).find('.form-element').each(function (ind, ele) {
+        result += parseFloat($(ele).find('input:first').val());
+    });
+
+    if (result == 1) {
+        valid = true;
+    }
+
+
+    return valid;
+},
+    "Sum of fields should be equal to 1!"
+);
+
+$(document).on('change', 'input', function (event) {
+    validate(event, "radio")
+});
+
+//$(document).ready(function () {
+//    $('.radio').each(function (index, element) {
+        
+//            $(element).rules("add", {
+//                equalToOne: true
+//            });
+        
+        
+//    });
+        
+//});
+

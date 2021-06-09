@@ -1,0 +1,18 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Consensus.DataOut;
+@using System.Linq;
+@model string
+
+
+@if (ViewBag.Consensus != null && ((ViewBag.Consensus.Iterations as List<ConsensusIterationDataOut>).Last().Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == Model) != null)
+{
+    <div class="question-preview" id="qp-@Model" data-id="@Model">
+        @Html.Partial("~/Views/Form/Consensus/ConsensusQuestionPreview.cshtml", ((ViewBag.Consensus.Iterations as List<ConsensusIterationDataOut>).Last().Questions as List<ConsensusQuestionDataOut>).FirstOrDefault(x => x.ItemRef == Model))
+    </div>
+}
+else
+{
+    <div class="question-create" id="qc-@Model" data-id="@Model">
+        @Html.Partial("~/Views/Form/Consensus/ConsensusCreateQuestion.cshtml", Model)
+    </div>
+}

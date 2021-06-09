@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "CreateDiagnosticReport";
     ViewBag.Action = "/DiagnosticReport/Create?episodeOfCareId=" + Model.EpisodeOfCare.Id;
-    ViewBag.Referrals = Model.Referrals;
 }
 
 @if (ViewData.ModelState.Keys.Contains("ConcurrencyException"))

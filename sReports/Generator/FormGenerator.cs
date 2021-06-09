@@ -2,21 +2,24 @@
 using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Entities.ThesaurusEntry;
-using sReportsV2.Domain.Enums;
 using sReportsV2.Domain.Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sReportsV2.Common.Enums;
+using sReportsV2.SqlDomain.Implementations;
+using sReportsV2.DAL.Sql.Sql;
+using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
+using sReportsV2.Common.Entities.User;
 
 namespace Generator
 {
     public class FormGenerator : ThesaurusCommon
     {
-        public ThesaurusEntryService thesaurusService = new ThesaurusEntryService();
-        public FormService formService = new FormService();
+        public ThesaurusDAL thesaurusDAL = new ThesaurusDAL(new SReportsContext());
+        public FormDAL formService = new FormDAL();
         public UserData userData;
         int id = 0;
         string[] classIndicators;
@@ -38,8 +41,8 @@ namespace Generator
             form.Version = new sReportsV2.Domain.Entities.Form.Version() { Major = 1, Minor = 1, Id = Guid.NewGuid().ToString() };
             form.Language = "en";
             form.Title = formName;
-            form.UserRef = userData.Id;
-            form.OrganizationRef = userData.ActiveOrganization;
+            form.UserId = userData.Id;
+            form.OrganizationId = userData.ActiveOrganization.GetValueOrDefault();
             form.ThesaurusId = GetNewThesaurus(formName);
             form.Chapters = new List<FormChapter>();
 
@@ -100,7 +103,7 @@ namespace Generator
                 {
                     optionCounter++;
                     string concatenatedValue = $"{classIndicators[i]}-{row[i].Replace("\n", " ")}";
-                    string thesaurusId = GetNewThesaurus(concatenatedValue);
+                    int thesaurusId = GetNewThesaurus(concatenatedValue);
                     FormFieldValue value = new FormFieldValue() { Label = concatenatedValue, Value = concatenatedValue, ThesaurusId = thesaurusId };
                     field.Values.Add(value);
                 }
@@ -113,12 +116,12 @@ namespace Generator
             return id.ToString();
         }
 
-        private string GetNewThesaurus(string label, string description = null) 
+        private int GetNewThesaurus(string label, string description = null) 
         {
             ThesaurusEntry thesaurus =  CreateThesaurus(label, description);
-            thesaurusService.InsertOrUpdate(thesaurus,userData);
+            thesaurusDAL.InsertOrUpdate(thesaurus);
 
-            return thesaurus.O40MTId;
+            return thesaurus.Id;
         }
         private List<string[]> GetRowsFromCsv()
         {

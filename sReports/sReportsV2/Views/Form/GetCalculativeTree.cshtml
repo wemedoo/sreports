@@ -1,0 +1,28 @@
+﻿@using sReportsV2.DTOs.Field;
+
+@model List<CalculativeTreeItemDTO>
+
+
+    <div class="calculative-tree">
+        @if (Model != null)
+        {
+            foreach (CalculativeTreeItemDTO calculativeTreeItem in Model)
+            {
+                <div class="calculative-tree-single-item" data-id="@calculativeTreeItem.Id">
+                    @if (Model.Count > 1)
+                    {
+                        <div class="pre-content-line"></div>
+                        <!--
+                    -->}
+                    <!----><div class="designer-form-input calculative-variable-name" title="@calculativeTreeItem.Label">@calculativeTreeItem.Label</div>
+                    <!--
+                -->
+                    <div class="calculative-variable-input-container">
+                        <input type="text" class="designer-form-input calculative-field-variable-input" data-label="@calculativeTreeItem.Label" data-fieldid="@calculativeTreeItem.Id" value="@calculativeTreeItem.VariableName" />
+                    </div>
+                </div>
+            }
+        }
+        <div class="vertical-line"></div>
+
+    </div>

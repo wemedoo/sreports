@@ -1,0 +1,12 @@
+[
+  {
+    "Id": "e5f2486a-0ef4-4994-aa6f-751488b11a8e",
+    "Label": "Head and Neck Cancer Patients",
+    "DefaultList": [ "10061103", "10013781", "10013950" ]
+  },
+  {
+    "Id": "7d1d62fe-b984-46ea-ba17-c137f2647086",
+    "Label": "Pancreas",
+    "DefaultList": [ "10051741", "10050457" ]
+  }
+]

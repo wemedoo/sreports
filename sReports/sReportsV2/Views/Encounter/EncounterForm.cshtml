@@ -1,0 +1,164 @@
+﻿@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.Encounter.EncounterDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Encounter_Create;
+    string hasValue = "-hasvalue";
+}
+
+
+    <form method="post" onsubmit="return submitEncounterForm(event, this)" novalidate>
+
+
+        <input type="hidden" class="form-control" id="id" value="@(Model != null && Model.Id != 0 ? Model.Id : 0 )" />
+        <input type="hidden" class="form-control" id="eocId" value="@(Model != null ? Model.EpisodeOfCareId : ViewBag.EpisodeOfCareId )" />
+        <input type="hidden" class="form-control" id="patientId" value="@(Model != null ? Model.PatientId : ViewBag.PatientId )" />
+        <input type="hidden" class="form-control" id="lastUpdate" value="@(Model != null && Model.LastUpdate != null ?  Model.LastUpdate.Value.ToString("o") : null)" />
+
+        <div class="form-row">
+            <div class="col-12">
+                <div class="tree-form-title">
+                    @(Model != null && Model.ServiceType != null && Model.ServiceType.Thesaurus != null ? Model.ServiceType.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "New encounter")
+                </div>
+                <div class="d-flex margin-top-20">
+                    <div class="advanced-filter-item filter-item">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Status
+                        </div>
+                        <select class="filter-input arrow-select patient-background padding-right-36" id="status" name="Status" required>
+                            <option value=""></option>
+                            @foreach (var statusOption in ViewBag.EncounterStatuses)
+                            {
+                                <option value="@statusOption.Thesaurus.Id" @(Model != null && Model.Status != null && Model.Status.Thesaurus.Id.Equals(statusOption.Thesaurus.Id) ? "selected" : "")>
+                                    @statusOption.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="advanced-filter-item filter-item">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Encounter_Classification_Name
+                        </div>
+                        <select class="filter-input arrow-select patient-background padding-right-36" id="classification" name="Classification" required @(Model != null && Model.Class != null ? "-hasvalue" : "")>
+                            <option value=""></option>
+                            @foreach (var classification in ViewBag.EncounterClassifications)
+                            {
+                                <option value="@classification.Thesaurus.Id" @(Model != null && Model.Class != null && Model.Class.Thesaurus != null && Model.Class.Thesaurus.Id.Equals(classification.Thesaurus.Id) ? "selected" : "")>
+                                    @classification.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex margin-top-20">
+                    <div class="advanced-filter-item filter-item">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Encounter_Type_Name
+                        </div>
+                        <select class="filter-input arrow-select patient-background padding-right-36" id="type" name="Type" required>
+                            <option value=""></option>
+                            @foreach (var encounterType in ViewBag.EncounterType)
+                            {
+                                <option value="@encounterType.Thesaurus.Id" @(Model != null && Model.Type != null && Model.Type.Thesaurus != null && Model.Type.Thesaurus.Id.Equals(encounterType.Thesaurus.Id) ? "selected -has-value" : "")>
+                                    @encounterType.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="advanced-filter-item filter-item">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.Encounter_ServiceType_Name
+                        </div>
+                        <select class="filter-input arrow-select patient-background padding-right-36" id="servicetype" name="ServiceType" required>
+                            <option value=""></option>
+                            @foreach (var encounterServiceType in ViewBag.ServiceTypes)
+                            {
+                                <option value="@encounterServiceType.Thesaurus.Id" @(Model != null && Model.ServiceType != null && Model.ServiceType.Thesaurus != null && Model.ServiceType.Thesaurus.Id.Equals(encounterServiceType.Thesaurus.Id) ? "selected" : "")>
+                                    @encounterServiceType.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+                <div class="d-flex margin-top-20">
+                    <div class="datetime-picker-container">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.EOC_PeriodStartDate
+                        </div>
+                        <div class="date-wrapper input-border mr-auto">
+                            <input 
+                                   type="date" 
+                                   class="date-helper d-inline-block border-0 date-width input-padding filter-input" 
+                                   value="@(Model != null && Model.Period != null ? Model.Period.StartToTimeZonedString(ViewBag.UserCookieData.TimeZoneOffset).Split('T')[0] : DateTime.Now.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("s").Split('T')[0])" />
+                            <input id="start" 
+                                   type="datetime-local" 
+                                   class="date-time-local d-none form-element-field filter-input" 
+                                   value="@(Model != null && Model.Period != null ? Model.Period.StartToTimeZonedString(ViewBag.UserCookieData.TimeZoneOffset) : DateTime.Now.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("s"))" />
+                            <div class="img-wrapper">
+                                <img 
+                                     class=" d-inline-block" 
+                                     src="~/Content/img/icons/datetime_field.svg" 
+                                     onclick="openDateTimePicker(event)">
+                            </div>
+                        </div>
+                        <div class="time-wrapper input-border">
+                            <input 
+                                   type="text" 
+                                   class="time-part time-helper d-inline-block border-0 input-padding filter-input" 
+                                   value="@(Model != null && Model.Period != null ? Model.Period.StartToTimeZonedString(ViewBag.UserCookieData.TimeZoneOffset).Split('T')[1] : DateTime.Now.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("s").Split('T')[1])">
+                            <div class="clock-wrapper">
+                                <i class="fas fa-clock" onclick="openTimePicker(event)"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="datetime-picker-container">
+                        <div class="label filter-label">
+                            @sReportsV2.Resources.TextLanguage.EOC_PeriodEndDate
+                        </div>
+                        <div class="date-wrapper input-border mr-auto w-6">
+                            <input 
+                                   type="date" 
+                                   class="date-helper d-inline-block border-0 date-width input-padding filter-input" 
+                                   value="@(Model != null && Model.Period != null && Model.Period.EndDate != null ? Model.Period.EndToTimeZonedString(ViewBag.UserCookieData.TimeZoneOffset).Split('T')[0] : "")"/>
+                            <input id="end" 
+                                   type="datetime-local" 
+                                   class="date-time-local d-none form-element-field filter-input" 
+                                   value="@(Model != null && Model.Period != null && Model.Period.EndDate != null ? Model.Period.EndToTimeZonedString(ViewBag.UserCookieData.TimeZoneOffset) : "")" />
+                            <div class="img-wrapper">
+                                <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg" onclick="openDateTimePicker(event)">
+                            </div>
+                        </div>
+                        <div class="time-wrapper w-35 input-border">
+                            <input type="text" 
+                                   class="time-part time-helper d-inline-block border-0 input-padding filter-input" 
+                                   value="@(Model != null && Model.Period != null && Model.Period.EndDate != null ? Model.Period.EndToTimeZonedString(ViewBag.UserCookieData.TimeZoneOffset).Split('T')[1] : "")">
+                            <div class="clock-wrapper">
+                                <i class="fas fa-clock" onclick="openTimePicker(event)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="submit-button encounter-submit-button" type="submit">
+                @sReportsV2.Resources.TextLanguage.Save
+            </button>
+            @if (Model != null)
+            {
+                <button class="submit-button show-form-referrals-button" type="button">
+                    @sReportsV2.Resources.TextLanguage.NewDocument
+                </button>
+            }
+        </div>
+    </form>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+<script src="~/Scripts/sReports/encounter.js"></script>

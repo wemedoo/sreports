@@ -29,7 +29,7 @@
         </table>
         @if (Model.Data.Count == 0)
         {
-            <div class="no-result">No result!</div>
+            <div class="no-result">@sReportsV2.Resources.TextLanguage.NoResult</div>
         }
         <div class="pager-container">
             @Html.Partial("Pagination")

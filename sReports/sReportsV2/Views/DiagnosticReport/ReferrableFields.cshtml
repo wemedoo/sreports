@@ -4,33 +4,81 @@
 
 @if (Model != null && Model.Count > 0)
 {
-    <div class="form-accordion">
+    <div class="form-accordion" style="display:@(ViewBag.Action == "/FormInstance/Create" ? "none" : "block"); margin-bottom:15px;" id="referralChapter-acc">
         <div class="form-accordion-header" data-toggle="collapse" data-target="#referralChapter" aria-expanded="false" aria-controls="referralChapter">
             Summary from source documents
         </div>
         <div class="collapse chapter" id="referralChapter">
 
-            <div class="card">
-                <div class="card-body">
 
-                    @foreach (var referral in Model)
-                    {
-                        if (referral.ReferrableFields != null && referral.ReferrableFields.Count > 0)
-                        {
-                            <h2>Referral title : @referral.Title</h2>
-                            foreach (var kvp in referral.ReferrableFields)
-                            {
-                                <div class="row">
-                                    <div class="col-4"><p>@kvp.Key :</p></div>
-                                    <div class="col-8"><p><b>@Html.Raw(@kvp.Value)</b></p></div>
+
+            @foreach (var referral in Model)
+            {
+                if (referral.ReferrableFields != null && referral.ReferrableFields.Count > 0)
+                {
+                    <div class="card referral">
+                        <div class="card-body">
+
+
+                            <div class="d-flex">
+                                <img src="~/Content/img/icons/field_set.svg">
+                                <div class="summary-label">@referral.Title</div>
+                            </div>
+
+                            <div class="d-flex summary-elements-container">
+                                <div class="summary-element">
+                                    <div class="summary-element-label">
+                                        @sReportsV2.Resources.TextLanguage.Date
+                                    </div>
+                                    <div class="summary-element-value">
+                                        @referral.LastUpdate.Value.ToShortDateString()
+                                    </div>
                                 </div>
-                            }
-                        }
+                                <div class="summary-element">
+                                    <div class="summary-element-label">
+                                        @sReportsV2.Resources.TextLanguage.Created_by
+                                    </div>
+                                    <div class="summary-element-value">
+                                        @referral.User.FirstName @referral.User.LastName
+                                    </div>
+                                </div>
+                                <div class="summary-element">
+                                    <div class="summary-element-label">
+                                        @sReportsV2.Resources.TextLanguage.Organization
+                                    </div>
+                                    <div class="summary-element-value">
+                                        @referral.Organization.Name
+                                    </div>
+                                </div>
+                                <div class="summary-element">
+                                    <div class="summary-element-label">
+                                        Document
+                                    </div>
+                                    <div class="summary-element-value" onclick="goToFormInstanceEdit('@referral.Id', '@referral.VersionId')">
+                                        <u>See full details</u>
+                                    </div>
+                                </div>
 
-                    }
-                </div>
-               
-            </div>
+                            </div>
+
+
+
+                            @foreach (var kvp in referral.ReferrableFields)
+                            {
+                            <div class="row kvp" >
+                                <div class="col-4 referal-field-label">
+                                    <div>@kvp.Key : </div>         
+                                    <img class="mr-1 thesaurus" src=@(kvp.ThesaurusId != null ?"../Content/img/icons/thesaurus_green.svg": "../Content/img/icons/thesaurus_grey.svg") onclick="goToThesaurus('@kvp.ThesaurusId')">
+                                </div>
+                                <div class="col-8 referal-field-value">@Html.Raw(@kvp.Value)</div>
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+                }
+        }
+
         </div>
 
     </div>

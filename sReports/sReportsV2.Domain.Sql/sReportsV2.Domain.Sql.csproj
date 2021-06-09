@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>sReportsV2.Domain.Sql</RootNamespace>
+    <AssemblyName>sReportsV2.Domain.Sql</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Base\Entity.cs" />
+    <Compile Include="Entities\CodeSystem\CodeSystem.cs" />
+    <Compile Include="Entities\Common\Address.cs" />
+    <Compile Include="Entities\Common\CustomEnum.cs" />
+    <Compile Include="Entities\Common\Identifier.cs" />
+    <Compile Include="Entities\Common\Name.cs" />
+    <Compile Include="Entities\Common\PeriodDatetime.cs" />
+    <Compile Include="Entities\Common\Telecom.cs" />
+    <Compile Include="Entities\Consensus\Consensus.cs" />
+    <Compile Include="Entities\Consensus\ConsensusInstance.cs" />
+    <Compile Include="Entities\Consensus\ConsensusIteration.cs" />
+    <Compile Include="Entities\Consensus\ConsensusQuestion.cs" />
+    <Compile Include="Entities\Encounter\Encounter.cs" />
+    <Compile Include="Entities\EpisodeOfCare\EpisodeOfCare.cs" />
+    <Compile Include="Entities\EpisodeOfCare\EpisodeOfCareFilter.cs" />
+    <Compile Include="Entities\EpisodeOfCare\EpisodeOfCareWorkflow.cs" />
+    <Compile Include="Entities\FormComment\Comment.cs" />
+    <Compile Include="Entities\GlobalThesaurusUser\GlobalThesaurusUser.cs" />
+    <Compile Include="Entities\Organization\ClinicalDomain.cs" />
+    <Compile Include="Entities\Organization\Organization.cs" />
+    <Compile Include="Entities\Organization\OrganizationClinicalDomain.cs" />
+    <Compile Include="Entities\Organization\OrganizationHierarchy.cs" />
+    <Compile Include="Entities\Organization\OrganizationUsersCount.cs" />
+    <Compile Include="Entities\OutsideUser\OutsideUser.cs" />
+    <Compile Include="Entities\Patient\Communication.cs" />
+    <Compile Include="Entities\Patient\Contact.cs" />
+    <Compile Include="Entities\Patient\MultipleBirth.cs" />
+    <Compile Include="Entities\Patient\Patient.cs" />
+    <Compile Include="Entities\Patient\PatientFilter.cs" />
+    <Compile Include="Entities\ThesaurusEntry\AdministrativeData.cs" />
+    <Compile Include="Entities\ThesaurusEntry\GlobalThesaurusFilter.cs" />
+    <Compile Include="Entities\ThesaurusEntry\O4CodeableConcept.cs" />
+    <Compile Include="Entities\ThesaurusEntry\SimilarTerm.cs" />
+    <Compile Include="Entities\ThesaurusEntry\SimilarTermSearch.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusCsvEntity.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntry.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryBulkInfo.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryFilterData.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryTranslation.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusFilter.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusReviewFilterData.cs" />
+    <Compile Include="Entities\ThesaurusEntry\TranslationBulkInfo.cs" />
+    <Compile Include="Entities\ThesaurusEntry\Version.cs" />
+    <Compile Include="Entities\User\Role.cs" />
+    <Compile Include="Entities\User\User.cs" />
+    <Compile Include="Entities\User\UserClinicalTrial.cs" />
+    <Compile Include="Entities\User\UserConfig.cs" />
+    <Compile Include="Entities\User\UserOrganization.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Migrations\202105281507127_Initial.cs" />
+    <Compile Include="Migrations\202105281507127_Initial.Designer.cs">
+      <DependentUpon>202105281507127_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106011050210_OrganizationType.cs" />
+    <Compile Include="Migrations\202106011050210_OrganizationType.Designer.cs">
+      <DependentUpon>202106011050210_OrganizationType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sReportsContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445B106A-0B89-41E7-BB97-AF841F375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202105281507127_Initial.resx">
+      <DependentUpon>202105281507127_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106011050210_OrganizationType.resx">
+      <DependentUpon>202106011050210_OrganizationType.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

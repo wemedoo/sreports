@@ -12,7 +12,7 @@ namespace sReportsV2.Api.MapperProfiles
     {
         public FormInstanceProfile() 
         {
-            CreateMap<FormInstanceFilterDataIn, FormInstanceFhirFilter>();
+            //CreateMap<FormInstanceFilterDataIn, FormInstanceFhirFilter>();
         }
     }
 }

@@ -1,0 +1,66 @@
+﻿@using sReportsV2.DTOs.Form.DataOut.Tree
+@model TreeDataOut
+
+@foreach (FormTreeDataOut form in Model.Forms)
+{
+    <div class="tree-item tree-item-thesaurus" style="padding-bottom: 10px;">
+
+        <span>@(form.Title)@(form.ThesaurusId != null ? "(" + form.ThesaurusId + ")" : "") <div class="thesaurus-count">@form.ThesaurusAppearances</div></span>
+
+        @foreach (FormTreeChapterDataOut chapter in form.SelectChapters(Model.O4MtId))
+        {
+            <div class="tree-item c @(chapter.ThesaurusId != null && chapter.ThesaurusId.Equals(Model.O4MtId) ? "main" : "")">
+                <div class="line-tree"></div>
+
+                <span class="span-c">@(chapter.Title)@(chapter.ThesaurusId != null ? "(" + chapter.ThesaurusId + ")" : "")</span>
+
+                @foreach (FormTreePageDataOut page in chapter.SelectPages(Model.O4MtId))
+                {
+                    <div class="tree-item p @(page.ThesaurusId != null && page.ThesaurusId.Equals(Model.O4MtId) ? "main" : "")">
+                        <div class="line-tree"></div>
+
+                        <span class="span-p">@(page.Title)@(page.ThesaurusId != null ? "(" + page.ThesaurusId + ")" : "")</span>
+
+                        @foreach (FormTreeFieldSetDataOut fs in page.SelectFieldSets(Model.O4MtId))
+                        {
+                            <div class="tree-item fs @(fs.ThesaurusId != null && fs.ThesaurusId.Equals(Model.O4MtId) ? "main" : "")">
+                                <div class="line-tree"></div>
+                                <div class="vertical-line"></div>
+                                <span class="span-fs"> @(fs.Label)@(fs.ThesaurusId != null ? "(" + fs.ThesaurusId + ")" : "")</span>
+
+
+
+                                @foreach (FormTreeFieldDataOut field in fs.SelectFields(Model.O4MtId))
+                                {
+                                    <div class="tree-item f @(field.ThesaurusId != null && field.ThesaurusId.Equals(Model.O4MtId) ? "main" : "")">
+                                        <div class="line-tree"></div>
+
+                                        <span class="span-f">@(field.Label)@(field.ThesaurusId != null ? "(" + field.ThesaurusId + ")" : "")</span>
+
+                                        @foreach (FormTreeFieldValueDataOut value in field.SelectFieldValues(Model.O4MtId))
+                                        {
+                                            <div class="tree-item fv @(value.ThesaurusId != null && value.ThesaurusId.Equals(Model.O4MtId) ? "main" : "")">
+                                                <div class="line-tree"></div>
+
+                                                <span class="span-fv">@(value.Label)@(value.ThesaurusId != null ? "(" + value.ThesaurusId + ")" : "")</span>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+
+                            </div>
+                        }
+
+                    </div>
+                }
+
+
+            </div>
+        }
+
+    </div>
+}
+<div class="load-more-button-container load-more-umls" id="loadMoreThesaurus-@Model.O4MtId">
+    <div class="load-more-button load-concepts" onclick="loadMore(@Model.O4MtId, event)">@sReportsV2.Resources.TextLanguage.Load_more</div>
+</div>

@@ -1,24 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Hl7.Fhir.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using sReportsV2.Api.Common.Extensions;
 using sReportsV2.Api.DTOs.Organization.DataIn;
-using sReportsV2.Domain.Entities.OrganizationEntities;
 using sReportsV2.Domain.Services.Interfaces;
-using static Hl7.Fhir.Model.OperationOutcome;
-using Organization = Hl7.Fhir.Model.Organization;
 
 namespace sReportsV2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public class OrganizationController : CommonController
+    public class OrganizationController //: CommonController
     {
-        private readonly IOrganizationService organizationService;
+       /* private readonly IOrganizationService organizationService;
         
         public OrganizationController(IMapper mapper,
             IFormInstanceService formInstanceService,
@@ -94,7 +90,7 @@ namespace sReportsV2.Api.Controllers
             }
 
             return Ok(organizations);
-        }
+        }*/
 
     }
 }
