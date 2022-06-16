@@ -83,7 +83,7 @@ function setActiveOrganization(event, value, targetUrl) {
     let formData = { value: value };
     $.ajax({
         type: "PUT",
-        url: `/User/UpdateOrganization`,
+        url: `/UserConfiguration/UpdateOrganization`,
         data: formData,
         success: function (data) {
             $(event.srcElement).parent().siblings().removeClass('active');

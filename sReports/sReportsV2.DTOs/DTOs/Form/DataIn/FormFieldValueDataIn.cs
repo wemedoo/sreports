@@ -10,7 +10,7 @@ namespace sReportsV2.DTOs.Form.DataIn
         public string Id { get; set; }
         public string Label { get; set; }
         public string Value { get; set; }
-        public string ThesaurusId { get; set; }
+        public int? ThesaurusId { get; set; }
         public double? NumericValue { get; set; }
     }
 }

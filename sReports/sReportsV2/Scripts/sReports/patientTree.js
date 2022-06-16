@@ -13,7 +13,6 @@
 });
 
 function reloadPatientTree(parentId, activeElementId, type) {
-    console.log(activeElementId);
     let queryString = `patientId=${getPatientId()}`;
     if (type === 'encounter') {
         queryString = `${queryString}&episodeOfCareId=${parentId}&encounterId=${activeElementId}`;
@@ -64,7 +63,7 @@ $(document).on('click', '.single-episode-of-care-container', function (e) {
 });
 
 function loadEncountersData(episodeOfCareId) {
-    if ($(`#${episodeOfCareId}`).find('.single-encounter').length > 0) {
+    if ($(`#${episodeOfCareId}.single-episode-of-care-container`).find('.single-encounter').length > 0) {
         return;
     };
 
@@ -72,7 +71,7 @@ function loadEncountersData(episodeOfCareId) {
         method: 'GET',
         url: `/Encounter/PatientTreeItems?episodeOfCareId=${episodeOfCareId}`,
         success: function (data) {
-            $(`#${episodeOfCareId} .encounter-container-items`).html(data);
+            $(`#${episodeOfCareId}.single-episode-of-care-container .encounter-container-items`).html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             toastr.error(`${thrownError} `);
@@ -96,7 +95,7 @@ function addNewEncounter(event, episodeOfCareId) {
     });
     setPushHistoryWhenAddingNewEncounter(episodeOfCareId);
     setSelectedElement(null);
-    setExpandedElement(`#${episodeOfCareId}`);
+    setExpandedElement(`#${episodeOfCareId}.single-episode-of-care-container`);
 
 }
 
@@ -118,14 +117,14 @@ function setDefaultTreeSelectedValue(parentId, activeElementId, type) {
         } else if (type === 'encounter') {
             reloadEncounterForm(activeElementId);
         } else if (type === 'forminstance') {
-            let episodeOfCare = $(`#${parentId}`).closest('.single-episode-of-care-container');
+            let episodeOfCare = $(`#${parentId}.single-encounter`).closest('.single-episode-of-care-container');
             setExpandedElement(episodeOfCare);
-            setSelectedElement($(`#${parentId}`));
+            setSelectedElement($(`#${parentId}.single-encounter`));
             loadFormForEdit(activeElementId, episodeOfCare, parentId);
         }
     } else {
         if (parentId) {
-            let encounter = $(`#${parentId}`).find('.single-encounter').last();
+            let encounter = $(`#${parentId}.single-episode-of-care-container`).find('.single-encounter').last();
             reloadEncounterForm($(encounter).attr('id'));
         } else {
             loadEpisodeOfCareForm(getPatientId());
@@ -240,8 +239,8 @@ function reloadEpisodeOfCareForm(eocId) {
                 toastr.error(`${thrownError} `);
             }
         });
-        setExpandedElement($(`#${eocId}`));
-        setSelectedElement($(`#${eocId}`));
+        setExpandedElement($(`#${eocId}.single-episode-of-care-container`));
+        setSelectedElement($(`#${eocId}.single-episode-of-care-container`));
     }
 }
 
@@ -257,7 +256,7 @@ function reloadEncounterForm(encounterId) {
             toastr.error(`${thrownError} `);
         }
     });
-    setSelectedElement($(`#${encounterId}`));
+    setSelectedElement($(`#${encounterId}.single-encounter`));
 }
 
 

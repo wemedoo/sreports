@@ -58,8 +58,36 @@ function loadFormInstances(event, formId, thesaurusId, title, versionId) {
     var documentClassOtherInput = $('i[name="DocumentClassOtherInput"]:first').attr('data-value');
     var documentFollowUpSelect = $('i[name="DocumentFollowUpSelect"]:first').attr('data-value');
 
+    var url = `/FormInstance/GetAllByFormThesaurus?VersionId=${versionId}&FormId=${formId}&ThesaurusId=${thesaurusId}&Title=${encodeURIComponent(title)}`;
+    if (documentClass) {
+        url = `${url}&DocumentClass=${documentClass}`
+    }
+    if (generalPurpose) {
+        url = `${url}&GeneralPurpose=${generalPurpose}`
+    }
+    if (explicitPurpose) {
+        url = `${url}&ExplicitPurpose=${explicitPurpose}`
+    }
+    if (scopeOfValidity) {
+        url = `${url}&ScopeOfValidity=${scopeOfValidity}`;
+    }
+    if (clinicalDomain) {
+        url = `${url}&ClinicalDomain=${clinicalDomain}`;
+    }
+    if (clinicalContext) {
+        url = `${url}&ClinicalContext=${clinicalContext}`;
+    }
+    if (administrativeContext) {
+        url = `${url}&AdministrativeContext=${administrativeContext}`;
+    }
+    if (documentClassOtherInput) {
+        url = `${url}&ClassesOtherValue=${documentClassOtherInput}`;
+    }
+    if (documentFollowUpSelect) {
+        url = `${url}&FollowUp=${documentFollowUpSelect}`;
+    }
 
-    window.location.href = `/FormInstance/GetAllByFormThesaurus?VersionId=${versionId}&FormId=${formId}&ThesaurusId=${thesaurusId}&Title=${encodeURIComponent(title)}&DocumentClass=${documentClass}&ClassesOtherValue=${documentClassOtherInput}&FollowUp=${documentFollowUpSelect}&GeneralPurpose=${generalPurpose}&ExplicitPurpose=${explicitPurpose}&ScopeOfValidity=${scopeOfValidity}&ClinicalDomain=${clinicalDomain}&ClinicalContext=${clinicalContext}&AdministrativeContext=${administrativeContext}`;
+    window.location.href = url;
 }
 
 
@@ -124,7 +152,7 @@ function getDocument(url, title) {
             const a = document.createElement('a');
             a.style.display = 'none';
             a.href = url;
-            a.download = title + '.pdf';
+            a.download = title;
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);

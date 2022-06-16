@@ -16,6 +16,7 @@ namespace sReportsV2.Domain.Sql.Entities.Common
             this.Given = given;
             this.Family = family;
         }
+
         public Name() { }
 
         public void SetName(Name name) 

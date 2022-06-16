@@ -160,20 +160,18 @@ namespace sReportsV2.Controllers
 
         protected int InsertPatient(Patient patient)
         {
-            int patientId = 0;
-            if (patient != null)
-            {
-                patientId = patient != null && patient.Identifiers != null && patient.Identifiers.Count > 0 ?
-                    patientDAL.GetByIdentifier(patient.Identifiers[0]).Id
-                    :
-                    0;
+            //TO DO FIX THIS FUNCTION
+            Patient patientDb = patient == null || patient.Identifiers == null || patient.Identifiers.Count <= 0 ?
+                patient
+                :
+                patientDAL.GetByIdentifier(patient.Identifiers[0]);
 
-                if (patientId != 0)
-                {
-                    patientId = patientDAL.Insert(patient);
-                }
+            if (patientDb?.Id == 0)
+            {
+                patientDAL.InsertOrUpdate(patientDb);
             }
-            return patientId;
+        
+            return patientDb.Id;
         }
 
         protected int InsertEpisodeOfCare(int patientId, FormEpisodeOfCare episodeOfCare, string source, DateTime startDate, UserData user)

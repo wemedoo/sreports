@@ -26,6 +26,8 @@ using sReportsV2.Common.Extensions;
 using sReportsV2.Common.Enums;
 using sReportsV2.SqlDomain.Interfaces;
 using sReportsV2.Domain.Sql.Entities.Patient;
+using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.DTOs.Common.DTO;
 
 namespace sReportsV2.Controllers
 {
@@ -33,10 +35,12 @@ namespace sReportsV2.Controllers
     {
         private readonly IEncounterDAL encounterDAL;
         private readonly IPatientDAL patientDAL;
-        public PatientController(IEncounterDAL encounterDAL, IPatientDAL patientDAL)
+        private readonly IPatientBLL patientBLL;
+        public PatientController(IEncounterDAL encounterDAL, IPatientDAL patientDAL, IPatientBLL patientBLL)
         {
             this.encounterDAL = encounterDAL;
             this.patientDAL = patientDAL;
+            this.patientBLL = patientBLL;
         }
 
         [SReportsAutorize]
@@ -123,11 +127,10 @@ namespace sReportsV2.Controllers
         [SReportsPatientValidate]
         public ActionResult Create(PatientDataIn patient)
         {
-            var mappedPatient = Mapper.Map<Patient>(patient);
-
+            ResourceCreatedDTO resourceCreatedDTO;
             try
             {
-                patientDAL.Insert(mappedPatient);
+                resourceCreatedDTO = patientBLL.Insert(patient);
             }
             catch (MongoDbConcurrencyException ex)
             {
@@ -136,7 +139,11 @@ namespace sReportsV2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.Created);
+            Response.StatusCode = 204;
+            return new JsonResult()
+            {
+                Data = resourceCreatedDTO
+            };
         }
 
         [SReportsAutorize]

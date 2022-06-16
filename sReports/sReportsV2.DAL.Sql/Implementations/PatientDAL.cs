@@ -58,7 +58,7 @@ namespace sReportsV2.SqlDomain.Implementations
                 .Any(x => !x.IsDeleted && x.Identifiers.Any(y => y.Value.Equals(umcn)));
         }
 
-        public bool ExistsPatientByObjectId(int id)
+        public bool ExistsPatient(int id)
         {
             return this.context.Patients
                 .Include(x => x.Identifiers)
@@ -123,7 +123,7 @@ namespace sReportsV2.SqlDomain.Implementations
             return result;
         }
 
-        public int Insert(Patient patient)
+        public void InsertOrUpdate(Patient patient)
         {
             
             if (patient.Id == 0)
@@ -134,79 +134,10 @@ namespace sReportsV2.SqlDomain.Implementations
             }
             else 
             {
-                Patient dbPatient = this.GetById(patient.Id);
-                SetIdentifiers(dbPatient.Identifiers, patient.Identifiers, dbPatient.Id);
-                dbPatient.Gender = patient.Gender;
-                dbPatient.BirthDate = patient.BirthDate;
-                dbPatient.SetName(patient.Name);
-                dbPatient.SetAddress(patient.Addresss);
-                dbPatient.MultipleB.isMultipleBorn = patient.MultipleB.isMultipleBorn;
-                dbPatient.MultipleB.Number = patient.MultipleB.Number;
-                SetTelecoms(dbPatient.Telecoms, patient.Telecoms);
-                SetContactPerson(dbPatient.ContactPerson, patient.ContactPerson, dbPatient.Id);
-                SetComunication(dbPatient.Communications, patient.Communications, dbPatient.Id);
+                patient.LastUpdate = DateTime.Now;        
             }
 
             context.SaveChanges();
-            return patient.Id;
-        }
-
-        public void SetComunication(List<Communication> dbCommunications, List<Communication> communications, int patientId)
-        {
-            context.Communications.RemoveRange(context.Communications.Where(x => x.PatientId == patientId));
-            foreach (var c in communications) 
-            {
-                c.PatientId = patientId;
-                context.Communications.Add(c);
-            }
-        }
-        public void SetContactPerson(Contact dbContact, Contact contact, int patientId)
-        {
-            if (dbContact == null)
-            {
-                context.Contacts.Add(contact);
-            }
-            else 
-            {
-                dbContact.Relationship = contact.Relationship;
-                dbContact.Name = contact.Name;
-                if (dbContact.Telecoms != null)
-                {
-                    SetTelecoms(dbContact.Telecoms, contact.Telecoms);
-                }
-                else 
-                {
-                    dbContact.Telecoms = contact.Telecoms;
-                }
-
-                dbContact.SetAddress(contact.Address);
-                dbContact.Gender = contact.Gender;
-
-            }
-        }
-        public void SetTelecoms(List<Telecom> dbTelecoms, List<Telecom> telecoms)
-        {   
-            foreach (var telecom in telecoms.Where(x => x.Id == 0).ToList())
-            {
-                dbTelecoms.Add(telecom);
-            }
-        }
-
-        public void SetTelecoms(List<Telecom> telecoms)
-        {
-            foreach (var telecom in telecoms.Where(x => x.Id == 0).ToList())
-            {
-                context.Telecoms.Add(telecom);
-            }
-        }
-
-        public void SetIdentifiers(List<Identifier> dbIdentifiers, List<Identifier> identifiers, int patientId) 
-        {
-            foreach (var identifier in identifiers.Where(x => x.Id == 0).ToList())
-            {
-                dbIdentifiers.Add(identifier);
-            }
-
         }
 
         private IQueryable<Patient> GetPatientFiltered(PatientFilter filter)

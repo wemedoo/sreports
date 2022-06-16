@@ -100,6 +100,7 @@
     <Compile Include="DTOs\Common\DTO\NameDTO.cs" />
     <Compile Include="DTOs\Common\DTO\PeriodDTO.cs" />
     <Compile Include="DTOs\Common\DTO\ReferralInfoDTO.cs" />
+    <Compile Include="DTOs\Common\DTO\ResourceCreatedDTO.cs" />
     <Compile Include="DTOs\Common\DTO\SimilarTermDTO.cs" />
     <Compile Include="DTOs\Common\DTO\TelecomDTO.cs" />
     <Compile Include="DTOs\Common\DTO\VersionDTO.cs" />

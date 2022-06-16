@@ -15,7 +15,7 @@ namespace sReportsV2.DTOs.Form.DataOut
         [DataProp]
         public string Value { get; set; }
         [DataProp]
-        public string ThesaurusId { get; set; }
+        public int ThesaurusId { get; set; }
         [DataProp]
         public double? NumericValue { get; set; }
 

@@ -10,13 +10,13 @@ namespace sReportsV2.SqlDomain.Interfaces
 {
     public interface IPatientDAL
     {
-        int Insert(Patient patient);
+        void InsertOrUpdate(Patient patient);
         int GetAllEntriesCount(PatientFilter filter);
         List<Patient> GetAll(PatientFilter filter);
         Patient GetById(int id);
         Patient GetByIdentifier(Identifier identifier);
         bool ExistsPatientByIdentifier(Identifier identifier);
-        bool ExistsPatientByObjectId(int id);
+        bool ExistsPatient(int id);
         bool Delete(int patientId, DateTime lastUpdate);
     }
 }

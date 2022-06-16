@@ -30,7 +30,7 @@ namespace sReportsV2.Domain.Services.Interfaces
         bool ExistsForm(string formId);
         bool ExistsFormByThesaurusAndLanguage(string thesaurusId, string language);
         bool ExistsFormByThesaurus(int thesaurusId);
-        void InsertOrUpdate(Form form, UserData user, bool updateVersion = true);
+        Form InsertOrUpdate(Form form, UserData user, bool updateVersion = true);
         long GetAllFormsCount(FormFilterData filterData);
         List<Form> GetDocumentsByThesaurusAppeareance(int o4mtId);
         List<Form> GetFilteredDocumentsByThesaurusAppeareance(int o4mtId, string searchTerm, int thesaurusPageNum);

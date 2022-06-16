@@ -26,6 +26,7 @@ using System.Web;
 using System.Web.Security;
 using System.Security.Claims;
 using sReportsV2.Common.Enums;
+using sReportsV2.DTOs;
 
 namespace sReportsV2.BusinessLayer.Implementations
 {
@@ -35,6 +36,7 @@ namespace sReportsV2.BusinessLayer.Implementations
         private readonly HttpContextBase context;
         private readonly IOrganizationDAL organizationDAL;
         private readonly IFormDAL formDAL;
+
         public UserBLL(IUserDAL userDAL, IOrganizationDAL organizationDAL, HttpContextBase context, IFormDAL formDAL)
         {
             this.organizationDAL = organizationDAL;
@@ -56,42 +58,45 @@ namespace sReportsV2.BusinessLayer.Implementations
                 userEntity.UserConfig.TimeZoneOffset = userDataIn.TimeZone;
 
                 var rolesByOrganization = userEntity.GetRolesByActiveOrganization(userCookieData.ActiveOrganization);
-
-                ChangeLanguage(userCookieData);
-
-
+                UpdateUserCookie(userCookieData);
                 result = Mapper.Map<UserDataOut>(userCookieData);
                 result.Organizations = Mapper.Map<List<UserOrganizationDataOut>>(userEntity.Organizations);
 
                 userDAL.Save();
-                
+
             }
 
             return result;
         }
 
-        public void ChangeLanguage(UserCookieData userCookieData)
+        public UserDataOut GetById(int userId)
         {
-            userCookieData = Ensure.IsNotNull(userCookieData, nameof(userCookieData));
-
-            if (userCookieData.ActiveLanguage != null)
-            {
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(userCookieData.ActiveLanguage);
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(userCookieData.ActiveLanguage);
-            }
-
-            HttpCookie cookie = new HttpCookie("Language");
-            cookie.Value = userCookieData.ActiveLanguage;
-            context.Response.Cookies.Add(cookie);
+            return Mapper.Map<UserDataOut>(userDAL.GetById(userId));
         }
 
-        public void GeneratePassword(string email)
+        public List<UserDataOut> GetByIdsList(List<int> ids)
         {
-            email = Ensure.IsNotNull(email, nameof(email));
-            User user = userDAL.GetByEmail(email);
-            user.Password = CreatePassword(8);
-            Task.Run(() => EmailSender.SendAsync("sReports password", "Your password is: " + user.Password + ". Please change your password on your first login. ", "", user.Email));
-            userDAL.InsertOrUpdate(user);
+            throw new NotImplementedException();
+        }
+
+        public long GetAllCount()
+        {
+            return userDAL.GetAllCount();
+        }
+
+        public bool IsUsernameValid(string username)
+        {
+            return userDAL.IsUsernameValid(username);
+        }
+
+        public bool IsEmailValid(string email)
+        {
+            return userDAL.IsEmailValid(email);
+        }
+
+        public bool UserExist(int id)
+        {
+            return userDAL.UserExist(id);
         }
 
         public PaginationDataOut<UserDataOut, DataIn> ReloadTable(DataIn dataIn, int activeOrganization)
@@ -130,40 +135,7 @@ namespace sReportsV2.BusinessLayer.Implementations
                 RowVersion = dbUser.RowVersion
             };
         }
-
-
        
-        private void SetSuggestedFormsForNewUser(User user, List<string> formRefs)
-        {
-            Random rnd = new Random();
-
-            if (formRefs.Count > 5)
-                for (int i = 1; i <= 5; i++)
-                {
-                    int index = rnd.Next(formRefs.Count);
-                    user.AddSuggestedForm(formRefs[index]);
-                }
-            else
-                user.SuggestedForms = formRefs;
-        }
-
-        private List<string> InitializeFormRefs(User user)
-        {           
-            return formDAL.GetByClinicalDomains(organizationDAL.GetClinicalDomainsForIds(user.Organizations.Select(x => x.OrganizationId).ToList()).ToList());
-        }
-
-        private string CreatePassword(int length)
-        {
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            StringBuilder res = new StringBuilder();
-            Random rnd = new Random();
-            while (0 < length--)
-            {
-                res.Append(valid[rnd.Next(valid.Length)]);
-            }
-            return res.ToString();
-        }
-
         public CreateResponseResult UpdateOrganizations(UserDataIn userDataIn)
         {
             User dbUser = userDAL.GetById(userDataIn.Id);
@@ -200,46 +172,6 @@ namespace sReportsV2.BusinessLayer.Implementations
             }
             
             userDAL.InsertOrUpdate(dbUser);
-            return new CreateResponseResult()
-            {
-                Id = dbUser.Id,
-                RowVersion = dbUser.RowVersion
-            };
-        }
-
-        private void SetUserActiveOrganizationIfNull(User user, int activeOrganizationId) 
-        {
-            if (user.UserConfig.ActiveOrganizationId == null) 
-            {
-                user.UserConfig.ActiveOrganizationId = activeOrganizationId;
-            }
-        }
-        public CreateResponseResult UpdateClinicalTrials(UserDataIn userDataIn)
-        {
-            User dbUser = userDAL.GetById(userDataIn.Id);
-            if (dbUser == null)
-            {
-                // TO DO THROW EXCEPTIONS
-            }
-
-            if (userDataIn.ClinicalTrials != null) 
-            {
-                foreach (ClinicalTrialDTO clinicalTrialDTO in userDataIn.ClinicalTrials)
-                {
-                    var clinicalTrial = dbUser.ClinicalTrials.FirstOrDefault(x => x.Id == clinicalTrialDTO.Id);
-                    if (clinicalTrial != null)
-                    {
-                        SetClinicalTrialData(clinicalTrial, clinicalTrialDTO);
-                    }
-                    else
-                    {
-                        dbUser.ClinicalTrials.Add(Mapper.Map<UserClinicalTrial>(clinicalTrialDTO));
-                    }
-                }
-            }
-
-            userDAL.InsertOrUpdate(dbUser);
-
             return new CreateResponseResult()
             {
                 Id = dbUser.Id,
@@ -311,31 +243,38 @@ namespace sReportsV2.BusinessLayer.Implementations
             return Mapper.Map<List<ClinicalTrialDTO>>(trials);
         }
 
-        public UserDataOut GetById(int userId)
+        public CreateResponseResult UpdateClinicalTrials(UserDataIn userDataIn)
         {
-            return Mapper.Map<UserDataOut>(userDAL.GetById(userId));
-        }
+            User dbUser = userDAL.GetById(userDataIn.Id);
+            if (dbUser == null)
+            {
+                // TO DO THROW EXCEPTIONS
+            }
 
-        public List<UserDataOut> GetByIdsList(List<int> ids)
-        {
-            throw new NotImplementedException();
-        }
+            if (userDataIn.ClinicalTrials != null)
+            {
+                foreach (ClinicalTrialDTO clinicalTrialDTO in userDataIn.ClinicalTrials)
+                {
+                    var clinicalTrial = dbUser.ClinicalTrials.FirstOrDefault(x => x.Id == clinicalTrialDTO.Id);
+                    if (clinicalTrial != null)
+                    {
+                        SetClinicalTrialData(clinicalTrial, clinicalTrialDTO);
+                    }
+                    else
+                    {
+                        dbUser.ClinicalTrials.Add(Mapper.Map<UserClinicalTrial>(clinicalTrialDTO));
+                    }
+                }
+            }
 
-        public long GetAllCount()
-        {
-            return userDAL.GetAllCount();
-        }
+            userDAL.InsertOrUpdate(dbUser);
 
-        public bool IsUsernameValid(string username)
-        {
-            return userDAL.IsUsernameValid(username);
+            return new CreateResponseResult()
+            {
+                Id = dbUser.Id,
+                RowVersion = dbUser.RowVersion
+            };
         }
-
-        public bool IsEmailValid(string email)
-        {
-            return userDAL.IsEmailValid(email);
-        }
-
 
         byte[] IUserBLL.ArchiveClinicalTrial(ArchiveTrialDataIn dataIn)
         {
@@ -345,14 +284,106 @@ namespace sReportsV2.BusinessLayer.Implementations
 
             return user.RowVersion;
         }
-        public bool UserExist(int id)
-        {
-            return userDAL.UserExist(id);
-        }
 
         public void SetState(int id, UserState state, int organizationId)
         {
             userDAL.SetState(id, state, organizationId);
+        }
+
+        public void SetActiveOrganization(UserCookieData userCookieData, int organizationId)
+        {
+            User user = this.userDAL.GetById(userCookieData.Id);
+            user.ActiveOrganizationId = organizationId;
+            this.userDAL.InsertOrUpdate(user);
+            HttpContext.Current.Session["userData"] = userCookieData;
+        }
+
+        public void UpdatePageSize(int pageSize, UserCookieData userCookieData)
+        {
+            User user = userDAL.GetByUsername(userCookieData.Username);
+            if (user != null)
+            {
+                user.UserConfig.PageSize = pageSize;
+            }
+            userCookieData.PageSize = pageSize;
+            userDAL.InsertOrUpdate(user);
+            UpdateUserCookie(userCookieData);
+        }
+
+        public void UpdateLanguage(EnumDTO data, UserCookieData userCookieData)
+        {
+            User user = userDAL.GetByUsername(userCookieData.Username);
+            if(user != null)
+            {
+                user.UserConfig.ActiveLanguage = data.Value;
+            }
+            userDAL.InsertOrUpdate(user);
+            userCookieData.ActiveLanguage = data.Value;
+            HttpContext.Current.Session["userData"] = userCookieData;
+            UpdateUserCookie(userCookieData);
+        }
+
+        public void GeneratePassword(string email)
+        {
+            email = Ensure.IsNotNull(email, nameof(email));
+            User user = userDAL.GetByEmail(email);
+            user.Password = CreatePassword(8);
+            Task.Run(() => EmailSender.SendAsync("sReports password", "Your password is: " + user.Password + ". Please change your password on your first login. ", "", user.Email));
+            userDAL.InsertOrUpdate(user);
+        }
+
+        private void SetUserActiveOrganizationIfNull(User user, int activeOrganizationId)
+        {
+            if (user.UserConfig.ActiveOrganizationId == null)
+            {
+                user.UserConfig.ActiveOrganizationId = activeOrganizationId;
+            }
+        }
+
+        private void SetSuggestedFormsForNewUser(User user, List<string> formRefs)
+        {
+            Random rnd = new Random();
+
+            if (formRefs.Count > 5)
+                for (int i = 1; i <= 5; i++)
+                {
+                    int index = rnd.Next(formRefs.Count);
+                    user.AddSuggestedForm(formRefs[index]);
+                }
+            else
+                user.SuggestedForms = formRefs;
+        }
+
+        private List<string> InitializeFormRefs(User user)
+        {
+            return formDAL.GetByClinicalDomains(organizationDAL.GetClinicalDomainsForIds(user.Organizations.Select(x => x.OrganizationId).ToList()).ToList());
+        }
+
+        private string CreatePassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
+        }
+
+        private void UpdateUserCookie(UserCookieData userCookieData)
+        {
+            userCookieData = Ensure.IsNotNull(userCookieData, nameof(userCookieData));
+
+            if (userCookieData.ActiveLanguage != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(userCookieData.ActiveLanguage);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(userCookieData.ActiveLanguage);
+            }
+
+            HttpCookie cookie = new HttpCookie("Language");
+            cookie.Value = userCookieData.ActiveLanguage;
+            context.Response.Cookies.Add(cookie);
         }
     }
 }

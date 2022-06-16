@@ -1,5 +1,5 @@
 ﻿function submitEOCForm(form) {
-    console.log('submitted eoc form');
+    console.log('eoc submit');
     $(form).validate();
 
     if ($(form).valid()) {

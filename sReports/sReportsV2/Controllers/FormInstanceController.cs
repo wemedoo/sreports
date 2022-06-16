@@ -478,11 +478,11 @@ namespace sReportsV2.Controllers
         {
             if (!form.DisablePatientData)
             {
-                bool existPatient = patientDAL.ExistsPatientByObjectId(patient.PatientId);
-                Patient patientEntity = new Patient();
-
-                if (!existPatient)
+                int patientId = 0;
+                Patient patientEntity = patientDAL.GetById(patient.PatientId);
+                if (patientEntity == null)
                 {
+                    patientEntity = new Patient();
                     patient.PatientId = 0;
                     patientEntity.Name = new Name();
                     patientEntity.Addresss = new Address();
@@ -491,14 +491,10 @@ namespace sReportsV2.Controllers
                     patientEntity.Name.Family = "Unknown";
                     patientEntity.Gender = Gender.Unknown;
                     patientEntity.Addresss.City = "Unknown";
-                }
-                else 
-                {
-                    patientEntity = patientDAL.GetById(patient.PatientId);
+                    patientDAL.InsertOrUpdate(patientEntity);
                 }
 
-                int patientId = patientDAL.Insert(patientEntity);
-                formInstance.PatientId = patientId;
+                formInstance.PatientId = patientEntity.Id;
                 int eocId = InsertEpisodeOfCare(patientId, form.EpisodeOfCare, "Engine", DateTime.Now, user);
                 int encounterId = InsertEncounter(eocId);
                 formInstance.EpisodeOfCareRef = eocId;

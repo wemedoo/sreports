@@ -121,7 +121,7 @@ namespace sReportsV2.Domain.Services.Implementations
             return GetThesaurusAppereance(o4mtId, searchTerm).Count();
         }
 
-        public void InsertOrUpdate(Form form, UserData user, bool updateVersion = true)
+        public Form InsertOrUpdate(Form form, UserData user, bool updateVersion = true)
         {
             form = Ensure.IsNotNull(form, nameof(form));
             user = Ensure.IsNotNull(user, nameof(user));
@@ -148,6 +148,8 @@ namespace sReportsV2.Domain.Services.Implementations
                 var filter = Builders<Form>.Filter.Where(s => s.Id.Equals(form.Id));
                 Collection.ReplaceOne(filter, form);
             }
+
+            return form;
         }
 
         public long GetAllFormsCount(FormFilterData filterData)
@@ -405,7 +407,7 @@ namespace sReportsV2.Domain.Services.Implementations
                         && (filterData.DateTimeFrom == null || x.EntryDatetime > filterData.DateTimeFrom)
 
                    );
-
+                var test = result.ToList();
                 if (!string.IsNullOrWhiteSpace(filterData.Title))
                 {
                     result = result.Where(x => x.Title.ToLower().StartsWith(filterData.Title.ToLower()));

@@ -231,8 +231,15 @@ namespace sReportsV2.Controllers
                 Log.Error(ex.Message);
                 return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
             }
-
-            return new HttpStatusCodeResult(HttpStatusCode.Created);
+            JsonResult jsonResult = new JsonResult()
+            {
+                Data = new
+                {
+                    versionId = form.Version.Id,
+                    thesaurusId = form.ThesaurusId
+                }
+            };
+            return jsonResult;
         }
 
         [SReportsAuditLog]

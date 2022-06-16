@@ -4,8 +4,8 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- master
-- dev
+- PomocPomagacima/master
+- PomocPomagacima/dev
 
 pool:
   vmImage: 'windows-latest'
@@ -13,7 +13,7 @@ pool:
 variables:
   solution: '**/sReports.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'PomocPomagacima'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -25,7 +25,7 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:PrecompileBeforePublish=false /p:UseMerge=true /p:SingleAssemblyName=AppCode /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 

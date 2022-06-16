@@ -162,7 +162,12 @@ $(document).on('click', '#submit-full-form-definition', function (e) {
         url: '/Form/Create',
         contentType: 'application/json',
         success: function (data) {
-            location.reload();
+            var url = window.location.href;
+            if (url.indexOf('?') == -1) {
+                window.location.href = `/Form/Edit?thesaurusId=${data.thesaurusId}&versionId=${data.versionId}`;
+            } else {
+                window.location.reload();
+            }
             toastr.success('Success');
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -171,6 +176,14 @@ $(document).on('click', '#submit-full-form-definition', function (e) {
     });
 });
 
+function appendParameters(parameters) {
+    var url = window.location.href;
+    if (!url.indexOf('?') > -1) {
+    } else {
+        url += `?${parameters}`
+    }
+    window.location.href = url;
+}
 
 
 function updateNestableData(id) {

@@ -18,7 +18,7 @@ namespace sReportsV2.Controllers
 {
     public partial class UserController
     {
-        /*[HttpPut]
+        [HttpPut]
         [SReportsAutorize]
         public ActionResult UpdateLanguage([System.Web.Http.FromBody] EnumDTO data)
         {
@@ -27,10 +27,7 @@ namespace sReportsV2.Controllers
             try
             {
                 UserCookieData userCookieData = System.Web.HttpContext.Current.Session.GetUserFromSession();
-                this.userService.UpdateLanguage(userCookieData.Username, data.Value);
-                userCookieData.ActiveLanguage = data.Value;
-                Session["userData"] = userCookieData;
-                ChangeLanguage(userCookieData);
+                this.userBLL.UpdateLanguage(data, userCookieData);
             }
             catch (Exception ex)
             {
@@ -50,10 +47,7 @@ namespace sReportsV2.Controllers
             try
             {
                 UserCookieData userCookieData = System.Web.HttpContext.Current.Session.GetUserFromSession();
-                this.userService.UpdatePageSize(userCookieData.Username, data.PageSize);
-                userCookieData.PageSize = data.PageSize;
-                Session["userData"] = userCookieData;
-                ChangeLanguage(userCookieData);
+                this.userBLL.UpdatePageSize(data.PageSize, userCookieData);
             }
             catch (Exception ex)
             {
@@ -64,29 +58,18 @@ namespace sReportsV2.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
 
-        [HttpPut]
         [SReportsAutorize]
-        public ActionResult UpdateOrganization([System.Web.Http.FromBody] EnumDTO data)
+        public ActionResult UpdateOrganization(int organizationId)
         {
-            data = Ensure.IsNotNull(data, nameof(data));
+            UserCookieData userCookieData = System.Web.HttpContext.Current.Session.GetUserFromSession();
 
-            try
-            {
-                UserCookieData userCookieData = System.Web.HttpContext.Current.Session.GetUserFromSession();
-                this.userService.UpdateOrganization(userCookieData.Username, data.Value);
-                userCookieData.ActiveOrganization = data.Value;
-                Session["userData"] = userCookieData;
-                ResetCookie(userCookieData.Username, data.Value);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-                throw new Exception(ex.Message, ex.InnerException);
-            }
-
-            return new HttpStatusCodeResult(HttpStatusCode.Created);
+            userBLL.SetActiveOrganization(userCookieData, organizationId);
+            //ResetCookie(userCookieData.Username, data.Value);
+            //TO DO IMPORTANT: if we update roles to user organization level, we'll have to reset data in the context to update roles for the active org
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
+        /*
         [HttpPut]
         [SReportsAutorize]
         public ActionResult AddSuggestedForm([System.Web.Http.FromBody] string formId)
@@ -125,40 +108,6 @@ namespace sReportsV2.Controllers
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.Created);
-        }
-
-        public void ChangeLanguage(UserCookieData userCookieData)
-        {
-            userCookieData = Ensure.IsNotNull(userCookieData, nameof(userCookieData));
-
-            if (userCookieData.ActiveLanguage != null)
-            {
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(userCookieData.ActiveLanguage);
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(userCookieData.ActiveLanguage);
-            }
-
-            HttpCookie cookie = new HttpCookie("Language");
-            cookie.Value = userCookieData.ActiveLanguage;
-            Response.Cookies.Add(cookie);
-        }
-
-        public void ResetCookie(string username, string organizationId) 
-        {
-            List<string> newRoles = userService.GetByUsername(username).GetRolesByActiveOrganization(organizationId);
-            var authTicket = new FormsAuthenticationTicket(
-                    1,                             // version
-                    userCookieData.Username,                // user name
-                    DateTime.Now,                  // created
-                    DateTime.Now.AddMinutes(20),   // expires
-                    true,                    // persistent?
-                    newRoles != null ? string.Join(";", newRoles) : string.Empty                      // can be used to store roles
-                    );
-
-            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-
-            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            System.Web.HttpContext.Current.Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
-            System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
         }*/
     }
 }

@@ -4,7 +4,7 @@ function createFormInstance(id, language) {
     if (simplifiedApp) {
         window.location.href = `/crf/create?id=${id}&language=${language}`;
     } else {
-        window.location.href = `/FormInstance/Create?VersionId=${filter.VersionId}&ThesaurusId=${filter.ThesaurusId}&DocumentClass=${filter.DocumentClass}&ClassesOtherValue=${filter.ClassesOtherValue}&FollowUp=${filter.FollowUp}&GeneralPurpose=${filter.GeneralPurpose}&ExplicitPurpose=${filter.ExplicitPurpose}&ScopeOfValidity=${filter.ScopeOfValidity}&ClinicalDomain=${filter.ClinicalDomain}&ClinicalContext=${filter.ClinicalContext}&AdministrativeContext=${filter.AdministrativeContext}`;
+        window.location.href = extendDefaultUrlWithParameters(`/FormInstance/Create?VersionId=${filter.VersionId}&ThesaurusId=${filter.ThesaurusId}`, filter);
     }
 }
 
@@ -105,7 +105,7 @@ function editEntity(event, id) {
         let language = $('.dropdown-menu').find('.language.active')[0];
         url = `${simplifiedApp}?FormInstanceId=${id}&language=${$(language).data('value')}`;
     } else {
-        url = `/FormInstance/Edit?VersionId=${filter.VersionId}&FormInstanceId=${id}&DocumentClass=${filter.DocumentClass}&ClassesOtherValue=${filter.ClassesOtherValue}&FollowUp=${filter.FollowUp}&GeneralPurpose=${filter.GeneralPurpose}&ExplicitPurpose=${filter.ExplicitPurpose}&ScopeOfValidity=${filter.ScopeOfValidity}&ClinicalDomain=${filter.ClinicalDomain}&ClinicalContext=${filter.ClinicalContext}&AdministrativeContext=${filter.AdministrativeContext}`;
+        url = extendDefaultUrlWithParameters(`/FormInstance/Edit?VersionId=${filter.VersionId}&FormInstanceId=${id}`, filter);
     }
     window.location.href = url;
 }
@@ -235,6 +235,38 @@ function clickedRow(e, id) {
         editEntity(e,id);
         e.stopPropagation();
     }
+}
+
+function extendDefaultUrlWithParameters(url, filter) {
+    if (filter.DocumentClass) {
+        url = `${url}&DocumentClass=${filter.DocumentClass}`
+    }
+    if (filter.GeneralPurpose) {
+        url = `${url}&GeneralPurpose=${filter.GeneralPurpose}`
+    }
+    if (filter.ExplicitPurpose) {
+        url = `${url}&ExplicitPurpose=${filter.ExplicitPurpose}`
+    }
+    if (filter.ScopeOfValidity) {
+        url = `${url}&ScopeOfValidity=${filter.ScopeOfValidity}`;
+    }
+    if (filter.ClinicalDomain) {
+        url = `${url}&ClinicalDomain=${filter.ClinicalDomain}`;
+    }
+    if (filter.ClinicalContext) {
+        url = `${url}&ClinicalContext=${filter.ClinicalContext}`;
+    }
+    if (filter.AdministrativeContext) {
+        url = `${url}&AdministrativeContext=${filter.AdministrativeContext}`;
+    }
+    if (filter.ClassesOtherValue) {
+        url = `${url}&ClassesOtherValue=${filter.ClassesOtherValue}`;
+    }
+    if (filter.FollowUp) {
+        url = `${url}&FollowUp=${filter.FollowUp}`;
+    }
+
+    return url;
 }
 
 $(document).on('change', '#selectAllCheckboxes', function () {

@@ -222,6 +222,8 @@ namespace sReportsV2
             builder.RegisterType<FormInstanceBLL>().As<IFormInstanceBLL>();
             builder.RegisterType<FormBLL>().As<IFormBLL>();
             builder.RegisterType<CommentBLL>().As<ICommentBLL>();
+            builder.RegisterType<PatientBLL>().As<IPatientBLL>();
+            builder.RegisterType<PdfBLL>().As<IPdfBLL>();
 
             builder.RegisterType<OrganizationRelationDAL>().As<IOrganizationRelationDAL>();
             builder.RegisterType<AddressDAL>().As<IAddressDAL>();

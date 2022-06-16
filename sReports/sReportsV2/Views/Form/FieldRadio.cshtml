@@ -31,7 +31,7 @@
                        value="@ffv.ThesaurusId"
                        class="form-radio-field"
                        onclick="return @((!(Model.IsReadonly || isChapterReadonly)).ToString().ToLower())"
-                       @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId) ? "checked" : string.Empty)>
+                       @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId.ToString()) ? "checked" : string.Empty)>
 
                 <i class="form-radio-button"></i>
                 <span class="radio-break-word">@ffv.Label</span>

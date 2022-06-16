@@ -1,4 +1,5 @@
 ﻿using sReportsV2.Common.Enums;
+using sReportsV2.DTOs;
 using sReportsV2.DTOs.Common;
 using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.DTOs.Common.DTO;
@@ -20,6 +21,7 @@ namespace sReportsV2.BusinessLayer.Interfaces
         CreateResponseResult Insert(UserDataIn userDataIn, string activeLanguage);
         CreateResponseResult UpdateOrganizations(UserDataIn userDataIn);
         CreateResponseResult UpdateClinicalTrials(UserDataIn userDataIn);
+        void UpdateLanguage(EnumDTO data, UserCookieData userCookieData);
         UserOrganizationDataOut LinkOrganization(LinkOrganizationDataIn dataIn);
         ClinicalTrialDTO ResetClinicalTrial(int? clinicalTrialId);
         List<ClinicalTrialDTO> SubmitClinicalTrial(ClinicalTrialWithUserInfoDataIn dataIn);
@@ -31,8 +33,7 @@ namespace sReportsV2.BusinessLayer.Interfaces
         byte[] ArchiveClinicalTrial(ArchiveTrialDataIn dataIn);
         bool UserExist(int id);
         void SetState(int id, UserState state, int organizationId);
-
-
-
+        void SetActiveOrganization(UserCookieData userCookieData, int organizationId);
+        void UpdatePageSize(int pageSize, UserCookieData userCookieData);
     }
 }

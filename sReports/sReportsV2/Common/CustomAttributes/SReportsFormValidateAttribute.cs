@@ -140,7 +140,7 @@ namespace sReportsV2.Common.CustomAttributes
             string result = "";
             foreach (FormFieldValueDataIn value in values)
             {
-                result += string.IsNullOrWhiteSpace(value.ThesaurusId) ? $"Field value ({value.Label}) has no thesaurus!</br>" : string.Empty;
+                result += value.ThesaurusId == null ? $"Field value ({value.Label}) has no thesaurus!</br>" : string.Empty;
             }
             return result;
         }

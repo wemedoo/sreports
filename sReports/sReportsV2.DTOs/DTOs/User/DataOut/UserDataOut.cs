@@ -75,6 +75,7 @@ namespace sReportsV2.DTOs.Common.DataOut
 
             if (this.Roles != null)
             {
+                //TO DO IMPORTANT: ROLES ARE DEFINED ON THE USER LEVEL, NOT USER ORGANIZATION LEVEL, THIS PROBABLY WILL BE CHANGED IN THE FUTURE
                 foreach (var role in this.Roles)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, role.Name));

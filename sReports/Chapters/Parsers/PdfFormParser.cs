@@ -1,30 +1,16 @@
 ﻿using iText.Forms;
 using iText.Forms.Fields;
-using iText.IO.Font;
-using iText.Kernel.Font;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas.Parser;
-using iText.Kernel.Pdf.Canvas.Parser.Listener;
-using iText.Kernel.Utils;
-using iText.Layout;
-using iText.Signatures;
-using iTextSharp.text.pdf.parser;
 using Newtonsoft.Json;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FieldEntity;
-using sReportsV2.Domain.Entities.FormInstance;
 using sReportsV2.Domain.Extensions;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using sReportsV2.Domain.FormValues;
-using sReportsV2.Domain.Entities.Encounter;
 using sReportsV2.Domain.Sql.Entities.Common;
 using sReportsV2.Domain.Sql.Entities.Patient;
 
@@ -129,13 +115,11 @@ namespace Chapters
             return splitedKey[1];
         }
 
-        
-
-        public string GetCheckBoxThesaurus(string key)
+        public int GetCheckBoxThesaurus(string key)
         {
             string[] splitedKey = key.Split('-');
 
-            return splitedKey[4];
+            return Int32.Parse(splitedKey[4]);
         }
 
         public string GetLastPartOfKey(string key)
@@ -147,11 +131,6 @@ namespace Chapters
 
         public void ParseFields()
         {
-            //    var fields = formJson.GetAllFieldsFromListOfFieldSets();
-            //    foreach (var field in fields)
-            //    {
-            //        SetFields(field);
-            //    }
             var keys = pdfAcroForm.GetFormFields().Keys.ToList();
             foreach (var fieldFromPdf in pdfAcroForm.GetFormFields())
             {
@@ -169,16 +148,12 @@ namespace Chapters
 
                     RemoveIfExist(Fields, field.InstanceId);
                     Fields.Add(new sReportsV2.Domain.FormValues.FieldValue() { Id = field.Id, ThesaurusId = field.ThesaurusId, InstanceId = field.InstanceId, Type = field.Type, Value = field.Value });
-
                 }
                 else 
                 {
                     SetNoteAndDate(key, fieldFromPdf);
                 }
-                
             }
-
-           
         }
         public void SetNoteAndDate(string key, KeyValuePair<string, PdfFormField> fieldFromPdf) 
         {
@@ -221,10 +196,14 @@ namespace Chapters
             }
             else if (field.Type == PdfGeneratorType.Radio)
             {
-                int thesaurus = Int32.Parse(fieldFromPdf.Value.GetValueAsString());
-                if (thesaurus > 0)
+                string value = fieldFromPdf.Value.GetValueAsString();
+                if (!String.IsNullOrWhiteSpace(value))
                 {
-                    field.SetValue(((FieldSelectable)field).Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId.ToString());
+                    int thesaurus = Int32.Parse(value);
+                    if (thesaurus > 0)
+                    {
+                        field.SetValue(((FieldSelectable)field).Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId.ToString());
+                    }
                 }
             }
             else if (field.Type == PdfGeneratorType.Calculative)

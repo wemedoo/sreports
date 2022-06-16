@@ -29,7 +29,7 @@ function removeEOCEntry(event, id, lastUpdate) {
 /*-------------------Episode of care------------------------*/
 
 function submitForm(form,e) {
- 
+    console.log('submitting');
     $(form).validate({
         ignore: []
     }); 
@@ -99,7 +99,7 @@ function submitForm(form,e) {
                 toastr.options = {
                     timeOut: 100
                 }
-                toastr.options.onHidden = function () { window.location.href = `/Patient/GetAll`; }
+                toastr.options.onHidden = function () { window.location.href = `/Patient/Edit?patientId=${data.Id}`; }
                 toastr.success("Success");
             },
             error: function (xhr, ajaxOptions, thrownError) {

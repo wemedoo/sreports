@@ -15,7 +15,7 @@ namespace sReportsV2.DTOs.Field.DataOut
         public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableFieldRadio.cshtml";
         public override string GetValue() 
         {
-            return Values.FirstOrDefault(x => x.ThesaurusId == Value[0]).Label;
+            return Values.FirstOrDefault(x => x.ThesaurusId.ToString() == Value[0]).Label;
         }
     }
 }

@@ -155,7 +155,6 @@ namespace sReportsV2.Controllers
             return RedirectToAction("Login", "User", new { ReturnUrl = "/" });
         }
 
-
         private void SignInUser(List<Claim> claims)
         {
             var claimsIdentity = new ClaimsIdentity(claims,

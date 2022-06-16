@@ -11,7 +11,6 @@ namespace sReportsV2.Domain.Sql.Entities.Patient
         public int Id { get; set; }
         public string Language { get; set; }
         public bool Preferred { get; set; } 
-        public int PatientId { get; set; }
         public Communication() { }
         public Communication(string language, bool preferred)
         {

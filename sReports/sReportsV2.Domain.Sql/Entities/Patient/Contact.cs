@@ -28,22 +28,42 @@ namespace sReportsV2.Domain.Sql.Entities.Patient
             this.Telecoms = telecoms;
         }
 
-        public void SetId(Contact c) 
+        public void Copy(Contact contact)
         {
-            Id = c.Id;
-        }
-
-        public void SetAddress(Address address)
-        {
-            if (this.Address != null)
+            if(contact != null)
             {
-                this.Address.SetAddress(address);
-            }
-            else
-            {
-                this.Address = address;
+                CopyAddress(contact.Address);
+                SetTelecoms(contact.Telecoms);
+                this.Gender = contact.Gender;
+                this.Name.SetName(contact.Name);
+                this.Relationship = contact.Relationship;
             }
         }
 
+        private void CopyAddress(Address address)
+        {
+            if(address != null)
+            {
+                if (this.Address == null)
+                {
+                    this.Address = new Address();
+                }
+
+                this.Address.City = address.City;
+                this.Address.Country = address.Country;
+                this.Address.StreetNumber = address.StreetNumber;
+                this.Address.PostalCode = address.PostalCode;
+                this.Address.State = address.State;
+                this.Address.StreetNumber = address.StreetNumber;
+            }
+        }
+
+        private void SetTelecoms(List<Telecom> telecoms)
+        {
+            foreach (var telecom in telecoms.Where(x => x.Id == 0).ToList())
+            {
+                this.Telecoms.Add(telecom);
+            }
+        }
     }
 }
