@@ -1,27 +1,38 @@
 ﻿@using System
+@using sReportsV2.Common.Constants
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@ViewBag.Title -  Swiss Open Oncology by weMedoo</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
-    <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-    <link rel="stylesheet" href="~/Content/login.min.css">
-
-    @Styles.Render("~/Content/css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='shortcut icon'>", "/favicon.ico")
+    <title>@ViewBag.Title - Smart Open Oncology by weMedoo</title>
+    @Styles.RenderFormat("<link integrity=\"sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://use.fontawesome.com/releases/v5.6.1/css/all.css")
+    @Styles.RenderFormat("<link type=\"text/css\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Scripts/jsoneditor/dist/jsoneditor.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/login.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/css")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/jquery")
     @RenderSection("Stylesheet", false)
 
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("Scripts", false)
 
-    <link rel="stylesheet" href="~/Content/swissOpenOncology.min.css">
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/swissOpenOncology.min.css")
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R0C73CHFJS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
+
+
+        gtag('config', 'G-R0C73CHFJS');
+    </script>
 </head>
 @{
     string action = ViewContext.RouteData.Values["Action"].ToString();
@@ -33,53 +44,67 @@
     <img id="notFound" src="~/Content/img/icons/no_results.svg" hidden>
     <img id="deleteIcon" src="~/Content/img/icons/remove.svg" hidden>
     <img id="editIcon" src="~/Content/img/icons/edit.svg" hidden>
-    <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
-
-        <div class="header-wrapper soo-header-color">
-            <div class="navbar-brand col-6 col-sm-3 col-md-2" style="padding-left:7px;">
-                <a href="#" class="color-text layout-header-group">
-                    <img class="gt-navbar-logo" src="~/Content/img/icons/SwissOpenOncology/swissopen logo.svg">
-                </a>
-            </div>
-            <div class="navbar-right-part">
-                <div class="header-btn" onclick="goToBrowse()">
-                    <img src="~/Content/img/icons/SwissOpenOncology/browse.svg" />
-                    Browse
+    @if (!action.Equals("Index"))
+    {
+        <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
+            <div class="header-wrapper soo-header-color">
+                <div class="navbar-brand col-6 col-sm-3 col-md-2" style="padding-left:7px;">
+                    <a href="@Url.Action("Index", "ThesaurusGlobal")" class="color-text layout-header-group">
+                        <img class="gt-navbar-logo" src="~/Content/img/icons/SwissOpenOncology/logo/smart oncology logo white.svg">
+                    </a>
                 </div>
-                <div class="header-btn" onclick="goToCreateThesaurus()">
-                    <img src="~/Content/img/icons/SwissOpenOncology/submit_new_term.svg" />
-                    Submit new term
-                </div>
-                @if (ViewBag.UserCookieData != null)
-                {
-                    <div class="logged-user">
-                        <div class="layout-avatar">
-                            <div>@(!string.IsNullOrWhiteSpace(ViewBag.UserCookieData.FirstName) ? ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper() : "U" )</div>
+                <div class="navbar-right-part">
+                    @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.SuperAdministrator))
+                    {
+                        <div class="header-btn" onclick="manageUsers()">
+                            <img src="~/Content/img/icons/SwissOpenOncology/edit.svg" />
+                            Manage users
                         </div>
-                        <div class="user-label">
-                            @ViewBag.UserCookieData.Username
+                    }
+                    @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.Viewer, SmartOncologyRoleNames.Curator, SmartOncologyRoleNames.Editor))
+                    {
+                        <div class="header-btn" onclick="goToBrowse()">
+                            <img src="~/Content/img/icons/SwissOpenOncology/browse.svg" />
+                            Browse
                         </div>
-                        <div class="log-out" onclick="logout(event)">
-                            Log Out 
+                    }
+                    @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.Curator, SmartOncologyRoleNames.Editor))
+                    {
+                        <div class="header-btn" onclick="goToCreateThesaurus()">
+                            <img src="~/Content/img/icons/SwissOpenOncology/submit_new_term.svg" />
+                            Submit new term
                         </div>
-                    </div>
-                }
-                else
-                {
-            <div class="login-register">
-                <div class="go-to-login" onclick="goToLogin()">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <div> Login </div>
-                </div>
-                <div class="go-to-register" onclick="goToRegistration()">
-                    <div> Register </div>
+                    }
+                    @if (ViewBag.UserCookieData != null)
+                    {
+                        <div class="logged-user">
+                            <div class="layout-avatar">
+                                <div>@(!string.IsNullOrWhiteSpace(ViewBag.UserCookieData.FirstName) ? ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper() : "U" )</div>
+                            </div>
+                            <div class="user-label">
+                                @ViewBag.UserCookieData.Username
+                            </div>
+                            <div class="log-out" onclick="logout(event)">
+                                Log Out
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="login-register">
+                            <div class="go-to-login" onclick="goToLogin()">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <div> Login </div>
+                            </div>
+                            <div class="go-to-register" onclick="goToRegistration()">
+                                <div> Register </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-                }
-            </div>
-
-        </div>
-    </nav>
+        </nav>
+    }
 
     <div class="container-fluid" id="containerFluid">
         <div class="row">
@@ -103,19 +128,19 @@
         var editItem = '@sReportsV2.Resources.TextLanguage.Edit';
         var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 5)';
         var simplifiedApp;
-        var df = '@ViewBag.DateFormat';
+        var df = '@ViewBag.DateFormatClient';
+        var dateFormatDisplay = '@ViewBag.DateFormatDisplay';
+        var timeFormatDisplay = '@ViewBag.TimeFormatDisplay';
     </script>
-    <script src="~/Scripts/jsoneditor/dist/jsoneditor.min.js"></script>
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/jsoneditor/dist/jsoneditor.min.js")
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-    <script src="http://d3js.org/d3.v6.min.js" charset="utf-8"></script>
-    <script src="//d3js.org/topojson.v1.min.js"></script>
-    <script src="~/Scripts/SwissOpenOncology/swissOpenOncology.js"></script>
-
-
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" charset=\"utf-8\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//d3js.org/d3.v6.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//d3js.org/topojson.v1.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/SwissOpenOncology/swissOpenOncology.js")
 
 </body>
 </html>

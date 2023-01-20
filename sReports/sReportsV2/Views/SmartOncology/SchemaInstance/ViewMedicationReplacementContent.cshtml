@@ -1,0 +1,51 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchemaInstance.DataOut;
+@using sReportsV2.Common.Extensions;
+
+@model MedicationReplacementHistoryDataOut
+
+@{
+    var medicationInstance = Model.MedicationInstance;
+    var entries = Model.GroupEntriesByDate();
+}
+
+<div class="replacement-header"><div>@sReportsV2.Resources.TextLanguage.Medication_replacement_history_for: </div><div class="replacement-medication">@medicationInstance.Medication.Name</div></div>
+<div class="divider margin-top-2r"></div>
+@if (entries.Count > 0)
+{
+    foreach (var medicationReplacement in entries)
+    {
+        <div class="replacement-row @(medicationReplacement.IsStartReplacement ? "first" : "")">
+            <div class="depend-on @(medicationReplacement.ReplaceMedicationId == medicationInstance.Id ? "relation-medication" : "relation-item-1") @(medicationReplacement.ReplaceMedicationId == 0 ? "middle" : "")">
+                @medicationReplacement.ReplaceMedication.Medication.Name
+            </div>
+            @if (medicationReplacement.ReplaceWithMedicationId > 0)
+            {
+                <img class="arrow-relation" src="~/Content/img/icons/arrow_relation.svg">
+                <div class="depend-on @(medicationReplacement.ReplaceWithMedicationId == medicationInstance.Id ? "relation-medication" : "relation-item-2")">
+                    @medicationReplacement.ReplaceWithMedication.Medication.Name
+                </div>
+                <div class="replacement-date"><span>@sReportsV2.Resources.TextLanguage.Replaced:</span> @medicationReplacement.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string), <span>@sReportsV2.Resources.TextLanguage.Replaced_by:</span> @medicationReplacement.Creator.GetName()</div>
+            }
+            else
+            {
+                <div></div>
+                <div></div>
+                <div></div>
+            }
+        </div>
+    }
+}
+else
+{
+    <div class="text-center font-weight-bold">
+        @sReportsV2.Resources.TextLanguage.No_ @sReportsV2.Resources.TextLanguage.Replace_Medications!
+    </div>
+}
+<div>
+    <div class="divider margin-top-2r"></div>
+    <div class="float-right margin-right-25 margin-bottom-20">
+        <a class="btn advanced-cancel" data-dismiss="modal">
+            @sReportsV2.Resources.TextLanguage.Cancel
+        </a>
+    </div>
+</div>

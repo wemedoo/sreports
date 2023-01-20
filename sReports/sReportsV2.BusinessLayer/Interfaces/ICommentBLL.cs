@@ -17,7 +17,7 @@ namespace sReportsV2.BusinessLayer.Interfaces
         void InsertOrUpdate(FormCommentDataIn commentDataIn);
 
         string UpdateState(int commentId, CommentState state);
-        string ReplayComment(string commText, int commentId, int userId);
+        string ReplayComment(string commText, int commentId, int userId, List<int> taggedUsers);
 
 
     }

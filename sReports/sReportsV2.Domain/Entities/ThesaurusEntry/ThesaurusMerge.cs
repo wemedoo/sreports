@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.ThesaurusEntry
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class ThesaurusMerge : Entity
     {
         [BsonId]

@@ -1,195 +1,208 @@
 ﻿using AutoMapper;
-using Serilog;
 using sReportsV2.Common.CustomAttributes;
 using sReportsV2.Common.Singleton;
-using sReportsV2.Common.Constants;
-using sReportsV2.Domain.Exceptions;
-using sReportsV2.Domain.Extensions;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.DTOs.Common;
-using sReportsV2.DTOs.Encounter;
 using sReportsV2.DTOs.EpisodeOfCare;
 using sReportsV2.DTOs.Organization.DataIn;
-using sReportsV2.DTOs.Organization.DataOut;
 using sReportsV2.DTOs.Pagination;
 using sReportsV2.DTOs.Patient;
 using sReportsV2.DTOs.Patient.DataIn;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using sReportsV2.Domain.Sql.Entities.Common;
 using sReportsV2.Common.Extensions;
 using sReportsV2.Common.Enums;
-using sReportsV2.SqlDomain.Interfaces;
-using sReportsV2.Domain.Sql.Entities.Patient;
 using sReportsV2.BusinessLayer.Interfaces;
 using sReportsV2.DTOs.Common.DTO;
+using sReportsV2.Common.Constants;
+using sReportsV2.Common.Entities.User;
+using System.Collections.Generic;
+using sReportsV2.Domain.Sql.Entities.Patient;
+using sReportsV2.DTOs.Autocomplete;
+using sReportsV2.DTOs.CustomEnum.DataOut;
 
 namespace sReportsV2.Controllers
 {
     public class PatientController : BaseController
     {
-        private readonly IEncounterDAL encounterDAL;
-        private readonly IPatientDAL patientDAL;
         private readonly IPatientBLL patientBLL;
-        public PatientController(IEncounterDAL encounterDAL, IPatientDAL patientDAL, IPatientBLL patientBLL)
+        private readonly IEncounterBLL encounterBLL;
+        public PatientController(IPatientBLL patientBLL, IEncounterBLL encounterBLL)
         {
-            this.encounterDAL = encounterDAL;
-            this.patientDAL = patientDAL;
             this.patientBLL = patientBLL;
+            this.encounterBLL = encounterBLL;
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Patients)]
         public ActionResult GetAll(PatientFilterDataIn dataIn)
         {
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList();
+            SetCountryNameIfFilterByCountryIsIncluded(dataIn);
             ViewBag.FilterData = dataIn;
+            SetIdentifierTypesToViewBag();
             return View();
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Patients)]
         public ActionResult ReloadTable(PatientFilterDataIn dataIn)
         {
-            PatientFilter filter = Mapper.Map<PatientFilter>(dataIn);
-            PaginationDataOut<PatientDataOut, DataIn> result = new PaginationDataOut<PatientDataOut, DataIn>()
-            {
-                Count = (int)this.patientDAL.GetAllEntriesCount(filter),
-                Data = Mapper.Map<List<PatientDataOut>>(this.patientDAL.GetAll(filter)),
-                DataIn = dataIn
-            };
+            dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
+            dataIn.OrganizationId = userCookieData.ActiveOrganization;
+            PopulateGenders(dataIn);
+            PopulateActivity(dataIn);
+            PaginationDataOut<PatientDataOut, DataIn> result = patientBLL.GetAllFiltered(dataIn);
+            SetIdentifierTypesToViewBag();
 
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList();
             return PartialView("PatientEntryTable", result);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Patients)]
         public ActionResult Create()
         {
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList();
+            SetPatientInfoPropertiesToViewBag();
+            SetReadOnlyAndDisabledViewBag(false);
             return View("PatientEdit");
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Patients)]
         public ActionResult Edit(PatientEditDataIn patientEditDataIn)
         {
             patientEditDataIn = Ensure.IsNotNull(patientEditDataIn, nameof(patientEditDataIn));
-            Patient patient = patientDAL.GetById(patientEditDataIn.PatientId);
-            if (patient == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
 
-            var mappedPatient = Mapper.Map<PatientDataOut>(patient);
-            LoadEncountersForActiveEOC(mappedPatient, patientEditDataIn.EpisodeOfCareId);
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList();
-            ViewBag.ServiceTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.ServiceType)).ToList();
+            var patient = patientBLL.GetById(patientEditDataIn.PatientId);
+            SetLoadEncountersForActiveEOCToViewBag(patient, patientEditDataIn.EpisodeOfCareId);
+            SetIdentifierTypesToViewBag();
+            ViewBag.ServiceTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.ServiceType);
             SetActiveElementDataToViewBag(patientEditDataIn);
 
-            return View(mappedPatient);
+            return View(patient);
 
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         public ActionResult ReloadTree(PatientEditDataIn patientEditDataIn)
         {
-            Patient patient = patientDAL.GetById(patientEditDataIn.PatientId);
-            var mappedPatient = Mapper.Map<PatientDataOut>(patient);
-            LoadEncountersForActiveEOC(mappedPatient, patientEditDataIn.EpisodeOfCareId);
+            patientEditDataIn = Ensure.IsNotNull(patientEditDataIn, nameof(patientEditDataIn));
+            var patient = patientBLL.GetById(patientEditDataIn.PatientId);
+            SetLoadEncountersForActiveEOCToViewBag(patient, patientEditDataIn.EpisodeOfCareId);
 
-            return PartialView("PatientTree", mappedPatient);
+            return PartialView("PatientTree", patient);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Patients)]
         public ActionResult EditPatientInfo(int patientId)
         {
-            Patient patient = patientDAL.GetById(patientId);
-            if (patient == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var mappedPatient = Mapper.Map<PatientDataOut>(patient);
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList();
-            return PartialView("PatientEdit", mappedPatient);
+            var patient = patientBLL.GetById(patientId);
+            SetPatientInfoPropertiesToViewBag();
+            SetReadOnlyAndDisabledViewBag(!ViewBag.UserCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Patients));
+
+            return PartialView("PatientEdit", patient);
         }
 
         public ActionResult ExistIdentifier(IdentifierDataIn dataIn)
         {
-            return Json(!patientDAL.ExistsPatientByIdentifier(Mapper.Map<Identifier>(dataIn)),JsonRequestBehavior.AllowGet);
+            return Json(!patientBLL.ExistsPatientByIdentifier(Mapper.Map<Identifier>(dataIn)),JsonRequestBehavior.AllowGet);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Patients)]
         [SReportsAuditLog]
         [HttpPost]
         [SReportsPatientValidate]
         public ActionResult Create(PatientDataIn patient)
         {
-            ResourceCreatedDTO resourceCreatedDTO;
-            try
-            {
-                resourceCreatedDTO = patientBLL.Insert(patient);
-            }
-            catch (MongoDbConcurrencyException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExEdit;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
+            ResourceCreatedDTO resourceCreatedDTO = patientBLL.InsertOrUpdate(patient, Mapper.Map<UserData>(userCookieData));
 
-            Response.StatusCode = 204;
+            Response.StatusCode = 201;
             return new JsonResult()
             {
                 Data = resourceCreatedDTO
             };
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.Delete, Module = ModuleNames.Patients)]
         [SReportsAuditLog]
         [System.Web.Http.HttpDelete]
-        public ActionResult Delete(int patientId, DateTime lastUpdate)
+        public ActionResult Delete(int patientId)
         {
-            try
-            {
-                patientDAL.Delete(patientId, lastUpdate);
-            }
-            catch (MongoDbConcurrencyException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExDeleteEdit;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
-            catch (MongoDbConcurrencyDeleteException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExDelete;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
-
+            patientBLL.Delete(patientId);
             return new HttpStatusCodeResult(HttpStatusCode.NoContent);
         }
 
-        private List<IdentifierDataOut> GetPatientIdentifiersDataOut(List<Identifier> identifiers)
+        [HttpGet]
+        public ActionResult GetByName(string searchValue)
         {
-            List<IdentifierDataOut> result = new List<IdentifierDataOut>();
-            if (identifiers != null)
-            {
-                foreach (Identifier identifier in identifiers)
-                {
-                    IdentifierDataOut organizationIdentifier = new IdentifierDataOut()
-                    {
-                        System = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.PatientIdentifierType)).ToList().FirstOrDefault(x=>x.Thesaurus.Id.ToString().Equals(identifier.System)),
-                        Type = identifier.Type,
-                        Use = identifier.Use,
-                        Value = identifier.Value
-                    };
+            searchValue = searchValue.RemoveDiacritics(); // Normalization
 
-                    result.Add(organizationIdentifier);
+            List<PatientDataOut> patients = this.patientBLL.GetPatientsByName(searchValue);
+            return PartialView("~/Views/Patient/GetByName.cshtml", patients.OrderBy(x => x.Name).ToList()); 
+        }
+
+        [HttpGet]
+        public ActionResult ReloadPatients(PatientSearchFilter patientSearchFilter)
+        {
+            List<PatientDataOut> result = patientBLL.GetPatientsByFirstAndLastName(patientSearchFilter);
+            return PartialView("~/Views/Patient/PatientAutocomplete.cshtml", result);
+        }
+
+        public ActionResult GetAutoCompleteCustomEnumData(AutocompleteDataIn dataIn, CustomEnumType customEnumType)
+        {
+            dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
+
+            var filtered = FilterCustomEnumByName(dataIn.Term, customEnumType);
+            var enumDataOuts = filtered
+                .OrderBy(x => x.text).Skip(dataIn.Page * 15).Take(15)
+                .Where(x => string.IsNullOrEmpty(dataIn.ExcludeId) || !x.id.Equals(dataIn.ExcludeId))
+                .ToList();
+
+            AutocompleteResultDataOut result = new AutocompleteResultDataOut()
+            {
+                pagination = new AutocompletePaginatioDataOut()
+                {
+                    more = Math.Ceiling(filtered.Count() / 15.00) > dataIn.Page,
+                },
+                results = enumDataOuts
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCustomEnum(int customEnumId)
+        {
+            CustomEnumDataOut customEnum = SingletonDataContainer.Instance.GetCustomEnum(customEnumId);
+            string activeLanguage = ViewBag.UserCookieData.ActiveLanguage as string;
+            var result = new AutocompleteDataOut()
+            {
+                id = customEnum.Id.ToString(),
+                text = customEnum.Thesaurus.GetPreferredTermByTranslationOrDefault(activeLanguage)
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        private void SetCountryNameIfFilterByCountryIsIncluded(PatientFilterDataIn dataIn)
+        {
+            if (dataIn != null)
+            {
+                string countryName = string.Empty;
+                if (dataIn.CountryId.HasValue)
+                {
+                    countryName = SingletonDataContainer.Instance.GetCustomEnumPreferredTerm(dataIn.CountryId.Value);
                 }
+                dataIn.CountryName = countryName;
             }
-            return result;
+        }
+
+        private void PopulateGenders(PatientFilterDataIn dataIn)
+        {
+            foreach (var state in (Gender[])Enum.GetValues(typeof(Gender)))
+                dataIn.Genders.Add(Resources.TextLanguage.ResourceManager.GetString(state.ToString()));
+        }
+
+        private void PopulateActivity(PatientFilterDataIn dataIn)
+        {
+            dataIn.Activity.Add(Resources.TextLanguage.Active);
+            dataIn.Activity.Add(Resources.TextLanguage.Inactive);
         }
 
         private void SetActiveElementDataToViewBag(PatientEditDataIn patientEditDataIn)
@@ -215,18 +228,45 @@ namespace sReportsV2.Controllers
             ViewBag.IsPageReload = true;
         }
 
-        private void LoadEncountersForActiveEOC(PatientDataOut patient, int episodeOfCareId)
+        private void SetLoadEncountersForActiveEOCToViewBag(PatientDataOut patient, int episodeOfCareId)
         {
             if (episodeOfCareId != 0)
             {
                 EpisodeOfCareDataOut episodeOfCareDataOut = patient.EpisodeOfCares.FirstOrDefault(x => x.Id.Equals(episodeOfCareId));
                 if (episodeOfCareDataOut != null)
                 {
-                    episodeOfCareDataOut.Encounters = Mapper.Map<List<EncounterDataOut>>(this.encounterDAL.GetAllByEocIdAsync(episodeOfCareId));
+                    episodeOfCareDataOut.Encounters = this.encounterBLL.GetAllByEocId(episodeOfCareId);
                 }
                 ViewBag.EpisodeOfCareId = episodeOfCareId;
             }
         }
 
+        private void SetPatientInfoPropertiesToViewBag()
+        {
+            SetIdentifierTypesToViewBag();
+            ViewBag.Citizenships = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.Citizenship);
+            ViewBag.AddressTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.AddressType);
+        }
+
+        private void SetIdentifierTypesToViewBag()
+        {
+            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.PatientIdentifierType);
+        }
+
+        private IEnumerable<AutocompleteDataOut> FilterCustomEnumByName(string term, CustomEnumType customEnumType)
+        {
+            string activeLanguage = ViewBag.UserCookieData.ActiveLanguage as string;
+            return SingletonDataContainer.Instance.GetEnumsByType(customEnumType).Where(customEnum => FilterCustomEnumByName(customEnum, activeLanguage, term)).Select(e => new AutocompleteDataOut()
+            {
+                id = e.Id.ToString(),
+                text = e.Thesaurus.GetPreferredTermByTranslationOrDefault(activeLanguage)
+            });
+        }
+
+        private bool FilterCustomEnumByName(CustomEnumDataOut customEnum, string activeLanguage, string term)
+        {
+            string preferredTerm = customEnum.Thesaurus.GetPreferredTermByTranslationOrDefault(activeLanguage);
+            return !string.IsNullOrEmpty(term) && !string.IsNullOrEmpty(preferredTerm) && preferredTerm.ToLower().Contains(term.ToLower());
+        }
     }
 }

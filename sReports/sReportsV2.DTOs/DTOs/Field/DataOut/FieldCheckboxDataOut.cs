@@ -13,20 +13,9 @@ namespace sReportsV2.DTOs.Field.DataOut
         [JsonIgnore]
         public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableCheckBoxField.cshtml";
 
-        [JsonIgnore]
-        public override string ValidationAttr
-        {
-            get
-            {
-                string retVal = "";
-                retVal += IsRequired ? " required " : "";
-
-                return retVal;
-            }
-        }
         public override string GetValue()
         {
-            return this.Value?[0];
+            return HasValue() ? base.GetValue() : null;
         }
     }
 }

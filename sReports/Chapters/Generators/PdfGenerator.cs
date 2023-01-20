@@ -24,6 +24,7 @@ using Math = System.Math;
 using Rectangle = iText.Kernel.Geom.Rectangle;
 using sReportsV2.Domain.Sql.Entities.User;
 using sReportsV2.Domain.Sql.Entities.OrganizationEntities;
+using sReportsV2.Common.Constants;
 
 namespace Chapters
 {
@@ -50,47 +51,40 @@ namespace Chapters
         private int numberOfFields = 0;
         private int chapterCount = 0;
         private Form formJson;
-        private PdfDocument pdfDocument;
-        private Document document;
-        private PdfAcroForm pdfAcroForm;
-        private PdfWriter pdfWritter;
-        private MemoryStream stream;
+        protected PdfDocument pdfDocument;
+        protected Document document;
+        protected PdfAcroForm pdfAcroForm;
+        protected PdfWriter pdfWritter;
+        protected MemoryStream stream;
         private List<RectangleParameters> rectangles = new List<RectangleParameters>();
         private Dictionary<string,int> dicPagePosition = new Dictionary<string, int>();
-        private readonly string basePath; 
-        public Organization Organization;
-        public User User;
-        public string Definition;
+        protected readonly string basePath; 
+        
 
-        //public string Language;
-        //public string PostingDateTranslation;
-        //public string VersionTranslation;
-        //public string LanguageTranslation;
+        //private string Language;
+        //private string PostingDateTranslation;
+        //private string VersionTranslation;
+        //private string LanguageTranslation;
         private string Html = string.Empty;
         private int startPosition;
         private int endPosition;
         private int pageTemp = 1;
         private bool isPageChanged = false;
         private int fieldSetPosition = 0;
-
-        public Dictionary<string, string> Translations;
+        private int fieldCounter = 0;
+        private readonly Dictionary<string, int> fieldOrderNumInPdf = new Dictionary<string, int>();
 
         private FileStream fileStream;
+
+        public Dictionary<string, string> Translations;
+        public Organization Organization;
+        public User User;
+        public string Definition;
 
         public PdfGenerator(Form formChapter, string path)
         {
             basePath = path;
             formJson = formChapter;
-        }
-
-        public void InitializeDocument()
-        {
-            stream = new MemoryStream();
-            pdfWritter = new PdfWriter(stream);
-            pdfDocument = new PdfDocument(pdfWritter);
-            document = new Document(pdfDocument);
-            pdfAcroForm = PdfAcroForm.GetAcroForm(pdfDocument, true);
-            pdfAcroForm.SetGenerateAppearance(true);
         }
 
         public byte[] Generate()
@@ -116,20 +110,34 @@ namespace Chapters
             return GetPdfBytes();
         }
 
-        public byte[] GetPdfBytes()
+        private void InitializeDocument()
+        {
+            stream = new MemoryStream();
+            pdfWritter = new PdfWriter(stream);
+            pdfDocument = new PdfDocument(pdfWritter);
+            document = new Document(pdfDocument);
+            pdfAcroForm = PdfAcroForm.GetAcroForm(pdfDocument, true);
+            pdfAcroForm.SetGenerateAppearance(true);
+        }
+
+        protected byte[] GetPdfBytes()
         {
             byte[] pdfBytes = null;
 
             if (stream != null)
             {
-                document.Flush();
+                try
+                {
+                    document.Flush();
+                }
+                catch { }   
                 pdfBytes = stream.ToArray();
             }
 
             return pdfBytes;
         }
 
-        public void AddAdditionalElements() 
+        private void AddAdditionalElements() 
         {
             pageCounter++;
             // notes, date and formState
@@ -137,7 +145,7 @@ namespace Chapters
             AddLabelFieldPair(this.Translations["DateTranslation"]+" (YYYY-MM-DD) :", "date");
         }
 
-        public void AddLabelFieldPair(string Label, string keyName) 
+        private void AddLabelFieldPair(string Label, string keyName) 
         {
             CheckPagePosition();
             document.AddParagraph(basePath, Label, FormFieldPadding, FieldFontSize, pageCounter, ref counter, additionalPadding, 22);
@@ -148,7 +156,7 @@ namespace Chapters
 
        
 
-        public string GetStyledHtmlString() 
+        private string GetStyledHtmlString() 
         {
 
             string styledHtml = "<style> " +
@@ -163,7 +171,7 @@ namespace Chapters
             return styledHtml;
         }
 
-        public ConverterProperties GetConverterProperties()
+        private ConverterProperties GetConverterProperties()
         {
             ConverterProperties properties = new ConverterProperties();
             FontProvider fontProvider = new FontProvider();
@@ -173,11 +181,11 @@ namespace Chapters
             return properties;
         }
 
-        public void MergeHtmlWithPdf() 
+        private void MergeHtmlWithPdf() 
         {
             if (!string.IsNullOrWhiteSpace(Html)) 
             {
-                string pathToTempPdfFile = basePath + "tempPdf.pdf";
+                string pathToTempPdfFile = basePath + System.IO.Path.DirectorySeparatorChar.ToString() + "tempPdf.pdf";
 
                 fileStream = new FileStream(pathToTempPdfFile, FileMode.Append);
                 HtmlConverter.ConvertToPdf(GetStyledHtmlString(), fileStream, GetConverterProperties());
@@ -192,12 +200,12 @@ namespace Chapters
             }
         }
 
-        public void AddNote(Help note)
+        private void AddNote(Help note)
         {
             Html += note.Content;
         }
 
-        public void SetNotes() 
+        private void SetNotes() 
         {
             foreach (FieldSet fieldSet in formJson.GetAllFieldSets()) 
             {
@@ -216,7 +224,7 @@ namespace Chapters
             }   
         }
 
-        public void AddPageLines()
+        private void AddPageLines()
         {
             int position = 0;
             int addPadding = 0;
@@ -230,7 +238,7 @@ namespace Chapters
             }
         }
 
-        public void AddIconRectangle(RectangleParameters rectangle)
+        private void AddIconRectangle(RectangleParameters rectangle)
         {
             int bottom = PageHeight - Step * rectangle.Position + rectangle.AdditionalPadding;
             int additionalPadd = 0;
@@ -238,12 +246,12 @@ namespace Chapters
             {
                 additionalPadd = 11;
                 document.AddImage($@"{basePath}\AppResource\fieldSetBackground.jpg", rectangle.PageCounter, 45, bottom, 25, 25);
-            }
+        }
             string imagePath = rectangle.IsPencil ? $@"{basePath}\AppResource\icon1.jpg" : $@"{basePath}\AppResource\fieldSetBackground.jpg";
             document.AddImage(imagePath, rectangle.PageCounter, 45, bottom + additionalPadd, 25, 25);
         }
 
-        public void AddAllRectangles()
+        private void AddAllRectangles()
         {
             foreach (var rectangle in rectangles)
             {
@@ -278,15 +286,15 @@ namespace Chapters
 
         }
 
-        public void SetAboutTextIntoRectangle()
+        private void SetAboutTextIntoRectangle()
         {
             foreach (var rectangle in rectangles.Where(x => x.Type.Equals("about")))
             {
-                AddTextIntoRectangle(rectangle, "black", true, 37, 0, rectangle.Text.Equals("sReports"), true);
+                AddTextIntoRectangle(rectangle, "black", true, 37, 0, rectangle.Text.Equals(ResourceTypes.SoftwareName), true);
             }
         }
 
-        public void AddFooterContent(int pagePosition)
+        private void AddFooterContent(int pagePosition)
         {
             AddLine(pagePosition, footerX, footerY, footerWidth, footerHeight);
 
@@ -301,7 +309,7 @@ namespace Chapters
             AddFooterIcons(pagePosition);
         }
 
-        public void AddFooter()
+        private void AddFooter()
         {
             for (int i = 1; i < pageCounter + 1 ; i++)
             {
@@ -309,9 +317,9 @@ namespace Chapters
             }
         }
 
-        public void AddFooterIcons(int pageNum)
+        private void AddFooterIcons(int pageNum)
         {
-            string imagePath = $@"{basePath}\AppResource\footerIcons.png";
+            string imagePath = $@"{basePath}\AppResource\footerLogo.png";
             ImageData data = ImageDataFactory.CreatePng(new System.Uri(imagePath));
             Image img = new Image(data);
             img.SetHeight(33);
@@ -320,7 +328,7 @@ namespace Chapters
             document.Add(img);
         }
 
-        public void AddHeader()
+        private void AddHeader()
         {
             /*Paragraph paraHeader = new Paragraph();
             paraHeader.Add(Organization != null && Organization.Alias != null ? new Text(Organization.Alias).SetBold() : new Text("Inselspital").SetBold());
@@ -349,7 +357,7 @@ namespace Chapters
             //AddLine(1, 21, 759, 0.7, 53);*/
         }
 
-        public void AddTextIntoRectangle(RectangleParameters rectangle,  string colorOfText, bool isBolded, int padding, int addPadding, bool isHeaderTitle = false, bool isAboutRectangles = false, bool isFieldSetTitle = false)
+        private void AddTextIntoRectangle(RectangleParameters rectangle,  string colorOfText, bool isBolded, int padding, int addPadding, bool isHeaderTitle = false, bool isAboutRectangles = false, bool isFieldSetTitle = false)
         {
             PdfCanvas over = new PdfCanvas(pdfDocument, rectangle.PageCounter);
             Paragraph p = GetParagraphForRectangles(rectangle.Text, isHeaderTitle, colorOfText, isBolded, isAboutRectangles);
@@ -370,7 +378,7 @@ namespace Chapters
             over.RestoreState();
         }
 
-        public Paragraph GetParagraph(string text, List<string> values, bool isAbout, bool isHeaderTitle)
+        private Paragraph GetParagraph(string text, List<string> values, bool isAbout, bool isHeaderTitle)
         {
             Paragraph p = new Paragraph();
             if (text != null)
@@ -401,7 +409,7 @@ namespace Chapters
             return p;
         }
 
-        public Paragraph GetParagraphForRectangles(string text, bool isHeaderTitle, string colorOfText, bool isBolded, bool isAbout)
+        private Paragraph GetParagraphForRectangles(string text, bool isHeaderTitle, string colorOfText, bool isBolded, bool isAbout)
         {
             List<string> values = text.Split(':').ToList();
             Paragraph p = GetParagraph(text, values, isAbout, isHeaderTitle);
@@ -416,7 +424,7 @@ namespace Chapters
             return p;
         }
 
-        public Color GetOrganizationColor()
+        private Color GetOrganizationColor()
         {
             Color colorHelper = Organization != null && !string.IsNullOrEmpty(Organization.PrimaryColor) ? new DeviceRgb(System.Drawing.ColorTranslator.FromHtml(Organization.PrimaryColor)) : new DeviceRgb(236, 236, 236);
             float sum = colorHelper.GetColorValue().Sum();
@@ -425,7 +433,7 @@ namespace Chapters
             return color;
         }
 
-        public void AddRectangle(int position, int pageNum, int addPadding)
+        private void AddRectangle(int position, int pageNum, int addPadding)
         {
             PdfCanvas canvas = new PdfCanvas(pdfDocument, pageNum);
             canvas.Rectangle(RectanglePadding - 35, PageHeight - Step * position + addPadding, RectangleWidth - 25, 25);
@@ -433,7 +441,7 @@ namespace Chapters
             canvas.Fill();
         }
 
-        public void AddLine(int pageNum, int x, int y,double width, double height)
+        private void AddLine(int pageNum, int x, int y,double width, double height)
         {
             PdfCanvas canvas = new PdfCanvas(pdfDocument, pageNum);
             Color color = new DeviceRgb(230, 230, 230);
@@ -442,7 +450,7 @@ namespace Chapters
             canvas.Fill();
         }
 
-        public void AddRectangleForChapter(int position, int pageNum, int addPadding)
+        private void AddRectangleForChapter(int position, int pageNum, int addPadding)
         {
             PdfCanvas canvas = new PdfCanvas(pdfDocument, pageNum);
             Color color = new DeviceRgb(0, 150, 112);
@@ -451,7 +459,7 @@ namespace Chapters
             canvas.Fill();
         }
 
-        public void AddRectangleForAbout(int position, int pageNum)
+        private void AddRectangleForAbout(int position, int pageNum)
         {
             PdfCanvas canvas = new PdfCanvas(pdfDocument, pageNum);
             Color color = new DeviceRgb(236, 236, 236);
@@ -460,7 +468,7 @@ namespace Chapters
             canvas.Fill();
         }
 
-        public void AddInfo()
+        private void AddInfo()
         {
             Dictionary<string, string> dicInfo = new Dictionary<string, string>();
             
@@ -469,7 +477,7 @@ namespace Chapters
             info.SetMoreInfo(dicInfo);
         }
 
-        public void AddMultiRowRectangles(string text, string type, int partSize)
+        private void AddMultiRowRectangles(string text, string type, int partSize)
         {
             List<string> rows = text.GetRows(partSize);
 
@@ -481,7 +489,7 @@ namespace Chapters
             }
         }
 
-        public void AddChapters()
+        private void AddChapters()
         {
             chapterCount = formJson.Chapters.Count;
             int count = 0;
@@ -512,7 +520,7 @@ namespace Chapters
             }
         }
 
-        public void CheckIsLastChapter(int count)
+        private void CheckIsLastChapter(int count)
         {
 
             if (count != chapterCount)
@@ -524,7 +532,7 @@ namespace Chapters
             }
         }
 
-        public void AddPages(FormChapter chapter)
+        private void AddPages(FormChapter chapter)
         {
             additionalPadding += 4;
             int i = 0;
@@ -561,7 +569,7 @@ namespace Chapters
             }
         }
 
-        public void AddListOfFieldSets(List<List<FieldSet>> listOfFieldSets) 
+        private void AddListOfFieldSets(List<List<FieldSet>> listOfFieldSets) 
         {
             CreateRepetitionsOfFieldSets(listOfFieldSets);
 
@@ -571,13 +579,13 @@ namespace Chapters
             }
         }
 
-        public void CreateRepetitionsOfFieldSets(List<List<FieldSet>> listOfFieldSets) 
+        private void CreateRepetitionsOfFieldSets(List<List<FieldSet>> listOfFieldSets) 
         {
             foreach (List<FieldSet> list in listOfFieldSets)
             {
                 if (list[0].IsRepetitive)
                 {
-                    int numberOfRepetitions = list[0].NumberOfRepetitionsForPdf > 0 ? list[0].NumberOfRepetitionsForPdf : 3;
+                    int numberOfRepetitions = list[0].NumberOfRepetitions > 0 ? list[0].NumberOfRepetitions : 3;
 
                     for (int i = 0; i < numberOfRepetitions - 1; i++)
                     {
@@ -587,7 +595,7 @@ namespace Chapters
             }
         }
 
-        public void AddFieldSetRectangles(List<string> rows)
+        private void AddFieldSetRectangles(List<string> rows)
         {
             int i = 0;
             additionalPadding += 10;
@@ -601,7 +609,7 @@ namespace Chapters
             }
         }
 
-        public void AddFieldSets(List<FieldSet> fieldSets)
+        private void AddFieldSets(List<FieldSet> fieldSets)
         {
             fieldSetPosition = 0;
             foreach (FieldSet fieldSet in fieldSets)
@@ -621,17 +629,7 @@ namespace Chapters
             fieldSetPosition = 0;
         }
 
-        public  List<string> SplitInParts(string s, int partLength)
-        {
-            List<string> listOfValues = new List<string>();
-           
-            for (var i = 0; i < s.Length; i += partLength)
-                listOfValues.Add(s.Substring(i, Math.Min(partLength, s.Length - i)));
-
-            return listOfValues;
-        }
-
-        public void AddFormField(FieldSet fieldSet)
+        private void AddFormField(FieldSet fieldSet)
         {
             int i = 0;
             CheckPagePosition();
@@ -647,7 +645,7 @@ namespace Chapters
             counter++;
         }
 
-        public string CheckDependables(Field formField,FieldSet fieldSet)
+        private string CheckDependables(Field formField, FieldSet fieldSet)
         {
             string result = string.Empty;
             foreach (FieldSelectable fField in fieldSet.Fields.OfType<FieldSelectable>())
@@ -655,14 +653,18 @@ namespace Chapters
                 FormFieldDependable dependable = fField.Dependables.FirstOrDefault(x => x.ActionParams.Equals(formField.Id));
                 if (dependable != null)
                 {
-                    result = dependable.Condition;
+                    string dependentFieldPos = string.Empty;
+                    if (fieldOrderNumInPdf.TryGetValue($"{fieldSet.Id}-{fField.Id}-{fieldSetPosition}", out int fieldOrderPos)){
+                        dependentFieldPos = $"[{fieldOrderPos}] ";
+                    }
+                    result = $"{dependentFieldPos}{fField.Label} (option {dependable.Condition})";
                     break;
                 }
             }
             return result;
         }
 
-        public void CheckPagePosition(int valuesCount = 1)
+        private void CheckPagePosition(int valuesCount = 1)
         {
             if (PageHeight - (Step * counter) + additionalPadding  < 20 * valuesCount + 80)
             {
@@ -678,7 +680,7 @@ namespace Chapters
             }
         }
 
-        public void CheckPagePositionWithoutAddingPage(int valuesCount = 1)
+        private void CheckPagePositionWithoutAddingPage(int valuesCount = 1)
         {
             if (PageHeight - (Step * counter) + additionalPadding < 20 * valuesCount + 80)
             {
@@ -693,11 +695,11 @@ namespace Chapters
             }
         }
 
-        public void AddAboutElements()
+        private void AddAboutElements()
         {
            
-            rectangles.Add(new RectangleParameters("sReports", ++counter, pageCounter, "about"));
-            rectangles.Add(new RectangleParameters(formJson.EntryDatetime != null ?$"{this.Translations["PostingDateTranslation"]}: {formJson.EntryDatetime.ToShortDateString().ToString()}" : "", ++counter, pageCounter, "about"));
+            rectangles.Add(new RectangleParameters(ResourceTypes.SoftwareName, ++counter, pageCounter, "about"));
+            rectangles.Add(new RectangleParameters(formJson.EntryDatetime != null ?$"{this.Translations["PostingDateTranslation"]}: {formJson.EntryDatetime.ToShortDateString()}" : "", ++counter, pageCounter, "about"));
             rectangles.Add(new RectangleParameters(formJson.Version != null ? $"{this.Translations["VersionTranslation"]}: {formJson.Version.Major}.{formJson.Version.Minor}" : "", ++counter, pageCounter, "about"));
             rectangles.Add(new RectangleParameters(this.Translations["Language"] != null ?  $"{this.Translations["LanguageTranslation"]} : {this.Translations["Language"]}" : "", ++counter, pageCounter, "about"));
 
@@ -707,7 +709,7 @@ namespace Chapters
             }*/
         }
 
-        public void AddField(string keyName, string value)
+        private void AddField(string keyName, string value)
         {
             string fieldValue = value ?? string.Empty;
             PdfTextFormField field = PdfTextFormField.CreateText(pdfDocument, new Rectangle(FormFieldPadding, PageHeight - Step * (counter++) + additionalPadding, 322, 15), keyName, fieldValue);
@@ -716,7 +718,7 @@ namespace Chapters
             pdfAcroForm.AddField(field);
         }
 
-        public void AddRadioField(FieldRadio formField,string fieldSetId, int fieldSetPosition)
+        private void AddRadioField(FieldRadio formField,string fieldSetId, int fieldSetPosition)
         {
             PdfButtonFormField group = PdfFormField.CreateRadioGroup(pdfDocument, $"{fieldSetId}-{formField.Id}-{counter}-{pageCounter}-{fieldSetPosition}", " ");
             int radioCounter = 0;
@@ -733,13 +735,13 @@ namespace Chapters
             }
         }
 
-        public void AddRadioInput(PdfButtonFormField group,int thesaurus)
+        private void AddRadioInput(PdfButtonFormField group,int thesaurus)
         {
             PdfFormField button = PdfFormField.CreateRadioButton(pdfDocument, new Rectangle(FormFieldPadding, PageHeight - Step * counter + additionalPadding, 15, 15), group, thesaurus.ToString()).SetFont(PdfFontFactory.CreateFont($@"{basePath}\AppResource\roboto-regular.ttf", PdfEncodings.IDENTITY_H, true));
             group.SetRadio(true);
         }
 
-        public List<Paragraph> AddRadioParagraph(FormFieldValue radio, int radioCounter)
+        private List<Paragraph> AddRadioParagraph(FormFieldValue radio, int radioCounter)
         {
             int position = counter;
             var rows = radio.Label.GetRows(108);
@@ -747,7 +749,7 @@ namespace Chapters
             return GetParagraphsForRadio(rows, position);
         }
 
-        public List<Paragraph> GetParagraphsForRadio(List<string> rows, int position)
+        private List<Paragraph> GetParagraphsForRadio(List<string> rows, int position)
         {
             List<Paragraph> paragraphs = new List<Paragraph>();
 
@@ -764,7 +766,7 @@ namespace Chapters
             return paragraphs;
         }
 
-        public Paragraph AddRadioParagraphMultiLine(string row, int position, int counterOfRows)
+        private Paragraph AddRadioParagraphMultiLine(string row, int position, int counterOfRows)
         {
             Paragraph radioPara = new Paragraph(row);
 
@@ -777,7 +779,7 @@ namespace Chapters
             return radioPara;
         }
 
-        public PdfFormField CreateCheckBoxInput(bool checkedField, int position,int checkBoxCounter, FieldCheckbox formField,int thesaurus, int corector = 0)
+        private PdfFormField CreateCheckBoxInput(bool checkedField, int position,int checkBoxCounter, FieldCheckbox formField,int thesaurus, int corector = 0)
         {
             string checkedValue = checkedField ? "Yes" : "Off";
             PdfButtonFormField checkField = PdfFormField.CreateCheckBox(pdfDocument, new Rectangle(FormFieldPadding + 250 * position, PageHeight - Step * (counter - corector) + Step * position + 0 * (checkBoxCounter - 1)  + additionalPadding, 15, 15), $"Field-{formField.Id}-{counter}-{position}-{thesaurus}", checkedValue, PdfFormField.TYPE_CHECK);
@@ -786,20 +788,20 @@ namespace Chapters
             return checkField;
         }
 
-        public void CreateCheckBoxLabel(string fieldValue,int position, int checkBoxCounter, int corector = 0)
+        private void CreateCheckBoxLabel(string fieldValue,int position, int checkBoxCounter, int corector = 0)
         {
             CheckPagePosition();
             ParagraphParameters paraHelper = new ParagraphParameters(fieldValue, CheckAndRadioFontSize, FormFieldPadding + 20 + 250 * position, PageHeight - (Step) * (counter - corector) + Step * position + 0 * (checkBoxCounter - 1) + additionalPadding, 200, pageCounter, new DeviceRgb(61, 69, 69));
             document.AddParagraph(paraHelper, basePath, false);
         }
 
-        public PdfFormField CreateCheckBoxInput(FieldCheckbox formField, int position, int thesaurus,string fieldSetId, int fieldSetPosition )
+        private PdfFormField CreateCheckBoxInput(FieldCheckbox formField, int position, int thesaurus,string fieldSetId, int fieldSetPosition )
         {
             PdfButtonFormField checkField = PdfFormField.CreateCheckBox(pdfDocument, new Rectangle(FormFieldPadding + 250 * position, PageHeight - Step * counter + additionalPadding, 15, 15), $"{fieldSetId}-{formField.Id}-{counter}-{position}-{thesaurus}-{pageCounter}-{fieldSetPosition}", "Off", PdfFormField.TYPE_CHECK);
             return checkField;
         }
 
-        public void AddCheckBoxField(FieldCheckbox formField,string fieldSetId, int fieldSetPosition)
+        private void AddCheckBoxField(FieldCheckbox formField,string fieldSetId, int fieldSetPosition)
         {
             int checkBoxCounter = 0;
             List<string> checkedValues = formField.Value != null && formField.Value.Count > 0 ? formField.Value?[0].Split(',').ToList() : new List<string>();
@@ -829,7 +831,7 @@ namespace Chapters
             CheckPagePosition();
         }
 
-        public void AddCheckBoxPara(string value, int position, bool isLast) 
+        private void AddCheckBoxPara(string value, int position, bool isLast) 
         {
             int startPage = pageCounter;
             startPosition = counter;
@@ -893,7 +895,7 @@ namespace Chapters
 
         }
 
-        public void AddSelectField(FieldSelect formField, string fieldSetId, int fieldSetPosition)
+        private void AddSelectField(FieldSelect formField, string fieldSetId, int fieldSetPosition)
         {
             List<string> availableOptions = formField.Values.Select(x => x.Label).ToList();
             PdfChoiceFormField choiceField = PdfFormField.CreateComboBox(pdfDocument, new Rectangle(FormFieldPadding, PageHeight - Step * counter + additionalPadding, 322, 15), $"{fieldSetId}-{formField.Id}-{counter}-{fieldSetPosition}", formField.GetSelectedValue(), availableOptions.ToArray());
@@ -905,27 +907,26 @@ namespace Chapters
             counter++;
         }
 
-        public void AddFieldLabel(Field formField, string condition)
+        private void AddFieldLabel(string fieldSetId, Field formField, string condition)
         {
             string value = string.Empty;
 
             if (formField.Label != null)
             {
-                if (formField.Label.Equals(condition) || formField.Label.Equals(condition + " (specify)") || formField.Label.Equals(condition + " (specify):"))
+                value = formField.Label;
+                
+                if (!string.IsNullOrEmpty(condition))
                 {
-                    value = !string.IsNullOrEmpty(condition) ? $"{formField.Label}" : formField.Label ?? "";
+                    value = string.Format("{0}, specify If {1} is selected", value, condition);
                 }
-                else
-                {
-                    value = !string.IsNullOrEmpty(condition) ? $"{formField.Label}({condition}(specify))" : formField.Label ?? "";
-                }
-
+                int currentFieldPosPdf = ++fieldCounter;
+                value = value.Insert(0, $"[{currentFieldPosPdf}] ");
+                fieldOrderNumInPdf.Add($"{fieldSetId}-{formField.Id}-{fieldSetPosition}", currentFieldPosPdf);
                 value = formField.Type.Equals(PdfGeneratorType.Date) || formField.Type.Equals(PdfGeneratorType.DateTime) ? value + "(ex: YYYY-MM-DD)" : value;
             }
 
             value += formField is FieldString && ((FieldString)formField).IsRepetitive ? " (Repetititve)" : "";
             value += formField is FieldCalculative ? " (Calculative)" : "";
-
 
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -938,9 +939,9 @@ namespace Chapters
             }
         }
 
-        public void AddFormFieldElements(Field formField,string condition, string fieldSetId)
+        private void AddFormFieldElements(Field formField, string condition, string fieldSetId)
         {
-            AddFieldLabel(formField, condition);
+            AddFieldLabel(fieldSetId, formField, condition);
 
             if (formField is FieldString && ((FieldString)formField).IsRepetitive) 
             {
@@ -958,7 +959,7 @@ namespace Chapters
 
         }
 
-        public void AddFieldInput(Field formField, string fieldSetId) 
+        private void AddFieldInput(Field formField, string fieldSetId) 
         {
             switch (formField.Type)
             {
@@ -1086,4 +1087,5 @@ namespace Chapters
             }
         }
     }
+    
 }

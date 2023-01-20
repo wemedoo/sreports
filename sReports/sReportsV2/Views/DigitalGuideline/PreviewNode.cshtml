@@ -1,213 +1,58 @@
 ﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut
 @using sReportsV2.DTOs.DigitalGuideline.DTO;
+@using sReportsV2.Common.Constants;
 @model GuidelineElementDataDataOut
 
-    <div class="single-node-preview">
-        <div class="title">
-            @Model.Title
-        </div>
-        <div class="node-preview-section">
-            <div class="section-title">Thesarus data</div>
-            <div class="section-items">
-                <div class="section-items-row">
-                    <div class="section-items-cell key-cell">Preferred term</div>
-                    <div class="section-items-cell no-left-border key-cell">O4MtId</div>
+<div class="single-node-preview">
+    <div class="title">
+        @Model.Title
+    </div>
+    <div class="node-preview-section">
+        <div class="section-title">Thesarus data</div>
+        <div class="section-items">
+            <div class="section-items-row">
+                <div class="section-items-cell key-cell">Preferred term</div>
+                <div class="section-items-cell no-left-border key-cell">O4MtId</div>
+            </div>
+
+            <div class="section-items-row">
+                <div class="section-items-cell no-top-border">
+                    @if (Model.Thesaurus != null)
+                    {
+                        @(Model.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage))
+                    }
+                    else
+                    {
+                        <div>Not defined</div>
+                    }
                 </div>
-                <div class="section-items-row">
-                    <div class="section-items-cell no-top-border">
-                        @if (Model.Thesaurus != null)
+                <div class="section-items-cell no-left-border no-top-border">
+                    @if (Model.Thesaurus != null)
+                    {
+                        @(Model.Thesaurus.Id)
+                        if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
                         {
-                            @(Model.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage))
-                        }
-                        else
-                        {
-                            <div>Not defined</div>
-                        }
-                    </div>
-                    <div class="section-items-cell no-left-border no-top-border">
-                        @if (Model.Thesaurus != null)
-                        {
-                            @(Model.Thesaurus.Id)
                             <div class="thesaurus-link">
-                                <img title="Thesaurus" class="mr-1 thesaurus" src="../Content/img/icons/thesaurus_green.svg" onclick="goToThesaurus('@Model.Thesaurus.Id')">
+                                <img title="Thesaurus" class="mr-1 thesaurus" src="~/Content/img/icons/thesaurus_green.svg" onclick="goToThesaurus('@Model.Thesaurus.Id')">
                             </div>
                         }
-                        else
-                        {
-                           <div>Not defined</div>
-                        }
+                    }
+                    else
+                    {
+                        <div>Not defined</div>
+                    }
+                </div>
 
-
-                    </div>
-
-                </div>
             </div>
-        </div>
-
-
-        @if (Model.EvidenceProperties != null && Model.EvidenceProperties.Publications != null && Model.EvidenceProperties.Publications.Count > 0)
-        {
-    <div class="node-preview-section">
-        <div class="section-title">Publications</div>
-        <div class="section-tabs">
-            @for (int i = 0; i < Model.EvidenceProperties.Publications.Count; i++)
-            {
-                <div class="section-tab @(i==0 ? "active": "")" data-target="@Model.EvidenceProperties.Publications[i].Id">
-                    @Model.EvidenceProperties.Publications[i].Title
-                </div>
-            }
-        </div>
-        @for (int i = 0; i < Model.EvidenceProperties.Publications.Count; i++)
-        {
-    <div class="section-items tab-content @(i==0 ? "active": "")" id="@Model.EvidenceProperties.Publications[i].Id">
-        <div class="section-item">
-            <div class="section-items-cell">
-                Title:
-            </div>
-            <div class="section-items-cell no-left-border">
-                @Model.EvidenceProperties.Publications[i].Title
-            </div>
-        </div>
-        <div class="section-item">
-            <div class="section-items-cell">
-                Author:
-            </div>
-            <div class="section-items-cell no-left-border">
-                @Model.EvidenceProperties.Publications[i].Author
-            </div>
-        </div>
-        <div> </div>
-        <div class="section-item">
-            <div class="section-items-cell no-top-border">
-                DOI:
-            </div>
-            <div class="section-items-cell no-left-border no-top-border">
-                @Model.EvidenceProperties.Publications[i].Doi
-            </div>
-        </div>
-        <div class="section-item">
-            <div class="section-items-cell no-top-border">
-                NameOfDatabase:
-            </div>
-            <div class="section-items-cell no-top-border no-left-border">
-                @Model.EvidenceProperties.Publications[i].NameOfDatabase
-            </div>
-        </div>
-        <div class="section-item">
-            <div class="section-items-cell no-top-border">
-                URL:
-            </div>
-            <div class="section-items-cell no-left-border no-top-border">
-                <a href="@Model.EvidenceProperties.Publications[i].URL" target="_blank">@Model.EvidenceProperties.Publications[i].URL</a>
-            </div>
-        </div>
-        <div class="publication-full-details">
-            <div class="section-item">
-                <div class="section-items-cell no-top-border">
-                    Abstract
-                </div>
-                <div class="section-items-cell no-left-border no-top-border">
-                    @Model.EvidenceProperties.Publications[i].Abstract
-                </div>
-            </div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border">
-                    Accession Number
-                </div>
-                <div class="section-items-cell no-left-border no-top-border">
-                    @Model.EvidenceProperties.Publications[i].AccessionNumber
-                </div>
-            </div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border">
-                    Translated Title
-                </div>
-                <div class="section-items-cell no-left-border no-top-border">
-                    @Model.EvidenceProperties.Publications[i].TranslatedTitle
-                </div>
-            </div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border">
-                    Alternate Title
-                </div>
-                <div class="section-items-cell no-left-border no-top-border">
-                    @Model.EvidenceProperties.Publications[i].AlternateTitle
-                </div>
-            </div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border">
-                    Keywords
-                </div>
-                <div class="section-items-cell no-left-border no-top-border">
-                    @Model.EvidenceProperties.Publications[i].Keywords
-                </div>
-            </div>
-        </div>
-        <div class="publication-show-full-details">
-            <span>Show all properties</span>
-        
         </div>
     </div>
-        }
 
-
-    </div>
-        }
-        @if (Model.EvidenceProperties != null && Model.EvidenceProperties.EvidenceCategory != null)
-        {
-    <div class="node-preview-section">
-        <div class="section-title">Evidence category</div>
-        <div class="section-items">
-            <div class="section-item">
-                <div class="section-items-cell key-cell">
-                    Strength Of Recommendation:
-                </div>
-                <div class="section-items-cell value-cell no-left-border">
-                    Strength Of Recommendation:
-                    @Model.EvidenceProperties.EvidenceCategory.StrengthOfRecommendation.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
-                </div>
-            </div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border key-cell">
-                    Oxford LevelOf Evidence System:
-                </div>
-                <div class="section-items-cell no-left-border no-top-border value-cell" >
-                    Oxford LevelOf Evidence System:
-                    @Model.EvidenceProperties.EvidenceCategory.OxfordLevelOfEvidenceSystem.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
-                </div>
-            </div>
-
-            @if (Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory != null)
-            {
-        <div class="sub-section">
-            <div class="sub-section-title">NCCN</div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border key-cell">
-                    Category Of Evidence And Consensus:
-                </div>
-                <div class="section-items-cell no-left-border no-top-border value-cell">
-                    Category Of Evidence And Consensus:
-                    @if (Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfEvidenceAndConsensus != null)
-                {
-                    @Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfEvidenceAndConsensus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
-                }
-                </div>
-            </div>
-            <div class="section-item">
-                <div class="section-items-cell no-top-border key-cell">
-                    Category Of Preference:
-                </div>
-                <div class="section-items-cell no-left-border no-top-border value-cell">
-                    Category Of Preference:
-                    @if (Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfPreference != null)
-                {
-                    @Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfPreference.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
-                }
-                </div>
-            </div>
-        </div>
-                }
-            </div>
-        </div>
-        }
-    </div>
+    @if (Model.EvidenceProperties != null && Model.EvidenceProperties.Publications != null && Model.EvidenceProperties.Publications.Count > 0)
+    {
+        @Html.Partial("EvidencePropertiesPublications", Model)
+    }
+    @if (Model.EvidenceProperties != null && Model.EvidenceProperties.EvidenceCategory != null)
+    {
+        @Html.Partial("EvidencePropertiesCategory", Model)
+    }
+</div>

@@ -1,89 +1,228 @@
-﻿<div class="home-container">
-    <div class="info-items">
-        <div class="info-item">
-            <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/number_1.svg" />
-            <div class="info-value">
-                1 0250 500
-            </div>
-            <div class="info-label">
-                Number of thesaurus entries
-            </div>
+﻿@using sReportsV2.Common.Constants;
+
+@{
+    ViewBag.Title = "Home";
+    bool canSubmit = ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.Curator, SmartOncologyRoleNames.Editor);
+}
+<div class="home-container">
+    @RenderHeader()
+    <div class="home-header-container">
+        <div class="home-header-title">
+            <div class="title">Thesaurus + by smart Oncology</div>
+            <div class="subtitle">Developed by the community</div>
         </div>
-        <div class="info-item">
-            <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/number_2.svg" />
-            <div class="info-value">
-                785 300+
-            </div>
-            <div class="info-label">
-                Number of documents
-            </div>
-        </div>
-        <div class="info-item">
-            <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/number_3.svg" />
-            <div class="info-value">
-                60 500+
-            </div>
-            <div class="info-label">
-                Number of datasets
-            </div>
-        </div>
-    </div>
-    <div class="search-button-container">
         <div class="search-input">
             <img class="search-book" src="~/Content/img/icons/SwissOpenOncology/search_icon.svg">
             <input type="text" class="search-btn-gt" placeholder="Search by Name, Code or Property" id="homeSearch" />
             <img class="search-i" id="homeSearchIcon" src="~/Content/img/icons/search_green.svg">
             <div class="advanced-search-btn" onclick="advancedFilterModal(event)">Advanced Search</div>
         </div>
-    </div>
-    <div class="icon-title">
-        <img class="swiss-icon" src="~/Content/img/icons/SwissOpenOncology/swiss.svg" />
-        <div class="text-green"> Swiss Open Oncology</div>
-    </div>
-    <div class="home-text">
-        <div class="text-bb">
-            Smart oncology thesaurus
-        </div>
-        is one open-source initiative started bysupport of the
-        <div class=" text-bg"> Swiss Cancer Foundation</div>
-        and Department of Radiation Oncology, Intelspital, Bern University Hospital, University of Bern. Tehnical development is provided by
-        <div class="text-bg">
-            Wemedoo AG
-        </div>
-        , Sumpfstrasse 24, 6312 Steinhausen, Switzerland.
-
-    </div>
-
-    <div class="img-center">
-        <img src="~/Content/img/icons/SwissOpenOncology/goal.svg" />
-    </div>
-    <div class="icon-title">
-        <div class="text-green">
-            The goal of the Smart Oncology Thesaurus is to :
+        <div class="info-items">
+            <div class="info-item">
+                <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/home/smart oncology home thesauruses.svg" />
+                <div class="info-value" id="thesaurusEntriesTotal"></div>
+                <div class="info-label">
+                    Number of thesaurus entries
+                </div>
+            </div>
+            <div class="info-item">
+                <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/home/smart oncology home documents.svg" />
+                <div class="info-value" id="documentsTotal"></div>
+                <div class="info-label">
+                    Number of documents
+                </div>
+            </div>
+            <div class="info-item">
+                <img class="img-number" src="~/Content/img/icons/SwissOpenOncology/home/smart oncology home datasets.svg" />
+                <div class="info-value" id="datasetsTotal"></div>
+                <div class="info-label">
+                    Number of datasets
+                </div>
+            </div>
         </div>
     </div>
-    <div class="home-li-item">
-        <i class="fas fa-circle"></i> Provide an open-source collaborative environment focused on cliniciasns and other healthcare workers involved in direct patient care.
+    <div class="home-action-container">
+        <div>
+            <div class="home-action-label">Browse or Submit New Term</div>
+            <div class="home-action-btns">
+                <button class="browse-term" onclick="goToBrowse()">
+                    Browse
+                </button>
+                @if (canSubmit)
+                {
+                    <button class="submit-new-term"
+                            onclick="goToCreateThesaurus()">
+                        Submit new term
+                    </button>
+                }
+            </div>
+        </div>
     </div>
-    <div class="home-li-item">
-        <i class="fas fa-circle"></i>Set a basic for semantic interoperability across oncological and other clinical disciplines.
+    <div class="home-row-container">
+        <div class="home-row">
+            <div class="w-50">
+                <div class="home-row-title">
+                    Smart Oncology
+                </div>
+                <div class="margin-bottom-20">
+                    <div class="text-bb">
+                        Smart oncology thesaurus
+                    </div>
+                    is an open-source initiative started by support of the
+                    <div class="text-bg"> Swiss Cancer Foundation</div>
+                    and Department of Radiation Oncology, Intelspital, Bern University Hospital, University of Bern. Tehnical development is provided by
+                    <div class="text-bg">
+                        Wemedoo AG
+                    </div>
+                    , Sumpfstrasse 24, 6312 Steinhausen, Switzerland.
+                </div>
+                <div class="margin-bottom-20">
+                    <div class="text-bb">
+                        SmartOncology
+                    </div>
+                    was developed with the support of the
+                    <div class=" text-bg"> Swiss Cancer Foundation</div>
+                    from 2019 to 2021. The purpose of the project was to create software solutions that facilitate the prevention, diagnosis, treatment, and rehabilitation of oncological patients.
+                </div>
+                <div class="margin-bottom-20">
+                    Our mutual efforts yielded breakthrough results, as we created
+                    <div class=" text-bg"> SwissOpenOncology</div>
+                    – a collaborative platform that operates as a knowledge exchange medium.
+                </div>
+            </div>
+            <div class="w-50 image">
+                <img class="home-image" src="~/Content/img/icons/SwissOpenOncology/home/smart oncology home 1.png" />
+            </div>
+        </div>
     </div>
-    <div class="home-li-item">
-        <i class="fas fa-circle"></i> Reduce complexity of clinical terminology development.
+    <div class="home-row-container grey-background">
+        <div class="home-row">
+            <div class="w-50 image">
+                <img class="home-image" src="~/Content/img/icons/SwissOpenOncology/home/smart oncology home 2.png" />
+            </div>
+            <div class="w-50">
+                <div class="home-row-title">
+                    Swiss Open Oncology
+                </div>
+                <div class="margin-bottom-20">
+                    <b>SwissOpenOncology</b> serves to the advantage of oncology community on a global scale and aims to establish a world standard for:
+                </div>
+                <div class="my-3">
+                    <div class="home-li-item circle">
+                        <i class="fas fa-circle"></i>Oncology-related terminology
+                    </div>
+                    <div class="home-li-item circle">
+                        <i class="fas fa-circle"></i>Clinical data modelling
+                    </div>
+                    <div class="home-li-item circle">
+                        <i class="fas fa-circle"></i>Designing clinical pathways and guidelines
+                    </div>
+                    <div class="home-li-item circle">
+                        <i class="fas fa-circle"></i>Data exchange in oncology using semantic interoperability
+                    </div>
+                    <div class="home-li-item circle">
+                        <i class="fas fa-circle"></i>Clinical software ergonomics
+                    </div>
+                </div>
+                <div class="margin-top-20">
+                    <div class="text-bg"> SwissOpenOncology</div> was rooted in oncology but our goal is to create the infrastructure for the advancement of global healthcare.
+                    We invite experts from other  clinical or preclinical disciplines to use the resources and help us improve the platform, or collaborate with us in the development.
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="home-li-item">
-        <i class="fas fa-circle"></i>Avoid administrative obstacles.
-    </div>
-    <div class="home-li-item">
-        <i class="fas fa-circle"></i>To provide data sxchange platform capable of managing inherited complexity of clinical enviroment.
+    <div class="home-row-container">
+        <div class="home-row">
+            <div class="w-50">
+                <div class="home-row-title">
+                    The goal of the Smart Oncology Thesaurus is to...
+                </div>
+                <div class="home-li-item">
+                    <i class="fas fa-check"></i><span>Provide an open-source collaborative environment focused on cliniciasns and other healthcare workers involved in direct patient care.</span>
+                </div>
+                <div class="home-li-item">
+                    <i class="fas fa-check"></i><span>Set a basic for semantic interoperability across oncological and other clinical disciplines.</span>
+                </div>
+                <div class="home-li-item">
+                    <i class="fas fa-check"></i><span> Reduce complexity of clinical terminology development.</span>
+                </div>
+                <div class="home-li-item">
+                    <i class="fas fa-check"></i><span>Avoid administrative obstacles.</span>
+                </div>
+                <div class="home-li-item">
+                    <i class="fas fa-check"></i><span>To provide data exchange platform capable of managing inherited complexity of clinical environment.</span>
+                </div>
+            </div>
+            <div class="w-50 image">
+                <img class="home-image" src="~/Content/img/icons/SwissOpenOncology/home/smart oncology home 3.png" />
+            </div>
+        </div>
     </div>
 </div>
-
 <div id="gtAdvancedSearch">
     @Html.Partial("~/Views/ThesaurusGlobal/Search/AdvancedFilterModal.cshtml")
-
 </div>
 
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/SwissOpenOncology/home.js")
 
-@*<script src="~/Scripts/sReports/tableCommon.js"></script>*@
-<script src="~/Scripts/SwissOpenOncology/home.js"></script>
+@helper RenderHeader()
+{
+    <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
+        <div class="header-wrapper home-container-header">
+            <div class="navbar-brand col-6 col-sm-3 col-md-2" style="padding-left:7px;">
+                <a href="@Url.Action("Index", "ThesaurusGlobal")" class="color-text layout-header-group">
+                    <img class="gt-navbar-logo" src="~/Content/img/icons/SwissOpenOncology/logo/smart oncology logo white.svg">
+                </a>
+            </div>
+            <div class="navbar-right-part">
+                @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.SuperAdministrator))
+                {
+                    <div class="header-btn" onclick="manageUsers()">
+                        <img src="~/Content/img/icons/SwissOpenOncology/edit.svg" />
+                        Manage users
+                    </div>
+                }
+                @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.Viewer, SmartOncologyRoleNames.Curator, SmartOncologyRoleNames.Editor))
+                {
+                    <div class="header-btn" onclick="goToBrowse()">
+                        <img src="~/Content/img/icons/SwissOpenOncology/browse.svg" />
+                        Browse
+                    </div>
+                }
+                @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.Curator, SmartOncologyRoleNames.Editor))
+                {
+                    <div class="header-btn" onclick="goToCreateThesaurus()">
+                        <img src="~/Content/img/icons/SwissOpenOncology/submit_new_term.svg" />
+                        Submit new term
+                    </div>
+                }
+                @if (ViewBag.UserCookieData != null)
+                {
+                    <div class="logged-user">
+                        <div class="layout-avatar">
+                            <div>@(!string.IsNullOrWhiteSpace(ViewBag.UserCookieData.FirstName) ? ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper() : "U" )</div>
+                        </div>
+                        <div class="user-label">
+                            @ViewBag.UserCookieData.Username
+                        </div>
+                        <div class="log-out" onclick="logout(event)">
+                            Log Out
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="login-register">
+                        <div class="go-to-login" onclick="goToLogin()">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <div> Login </div>
+                        </div>
+                        <div class="go-to-register" onclick="goToRegistration()">
+                            <div> Register </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </nav>
+}

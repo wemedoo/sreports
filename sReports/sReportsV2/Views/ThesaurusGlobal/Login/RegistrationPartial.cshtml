@@ -1,5 +1,5 @@
 ﻿
-    <div id="registrationPartial" class="registration-part" style="display:@(!ViewBag.IsLogin ? "" : "none")">
+    <div id="registrationPartial" class="registration-part" style="display:@(!((bool?)ViewBag.IsLogin).GetValueOrDefault() ? "" : "none")">
         <div class="registration-title">Register</div>
         <form id="registrationForm" onsubmit="return registerUser(this, event)">
             <div class="sub-title">

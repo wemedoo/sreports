@@ -11,12 +11,12 @@ namespace sReportsV2.Common.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum FormDefinitionState
     {
-        DesignPending,
-        Design,
-        ReviewPending,
-        Review,
-        ReadyForDataCapture,
-        Archive
+        DesignPending = 0,
+        Design = 1,
+        ReviewPending = 2,
+        Review = 3,
+        ReadyForDataCapture = 4,
+        Archive = 5
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -36,10 +36,10 @@ namespace sReportsV2.Common.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Gender
     {
-        Male,
-        Female,
-        Other,
-        Unknown
+        Male = 0,
+        Female = 1,
+        Other = 2,
+        Unknown = 3
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -105,7 +105,8 @@ namespace sReportsV2.Common.Enums
     public enum FormState
     {
         Finished,
-        OnGoing
+        OnGoing,
+        Signed
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -116,19 +117,29 @@ namespace sReportsV2.Common.Enums
         EncounterStatus,
         EncounterType,
         EpisodeOfCareType,
-        OrganizationType,
-        ServiceType,
         PatientIdentifierType,
-        OrganizationIdentifierType
+        ServiceType,
+        OrganizationType,
+        OrganizationIdentifierType,
+        CodeSystem
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
     public enum ThesaurusState
     {
-        Draft,
-        Production,
-        Deprecated,
-        Disabled
+        Draft = 0,
+        Production = 1,
+        Deprecated = 2,
+        Disabled = 3,
+        Curated = 4, 
+        Uncurated = 5,
+        MetadataIncomplete = 6,
+        RequiresDiscussion = 7,
+        PendingFinalVetting = 8,
+        ReadyForRelease = 9,
+        ToBeReplacedWithExternalOntologyTerm = 10,
+        OrganizationalTerm = 11,
+        ExampleToBeEventuallyRemoved = 12
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -136,7 +147,7 @@ namespace sReportsV2.Common.Enums
     {
         Pending,
         Completed,
-        NotComplited
+        NotCompleted
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -175,7 +186,7 @@ namespace sReportsV2.Common.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum AcademicPosition
     {
-        Professor,
+        Professor = 1,
         AssistantProfesssor,
         DoctorOfPhilosophy,
         Privatdozent
@@ -219,9 +230,9 @@ namespace sReportsV2.Common.Enums
     public enum CommentState
     {
         Created,
-        Archive,
-        Resolve,
-        Reject
+        Archived,
+        Resolved,
+        Rejected
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -254,11 +265,21 @@ namespace sReportsV2.Common.Enums
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
+    public enum QuestionOccurenceType
+    {
+        Any,
+        Same,
+        Different
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum IterationState
     {
         NotStarted,
+        Design,
         InProgress,
-        Finished
+        Finished,
+        Terminated
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -279,7 +300,12 @@ namespace sReportsV2.Common.Enums
         EncounterClassification,
         DiagnosisRole,
         PatientIdentifierType,
-        OrganizationIdentifierType
+        OrganizationIdentifierType,
+        CodeSystem,
+        Country,
+        AddressType,
+        ReligiousAffiliationType,
+        Citizenship
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -288,5 +314,51 @@ namespace sReportsV2.Common.Enums
         Microsoft,
         Google,
         Internal
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum GlobalUserStatus
+    {
+        NotVerified,
+        Active,
+        Blocked
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum PredifinedGlobalUserRole
+    {
+        SuperAdministrator = 1,
+        Viewer,
+        Editor,
+        Curator
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum PredifinedRole
+    {
+        SuperAdministrator = 1,
+        Administrator,
+        Doctor
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum NodeState
+    {
+        NotStarted,
+        Active,
+        Completed,
+        Disabled
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum FormInstanceViewMode
+    {
+        RegularView,
+        SynopticView
+    }
+
+    public enum FieldSpecialValues
+    {
+        NE = -2147483646 // Not Done
     }
 }

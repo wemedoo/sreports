@@ -5,11 +5,12 @@
             var loginUrl = '/User/Login?ReturnUrl=' + returnUrl;
 
             window.location.href = loginUrl;
+        },
+        403: function (response) {
+            toastr.error(response.responseText ? response.responseText : response.statusText);
         }
     }
 });
-
-
 
 document.addEventListener("change", function (event) {
     let element = event.target;
@@ -42,14 +43,13 @@ function setActiveLanguage(event, value) {
             $(event.srcElement).parent().addClass('active');
             window.location.href = `${location.protocol}//${location.host}${location.pathname}${getRemovedPageInfo() ? '?'+ getRemovedPageInfo():''}`;
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
     }
 
 }
-
 
 function changeLanParam(newValue) {
     let params = location.search.split('&');
@@ -71,8 +71,8 @@ function updatePageSize(value) {
             data: formData,
             success: function (data) {
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -80,11 +80,11 @@ function updatePageSize(value) {
 }
 
 function setActiveOrganization(event, value, targetUrl) {
-    let formData = { value: value };
+    console.log('updating organizations');
+    event.preventDefault();
     $.ajax({
         type: "PUT",
-        url: `/UserConfiguration/UpdateOrganization`,
-        data: formData,
+        url: `/UserAdministration/UpdateOrganization?organizationId=${value}`,
         success: function (data) {
             $(event.srcElement).parent().siblings().removeClass('active');
             $(event.srcElement).parent().addClass('active');
@@ -95,8 +95,8 @@ function setActiveOrganization(event, value, targetUrl) {
             }
             
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -115,24 +115,44 @@ function showHideLoaderOnAjaxRequest() {
         realXHR.addEventListener("readystatechange", function () {
             if (realXHR.readyState === 1) {
                 $("#loaderOverlay").show();
-                //alert('server connection established');
+                //console.log('server connection established');
             }
             if (realXHR.readyState === 2) {
-                //alert('request received');
+                //console.log('request received');
             }
             if (realXHR.readyState === 3) {
-                // alert('processing request');
+                //console.log('processing request');
             }
             if (realXHR.readyState === 4) {
-                $("#loaderOverlay").hide(100);
-                $('#loaderOverlay').hide();
-
-                //alert('request finished and response is ready');
+                var multiFileDownLoad = GetResponseBooleanHeader(realXHR, "MultiFile", false);
+                if (realXHR.responseType == "blob" || multiFileDownLoad) {
+                    hideLoaderForMultiFileResponse(realXHR);
+                } else {
+                    hideLoader();
+                }
+                //console.log('request finished and response is ready');
             }
         }, false);
         return realXHR;
     }
     window.XMLHttpRequest = newXHR;
+}
+
+function hideLoader() {
+    $("#loaderOverlay").hide(100);
+    $('#loaderOverlay').hide();
+}
+
+function hideLoaderForMultiFileResponse(xhr) {
+    var lastFile = GetResponseBooleanHeader(xhr, "LastFile", true);
+    if (lastFile) {
+        hideLoader();
+    }
+}
+
+function GetResponseBooleanHeader(xhr, name, predifinedValue) {
+    var headerParam = xhr.getResponseHeader(name);
+    return headerParam == null ? predifinedValue : JSON.parse(headerParam);
 }
 
 function checkUrlPageParams() {
@@ -211,15 +231,6 @@ $(document).ready(function () {
         return false;
     });
 
-    $('input, select, textbox, textarea').focusin(function () {
-
-        if ($(this).prev().length > 0) {
-            setLabelColor($(this).prev(), '#4dbbc8');
-        } else {
-            setLabelColor($(this).parent().parent().prev(), '#4dbbc8');
-        }        
-    });
-
     $(document).on('show.bs.dropdown', function (event) {
         console.log($(event.relatedTarget));
         if ($(event.relatedTarget).hasClass("dropdown-button")) {
@@ -228,37 +239,32 @@ $(document).ready(function () {
                 if ($(element).hasClass('active')) {
                     $(element).removeClass('active');
                 }
-                $(element).attr('src', '../Content/img/icons/3dots.png');
+                $(element).attr('src', '/Content/img/icons/3dots.png');
             });
             let button = $(event.relatedTarget); // Get the text of the element
             let dots = $(button).children('img:first');
-            $(dots).attr('src', '../Content/img/icons/dots-active.png');
+            $(dots).attr('src', '/Content/img/icons/dots-active.png');
             $(dots).addClass('active');
 
-            let t = $(event.relatedTarget).children('button:first');
-            if ($(event.relatedTarget).children('button:first').hasClass('btns')) {
-                $('#btns').children('img:first').attr('src', '../Content/img/icons/dropdown_open.svg');
+            let t = $(event.relatedTarget).children('div:first');
+            if ($(event.relatedTarget).children('div:first').hasClass('btns')) {
+                $('#btns').children('img:first').attr('src', '/Content/img/icons/dropdown_open.svg');
             }
         }
-
-
-
     });
 
     $(document).on('hide.bs.dropdown', function (event) {
-        
         let button = $(event.relatedTarget);
         if ($(button).closest('.dropdown').children('.dropdown-menu').hasClass('show')) {
             let dots = $(button).children('img:first');
             if ($(dots).hasClass('dots')) {
-                $(dots).attr('src', '../Content/img/icons/3dots.png');
+                $(dots).attr('src', '/Content/img/icons/3dots.png');
                 $(dots).removeClass('active');
             }
 
-            $('#btns').children('img:first').attr('src', '../Content/img/icons/dropdown.svg');
+            $('#btns').children('img:first').attr('src', '/Content/img/icons/dropdown.svg');
 
         }
-
 
         $(button).closest('.dropdown').children('.dropdown-menu').find('.dropdown-item-custom').each(function (index, element) {
                 $(element).find('i:first').removeClass('fa-angle-down');
@@ -267,7 +273,19 @@ $(document).ready(function () {
         
     });
 
-    $('input, select, textbox, textarea').focusout(function () {
+    $(document).on('focusin', 'input, select, textbox, textarea', function () {
+        if ($(this).data('no-color-change')) return;
+
+        if ($(this).prev().length > 0) {
+            setLabelColor($(this).prev(), '#4dbbc8');
+        } else {
+            setLabelColor($(this).parent().parent().prev(), '#4dbbc8');
+        }
+    });
+
+    $(document).on('focusout', 'input, select, textbox, textarea', function () {
+        if ($(this).data('no-color-change')) return;
+
         if ($(this).prev().length > 0) {
             setLabelColor($(this).prev(), '#000000');
         } else {
@@ -295,13 +313,45 @@ $(document).ready(function () {
         this.window.location.reload(true);
     }, false);
 
+    setCommonValidatorMethods();
 });
 
+function setCommonValidatorMethods() {
+    setDateTimeValidatorMethods();
+}
 
+function isRadioOrCheckbox(element) {
+    return element.is(":radio") || element.is(":checkbox");
+}
 
+function getElementWhereErrorShouldBeAdded(element) {
+    var parentFieldSelector = element.attr("data-parent-field");
+    if (!parentFieldSelector) {
+        parentFieldSelector = ".advanced-filter-item";
+    }
+    return element.closest(parentFieldSelector);
+}
+
+function modifyIfSecondError(targetContainerForErrors, error) {
+    var elementHasAlreadyOneError = targetContainerForErrors.find("label.error").length == 1;
+    if (elementHasAlreadyOneError) {
+        error.css("bottom", "-37px");
+    }
+}
+
+function handleErrorPlacementForRadioOrCheckbox(error, element) {
+    error.appendTo(element.parent().parent());
+}
+
+function handleErrorPlacementForOther(error, element) {
+    error.appendTo(element.parent());
+}
 
 $(window).on('beforeunload', function (event) {
     $("#loaderOverlay").show(100);
+    setTimeout(function () {
+        hideLoader();
+    }, 1500);
 });
 
 function logout(e) {
@@ -323,14 +373,14 @@ function switchAngles(element) {
     }
 }
 
-function sendFileData(fileData, setFieldCallback, filesUploadedCallBack) {
+function sendFileData(fileData, setFieldCallback, filesUploadedCallBack, url = '/Blob/Create') {
     var uploaded = 0;
     for (let i = 0; i < fileData.length; i++) {
         var fd = new FormData();
         fd.append('file', fileData[i].content);
 
         $.ajax({
-            url: `/Blob/Create`,
+            url: url,
             data: fd,
             processData: false,
             contentType: false,
@@ -345,17 +395,16 @@ function sendFileData(fileData, setFieldCallback, filesUploadedCallBack) {
                 if (uploaded === fileData.length) {
                     filesUploadedCallBack();
                 }
-                toastr.success(`Success`);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(` Error: ${xhr.status} ${thrownError}`);
+                handleResponseError(xhr, thrownError);
             }
         });
     }
 }
 
-function setImageUrl(id, data) {
-    $(`#${id}`).attr('value', data);
+function setImageUrl(id, url) {
+    $(`#${id}`).val(url);
 }
 
 $(".menu-btn-md").on("click", function () {
@@ -379,10 +428,9 @@ function setFilterFromUrl() {
     for (let param in params) {
         $(`#${param}`).val(`${params[param]}`);
         $(`#${param}Temp`).val(`${params[param]}`);
-
+        setValueForDateTime(param, params[param]);
     }
 }
-
 
 function paramsToObject(entriesData) {
     let result = {};
@@ -404,25 +452,39 @@ function reviewThesaurus(event,id)
 
 $(document).on('click', '.remove-filter', function (e) {
    
-    console.log($(this).closest('.filter-element').attr('data-value'));
     $(this).closest('.filter-element').remove();
 
     $(document).find('.filter-input').each(function (ind, ele) {
         $(ele).val("");
         $(ele).prop("selected", false);
+        emptyValueForSelect2(ele);
     });
 
     $(".remove-filter").each(function (index, element) {
-        console.log($(element).attr('name'));
         $(`#${firstLetterToLower($(element).attr('name'))}`).val($(element).attr('data-value'));
+        setValueForSelect2(element);
+        setValueForDateTime($(element).attr('name'), $(element).attr('data-value'));
     });
 
     advanceFilter();
-
-    $('#advancedId').children('div:first').removeClass('btn-advanced');
-    $('#advancedId').find('button:first').addClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'none');
 });
+
+function emptyValueForSelect2(element) {
+    if (isSelect2(element)) {
+        $(element).val("").trigger("change");
+    }
+}
+
+function setValueForSelect2(element) {
+    let targetElement = $(`#${firstLetterToLower($(element).attr('name'))}`);
+    if (isSelect2(targetElement)) {
+        $(targetElement).val($(element).attr('data-value')).trigger("change");
+    }
+}
+
+function isSelect2(element) {
+    return $(element).data('select2Id');
+}
 
 function firstLetterToLower(string) {
     return string.charAt(0).toLowerCase() + string.slice(1);
@@ -452,8 +514,8 @@ function resetIdleTime() {
 
 function checkIfIdle() {
     idleTime += 1000
-    if (idleTime >= 900000) {
-        //after 15 minute inactivity modal shows
+    if (idleTime >= 7200000) {
+        //after 2 hours inactivity modal shows
         showSessionBreakModal();
         clearInterval(idleInterval);
     }
@@ -493,4 +555,178 @@ function continueSession(){
     $('#sessionBreakModal').modal('hide');
 }
 
+function decodeLocalizedString(value) {
+    return $('<div/>').html(value).text();
+}
 
+function objectHasNoProperties(object, excludeList) {
+    return !Object.keys(object).filter(x => !excludeList.includes(x)).length;
+}
+
+function handleResponseError(xhr, thrownError) {
+    if (xhr.status != 403) {
+        toastr.error(`${xhr.status} ${thrownError}`);
+    }
+}
+
+$(document).on('show.bs.modal', '.modal, .custom-modal', function (e) {
+    setLowerZIndexForSidebar();
+});
+
+$(document).on('hidden.bs.modal', '.modal, .custom-modal', function (e) {
+    setDefaultZIndexForSidebar();
+});
+
+$(document).on('lowZIndex', '.custom-modal, .digital-guideline-modal, .modal-window', function (e) {
+    setLowerZIndexForSidebar();
+});
+
+$(document).on('defaultZIndex', '.custom-modal, .digital-guideline-modal, .modal-window', function (e) {
+    setDefaultZIndexForSidebar();
+});
+
+function setLowerZIndexForSidebar() {
+    $('.sidebar').css("z-index", "1010");
+}
+
+function setDefaultZIndexForSidebar() {
+    $('.sidebar').css("z-index", "1052");
+}
+
+function showAdministrativeArrowIfOverflow(administrativeContainerId) {
+    var $administrativeChangeContainer = $(`#${administrativeContainerId}`);
+
+    if ($administrativeChangeContainer.length > 0) {
+        var childrenWidthTotal = 0;
+        $administrativeChangeContainer.find('.workflow-item').each(function () {
+            childrenWidthTotal += Math.round($(this).outerWidth());
+        });
+
+        var $arrows = $administrativeChangeContainer.find(".arrow-scroll");
+        var overflow = childrenWidthTotal > $administrativeChangeContainer.outerWidth();
+        if (overflow) {
+            $arrows.removeClass('d-none');
+        } else {
+            $arrows.addClass('d-none');
+        }
+    }
+}
+
+function downloadImage(event, uri, fileName) {
+
+    if (uri) {
+        request = {};
+        request['resourceId'] = uri;
+
+        $.ajax({
+            type: 'GET',
+            url: `/Blob/Download`,
+            data: request,
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                return xhr;
+            },
+            success: function (data) {
+                const url = window.URL.createObjectURL(data);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                handleResponseError(xhr, thrownError);
+            }
+        });
+    }
+}
+
+function pressButtonOnEnterKey(event, buttonId) {
+    if (event.keyCode === 13) {  // when pressing Enter key
+        event.preventDefault();
+        $(`#${buttonId}`).click();
+    }
+}
+
+function initCustomEnumSelect2(hasSelectedCustomEnum, customEnumId, customEnumName, customEnumDisplayName, customEnumType) {
+    var $customEnumElement = $(`#${customEnumName}`);
+    if (hasSelectedCustomEnum) {
+        $.ajax({
+            type: 'GET',
+            url: `/Patient/GetCustomEnum?customEnumId=${customEnumId}`,
+            success: function (data) {
+                var initDataSource = [];
+                if (!jQuery.isEmptyObject(data)) {
+                    initDataSource.push(data);
+                }
+                initSelect2Component($customEnumElement, getCustomEnumSelect2Object(customEnumDisplayName, customEnumType, initDataSource));
+                $customEnumElement.val(customEnumId).trigger("change");
+            },
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
+            }
+        });
+    } else {
+        initSelect2Component($customEnumElement, getCustomEnumSelect2Object(customEnumDisplayName, customEnumType));
+    }
+}
+
+function hasParamInUrl(name) {
+    const urlParams = new URLSearchParams(location.search);
+    return urlParams.has(name);
+}
+
+function getParamFromUrl(name) {
+    const urlParams = new URLSearchParams(location.search);
+    return urlParams.get(name);
+}
+
+function initSelect2Component($select2Element, select2Object) {
+    if (!$select2Element.hasClass("select2-hidden-accessible")) {
+        $select2Element.select2(select2Object);
+    }
+}
+
+function getCustomEnumSelect2Object(placeholderName, customEnumType, initialData = []) {
+    return {
+        minimumInputLength: 3,
+        placeholder: `Type ${placeholderName}\'s name`,
+        allowClear: true,
+        ajax: {
+            url: `/Patient/GetAutoCompleteCustomEnumData?customEnumType=${customEnumType}`,
+            dataType: 'json',
+            data: function (params) {
+                return {
+                    Term: params.term,
+                    Page: params.page,
+                    ExcludeId: $('#id').val(),
+                }
+            }
+        },
+        data: initialData
+    };
+}
+
+function inputsAreInvalid(inputformType = "search") {
+    var numOfInvalidInputs = 0;
+    $("input[data-date-input]").each(function () {
+        var isInputValid = validateDateInput($(this));
+        if (!isInputValid) {
+            ++numOfInvalidInputs;
+        }
+    });
+    $(".time-helper").each(function () {
+        var isInputValid = validateTimeInput($(this));
+        if (!isInputValid) {
+            ++numOfInvalidInputs;
+        }
+    });
+    var areInputsInvalid = numOfInvalidInputs > 0;
+    if (areInputsInvalid) {
+        toastr.error(`Some of ${inputformType} inputs are not valid!`);
+    }
+    return areInputsInvalid;
+}

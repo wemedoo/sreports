@@ -1,0 +1,37 @@
+﻿@using sReportsV2.Common.Enums;
+
+@model sReportsV2.DTOs.DTOs.FormInstance.DataIn.FormInstanceSignDataIn
+
+@{
+    bool hasPasswordErrors = ViewData.ModelState["Password"] != null && ViewData.ModelState["Password"].Errors.Any();
+    bool unlockAction = Model.FormInstanceNextState == FormState.OnGoing;
+}
+
+<form>
+    <div class="d-flex advanced-filter-header">
+        <img class="mr-3" src="~/Content/img/icons/change_password.svg">
+        <label>
+            @(unlockAction ? sReportsV2.Resources.TextLanguage.UnlockDocument : sReportsV2.Resources.TextLanguage.LockDocument)
+        </label>
+    </div>
+    @Html.HiddenFor(x => x.FormInstanceNextState)
+    <div class="advanced-filter-item input-margin">
+        <div class="label filter-label @(hasPasswordErrors ? "error" : "")">
+            @sReportsV2.Resources.TextLanguage.Password
+        </div>
+        <input required class="filter-input @(hasPasswordErrors ? "error" : "")" type="password" id="signDocumentPassword" name="signDocumentPassword" value="@(Model != null && !string.IsNullOrEmpty(Model.Password) ? Model.Password : "")" />
+        <div id="sign-password-error" class="label @(hasPasswordErrors ? "error" : "")">
+            @Html.ValidationMessage("Password")
+        </div>
+    </div>
+    <div class="button-partial">
+        <button class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="signDocument(event)" dismiss="modal">
+            <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Sign</span>
+        </button>
+        <div class="button-wrapper-filter float-right" id="close">
+            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                @sReportsV2.Resources.TextLanguage.Cancel
+            </a>
+        </div>
+    </div>
+</form>

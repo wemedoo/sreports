@@ -1,0 +1,21 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Form.DataOut;
+
+@model FormPageDataOut
+
+@{ 
+    FormPageImageMapDataOut imageMap = Model.ImageMap;
+}
+
+@if (imageMap != null)
+{
+    <div class="col-lg-6 col-md-12">
+        <div class="image-map-container">
+            <img src="@Url.Action("Download", "Blob", routeValues: new { resourceId = imageMap.Url.ToString().GetResourceNameFromUri() })"
+                 usemap="#@imageMap.MapId" />
+            <map name="@imageMap.MapId" id="@imageMap.MapId">
+                @Html.Raw(imageMap.Map)
+            </map>
+        </div>
+    </div>
+}

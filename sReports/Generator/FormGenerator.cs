@@ -121,7 +121,7 @@ namespace Generator
             ThesaurusEntry thesaurus =  CreateThesaurus(label, description);
             thesaurusDAL.InsertOrUpdate(thesaurus);
 
-            return thesaurus.Id;
+            return thesaurus.ThesaurusEntryId;
         }
         private List<string[]> GetRowsFromCsv()
         {

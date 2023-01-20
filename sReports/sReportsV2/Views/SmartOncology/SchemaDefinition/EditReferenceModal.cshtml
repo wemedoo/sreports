@@ -1,0 +1,58 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@model LiteratureReferenceDataOut
+
+<div class="filter-close-btn">
+    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+</div>
+<form onsubmit="updateReference(this, event)" onkeypress="referenceKeyPressed(this, event)" novalidate>
+    <div class="modal-window-content">
+        <div class="d-flex advanced-filter-header">
+            <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> @sReportsV2.Resources.TextLanguage.Literature_reference
+        </div>
+        <input type="hidden" id="referenceId" value="@(Model != null ? Model.Id : 0)">
+        <div class="advanced-filter-item margin-top-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.PubMedLink
+            </div>
+            <input type="text" class="filter-input" id="pubMedLink" name="pubMedLink" value="@(Model != null ? Model.PubMedLink : "")" required />
+        </div>
+        <div class="advanced-filter-item margin-top-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.PubMedId
+            </div>
+            <input type="text" class="filter-input" id="pubMedId" name="pubMedId" value="@(Model != null ? Model.PubMedID.ToString() : "")" required />
+        </div>
+        <div class="advanced-filter-item margin-top-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Short_reference_annotation
+            </div>
+            <input type="text" class="filter-input" id="shortReferenceNotation" name="shortReferenceNotation" value="@(Model != null ? Model.ShortReferenceNotation : "")" />
+        </div>
+        <div class="advanced-filter-item margin-top-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.DOI
+            </div>
+            <input type="text" class="filter-input" id="referenceDoi" name="referenceDoi" value="@(Model != null ? Model.DOI : "")" required />
+        </div>
+        <div class="advanced-filter-item margin-top-20 margin-bottom-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Publish_date
+            </div>
+            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+            {
+                InputAttributes = new Dictionary<object, object> { 
+                    { "class", "filter-input" }, 
+                    { "id", "publicationDate" }, 
+                    { "name", "publicationDate" }, 
+                    { "value", Model != null && Model.PublicationDate != null ? Model.PublicationDate.Value.ToString(ViewBag.DateFormat) : "" } 
+                }
+            })
+        </div>
+        <div class="modal-footer">
+            <button href="javascript:;" class="btn-text close-modal">@sReportsV2.Resources.TextLanguage.Cancel</button>
+            <button id="save-reference" type="submit" class="btn-primary-schema ml-5">@sReportsV2.Resources.TextLanguage.Save</button>
+        </div>
+    </div>
+</form>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaDefinitionReference.js")

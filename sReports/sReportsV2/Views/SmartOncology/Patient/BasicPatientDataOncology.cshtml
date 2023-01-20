@@ -1,0 +1,36 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataIn;
+@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+
+@*@section Stylesheet {
+        @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/open-oncology/scss/style.css")
+    }*@
+
+@model  sReportsV2.DTOs.Pagination.PaginationDataOut<SmartOncologyPatientPreviewDataOut, SmartOncologyPatientFilterDataIn>
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management }, { "activeLevel", 1 } })
+
+<div class="smart-oncology-header">
+    <span>@sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management</span>
+    <button class="new-patient float-right" onclick="addNewPatient()">
+        @sReportsV2.Resources.TextLanguage.New_Patient
+    </button>
+</div>
+<div class="smart-oncology-container">
+    <div class="smart-oncology-search-container">
+        @Html.Partial("Patient/BasicPatientDataOncologyHeader", Model)
+        @Html.Partial("Patient/BasicPatientDataOncologyHeaderMobile", Model)
+        <div class="smart-oncology-patient-detail" id="smart-oncology-patient-detail">
+        </div>
+    </div>
+</div>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/smartOncologyPatient.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/smartOncologyPatient.js")
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(Model.DataIn));
+    setInitialViewData(defaultFilter.SelectedPatientId);
+</script>

@@ -1,28 +1,19 @@
 ﻿using AutoMapper;
-using sReportsV2.Domain.Entities.Common;
-using sReportsV2.Domain.Entities.Encounter;
-using sReportsV2.Domain.Entities.PatientEntities;
-using sReportsV2.Domain.Entities.Role;
-using sReportsV2.Domain.Entities.ThesaurusEntry;
 using sReportsV2.Common.Enums;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.DTOs;
 using sReportsV2.DTOs.CodeSystem;
-using sReportsV2.DTOs.Common;
-using sReportsV2.DTOs.Encounter.DataOut;
-using sReportsV2.DTOs.Patient;
 using sReportsV2.DTOs.ThesaurusEntry.DataOut;
 using sReportsV2.DTOs.ThesaurusEntry.DTO;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using sReportsV2.DTOs.DTOs.User.DTO;
 using sReportsV2.DTOs.CustomEnum.DataOut;
 using sReportsV2.DAL.Sql.Interfaces;
 using System.Web.Mvc;
 using sReportsV2.Domain.Sql.Entities.Common;
+using sReportsV2.DTOs.DTOs.SmartOncology.Enum.DataOut;
+using ExcelImporter.Importers;
+using sReportsV2.Common.Localization;
+using System;
 
 namespace sReportsV2.Common.Singleton
 {
@@ -31,22 +22,23 @@ namespace sReportsV2.Common.Singleton
         private static SingletonDataContainer instance;
         private readonly List<EnumDTO> languages = new List<EnumDTO>();
         private List<CustomEnumDataOut> enums = new List<CustomEnumDataOut>();
+        private List<SmartOncologyEnumDataOut> smartOncologyEnums = new List<SmartOncologyEnumDataOut>();
         private List<CodeSystemDataOut> codeSystems;
-        private List<string> roles = new List<string>();
-
+        private readonly List<EnumDTO> patientLanguages = new List<EnumDTO>();
         private SingletonDataContainer()
         {
             this.PopulateLanguages();
             this.PopulateCodeSystems();
-            this.PopulateRoles();
             this.PopulateEnums();
+            this.PopulateSmartOncologyEnums();
+            this.PopulatePatientLanguages();
         }
 
         public static SingletonDataContainer Instance
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                 {
                     instance = new SingletonDataContainer();
                 }
@@ -59,9 +51,22 @@ namespace sReportsV2.Common.Singleton
             instance = new SingletonDataContainer();
         }
 
+        public void RefreshSingleton(string updatedThesaurusIdStr)
+        {
+            if(int.TryParse(updatedThesaurusIdStr, out int updatedThesaurusId) && GetEnums().Any(e => e.Thesaurus.Id == updatedThesaurusId))
+            {
+                RefreshSingleton();
+            }
+        }
+
         public List<EnumDTO> GetLanguages()
         {
             return this.languages;
+        }
+
+        public List<EnumDTO> GetPatientLanguages()
+        {
+            return this.patientLanguages;
         }
 
         public List<CodeSystemDataOut> GetCodeSystems()
@@ -69,27 +74,43 @@ namespace sReportsV2.Common.Singleton
             return this.codeSystems;
         }
 
-        public List<RoleDTO> GetRoles()
-        {
-            return new List<RoleDTO>()
-            {
-                new RoleDTO()
-                {
-                    Id = 1,
-                    Name = "Administrator"
-                },
-                new RoleDTO()
-                {
-                    Id = 2,
-                    Name = "Doctor"
-                }
-            };
-        }
+        #region Common CustomEnum methods
 
         public List<CustomEnumDataOut> GetEnums()
         {
             return this.enums;
         }
+
+        public CustomEnumDataOut GetCustomEnum(int customEnumId)
+        {
+            return GetEnums().FirstOrDefault(x => x.Id == customEnumId);
+        }
+
+        public string GetCustomEnumPreferredTerm(int customEnumId)
+        {
+            string preferredTerm = string.Empty;
+            CustomEnumDataOut customEnumData = GetCustomEnum(customEnumId);
+            if (customEnumData != null)
+            {
+                preferredTerm = customEnumData.Thesaurus.GetPreferredTermByTranslationOrDefault("en");
+            }
+            return preferredTerm;
+        }
+
+
+        public List<CustomEnumDataOut> GetEnumsByType(CustomEnumType type)
+        {
+            return GetEnums().Where(x => x.Type.Equals(type)).ToList();
+        }
+
+        public int GEtCustomEnumId(string term, CustomEnumType type)
+        {
+            return GetEnumsByType(type).Where(e => e.Thesaurus.GetPreferredTermByTranslationOrDefault("en") == term).Select(en => en.Id).FirstOrDefault();
+        }
+
+        #endregion /Common CustomEnum methods
+
+        #region Digital Guideline methods
 
         public List<CustomEnumDataOut> GetNCCNCategoriesOfEvidenceAndConsensus()
         {
@@ -141,6 +162,13 @@ namespace sReportsV2.Common.Singleton
             };
         }
 
+        #endregion /Digital Guideline methods
+
+        public List<SmartOncologyEnumDataOut> GetSmartOncologyEnums(string type)
+        {
+            return this.smartOncologyEnums.Where(e => e.Type == type).ToList();
+        }
+
         private void PopulateLanguages()
         {
             languages.Add(new EnumDTO() { Label = "Serbian", Value = "sr" });
@@ -154,46 +182,55 @@ namespace sReportsV2.Common.Singleton
             languages.Add(new EnumDTO() { Label = "Portuguese", Value = "pt" });
         }
 
+        private void PopulatePatientLanguages() 
+        {
+            foreach (SpokenLang lang in Enum.GetValues(typeof(SpokenLang)))
+            {
+                patientLanguages.Add(new EnumDTO() { Label = lang.ToString(), Value = lang.GetLangAttribute().Iso6391 });
+            }
+        }
+
         private void PopulateCodeSystems()
         {
             ICodeSystemDAL codeSystemDAL = DependencyResolver.Current.GetService<ICodeSystemDAL>();
-            this.codeSystems = Mapper.Map<List<CodeSystemDataOut>>(codeSystemDAL.GetAll());
-        }
-
-        private void PopulateRoles()
-        {
-            this.roles = this.PopulateRole(this.roles, new RoleService());
+            this.codeSystems = Mapper.Map<List<CodeSystemDataOut>>(codeSystemDAL.GetAll().OrderBy(x => x.Label));
         }
 
         private void PopulateEnums()
         {
-            this.enums = this.PopulateEnum(this.enums);
-        }
-
-        private List<CustomEnumDataOut> PopulateEnum(List<CustomEnumDataOut> listToPopulate)
-        {
             var customEnumDal = DependencyResolver.Current.GetService<ICustomEnumDAL>();
             List<CustomEnum> enums = customEnumDal.GetAll().ToList();
 
-
-            return Mapper.Map<List<CustomEnumDataOut>>(enums);
+            this.enums = Mapper.Map<List<CustomEnumDataOut>>(enums);
         }
 
-        private List<string> PopulateRole(List<string> listToPopulate, IRoleService service)
+        private void PopulateSmartOncologyEnums()
         {
-            List<Roles> allRoles = service.GetAll();
-            List<string> roles = new List<string>();
-            roles = allRoles.Select(x => x.Role).ToList();
+            var presentationStage = GetEnumsFromExcel(SmartOncologyEnumNames.sReportsVocabularyFileName, SmartOncologyEnumNames.DiagnosesSheet, SmartOncologyEnumNames.PresentationStage);
+            var anatomy = GetEnumsFromExcel(SmartOncologyEnumNames.sReportsVocabularyFileName, SmartOncologyEnumNames.DiagnosesSheet, SmartOncologyEnumNames.Anatomy);
+            var morphology = GetEnumsFromExcel(SmartOncologyEnumNames.sReportsVocabularyFileName, SmartOncologyEnumNames.DiagnosesSheet, SmartOncologyEnumNames.Morphology);
+            var therapeuticContext = GetEnumsFromExcel(SmartOncologyEnumNames.sReportsVocabularyFileName, SmartOncologyEnumNames.TherapyCategorizationSheet, SmartOncologyEnumNames.TherapeuticContext);
+            var chemotherapyType = GetEnumsFromExcel(SmartOncologyEnumNames.ChemotherapyCompendiumFileName, SmartOncologyEnumNames.ChemotherapySchemasSheet, SmartOncologyEnumNames.ChemotherapyType);
 
-            foreach (string role in roles)
-            {
-                listToPopulate.Add(role);
-            }
+            List<SmartOncologyEnumDataOut> newEnums = new List<SmartOncologyEnumDataOut>();
+            newEnums.AddRange(presentationStage);
+            newEnums.AddRange(anatomy);
+            newEnums.AddRange(morphology);
+            newEnums.AddRange(therapeuticContext);
+            newEnums.AddRange(chemotherapyType);
+           
+            this.smartOncologyEnums = newEnums;
 
-            return listToPopulate;
         }
 
-        public CustomEnumDataOut MockEnumDataOut(string label, string definition, int id)
+        private List<SmartOncologyEnumDataOut> GetEnumsFromExcel(string fileName, string sheetName, string columnName)
+        {
+            List<SmartOncologyEnumDataOut> enums = new SchemaColumnImporter(fileName, sheetName, columnName).GetEnumsFromExcel();
+
+            return enums;
+        }
+
+        private CustomEnumDataOut MockEnumDataOut(string label, string definition, int id)
         {
             return new CustomEnumDataOut()
             {
@@ -213,6 +250,5 @@ namespace sReportsV2.Common.Singleton
                 }
             };
         }
-
     }
 }

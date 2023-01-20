@@ -123,8 +123,8 @@
   <data name="A&amp;EP" xml:space="preserve">
     <value>A&amp;EP</value>
   </data>
-  <data name="Abbreaviations" xml:space="preserve">
-    <value>Abbreaviations</value>
+  <data name="Abbreviations" xml:space="preserve">
+    <value>Abbreviations</value>
   </data>
   <data name="Abbreviation" xml:space="preserve">
     <value>Abbreviation</value>
@@ -530,9 +530,6 @@
   </data>
   <data name="Contact_information" xml:space="preserve">
     <value>Contact person information</value>
-  </data>
-  <data name="Content_dependent" xml:space="preserve">
-    <value>Content dependent</value>
   </data>
   <data name="ContextDependent" xml:space="preserve">
     <value>Context depedent</value>
@@ -2083,7 +2080,7 @@
     <value>Reporting of procedure</value>
   </data>
   <data name="ReportingOfTherapoDiagnosticProcedures" xml:space="preserve">
-    <value>Reporting of therapo-diagnostic procedures</value>
+    <value>Reporting of therapy-diagnostic procedures</value>
   </data>
   <data name="Reproductive Endocrinology/Infertility" xml:space="preserve">
     <value>Reproductive Endocrinology/Infertility</value>
@@ -3298,7 +3295,7 @@
     <value>Evaluation of Therapeutic Effect</value>
   </data>
   <data name="TreatmentOfTherapyaAssociatedAdverseEvents" xml:space="preserve">
-    <value>Treatment of Therapya Associated Adverse Events</value>
+    <value>Treatment of Therapy Associated Adverse Events</value>
   </data>
   <data name="Reports" xml:space="preserve">
     <value>Reports</value>
@@ -3645,7 +3642,7 @@
   <data name="ConfirmDeletion" xml:space="preserve">
     <value>Confirm deletion</value>
   </data>
-  <data name="No" xml:space="preserve">
+  <data name="No_" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="Yes" xml:space="preserve">
@@ -3911,5 +3908,1235 @@
   </data>
   <data name="New form" xml:space="preserve">
     <value>New form</value>
+  </data>
+  <data name="UMLS" xml:space="preserve">
+    <value>UMLS</value>
+  </data>
+  <data name="AcademicPosition" xml:space="preserve">
+    <value>Academic Position</value>
+  </data>
+  <data name="AssistantProfessor" xml:space="preserve">
+    <value>AssistantProfesor</value>
+  </data>
+  <data name="BusinessEmail" xml:space="preserve">
+    <value>Business E-Mail</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Clinic" xml:space="preserve">
+    <value>Clinic</value>
+  </data>
+  <data name="CodingClassificationSystem" xml:space="preserve">
+    <value>Coding and ClassificationSystem</value>
+  </data>
+  <data name="CompanyWithLimitedLiabilities" xml:space="preserve">
+    <value>CompanyWithLimitedLiabilities</value>
+  </data>
+  <data name="DayOfBirth" xml:space="preserve">
+    <value>Day of birth</value>
+  </data>
+  <data name="DepartmentName" xml:space="preserve">
+    <value>Department name</value>
+  </data>
+  <data name="DoctorOfPhilosophy" xml:space="preserve">
+    <value>DoctorOfPhilosophy</value>
+  </data>
+  <data name="Institute" xml:space="preserve">
+    <value>Institute</value>
+  </data>
+  <data name="InstitutionContactData" xml:space="preserve">
+    <value>Institution contact data</value>
+  </data>
+  <data name="InstitutionId" xml:space="preserve">
+    <value>Institutional ID</value>
+  </data>
+  <data name="InstitutionLegalForm" xml:space="preserve">
+    <value>Institution legal form</value>
+  </data>
+  <data name="InstitutionName" xml:space="preserve">
+    <value>Institution name</value>
+  </data>
+  <data name="InstitutionOrganizationForm" xml:space="preserve">
+    <value>Institution organizational form</value>
+  </data>
+  <data name="InstitutionWorkData" xml:space="preserve">
+    <value>Institution and work-related data</value>
+  </data>
+  <data name="IsPractitioner" xml:space="preserve">
+    <value>Is Practitioner</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="PersonalEmail" xml:space="preserve">
+    <value>Personal E-Mail</value>
+  </data>
+  <data name="PersonalGeneralData" xml:space="preserve">
+    <value>Personal and general data</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Prefixes (Mr. Ms.)</value>
+  </data>
+  <data name="Privatdozent" xml:space="preserve">
+    <value>Privatdozent</value>
+  </data>
+  <data name="PrivateCompany" xml:space="preserve">
+    <value>PrivateCompany</value>
+  </data>
+  <data name="PrivatePractice" xml:space="preserve">
+    <value>PrivatePractice</value>
+  </data>
+  <data name="Professor" xml:space="preserve">
+    <value>Professor</value>
+  </data>
+  <data name="PublicCompany" xml:space="preserve">
+    <value>PublicCompany</value>
+  </data>
+  <data name="Qualification" xml:space="preserve">
+    <value>Qualification</value>
+  </data>
+  <data name="SecondName" xml:space="preserve">
+    <value>Second name</value>
+  </data>
+  <data name="SeniorityLevel" xml:space="preserve">
+    <value>Seniority level</value>
+  </data>
+  <data name="StateUniversityHospital" xml:space="preserve">
+    <value>StateUniversityHospital</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>String</value>
+  </data>
+  <data name="Subspeciality" xml:space="preserve">
+    <value>Subspeciality</value>
+  </data>
+  <data name="SystemFullName" xml:space="preserve">
+    <value>System full name</value>
+  </data>
+  <data name="SystemId" xml:space="preserve">
+    <value>System ID</value>
+  </data>
+  <data name="UserAddressData" xml:space="preserve">
+    <value>User address data</value>
+  </data>
+  <data name="Speciality" xml:space="preserve">
+    <value>Speciality</value>
+  </data>
+  <data name="UserAdministrationMsgCreate" xml:space="preserve">
+    <value>New user is successfully added in the system.</value>
+  </data>
+  <data name="UserAdministrationMsgEdit" xml:space="preserve">
+    <value>User profile data are successfully updated.</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="ClinicalTrials" xml:space="preserve">
+    <value>Clinical trials</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="ForExistingTranslations" xml:space="preserve">
+    <value>For existing translations</value>
+  </data>
+  <data name="NotExisting" xml:space="preserve">
+    <value>not existing</value>
+  </data>
+  <data name="Curated" xml:space="preserve">
+    <value>Curated</value>
+  </data>
+  <data name="Deprecated" xml:space="preserve">
+    <value>Deprecated</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="ExampleToBeEventuallyRemoved" xml:space="preserve">
+    <value>Example To Be Eventually Removed</value>
+  </data>
+  <data name="MetadataIncomplete" xml:space="preserve">
+    <value>Metadata Incomplete</value>
+  </data>
+  <data name="OrganizationalTerm" xml:space="preserve">
+    <value>Organizational Term</value>
+  </data>
+  <data name="PendingFinalVetting" xml:space="preserve">
+    <value>Pending Final Vetting</value>
+  </data>
+  <data name="Production" xml:space="preserve">
+    <value>Production</value>
+  </data>
+  <data name="ReadyForRelease" xml:space="preserve">
+    <value>Ready For Release</value>
+  </data>
+  <data name="RequiresDiscussion" xml:space="preserve">
+    <value>Requires Discussion</value>
+  </data>
+  <data name="ToBeReplacedWithExternalOntologyTerm" xml:space="preserve">
+    <value>To Be Replaced With External Ontology Term</value>
+  </data>
+  <data name="Uncurated" xml:space="preserve">
+    <value>Uncurated</value>
+  </data>
+  <data name="aa" xml:space="preserve">
+    <value>Afar</value>
+  </data>
+  <data name="ab" xml:space="preserve">
+    <value>Abkhazian</value>
+  </data>
+  <data name="Abkhazian" xml:space="preserve">
+    <value>Abkhazian</value>
+  </data>
+  <data name="ae" xml:space="preserve">
+    <value>Avestan</value>
+  </data>
+  <data name="af" xml:space="preserve">
+    <value>Afrikaans</value>
+  </data>
+  <data name="Afar" xml:space="preserve">
+    <value>Afar</value>
+  </data>
+  <data name="Afrikaans" xml:space="preserve">
+    <value>Afrikaans</value>
+  </data>
+  <data name="ak" xml:space="preserve">
+    <value>Akan</value>
+  </data>
+  <data name="Akan" xml:space="preserve">
+    <value>Akan</value>
+  </data>
+  <data name="Albanian" xml:space="preserve">
+    <value>Albanian</value>
+  </data>
+  <data name="am" xml:space="preserve">
+    <value>Amharic</value>
+  </data>
+  <data name="Amharic" xml:space="preserve">
+    <value>Amharic</value>
+  </data>
+  <data name="an" xml:space="preserve">
+    <value>Aragonese</value>
+  </data>
+  <data name="ar" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="Aragonese" xml:space="preserve">
+    <value>Aragonese</value>
+  </data>
+  <data name="Armenian" xml:space="preserve">
+    <value>Armenian</value>
+  </data>
+  <data name="as" xml:space="preserve">
+    <value>Assamese</value>
+  </data>
+  <data name="Assamese" xml:space="preserve">
+    <value>Assamese</value>
+  </data>
+  <data name="av" xml:space="preserve">
+    <value>Avaric</value>
+  </data>
+  <data name="Avaric" xml:space="preserve">
+    <value>Avaric</value>
+  </data>
+  <data name="Avestan" xml:space="preserve">
+    <value>Avestan</value>
+  </data>
+  <data name="ay" xml:space="preserve">
+    <value>Aymara</value>
+  </data>
+  <data name="Aymara" xml:space="preserve">
+    <value>Aymara</value>
+  </data>
+  <data name="az" xml:space="preserve">
+    <value>Azerbaijani</value>
+  </data>
+  <data name="Azerbaijani" xml:space="preserve">
+    <value>Azerbaijani</value>
+  </data>
+  <data name="ba" xml:space="preserve">
+    <value>Bashkir</value>
+  </data>
+  <data name="Bambara" xml:space="preserve">
+    <value>Bambara</value>
+  </data>
+  <data name="Bashkir" xml:space="preserve">
+    <value>Bashkir</value>
+  </data>
+  <data name="Basque" xml:space="preserve">
+    <value>Basque</value>
+  </data>
+  <data name="be" xml:space="preserve">
+    <value>Belarusian</value>
+  </data>
+  <data name="Belarusian" xml:space="preserve">
+    <value>Belarusian</value>
+  </data>
+  <data name="Bengali" xml:space="preserve">
+    <value>Bengali</value>
+  </data>
+  <data name="bg" xml:space="preserve">
+    <value>Bulgarian</value>
+  </data>
+  <data name="bi" xml:space="preserve">
+    <value>Bislama</value>
+  </data>
+  <data name="Bislama" xml:space="preserve">
+    <value>Bislama</value>
+  </data>
+  <data name="bm" xml:space="preserve">
+    <value>Bambara</value>
+  </data>
+  <data name="bn" xml:space="preserve">
+    <value>Bengali</value>
+  </data>
+  <data name="bo" xml:space="preserve">
+    <value>Tibetan</value>
+  </data>
+  <data name="Bosnian" xml:space="preserve">
+    <value>Bosnian</value>
+  </data>
+  <data name="br" xml:space="preserve">
+    <value>Breton</value>
+  </data>
+  <data name="Breton" xml:space="preserve">
+    <value>Breton</value>
+  </data>
+  <data name="bs" xml:space="preserve">
+    <value>Bosnian</value>
+  </data>
+  <data name="Bulgarian" xml:space="preserve">
+    <value>Bulgarian</value>
+  </data>
+  <data name="Burmese" xml:space="preserve">
+    <value>Burmese</value>
+  </data>
+  <data name="ca" xml:space="preserve">
+    <value>Catalan</value>
+  </data>
+  <data name="Catalan" xml:space="preserve">
+    <value>Catalan</value>
+  </data>
+  <data name="ce" xml:space="preserve">
+    <value>Chechen</value>
+  </data>
+  <data name="CentralKhmer" xml:space="preserve">
+    <value>Central Khmer</value>
+  </data>
+  <data name="ch" xml:space="preserve">
+    <value>Chamorro</value>
+  </data>
+  <data name="Chamorro" xml:space="preserve">
+    <value>Chamorro</value>
+  </data>
+  <data name="Chechen" xml:space="preserve">
+    <value>Chechen</value>
+  </data>
+  <data name="Chichewa" xml:space="preserve">
+    <value>Chichewa</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>Chinese</value>
+  </data>
+  <data name="ChurchSlavonic" xml:space="preserve">
+    <value>Church Slavonic</value>
+  </data>
+  <data name="Chuvash" xml:space="preserve">
+    <value>Chuvash</value>
+  </data>
+  <data name="co" xml:space="preserve">
+    <value>Corsican</value>
+  </data>
+  <data name="Cornish" xml:space="preserve">
+    <value>Cornish</value>
+  </data>
+  <data name="Corsican" xml:space="preserve">
+    <value>Corsican</value>
+  </data>
+  <data name="cr" xml:space="preserve">
+    <value>Cree</value>
+  </data>
+  <data name="Cree" xml:space="preserve">
+    <value>Cree</value>
+  </data>
+  <data name="Croatian" xml:space="preserve">
+    <value>Croatian</value>
+  </data>
+  <data name="cs" xml:space="preserve">
+    <value>Czech</value>
+  </data>
+  <data name="cu" xml:space="preserve">
+    <value>Church Slavonic</value>
+  </data>
+  <data name="cv" xml:space="preserve">
+    <value>Chuvash</value>
+  </data>
+  <data name="cy" xml:space="preserve">
+    <value>Welsh</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>Czech</value>
+  </data>
+  <data name="da" xml:space="preserve">
+    <value>Danish</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>Danish</value>
+  </data>
+  <data name="Dhivehi" xml:space="preserve">
+    <value>Dhivehi</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>Dutch </value>
+  </data>
+  <data name="dv" xml:space="preserve">
+    <value>Dhivehi</value>
+  </data>
+  <data name="dz" xml:space="preserve">
+    <value>Dzongkha</value>
+  </data>
+  <data name="Dzongkha" xml:space="preserve">
+    <value>Dzongkha</value>
+  </data>
+  <data name="ee" xml:space="preserve">
+    <value>Ewe</value>
+  </data>
+  <data name="el" xml:space="preserve">
+    <value>Greek</value>
+  </data>
+  <data name="eo" xml:space="preserve">
+    <value>Esperanto</value>
+  </data>
+  <data name="Esperanto" xml:space="preserve">
+    <value>Esperanto</value>
+  </data>
+  <data name="Estonian" xml:space="preserve">
+    <value>Estonian</value>
+  </data>
+  <data name="et" xml:space="preserve">
+    <value>Estonian</value>
+  </data>
+  <data name="eu" xml:space="preserve">
+    <value>Basque</value>
+  </data>
+  <data name="Ewe" xml:space="preserve">
+    <value>Ewe</value>
+  </data>
+  <data name="fa" xml:space="preserve">
+    <value>Persian</value>
+  </data>
+  <data name="Faroese" xml:space="preserve">
+    <value>Faroese</value>
+  </data>
+  <data name="ff" xml:space="preserve">
+    <value>Fulah</value>
+  </data>
+  <data name="fi" xml:space="preserve">
+    <value>Finnish</value>
+  </data>
+  <data name="Fijian" xml:space="preserve">
+    <value>Fijian</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>Finnish</value>
+  </data>
+  <data name="fj" xml:space="preserve">
+    <value>Fijian</value>
+  </data>
+  <data name="fo" xml:space="preserve">
+    <value>Faroese</value>
+  </data>
+  <data name="Fulah" xml:space="preserve">
+    <value>Fulah</value>
+  </data>
+  <data name="fy" xml:space="preserve">
+    <value>Western Frisian</value>
+  </data>
+  <data name="ga" xml:space="preserve">
+    <value>Irish</value>
+  </data>
+  <data name="Gaelic" xml:space="preserve">
+    <value>Gaelic</value>
+  </data>
+  <data name="Galician" xml:space="preserve">
+    <value>Galician</value>
+  </data>
+  <data name="Ganda" xml:space="preserve">
+    <value>Ganda</value>
+  </data>
+  <data name="gd" xml:space="preserve">
+    <value>Gaelic</value>
+  </data>
+  <data name="Georgian" xml:space="preserve">
+    <value>Georgian</value>
+  </data>
+  <data name="gl" xml:space="preserve">
+    <value>Galician</value>
+  </data>
+  <data name="gn" xml:space="preserve">
+    <value>Guarani</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>Greek</value>
+  </data>
+  <data name="gu" xml:space="preserve">
+    <value>Gujarati</value>
+  </data>
+  <data name="Guarani" xml:space="preserve">
+    <value>Guarani</value>
+  </data>
+  <data name="Gujarati" xml:space="preserve">
+    <value>Gujarati</value>
+  </data>
+  <data name="gv" xml:space="preserve">
+    <value>Manx</value>
+  </data>
+  <data name="ha" xml:space="preserve">
+    <value>Hausa</value>
+  </data>
+  <data name="Haitian" xml:space="preserve">
+    <value>Haitian</value>
+  </data>
+  <data name="Hausa" xml:space="preserve">
+    <value>Hausa</value>
+  </data>
+  <data name="he" xml:space="preserve">
+    <value>Hebrew</value>
+  </data>
+  <data name="Hebrew" xml:space="preserve">
+    <value>Hebrew</value>
+  </data>
+  <data name="Herero" xml:space="preserve">
+    <value>Herero</value>
+  </data>
+  <data name="hi" xml:space="preserve">
+    <value>Hindi</value>
+  </data>
+  <data name="Hindi" xml:space="preserve">
+    <value>Hindi</value>
+  </data>
+  <data name="HiriMotu" xml:space="preserve">
+    <value>HiriMotu</value>
+  </data>
+  <data name="ho" xml:space="preserve">
+    <value>HiriMotu</value>
+  </data>
+  <data name="hr" xml:space="preserve">
+    <value>Croatian</value>
+  </data>
+  <data name="ht" xml:space="preserve">
+    <value>Haitian</value>
+  </data>
+  <data name="hu" xml:space="preserve">
+    <value>Hungarian</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>Hungarian</value>
+  </data>
+  <data name="hy" xml:space="preserve">
+    <value>Armenian</value>
+  </data>
+  <data name="hz" xml:space="preserve">
+    <value>Herero</value>
+  </data>
+  <data name="ia" xml:space="preserve">
+    <value>Interlingua</value>
+  </data>
+  <data name="Icelandic" xml:space="preserve">
+    <value>Icelandic</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>Indonesian</value>
+  </data>
+  <data name="Ido" xml:space="preserve">
+    <value>Ido</value>
+  </data>
+  <data name="ie" xml:space="preserve">
+    <value>Interlingue</value>
+  </data>
+  <data name="ig" xml:space="preserve">
+    <value>Igbo</value>
+  </data>
+  <data name="Igbo" xml:space="preserve">
+    <value>Igbo</value>
+  </data>
+  <data name="ii" xml:space="preserve">
+    <value>Sichuan Yi</value>
+  </data>
+  <data name="ik" xml:space="preserve">
+    <value>Inupiaq</value>
+  </data>
+  <data name="Indonesian" xml:space="preserve">
+    <value>Indonesian</value>
+  </data>
+  <data name="Interlingua" xml:space="preserve">
+    <value>Interlingua</value>
+  </data>
+  <data name="Interlingue" xml:space="preserve">
+    <value>Interlingue</value>
+  </data>
+  <data name="Inuktitut" xml:space="preserve">
+    <value>Inuktitut</value>
+  </data>
+  <data name="Inupiaq" xml:space="preserve">
+    <value>Inupiaq</value>
+  </data>
+  <data name="io" xml:space="preserve">
+    <value>Ido</value>
+  </data>
+  <data name="Irish" xml:space="preserve">
+    <value>Irish</value>
+  </data>
+  <data name="is" xml:space="preserve">
+    <value>Icelandic</value>
+  </data>
+  <data name="iu" xml:space="preserve">
+    <value>Inuktitut</value>
+  </data>
+  <data name="ja" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="Javanese" xml:space="preserve">
+    <value>Javanese</value>
+  </data>
+  <data name="jv" xml:space="preserve">
+    <value>Javanese</value>
+  </data>
+  <data name="ka" xml:space="preserve">
+    <value>Georgian</value>
+  </data>
+  <data name="Kalaallisut" xml:space="preserve">
+    <value>Kalaallisut</value>
+  </data>
+  <data name="Kannada" xml:space="preserve">
+    <value>Kannada</value>
+  </data>
+  <data name="Kanuri" xml:space="preserve">
+    <value>Kanuri</value>
+  </data>
+  <data name="Kashmiri" xml:space="preserve">
+    <value>Kashmiri</value>
+  </data>
+  <data name="Kazakh" xml:space="preserve">
+    <value>Kazakh</value>
+  </data>
+  <data name="kg" xml:space="preserve">
+    <value>Kongo</value>
+  </data>
+  <data name="ki" xml:space="preserve">
+    <value>Kikuyu</value>
+  </data>
+  <data name="Kikuyu" xml:space="preserve">
+    <value>Kikuyu</value>
+  </data>
+  <data name="Kinyarwanda" xml:space="preserve">
+    <value>Kinyarwanda</value>
+  </data>
+  <data name="Kirghiz" xml:space="preserve">
+    <value>Kirghiz</value>
+  </data>
+  <data name="kj" xml:space="preserve">
+    <value>Kuanyama</value>
+  </data>
+  <data name="kk" xml:space="preserve">
+    <value>Kazakh</value>
+  </data>
+  <data name="kl" xml:space="preserve">
+    <value>Kalaallisut</value>
+  </data>
+  <data name="km" xml:space="preserve">
+    <value>Central Khmer</value>
+  </data>
+  <data name="kn" xml:space="preserve">
+    <value>Kannada</value>
+  </data>
+  <data name="ko" xml:space="preserve">
+    <value>Korean</value>
+  </data>
+  <data name="Komi" xml:space="preserve">
+    <value>Komi</value>
+  </data>
+  <data name="Kongo" xml:space="preserve">
+    <value>Kongo</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>Korean</value>
+  </data>
+  <data name="kr" xml:space="preserve">
+    <value>Kanuri</value>
+  </data>
+  <data name="ks" xml:space="preserve">
+    <value>Kashmiri</value>
+  </data>
+  <data name="ku" xml:space="preserve">
+    <value>Kurdish</value>
+  </data>
+  <data name="Kuanyama" xml:space="preserve">
+    <value>Kuanyama</value>
+  </data>
+  <data name="Kurdish" xml:space="preserve">
+    <value>Kurdish</value>
+  </data>
+  <data name="kv" xml:space="preserve">
+    <value>Komi</value>
+  </data>
+  <data name="kw" xml:space="preserve">
+    <value>Cornish</value>
+  </data>
+  <data name="ky" xml:space="preserve">
+    <value>Kirghiz</value>
+  </data>
+  <data name="la" xml:space="preserve">
+    <value>Latin</value>
+  </data>
+  <data name="Lao" xml:space="preserve">
+    <value>Lao</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>Latin</value>
+  </data>
+  <data name="Latvian" xml:space="preserve">
+    <value>Latvian</value>
+  </data>
+  <data name="lb" xml:space="preserve">
+    <value>Luxembourgish</value>
+  </data>
+  <data name="lg" xml:space="preserve">
+    <value>Ganda</value>
+  </data>
+  <data name="li" xml:space="preserve">
+    <value>Limburgan</value>
+  </data>
+  <data name="Limburgan" xml:space="preserve">
+    <value>Limburgan</value>
+  </data>
+  <data name="Lingala" xml:space="preserve">
+    <value>Lingala</value>
+  </data>
+  <data name="Lithuanian" xml:space="preserve">
+    <value>Lithuanian</value>
+  </data>
+  <data name="ln" xml:space="preserve">
+    <value>Lingala</value>
+  </data>
+  <data name="lo" xml:space="preserve">
+    <value>Lao</value>
+  </data>
+  <data name="lt" xml:space="preserve">
+    <value>Lithuanian</value>
+  </data>
+  <data name="lu" xml:space="preserve">
+    <value>Luba Katanga</value>
+  </data>
+  <data name="LubaKatanga" xml:space="preserve">
+    <value>Luba Katanga</value>
+  </data>
+  <data name="Luxembourgish" xml:space="preserve">
+    <value>Luxembourgish</value>
+  </data>
+  <data name="lv" xml:space="preserve">
+    <value>Latvian</value>
+  </data>
+  <data name="Macedonian" xml:space="preserve">
+    <value>Macedonian</value>
+  </data>
+  <data name="Malagasy" xml:space="preserve">
+    <value>Malagasy</value>
+  </data>
+  <data name="Malay" xml:space="preserve">
+    <value>Malay</value>
+  </data>
+  <data name="Malayalam" xml:space="preserve">
+    <value>Malayalam</value>
+  </data>
+  <data name="Maltese" xml:space="preserve">
+    <value>Maltese</value>
+  </data>
+  <data name="Manx" xml:space="preserve">
+    <value>Manx</value>
+  </data>
+  <data name="Maori" xml:space="preserve">
+    <value>Maori</value>
+  </data>
+  <data name="Marathi" xml:space="preserve">
+    <value>Marathi</value>
+  </data>
+  <data name="Marshallese" xml:space="preserve">
+    <value>Marshallese    </value>
+  </data>
+  <data name="mg" xml:space="preserve">
+    <value>Malagasy</value>
+  </data>
+  <data name="mh" xml:space="preserve">
+    <value>Marshallese    </value>
+  </data>
+  <data name="mi" xml:space="preserve">
+    <value>Maori</value>
+  </data>
+  <data name="mk" xml:space="preserve">
+    <value>Macedonian</value>
+  </data>
+  <data name="ml" xml:space="preserve">
+    <value>Malayalam</value>
+  </data>
+  <data name="mn" xml:space="preserve">
+    <value>Mongolian</value>
+  </data>
+  <data name="Mongolian" xml:space="preserve">
+    <value>Mongolian</value>
+  </data>
+  <data name="mr" xml:space="preserve">
+    <value>Marathi</value>
+  </data>
+  <data name="ms" xml:space="preserve">
+    <value>Malay</value>
+  </data>
+  <data name="mt" xml:space="preserve">
+    <value>Maltese</value>
+  </data>
+  <data name="my" xml:space="preserve">
+    <value>Burmese</value>
+  </data>
+  <data name="na" xml:space="preserve">
+    <value>Nauru</value>
+  </data>
+  <data name="Nauru" xml:space="preserve">
+    <value>Nauru</value>
+  </data>
+  <data name="Navajo" xml:space="preserve">
+    <value>Navajo</value>
+  </data>
+  <data name="nb" xml:space="preserve">
+    <value>Norwegian Bokmål</value>
+  </data>
+  <data name="nd" xml:space="preserve">
+    <value>North Ndebele</value>
+  </data>
+  <data name="Ndonga" xml:space="preserve">
+    <value>Ndonga</value>
+  </data>
+  <data name="ne" xml:space="preserve">
+    <value>Nepali</value>
+  </data>
+  <data name="Nepali" xml:space="preserve">
+    <value>Nepali</value>
+  </data>
+  <data name="ng" xml:space="preserve">
+    <value>Ndonga</value>
+  </data>
+  <data name="nl" xml:space="preserve">
+    <value>Dutch </value>
+  </data>
+  <data name="nn" xml:space="preserve">
+    <value>Norwegian Nynorsk</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
+  <data name="NorthernSami" xml:space="preserve">
+    <value>Northern Sami</value>
+  </data>
+  <data name="NorthNdebele" xml:space="preserve">
+    <value>North Ndebele</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
+  <data name="NorwegianBokmål" xml:space="preserve">
+    <value>Norwegian Bokmål</value>
+  </data>
+  <data name="NorwegianNynorsk" xml:space="preserve">
+    <value>Norwegian Nynorsk</value>
+  </data>
+  <data name="nr" xml:space="preserve">
+    <value>South Ndebele</value>
+  </data>
+  <data name="nv" xml:space="preserve">
+    <value>Navajo</value>
+  </data>
+  <data name="ny" xml:space="preserve">
+    <value>Chichewa</value>
+  </data>
+  <data name="oc" xml:space="preserve">
+    <value>Occitan</value>
+  </data>
+  <data name="Occitan" xml:space="preserve">
+    <value>Occitan</value>
+  </data>
+  <data name="oj" xml:space="preserve">
+    <value>Ojibwa</value>
+  </data>
+  <data name="Ojibwa" xml:space="preserve">
+    <value>Ojibwa</value>
+  </data>
+  <data name="om" xml:space="preserve">
+    <value>Oromo</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>Oriya</value>
+  </data>
+  <data name="Oriya" xml:space="preserve">
+    <value>Oriya</value>
+  </data>
+  <data name="Oromo" xml:space="preserve">
+    <value>Oromo</value>
+  </data>
+  <data name="os" xml:space="preserve">
+    <value>Ossetian</value>
+  </data>
+  <data name="Ossetian" xml:space="preserve">
+    <value>Ossetian</value>
+  </data>
+  <data name="pa" xml:space="preserve">
+    <value>Punjabi</value>
+  </data>
+  <data name="Pali" xml:space="preserve">
+    <value>Pali</value>
+  </data>
+  <data name="Pashto" xml:space="preserve">
+    <value>Pashto</value>
+  </data>
+  <data name="Persian" xml:space="preserve">
+    <value>Persian</value>
+  </data>
+  <data name="pi" xml:space="preserve">
+    <value>Pali</value>
+  </data>
+  <data name="pl" xml:space="preserve">
+    <value>Polish</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>Polish</value>
+  </data>
+  <data name="ps" xml:space="preserve">
+    <value>Pashto</value>
+  </data>
+  <data name="Punjabi" xml:space="preserve">
+    <value>Punjabi</value>
+  </data>
+  <data name="qu" xml:space="preserve">
+    <value>Quechua</value>
+  </data>
+  <data name="Quechua" xml:space="preserve">
+    <value>Quechua</value>
+  </data>
+  <data name="rm" xml:space="preserve">
+    <value>Romansh</value>
+  </data>
+  <data name="rn" xml:space="preserve">
+    <value>Rundi</value>
+  </data>
+  <data name="ro" xml:space="preserve">
+    <value>Romanian</value>
+  </data>
+  <data name="Romanian" xml:space="preserve">
+    <value>Romanian</value>
+  </data>
+  <data name="Romansh" xml:space="preserve">
+    <value>Romansh</value>
+  </data>
+  <data name="Rundi" xml:space="preserve">
+    <value>Rundi</value>
+  </data>
+  <data name="rw" xml:space="preserve">
+    <value>Kinyarwanda</value>
+  </data>
+  <data name="sa" xml:space="preserve">
+    <value>Sanskrit</value>
+  </data>
+  <data name="Samoan" xml:space="preserve">
+    <value>Samoan</value>
+  </data>
+  <data name="Sango" xml:space="preserve">
+    <value>Sango</value>
+  </data>
+  <data name="Sanskrit" xml:space="preserve">
+    <value>Sanskrit</value>
+  </data>
+  <data name="Sardinian" xml:space="preserve">
+    <value>Sardinian</value>
+  </data>
+  <data name="sc" xml:space="preserve">
+    <value>Sardinian</value>
+  </data>
+  <data name="sd" xml:space="preserve">
+    <value>Sindhi</value>
+  </data>
+  <data name="se" xml:space="preserve">
+    <value>Northern Sami</value>
+  </data>
+  <data name="sg" xml:space="preserve">
+    <value>Sango</value>
+  </data>
+  <data name="Shona" xml:space="preserve">
+    <value>Shona</value>
+  </data>
+  <data name="si" xml:space="preserve">
+    <value>Sinhala</value>
+  </data>
+  <data name="SichuanYi" xml:space="preserve">
+    <value>Sichuan Yi</value>
+  </data>
+  <data name="Sindhi" xml:space="preserve">
+    <value>Sindhi</value>
+  </data>
+  <data name="Sinhala" xml:space="preserve">
+    <value>Sinhala</value>
+  </data>
+  <data name="sk" xml:space="preserve">
+    <value>Slovak</value>
+  </data>
+  <data name="sl" xml:space="preserve">
+    <value>Slovenian</value>
+  </data>
+  <data name="Slovak" xml:space="preserve">
+    <value>Slovak</value>
+  </data>
+  <data name="Slovenian" xml:space="preserve">
+    <value>Slovenian</value>
+  </data>
+  <data name="sm" xml:space="preserve">
+    <value>Samoan</value>
+  </data>
+  <data name="sn" xml:space="preserve">
+    <value>Shona</value>
+  </data>
+  <data name="so" xml:space="preserve">
+    <value>Somali</value>
+  </data>
+  <data name="Somali" xml:space="preserve">
+    <value>Somali</value>
+  </data>
+  <data name="SouthernSotho" xml:space="preserve">
+    <value>Southern Sotho</value>
+  </data>
+  <data name="SouthNdebele" xml:space="preserve">
+    <value>South Ndebele</value>
+  </data>
+  <data name="sq" xml:space="preserve">
+    <value>Albanian</value>
+  </data>
+  <data name="ss" xml:space="preserve">
+    <value>Swati</value>
+  </data>
+  <data name="st" xml:space="preserve">
+    <value>Southern Sotho</value>
+  </data>
+  <data name="su" xml:space="preserve">
+    <value>Sundanese</value>
+  </data>
+  <data name="Sundanese" xml:space="preserve">
+    <value>Sundanese</value>
+  </data>
+  <data name="sv" xml:space="preserve">
+    <value>Swedish</value>
+  </data>
+  <data name="sw" xml:space="preserve">
+    <value>Swahili</value>
+  </data>
+  <data name="Swahili" xml:space="preserve">
+    <value>Swahili</value>
+  </data>
+  <data name="Swati" xml:space="preserve">
+    <value>Swati</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>Swedish</value>
+  </data>
+  <data name="ta" xml:space="preserve">
+    <value>Tamil</value>
+  </data>
+  <data name="Tagalog" xml:space="preserve">
+    <value>Tagalog</value>
+  </data>
+  <data name="Tahitian" xml:space="preserve">
+    <value>Tahitian</value>
+  </data>
+  <data name="Tajik" xml:space="preserve">
+    <value>Tajik</value>
+  </data>
+  <data name="Tamil" xml:space="preserve">
+    <value>Tamil</value>
+  </data>
+  <data name="Tatar" xml:space="preserve">
+    <value>Tatar</value>
+  </data>
+  <data name="te" xml:space="preserve">
+    <value>Telugu</value>
+  </data>
+  <data name="Telugu" xml:space="preserve">
+    <value>Telugu</value>
+  </data>
+  <data name="tg" xml:space="preserve">
+    <value>Tajik</value>
+  </data>
+  <data name="th" xml:space="preserve">
+    <value>Thai</value>
+  </data>
+  <data name="Thai" xml:space="preserve">
+    <value>Thai</value>
+  </data>
+  <data name="ti" xml:space="preserve">
+    <value>Tigrinya</value>
+  </data>
+  <data name="Tibetan" xml:space="preserve">
+    <value>Tibetan</value>
+  </data>
+  <data name="Tigrinya" xml:space="preserve">
+    <value>Tigrinya</value>
+  </data>
+  <data name="tk" xml:space="preserve">
+    <value>Turkmen</value>
+  </data>
+  <data name="tl" xml:space="preserve">
+    <value>Tagalog</value>
+  </data>
+  <data name="tn" xml:space="preserve">
+    <value>Tswana</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>Tonga</value>
+  </data>
+  <data name="Tonga" xml:space="preserve">
+    <value>Tonga</value>
+  </data>
+  <data name="tr" xml:space="preserve">
+    <value>Turkish</value>
+  </data>
+  <data name="ts" xml:space="preserve">
+    <value>Tsonga</value>
+  </data>
+  <data name="Tsonga" xml:space="preserve">
+    <value>Tsonga</value>
+  </data>
+  <data name="Tswana" xml:space="preserve">
+    <value>Tswana</value>
+  </data>
+  <data name="tt" xml:space="preserve">
+    <value>Tatar</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>Turkish</value>
+  </data>
+  <data name="Turkmen" xml:space="preserve">
+    <value>Turkmen</value>
+  </data>
+  <data name="tw" xml:space="preserve">
+    <value>Twi</value>
+  </data>
+  <data name="Twi" xml:space="preserve">
+    <value>Twi</value>
+  </data>
+  <data name="ty" xml:space="preserve">
+    <value>Tahitian</value>
+  </data>
+  <data name="ug" xml:space="preserve">
+    <value>Uighur</value>
+  </data>
+  <data name="Uighur" xml:space="preserve">
+    <value>Uighur</value>
+  </data>
+  <data name="uk" xml:space="preserve">
+    <value>Ukrainian</value>
+  </data>
+  <data name="Ukrainian" xml:space="preserve">
+    <value>Ukrainian</value>
+  </data>
+  <data name="ur" xml:space="preserve">
+    <value>Urdu</value>
+  </data>
+  <data name="Urdu" xml:space="preserve">
+    <value>Urdu</value>
+  </data>
+  <data name="uz" xml:space="preserve">
+    <value>Uzbek</value>
+  </data>
+  <data name="Uzbek" xml:space="preserve">
+    <value>Uzbek</value>
+  </data>
+  <data name="ve" xml:space="preserve">
+    <value>Venda</value>
+  </data>
+  <data name="Venda" xml:space="preserve">
+    <value>Venda</value>
+  </data>
+  <data name="vi" xml:space="preserve">
+    <value>Vietnamese</value>
+  </data>
+  <data name="Vietnamese" xml:space="preserve">
+    <value>Vietnamese</value>
+  </data>
+  <data name="vo" xml:space="preserve">
+    <value>Volapük</value>
+  </data>
+  <data name="Volapük" xml:space="preserve">
+    <value>Volapük</value>
+  </data>
+  <data name="wa" xml:space="preserve">
+    <value>Walloon</value>
+  </data>
+  <data name="Walloon" xml:space="preserve">
+    <value>Walloon</value>
+  </data>
+  <data name="Welsh" xml:space="preserve">
+    <value>Welsh</value>
+  </data>
+  <data name="WesternFrisian" xml:space="preserve">
+    <value>Western Frisian</value>
+  </data>
+  <data name="wo" xml:space="preserve">
+    <value>Wolof</value>
+  </data>
+  <data name="Wolof" xml:space="preserve">
+    <value>Wolof</value>
+  </data>
+  <data name="xh" xml:space="preserve">
+    <value>Xhosa</value>
+  </data>
+  <data name="Xhosa" xml:space="preserve">
+    <value>Xhosa</value>
+  </data>
+  <data name="yi" xml:space="preserve">
+    <value>Yiddish</value>
+  </data>
+  <data name="Yiddish" xml:space="preserve">
+    <value>Yiddish</value>
+  </data>
+  <data name="yo" xml:space="preserve">
+    <value>Yoruba</value>
+  </data>
+  <data name="Yoruba" xml:space="preserve">
+    <value>Yoruba</value>
+  </data>
+  <data name="za" xml:space="preserve">
+    <value>Zhuang</value>
+  </data>
+  <data name="zh" xml:space="preserve">
+    <value>Chinese</value>
+  </data>
+  <data name="Zhuang" xml:space="preserve">
+    <value>Zhuang</value>
+  </data>
+  <data name="zu" xml:space="preserve">
+    <value>Zulu</value>
+  </data>
+  <data name="Zulu" xml:space="preserve">
+    <value>Zulu</value>
+  </data>
+  <data name="InselPID" xml:space="preserve">
+    <value>Insel PID</value>
   </data>
 </root>

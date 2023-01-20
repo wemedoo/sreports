@@ -1,0 +1,18 @@
+﻿@using sReportsV2.DTOs.Organization.DataOut;
+@model List<OrganizationUsersCountDataOut>
+
+<div class="user-filter-part">
+    <div class="consensus-input-group mt-3">
+        <div class="label filter-label">
+            Select Organization
+        </div>
+        <div class="c-complex-input">
+            <input class="consensus-input" type="text" id="organizationName">
+
+            <i class="fas fa-search search-btn" onclick="filterOrganizationHierarchy()"></i>
+        </div>
+    </div>
+    <div id="organizationHierarchy" class="consensus-hierarchy-container">
+        @Html.Partial("~/Views/Form/Consensus/Users/OrganizationHierarchy.cshtml", Model)
+    </div>
+</div>

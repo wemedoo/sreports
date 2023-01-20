@@ -65,5 +65,15 @@ namespace sReportsV2.Domain.Sql.Entities.ThesaurusEntry
 
 
         }
+
+        public void Copy(ThesaurusEntryTranslation thesaurusEntryTranslation)
+        {
+            this.PreferredTerm = thesaurusEntryTranslation.PreferredTerm;
+            this.Definition = thesaurusEntryTranslation.Definition;
+            this.AbbreviationsString = thesaurusEntryTranslation.AbbreviationsString;
+            this.SynonymsString = thesaurusEntryTranslation.SynonymsString;
+            this.Synonyms = thesaurusEntryTranslation.Synonyms;
+            this.Abbreviations = thesaurusEntryTranslation.Abbreviations;
+        }
     }
 }

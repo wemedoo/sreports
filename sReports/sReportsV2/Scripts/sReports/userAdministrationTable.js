@@ -1,9 +1,11 @@
 ﻿function reloadTable() {
   
-    let requestObject = {};
+    let requestObject = getFilterParametersObject();
     checkUrlPageParams();
     requestObject.Page = currentPage;
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     if (!requestObject.Page) {
         requestObject.Page = 1;
@@ -15,11 +17,25 @@
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
+}
+
+function getFilterParametersObject() {
+    let requestObject = {};
+
+    if (defaultFilter) {
+        requestObject = defaultFilter;
+        defaultFilter = null;
+    } else {
+        addPropertyToObject(requestObject, 'ShowUnassignedUsers', $('#showUnassignedUsers').is(":checked"));
+    }
+  
+    return requestObject;
 }
 
 function createUserEntry() {
@@ -31,22 +47,22 @@ function editEntity(event, id) {
     event.preventDefault();
 }
 
-function removeUserEntry(event, id, lastUpdate) {
+function removeUserEntry(event, id) {
     event.stopPropagation();
     $.ajax({
         type: "DELETE",
-        url: `/UserAdministration/Delete?userId=${id}&&LastUpdate=${lastUpdate}`,
+        url: `/UserAdministration/Delete?userId=${id}`,
         success: function (data) {
             toastr.success(`Success`);
             $(`#row-${id}`).remove();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
-function setUserState(event, id, state, lastUpdate) {
+function setUserState(event, id, state) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -58,7 +74,11 @@ function setUserState(event, id, state, lastUpdate) {
             reloadTable();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
+
+$(document).on("change", "#showUnassignedUsers", function () {
+    filterData();
+});

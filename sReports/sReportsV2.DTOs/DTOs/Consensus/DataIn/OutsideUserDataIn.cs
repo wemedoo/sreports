@@ -1,8 +1,5 @@
 ﻿using sReportsV2.DTOs.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace sReportsV2.DTOs.Form.DataIn
 {
@@ -14,10 +11,9 @@ namespace sReportsV2.DTOs.Form.DataIn
         public string Email { get; set; }
         public string Institution { get; set; }
         public string InstitutionAddress { get; set; }
-        public AddressDTO Address { get; set; }
+        public AddressDataIn Address { get; set; }
         public string ConsensusRef { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime EntryDatetime { get; set; }
         public DateTime? LastUpdate { get; set; }
     }
 }

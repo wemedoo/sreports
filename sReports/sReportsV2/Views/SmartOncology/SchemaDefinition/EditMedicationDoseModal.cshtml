@@ -1,0 +1,23 @@
+﻿<div class="modal-window modal-med-day">
+    <div class="filter-close-btn">
+        <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+    </div>
+    <div class="modal-window-content">
+        <div class="d-flex advanced-filter-header">
+            <img class="mr-3" src="~/Content/open-oncology/images/icons/medications.svg"> <span id="medicationDoseModalTitle"></span>
+        </div>
+        <div class="modal-subtitle">
+            <div id="day-item-modal" class="day-item day-item-display">
+                @sReportsV2.Resources.TextLanguage.DAY
+                <span class="num"></span>
+            </div>
+            <span class="modal-title">@sReportsV2.Resources.TextLanguage.Standardised_Dosing_Time</span>
+        </div>
+        <div class="form-row" id="doseModalContent">
+        </div>
+        <div class="modal-footer">
+            <button href="javascript:;" class="btn-text close-modal">@sReportsV2.Resources.TextLanguage.Cancel</button>
+            <button id="save-dose" class="btn-primary-schema ml-5">@sReportsV2.Resources.TextLanguage.Save</button>
+        </div>
+    </div>
+</div>

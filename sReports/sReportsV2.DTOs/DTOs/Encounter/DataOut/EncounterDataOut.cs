@@ -16,7 +16,7 @@ namespace sReportsV2.DTOs.Encounter
     public class EncounterDataOut
     {
         public int Id { get; set; }
-        public string EpisodeOfCareId { get; set; }
+        public int EpisodeOfCareId { get; set; }
         public string PatientId { get; set; }
         public CustomEnumDataOut Status { get; set; }
         public CustomEnumDataOut Class { get; set; }

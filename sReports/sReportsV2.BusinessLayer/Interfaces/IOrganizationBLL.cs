@@ -3,6 +3,7 @@ using sReportsV2.DTOs.Autocomplete;
 using sReportsV2.DTOs.Common;
 using sReportsV2.DTOs.Organization;
 using sReportsV2.DTOs.Organization.DataIn;
+using sReportsV2.DTOs.Organization.DataOut;
 using sReportsV2.DTOs.Pagination;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,8 @@ namespace sReportsV2.BusinessLayer.Interfaces
         bool ExistIdentifier(IdentifierDataIn dataIn);
         AutocompleteResultDataOut GetDataForAutocomplete(AutocompleteDataIn autocompleteDataIn);
         List<OrganizationDataOut> ReloadHierarchy(int? parent);
-        long GetAllCount();
-        long GetAllEntriesCountByCountry(string country);
-        List<OrganizationUsersCount> GetOrganizationUsersCount(string term, List<string> countries);
-
+        List<OrganizationUsersCount> GetOrganizationUsersCount(string term, Dictionary<int, string> countries);
+        List<OrganizationUsersDataOut> GetUsersByOrganizationsIds(List<int> ids);
 
     }
 }

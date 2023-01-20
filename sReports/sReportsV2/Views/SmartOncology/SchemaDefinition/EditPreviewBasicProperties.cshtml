@@ -1,0 +1,101 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@model ChemotherapySchemaDataOut
+@{ 
+    bool preview = ViewBag.Preview != null && ViewBag.Preview;
+    int schemaId = Model != null ? Model.Id : 0;
+}
+<div class="schema-col col-2">
+    <div class="schema-card">
+        <div class="schema-card-header">
+            <span class="icon">
+                <img src="~/Content/open-oncology/images/icons/medications.svg" alt="">
+            </span>
+            <h3><span class="icon"></span>@sReportsV2.Resources.TextLanguage.Definition</h3>
+        </div>
+        <div class="schema-card-item">
+            <div class="item-header">
+                <h3>@sReportsV2.Resources.TextLanguage.Indication</h3>
+                @if (preview)
+                {
+                    <span class="icon" id="edit-indication" onclick="editEntity(event, '@schemaId')">
+                        <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                    </span>
+                }
+                else
+                {
+                    <span class="icon" id="edit-indication">
+                        <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                    </span>
+                }
+            </div>
+            <div class="item-body indication-body @(Model != null && Model.Indications.Count > 0 ? "" : "d-none")">
+                @if (Model != null)
+                {
+                    foreach (var indication in Model.Indications)
+                    {
+                        <p id="indication-item_@indication.Id" class="schema-text" data-id="@indication.Id">@indication.Name</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="schema-card-item">
+            <div class="item-header">
+                <h3>@sReportsV2.Resources.TextLanguage.Chemotherapy_Schema_Name</h3>
+                @if (preview)
+                {
+                    <span id="edit-schema-name" class="icon" onclick="editEntity(event, '@schemaId')">
+                        <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                    </span>
+                }
+                else
+                {
+                    <span id="edit-schema-name" class="icon">
+                        <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                    </span>
+                }
+            </div>
+            <div class="item-body schema-name-body">
+                @{var schemaName = Model != null && !string.IsNullOrEmpty(Model.Name) ? Model.Name : sReportsV2.Resources.TextLanguage.Predefined_schema_name;}
+                <p id="schemaName" class="schema-text">@schemaName</p>
+            </div>
+        </div>
+        <div class="schema-card-item reference-body">
+            <div class="item-header">
+                <h3>@sReportsV2.Resources.TextLanguage.Literature_reference</h3>
+                @if (preview)
+                {
+                    <span class="icon edit-reference" onclick="editEntity(event, '@schemaId')">
+                        <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                    </span>
+                }
+                else
+                {
+                    <span class="icon edit-reference" data-id="0">
+                        <img src="~/Content/open-oncology/images/icons/plus.svg" alt="Add">
+                    </span>
+                }
+            </div>
+            @if (Model != null)
+            {
+                foreach (var reference in Model.LiteratureReferences)
+                {
+                    <div class="item-body">
+                        <div class="item-body-header">
+                            <p class="text-strong reference-item">PMID: @reference.PubMedID</p>
+                            <span class="icon edit-reference" data-id="@reference.Id">
+                                <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                            </span>
+                        </div>
+                        <p class="schema-text reference-item">
+                            @sReportsV2.Resources.TextLanguage.PubMedLink:
+                            <a class="link reference-item" href="@reference.PubMedLink" target="_blank">@reference.PubMedLink</a>
+                        </p>
+                        <p class="schema-text reference-item">@sReportsV2.Resources.TextLanguage.Reference: @reference.ShortReferenceNotation</p>
+                        <p class="schema-text reference-item">Doi: @reference.DOI</p>
+                        <p class="schema-text reference-item">@sReportsV2.Resources.TextLanguage.Publish_date: @(reference.PublicationDate.HasValue ? reference.PublicationDate.Value.ToString(ViewBag.DateFormat) : "")</p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

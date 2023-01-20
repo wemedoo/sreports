@@ -1,0 +1,18 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataIn;
+@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+
+@model  sReportsV2.DTOs.Pagination.PaginationDataOut<SmartOncologyPatientPreviewDataOut, SmartOncologyPatientFilterDataIn>
+
+<div class="visible-md">
+    <header class="header header-patient">
+        <div class="search-container-mobile">
+            <input name="patientSearchName" class="w-100 patientSearchName" type="text" placeholder="@sReportsV2.Resources.TextLanguage.Search_patient_placeholder" />
+            <img class="search-i" id="searchPatientNameIcon" src="~/Content/img/icons/search_green.svg" onclick="searchTable(event)">
+            <img class="close-i" id="closePatientNameIcon" src="~/Content/img/icons/close_black.svg">
+        </div>
+    </header>
+    <div class="smartOncologyPatientEntries">
+        @Html.Partial("Patient/PatientEntriesTable", Model)
+    </div>
+    <div class="divider"></div>
+</div>

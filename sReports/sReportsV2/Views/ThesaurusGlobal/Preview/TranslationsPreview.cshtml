@@ -2,6 +2,7 @@
 @model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
 @{
     ThesaurusEntryTranslationDTO translation = null;
+    string preferredLanguage = Model != null && Model.PreferredLanguage != null ? Model.PreferredLanguage : "en";
 }
 @Html.Partial("~/Views/ThesaurusGlobal/Preview/TranslationsTitle.cshtml", Model)
 
@@ -10,21 +11,20 @@
     <div class="language-input-title">
         Language:
     </div>
-    <div class="languages-select">
+    <div>
         <select class="languages-input" id="selectedLanguage" style="-webkit-appearance: none;">
             @foreach (var language in ViewBag.Languages)
             {
-                if (language.Value == "en")
+                if (Model == null || Model.PreferredLanguage == null)
                 {
-                    <option value="@language.Value" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                    <option value="@language.Value" @(language.Value == "en" ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
                 }
                 else
                 {
-                    <option value="@language.Value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                    <option value="@language.Value" @(Model.PreferredLanguage.Equals(language.Value) ? "selected" : "" )>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
                 }
             }
         </select>
-        <img class="languages-arrow" />
     </div>
 </div>
 
@@ -36,14 +36,13 @@
             {
                 translation = Model != null ? Model.GetTranslation(language.Value) : null;
             }
-        <div class="tab-pane fade @(language.Value == "en" ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
+        <div class="tab-pane fade @(language.Value == preferredLanguage ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
             <div class="translations-item-label">
                 Preferred term:
             </div>
             <div class="translations-item-value">
                 @translation.PreferredTerm
             </div>
-
             <div class="translations-item-label margin-top-15">
                 Preferred Definition:
             </div>
@@ -102,14 +101,16 @@
                 <img src="~/Content/img/icons/SwissOpenOncology/filter.svg">
                 Filter by Vocabulary
             </div>
-            <div class="view-all">
+            <div class="view-all" onclick="viewAllVocabularyCodes(event)" id="codesViewAll" style="display: none">
                 View All
             </div>
         </div>
     </div>
+    <div id="filterElements" class="d-flex">
 
+    </div>
     <div id="codesTableContainer">
-       
+
     </div>
 </div>
 

@@ -1,28 +1,7 @@
 ﻿function reloadTable() {
-    //setFilterFromUrl();
-
-    let requestObject = {};
-    checkUrlPageParams();
-    checkSecondaryPage();
-    requestObject.Page = currentPage;
-    requestObject.PageSize = getPageSize();
-
-
-
-    $.ajax({
-        type: 'GET',
-        url: '/FormDistribution/ReloadTable',
-        data: requestObject,
-        success: function (data) {
-            $("#tableContainer").html(data);
-            $('#tableContainer').show();
-
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
-            $('#tableContainer').hide();
-        }
-    });
+    if (columnName != null) {
+        reloadSecondaryTable("/FormDistribution/ReloadForms", "formsTableContainer", "formsCurrentPage")
+    }
 }
 
 function generateDocuments() {
@@ -41,8 +20,8 @@ function generateDocuments() {
 
 
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
                 $('#tableContainer').hide();
             }
         });      

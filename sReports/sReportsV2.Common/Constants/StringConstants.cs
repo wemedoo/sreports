@@ -22,6 +22,9 @@ namespace sReportsV2.Common.Constants
         public const string O4PatientId = "O4MtPatientId";
         public const string O40MtId = "O40MtId";
 
+        public const string SoftwareName = "SmartOncology";
+        public const string CompanyCountry = "Switzerland";
 
+        public const string PatientThesaurus = "9356";
     }
 }

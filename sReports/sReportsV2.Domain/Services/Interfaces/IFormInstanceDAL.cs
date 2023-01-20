@@ -1,4 +1,6 @@
-﻿using sReportsV2.Domain.Entities.Form;
+﻿using MongoDB.Bson;
+using sReportsV2.Domain.Entities.FieldEntity;
+using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,11 @@ namespace sReportsV2.Domain.Services.Interfaces
     public interface IFormInstanceDAL
     {
         FormInstance GetById(string formValueId);
-
-        string InsertOrUpdate(FormInstance form);
+        string InsertOrUpdate(FormInstance formInstance, FormInstanceStatus formInstanceStatus);
         bool Delete(string id, DateTime lastUpdate);
         List<FormInstance> GetByFormThesaurusId(FormInstanceFilterData filterData);
-        List<FormInstance> GetByEpisodeOfCareId(string episodeOfCareId);
-        Task<List<FormInstance>> GetAllByEpisodeOfCareIdAsync(string episodeOfCareId);
+        List<FormInstance> GetByEpisodeOfCareId(int episodeOfCareId, int organizationId);
+        Task<List<FormInstance>> GetAllByEpisodeOfCareIdAsync(int episodeOfCareId, int organizationId);
         List<FormInstance> GetAllByCovidFilter(FormInstanceCovidFilter filter);
         Task<List<FormInstance>> GetAllFieldsByCovidFilter();
         bool ExistsFormInstance(string formValueId);
@@ -26,15 +27,17 @@ namespace sReportsV2.Domain.Services.Interfaces
         void InsertMany(List<FormInstance> formInstances);
         bool ExistsById(string id);
         List<FormInstance> GetAllFormsByFieldIdAndValue(string id, string value);
-        List<FormInstance> GetFormsByFieldThesaurusAndValue(string thesaurusId, string value);
+        List<FormInstance> GetFormsByFieldThesaurusAndValue(int thesaurusId, string value);
         List<FormInstance> GetByAllByDefinitionId(string id);
         List<FormInstance> GetByDefinitionId(string id, int limit, int offset);
+        List<FormInstance> SearchByTitle(int episodeOfCareId, string title);
         List<FormInstance> GetAll();
         int CountByDefinition(string id);
-        bool ExistThesaurus(int thesaurusId);
+        bool ThesaurusExist(int thesaurusId);
 
         void UpdateManyWithThesaurus(int oldThesaurus, int newThesaurus);
-        List<FormInstance> GetAllByEncounter(int encounterId);
-        Task<List<FormInstance>> GetAllByEncounterAsync(int encounterId);
+        List<FormInstance> GetAllByEncounter(int encounterId, int organizationId);
+        Task<List<FormInstance>> GetAllByEncounterAsync(int encounterId, int organizationId);
+        List<BsonDocument> GetPlottableFieldsByThesaurusId(string formId, int thesaurusId);
     }
 }

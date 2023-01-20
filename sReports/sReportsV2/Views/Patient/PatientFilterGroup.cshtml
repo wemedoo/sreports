@@ -1,5 +1,23 @@
-﻿<div class="d-flex">
+﻿@using sReportsV2.Common.Extensions;
+
+<div class="d-flex">
     <div class="d-flex main-filter mb-2">
+
+        <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Patient
+            </div>
+            <div id="dropdownSearch" class="position-relative dropdown-search">
+                <div id="patient-search">
+                    <input autocomplete="off" class="designer-form-input filter-input" id="patientSearch" name="Patient" type="text" @ViewBag.Disabled />
+                </div>
+                <div id="patientOptions" class="patient-options" aria-labelledby="patient-search">
+                </div>
+            </div>
+            <div id="selected-patients" class="clinical-domain-container">
+            </div>
+        </div>
+
         <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
             <div class="label filter-label">
                 @sReportsV2.Resources.TextLanguage.Family
@@ -16,8 +34,17 @@
             <div class="label filter-label">
                 @sReportsV2.Resources.TextLanguage.BirthDate
             </div>
-            <input type="text" class="filter-input" id="BirthDateTemp">
-            <img class="date-img" src="~/Content/img/icons/date_field.svg" id="mainFilterBirthCalendar">
+            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+            {
+                InputAttributes = new Dictionary<object, object> { 
+                    { "class", "filter-input" }, 
+                    { "id", "BirthDateTemp" }
+                },
+                InputBtnAttributes = new Dictionary<object, object> { 
+                    { "class", "date-img" }, 
+                    { @Html.DateDisabled(readOnly: false), null } 
+                },
+            })
         </div>
         <div class="filter-item border-0 margin-top-15" style="margin-right:10px;">
             <div class="button-wrapper-filter button-filter" id="submitFilterButton">
@@ -34,3 +61,7 @@
 <div id="filterElements" class="d-flex">
 
 </div>
+
+<script>
+        var loadMore = '@sReportsV2.Resources.TextLanguage.Load_more';
+</script>

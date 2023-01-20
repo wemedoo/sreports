@@ -1,10 +1,6 @@
 ﻿using sReportsV2.Common.Enums.DocumentPropertiesEnums;
-using sReportsV2.Domain.Entities.DocumentProperties;
-using sReportsV2.DTOs.Common;
-using System;
+using sReportsV2.DTOs.DTOs.Field.DataIn.Custom;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace sReportsV2.DTOs.FormInstance
 {
@@ -41,5 +37,11 @@ namespace sReportsV2.DTOs.FormInstance
 
         public bool IsSimplifiedLayout { get; set; }
         public string Language { get; set; }
+
+        public string Content { get; set; }
+        public List<int> UserIds { get; set; } = new List<int> { };
+        public List<int> PatientIds { get; set; } = new List<int> { };
+        public List<CustomFieldFilterDataIn> CustomFieldFiltersDataIn { get; set; } = new List<CustomFieldFilterDataIn> { };
+        public string FieldFiltersOverallOperator { get; set; }
     }
 }

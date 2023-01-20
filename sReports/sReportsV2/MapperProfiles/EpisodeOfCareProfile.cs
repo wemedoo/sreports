@@ -44,7 +44,7 @@ namespace sReportsV2.MapperProfiles
               .ForMember(o => o.End, opt => opt.MapFrom(src => src.EndDate));
 
             CreateMap<EpisodeOfCareDataIn,EpisodeOfCare>()
-              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
+              .ForMember(o => o.EpisodeOfCareId, opt => opt.MapFrom(src => src.Id))
               .ForMember(o => o.Status, opt => opt.MapFrom(src => src.Status))
               .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
               .ForMember(o => o.DiagnosisCondition, opt => opt.MapFrom(src => src.DiagnosisCondition))
@@ -55,7 +55,7 @@ namespace sReportsV2.MapperProfiles
               .ForMember(o => o.Description, opt => opt.MapFrom(src => src.Description));
 
             CreateMap<EpisodeOfCare, EpisodeOfCareDataIn>()
-              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
+              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.EpisodeOfCareId))
               .ForMember(o => o.Status, opt => opt.MapFrom(src => src.Status))
               .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
               .ForMember(o => o.DiagnosisCondition, opt => opt.MapFrom(src => src.DiagnosisCondition))
@@ -66,7 +66,7 @@ namespace sReportsV2.MapperProfiles
               .ForMember(o => o.Description, opt => opt.MapFrom(src => src.Description));
 
             CreateMap<EpisodeOfCareDataOut, EpisodeOfCare>()
-              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
+              .ForMember(o => o.EpisodeOfCareId, opt => opt.MapFrom(src => src.Id))
               .ForMember(o => o.Status, opt => opt.MapFrom(src => src.Status))
               .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
               .ForMember(o => o.DiagnosisCondition, opt => opt.MapFrom(src => src.DiagnosisCondition))
@@ -77,7 +77,7 @@ namespace sReportsV2.MapperProfiles
               .ForMember(o => o.Description, opt => opt.MapFrom(src => src.Description));
 
             CreateMap<EpisodeOfCare, EpisodeOfCareDataOut>()
-              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
+              .ForMember(o => o.Id, opt => opt.MapFrom(src => src.EpisodeOfCareId))
               .ForMember(o => o.Status, opt => opt.MapFrom(src => src.Status))
               .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
               .ForMember(o => o.DiagnosisCondition, opt => opt.MapFrom(src => src.DiagnosisCondition))

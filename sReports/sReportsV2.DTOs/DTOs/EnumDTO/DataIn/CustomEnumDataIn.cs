@@ -13,5 +13,6 @@ namespace sReportsV2.DTOs.CustomEnum
         public string Label { get; set; }
         public int OrganizationId { get; set; }
         public string RowVersion { get; set; }
+        public int ThesaurusEntryId { get; set; }
     }
 }

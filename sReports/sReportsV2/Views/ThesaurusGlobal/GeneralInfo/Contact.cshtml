@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<div>
+    <div class="contact-header">
+        <div class="contact-title">Contact</div>
+        <div class="contact-subtitle">Wemedoo AG is responsible for technical development and maintenance of SwissOpenOncology.</div>
+    </div>
+    <div class="contact-body">
+        <div class="contact-information">
+            <div class="contact-information-text">For all inquiries, please contact our SmartOncology Team.</div>
+            <div class="contact-information-details">
+                <div class="contact-card margin-right-15">
+                    <div>
+                        <img src="~/Content/img/icons/SwissOpenOncology/email.svg" class="contact-card-image">
+                    </div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">
+                            Email
+                        </div>
+                        <div class="font-size-15px">
+                            <a href="mailto:smartoncology@wemedoo.com" style="font-weight: 600" class="color-green">smartoncology@wemedoo.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card margin-left-15 margin-right-15">
+                    <div>
+                        <img src="~/Content/img/icons/SwissOpenOncology/phone.svg" class="contact-card-image">
+                    </div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">
+                            Phone
+                        </div>
+                        <div class="font-size-15px" style="font-weight: 700">
+                            +41 41 740 0124
+                            <div class="font-size-14px color-light-bl" style="font-weight: 600; margin-top: -2px">(09.00h-18.00h CET)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card margin-left-15">
+                    <div>
+                        <img src="~/Content/img/icons/SwissOpenOncology/location.svg" class="contact-card-image">
+                    </div>
+                    <div class="contact-card-body">
+                        <div class="contact-card-title">
+                            Address
+                        </div>
+                        <div class="font-size-15px" style="font-weight: 700">
+                            Wemedoo AG
+                            <div class="font-size-14px color-light-bl" style="font-weight: 600; margin-top: -2px">Sumpfstrasse 24</div>
+                            <div class="font-size-14px color-light-bl" style="font-weight: 600; margin-top: -5px">CH- 6312 Steinhausen</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-form">
+            <form method="post" id="formContact" onsubmit="return submitContactForm(this, event)" novalidate>
+                <div class="contact-information-text">Or, please fill the form below</div>
+                <div class="form-container">
+                    <div class="contact-column margin-right-25">
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Full Name <span class="mandatory-field-label">*</span>
+                            </div>
+                            <input required class="filter-input" id="fullName" name="fullName" type="text" autocomplete="off" />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Email <span class="mandatory-field-label">*</span>
+                            </div>
+                            <input required class="filter-input" id="email" name="email" type="email" autocomplete="off" />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Role
+                            </div>
+                            <input class="filter-input" id="role" name="role" type="text" autocomplete="off" />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Organization
+                            </div>
+                            <input class="filter-input" id="organization" name="organization" type="text" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="contact-column margin-left-25">
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Phone
+                            </div>
+                            <input class="filter-input" id="phone" name="phone" type="text" autocomplete="off" />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Address
+                            </div>
+                            <input class="filter-input" id="address" name="address" type="text" autocomplete="off" />
+                        </div>
+                        <div class="advanced-filter-item input-margin" style="display: none">
+                            <div class="contact-label">
+                                Contact Reason <span class="mandatory-field-label">*</span>
+                            </div>
+                            <select class="filter-input arrow-select shaded-select" id="contactReason">
+                                <option value=""> ---</option>
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="contact-label">
+                                Message <span class="mandatory-field-label">*</span>
+                            </div>
+                            <textarea class="w-100 contact-textarea" id="contactMessage" name="message" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <span id="recaptcha-error" class="custom-error" style="display:none">Captcha validation has failed.</span>
+
+                <div class="contact-form-btns" style="height:80px;">
+                    <div class="filter-button" id="submitContactFormButton" style="right:0px;">
+                        <button class="btn btn-filter-primary w-100 h-100 g-recaptcha"
+                                data-sitekey="@ViewBag.ReCaptchaSiteKey"
+                                data-callback='submitContactFormReCaptcha'
+                                data-action='submit'>
+                            Send
+                        </button>
+                    </div>
+                    <div class="cancel-filter-btn float-right translation-input-text-highlight" id="close" style="right: 90px; color:#097c8a">
+                        <a class="btn advanced-cancel" aria-label="Close" onclick="goToHomepage(event)">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://www.google.com/recaptcha/api.js")

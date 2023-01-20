@@ -1,0 +1,12 @@
+﻿@model List<string>
+
+@foreach (var interval in Model)
+{
+    <div class="dose-time dose-time-value">
+        <div class="label filter-label">
+            @interval
+        </div>
+        <input class="num-input num-input-instance filter-input" type="number" value="" min="0" onkeydown="pressButtonOnEnterKey(event, 'save-dose')"> <!--save-dose button is in EditMedicationDoseModal-->
+    </div>
+}
+

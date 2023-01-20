@@ -1,5 +1,4 @@
 ﻿@using sReportsV2.Common.Extensions;
-
 <div class="table-responsive filter-border">
     <table class="table table-striped table-border">
         <thead class="color-header">
@@ -10,10 +9,10 @@
                         <i class="form-checkbox-button table-checkbox"></i>
                     </label>
                 </th>
-                <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.Title.ToUpper()</th>
-                <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.Version.ToUpper()</th>
-                <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.DateTime.ToUpper()</th>
-                <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.State_.ToUpper()</th>
+                <th id="Title" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Title')">@sReportsV2.Resources.TextLanguage.Title.ToUpper()</th>
+                <th id="Version" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Version')">@sReportsV2.Resources.TextLanguage.Version.ToUpper()</th>
+                <th id="EntryDatetime" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('EntryDatetime')">@sReportsV2.Resources.TextLanguage.DateTime.ToUpper()</th>
+                <th id="State" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('State')">@sReportsV2.Resources.TextLanguage.State_.ToUpper()</th>
                 <th style="border-bottom: unset;border-top: unset;"></th>
 
             </tr>
@@ -29,11 +28,11 @@
                             <i class="form-checkbox-button table-checkbox"></i>
                         </label>
                     </td>
-                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@form.Title','@form.Version.Id')">@form.Title</td>
-                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@form.Title','@form.Version.Id')">@form.Version.Major.@form.Version.Minor</td>
-                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@form.Title','@form.Version.Id')">@(form.EntryDatetime != null? form.EntryDatetime.Value.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString() : string.Empty)</td>
-                    <td class="@(form.State == sReportsV2.Common.Enums.FormDefinitionState.ReadyForDataCapture ? "color-green-primary" : "")" onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@form.Title','@form.Version.Id')">@form.State</td>
-                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@form.Title','@form.Version.Id')" style="text-align: center;">
+                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@HttpUtility.HtmlEncode(form.Title)','@form.Version.Id')">@form.Title</td>
+                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@HttpUtility.HtmlEncode(form.Title)','@form.Version.Id')">@form.Version.Major.@form.Version.Minor</td>
+                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@HttpUtility.HtmlEncode(form.Title)','@form.Version.Id')">@form.EntryDatetime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)</td>
+                    <td class="@(form.State == sReportsV2.Common.Enums.FormDefinitionState.ReadyForDataCapture ? "color-green-primary" : "")" onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@form.Title','@form.Version.Id')">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(form.State.ToString())</td>
+                    <td onclick="loadFormInstances(event, '@form.Id', '@form.ThesaurusId','@HttpUtility.HtmlEncode(form.Title)','@form.Version.Id')" style="text-align: center;">
                         <img class="folder-img" src="~/Content/img/icons/folder.png">
                     </td>
 

@@ -1,53 +1,66 @@
-﻿function submitOrganizationForm() {
+﻿function clickedSubmit() {
     $('#idOrganization').validate();
 
     if ($('#idOrganization').valid()) {
-        var request = {};
-        var address = {
-            Id: $('#addressId').val(),
-            City: $("#city").val(),
-            State: $("#state").val(),
-            PostalCode: $("#postalCode").val(),
-            Country: $("#country").val(),
-            Street:$('#street').val()
-        };
-
-        request['Type'] = getSelectedTypes('.chk');
-        request['Id'] = $("#id").val();
-        request['Activity'] = $("#activity").val();
-        request['Name'] = $("#name").val();
-
-        request['Alias'] = $("#alias").val();
-        request['Telecom'] = GetTelecoms('OrganizationTelecom');
-        request['Identifiers'] = GetIdentifiers();
-        request['AddressId'] = $('#addressId').val(),
-        request['Address'] = address;
-        request['ParentId'] = $("#parentId").val() ? $("#parentId").val().trim() : '';
-        request['PrimaryColor'] = $("#primaryColor").val();
-        request['SecondaryColor'] = $("#secondaryColor").val();
-        request['LogoUrl'] = $("#logoUrl").val();
-        request['Email'] = $("#email").val();
-        request['RowVersion'] = $("#rowVersion").val();
-        request['ClinicalDomain'] = setClinicalDomain();
-        
-        $.ajax({
-            type: "POST",
-            url: "/Organization/Create",
-            data: request,
-            success: function (data) {
-                toastr.options = {
-                    timeOut: 100
-                }
-                toastr.options.onHidden = function () { window.location.href = `/Organization/GetAll`; }
-                toastr.success("Success");
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
-            }
-        });
-
+        let fileData = getFileData();
+        if (fileData.length > 0) {
+            sendFileData(fileData, setImageUrl, submitOrganizationForm, '/Blob/UploadLogo');
+        } else {
+            submitOrganizationForm();
+        }
     }
     return false;
+}
+
+function submitOrganizationForm() {
+    $.ajax({
+        type: "POST",
+        url: "/Organization/Create",
+        data: getOrganizationData(),
+        success: function (data) {
+            toastr.options = {
+                timeOut: 100
+            }
+            toastr.options.onHidden = function () { window.location.href = `/Organization/GetAll`; }
+            toastr.success("Success");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    });
+}
+
+function getOrganizationData() {
+    var request = {};
+    var address = {
+        Id: $('#addressId').val(),
+        City: $("#city").val(),
+        State: $("#state").val(),
+        PostalCode: $("#postalCode").val(),
+        CountryId: $("#countryId").val(),
+        Street: $('#street').val()
+    };
+
+    request['Type'] = getSelectedTypes('.chk');
+    request['Id'] = $("#id").val();
+    request['Activity'] = $("#activity").val();
+    request['Name'] = $("#name").val();
+
+    request['Alias'] = $("#alias").val();
+    request['Telecom'] = GetTelecoms('OrganizationTelecom');
+    request['Identifiers'] = GetIdentifiers();
+    request['AddressId'] = $('#addressId').val(),
+    request['Address'] = address;
+    request['ParentId'] = $("#parentId").val();
+    request['PrimaryColor'] = $("#primaryColor").val();
+    request['SecondaryColor'] = $("#secondaryColor").val();
+    request['LogoUrl'] = $("#logoUrl").val();
+    request['Email'] = $("#email").val();
+    request['RowVersion'] = $("#rowVersion").val();
+    request['ClinicalDomain'] = setClinicalDomain();
+    request['Impressum'] = $("#impressum").val();
+
+    return request;
 }
 
 function getSelectedTypes(selector) {
@@ -58,20 +71,6 @@ function getSelectedTypes(selector) {
     });
 
     return chkArray;
-}
-
-function checkLogoUrl() {
-    let result = false;
-    var arr = ["jpg", "jpeg", "bmp", "png"];
-    var ext = $('#logoUrl').val().substring($('#logoUrl').val().lastIndexOf(".") + 1);
-    if ($('#logoUrl').val() !== '' && arr.find(x => x == ext) == null) {
-        result = true;
-    }
-    return result;
-}
-
-function cancelOrganizationEdit() {
-    window.location.href = `/Organization/GetAll`;
 }
 
 function reloadHierarchy() {
@@ -87,8 +86,8 @@ function reloadHierarchy() {
                 $(name).html(getNameAndCity());
                 $("#organizationHierarchyContainer").html($(content));
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     } else {
@@ -131,27 +130,6 @@ $('#city').on('blur', function (e) {
     reloadHierarchy();
 });
 
-$(document).ready(function () {
-    jQuery.validator.addMethod("invalidLogoUrl", function (value, element) {
-        return !checkLogoUrl();
-    }, "Logo url is invalid, allowed extensions are: jpg, jpeg, bmp, png");
-
-
-    $("#idOrganization").validate({
-        onkeyup: false,
-        rules: {
-            LogoUrl: {
-                invalidLogoUrl: true
-            }
-        },
-        messages: {
-            LogoUrl: {
-                remote: "Logo url is invalid, allowed extensions are: jpg, bmp, png"
-            }
-        }
-    });
-});
-
 $('#parentId').on('select2:opening', function (e) {
     $(this).addClass('focused');
 });
@@ -176,6 +154,8 @@ $(document).on('change', '#primaryColor', function (e) {
 $(document).ready(function () {
     var color = $('#primaryColor').val();
     $('#colorPrimary').css('background-color', color);
+    var color = $('#secondaryColor').val();
+    $('#colorSecondary').css('background-color', color);
 });
 
 $(document).on('click', '#secondaryColorInput', function (e) {
@@ -183,11 +163,6 @@ $(document).on('click', '#secondaryColorInput', function (e) {
 });
 
 $(document).on('change', '#secondaryColor', function (e) {
-    var color = $('#secondaryColor').val();
-    $('#colorSecondary').css('background-color', color);
-});
-
-$(document).ready(function () {
     var color = $('#secondaryColor').val();
     $('#colorSecondary').css('background-color', color);
 });
@@ -200,8 +175,8 @@ function setCountryAutocomplete() {
         success: function (data) {
             setAutocompleteByData(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -217,3 +192,67 @@ function setAutocompleteByData(data) {
         source: countriesNames
     });
 }
+
+$(document).on("change", "#uploadLogo", function () {
+    var fileInput = this;
+    if (fileInput.files[0]) {
+        var file = fileInput.files[0];
+        var type = file.type;
+        if (validUploadFormat(type)) {
+            var fileName = $(fileInput).val().split("\\")[2];
+            $('.file-name-display')
+                .text(fileName)
+                .attr('title', fileName);
+            $('#logo-action-btns').removeClass("d-none");
+        } else {
+            removeLogo();
+            $(fileInput).closest('.file-field').addClass('error');
+            $("#logoUrlError").text("Logo url is invalid, allowed extensions are: jpg, jpeg, bmp, png, svg");
+            setTimeout(function () {
+                $(fileInput).closest('.file-field').removeClass('error');
+                $("#logoUrlError").text("");
+            }, 2000);
+        }
+    }
+});
+
+function validUploadFormat(type) {
+    var allowedImageFormats = [
+        'image/svg+xml',
+        'image/png',
+        'image/jpeg',
+        'image/bmp'
+    ];
+
+    return allowedImageFormats.includes(type);
+}
+
+function removeLogo() {
+    $('.file-name-display')
+        .text('')
+        .attr('title', '');
+    $('#logoUrl').val('');
+    $('#uploadLogo').val('');
+    $('#logo-action-btns').addClass("d-none");
+}
+
+$(document).on("click", ".upload-logo-btn", function () {
+    $("#uploadLogo").click();
+});
+
+function getFileData() {
+    let filesData = [];
+    $.each($('#idOrganization').find('input[type="file"]'), function (index, value) {
+        if (value.files[0]) {
+            filesData.push({ id: $(value).data('id'), content: value.files[0] });
+        }
+    });
+    return filesData;
+}
+
+//function impressumWordCounter()
+$('#impressum').on('keyup', function (e) {
+    let charCount = $('#impressum').val().length;
+
+    $('.char-limit-text').html(`${charCount}/600`);
+});

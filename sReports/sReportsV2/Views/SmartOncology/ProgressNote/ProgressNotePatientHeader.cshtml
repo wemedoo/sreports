@@ -1,0 +1,40 @@
+﻿<div class="details hidden-md">
+    <div class="patient-table-header">
+        <span class="sidebar-patient-img">
+            <img src="~/Content/open-oncology/images/icons/basic_patient_data_img.svg">
+        </span>
+        <span class="patient-table-header-text"> @sReportsV2.Resources.TextLanguage.Patients </span>
+        <div class="tools">
+            <a class="arrow toggle">
+                <svg width="19" height="13" viewBox="0 0 19 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.9375 5.6875H2.77067L6.26442 2.20187C6.58302 1.88327 6.58302 1.36672 6.26442 1.04812C5.94582 0.729524 5.42927 0.729524 5.11067 1.04812L0.235672 5.92312C0.167626 5.9926 0.11502 6.07566 0.0812968 6.16687C0.0266401 6.26932 -0.00130453 6.38389 4.67797e-05 6.5V6.58125C0.00486648 6.65041 0.0185191 6.71868 0.0406718 6.78437C0.0361261 6.81127 0.0361261 6.83873 0.0406718 6.86562C0.0771763 6.95543 0.129459 7.03798 0.195047 7.10937L5.07005 11.9844C5.22261 12.1382 5.43028 12.2247 5.64692 12.2247C5.86356 12.2247 6.07124 12.1382 6.2238 11.9844C6.37761 11.8318 6.46413 11.6241 6.46413 11.4075C6.46413 11.1909 6.37761 10.9832 6.2238 10.8306L2.77067 7.3125H17.9375C18.3863 7.3125 18.75 6.94873 18.75 6.5C18.75 6.05127 18.3863 5.6875 17.9375 5.6875Z" fill="#1C94A3"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+    @if (Model.IsNotPreview())
+    {
+        <div class="row margin-top-2r margin-bottom-1r">
+            <div class="col-6">@sReportsV2.Resources.TextLanguage.PatientName:​</div>
+        </div>
+        <div class="patient-table-search">
+            <select id="patientName" name="patientName" class="w-100">
+                <option selected value=""></option>
+            </select>
+            @*<img class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg">*@
+        </div>
+    }
+    else
+    {
+        <input type="hidden" id="patientName" name="patientName" value="@Model.Patient.Id" />
+    }
+    <div id="patientData">
+        @Html.Partial("ProgressNote/ViewPatientData")
+    </div>
+</div>
+
+@if (Model.IsNotPreview())
+{
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/progressNoteSelect2.js")
+}
+

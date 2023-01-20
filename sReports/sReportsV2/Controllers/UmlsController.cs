@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using sReportsV2.Common.Constants;
 using sReportsV2.Common.CustomAttributes;
 using sReportsV2.Common.Extensions;
 using sReportsV2.Domain.Extensions;
@@ -14,8 +15,7 @@ namespace sReportsV2.Controllers
 {
     public class UmlsController : BaseController
     {
-
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.UMLS, Module = ModuleNames.Thesaurus)]
         public ActionResult Search(UmlsDataIn dataIn)
         {
             dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
@@ -25,7 +25,7 @@ namespace sReportsV2.Controllers
             return PartialView("ConceptsRows",result);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         public ActionResult GetDefinitions(string id)
         {
             Client client = new Client();
@@ -41,7 +41,7 @@ namespace sReportsV2.Controllers
             return PartialView("DefinitionsList",result);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         public ActionResult GetAtoms(string id)
         {
             Client client = new Client();

@@ -1,5 +1,8 @@
-﻿@{
+﻿@using sReportsV2.Common.Constants;
+
+@{
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.Organization;
+    var userCookieData = ViewBag.UserCookieData;
 }
 
 @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Organization }, { "activeLevel", 1 } })
@@ -7,7 +10,10 @@
 <div class="table-container border-0">
     <div class="header header-new">
         @sReportsV2.Resources.TextLanguage.Organizations
-        <button class="btn btn-create float-right" onclick="createOrganizationEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        @if (userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Administration))
+        {
+            <button class="btn btn-create float-right" onclick="createOrganizationEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        }
     </div>
     @Html.Partial("OrganizationFilterGroup")
     <div id="tableContainer">
@@ -20,4 +26,4 @@
     var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
 </script>
 
-@Scripts.Render("~/bundles/organizationGetAll")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/organizationGetAll")

@@ -50,6 +50,9 @@
     <Reference Include="SendGrid, Version=9.14.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\SendGrid.9.14.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -94,20 +97,47 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\AttributeNames.cs" />
     <Compile Include="Constants\CustomActionTypes.cs" />
+    <Compile Include="Constants\DateConstants.cs" />
+    <Compile Include="Constants\Delimiters.cs" />
+    <Compile Include="Constants\EmailSenderNames.cs" />
     <Compile Include="Constants\FieldTypes.cs" />
     <Compile Include="Constants\GuidelineElementDataTypes.cs" />
     <Compile Include="Constants\InstanceNames.cs" />
+    <Compile Include="Constants\LogicalOperators.cs" />
+    <Compile Include="Constants\ModuleNames.cs" />
+    <Compile Include="Constants\MongoMigrationsConstants.cs" />
     <Compile Include="Constants\O40MtConstants.cs" />
+    <Compile Include="Constants\PermissionNames.cs" />
+    <Compile Include="Constants\SmartOncologyRoleNames.cs" />
     <Compile Include="Constants\StringConstants.cs" />
     <Compile Include="Entities\User\UserData.cs" />
     <Compile Include="Enums\DocumentPropertiesEnums.cs" />
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Enums\SmartOncologyEnums.cs" />
+    <Compile Include="Enums\ValidationEnums.cs" />
+    <Compile Include="Exceptions\ApiCallException.cs" />
+    <Compile Include="Exceptions\ConcurrencyDeleteEditException.cs" />
+    <Compile Include="Exceptions\ConcurrencyDeleteException.cs" />
+    <Compile Include="Exceptions\ConcurrencyException.cs" />
+    <Compile Include="Exceptions\ConsensusCannotStartException.cs" />
+    <Compile Include="Exceptions\DuplicateException.cs" />
+    <Compile Include="Exceptions\IterationNotFinishedException.cs" />
+    <Compile Include="Exceptions\UserAdministrationException.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\Ensure.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Helpers\BlobStorageHelper.cs" />
-    <Compile Include="Helpers\EmailSender.cs" />
+    <Compile Include="Helpers\DataCaptureChartHelper.cs" />
+    <Compile Include="Helpers\EmailSender\Implementations\SendGridEmailSender.cs" />
+    <Compile Include="Helpers\EmailSender\Implementations\SmtpEmailSender.cs" />
+    <Compile Include="Helpers\EmailSender\Interface\IEmailSender.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\NumericHelper.cs" />
+    <Compile Include="Helpers\PasswordValidationHelper.cs" />
+    <Compile Include="Helpers\SortTableHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

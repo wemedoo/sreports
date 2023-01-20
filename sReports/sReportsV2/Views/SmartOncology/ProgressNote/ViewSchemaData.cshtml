@@ -1,0 +1,972 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ProgressNote.DataOut;
+@using sReportsV2.Common.SmartOncologyEnums;
+
+@model SchemaTableDataOut
+@{
+    string daysTh = Model != null ? Model.RenderDaysTableHeader() : "";
+    string expandCssClass = Model != null && Model.Days.Count <= 2 ? "expand" : "";
+}
+
+<input type="hidden" id="viewDisplayType" name="viewDisplayType" value="@ViewBag.ViewDisplayType" />
+<input type="hidden" id="schemaInstanceId" name="schemaInstanceId" value="@(Model != null && Model.Id > 0 ? Model.Id.ToString() : "")" />
+<input type="hidden" id="rowVersion" name="rowVersion" value="@(Model != null ? Model.RowVersion: "")" />
+
+@if (Model != null)
+{
+    if (Model.Days.Count > 0)
+    {
+        <div id="scroll-right">
+            <svg width="29" height="52" viewBox="0 0 29 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.338783">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M28.072 23.6647L5.49067 0.934132C4.176 -0.311377 2.16533 -0.311377 0.928 0.934132C-0.309333 2.17964 -0.309333 4.20359 0.928 5.52695L21.2667 26L0.928 46.4731C-0.309333 47.7186 -0.309333 49.8204 0.928 51.0659C2.16533 52.3114 4.176 52.3114 5.49067 51.0659L28.072 28.2575C29.3093 27.012 29.3093 24.988 28.072 23.6647Z" fill="black" />
+                </g>
+            </svg>
+        </div>
+        <div id="scroll-left">
+            <svg width="29" height="52" viewBox="0 0 29 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.338783">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.928002 28.3353L23.5093 51.0659C24.824 52.3114 26.8347 52.3114 28.072 51.0659C29.3093 49.8204 29.3093 47.7964 28.072 46.4731L7.73334 26L28.072 5.52695C29.3093 4.28144 29.3093 2.17964 28.072 0.934132C26.8347 -0.311379 24.824 -0.311379 23.5093 0.934131L0.928002 23.7425C-0.309331 24.988 -0.309332 27.012 0.928002 28.3353Z" fill="black" />
+                </g>
+            </svg>
+        </div>
+        @RenderTableHeader();
+        <!-- Start #labaratory -->
+        <table class="table mb-5">
+            <!-- //////// Start - Hidden on tablet //////// -->
+            <thead class="thead-fixed hidden-md">
+                <tr data-toggle="collapse" aria-expanded="false" data-target="#labaratory" class="accordion-toggle labaratory-parent toggle-lab">
+                    <th class="table-title ">
+                        <span>@sReportsV2.Resources.TextLanguage.Laboratory_Data</span>
+                        <div class="actions">
+                            <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                            </svg>
+                        </div>
+                    </th>
+                    <th class="full-width"></th>
+                </tr>
+            </thead>
+            <div class="toggle-chart-desk hidden-md">
+                <a class="btn-outline toggle-chart btn-toggle" data-toggle="collapse" aria-expanded="false" data-target="#curve" aria-expanded="false" data-text-original="Show curve" data-text-swap="Hide curve">
+                    <svg width="32" height="16" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7427 0.384613C18.2141 0.384613 16.9543 1.63804 16.9543 3.17347C16.9543 3.69986 17.1029 4.1836 17.3629 4.60395L13.9014 8.54681C13.5013 8.32962 13.0412 8.19821 12.5553 8.19821C11.8175 8.19821 11.1486 8.49117 10.6443 8.95552L5.70445 5.73392C5.82153 5.42751 5.89676 5.09525 5.89676 4.74821C5.89676 3.1964 4.61043 1.94733 3.07227 1.94733C1.5244 1.94733 0.247803 3.20331 0.247803 4.74821C0.247803 6.29311 1.5244 7.5611 3.07227 7.5611C3.71233 7.5611 4.31275 7.33705 4.791 6.97207L9.839 10.2658C9.77232 10.5034 9.73086 10.7538 9.73086 11.0111C9.73086 12.556 11.0074 13.812 12.5553 13.812C14.1032 13.812 15.3798 12.556 15.3798 11.0111C15.3798 10.5064 15.2466 10.0281 15.0072 9.61667L18.4927 5.63775C18.8709 5.8285 19.2937 5.93827 19.7427 5.93827C20.1984 5.93827 20.634 5.83154 21.0167 5.63775L25.8123 10.7346C25.6258 11.1081 25.5238 11.5313 25.5238 11.9728C25.5238 13.5177 26.8004 14.7736 28.3483 14.7736C29.8865 14.7736 31.1728 13.5246 31.1728 11.9728C31.1728 10.4304 29.8934 9.1719 28.3483 9.1719C27.8001 9.1719 27.2922 9.33314 26.858 9.60465L22.1465 4.57991C22.4 4.16405 22.5552 3.69134 22.5552 3.17347C22.5552 1.63804 21.2809 0.384613 19.7427 0.384613ZM19.7427 1.92329C20.4578 1.92329 21.0167 2.47839 21.0167 3.17347C21.0167 3.84772 20.4578 4.3996 19.7427 4.3996C19.0484 4.3996 18.4927 3.84772 18.4927 3.17347C18.4927 2.47838 19.0484 1.92329 19.7427 1.92329ZM3.07227 3.48601C3.7874 3.48601 4.35833 4.03936 4.35833 4.74821C4.35833 5.45705 3.7874 6.0104 3.07227 6.0104C2.33647 6.0104 1.78625 5.46396 1.78625 4.74821C1.78625 4.03246 2.33647 3.48601 3.07227 3.48601ZM12.5553 9.73688C13.3512 9.76234 13.8401 10.2647 13.8413 11.0111C13.8413 11.7269 13.2912 12.2733 12.5553 12.2733C11.8195 12.2733 11.2693 11.7269 11.2693 11.0111C11.2693 10.316 11.8262 9.73688 12.5553 9.73688ZM28.3483 10.7106C29.0566 10.7106 29.6344 11.2847 29.6344 11.9728C29.6344 12.6816 29.0635 13.235 28.3483 13.235C27.6125 13.235 27.0623 12.6885 27.0623 11.9728C27.0788 11.2727 27.5916 10.7211 28.3483 10.7106Z" fill="#1C94A3" />
+                    </svg>
+                    <span class="btn-txt">@sReportsV2.Resources.TextLanguage.Show_curve</span>
+                </a>
+            </div>
+            <!-- //////// End - Hidden on tablet //////// -->
+        </table>
+        <!-- Start .table-wrapper  -->
+        <div class="table-wrapper">
+            <table class="table table-doses">
+                <!-- //////// Start - Visible on tablet //////// -->
+                <thead class="visible-md">
+                    <tr data-toggle="collapse" aria-expanded="false" data-target="#labaratory" class="accordion-toggle labaratory-parent toggle-lab">
+                        <th class="table-title ">
+                            <span>@sReportsV2.Resources.TextLanguage.Laboratory_Data</span>
+                            <div class="actions">
+                                <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                                </svg>
+                            </div>
+                        </th>
+                        @Html.Raw(daysTh)
+                    </tr>
+                </thead>
+                <!-- //////// End - Visible on tablet //////// -->
+                <tbody class="table-body">
+                    <tr class="h-0">
+                        <td colspan="12" class="hiddenRow">
+                            <div class="accordian-body collapse" id="labaratory">
+                                <table class="table table-doses">
+                                    <tbody class="tbody-child">
+                                        <tr>
+                                            <td class="table-title">HGB(g/l)</td>
+                                            @foreach (var day in Model.Days)
+                                            {
+                                                <td class="@expandCssClass">120</td>
+                                            }
+                                        </tr>
+                                        <tr>
+                                            <td class="table-title">WBC (k/µl)</td>
+                                            @foreach (var day in Model.Days)
+                                            {
+                                                <td class="@expandCssClass">120</td>
+                                            }
+                                        </tr>
+                                        <tr>
+                                            <td class="table-title">GRAN((k/µl)</td>
+                                            @foreach (var day in Model.Days)
+                                            {
+                                                <td class="@expandCssClass">120</td>
+                                            }
+                                        </tr>
+                                        <tr>
+                                            <td class="table-title">Cr (µmol/l)</td>
+                                            @foreach (var day in Model.Days)
+                                            {
+                                                <td class="@expandCssClass">120</td>
+                                            }
+                                        </tr>
+                                        <tr>
+                                            <td class="table-title">CrCl(ml/min)</td>
+                                            @foreach (var day in Model.Days)
+                                            {
+                                                <td class="@expandCssClass">120</td>
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- End .table-wrapper -->
+
+        <div id="curve" class="collapse lab-chart">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <!-- //////// Start - Visible on tablet //////// -->
+        <div class="visible-md">
+            <div class="lab-toggle">
+                <button class="btn-outline toggle-chart btn-toggle" data-toggle="collapse" aria-expanded="false" data-target="#curve" aria-expanded="false" data-text-original="Show curve" data-text-swap="Hide curve">
+                    <svg width="32" height="16" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.7427 0.384613C18.2141 0.384613 16.9543 1.63804 16.9543 3.17347C16.9543 3.69986 17.1029 4.1836 17.3629 4.60395L13.9014 8.54681C13.5013 8.32962 13.0412 8.19821 12.5553 8.19821C11.8175 8.19821 11.1486 8.49117 10.6443 8.95552L5.70445 5.73392C5.82153 5.42751 5.89676 5.09525 5.89676 4.74821C5.89676 3.1964 4.61043 1.94733 3.07227 1.94733C1.5244 1.94733 0.247803 3.20331 0.247803 4.74821C0.247803 6.29311 1.5244 7.5611 3.07227 7.5611C3.71233 7.5611 4.31275 7.33705 4.791 6.97207L9.839 10.2658C9.77232 10.5034 9.73086 10.7538 9.73086 11.0111C9.73086 12.556 11.0074 13.812 12.5553 13.812C14.1032 13.812 15.3798 12.556 15.3798 11.0111C15.3798 10.5064 15.2466 10.0281 15.0072 9.61667L18.4927 5.63775C18.8709 5.8285 19.2937 5.93827 19.7427 5.93827C20.1984 5.93827 20.634 5.83154 21.0167 5.63775L25.8123 10.7346C25.6258 11.1081 25.5238 11.5313 25.5238 11.9728C25.5238 13.5177 26.8004 14.7736 28.3483 14.7736C29.8865 14.7736 31.1728 13.5246 31.1728 11.9728C31.1728 10.4304 29.8934 9.1719 28.3483 9.1719C27.8001 9.1719 27.2922 9.33314 26.858 9.60465L22.1465 4.57991C22.4 4.16405 22.5552 3.69134 22.5552 3.17347C22.5552 1.63804 21.2809 0.384613 19.7427 0.384613ZM19.7427 1.92329C20.4578 1.92329 21.0167 2.47839 21.0167 3.17347C21.0167 3.84772 20.4578 4.3996 19.7427 4.3996C19.0484 4.3996 18.4927 3.84772 18.4927 3.17347C18.4927 2.47838 19.0484 1.92329 19.7427 1.92329ZM3.07227 3.48601C3.7874 3.48601 4.35833 4.03936 4.35833 4.74821C4.35833 5.45705 3.7874 6.0104 3.07227 6.0104C2.33647 6.0104 1.78625 5.46396 1.78625 4.74821C1.78625 4.03246 2.33647 3.48601 3.07227 3.48601ZM12.5553 9.73688C13.3512 9.76234 13.8401 10.2647 13.8413 11.0111C13.8413 11.7269 13.2912 12.2733 12.5553 12.2733C11.8195 12.2733 11.2693 11.7269 11.2693 11.0111C11.2693 10.316 11.8262 9.73688 12.5553 9.73688ZM28.3483 10.7106C29.0566 10.7106 29.6344 11.2847 29.6344 11.9728C29.6344 12.6816 29.0635 13.235 28.3483 13.235C27.6125 13.235 27.0623 12.6885 27.0623 11.9728C27.0788 11.2727 27.5916 10.7211 28.3483 10.7106Z" fill="#1C94A3" />
+                    </svg>
+                    <span class="btn-txt">@sReportsV2.Resources.TextLanguage.Show_curve</span>
+                </button>
+                <button class="btn-outline toggle toggle-lab" data-toggle="collapse" aria-expanded="false" data-target="#labaratory" aria-expanded="false" data-toggle="collapse" aria-expanded="false" data-target="#curve" aria-expanded="false" data-text-original="Show Laboratory" data-text-swap="Hide Laboratory">Show Laboratory</button>
+            </div>
+        </div>
+        <!-- //////// End - Visible on tablet //////// -->
+        <!-- End #labaratory -->
+
+        <div class="tables">
+            <!-- Start .table-wrapper  -->
+            <div class="table-wrapper mb-50 mt-10">
+                @RenderTreatmentsByType(TreatmentType.CancerDirectedTreatment, "table-cancer-directed", daysTh, expandCssClass)
+                @RenderTreatmentsByType(TreatmentType.SupportiveTherapy, "table-supportive-therapy", daysTh, expandCssClass)
+
+                <table class="table table-findings-data">
+                    <thead>
+                        <tr data-toggle="collapse" aria-expanded="false" data-target="#findings-data" class="accordion-toggle">
+                            <th class="table-title ">
+                                <span>@sReportsV2.Resources.TextLanguage.Findings_Data</span>
+                                <div class="actions">
+                                    <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                                    </svg>
+                                </div>
+                            </th>
+                            @Html.Raw(daysTh)
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        <tr class="h-0">
+                            <td colspan="12" class="hiddenRow">
+                                <div class="accordian-body collapse" id="findings-data">
+                                    <table class="table table-findings-data">
+                                        <tbody class="tbody-child">
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Blood_pressure</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Heartbeat</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Body_temperature</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Respiration</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Skin</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Hair</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Mucous_membrane</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Heart</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Lungs</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Liver</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Spleen</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Abdomen</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Lymph_nodes</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Nervous_system</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Skeleton</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Extremitites</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Breast</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Testicles</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Edema</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-symptoms-data ">
+                    <thead>
+                        <tr data-toggle="collapse" aria-expanded="false" data-target="#symptoms-data" class="accordion-toggle">
+                            <th class="table-title ">
+                                <span>@sReportsV2.Resources.TextLanguage.Symptoms_Data</span>
+                                <div class="actions">
+                                    <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                                    </svg>
+                                </div>
+                            </th>
+                            @Html.Raw(daysTh)
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        <tr class="h-0">
+                            <td colspan="12" class="hiddenRow">
+                                <div class="accordian-body collapse" id="symptoms-data">
+                                    <table class="table table-symptoms-data">
+                                        <tbody class="tbody-child">
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Karnofsky_performance_status_scale</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Zubrod_score</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Lansky_score</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Pain</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Pain_localisation</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.B_Symptoms</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Fever</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Night_Sweats</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Weight_loss</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Nausea</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Vomiting</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Appetite</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Sleep</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Cough</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Dyspnea</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Defecation</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Urination</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Bleeding</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Infections</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Neurological_symptoms</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Fatigue</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-tumor-response has-btn">
+                    <thead>
+                        <tr data-toggle="collapse" aria-expanded="false" data-target="#tumor-response" class="accordion-toggle">
+                            <th class="table-title ">
+                                <span>@sReportsV2.Resources.TextLanguage.Tumor_response</span>
+                                <div class="actions">
+                                    <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                                    </svg>
+                                </div>
+                            </th>
+                            @Html.Raw(daysTh)
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        <tr class="h-0">
+                            <td colspan="12" class="hiddenRow">
+                                <div class="accordian-body collapse" id="tumor-response">
+                                    <table class="table table-tumor-response">
+                                        <tbody class="tbody-child">
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.RECIST_1_1</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Target_lesions</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Non_target_lesions</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Evaluation_of_best_overall_response</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="t-btn">
+                                        <a href="#" class="btn-outline m-20" onclick="event.preventDefault();">@sReportsV2.Resources.TextLanguage.New_evaluation</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table tumor-markers has-btn">
+                    <thead>
+                        <tr data-toggle="collapse" aria-expanded="false" data-target="#table-5" class="accordion-toggle">
+                            <th class="table-title ">
+                                <span>@sReportsV2.Resources.TextLanguage.Tumor_markers</span>
+                                <div class="actions">
+                                    <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                                    </svg>
+                                </div>
+                            </th>
+                            @Html.Raw(daysTh)
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        <tr class="h-0">
+                            <td colspan="12" class="hiddenRow">
+                                <div class="accordian-body collapse" id="table-5">
+                                    <table class="table">
+                                        <tbody class="tbody-child">
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">CA15-3/CA27.29</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-text-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Estrogen_receptor</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-text-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Progesterone_receptor</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-text-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td class="table-title">
+                                                    <p class="text-primary">@sReportsV2.Resources.TextLanguage.Plasminogen_activator_inhibitor</p>
+                                                </td>
+                                                @foreach (var day in Model.Days)
+                                                {
+                                                    <td class="input-text-field @expandCssClass">
+                                                        <input type="text" value="-">
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="t-btn">
+                                        <a href="#" class="btn-outline m-20" onclick="event.preventDefault();">@sReportsV2.Resources.TextLanguage.New_evaluation</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End .table-wrapper -->
+        </div>
+
+        <!-- //////// Start - Visible on tablet //////// -->
+        <div class="save-sheet hidden-md">
+            <a class="cancel" href="#" onclick="cancelSchemaInstance(event)">@sReportsV2.Resources.TextLanguage.Cancel</a>
+            <a href="#" class="btn-primary-schema-instance save" onclick="saveSchemaInstance(event)">@sReportsV2.Resources.TextLanguage.Save</a>
+        </div>
+        <!-- //////// End - Visible on tablet //////// -->
+        <!-- End .history-data -->
+        <!-- Chart js -->
+        @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js")
+
+        @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaInstanceData.js")
+        @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/chart-config.js")
+        <script>
+            var expandCssClass = '@expandCssClass';
+        </script>
+    }
+
+    @helper RenderTableHeader()
+    {
+        <!-- Start .table-wrapper  -->
+        <!-- //////// Start - Hidden on tablet //////// -->
+        <div class="table-wrapper hidden-md mb-5">
+            <table class="table table-history-data">
+                <tbody class="tbody-child">
+                    <tr>
+                        <td class="table-title">@sReportsV2.Resources.TextLanguage.Date</td>
+                        @foreach (var day in Model.Days)
+                        {
+                            <td class="@(day.IsDelayed ? "history-delay-dose" : "") @(Model.Days.Count <= 2 ? "expand" : "")"
+                                data-day-number="@day.DayNumber">
+                                @day.Date.ToString(ViewBag.DateFormat)
+                                @if (day.IsDelayed)
+                                {
+                                    <div class="delay-icon">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0C2.68627 0 0 2.6864 0 6C0 9.3136 2.68627 12 6 12C9.31387 12 12 9.3136 12 6C12 2.6864 9.31387 0 6 0ZM9.41013 7.34947C9.4088 7.35227 9.40773 7.35493 9.40667 7.35787L9.40627 7.3589L9.40627 7.35891C9.40533 7.36139 9.40437 7.36393 9.4032 7.36627C8.84173 8.76427 7.50787 9.66667 6 9.66667C4.88973 9.66667 3.8692 9.17493 3.182 8.34587L2.50387 9.0256C2.4288 9.10133 2.35587 9.13027 2.2972 9.1068C2.23893 9.0832 2.206 9.01133 2.20533 8.90493L2.2036 6.71013C2.2032 6.6552 2.22413 6.60333 2.26267 6.56427C2.3012 6.52493 2.35187 6.5036 2.40653 6.50307L4.59293 6.51013C4.69933 6.5088 4.77173 6.54067 4.79627 6.59853C4.82093 6.65693 4.7932 6.73013 4.71853 6.80653L4.0616 7.46467C4.51587 8.068 5.22493 8.42973 5.99973 8.42973C7.00307 8.42973 7.89027 7.82693 8.25987 6.89413L8.26027 6.89427C8.3508 6.6652 8.574 6.50307 8.83493 6.50307C9.17667 6.50307 9.45347 6.77987 9.45347 7.1216C9.45347 7.20213 9.43773 7.27893 9.40973 7.34933L9.41013 7.34947ZM9.7372 5.4356C9.7564 5.416 9.77147 5.39347 9.78147 5.36867C9.79147 5.34387 9.79667 5.31733 9.7968 5.2896L9.79573 4.19227L9.79493 3.09493C9.79453 3.05 9.78827 3.0112 9.77707 2.97973C9.76147 2.93653 9.73653 2.90693 9.70293 2.8932C9.66907 2.87973 9.63053 2.88373 9.58933 2.90373C9.55947 2.91867 9.528 2.94253 9.49613 2.97453L8.81827 3.65387C8.13 2.82533 7.106 2.33333 6 2.33333C4.49147 2.33333 3.1572 3.2364 2.59653 4.63573L2.59453 4.6404C2.59393 4.64207 2.5932 4.64377 2.59247 4.64547C2.59173 4.64717 2.591 4.64887 2.5904 4.65053L2.5908 4.65067C2.5628 4.72133 2.54693 4.798 2.54693 4.8784C2.54693 5.04933 2.61627 5.20387 2.728 5.31587C2.84 5.4276 2.99467 5.4968 3.16547 5.4968C3.33627 5.4968 3.49067 5.42773 3.6028 5.31587C3.66187 5.25653 3.70867 5.1852 3.73987 5.10587L3.74027 5.106C4.1096 4.17307 4.99693 3.57027 6.0004 3.57027C6.77213 3.57027 7.48333 3.9328 7.93827 4.53587L7.28147 5.1936C7.24973 5.22587 7.22653 5.25733 7.21213 5.28773C7.1928 5.32933 7.1896 5.36787 7.20373 5.4016C7.21773 5.43507 7.248 5.4596 7.2912 5.47427C7.3228 5.48507 7.36187 5.49053 7.40693 5.49L8.5 5.49347L9.59333 5.4968C9.62053 5.49653 9.64707 5.49107 9.67147 5.4808C9.6956 5.47053 9.718 5.4552 9.7372 5.4356Z" fill="#FE5959" />
+                                        </svg>
+                                    </div>
+                                }
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="table-title">@sReportsV2.Resources.TextLanguage.Day_lower</td>
+                        @foreach (var day in Model.Days)
+                        {
+                            <td id="@string.Concat("day", '_', day.DayNumber)"
+                                class="dose-date"
+                                data-day-number="@day.DayNumber"
+                                data-date="@day.Date.ToString(ViewBag.DateFormat)">
+                                <span class="box-style @(day.DayNumber <= 0 ? "orange" : "")">@sReportsV2.Resources.TextLanguage.Day_lower @day.DayNumber</span>
+                                <div class="delay-icon @(Model != null && Model.Id > 0 ? "" : "d-none")">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0C2.68627 0 0 2.6864 0 6C0 9.3136 2.68627 12 6 12C9.31387 12 12 9.3136 12 6C12 2.6864 9.31387 0 6 0ZM9.41013 7.34947C9.4088 7.35227 9.40773 7.35493 9.40667 7.35787L9.40627 7.3589L9.40627 7.35891C9.40533 7.36139 9.40437 7.36393 9.4032 7.36627C8.84173 8.76427 7.50787 9.66667 6 9.66667C4.88973 9.66667 3.8692 9.17493 3.182 8.34587L2.50387 9.0256C2.4288 9.10133 2.35587 9.13027 2.2972 9.1068C2.23893 9.0832 2.206 9.01133 2.20533 8.90493L2.2036 6.71013C2.2032 6.6552 2.22413 6.60333 2.26267 6.56427C2.3012 6.52493 2.35187 6.5036 2.40653 6.50307L4.59293 6.51013C4.69933 6.5088 4.77173 6.54067 4.79627 6.59853C4.82093 6.65693 4.7932 6.73013 4.71853 6.80653L4.0616 7.46467C4.51587 8.068 5.22493 8.42973 5.99973 8.42973C7.00307 8.42973 7.89027 7.82693 8.25987 6.89413L8.26027 6.89427C8.3508 6.6652 8.574 6.50307 8.83493 6.50307C9.17667 6.50307 9.45347 6.77987 9.45347 7.1216C9.45347 7.20213 9.43773 7.27893 9.40973 7.34933L9.41013 7.34947ZM9.7372 5.4356C9.7564 5.416 9.77147 5.39347 9.78147 5.36867C9.79147 5.34387 9.79667 5.31733 9.7968 5.2896L9.79573 4.19227L9.79493 3.09493C9.79453 3.05 9.78827 3.0112 9.77707 2.97973C9.76147 2.93653 9.73653 2.90693 9.70293 2.8932C9.66907 2.87973 9.63053 2.88373 9.58933 2.90373C9.55947 2.91867 9.528 2.94253 9.49613 2.97453L8.81827 3.65387C8.13 2.82533 7.106 2.33333 6 2.33333C4.49147 2.33333 3.1572 3.2364 2.59653 4.63573L2.59453 4.6404C2.59393 4.64207 2.5932 4.64377 2.59247 4.64547C2.59173 4.64717 2.591 4.64887 2.5904 4.65053L2.5908 4.65067C2.5628 4.72133 2.54693 4.798 2.54693 4.8784C2.54693 5.04933 2.61627 5.20387 2.728 5.31587C2.84 5.4276 2.99467 5.4968 3.16547 5.4968C3.33627 5.4968 3.49067 5.42773 3.6028 5.31587C3.66187 5.25653 3.70867 5.1852 3.73987 5.10587L3.74027 5.106C4.1096 4.17307 4.99693 3.57027 6.0004 3.57027C6.77213 3.57027 7.48333 3.9328 7.93827 4.53587L7.28147 5.1936C7.24973 5.22587 7.22653 5.25733 7.21213 5.28773C7.1928 5.32933 7.1896 5.36787 7.20373 5.4016C7.21773 5.43507 7.248 5.4596 7.2912 5.47427C7.3228 5.48507 7.36187 5.49053 7.40693 5.49L8.5 5.49347L9.59333 5.4968C9.62053 5.49653 9.64707 5.49107 9.67147 5.4808C9.6956 5.47053 9.718 5.4552 9.7372 5.4356Z" fill="#FE5959" />
+                                    </svg>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="table-title">@sReportsV2.Resources.TextLanguage.Investigator_Signature</td>
+                        @foreach (var day in Model.Days)
+                        {
+                            if (day.DayNumber % 2 == 0)
+                            {
+                                <td><a class="signature-link" href="#" onclick="event.preventDefault();">@sReportsV2.Resources.TextLanguage.Signature</a></td>
+                            }
+                            else
+                            {
+                                <td><span class="signed">@sReportsV2.Resources.TextLanguage.Signed</span></td>
+                            }
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //////// End - Hidden on tablet //////// -->
+        <!-- End .table-wrapper -->
+    }
+
+    @helper RenderTreatmentsByType(TreatmentType treatmentType, string tabledId, string daysTh, string expandCssClass)
+    {
+        <table class="table table-doses">
+            <thead>
+                <tr data-toggle="collapse" aria-expanded="false" data-target="#@tabledId" class="accordion-toggle">
+                    <th class="table-title ">
+                        <span>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(treatmentType.ToString())</span>
+                        <div class="actions">
+                            @if (Model.Id > 0)
+                            {
+                                <button class="add-medication"> <i class="fas fa-plus-circle vertical-aligned"></i></button>
+                            }
+                            <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                            </svg>
+                        </div>
+                    </th>
+                    @Html.Raw(daysTh)
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr class="h-0">
+                    <td colspan="12" class="hiddenRow">
+                        <div class="accordian-body collapse" id="@tabledId">
+                            <table class="table table-doses">
+                                <tbody class="tbody-child table-medications">
+                                    @foreach (var medicationInstance in Model.GetAllMedicationsForTreatment(treatmentType))
+                                    {
+                                        var medication = medicationInstance.Medication;
+                                        var isMedicationReplacedCss = Model.IsMedicationReplaced(medicationInstance.Id) ? "replaced" : "";
+                                        <tr data-medication="@medication.Id"
+                                            data-medicationInstance="@(medicationInstance.Id > 0 ? medicationInstance.Id.ToString() : "")"
+                                            data-rowVersion="@medicationInstance.RowVersion">
+                                            <td class="table-title @isMedicationReplacedCss">
+                                                <div class="table-title-container">
+                                                    <div class="medication-data @(medicationInstance.Id == 0 ? "w-100" : "")">
+                                                        <p class="text-primary">@medication.Name @medication.Dose IV</p>
+                                                        <p class="text-secondary">@medication.PreparationInstruction @medication.ApplicationInstruction</p>
+                                                    </div>
+                                                    @if (medicationInstance.Id > 0)
+                                                    {
+                                                        <div class="actions">
+                                                            <div class="delete-icon" onclick="showDeleteModal(event, '@medicationInstance.Id', 'deleteMedication')">
+                                                                <img src="~/Content/img/icons/delete.svg" />
+                                                            </div>
+                                                            <div class="replace-icon">
+                                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0C2.68627 0 0 2.6864 0 6C0 9.3136 2.68627 12 6 12C9.31387 12 12 9.3136 12 6C12 2.6864 9.31387 0 6 0ZM9.41013 7.34947C9.4088 7.35227 9.40773 7.35493 9.40667 7.35787L9.40627 7.3589L9.40627 7.35891C9.40533 7.36139 9.40437 7.36393 9.4032 7.36627C8.84173 8.76427 7.50787 9.66667 6 9.66667C4.88973 9.66667 3.8692 9.17493 3.182 8.34587L2.50387 9.0256C2.4288 9.10133 2.35587 9.13027 2.2972 9.1068C2.23893 9.0832 2.206 9.01133 2.20533 8.90493L2.2036 6.71013C2.2032 6.6552 2.22413 6.60333 2.26267 6.56427C2.3012 6.52493 2.35187 6.5036 2.40653 6.50307L4.59293 6.51013C4.69933 6.5088 4.77173 6.54067 4.79627 6.59853C4.82093 6.65693 4.7932 6.73013 4.71853 6.80653L4.0616 7.46467C4.51587 8.068 5.22493 8.42973 5.99973 8.42973C7.00307 8.42973 7.89027 7.82693 8.25987 6.89413L8.26027 6.89427C8.3508 6.6652 8.574 6.50307 8.83493 6.50307C9.17667 6.50307 9.45347 6.77987 9.45347 7.1216C9.45347 7.20213 9.43773 7.27893 9.40973 7.34933L9.41013 7.34947ZM9.7372 5.4356C9.7564 5.416 9.77147 5.39347 9.78147 5.36867C9.79147 5.34387 9.79667 5.31733 9.7968 5.2896L9.79573 4.19227L9.79493 3.09493C9.79453 3.05 9.78827 3.0112 9.77707 2.97973C9.76147 2.93653 9.73653 2.90693 9.70293 2.8932C9.66907 2.87973 9.63053 2.88373 9.58933 2.90373C9.55947 2.91867 9.528 2.94253 9.49613 2.97453L8.81827 3.65387C8.13 2.82533 7.106 2.33333 6 2.33333C4.49147 2.33333 3.1572 3.2364 2.59653 4.63573L2.59453 4.6404C2.59393 4.64207 2.5932 4.64377 2.59247 4.64547C2.59173 4.64717 2.591 4.64887 2.5904 4.65053L2.5908 4.65067C2.5628 4.72133 2.54693 4.798 2.54693 4.8784C2.54693 5.04933 2.61627 5.20387 2.728 5.31587C2.84 5.4276 2.99467 5.4968 3.16547 5.4968C3.33627 5.4968 3.49067 5.42773 3.6028 5.31587C3.66187 5.25653 3.70867 5.1852 3.73987 5.10587L3.74027 5.106C4.1096 4.17307 4.99693 3.57027 6.0004 3.57027C6.77213 3.57027 7.48333 3.9328 7.93827 4.53587L7.28147 5.1936C7.24973 5.22587 7.22653 5.25733 7.21213 5.28773C7.1928 5.32933 7.1896 5.36787 7.20373 5.4016C7.21773 5.43507 7.248 5.4596 7.2912 5.47427C7.3228 5.48507 7.36187 5.49053 7.40693 5.49L8.5 5.49347L9.59333 5.4968C9.62053 5.49653 9.64707 5.49107 9.67147 5.4808C9.6956 5.47053 9.718 5.4552 9.7372 5.4356Z" fill="#FE5959" />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </td>
+
+                                            @foreach (var day in Model.Days)
+                                            {
+                                                var dose = Model.GetDose(medication.Name, day.DayNumber);
+                                                <td class="input-field @expandCssClass @isMedicationReplacedCss"
+                                                    id="@string.Concat(medication.Id, '_', day.DayNumber)"
+                                                    data-medication-name="@medication.Name"
+                                                    data-day-number="@day.DayNumber"
+                                                    data-date="@day.Date.ToString(ViewBag.DateFormat)"
+                                                    data-set="@Model.GetDoseEncoded(dose)"
+                                                    data-hasValue="@(Model.HasDose(dose))">
+                                                    <input class="input-field-input"
+                                                           value="@Model.RenderTimeDosesValue(dose)"
+                                                           title="@(dose == null ? "" : dose.RenderTimeDosesTooltip())">
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}
+
+<!-- Modal windows  -->
+@Html.Partial("SchemaInstance/EditMedicationModal")
+@Html.Partial("SchemaInstance/ViewMedicationReplacementModal")
+@Html.Partial("SchemaDefinition/EditMedicationDoseModal")
+@Html.Partial("SchemaInstance/EditDelayDoseModal")
+@Html.Partial("SchemaInstance/ViewHistoryOfDayDoseModal")
+@Html.Partial("~/Views/Administration/DeleteModal.cshtml")
+
+

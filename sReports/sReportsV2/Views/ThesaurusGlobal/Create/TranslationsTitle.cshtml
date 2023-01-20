@@ -1,9 +1,11 @@
-﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+﻿@using sReportsV2.Common.Enums;
+
+@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
 
 
 <div class="translations-title">
     <div class="thesaurus-preview-o40mtid">
-        O4.0MT ID: @(Model != null ? Model.Id : 0)
+        <b>O4.0MT ID:</b> @(Model != null ? Model.Id : 0)
     </div>
     <div class="preview-users">
         <div class="preview-user thesaurus-status">
@@ -11,28 +13,30 @@
                 <div class="status-dot"></div>
             </div>
             <div class="preview-user-info">
-                <div class="pu-title">
-                    Status:
-                </div>
+                <div class="pu-title">Last Curation Status:</div>
                 <div class="pu-value">
 
                     <div class="dropdown show">
                         <a class="dropdown-button" href="#" role="button" id="dropdownMenuState" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="pu-value" style="margin-right:17px;" id="state" data-value="@(Model != null ? Model.State : sReportsV2.Common.Enums.ThesaurusState.Draft)">
-                                @(Model != null ? Model.State : sReportsV2.Common.Enums.ThesaurusState.Draft)
+                            <div class="pu-value" style="margin-right:17px;" id="state" data-value="@(Model != null ? Model.State : ThesaurusState.Uncurated)">
+                                @(Model != null ? Model.State : ThesaurusState.Uncurated)
                             </div>
                             <div class="state-arrow"></div>
                         </a>
 
                         <div class="dropdown-menu ddm-thesaurus" id="menuState" aria-labelledby="dropdownMenuState">
-                            @foreach (var state in Enum.GetValues(typeof(sReportsV2.Common.Enums.ThesaurusState)).Cast<sReportsV2.Common.Enums.ThesaurusState>())
+                            @foreach (var state in
+                                Enum.GetValues(typeof(ThesaurusState))
+                                .Cast<ThesaurusState>()
+                                .Except(new ThesaurusState[] { ThesaurusState.Draft, ThesaurusState.Production, ThesaurusState.Deprecated, ThesaurusState.Disabled})
+                                )
                             {
                                 <a class="dropdown-item thesaurus-state-dropdown @(Model != null && state == Model.State ? "active-item" : string.Empty)" onclick="changeState(event, '@state')">@state</a>
                             }
 
                         </div>
-                        </div>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -56,10 +60,10 @@
             </div>
             <div class="preview-user-info">
                 <div class="pu-title">
-                    Verified by:
+                    Curated by:
                 </div>
                 <div class="pu-value">
-                    Peter Schuchmacher
+                    @(Model != null ? Model.GetUserWhoChangedThesaurus("Last") : "")
                 </div>
             </div>
         </div>

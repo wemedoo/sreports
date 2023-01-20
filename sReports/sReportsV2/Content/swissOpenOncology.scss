@@ -1,5 +1,10 @@
-﻿.soo-header-color{
-    background-color:#1c94a3 !important;
+﻿$color-green-primary: #1c94a3;
+$color-dark-grey: #454545;
+$color-light-grey: #f8f8f8;
+$link-color: #097c8a;
+
+.soo-header-color{
+    background-color:$color-green-primary !important;
     background-image:url(img/icons/SwissOpenOncology/header_backround.png);
     height:78px;
 }
@@ -11,17 +16,17 @@
 }
 
 .mc-min-height {
-    min-height: calc(100vh - 61px - 80px)
+    min-height: calc(100vh - 78px - 80px)
 }
 
 .info-value{
-    color:#1c94a3;
+    color: white;
     font-size:20px;
     font-weight:600;
 }
 
 .info-label {
-    color: #454545;
+    color: white;
     font-size: 14px;
 }
 
@@ -36,10 +41,11 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
 }
 
 .search-btn-gt {
-    border: 1px solid #1c94a3;
+    border: 1px solid $color-green-primary;
     border-radius: 5px;
     padding-left: 20px;
     padding-right: 20px;
@@ -69,64 +75,43 @@
     margin-bottom:13vh;
 }
 
-.icon-title {
-    display: flex;
-    width: fit-content;
-    margin: auto;
-    color: #1c94a3;
-    text-align: center;
-    margin-bottom:20px;
-
-    i {
-        color: #d83f38;
-        font-size: 12px;
-        margin-top: 6px;
-        margin-right:6px;
-    }
-
-    div {
-        font-size: 16px;
-        font-weight: 600;
-    }
+.home-row-title {
+    color: $color-green-primary;
+    margin-bottom: 30px;
+    font-size: 25px;
+    font-weight: 700;
 }
 
-.home-text {
-    width:50%;
-    text-align:center;
-    margin:auto;
-    .text-bb {
-        display: inline-block;
-        font-weight: 800;
-    }
 
-    .text-bg {
-        display: inline-block;
-        color: #1c94a3;
-        font-weight: 600;
-    }
-}
 
-.img-center {
-    margin-bottom: 20px;
-    margin-top: 55px;
-    text-align:center;
-}
 .home-li-item {
     position: relative;
-    font-size: 15px;
     width: fit-content;
-    max-width:45%;
-    text-align: center;
-    margin: auto;
     margin-bottom: 16px;
-    padding-left:10px;
+    padding-left: 10px;
 
-    i {
+    &.circle {
+        margin-bottom: 8px;
+    }
+
+    i.fa-circle {
         font-size: 5px;
-        color: #1c94a3;
+        color: $color-dark-grey;
         position: absolute;
         top: 8px;
+        left: -5px;
+    }
+
+    i.fa-check {
+        font-size: 10px;
+        color: $color-green-primary;
+        position: absolute;
+        top: 5px;
         left: 0px;
+    }
+
+    span {
+        margin-left: 10px;
     }
 }
 
@@ -141,7 +126,7 @@
         border-radius: 3px;
         padding: 5px 7px 4px 7px;
         font-size: 14px;
-        color: #097c8a;
+        color: $link-color;
         font-weight: 500;
         margin-left:10px;
 
@@ -151,18 +136,14 @@
     }
 }
 
-.img-number{
-    margin-bottom:14px;
+.img-number {
+    margin-bottom: 14px;
 }
 
 .search-book {
     position: absolute;
     top: 9px;
     left: 14px;
-}
-
-.swiss-icon{
-    margin-right:7px;
 }
 
 .login-register {
@@ -250,7 +231,7 @@
     width: fit-content;
     margin-left: auto;
     text-decoration: underline;
-    color:#1c94a3;
+    color:$color-green-primary;
     font-weight:600;
     cursor:pointer;
     margin-top:5px;
@@ -263,7 +244,7 @@
 
 .single-result {
     padding: 2px 7px;
-    color: #097c8a;
+    color: $link-color;
     font-size : 12px;
     cursor:pointer;
     font-weight:600;
@@ -300,7 +281,7 @@
 .search-info-title {
     margin-bottom: 14px;
     font-size: 20px;
-    color: #454545;
+    color: $color-dark-grey;
     font-weight:600;
     letter-spacing:0.24px;
 }
@@ -312,7 +293,7 @@
 
 .search-advanced-content {
     width: 688px !important;
-    height: 454px !important;
+    height: 380px !important;
     margin: auto;
     border-radius: 9px;
 
@@ -350,7 +331,7 @@
 #gtAdvancedSearch {
     .filter-input {
         &:focus {
-            border-color: #1c94a3 !important;
+            border-color: $color-green-primary !important;
             outline: none;
             box-shadow: 0 0 20px 0 #c2e8ed !important;
         }
@@ -387,7 +368,7 @@
     text-align: left;
     font-size: 28px;
     font-weight: 600;
-    color: #454545;
+    color: $color-dark-grey;
     letter-spacing: 0.34px;
     padding-bottom: 12px;
     border-bottom: dashed 1px #d7d7d7;
@@ -399,7 +380,7 @@
     border-radius:4px;
     font-size:14px;
     font-weight:500;
-    color: #097c8a;
+    color: $link-color;
     height:fit-content;
     padding: 4px 10px 6px 10px;
     margin-left:auto;
@@ -419,7 +400,7 @@
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
-    color: #097c8a;
+    color: $link-color;
     height: fit-content;
     padding: 4px 10px 6px 10px;
     margin-left: 10px;
@@ -447,14 +428,14 @@
 }
 
 .quick-search-input {
-    border: 1px solid #1c94a3;
+    border: 1px solid $color-green-primary;
     border-radius: 5px;
     height: 50px;
     padding-left: 14px;
     padding-right: 41px;
     width: 100%;
     font-size:14px;
-    color:#454545;
+    color:$color-dark-grey;
     cursor:pointer;
 
 
@@ -473,7 +454,7 @@
     display: flex;
     cursor: pointer;
     padding-left: 9px;
-    //background-color: #1c94a3;
+    //background-color: $color-green-primary;
     .browse-arrow {
         margin-left: auto;
         margin-right: 10px;
@@ -485,7 +466,7 @@
         text-decoration: underline;
         font-size: 14px;
         font-weight: 500;
-        color: #097c8a;
+        color: $link-color;
     }
 }
 
@@ -498,14 +479,14 @@
     }
 
     .browse-text {
-        color: #097c8a;
+        color: $link-color;
     }
 }
 
 .knowledge-in-context {
     font-size: 14px;
     font-weight: 600;
-    color: #1c94a3;
+    color: $color-green-primary;
     margin-top:19px;
     padding-left:9px;
     padding-bottom:2px;
@@ -520,34 +501,52 @@
     }
 
     .acc-text {
-        color: #454545;
+        color: $color-dark-grey;
     }
 
     .acc-arrow {
-        content: url("img/icons/SwissOpenOncology/arrow_close.svg")
+        content: url("img/icons/SwissOpenOncology/arrow_close.svg");
+
+        &.no-any-margin {
+            margin: unset;
+        }
+    }
+
+    .acc-ontology {
+        margin-left: auto;
+        margin-right: 15px;
     }
 }
 
 .preview-accordion-header {
-    display:flex;
-    background-color: #1c94a3;
-    padding:15px;
-    cursor:pointer;
-    
+    display: flex;
+    background-color: $color-green-primary;
+    padding: 15px;
+    cursor: pointer;
+
     .acc-book {
-        margin-right:12px;
-        content:url("img/icons/SwissOpenOncology/tree_white.svg");
+        margin-right: 12px;
+        content: url("img/icons/SwissOpenOncology/tree_white.svg");
     }
 
     .acc-text {
-        font-size:14px;
-        font-weight:500;
-        color:white;
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
     }
 
     .acc-arrow {
-        content:url("img/icons/SwissOpenOncology/arrow_open.svg");
-        margin-left:auto;
+        content: url("img/icons/SwissOpenOncology/arrow_open.svg");
+        margin-left: auto;
+
+        &.no-any-margin {
+            margin: unset;
+        }
+    }
+
+    .acc-ontology {
+        margin-left: auto;
+        margin-right: 15px;
     }
 }
 
@@ -559,6 +558,15 @@
     padding: 22px;
     border: 1px solid #c6c6c6;
     border-top:unset;
+}
+
+.acc-content-row {
+    display: flex;
+    align-items: center;
+
+    div{
+        width: 50%;
+    }
 }
 
 .preview-translations{
@@ -573,6 +581,7 @@
     height:fit-content;
     margin-bottom:auto;
     margin-top:auto;
+    padding-left: 1rem;
 }
 
 .translations-title{
@@ -582,7 +591,7 @@
 }
 
 .preview-user {
-    margin-right: 50px;
+    margin-right: 30px;
     display: inline-flex;
 
     &:last-child{
@@ -595,7 +604,7 @@
     }
 
     .pu-value {
-        color: #097c8a;
+        color: $link-color;
         font-size: 14px;
         font-weight: 600;
     }
@@ -636,16 +645,21 @@
     margin-top:21px;
 }
 
-.language-input-create{
-    margin-top:41px;
-    display:flex;
+.language-input-create {
+    margin-top: 41px;
+    display: flex;
+
+    .inline-checkbox-label {
+        margin-left: auto;
+        padding-top: 10px;
+    }
 }
 
 .input-label{
     width:25%;
     padding:6px 21px 0px 21px;
     font-size:14px;
-    color:#454545;
+    color:$color-dark-grey;
     text-align:right;
     word-break:break-all;
 }
@@ -694,30 +708,27 @@
 
 .language-input-title {
     font-size: 14px;
-    color: #454545;
+    color: $color-dark-grey;
 }
 
 .languages-input {
     border-radius: 5px;
-    border: solid 1px #1c94a3;
+    border: solid 1px $color-green-primary;
     background-color: #f0fdff;
-    padding:9px 18px;
-    font-size:14px;
-    width:100%;
+    padding: 9px 18px;
+    font-size: 14px;
+    width: 100%;
+    background-image: url("img/icons/SwissOpenOncology/arrow_close.svg");
+    background-position: calc(100% - 10px) 17px;
+    background-repeat: no-repeat;
 
-    &:focus{
-        outline:none;
+    &:focus {
+        outline: none;
     }
-}
 
-.languages-select {
-    position: relative;
-
-    .languages-arrow {
-        content:url("img/icons/SwissOpenOncology/arrow_close.svg");
-        position:absolute;
-        right:10px;
-        top:17px;
+    &:disabled {
+        color: black;
+        font-weight: bold;
     }
 }
 
@@ -734,7 +745,7 @@
 .translations-item-value {
     font-size: 14px;
     line-height:1.57;
-    color:#454545;
+    color:$color-dark-grey;
 }
 
 .gt-items{
@@ -825,7 +836,7 @@
             padding-left: 32px;
         }
 
-        color: #454545;
+        color: $color-dark-grey;
         font-weight: 600;
     }
 }
@@ -835,7 +846,7 @@
 }
 
 .td-code {
-    background-color: #1c94a3;
+    background-color: $color-green-primary;
     border-radius: 4px;
     color: white;
     padding: 5px 10px 6px 12px;
@@ -844,11 +855,15 @@
     font-weight: 600;
 }
 
-.td-link{
-    color:#097c8a !important;
-    font-size:14px;
-    text-decoration:underline;
-    cursor:pointer !important;
+.td-link {
+    color: $link-color !important;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer !important;
+
+    a {
+        color: $link-color !important;
+    }
 }
 
 .filter-vocabulary{
@@ -856,9 +871,8 @@
     font-size:14px;
     font-weight:500;
     text-decoration:underline;
-    color:#097c8a;
+    color:$link-color;
     padding-right:22px;
-    border-right:1px solid #eaeaea;
 
     img{
         margin-right:5px;
@@ -878,7 +892,8 @@
     font-size: 14px;
     font-weight: 500;
     text-decoration: underline;
-    color: #097c8a;
+    color: $link-color;
+    border-left: 1px solid #eaeaea;
 }
 
 .vocabulary-container {
@@ -904,7 +919,7 @@
 
 
     span {
-        color: #097c8a;
+        color: $link-color;
     }
 
     .vocabulary-checkbox-i {
@@ -914,8 +929,8 @@
     }
 
     .form-checkbox-field:checked ~ .form-checkbox-button {
-        background-color: #097c8a;
-        border-color:#097c8a;
+        background-color: $link-color;
+        border-color:$link-color;
     }
 
     .form-checkbox-button::before {
@@ -958,7 +973,7 @@
 }
 
 .thesaurus-state-dropdown {
-    color: #454545;
+    color: $color-dark-grey;
     margin: 0px !important;
     width: unset !important;
     padding-left: 30px !important;
@@ -974,14 +989,14 @@
 
     &:hover {
         background: #eaeaea !important;
-        color: #097c8a !important;
+        color: $link-color !important;
     }
 
 }
 
 .thesaurus-state-dropdown.active-item {
     background: #eaeaea !important;
-    color: #097c8a !important;
+    color: $link-color !important;
 }
 
 .ddm-thesaurus {
@@ -1027,7 +1042,7 @@
 
     .codes-label {
         font-size: 14px;
-        color: #454545;
+        color: $color-dark-grey;
     }
 
     .codes-input {
@@ -1047,14 +1062,18 @@
         -moz-appearance: none;
         text-indent: 1px;
         text-overflow: '';
-        padding-right:35px;
+        padding-right: 35px;
+
+        &.error {
+            background-color: #fff5f5;
+        }
     }
 
-    .arrow-select-codes{
-        content:url("img/icons/SwissOpenOncology/arrow_close.svg");
-        position:absolute;
-        right:16px;
-        top:37px;
+    .arrow-select-codes {
+        content: url("img/icons/SwissOpenOncology/arrow_close.svg");
+        position: absolute;
+        right: 16px;
+        top: 37px;
     }
 }
 
@@ -1120,4 +1139,600 @@ td > .dropdown > .dropdown-menu {
 .buttons-container {
     margin-top:50px;
     border-top: 1px dashed #c6c6c6;
+}
+
+.translation-input-text-highlight {
+    color: $link-color;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.translation-input-container {
+    padding: 0.75rem 0rem !important;
+
+    .language-input-create {
+        margin-top: 10px;
+        display: flex;
+
+        .input-label {
+            font-weight: 600;
+        }
+    }
+
+    .translation-input-item {
+        display: flex;
+        margin-top: 10px;
+
+        .input-label {
+            font-weight: 600;
+        }
+
+        .input-value {
+            width: 75%;
+            position: relative;
+
+            .bordered {
+                border: solid 1px $color-green-primary;
+            }
+
+            textarea {
+                border: solid 1px #d4d4d4;
+                border-radius: 5px;
+                padding: 8px 16px 8px 16px;
+                font-size: 15px;
+                min-height: 80px;
+
+                &:focus {
+                    outline: none !important;
+                    border: solid 1px $color-green-primary;
+                }
+
+                &::placeholder {
+                    @extend .translation-input-text-highlight;
+                }
+
+                &:disabled {
+                    background-color: white !important;
+                }
+            }
+
+            input {
+                border: solid 1px #d4d4d4;
+                border-radius: 5px;
+                padding: 8px 16px 8px 16px;
+                font-size: 15px;
+                margin: 0px !important;
+                width: 100%;
+
+                &:focus {
+                    outline: none !important;
+                    border: solid 1px $color-green-primary;
+                }
+
+                &::placeholder {
+                    @extend .translation-input-text-highlight;
+                }
+
+                &:disabled {
+                    background-color: white !important;
+                }
+            }
+        }
+
+        .input-value-list {
+            width: 37.5%;
+            position: relative;
+
+            .add-btn {
+                position: absolute;
+                top: 11px;
+                right: 11px;
+            }
+
+            .pref-lang-item {
+                padding-bottom: 10px;
+            }
+
+            .contribute-input-container {
+                display: flex;
+
+                .input-value {
+                    width: 100%;
+                    position: relative;
+                }
+            }
+
+            .items-container {
+                padding-top: 5px;
+            }
+        }
+    }
+}
+
+a#footer-logo {
+    margin-left: 0px !important;
+}
+
+.remove-system-filter:hover {
+    cursor: pointer;
+}
+
+.contact-header {
+    margin: -15px -30px 0 -78px;
+    background-color: #30b1c2;
+    min-height: 150px;
+    color: white;
+    padding: 42px 556px 21px 391.5px;
+
+    @media(max-width : 1800px) {
+        padding: 42px 441px 21px 276.5px;
+    }
+}
+
+.contact-title {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 0.34px;
+}
+
+.contact-subtitle {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.contact-body {
+    padding-top: 50px;
+    padding-left: 315px;
+    padding-right: 315px;
+
+    @media(max-width : 1800px) {
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+}
+
+.contact-information-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.contact-information-details {
+    display: flex;
+    margin-top: 28px;
+    margin-bottom: 59px;
+}
+
+.contact-card {
+    display: flex;
+    flex: 33%;
+    padding: 30px 0px 0px 30px;
+    border-radius: 9px;
+    box-shadow: 0 0 30px 0 #f0f3f3;
+    background-color: #ffffff;
+    height: 150px
+}
+
+.form-container {
+    display: flex;
+    padding-top: 20px;
+}
+
+.contact-column {
+    width: 50%;
+}
+
+.margin-left-25 {
+    margin-left: 25px;
+}
+
+.margin-right-25 {
+    margin-right: 25px;
+}
+
+.mandatory-field-label {
+    color: red;
+}
+
+.shaded-select {
+    background-color: #f9f9f9;
+    padding-left: 18px;
+}
+
+.contact-textarea {
+    border: solid 1px #d4d4d4;
+    border-radius: 5px;
+    padding: 10px 16px 11px 16px;
+    font-size: 15px;
+    height: 130px;
+
+    &:focus {
+        color: #495057;
+        background-color: white;
+        border-color: #4dbbc8;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(77, 187, 200, 0.25) !important;
+    }
+}
+
+.contact-textarea.error {
+    border: solid 1px #ed1e1e;
+    background-color: #fff5f5;
+}
+
+.contact-label {
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.contact-form-btns {
+    display: flex;
+    position: relative;
+}
+
+.contact-card-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.contact-card-body {
+    margin-left: 17px;
+}
+
+.font-size-15px{
+    font-size: 15px;
+}
+
+.font-size-14px {
+    font-size: 14px;
+}
+
+.color-light-bl {
+    color: $color-dark-grey;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
+.contact-card-image {
+    width: 39px;
+    height: 39px;
+    object-fit: contain;
+}
+
+.terms-and-conditions-chapter-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.terms-and-conditions-line {
+    width: 30px;
+    height: 2px;
+    border: solid 1px #30b1c2;
+    margin: 20px 0;
+}
+
+.terms-and-conditions-font {
+    font-size: 15px;
+    color: $color-dark-grey;
+}
+
+.terms-and-conditions-bolded {
+    color: #000000;
+    font-weight: 700;
+}
+
+.margin-top-17 {
+    margin-top: 17px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px;
+}
+
+$link-color-lighten: lighten($link-color, 10%);
+
+.terms-and-conditions-link {
+    font-weight: 600;
+    color: $link-color-lighten;
+}
+
+.color-green {
+    color: $link-color-lighten;
+}
+
+.terms-and-conditions-li-item {
+    position: relative;
+    width: fit-content;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    padding-left: 25px;
+
+    i {
+        font-size: 4px;
+        position: absolute;
+        top: 8px;
+        left: 0px;
+    }
+}
+
+.terms-and-conditions-th-size {
+    width: 200px;
+    height: 50px;
+}
+
+.terms-and-conditions-table {
+    font-size: 14px;
+
+    thead {
+        tr {
+            th {
+                vertical-align: middle;
+                padding-left: 23px;
+                font-weight: normal;
+                background-color: #fafafa;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                vertical-align: middle;
+                padding-left: 23px
+            }
+        }
+    }
+}
+
+.home-row-container {
+    padding: 120px 20%;
+
+    &.grey-background {
+        background-color: $color-light-grey;
+        padding-bottom: 160px;
+    }
+
+    .home-row {
+        display: flex;
+        align-items: center;
+
+        .image {
+            text-align: center;
+        }
+    }
+}
+
+.home-container {
+    font-size: 15px;
+    margin-left: -80px;
+    margin-right: -30px;
+    margin-top: -93px;
+    padding-bottom: 100px;
+}
+
+.home-container-header {
+    background-color: $color-green-primary;
+    background-image: url("img/icons/SwissOpenOncology/home_header_background.jpg");
+    background-position: 0px 0px;
+    background-size: cover;
+    height: 78px;
+}
+
+.text-bb {
+    display: inline-block;
+    font-weight: 800;
+}
+
+.text-bg {
+    display: inline-block;
+    color: $color-green-primary;
+    font-weight: 600;
+}
+
+.home-action-container {
+    padding: 60px 0px 80px 0px;
+    background-color: $color-green-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-action-label {
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.home-action-btns {
+    text-align: center;
+    margin-top: 20px;
+
+    .browse-term {
+        background-color: $color-green-primary;
+        width: 180px;
+        height: 50px;
+        border: 2px solid white;
+        border-radius: 3px;
+        padding: 5px 10px;
+        font-size: 14px;
+        color: white;
+        font-weight: 600;
+    }
+
+    .submit-new-term {
+        background-color: #fafafa;
+        width: 180px;
+        height: 50px;
+        border: 1px solid #d3d3d3;
+        border-radius: 3px;
+        padding: 5px 10px;
+        font-size: 14px;
+        color: $link-color;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+}
+
+.home-header-container {
+    background-color: $color-green-primary;
+    background-image: url("img/icons/SwissOpenOncology/home_header_background.jpg");
+    background-size: cover;
+    height: 630px;
+    padding: 180px 50px;
+    color: white;
+    z-index: 50000;
+
+    .home-header-title {
+        text-align: center;
+        margin-bottom: 30px;
+
+        .title {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            margin-top: 5px;
+            font-size: 15px;
+        }
+    }
+
+    .search-input {
+        width: fit-content;
+        position: relative;
+        margin: auto;
+
+        .search-book {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+        }
+
+        .search-i {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .search-btn-gt {
+            border: 1px solid $color-green-primary;
+            border-radius: 30px;
+            padding-left: 60px;
+            padding-right: 20px;
+            height: 50px;
+            width: 30vw;
+            min-width: 350px;
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 20px 0 #c2e8ed;
+            }
+
+            &::placeholder {
+                color: #454545;
+            }
+        }
+
+        .advanced-search-btn {
+            width: fit-content;
+            margin-left: auto;
+            text-decoration: underline;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 20px;
+        }
+    }
+}
+
+.home-image {
+    width: 350px;
+    height: 350px;
+}
+
+.preview-btn-container {
+    margin-top: 22px;
+    height: 60px;
+}
+
+.table-user {
+    overflow: hidden !important;
+    padding-bottom: 150px;
+}
+
+.td-user-blocked{
+    .user-action, .role-dropdown {
+        pointer-events: none;
+    }
+}
+
+.user-action {
+    display: block;
+    width: 100%;
+    padding-right: 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-menu-item {
+    padding: 0px 10px;
+
+    button {
+        color: white;
+        background-color: #1c94a3;
+        border-color: #1c94a3;
+        box-shadow: unset;
+
+        &:hover {
+            background-color: #2eaeb9;
+            border-color: #2eaeb9;
+            color: white;
+            outline: none;
+            box-shadow: unset;
+        }
+    }
+}
+
+.connection-ontology-modal-content {
+    width: 598px !important;
+    height: 550px !important;
+    margin: auto;
+    border-radius: 8 px;
+
+    &.smaller {
+        width: 500px !important;
+        height: 350px !important;
+    }
+}
+
+.divider {
+    margin: 40px 0px 30px 0px;
+    border-bottom: 1px dashed #c6c6c6;;
+}
+
+.no-any-margin {
+    margin: unset;
+}
+
+.custom-error {
+    font-size: 14px;
+    padding-left: 5px;
+    color: #ed1e1e;
 }

@@ -12,7 +12,6 @@ namespace sReportsV2.DTOs.ThesaurusEntry.DTO
         public string Language { get; set; }
         public string Definition { get; set; }
         public string PreferredTerm { get; set; }
-        public List<SimilarTermDTO> SimilarTerms { get; set; }
         public List<string> Synonyms { get; set; }
         public List<string> Abbreviations { get; set; }
     }

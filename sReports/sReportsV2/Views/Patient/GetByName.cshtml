@@ -1,0 +1,11 @@
+﻿@using sReportsV2.DTOs.Patient;
+@model List<PatientDataOut>
+@foreach (PatientDataOut patient in Model)
+{
+    string name = patient.Name + " " + patient.FamilyName + " ";
+    <div class="option" data-value="@patient.Id" onclick="patientOptionClicked(event, '@patient.Id', '@HttpUtility.HtmlEncode(name)')">
+        @name
+    </div>
+}
+
+

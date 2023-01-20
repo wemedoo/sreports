@@ -1,18 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using sReportsV2.Domain.Entities;
-using sReportsV2.Common.Enums;
-using sReportsV2.Domain.Exceptions;
-using sReportsV2.Domain.Extensions;
-using sReportsV2.Domain.Mongo;
-using sReportsV2.Domain.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using sReportsV2.Common.Constants;
-
-namespace sReportsV2.Domain.Services.Implementations
+﻿namespace sReportsV2.Domain.Services.Implementations
 {
     public class OrganizationService //: IOrganizationService
     {

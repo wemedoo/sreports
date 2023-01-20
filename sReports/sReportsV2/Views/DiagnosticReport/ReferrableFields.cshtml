@@ -1,17 +1,19 @@
 ﻿@using sReportsV2.DTOs.Common.DTO
+@using sReportsV2.Common.Constants;
 
 @model List<ReferralInfoDTO>
 
+@{ 
+    bool isEngineModule = ViewBag.Action == "/FormInstance/Create";
+}
+
 @if (Model != null && Model.Count > 0)
 {
-    <div class="form-accordion" style="display:@(ViewBag.Action == "/FormInstance/Create" ? "none" : "block"); margin-bottom:15px;" id="referralChapter-acc">
+    <div class="form-accordion" style="display:@(isEngineModule ? "none" : "block"); margin-bottom:15px;" id="referralChapter-acc">
         <div class="form-accordion-header" data-toggle="collapse" data-target="#referralChapter" aria-expanded="false" aria-controls="referralChapter">
-            Summary from source documents
+            @sReportsV2.Resources.TextLanguage.Summary_From_Source_Documents
         </div>
         <div class="collapse chapter" id="referralChapter">
-
-
-
             @foreach (var referral in Model)
             {
                 if (referral.ReferrableFields != null && referral.ReferrableFields.Count > 0)
@@ -31,7 +33,7 @@
                                         @sReportsV2.Resources.TextLanguage.Date
                                     </div>
                                     <div class="summary-element-value">
-                                        @referral.LastUpdate.Value.ToShortDateString()
+                                        @referral.LastUpdate.Value.ToString(ViewBag.DateFormat)
                                     </div>
                                 </div>
                                 <div class="summary-element">
@@ -39,7 +41,7 @@
                                         @sReportsV2.Resources.TextLanguage.Created_by
                                     </div>
                                     <div class="summary-element-value">
-                                        @referral.User.FirstName @referral.User.LastName
+                                        @(referral.User != null ? string.Concat(referral.User.FirstName, " ", referral.User.LastName) : "")
                                     </div>
                                 </div>
                                 <div class="summary-element">
@@ -47,40 +49,38 @@
                                         @sReportsV2.Resources.TextLanguage.Organization
                                     </div>
                                     <div class="summary-element-value">
-                                        @referral.Organization.Name
+                                        @(referral.Organization != null ? referral.Organization.Name : "")
                                     </div>
                                 </div>
                                 <div class="summary-element">
                                     <div class="summary-element-label">
-                                        Document
+                                        @sReportsV2.Resources.TextLanguage.Document
                                     </div>
                                     <div class="summary-element-value" onclick="goToFormInstanceEdit('@referral.Id', '@referral.VersionId')">
-                                        <u>See full details</u>
+                                        <u>
+                                            @sReportsV2.Resources.TextLanguage.SeeFullDetails
+                                        </u>
                                     </div>
                                 </div>
-
                             </div>
-
-
-
                             @foreach (var kvp in referral.ReferrableFields)
                             {
-                            <div class="row kvp" >
-                                <div class="col-4 referal-field-label">
-                                    <div>@kvp.Key : </div>         
-                                    <img class="mr-1 thesaurus" src=@(kvp.ThesaurusId != null ?"../Content/img/icons/thesaurus_green.svg": "../Content/img/icons/thesaurus_grey.svg") onclick="goToThesaurus('@kvp.ThesaurusId')">
+                                <div class="row kvp">
+                                    <div class="col-4 referal-field-label">
+                                        <div>@kvp.Key : </div>
+                                        @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+                                        {
+                                            <img class="mr-1 thesaurus" src="~/Content/img/icons/@(kvp.ThesaurusId != null ? "thesaurus_green.svg": "thesaurus_grey.svg")" onclick="goToThesaurus('@kvp.ThesaurusId')">
+                                        }
+                                    </div>
+                                    <div class="col-8 referal-field-value">@Html.Raw(@kvp.Value)</div>
                                 </div>
-                                <div class="col-8 referal-field-value">@Html.Raw(@kvp.Value)</div>
-                            </div>
                             }
-
                         </div>
                     </div>
                 }
-        }
-
+            }
         </div>
-
     </div>
 }
 

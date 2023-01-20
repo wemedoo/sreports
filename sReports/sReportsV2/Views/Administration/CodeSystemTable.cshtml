@@ -1,0 +1,58 @@
+﻿@using sReportsV2.Common.Constants;
+@{
+    var userCookieData = ViewBag.UserCookieData;
+}
+<div class="table-responsive filter-border">
+    <table class="table table-striped table-border">
+        <thead class="color-header">
+            <tr class="table-header-row">
+                <th style="border-bottom: unset;border-top: unset;"></th>
+                <th id="Value" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Value')">@sReportsV2.Resources.TextLanguage.Value.ToUpper()</th>
+                <th id="Label" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Label')">@sReportsV2.Resources.TextLanguage.Label.ToUpper()</th>
+                <th id="SAB" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('SAB')">SAB</th>
+                <th style="border-bottom: unset;border-top: unset;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i < Model.Data.Count; i++)
+            {
+                sReportsV2.DTOs.CodeSystem.CodeSystemDataOut entry = Model.Data[i];
+                <tr class="table-content-row">
+                    <td data-property="codeSystemId" data-value="@entry.Id">@(i+1)</td>
+                    <td data-property="codeSystemValue" data-value="@entry.Value">@entry.Value</td>
+                    <td data-property="codeSystemLabel" data-value="@entry.Label">@entry.Label</td>
+                    <td data-property="codeSystemSAB" data-value="@entry.SAB">@entry.SAB</td>
+                    <td>
+                        @if (userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Administration))
+                        {
+                            <div class="dropdown show">
+                                <a class="dropdown-button" href="#" role="button" id="dropdownMenuLink-@entry.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="dots" src="~/Content/img/icons/3dots.png">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-@entry.Id">
+                                    <a class="dropdown-item" href="#" onclick="editCodeSystem(event)"><img class="edit-svg-size" src="~/Content/img/icons/edit.svg">@sReportsV2.Resources.TextLanguage.Edit</a>              
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.Data.Count == 0)
+    {
+        <div class="no-result-content">
+            <img class="margin-" src="~/Content/img/icons/no_results.svg">
+            <br>
+            <div class="no-result-text">@sReportsV2.Resources.TextLanguage.NoResultFound</div>
+        </div>
+    }
+</div>
+
+@if (Model.Data.Count > 0)
+{
+    <div class="pager-container">
+        @Html.Partial("Pagination")
+    </div>
+}
+@Html.Partial("CodeSystemModal")

@@ -1,0 +1,104 @@
+﻿@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.DTOs.AccessManagment.DataOut.RoleDataOut
+@{
+    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Role_Administration;
+}
+<div class="element-background-grey">
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Roles }, { "linkLevel1", "/RoleAdministration/GetAll" }, { "level2", Model != null ? string.Concat(sReportsV2.Resources.TextLanguage.Edit_Role, " ", Model.Name) : @sReportsV2.Resources.TextLanguage.Create_New_Role }, { "activeLevel", 2 }, { "showBreadcrumbLine", true } })
+    <div class="edit-role-header">@sReportsV2.Resources.TextLanguage.Edit_Role</div>
+    <div class="edit-role-container">
+        <form method="post" id="roleForm" onsubmit="return submitRoleForm(this, event)" novalidate>
+            <input type="hidden" class="form-control" id="roleId" value="@(Model != null ? Model.Id.ToString() : "" )" />
+            <div class="module-container">
+                <div class="tree-form-title">
+                    <span>
+                        <img src="~/Content/img/icons/overview_black.svg">
+                    </span>
+                    <span class="module-name">
+                        @sReportsV2.Resources.TextLanguage.GeneralInfo
+                    </span>
+                </div>
+                <div class="module-content-container">
+                    <div class="form-group row">
+                        <label for="roleName" class="col-sm-4 col-form-label text-align-right font-weight-600">@sReportsV2.Resources.TextLanguage.Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" required class="form-control" id="roleName" value="@(Model!= null ? Model.Name : "")" data-no-color-change="true" @ViewBag.Disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row margin-top-30">
+                        <label for="roleDescription" class="col-sm-4 col-form-label text-align-right font-weight-600">@sReportsV2.Resources.TextLanguage.Description:</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="roleDescription" rows="5" data-no-color-change="true" @ViewBag.Disabled>@(Model!= null ? Model.Description : "")</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.Modules != null)
+            {
+                <div class="role-permissions">
+                    @foreach (var module in ViewBag.Modules)
+                    {
+                        <div class="module-container module-permission" data-id="@module.Id">
+                            <div class="row module-header">
+                                <div class="module-header-name col-sm-4">
+                                    <span>
+                                        <img src="~/Content/img/icons/@module.GetModuleImage(module.Name)">
+                                    </span>
+                                    <span class="module-name">
+                                        @(sReportsV2.Resources.TextLanguage.ResourceManager.GetString(module.Name) ?? module.Name)
+                                    </span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <label class="form-checkbox-label permission-role-checkbox select-all">
+                                        <input value="@module.Id"
+                                               class="form-checkbox-field check-permissions-per-module"
+                                               type="checkbox"
+                                               data-no-color-change="true" @ViewBag.Disabled />
+                                        <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
+                                        <span class="permission-role-checkbox-label pt-0">
+                                            @sReportsV2.Resources.TextLanguage.Select_All
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="module-content-container row">
+                                <div class="container-persmission-role col-sm-8 offset-sm-4">
+                                    @foreach (var permission in module.Permissions)
+                                    {
+                                        <div class="checkbox-container-permission-role">
+                                            <label class="form-checkbox-label permission-role-checkbox">
+                                                <input class="form-checkbox-field module-@module.Id-permission"
+                                                       type="checkbox"
+                                                       value="@permission.Id"
+                                                       @(Model.IsPermissionChecked(module.Id, permission.Id) ? "checked" : "") @ViewBag.Disabled />
+                                                <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
+                                                <span class="permission-role-checkbox-label">
+                                                    @permission.Description
+                                                </span>
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            }
+            <div class="float-right mt-2">
+                @if (!ViewBag.ReadOnly)
+                {
+                    <button class="submit-patient float-right" type="submit" style="outline: none;">
+                        <span class="submit-patient-info">@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
+                    </button>
+                }
+                <div class="text-underline float-right" type="button" onclick="cancelEditRole()">
+                    <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
+                </div>
+            </div>
+            <div class="min-height-50"></div>
+        </form>
+    </div>
+</div>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/roleAdministration")

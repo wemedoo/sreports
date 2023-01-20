@@ -79,7 +79,7 @@ namespace sReportsV2.Common.CustomAttributes
 
         private string ValidationSummary(FormDataIn formDataIn)
         {
-            string  result = string.IsNullOrWhiteSpace(formDataIn.ThesaurusId) ? "Form has no thesaurus!" : string.Empty;
+            string  result = formDataIn.ThesaurusId <= 0 ? "Form has no thesaurus!" : string.Empty;
             result +=  ValidateChapters(formDataIn.Chapters);
 
             return result;

@@ -1,56 +1,4 @@
-﻿
-
-function loadOutsideUsers() {
-    let consensusId = $("#consensusId").val();
-    if (consensusId) {
-        $.ajax({
-            method: 'get',
-            url: `/FormConsensus/GetOutsideUsers?consensusId=${consensusId}`,
-            contentType: 'application/json',
-            success: function (data) {
-                $("#usersOutsideSystem").html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                toastr.error(jqXHR.statusText);
-            }
-        })
-    }
-}
-
-function loadInsideUsers() {
-    let consensusId = $("#consensusId").val();
-    if (consensusId) {
-        $.ajax({
-            method: 'get',
-            url: `/FormConsensus/GetInsideUsers?consensusId=${consensusId}`,
-            contentType: 'application/json',
-            success: function (data) {
-                $("#usersInsideSystem").html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                toastr.error(jqXHR.statusText);
-            }
-        })
-
-    }
-}
-
-function reloadOrganizationUsersInfo() {
- $.ajax({
-        method: 'get',
-        url: `/FormConsensus/GetOrganizationUserInfo`,
-        contentType: 'application/json',
-        success: function (data) {
-            $("#consensusOrganizationUserInfo").html(data);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
-        }
- })
-}
-
-
-$(document).on('click', "#consensusBtn", function (e) {
+﻿$(document).on('click', "#consensusBtn", function (e) {
     if ($(this).hasClass('active')) {
         deactivateConsensusMode();
     } else {
@@ -81,10 +29,9 @@ function loadConsensusTree() {
         contentType: 'application/json',
         success: function (data) {
             $('#consensusTree').html(data);
-            $('.consensus-visible').show();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -111,34 +58,76 @@ $(".consensus-checkbox").click(function () {
 
 
 function proceed() {
-    let request = [];
-    $(".consensus-checkbox").each(function (index, element) {
+    let request = {};
+    request['QuestionOccurences'] = [];
+    $(".consensus-proceed").find('input[type=Radio]').each(function (index, element) {
         if ($(element).is(":checked")) {
             let parameter = {};
             parameter["Level"] = $(element).attr('name');
-            parameter["IsSame"] = $(element).attr('data-same');
-            request.push(parameter);
+            parameter["Type"] = $(element).attr('data-question-type');
+            request['QuestionOccurences'].push(parameter);
         }
     });
+    if (request['QuestionOccurences'].length == 0) {
+        if ($(".form-level").find('input[type=checkbox]').first().is(':checked')) {
 
-    let formId = $("#nestable").find(`li[data-itemtype='form']`).attr('data-id');
+            request['QuestionOccurences'].push({
+                Level: 'Form',
+                Type: 'Same'
+            });
+        } else {
+            request['QuestionOccurences'].push({
+                Level: 'Chapter',
+                Type: 'Any'
+            });
 
+            request['QuestionOccurences'].push({
+                Level: 'Page',
+                Type: 'Any'
+            });
+
+            request['QuestionOccurences'].push({
+                Level: 'FieldSet',
+                Type: 'Any'
+            });
+
+            request['QuestionOccurences'].push({
+                Level: 'Field',
+                Type: 'Any'
+            });
+
+            request['QuestionOccurences'].push({
+                Level: 'Fieldvalue',
+                Type: 'Any'
+            });
+        }
+    }
+
+
+    request.FormId = $("#nestable").find(`li[data-itemtype='form']`).attr('data-id');
+    request.ConsensusId = $("#consensusId").val();
+    request.IterationId = $("#iterationId").val();
+
+    console.log(request);
 
     $.ajax({
         method: 'post',
         data: JSON.stringify(request),
-        url: `/FormConsensus/ProceedConsensus?formId=${formId}`,
+        url: `/FormConsensus/ProceedConsensus`,
         contentType: 'application/json',
         success: function (data) {
             $('#consensusTree').html(data);
-            $('.consensus-decision').hide();
+            $('#proceedButtonContainer').remove();
+            $('#terminateButtonContainer').show();
             $("#usersCosensusTab").removeClass("d-none");
             $("#trackerTab").removeClass("d-none");
-
+            $('.consensus-decision-item').find('input').attr('disabled', 'disabled');
+            $('.consensus-decision-item').find('.btn-question-occurence-item-reset').hide();
+            $('.consensus-decision-item').addClass('started-iteration');
             toastr.success("Success")
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -184,6 +173,10 @@ function finalizeQuestion(id) {
 
 function submitQuestion(request) {
     let formId = $("#nestable").find(`li[data-itemtype='form']`).attr('data-id');
+    let itemId = request['ItemRef'];
+    let itemType = $("#nestable").find(`li[data-id='${itemId}']`).attr('data-itemtype');
+    console.log(itemType);
+    request['Level'] = itemType;
     let iterationId = $("#iterationId").val();
     $.ajax({
         method: 'post',
@@ -192,10 +185,10 @@ function submitQuestion(request) {
         contentType: 'application/json',
         success: function (data) {
             $('#consensusTree').html(data);
-            toastr.success("Succsess");
+            toastr.success("Success");
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -236,7 +229,7 @@ function openPopupComment(id) {
     }
 }
 
-function showConsensusFormPreview(id, element) {
+function showConsensusFormPreview() {
     let formId = $("#formId").val();
 
     $.ajax({
@@ -244,21 +237,81 @@ function showConsensusFormPreview(id, element) {
         url: `/FormConsensus/GetConsensusFormPreview?formId=${formId}`,
         contentType: 'application/json',
         success: function (data) {
-            $(`#${id}`).html(data);
-            showConsensusQuestionaire(id, element);
-            $(`#${id}`).find('.form-button-container').hide();
+            let divWrapper = $('<div></div>')
+                .addClass('consensus-questionnaire')
+                .html(data);
+            $("#consensusContainer").html(divWrapper);
+            $(`#consensusContainer`).find('.form-instance-button-container').hide();
+            $('#questionnaireSaveButton').hide();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
-function showConsensusQuestionaire(id, element) {
+function showConsensusUsers() {
+    $.ajax({
+        method: 'get',
+        url: `/FormConsensus/GetConsensusUsersPartial?consensusId=${$("#consensusId").val()}`,
+        contentType: 'application/json',
+        success: function (data) {
+            $("#consensusContainer").html(data);
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    });
+}
+
+function showConsensusTrackerData() {
+    $.ajax({
+        method: 'get',
+        url: `/FormConsensus/GetTrackerData?consensusId=${$("#consensusId").val()}`,
+        contentType: 'application/json',
+        success: function (data) {
+            $("#consensusContainer").html(data);
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    });
+}
+
+function showConsensusQuestionnaire() {
+    let formId = $("#formId").val();
+    let showQuestionnaireType = $("#showQuestionnaireType").val() ? $("#showQuestionnaireType").val() : "";
+    $.ajax({
+        method: 'get',
+        url: `/FormConsensus/GetQuestionnairePartial?formId=${formId}&showQuestionnaireType=${showQuestionnaireType}`,
+        contentType: 'application/json',
+        success: function (data) {
+            $("#consensusContainer").html(data);
+            $('#questionnaireSaveButton').show();
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    });
+}
+
+function setActiveTab(name, element) {
+    switch (name) {
+        case 'consensusFormPreview':
+            showConsensusFormPreview();
+            break;
+        case 'consensusUsers':
+            showConsensusUsers();
+            break;
+        case 'consensusTrackProcess':
+            showConsensusTrackerData();
+            break;
+        case 'consensusQuestionnaire':
+        default:
+            showConsensusQuestionnaire();
+    }
     $(".consensus-tab").removeClass('active-item');
     $(element).addClass('active-item');
-    $(".consensus-tab-target").hide();
-    $(`#${id}`).show();
 }
 
 function filterOrganizationHierarchy() {
@@ -277,8 +330,8 @@ function filterOrganizationHierarchy() {
             $("#organizationHierarchy").html(data);
             updateNumberOfSelectedUsers();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     })
 
@@ -307,14 +360,14 @@ function filterUsers() {
     $.ajax({
         method: 'post',
         data: JSON.stringify(organizationIds),
-        url: `/FormConsensus/ReloadUsers`,
+        url: `/FormConsensus/ReloadUsers?consensusId=${$("#consensusId").val()}`,
         contentType: 'application/json',
         success: function (data) {
             $("#consensusUsers").html(data);
             updateNumberOfSelectedUsers();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     })
 }
@@ -385,8 +438,8 @@ function updateOutsideUser() {
             $("#userId").val('');
             updateNumberOfSelectedUsers();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -422,8 +475,8 @@ function deleteOutsideUser(id) {
             $(`#${id}`).remove();
             updateNumberOfSelectedUsers();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -438,8 +491,8 @@ function deleteInsideUser(id) {
             $(`#${id}`).remove();
             updateNumberOfSelectedUsers();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -465,8 +518,14 @@ function updateNumberOfSelectedUsers() {
 
 function startConsensusFindingProcess() {
     let usersIds = [];
-    $(".consensus-user-checkbox:checked").each(function (index, element) {
-        usersIds.push($(element).val());
+    let numberOfSelectedReviewers = $("#numOfSelectedUsers").text();
+    if (numberOfSelectedReviewers == 0) {
+        toastr.warning("Please select at least one reviewer.");
+        return;
+    }
+
+    $("#usersInsideSystem").find(".outside-user").each(function (index, element) {
+        usersIds.push($(element).attr("id"));
     });
 
     let outsideUsersIds = [];
@@ -489,8 +548,8 @@ function startConsensusFindingProcess() {
         success: function (data) {
             toastr.success("Success")
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -508,39 +567,42 @@ function saveSelectedUsers() {
         contentType: 'application/json',
         success: function (data) {
             $("#usersInsideSystem").html(data);
-            toastr.success("Success")
+            toastr.success("Success");
+            updateNumberOfSelectedUsers();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
-function loadConsensusTrackerData(id, element) {
+function startNewIteration() {
+    let formId = $("#nestable").find(`li[data-itemtype='form']`).attr('data-id');
+
     $.ajax({
         method: 'get',
-        url: `/FormConsensus/GetTrackerData?consensusId=${$("#consensusId").val()}`,
+        url: `/FormConsensus/StartNewIteration?consensusId=${$("#consensusId").val()}&formId=${formId}`,
         contentType: 'application/json',
         success: function (data) {
-            $("#consensusTracker").html(data);
-            showConsensusQuestionaire(id, element);
+            loadConsensusPartial();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
-function startNewIteration(){
+function terminateCurrentIteration() {
     $.ajax({
         method: 'get',
-        url: `/FormConsensus/StartNewIteration?consensusId=${$("#consensusId").val()}`,
+        url: `/FormConsensus/TerminateCurrentIteration?consensusId=${$("#consensusId").val()}`,
         contentType: 'application/json',
         success: function (data) {
-            $("#consensusPartialContainer").html(data);
+            toastr.success('Current iteration is terminated');
+            loadConsensusPartial();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -555,19 +617,20 @@ function loadConsensusPartial() {
         success: function (data) {
             $('#consensusPartialContainer').html(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
 function collapseIteration(header) {
-    $("#iterations").find('.consensus-iteration-table').each(function (index, element) {
-        if ($(element).attr("id") !== $(header).attr("data-id") && $(element).hasClass("show")) {
-            let id = $(element).attr("id");
-            $(`[data-id="${id}"]`).click();
-        }
-    });
+    if ($(header).next().hasClass("show")) {
+        $(header).children('.iteration-icon').removeClass('fa-angle-up');
+        $(header).children('.iteration-icon').addClass('fa-angle-down');
+    } else {                 
+        $(header).children('.iteration-icon').removeClass('fa-angle-down');
+        $(header).children('.iteration-icon').addClass('fa-angle-up');
+    }
 }
 
 function remindUser(userId, isOutsideUser, iterationId) {
@@ -579,8 +642,36 @@ function remindUser(userId, isOutsideUser, iterationId) {
         success: function (data) {
             toastr.success('Successs');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
+
+$(document).on('change', 'input[name=Form]', function (e) {
+    if ($(this).is(':checked')) {
+        $('.item-questions-container input[type=radio]').each(function () {
+            this.checked = false;
+        });
+        $('.item-questions-container.consensus-decision-item').addClass('started-iteration');
+        $('.item-questions-container input[type=radio]').attr('disabled', "disabled");
+        $('.consensus-decision-item').find('.btn-question-occurence-item-reset').hide();
+    } else {
+        $('.item-questions-container input[type=radio]').removeAttr('disabled');
+        $('.item-questions-container.consensus-decision-item').removeClass('started-iteration');
+
+        $('.item-questions-container input[type=radio]').each(function () {
+            if ($(this).attr('data-question-type') == 'Different') {
+                this.checked = true;
+            } else {
+                this.checked = false;
+            }
+        });
+        $('.consensus-decision-item').find('.btn-question-occurence-item-reset').show();
+    }
+
+});
+
+$(document).on('click', '.btn-question-occurence-item-reset', function (e) {
+    $(this).closest(".item-questions-container").find('input[type=Radio]').prop("checked", false);
+});

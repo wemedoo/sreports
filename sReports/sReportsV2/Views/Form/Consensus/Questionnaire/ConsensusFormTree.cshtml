@@ -1,0 +1,182 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Consensus.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions
+@using sReportsV2.Common.Enums;
+@model FormDataOut
+
+@{
+    var consensus = ViewBag.ConsensusQuestionnaire.Consensus as ConsensusDataOut;
+    var viewType = ViewBag.ConsensusQuestionnaire.ViewType;
+    var iteration = consensus != null ? consensus.GetActiveIteration() : null;
+    IterationState iterationState = iteration == null ? IterationState.NotStarted : iteration.State.Value;
+    var occurenceTypeForm = iteration != null ? iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.Form.ToString()) : null;
+    var occurenceTypeChapter = iteration != null ? iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.Chapter.ToString()) : null;
+    var occurenceTypePage = iteration != null ? iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.Page.ToString()) : null;
+    var occurenceTypeFieldSet = iteration != null ? iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.FieldSet.ToString()) : null;
+    var occurenceTypeField = iteration != null ? iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.Field.ToString()) : null;
+    var occurenceTypeFieldValue = iteration != null ? iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.FieldValue.ToString()) : null;
+    var formItemTotalCounter = new Dictionary<string, int>() {
+        { FormItemLevel.Page.ToString(), 0 },
+        { FormItemLevel.FieldSet.ToString(), 0 },
+        { FormItemLevel.Field.ToString(), 0 },
+        { FormItemLevel.FieldValue.ToString(), 0 }
+    };
+}
+
+<input type="hidden" id="consensusId" value="@(consensus != null ? consensus.Id : string.Empty)">
+<input type="hidden" id="iterationId" value="@(consensus != null ? iteration.Id.ToString() : string.Empty)">
+@if (iterationState != IterationState.Terminated)
+{
+    <div class="consensus-tree">
+        <div class="cf nestable-lists ">
+            <div class="dd" id="nestableConsensus">
+                <ol class="dd-list dd-scrollable-container">
+                    <li class="dd-item dd-nodrag"
+                        data-id="@(Model != null ? Model.Id : FormDataOut.DefaultIdPlaceholder)"
+                        data-itemtype="form"
+                        data-activeversion='@(Model != null ? Model.GetActiveVersionJsonString() : null)'
+                        @(Html.Raw(Model != null ? Model.GetDataAttr() : FormDataOut.GetInitialDataAttributes()))>
+
+                        <div class="dd-nohandle"
+                             data-toggle="tooltip"
+                             data-placement="left"
+                             title="@(Model != null ? Model.Title : FormDataOut.DefaultFormPlaceholder)">
+                            @(Model != null ? Model.Title : FormDataOut.DefaultFormPlaceholder)
+                            @RenderIcons(iteration, iterationState, (consensus != null && iteration.ExistsQuestionForItem(Model.Id)) || consensus == null, Model.Id, occurenceTypeForm)
+                        </div>
+                        @Html.Partial("~/Views/Form/Consensus/Questionnaire/CreateOrPreviewQuestion.cshtml", Model.Id, new ViewDataDictionary { { "consensus", consensus}, { "viewType", viewType } })
+
+                        <ol class="dd-list">
+                            @if (Model != null && Model.Chapters != null)
+                            {
+                                for (int ci = 0; ci < Model.Chapters.Count; ci++)
+                                {
+                                    var chapter = Model.Chapters[ci];
+
+                                    <li class="dd-item addnewlist"
+                                        @Html.Raw(chapter.GetDataAttr()) data-itemtype="chapter">
+                                        <div class="dd-handle @(iteration != null && iteration.IsDisabledAddQuestion(ci, occurenceTypeChapter) ? "disabled-consensus-dd-handle": "")"
+                                             data-toggle="tooltip"
+                                             data-placement="left"
+                                             title="@chapter.Title">
+                                            @chapter.Title
+                                            @RenderIcons(iteration, iterationState, (consensus != null && iteration.ExistsQuestionForItem(chapter.Id)) || consensus == null, chapter.Id, occurenceTypeChapter)
+                                        </div>
+                                        @Html.Partial("~/Views/Form/Consensus/Questionnaire/CreateOrPreviewQuestion.cshtml", chapter.Id, new ViewDataDictionary { { "consensus", consensus }, { "viewType", viewType } })
+
+                                        <ol class="dd-list">
+                                            @if (chapter.Pages != null && chapter.Pages.Count > 0)
+                                            {
+                                                for (int pi = 0; pi < chapter.Pages.Count; pi++)
+                                                {
+                                                    var page = chapter.Pages[pi];
+                                                    <li class="dd-item" data-itemtype="page" @page.GetDataAttr()>
+                                                        <div class="dd-handle @(iteration != null && iteration.IsDisabledAddQuestion(formItemTotalCounter[FormItemLevel.Page.ToString()]++, occurenceTypePage) ? "disabled-consensus-dd-handle": "")"
+                                                             data-toggle="tooltip"
+                                                             data-placement="left"
+                                                             title="@page.Title">
+                                                            @page.Title
+                                                            @RenderIcons(iteration, iterationState, (consensus != null && iteration.ExistsQuestionForItem(page.Id)) || consensus == null, page.Id, occurenceTypePage)
+                                                        </div>
+                                                        @Html.Partial("~/Views/Form/Consensus/Questionnaire/CreateOrPreviewQuestion.cshtml", page.Id, new ViewDataDictionary { { "consensus", consensus }, { "viewType", viewType } })
+
+                                                        <ol class="dd-list">
+                                                            @if (page.ListOfFieldSets != null && page.ListOfFieldSets.Count > 0)
+                                                            {
+                                                                for (int lfsi = 0; lfsi < page.ListOfFieldSets.Count; lfsi++)
+                                                                {
+                                                                    var listOfFieldSets = page.ListOfFieldSets[lfsi];
+                                                                    <li class="dd-item" @Html.Raw(listOfFieldSets[0].GetDataAttr()) data-itemtype="fieldset">
+                                                                        <div class="dd-handle @(iteration != null && iteration.IsDisabledAddQuestion(formItemTotalCounter[FormItemLevel.FieldSet.ToString()]++, occurenceTypeFieldSet) ? "disabled-consensus-dd-handle": "")"
+                                                                             data-toggle="tooltip"
+                                                                             data-placement="left"
+                                                                             title="@listOfFieldSets[0].Label">
+                                                                            @(string.IsNullOrEmpty(listOfFieldSets[0].Label) ? "Label is not defined" : listOfFieldSets[0].Label)
+                                                                            @RenderIcons(iteration, iterationState, (consensus != null && iteration.ExistsQuestionForItem(listOfFieldSets[0].Id)) || consensus == null, listOfFieldSets[0].Id, occurenceTypeFieldSet)
+                                                                        </div>
+                                                                        @Html.Partial("~/Views/Form/Consensus/Questionnaire/CreateOrPreviewQuestion.cshtml", listOfFieldSets[0].Id, new ViewDataDictionary { { "consensus", consensus }, { "viewType", viewType } })
+
+                                                                        <ol class="dd-list">
+                                                                            @if (listOfFieldSets[0].Fields != null && listOfFieldSets[0].Fields.Count > 0)
+                                                                            {
+                                                                                for (int fi = 0; fi < listOfFieldSets[0].Fields.Count; fi++)
+                                                                                {
+                                                                                    var field = listOfFieldSets[0].Fields[fi];
+                                                                                    <li class="dd-item" data-itemtype="field" @field.GetDataAttr()>
+                                                                                        <div class="dd-handle @(iteration != null && iteration.IsDisabledAddQuestion(formItemTotalCounter[FormItemLevel.Field.ToString()]++, occurenceTypeField) ? "disabled-consensus-dd-handle": "")"
+                                                                                             data-toggle="tooltip"
+                                                                                             data-placement="left"
+                                                                                             title="@field.Label">
+                                                                                            @field.Label
+                                                                                            @RenderIcons(iteration, iterationState, (consensus != null && iteration.ExistsQuestionForItem(field.Id)) || consensus == null, field.Id, occurenceTypeField)
+                                                                                        </div>
+                                                                                        @Html.Partial("~/Views/Form/Consensus/Questionnaire/CreateOrPreviewQuestion.cshtml", field.Id, new ViewDataDictionary { { "consensus", consensus }, { "viewType", viewType } })
+
+                                                                                        @if (field is FieldSelectableDataOut)
+                                                                                        {
+                                                                                            <ol class="dd-list">
+
+                                                                                                @if ((field as FieldSelectableDataOut).Values != null && (field as FieldSelectableDataOut).Values.Count > 0)
+                                                                                                {
+                                                                                                    for (int vi = 0; vi < (field as FieldSelectableDataOut).Values.Count; vi++)
+                                                                                                    {
+                                                                                                        var fieldValue = (field as FieldSelectableDataOut).Values[vi];
+
+                                                                                                        <li class="dd-item" data-itemtype="fieldvalue" @(fieldValue.GetDataAttr())>
+                                                                                                            <div @*style="max-width:400px;"*@
+                                                                                                                 class="dd-handle @(iteration != null && iteration.IsDisabledAddQuestion(formItemTotalCounter[FormItemLevel.FieldValue.ToString()]++, occurenceTypeFieldValue) ? "disabled-consensus-dd-handle": "")"
+                                                                                                                 data-toggle="tooltip"
+                                                                                                                 data-placement="left"
+                                                                                                                 title="@(fieldValue.Label)">
+                                                                                                                @(fieldValue.Label)
+                                                                                                                @RenderIcons(iteration, iterationState, (consensus != null && iteration.ExistsQuestionForItem(fieldValue.Id)) || consensus == null, fieldValue.Id, occurenceTypeFieldValue)
+                                                                                                            </div>
+                                                                                                            @Html.Partial("~/Views/Form/Consensus/Questionnaire/CreateOrPreviewQuestion.cshtml", fieldValue.Id, new ViewDataDictionary { { "consensus", consensus }, { "viewType", viewType } })
+                                                                                                        </li>
+                                                                                                    }
+                                                                                                }
+                                                                                            </ol>
+                                                                                        }
+                                                                                    </li>
+                                                                                }
+                                                                            }
+                                                                        </ol>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ol>
+                                                    </li>
+                                                }
+                                            }
+                                        </ol>
+                                    </li>
+                                }
+                            }
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container-fluid p-3">
+        <h1 class="text-center">Current iteration is terminated.</h1>
+    </div>
+}
+
+@helper RenderIcons(ConsensusIterationDataOut iteration, IterationState iterationState, bool show, string itemId, sReportsV2.Common.Enums.QuestionOccurenceType? questionOccurenceType)
+{
+    if (iteration == null || iterationState == IterationState.Design)
+    {
+        <i class="fas fa-plus-circle btn-add-question"
+           style="display:@(show ? "none" : "block")"
+           onclick="openAddQuestion('@itemId')"></i>
+        <i class="fas fa-check-circle btn-check-question"
+           style="display:@(show ? "block" : "none")">
+        </i>
+    }
+}
+

@@ -37,8 +37,8 @@ function loadCalculativeTree(data) {
         success: function (data) {
             $('#calculativeTree').html(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }

@@ -1,0 +1,719 @@
+.schema-definition-wrapper {
+    margin-left: -30px;
+    margin-right: -30px;
+    overflow-x: hidden;
+}
+
+.chemotherapy-schema {
+    padding: 2rem;
+    margin-right: -5px;
+    margin-left: -5px;
+
+    .row {
+        padding-left: calc(3rem - 5px);
+        padding-right: calc(3rem - 5px);
+    }
+
+    .schema-col {
+        padding: 0 .5rem !important;
+        margin-bottom: 1rem;
+    }
+
+    .schema-card {
+        background-color: $card-bg;
+        border-radius: .5rem;
+        padding: .7rem;
+        min-height: 75vh;
+        height: 100%;
+
+        &-header {
+            padding: 1.3rem .8rem;
+            display: flex;
+
+            .icon {
+                cursor: pointer;
+                margin-right: .8rem;
+
+                img {
+                    display: block;
+                }
+            }
+        }
+
+        &-item {
+            background-color: $color-white;
+            border-radius: .5rem;
+            box-shadow: 0 2px 2px 0 rgba(191, 191, 191, 0.5);
+            margin-bottom: .5rem;
+
+            &.add-new,
+            &.item-link {
+                box-shadow: none;
+
+                .item-header {
+                    h3 {
+                        color: #12707c;
+                    }
+                }
+            }
+
+            &.add-new {
+                margin-top: 1.5rem;
+                border: 1px dashed $smart-oncology-green-primary;
+                cursor: pointer;
+                transition: .3s all ease;
+            }
+
+            &.add-new:hover {
+                background-color: #effdff;
+            }
+
+            .item-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1.5rem 1rem;
+
+                .icon {
+                    cursor: pointer;
+                    color: $primary-color;
+                    margin-left: .5rem;
+
+                    img {
+                        display: block;
+                    }
+                }
+
+                &.pointer {
+                    cursor: pointer
+                }
+            }
+
+            .item-body {
+                padding: 0 1rem 1.6rem;
+
+                .link {
+                    font-size: 1.4rem;
+                    margin-right: 2rem;
+                    font-weight: 500;
+                    color: #12707c !important;
+                    // limit text to 1 line
+                    white-space: nowrap;
+                    overflow: hidden;
+                    display: block;
+                    text-overflow: ellipsis;
+                }
+
+                .item-body-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-top: 1px solid $border-color;
+                    margin: 0.5rem 0rem;
+                    padding-top: 0.5rem;
+
+                    .icon {
+                        cursor: pointer;
+                        color: $primary-color;
+                        margin-left: 0.5rem;
+                    }
+                }
+            }
+
+            &.active {
+                background-color: $primary-color-background;
+                box-shadow: 0 0 5px 0 $smart-oncology-green-primary;
+            }
+        }
+    }
+
+    .item-body-row {
+        display: flex;
+        margin-right: -2rem;
+        margin-left: -2rem;
+
+        .item-body-item {
+            padding: 0 2rem !important;
+        }
+    }
+
+    .new-medication,
+    .treatment-cycles {
+        .item-body {
+            padding: 1.5rem;
+
+            &-heading {
+                color: #000;
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+        }
+
+        .add-new {
+            border: 1px solid #1C94a3 !important;
+            background-color: #D7FBFF;
+        }
+
+        .text {
+            color: #000;
+        }
+    }
+
+    .select-wrapper {
+        display: flex;
+        align-items: center;
+
+        .select {
+            font-size: 1.4rem;
+        }
+
+        .select-input {
+            cursor: pointer;
+            font-size: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 8.5px 6px;
+
+            &:focus {
+                color: #495057;
+                background-color: white;
+                border-color: #4dbbc8;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(77, 187, 200, 0.25) !important;
+            }
+
+            &::after {
+                color: palevioletred;
+            }
+
+            &.error {
+                border: solid 1px #ed1e1e;
+                background-color: #fff5f5;
+                color: green;
+            }
+
+            input, textarea, select {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                opacity: unset;
+            }
+
+            option {
+                cursor: pointer;
+            }
+
+            .tooltip-icon::before {
+                content: "x";
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 0;
+                color: #000;
+                width: 5px;
+                height: 5px;
+            }
+        }
+
+        .radio-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 2rem;
+                width: 2rem;
+                background-color: #fff;
+                border: 1px solid #ABABAB;
+                border-radius: 50%;
+            }
+
+            &:hover input ~ .checkmark {
+                background-color: #E7FCFF;
+                border: 1px solid $smart-oncology-green-primary;
+            }
+
+            & input:checked ~ .checkmark {
+                background-color: #E7FCFF;
+                border: 1px solid $smart-oncology-green-primary;
+            }
+
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            & input:checked ~ .checkmark:after {
+                display: block;
+            }
+
+            & .checkmark:after {
+                @include absCenterXY;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #12707C;
+            }
+        }
+
+        &.unselect-limited {
+            display: none;
+        }
+
+        .select-checkbox {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: -.5rem;
+
+            .checkbox-wrapper {
+                margin: 0;
+            }
+        }
+    }
+
+    .new-medication {
+        &-wrapper {
+            display: none;
+        }
+
+        background-color: #fff;
+        padding-bottom: 10rem;
+
+        .schema-card-item {
+            box-shadow: none !important;
+        }
+
+        .item-body-heading {
+            color: #444 !important;
+            margin-bottom: 2rem;
+
+            &.col-12 {
+                padding: 0 !important;
+                margin-bottom: 1rem;
+                margin-top: 1rem;
+                font-size: 1.4rem;
+            }
+        }
+
+        .item-body-item {
+            margin-bottom: 1rem;
+
+            &.hide {
+                display: none;
+            }
+        }
+
+        .text-input,
+        .num-input {
+            padding: 8px 10px;
+            padding-right: 0;
+            cursor: pointer;
+            border-radius: 0.4rem;
+            font-size: 15px;
+            width: 10rem;
+        }
+
+        .text-input {
+            width: 100%;
+            min-width: 22rem;
+            height: 4rem;
+        }
+
+        .max-dose-radio {
+            margin-top: 3rem;
+        }
+
+        .med-name .form-group {
+            align-items: center;
+            display: flex;
+        }
+
+        .select-wrapper .form-row {
+            .col-md-7 {
+                flex: 0 0 56% !important;
+                max-width: 56% !important;
+            }
+
+            .col-md-2-5 {
+                flex: 0 0 22% !important;
+                max-width: 22% !important;
+            }
+
+            .col-md-5 {
+                flex: 0 0 44% !important;
+                max-width: 44% !important;
+            }
+        }
+
+        .cancel {
+            padding-right: 2rem;
+            text-decoration: underline;
+            color: #000;
+
+            &:hover {
+                color: #12707c;
+            }
+        }
+
+        .btn-row {
+            margin-right: .5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .days-wrapper {
+            &-header {
+                display: flex;
+
+                .col-5 {
+                    padding-left: 0 !important;
+                }
+
+                button {
+                    margin-left: auto;
+                }
+            }
+
+            .quantity-wrapper {
+                p {
+                    margin: 0;
+                    padding-right: 1rem;
+                    font-weight: 500;
+                    font-size: 1.5rem;
+                }
+
+                display: flex;
+                align-items: center;
+
+                &.num-of-days {
+                    justify-content: space-between;
+                }
+            }
+
+            .col-5 {
+                padding: 0;
+            }
+        }
+
+        .select2-container, .select2-selection {
+            height: 40px !important;
+
+            .select2-selection.select2-selection--single .select2-selection__rendered {
+                &:focus {
+                    outline: none;
+                    border: 1px solid #d4d4d4 !important;
+                }
+
+                padding: 5px 30px 2px 13px;
+            }
+        }
+    }
+}
+.form-row {
+    width: 100%;
+
+    label {
+        font-size: 1.4rem;
+        margin-right: .8rem;
+        margin-bottom: 0;
+        color: #444;
+
+        &.item-body-heading {
+            margin-bottom: 1rem !important;
+            font-size: 1.4rem !important;
+        }
+
+        &.error {
+            color: #ed1e1e;
+            margin: 10px 0px;
+        }
+    }
+
+    .form-group {
+        .num-input {
+            width: 100% !important;
+            height: auto;
+        }
+
+        .text-input {
+            height: auto;
+        }
+    }
+
+    textarea {
+        font-size: 1.5rem !important;
+    }
+}
+.divider {
+    display: block;
+    background-color: $border-color;
+    height: 1px;
+    width: 100%;
+    margin: 1.5rem 0;
+
+    &.no-background {
+        background-color: inherit;
+    }
+}
+.day-item {
+  border: 1px solid #979797;
+  display: inline-block;
+  border-radius: .4rem;
+  padding: .4rem .8rem;
+  color: #444;
+  font-size: 1.5rem;
+  margin: .4rem .3rem;
+  min-width: 7.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+#prem-day-wrapper {
+    .day-item {
+        &.background {
+            background-color: #ff8821;
+            border: 1px solid #ff8821;
+            color: #fff;
+        }
+    }
+}
+#num-day-wrapper {
+    .day-item {
+        &.background {
+            background-color: #1ca37d;
+            border: 1px solid #1ca37d;
+            color: #fff;
+        }
+    }
+}
+.link.reference-item {
+  margin-bottom: 1rem;
+}
+.quantity {
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  span {
+    cursor:pointer; 
+  }
+  .minus, 
+  .plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: #f1f1f1;
+    border-radius: 0;
+    border: 1px solid #D4D4D4;
+    text-align: center;
+    font-size: 2rem;
+  }
+  .minus {
+    border-top-right-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+  }
+  .plus {
+    border-top-left-radius: .4rem;
+    border-bottom-left-radius: .4rem;
+  }
+  input {
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid #D4D4D4;
+    border-radius: 0;
+    display: inline-block;
+    background-color: #fff;
+    border-right: 0;
+    border-left: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+input[type="text"] {
+    &.error {
+        &::placeholder {
+            color: red;
+            opacity: 0.7;
+        }
+    }
+}
+
+.select2-selection__arrow {
+    top: 5px !important;
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.select2-selection.select2-selection--single
+{    
+    &:focus {
+        outline: none;
+        color: #495057;
+        background-color: white;
+        border-color: #d4d4d4;
+        box-shadow: none !important;
+    }
+}
+
+.select2-container, .select2-selection {
+    height: 35px !important;
+
+    .select2-selection.select2-selection--single .select2-selection__rendered {
+        &:focus {
+            outline: none;
+            border: 1px solid #d4d4d4 !important;
+        }
+
+        font-size: 15px;
+        padding: 2px 30px 2px 13px;
+    }
+}
+.add-new-medication-btn {
+    margin-bottom: 0;
+    margin-top: -5px;
+    background-color: #FE5959;
+    border-radius: 1.6rem;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    justify-content: center;
+    border: 0;
+    transition: .15s all ease-in;
+    margin-left: auto;
+}
+
+.indication-values {
+    margin-top: 1rem;
+    margin-bottom: 20px;
+}
+
+.cumulative-dose-wrapper {
+    .select2-container {
+        width: 50% !important;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .schema-col.col-2 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+  .schema-col.col-2 {
+    -ms-flex: 0 0 33.333%;
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+    &:first-child {
+      order: 2;
+    }
+    &:last-child {
+      order: 3;
+    }
+  }
+  .schema-col.col-6 {
+    -ms-flex: 0 0 66%;
+    flex: 0 0 66%;
+    max-width: 66%;
+  }
+}
+@media only screen and (max-width: 1080px) {
+    .chemotherapy-schema .new-medication-wrapper {
+        .item-body-row {
+            flex-direction: column;
+        }
+
+        .max-dose-radio {
+            margin-top: 0 !important;
+        }
+
+        .select-wrapper.row {
+            .form-row {
+                flex-wrap: wrap;
+            }
+
+            .col-4,
+            .col-8,
+            .col-md-7 {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+            }
+
+            .col-md-2-5 {
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+            }
+        }
+
+        .col-4, .col-8, .col-5, .col-7, {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+  .schema-col.col-2 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .schema-col.col-6 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .chemotherapy-schema-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    h1 {
+      margin-bottom: 1rem;
+    }
+  }
+  .new-medication .num-of-days {
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+
+    #select-all {
+      width: 100%;
+      display: flex;
+      margin-bottom: 2rem;
+    }
+  }
+  
+}

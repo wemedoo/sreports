@@ -19,11 +19,11 @@ function generateNewLanguage() {
         url: "/Form/GenerateNewLanguage",
         data: request,
         success: function (data) {
-            toastr.success(`Success. Please change your language to see the changes.`);
+            toastr.success(data);
             $('#generateModal').modal('hide');
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${xhr.status} ${thrownError}`);
+            handleResponseError(xhr, thrownError);
         }
     });
 

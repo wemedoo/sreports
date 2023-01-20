@@ -1,4 +1,38 @@
-﻿$(document).on('click', '.edit-patient-button', function (e) {
+﻿//NOTE: Be careful that $.validator.methods.requiredInCore or $.validator.methods.emailInCore are core methods and not overridden methods.
+//Otherwise, It will be recursive functions!
+$.validator.methods.requiredInCore = $.validator.methods.required;
+$.validator.methods.required = function (value, element, param) {
+    if (isSpecialValueSelected($(element))) {
+        return true;
+    } else {
+        return $.validator.methods.requiredInCore.apply(this, [value, element, param]);
+    }
+}
+
+$.validator.methods.emailInCore = $.validator.methods.email;
+$.validator.methods.email = function (value, element, param) {
+    if (isSpecialValueSelected($(element))) {
+        return true;
+    } else {
+        return $.validator.methods.emailInCore.apply(this, [value, element, param]);
+    }
+}
+
+$(document).on('click', '.cancel-dynamic-form', function (e) {
+    if ($('input[name=formInstanceId]').val()) {
+        let episodeOfCareId = $('.patient-tree').find('.expanded').attr('id');
+        let encounterId = $('.patient-tree').find('.selected').attr('id');
+        window.history.pushState({}, '', `/Patient/Edit?patientId=${getPatientId()}&episodeOfCareId=${episodeOfCareId}&encounterId=${encounterId}`);
+    }
+    handleSuccessFormSubmit();
+});
+
+function handleSuccessFormSubmit() {
+    let encounterId = $('input[name=encounterId]').val();
+    reloadEncounterForm(encounterId);
+}
+
+$(document).on('click', '.edit-patient-button', function (e) {
     let patientId = $(this).attr('id');
     $.ajax({
         method: 'get',
@@ -7,7 +41,7 @@
             $('#patientContainer').html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(thrownError);
+            handleResponseError(xhr, thrownError);
         }
     })
 });
@@ -27,7 +61,7 @@ function reloadPatientTree(parentId, activeElementId, type) {
             setDefaultTreeSelectedValue(getPatientId(), activeElementId, type);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -49,7 +83,7 @@ function loadEpisodeOfCareForm(patientId) {
             $("#patientContainer").html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -74,7 +108,7 @@ function loadEncountersData(episodeOfCareId) {
             $(`#${episodeOfCareId}.single-episode-of-care-container .encounter-container-items`).html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     })
 }
@@ -90,7 +124,7 @@ function addNewEncounter(event, episodeOfCareId) {
             $("#patientContainer").html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
     setPushHistoryWhenAddingNewEncounter(episodeOfCareId);
@@ -110,7 +144,7 @@ $(document).on('click', '.single-encounter', function (e) {
     }
 });
 
-function setDefaultTreeSelectedValue(parentId, activeElementId, type) {
+function setDefaultTreeSelectedValue(parentId, activeElementId, type, canAddEoC) {
     if (activeElementId) {
         if (type === 'episodeofcare') {
             reloadEpisodeOfCareForm(activeElementId);
@@ -127,7 +161,9 @@ function setDefaultTreeSelectedValue(parentId, activeElementId, type) {
             let encounter = $(`#${parentId}.single-episode-of-care-container`).find('.single-encounter').last();
             reloadEncounterForm($(encounter).attr('id'));
         } else {
-            loadEpisodeOfCareForm(getPatientId());
+            if (canAddEoC) {
+                loadEpisodeOfCareForm(getPatientId());
+            }
         }
     }
 }
@@ -172,7 +208,7 @@ function showForm(formId) {
 
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -190,9 +226,10 @@ $(document).on('click', '.show-form-referrals-button', function (e) {
             modalMainContent.innerHTML = data;
             $('body').addClass('no-scrollable');
             $('.custom-modal').addClass('show');
+            $('.custom-modal').trigger('lowZIndex');
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(thrownError);
+            handleResponseError(xhr, thrownError);
         }
     })
 })
@@ -219,8 +256,8 @@ $(document).on('keyup', '#searchCondition', function (e) {
                 $('#formsContainer').html(data);
                 loadingForms = null;
             },
-            error: function (xhr, ajaxOptions, thrownError) {
-
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         })
 })
@@ -236,7 +273,7 @@ function reloadEpisodeOfCareForm(eocId) {
                 $("#patientContainer").html(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                handleResponseError(xhr, thrownError);
             }
         });
         setExpandedElement($(`#${eocId}.single-episode-of-care-container`));
@@ -253,12 +290,15 @@ function reloadEncounterForm(encounterId) {
             $("#patientContainer").html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
     setSelectedElement($(`#${encounterId}.single-encounter`));
 }
-
+function loadGuidelineInstanceTable() {
+    let episodeOfCareId = $('#id').val();
+    window.open(`/DigitalGuidelineInstance/GuidelineInstance?episodeOfCareId=${episodeOfCareId}`);
+}
 
 //collapsed is used to show/hide content of expanded episode of care
 $(document).on('click', '.single-episode-of-care-container .arrow-icon', function (e) {
@@ -281,7 +321,6 @@ function setExpandedElement(element) {
 
 //selected is used to keep the information about selected element in the tree, eoc or encounter
 function setSelectedElement(element) {
-    console.log(element);
     $('.patient-tree').find('.selected').removeClass('selected');
     if (element) {
         $(element).addClass('selected');
@@ -308,11 +347,6 @@ function expandParent(element) {
             setExpandedElement(parent);
         }
     }
-}
-
-function handleSuccessFormSubmit() {
-    let encounterId = $('input[name=encounterId]').val();
-    reloadEncounterForm(encounterId);
 }
 
 function getReferralsAsParameter() {
@@ -346,7 +380,7 @@ function loadFormForEdit(formInstanceId, episodeOfCareId, encounterId) {
             $("#patientContainer").html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -375,10 +409,10 @@ $(document).on('click', '.pin-icon:not(.pinned)', function (e) {
         method: 'PUT',
         url: `/User/AddSuggestedForm?formId=${id}`,
         success: function (data) {
-            toastr.success('Success');
+            reloadSuggestedForms();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     })
 })
@@ -395,13 +429,26 @@ $(document).on('click', '.pinned', function (e) {
         method: 'PUT',
         url: `/User/RemoveSuggestedForm?formId=${id.trim()}`,
         success: function (data) {
-            toastr.success('Success');
+            reloadSuggestedForms();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     })
 })
+
+function reloadSuggestedForms() {
+    $.ajax({
+        method: 'GET',
+        url: '/Encounter/GetSuggestedForms',
+        success: function (data) {
+            $(".suggested-forms").html(data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    })
+}
 /*Modal*/
 
 $(document).on('click', '.custom-modal-body', function (e) {
@@ -416,15 +463,6 @@ $(document).on('click', '.close-custom-modal-button', function (e) {
     closeCustomModal();
 });
 
-$(document).on('click', '.cancel-dynamic-form', function (e) {
-    if ($('input[name=formInstanceId]').val()) {
-        let episodeOfCareId = $('.patient-tree').find('.expanded').attr('id');
-        let encounterId = $('.patient-tree').find('.selected').attr('id');
-        window.history.pushState({}, '', `/Patient/Edit?patientId=${getPatientId()}&episodeOfCareId=${episodeOfCareId}&encounterId=${encounterId}`);
-    }
-    handleSuccessFormSubmit();
-})
-
 function getPatientId() {
     return $("#patientTree").data("patientid");
 }
@@ -437,8 +475,5 @@ function getEpisodeOfCareId() {
 function closeCustomModal() {
     $('.custom-modal').removeClass('show');
     $('body').removeClass('no-scrollable');
-}
-
-function goToFormInstanceEdit(id, versionId) {
-    window.location.href = `/FormInstance/Edit?VersionId=${versionId}&FormInstanceId=${id}`;
+    $('.custom-modal').trigger('defaultZIndex');
 }

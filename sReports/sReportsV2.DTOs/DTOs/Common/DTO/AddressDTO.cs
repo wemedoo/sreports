@@ -14,9 +14,15 @@ namespace sReportsV2.DTOs.Common
         public string Country { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }
+        public int? AddressTypeId { get; set; }
+        public int? CountryId { get; set; }
         public string GetAddressFormated() 
         {
             return $"{this.Street}, {this.StreetNumber}";
+        }
+        public string GetAddressPreview()
+        {
+            return $"{City}, {PostalCode}, {Country}";
         }
     }
 }

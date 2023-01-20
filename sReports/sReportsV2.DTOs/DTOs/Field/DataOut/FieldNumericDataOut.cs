@@ -1,19 +1,15 @@
 ﻿using Newtonsoft.Json;
 using sReportsV2.Common.CustomAttributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace sReportsV2.DTOs.Field.DataOut
 {
     public class FieldNumericDataOut : FieldStringDataOut
     {
         [DataProp]
-        public int? Min { get; set; }
+        public double? Min { get; set; }
 
         [DataProp]
-        public int? Max { get; set; }
+        public double? Max { get; set; }
 
         [DataProp]
         public double? Step { get; set; }

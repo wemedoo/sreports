@@ -42,8 +42,10 @@ namespace sReportsV2.Domain.Entities.Distribution
                             {
                                 foreach (var v in val.Values)
                                 {
-                                    v.ThesaurusId = v.ThesaurusId == oldThesaurus ? newThesaurus : v.ThesaurusId;
-
+                                    if (v != null)
+                                    {
+                                        v.ThesaurusId = v.ThesaurusId == oldThesaurus ? newThesaurus : v.ThesaurusId;
+                                    }
                                 }
                             }
                         }

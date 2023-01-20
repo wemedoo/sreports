@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using System;
+using sReportsV2.Common.Exceptions;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
-using System.Threading;
 using UmlsClient.UMLSClasses;
 using UMLSClient.UMLSClasses;
 
@@ -12,48 +10,45 @@ namespace UMLSClient.Client
 {
     public class Client
     {
-        private string apiKey = "33b11d2b-6b80-4855-87aa-5793b3ea101d";
-        private string baseUrl = "https://uts-ws.nlm.nih.gov/rest/";
-        public TGT Tgt { get; set; }
+        private const string apiKey = "7e9e9b1b-cf72-4eea-9c86-55051d070bb8";
+        private const string baseUrl = "https://uts-ws.nlm.nih.gov/rest/";
 
         public Client()
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            this.Tgt = this.GetTGT();
         }
 
-        public Client(string apiKey)
-        {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            this.Tgt = this.GetTGT();
-            this.apiKey = apiKey;
-        }
-        public UMLSConceptDefinition GetConceptDefinition(string umlsCode,int pageNumber= 1, int pageSize = 25)
+        public UMLSConceptDefinition GetConceptDefinition(string umlsCode)
         {
             UMLSConceptDefinition searchResult = null;
-            string ticket = this.GetServiceTicket();
-            string endpoint = $"content/current/CUI/{umlsCode}/definitions?ticket={ticket}";
-                                  
-            IRestResponse response = GetResponse(endpoint);
-            if(response.StatusCode == HttpStatusCode.OK)
+
+            if (HasCode(umlsCode))
             {
-                searchResult = JsonConvert.DeserializeObject<UMLSConceptDefinition>(response.Content);
+                string endpoint = $"content/current/CUI/{umlsCode}/definitions";
+
+                IRestResponse response = GetResponse(endpoint);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    searchResult = JsonConvert.DeserializeObject<UMLSConceptDefinition>(response.Content);
+                }
             }
 
             return searchResult;
         }
 
-        public UMLSSemanticTypes GetSemanticTypes(string umlsCode, int pageNumber = 1, int pageSize = 25)
+        public UMLSSemanticTypes GetSemanticTypes(string umlsCode)
         {
             UMLSSemanticTypes searchResult = null;
-            string ticket = this.GetServiceTicket();
-            string endpoint = $"{GetEntityForUmlsCode(umlsCode).Result.SemanticTypes[0].Uri}?ticket={ticket}";
-            IRestResponse response = GetResponse(endpoint);
-            if (response.StatusCode == HttpStatusCode.OK)
+
+            if (HasCode(umlsCode))
             {
-                searchResult = JsonConvert.DeserializeObject<UMLSSemanticTypes>(response.Content);
+                string endpoint = GetEntityForUmlsCode(umlsCode).Result.SemanticTypes[0].Uri;
+                IRestResponse response = GetResponse(endpoint);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    searchResult = JsonConvert.DeserializeObject<UMLSSemanticTypes>(response.Content);
+                }
             }
 
             return searchResult;
@@ -62,75 +57,93 @@ namespace UMLSClient.Client
         public UMLSAtomResult GetAtomsResult(string umlsCode,int pageSize = 25, int pageNumber=1)
         {
             UMLSAtomResult searchResult = null;
-            string ticket = this.GetServiceTicket();
-            string endpoint = $"content/current/CUI/{umlsCode}/atoms?ticket={ticket}&pageSize={pageSize}&pageNumber={pageNumber}";
 
-            IRestResponse response = GetResponse(endpoint);
-            if(response.StatusCode == HttpStatusCode.OK)
+            if (HasCode(umlsCode))
             {
-                searchResult = JsonConvert.DeserializeObject<UMLSAtomResult>(response.Content);
+                string endpoint = $"content/current/CUI/{umlsCode}/atoms";
+                IRestResponse response = GetResponse(endpoint, GetSearchParams(pageNumber, pageSize));
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    searchResult = JsonConvert.DeserializeObject<UMLSAtomResult>(response.Content);
+                }
             }
 
             return searchResult;
         }
         public UMLSSearchResult GetSearchResult(string searchString, int pageSize = 25, int pageNumber = 1)
         {
-            string ticket = this.GetServiceTicket();
-            string endpoint = $"search/current?string={searchString}&ticket={ticket}&pageSize={pageSize}&pageNumber={pageNumber}";
+            string endpoint = "search/current";
 
-            IRestResponse response = GetResponse(endpoint);
+            IRestResponse response = GetResponse(endpoint, GetSearchParams(pageNumber, pageSize, searchString));
             UMLSSearchResult searchResult = JsonConvert.DeserializeObject<UMLSSearchResult>(response.Content);
 
             return searchResult;
         }
-        public UMLSConcept GetEntityForUmlsCode(string umlsCode)
+
+        private UMLSConcept GetEntityForUmlsCode(string umlsCode)
         {
-            string ticket = this.GetServiceTicket();
-            string endpoint = $"content/current/CUI/{umlsCode}?ticket={ticket}";
-            
+            string endpoint = $"content/current/CUI/{umlsCode}";
+
             IRestResponse response = GetResponse(endpoint);
             UMLSConcept concept = JsonConvert.DeserializeObject<UMLSConcept>(response.Content);
 
             return concept;
         }
 
-        public string GetServiceTicket()
+        private bool HasCode(string umlsCode)
         {
-            SetTGTIfExpired();
-            var client = new RestClient(Tgt.TGTValue);
-            var request = new RestRequest("", Method.POST);
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            request.AddParameter("service", "http://umlsks.nlm.nih.gov");
-            IRestResponse response = client.Execute(request);
-
-            return response.Content;
+            return !string.IsNullOrEmpty(umlsCode);
         }
 
-        public TGT GetTGT()
+        private IDictionary<string, object> GetSearchParams(int pageNumber, int pageSize, string searchWord = "")
         {
-            var client = new RestClient(@"https://utslogin.nlm.nih.gov/");
-            var request = new RestRequest("cas/v1/api-key", Method.POST);
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            request.AddParameter("apikey", apiKey);
-            IRestResponse response = client.Execute(request);
-            string result = response.Content.Substring(response.Content.IndexOf("\"https:") + 1, response.Content.IndexOf("method=") - response.Content.IndexOf("\"https:") - 3);
+            IDictionary<string, object> searchParams = new Dictionary<string, object>() { 
+                { "pageNumber", pageNumber }, 
+                { "pageSize", pageSize } 
+            };
 
-            return new TGT() { StartTime = DateTime.Now, TGTValue = result };
-        }
-
-        private void SetTGTIfExpired()
-        {
-            if (DateTime.Now.Hour - Tgt.StartTime.Hour > 7)
+            if (!string.IsNullOrEmpty(searchWord))
             {
-                Tgt = this.GetTGT();
+                searchParams.Add("string", searchWord);
+            }
+
+            return searchParams;
+        }
+
+        private IRestResponse GetResponse(string endpoint, IDictionary<string, object> parameters = null)
+        {
+            RestClient client = new RestClient(baseUrl);
+            RestRequest request = new RestRequest(endpoint, Method.GET);
+            SetParameters(request, parameters);
+            return Execute(client, request);
+        }
+
+        private void SetParameters(RestRequest request, IDictionary<string, object> parameters)
+        {
+            request.AddParameter("apiKey", apiKey);
+            if(parameters != null)
+            {
+                foreach (KeyValuePair<string, object> parameter in parameters)
+                {
+                    request.AddParameter(parameter.Key, parameter.Value);
+                }
             }
         }
 
-        private IRestResponse GetResponse(string endpoint)
+        private IRestResponse Execute(RestClient client, RestRequest request)
         {
-            var client = new RestClient(baseUrl);
-            var request = new RestRequest(endpoint, Method.GET);
-            return client.Execute(request); ;
+            IRestResponse restResponse = client.Execute(request);
+            HandleResponseIfNotSuccessful(restResponse);
+
+            return restResponse;
+        }
+
+        private void HandleResponseIfNotSuccessful(IRestResponse restResponse)
+        {
+            if (!restResponse.IsSuccessful && restResponse.StatusCode != HttpStatusCode.NotFound)
+            {
+                throw new ApiCallException($"Status code: {restResponse.StatusCode}, Response content: {restResponse.Content}, Response uri: {restResponse.ResponseUri}");
+            }
         }
     }
 }

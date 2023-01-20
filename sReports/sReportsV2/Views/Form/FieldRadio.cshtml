@@ -1,38 +1,27 @@
-﻿@using sReportsV2.Common.Extensions;
-@using sReportsV2.DTOs.Form.DataOut;
+﻿@using System.Web.Mvc.Html;
 @using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Form.DataOut;
 
 @model FieldRadioDataOut
 @{
     bool isChapterReadonly = ViewBag.Chapter;
     int fieldSetCounter = ViewBag.FieldSetCounter;
     string fieldSetId = ViewBag.FieldSetId;
-
+    string value = Model.GetSelectedValue();
 }
 
-<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-radio form-radio-inline field-set-content" @Html.Raw(Model.Visibility)>
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-radio form-radio-inline field-set-content" @Html.Raw(Model.Visibility) @Html.Raw(Model.IsRequiredDataAttr)>
     <div class="form-radio-legend d-inline-block form-label-size filter-label" title="@Model.DescriptionLabel">
         @Html.Raw(Model.FullLabel)
     </div>
-
     <div class="d-inline-block radio-container">
         @{ int counter = 0;}
-
         @foreach (FormFieldValueDataOut ffv in Model.Values)
         {
-            <label class="form-radio-label">
-
-                <input type="radio"
-                       id="@(Model.Id)-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
-                       name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                       @Model.ValidationAttr
-                       data-value="@ffv.Value"
-                       data-numericvalue="@ffv.NumericValue"
-                       value="@ffv.ThesaurusId"
-                       class="form-radio-field"
-                       onclick="return @((!(Model.IsReadonly || isChapterReadonly)).ToString().ToLower())"
-                       @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId.ToString()) ? "checked" : string.Empty)>
-
+            <label class="form-radio-label" @Html.Raw(Model.Values.Count <= 5 ? "style= 'width: 100%;'" : "")>
+                @AddRadio(value.Contains(ffv.Value), Model.IsReadonly || isChapterReadonly, ffv, fieldSetId, fieldSetCounter, value.IsSpecialValue())
                 <i class="form-radio-button"></i>
                 <span class="radio-break-word">@ffv.Label</span>
             </label>
@@ -47,19 +36,14 @@
             }
         }
     </div>
-    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
-
-
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model, new System.Web.Mvc.ViewDataDictionary(ViewData) { { "repetitiveValue", value } })
     <div style="display:none" class="form-element-description field-desc">
         @Html.Raw(Model.Description)
     </div>
 </fieldset>
-
 <script>
-
     $(document).ready(function () {
             fieldSetIdentificator = @fieldSetCounter;
-
             @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
             {
             @: if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
@@ -69,34 +53,50 @@
             }
     });
 
-    $(document).on("change", 'input[name^="@fieldSetId-"][name*="@Model.Id"]', function () {
+    $(document).on("change", 'input[class~="checkbox-radio"][name^="@fieldSetId-"][name*="@Model.Id"]', function () {
             fieldSetIdentificator = $(this).attr("name").split('-')[1];
-            @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
-            {
-                 @HideDependables(ffd,  fieldSetId);
-            @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
-            }
 
             @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
             {
-            @: if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
-                   @ShowDependables(ffd, fieldSetId);
-            @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
-            @: }
+                <text>
+                if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                    @ShowDependables(ffd, fieldSetId);
+                    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+                    @SetDependentFieldToDefaultCall(fieldSetId, ffd.ActionParams, showDependables: true)
+                } else {
+                    @HideDependables(ffd,  fieldSetId);
+                    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
+                    @SetDependentFieldToDefaultCall(fieldSetId, ffd.ActionParams)
+                }
+                </text>
             }
     });
 </script>
 
+@helper AddRadio(bool isChecked, bool isReadonly, FormFieldValueDataOut ffv, string fieldSetId, int fieldSetCounter, bool isSpecialValue)
+{
+    <input type="radio"
+           id="@(Model.Id)-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
+           name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
+           @Model.ValidationAttr
+           data-value="@ffv.Value"
+           data-numericvalue="@ffv.NumericValue"
+           value="@ffv.ThesaurusId"
+           class="checkbox-radio form-radio-field"
+           onclick="return @((!isReadonly).ToString().ToLower())"
+           @(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Equals(ffv.ThesaurusId.ToString()) ? "checked" : string.Empty)
+           @Html.Disabled(isSpecialValue)>
+}
 @helper ShowDependables(FormFieldDependableDataOut ffd, string fieldSetId)
 {
-
     foreach (FormFieldDependableDataOut ffddo in ffd.Dependables)
     {
         if (ffd.Dependables != null && ffd.Dependables.Count() > 0)
         {
             <text>
                 if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
-                $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+                $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).show();
+                @SetDependentFieldToDefaultCall(fieldSetId, ffddo.ActionParams, showDependables: true)
                 }
             </text>
             @ShowDependables(ffddo, fieldSetId);
@@ -112,8 +112,20 @@
             <text>
                 $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).hide();
                 $(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).prop('checked', false);
+                @SetDependentFieldToDefaultCall(fieldSetId, ffddo.ActionParams)
             </text>
             @HideDependables(ffddo, fieldSetId);
         }
     }
+}
+
+@*
+    ---------------------------------------------------------------------------------------------------
+                                        Temporarily - Hotfix
+    ---------------------------------------------------------------------------------------------------
+*@
+
+@helper SetDependentFieldToDefaultCall(string fieldSetId, string fieldId, bool showDependables = false)
+{
+    @: setDependentInputFieldToDefault($(`#@fieldSetId-${fieldSetIdentificator}-@fieldId-1`), @showDependables.ToString().ToLower());
 }

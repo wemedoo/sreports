@@ -35,7 +35,7 @@
                 @sReportsV2.Resources.TextLanguage.Synonyms :
             </div>
             <div class="col-9 thesaurus-value">
-                @foreach (var synonym in Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Synonyms)
+                @foreach (var synonym in Model.GetTranslation(ViewBag.UserCookieData.ActiveLanguage).Synonyms)
                 {
                     <div class="filter-element" style="display:inline-block;">
                         @synonym
@@ -46,16 +46,16 @@
         </div>
         <div class="row thesaurus-abre mb-2">
             <div class="col-3 thesaurus-label">
-                @sReportsV2.Resources.TextLanguage.Abbreaviations :
+                @sReportsV2.Resources.TextLanguage.Abbreviations :
             </div>
             <div class="col-9 thesaurus-value">
-                @foreach (var abbre in Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Abbreviations)
+                @foreach (var abbre in Model.GetTranslation(ViewBag.UserCookieData.ActiveLanguage).Abbreviations)
                 {
                     <div class="abbre-element" style="display:inline-block;">
                         @abbre
                     </div>
                 }
-                @*@Html.Raw(Model.GetAbbreaviations(ViewBag.UserCookieData.ActiveLanguage))*@
+                @*@Html.Raw(Model.GetAbbreviations(ViewBag.UserCookieData.ActiveLanguage))*@
             </div>
         </div>
 

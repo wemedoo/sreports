@@ -3,15 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using sReportsV2.DTOs.Form.DataOut;
-@using sReportsV2.DTOs.Field.DataOut;
-@using sReportsV2.Common.Extensions
 @model FormDataOut
 
 @{
     string formId = Model != null ? Model.Id : "formIdPlaceHolder";
 }
-<link href="~/Content/nestable.min.css" rel="stylesheet" />
-
+@Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/nestable.min.css")
 
 <div class="designer-main-content position-relative">
     <canvas id="designerCanvas">
@@ -20,10 +17,8 @@
 
     @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/FormAdministrativeData.cshtml", Model)
 
-
     <div class="dd-main-container" id="formTreeContainer">
         @Html.Partial("~/Views/Form/DragAndDrop/FormTreeContainer.cshtml", Model)
-
     </div>
     <div id="consensusPartialContainer">
         @*@if (Model != null)
@@ -31,11 +26,6 @@
                 @Html.Partial("~/Views/Form/Consensus/ConsensusPartial.cshtml", Model)
             }*@
     </div>
-
-    <div class="submit-button-container">
-        <button type="button" id="submit-full-form-definition" class="sreports-primary-button comments-hidden consensus-hidden">Submit</button>
-    </div>
-
 </div>
 
 
@@ -58,36 +48,7 @@
 </div>
 
 <!--<textarea id="nestable-output"></textarea>-->
-<script src="~/Scripts/sReports/image-map/jquery.imagemaps.js"></script>
-<script src="~/Scripts/sReports/imageMapResize.js"></script>
-<script src="~/Scripts/sReports/designer/nestable/jquery.nestable.js"></script>
-<script src="~/Scripts/sReports/designer/nestable/jquery.nestable.customization.js"></script>
-<script src="~/Scripts/sReports/designer/designer.js"></script>
-<script src="~/Scripts/sReports/designer/validation.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/filter.thesaurus.js"></script>
-<script src="~/Scripts/sReports/tableCommon.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/formGeneralInfo.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/chapterGeneralInfo.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/pageGeneralInfo.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/dragAndDrop")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/formPartial")
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 <script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
-<script src="~/Scripts/sReports/jquery.line.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fieldsetGeneralInfo.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/fieldGeneralInfo.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/selectableField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/calculativeField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/checkboxField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/customFieldButton.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/numberField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/radioField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/regexField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/textField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fields/selectField.js"></script>
-<script src="~/Scripts/sReports/designer/designer-items/fieldValue.js"></script>
-<script src="~/Scripts/sReports/dynamicForm.js"></script>
-<script src="~/Scripts/sReports/formJson.js"></script>
-<script src="~/Scripts/sReports/schema-json.js"></script>
-<script src="~/Scripts/sReports/designer/consensus.js"></script>
-<script src="~/Scripts/sReports/common/clinicalDomainAutocomplete.js"></script>
-
-

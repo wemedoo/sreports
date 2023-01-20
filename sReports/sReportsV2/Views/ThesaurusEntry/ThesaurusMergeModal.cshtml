@@ -14,35 +14,37 @@
                     <div class="d-flex advanced-filter-header documents-header">
                         <img class="mr-3" src="~/Content/img/icons/merge_thesaurus.svg"> @sReportsV2.Resources.TextLanguage.MergeThesauruses
                     </div>
-                    <div class="form-margin merge-modal-content" id="checkBoxGroup">
+                    <div class="form-margin merge-modal-content">
 
                         <div class="merge-modal-header">@sReportsV2.Resources.TextLanguage.ChooseWhichPropertiesToMergeToo:</div>
-                        <label class="form-checkbox-label" id="checkBoxGroup">
-                            <input value="Translations" class="form-checkbox-field chk" type="checkbox" id="translations" name="mergeValue" />
-                            <i class="form-checkbox-button merge-checkbox"></i>
-                            <span class="checkbox-merge-label"> @sReportsV2.Resources.TextLanguage.Translations (not existing)</span>
-                        </label>
-                        <label class="form-checkbox-label" id="checkBoxGroup">
-                            <input value="Codes" class="form-checkbox-field chk" type="checkbox" id="codes" name="mergeValue" />
-                            <i class="form-checkbox-button merge-checkbox"></i>
-                            <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Codes</span>
-                        </label>
-                        <label class="ml-1" id="checkBoxGroup">
-                            <span> For existing translations:</span>
+                        <div>
+                            <label class="form-checkbox-label">
+                                <input value="Translations" class="form-checkbox-field chk" type="checkbox" id="translations" name="mergeValue" />
+                                <i class="form-checkbox-button merge-checkbox"></i>
+                                <span class="checkbox-merge-label"> @sReportsV2.Resources.TextLanguage.Translations (@sReportsV2.Resources.TextLanguage.NotExisting)</span>
+                            </label>
+                            <label class="form-checkbox-label">
+                                <input value="Codes" class="form-checkbox-field chk" type="checkbox" id="codes" name="mergeValue" />
+                                <i class="form-checkbox-button merge-checkbox"></i>
+                                <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Codes</span>
+                            </label>
+                        </div>
+                        <label class="ml-1">
+                            <span> @sReportsV2.Resources.TextLanguage.ForExistingTranslations:</span>
                         </label>
                         <div class="ml-3">
                            
-                            <label class="form-checkbox-label" id="checkBoxGroup">
+                            <label class="form-checkbox-label">
                                 <input value="Synonyms" class="form-checkbox-field chk" type="checkbox" id="synonyms" name="mergeValue" />
                                 <i class="form-checkbox-button merge-checkbox"></i>
                                 <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Synonyms</span>
                             </label>
-                            <label class="form-checkbox-label" id="checkBoxGroup">
+                            <label class="form-checkbox-label">
                                 <input value="Abbreviations" class="form-checkbox-field chk" type="checkbox" id="abbreviations" name="mergeValue" />
                                 <i class="form-checkbox-button merge-checkbox"></i>
-                                <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Abbreaviations</span>
+                                <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Abbreviations</span>
                             </label>
-                            <label class="form-checkbox-label" id="checkBoxGroup">
+                            <label class="form-checkbox-label">
                                 <input value="Definition" class="form-checkbox-field chk" type="checkbox" id="definition" name="mergeValue" />
                                 <i class="form-checkbox-button merge-checkbox"></i>
                                 <span class="checkbox-merge-label">@sReportsV2.Resources.TextLanguage.Definition</span>

@@ -1,0 +1,149 @@
+﻿@*@using System.Web.Mvc.Html;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
+
+@helper AddField(System.Web.Mvc.HtmlHelper html, FieldStringDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, string additionalFieldClass = "", string additionalInputClass = "")
+{
+    if (objectModel.HasValue())
+    {
+        for (int i = 0; i < objectModel.Value.Count; i++)
+        {
+            @AddField(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, i + 1, objectModel.Value[i], objectModel.IsRepetitive, additionalFieldClass, additionalInputClass)
+        }
+    }
+    else
+    {
+        @AddField(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, 1, "", objectModel.IsRepetitive, additionalFieldClass, additionalInputClass)
+    }
+}
+
+@helper AddField(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, string additionalFieldClass, string additionalInputClass, string customLabel = "")
+{
+    <div class="field-group @additionalFieldClass">
+        <div for="@objectModel.Id" class="filter-label form-label-size d-inline-block">
+            @if (string.IsNullOrEmpty(customLabel))
+            {
+                @html.Raw(objectModel.FullLabel)
+            }
+            else
+            {
+                @customLabel
+            }
+        </div>
+        <div class="repetitive-field filter-input d-inline-block @additionalInputClass">
+            @AddInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive)
+        </div>
+        @html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", objectModel, new System.Web.Mvc.ViewDataDictionary(html.ViewData) { { "repetitiveCounter", repetitiveCounter }, { "repetitiveValue", repetitiveValue } })
+    </div>
+}
+
+@helper AddInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive)
+{
+    bool isSpecialValue = repetitiveValue.IsSpecialValue();
+    repetitiveValue = repetitiveValue.ResetIfSpecialValue();
+    switch (objectModel.Type)
+    {
+        case FieldTypes.Email:
+            @AddEmailInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue);
+            break;
+        case FieldTypes.Date:
+            @AddDateInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue)
+            break;
+        case FieldTypes.Datetime:
+            @AddDateTimeInput(html, objectModel as FieldDatetimeDataOut, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue)
+            break;
+        case FieldTypes.Regex:
+            @AddRegexInput(html, objectModel as FieldRegexDataOut, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue)
+            break;
+        case FieldTypes.Number:
+            @AddNumberInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue)
+            break;
+        case FieldTypes.LongText:
+            @AddLongTextInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue)
+            break;
+        case FieldTypes.Calculative:
+            @AddCalculativeInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive)
+            break;
+        case FieldTypes.CustomButton:
+            @AddCustomButtonInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive)
+            break;
+        case FieldTypes.Text:
+        default:
+            @AddTextInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive, isSpecialValue);
+            break;
+    }
+}
+
+@helper AddTextInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    <input type="text" class="form-element-field @(isRepetitive ? "text" : "")" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" placeholder="@objectModel.DescriptionLabel" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly || isSpecialValue) />
+}
+
+@helper AddLongTextInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    <textarea id="ta-@objectModel.Id"
+              name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter"
+              class="form-element-field textarea-repetitive"
+              placeholder="@objectModel.DescriptionLabel"
+              @html.Raw(objectModel.ValidationAttr)
+              value="@repetitiveValue"
+              @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly || isSpecialValue)>@repetitiveValue</textarea>
+}
+
+@helper AddNumberInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    <input type="number" class="form-element-field @(isRepetitive ? "text" : "")" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" placeholder="@objectModel.DescriptionLabel" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly || isSpecialValue) />
+}
+
+@helper AddDateInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    <input type="text" class="field-date-input form-element-field @(isRepetitive ? "text" : "")" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" placeholder="@objectModel.DescriptionLabel" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" readonly />
+    <img class="field-date-btn date-img dynamic-form @(isSpecialValue ? "pe-none" : "")" src="~/Content/img/icons/date_field.svg" @html.DateTimeDisabled(objectModel.IsDisabled)>
+}
+
+@helper AddDateTimeInput(System.Web.Mvc.HtmlHelper html, FieldDatetimeDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    var date = repetitiveValue.RenderDate();
+    var time = repetitiveValue.RenderTime();
+    <div class="row date-time-row datetime-picker-container">
+        <div class="date-wrapper input-border mr-auto w-60 d-flex">
+            <input type="text" class="date-helper d-inline-block border-0 date-width field-date-input" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" value="@date" placeholder="@objectModel.DescriptionLabel" readonly />
+            <input type="text" class="date-time-local d-none form-element-field" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" @html.Raw(objectModel.ValidationAttr) value="@objectModel.RenderDateTime(date, time)" @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly) />
+            <div class="field-date-btn img-wrapper @(isSpecialValue ? "pe-none" : "")">
+                <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg" @html.DateTimeDisabled(objectModel.IsDisabled)>
+            </div>
+        </div>
+        <div class="time-wrapper w-35 input-border">
+            <input type="text" placeholder="@DateConstants.TimeFormatDisplay" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" class="time-part time-helper d-inline-block border-0 field-time-input" value="@time" style="width:90%;" @html.ReadOnly(isSpecialValue)>
+            <div class="field-time-btn clock-wrapper @(isSpecialValue ? "pe-none" : "")">
+                <i class="fas fa-clock" @html.TimeDisabled(objectModel.IsDisabled)></i>
+            </div>
+        </div>
+    </div>
+}
+
+@helper AddEmailInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    <input type="email" class="form-element-field @(isRepetitive ? "text" : "") email" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" placeholder="example@gmail.com" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly || isSpecialValue) />
+}
+
+@helper AddRegexInput(System.Web.Mvc.HtmlHelper html, FieldRegexDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, bool isSpecialValue)
+{
+    <input type="text" class="form-element-field @(isRepetitive ? "text" : "")" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" placeholder="@objectModel.DescriptionLabel" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly || isSpecialValue) data-type="regex" data-regexdescription="@objectModel.RegexDescription" data-regex="@objectModel.Regex" data-regex-required="@objectModel.IsRequired" />
+}
+
+@helper AddCalculativeInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive)
+{
+    <input type="text" class="form-element-field" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" readonly placeholder="@objectModel.DescriptionLabel" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" />
+}
+
+@helper AddCustomButtonInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive)
+{
+    <button name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" id="@objectModel.Id" type="button" class="btn custom-button btn-filter-primary" @html.Disabled(objectModel.IsDisabled)>@objectModel.Label</button>
+}
+
+@helper SetDependentFieldToDefaultCall(string fieldSetId, string fieldId, bool showDependables = false)
+{
+    @: setDependentInputFieldToDefault($(`#@fieldSetId-${fieldSetIdentificator}-@fieldId-1`), @showDependables.ToString().ToLower());
+}*@

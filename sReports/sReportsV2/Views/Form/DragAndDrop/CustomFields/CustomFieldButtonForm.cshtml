@@ -9,7 +9,7 @@
                 Select action type
             </div>
 
-            <select class="designer-form-input" id="customActionType" required>
+            <select class="designer-form-input" id="customActionType" required @ViewBag.Disabled>
                 <option value="">Select action type</option>
                 <option value="@CustomActionTypes.ControllerAction" @(Model.CustomAction != null && Model.CustomAction.ActionType == CustomActionTypes.ControllerAction ? "selected" : "")>Controller action</option>
                 <option value="@CustomActionTypes.JavascriptAction" @(Model.CustomAction != null && Model.CustomAction.ActionType == CustomActionTypes.JavascriptAction ? "selected" : "")>Javascript action</option>
@@ -19,18 +19,18 @@
             <div class="label filter-label">
                 Method name
             </div>
-            <input class="designer-form-input" id="methodName" value="@(Model.CustomAction != null && Model.CustomAction is JavascriptActionDataOut ? (Model.CustomAction as JavascriptActionDataOut).MethodName : "")"/>
+            <input class="designer-form-input" id="methodName" value="@(Model.CustomAction != null && Model.CustomAction is JavascriptActionDataOut ? (Model.CustomAction as JavascriptActionDataOut).MethodName : "")" @ViewBag.Disabled/>
         </div><!--
      --><div class="designer-form-input-group two-margins controller-action-container" @(Model.CustomAction != null && Model.CustomAction is ControllerActionDataOut ? "": "style=display:none;")>
             <div class="label filter-label">
                 Action name
             </div>
-        <input class="designer-form-input" id="actionName"  value="@(Model.CustomAction != null && Model.CustomAction is ControllerActionDataOut ?  (Model.CustomAction as ControllerActionDataOut).ActionName : "")"/>
+        <input class="designer-form-input" id="actionName"  value="@(Model.CustomAction != null && Model.CustomAction is ControllerActionDataOut ?  (Model.CustomAction as ControllerActionDataOut).ActionName : "")" @ViewBag.Disabled/>
         </div><!--
      --><div class="designer-form-input-group two-margins no-margin-right controller-action-container" @(Model.CustomAction != null && Model.CustomAction is ControllerActionDataOut ? "": "style=display:none;")>
             <div class="label filter-label">
                 Action name
             </div>
-        <input class="designer-form-input" id="controllerName"  value="@(Model.CustomAction != null && Model.CustomAction is ControllerActionDataOut ? (Model.CustomAction as ControllerActionDataOut).ControllerName : "")"/>
+        <input class="designer-form-input" id="controllerName"  value="@(Model.CustomAction != null && Model.CustomAction is ControllerActionDataOut ? (Model.CustomAction as ControllerActionDataOut).ControllerName : "")" @ViewBag.Disabled/>
         </div>
     </div>

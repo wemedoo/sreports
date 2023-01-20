@@ -1,0 +1,89 @@
+﻿@using sReportsV2.DTOs.CustomEnum.DataOut;
+@{
+    string activeLanguage = ViewBag.UserCookieData.ActiveLanguage;
+}
+
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-content-password">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <form id="newAddressForm">
+                        <div class="d-flex advanced-filter-header">
+                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">@sReportsV2.Resources.TextLanguage.AddNew @sReportsV2.Resources.TextLanguage.Address
+                        </div>
+                        <input type="hidden" id="addressEntityId" name="addressEntityId">
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.AddressType
+                            </div>
+                            <select class="filter-input arrow-select patient-background" id="addressType" name="addressType" @ViewBag.Disabled>
+                                <option value=""></option>
+                                @foreach (CustomEnumDataOut addressType in ViewBag.AddressTypes)
+                                {
+                                    <option value="@addressType.Id">@addressType.Thesaurus.GetPreferredTermByTranslationOrDefault(activeLanguage)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.City
+                            </div>
+                            <input type="text" class="filter-input" id="city" onkeyup="pressButtonOnEnterKey(event, 'address-modal-button')" @ViewBag.Disabled>
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Postal_code
+                            </div>
+                            <input type="text" class="filter-input" id="postalCode" onkeyup="pressButtonOnEnterKey(event, 'address-modal-button')" @ViewBag.Disabled>
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Street
+                            </div>
+                            <input type="text" class="filter-input" id="street" onkeyup="pressButtonOnEnterKey(event, 'address-modal-button')" @ViewBag.Disabled>
+                        </div>
+                        @*<div class="advanced-filter-item input-margin">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.StreetNumber
+            </div>
+            <input type="text" class="filter-input" id="streetNumber" onkeyup="pressButtonOnEnterKey(event, 'address-modal-button')" @ViewBag.Disabled>
+        </div>*@
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.State
+                            </div>
+                            <input type="text" class="filter-input" id="state" onkeyup="pressButtonOnEnterKey(event, 'address-modal-button')" @ViewBag.Disabled>
+                        </div>
+                        <div class="advanced-filter-item input-margin country-select-input">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Country
+                            </div>
+                            <select class="filter-input arrow-select" id="countryId" @ViewBag.Disabled>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="button-partial">
+                            @if (!ViewBag.ReadOnly)
+                            {
+                                <button id="address-modal-button" class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="submitAddress(event)" dismiss="modal">
+                                    <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
+                                </button>                            
+                            }
+                            <div class="button-wrapper-filter float-right" id="close">
+                                <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                    @sReportsV2.Resources.TextLanguage.Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

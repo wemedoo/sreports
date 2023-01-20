@@ -23,5 +23,6 @@ namespace sReportsV2.DTOs.DigitalGuideline.DataIn
         public ThesaurusEntryDataOut Thesaurus { get; set; }
         public virtual string Type { get; set; }
         public EvidencePropertiesDataIn EvidenceProperties { get; set; }
+        public string Value { get; set; }
     }
 }

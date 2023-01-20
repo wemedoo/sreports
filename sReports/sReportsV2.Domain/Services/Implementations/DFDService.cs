@@ -26,9 +26,8 @@ namespace sReportsV2.Domain.Services.Implementations
         }
 
         public void Insert(DFDFormInfo formInfo)
-        {            
-            formInfo.EntryDatetime = DateTime.Now;
-            formInfo.LastUpdate = DateTime.Now;
+        {
+            formInfo.Copy(null);
           
             Collection.InsertOne(formInfo);
         }

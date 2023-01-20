@@ -64,8 +64,19 @@ namespace sReportsV2.Controllers
                     for (int i = 0; i < translationsIds.Count / transactionSize + 1; i++)
                     {
                         List<int> listIds = translationsIds.Skip(i * transactionSize).Take(transactionSize).ToList();
-                        var thesaurusIds = context.ThesaurusEntryTranslations.Where(x => listIds.Contains(x.Id)).Select(x => x.ThesaurusEntryId).Distinct().ToList();
-                        var codes = context.O4CodeableConcept.Where(x => thesaurusIds.Contains(x.ThesaurusEntryId) && x.System.Label.ToLower().Contains("icd10")).Select(x => x.Code).ToList();
+                        var thesaurusIds = context.ThesaurusEntryTranslations
+                            .Where(x => listIds.Contains(x.Id)).Select(x => x.ThesaurusEntryId)
+                            .Distinct()
+                            .ToList();
+
+                        IQueryable<ThesaurusEntry> thesaurusEntries = context.Thesauruses
+                            .Where(x => thesaurusIds.Contains(x.ThesaurusEntryId))
+                            .Include(x => x.Codes);
+
+                        var codes = thesaurusEntries
+                            .SelectMany(x => x.Codes)
+                            .Where(x => x.System.Label.ToLower().Contains("icd10"))
+                            .Select(x => x.Code);
                         result.AddRange(codes);
                     }
                     result = result.Distinct().ToList();

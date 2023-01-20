@@ -1,8 +1,12 @@
-﻿@using sReportsV2.DTOs.Common;
+﻿@using sReportsV2.DTOs.CustomEnum.DataOut;
 @using sReportsV2.DTOs.Common.DTO;
+@using sReportsV2.Common.Extensions;
 @model sReportsV2.DTOs.Patient.PatientDataOut
 @{
     string hasValue = "-hasvalue";
+    string activeLanguage = ViewBag.UserCookieData.ActiveLanguage;
+    int selectedCitizenshipId = Model != null ? Model.CitizenshipId.GetValueOrDefault() : 0;
+    int selectedReligionId = Model != null ? Model.ReligionId.GetValueOrDefault() : 0;
 }
 <div class="form-row remove-right-margin">
 
@@ -12,18 +16,18 @@
         </div>
 
         <div class="edit-patient-left">
-            <div class="advanced-filter-item filter-item input-margin">
+            <div class="advanced-filter-item input-margin">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.Given
                 </div>
-                <input type="text" class="filter-input" id="name" value="@(Model != null && Model.Name != null ? Model.Name : "")" required>
+                <input type="text" class="filter-input" id="name" value="@(Model != null && Model.Name != null ? Model.Name : "")" required @ViewBag.Disabled>
             </div>
 
-            <div class="advanced-filter-item filter-item input-margin">
+            <div class="advanced-filter-item input-margin">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.Gender
                 </div>
-                <select class="filter-input arrow-select @hasValue patient-background" id="gender">
+                <select class="filter-input arrow-select @hasValue patient-background" id="gender" @ViewBag.Disabled>
                     <option value=""></option>
                     @foreach (var gender in Enum.GetNames(typeof(sReportsV2.Common.Enums.Gender)))
                     {
@@ -39,11 +43,11 @@
                 </select>
             </div>
 
-            <div class="advanced-filter-item filter-item input-margin">
+            <div class="advanced-filter-item input-margin">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.Activity
                 </div>
-                <select class="filter-input arrow-select @hasValue patient-background" id="activity">
+                <select class="filter-input arrow-select @hasValue patient-background" id="activity" @ViewBag.Disabled>
                     <option value=""></option>
                     <option value="true" @(Model == null || Model.Activity ? "selected" : "")>@sReportsV2.Resources.TextLanguage.Active</option>
                     <option value="false" @(Model != null && !Model.Activity ? "selected" : "")>@sReportsV2.Resources.TextLanguage.Inactive</option>
@@ -52,37 +56,97 @@
         </div>
 
         <div class="edit-patient-right">
-            <div class="advanced-filter-item filter-item input-margin">
+            <div class="advanced-filter-item input-margin">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.Family
                 </div>
-                <input type="text" class="filter-input" id="familyName" value="@(Model != null && Model.FamilyName != null ? Model.FamilyName : "")">
+                <input type="text" class="filter-input" id="familyName" value="@(Model != null && Model.FamilyName != null ? Model.FamilyName : "")" @ViewBag.Disabled>
             </div>
 
-            <div class="advanced-filter-item filter-item input-margin">
+            <div class="advanced-filter-item input-margin">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.BirthDate
                 </div>
-                <input type="text" class="filter-input" id="birthDate" value="@(Model != null && Model.BirthDate != null ? Model.BirthDate.Value.ToShortDateString() : "")">
-                <img class="date-img" src="~/Content/img/icons/date_field.svg" id="birthDateCalendar">
+                @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                {
+                    InputAttributes = new Dictionary<object, object> { 
+                        { "class", "filter-input" }, 
+                        { "id", "birthDate" }, 
+                        { "name", "birthDate" }, 
+                        { "value", Model != null && Model.BirthDate != null ? Model.BirthDate.Value.ToString(ViewBag.DateFormat) : "" }, 
+                        { @ViewBag.Disabled, null } 
+                    },
+                    InputBtnAttributes = new Dictionary<object, object> { 
+                        { "class", "date-img" }, 
+                        { @Html.DateDisabled(((bool?)ViewBag.ReadOnly)), null } 
+                    },
+                })
+            </div>
+            <div class="advanced-filter-item input-margin">
+                <label class="form-checkbox-label reset-margin">
+                    <input class="form-checkbox-field chk" type="checkbox" id="deceased" checked="@(Model != null && Model.Deceased.GetValueOrDefault())" @ViewBag.Disabled />
+                    <i class="form-checkbox-button custom-checkbox"></i>
+                    <span class="organization-types ml-2">
+                        @sReportsV2.Resources.TextLanguage.Deceased
+                    </span>
+                </label>
+            </div>
+            <div class="advanced-filter-item input-margin" id="deceasedDateTimeContainer">
+                <div class="label filter-label">
+                    @sReportsV2.Resources.TextLanguage.Deceased_DateTime
+                </div>
+                @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO() {
+                    InputAttributes = new Dictionary<object, object> { 
+                        {"class", "filter-input"}, 
+                        {"id", "deceasedDateTime" }, 
+                        {"name", "deceasedDateTime" }, 
+                        {"value", Model != null && Model.DeceasedDateTime != null ? Model.DeceasedDateTime.Value.ToString(ViewBag.DateFormat) : "" }, 
+                        { @ViewBag.Disabled, null} 
+                    },
+                    InputBtnAttributes = new Dictionary<object, object> { 
+                        { "class", "date-img" }, 
+                        { @Html.DateDisabled(((bool?)ViewBag.ReadOnly)), null } 
+                    },
+                })
             </div>
 
-            <div class="advanced-filter-item filter-item input-margin" id="multiple">
+            <div class="advanced-filter-item input-margin">
+                <div class="label filter-label">
+                    @sReportsV2.Resources.TextLanguage.Religion
+                </div>
+                <select class="filter-input arrow-select @hasValue patient-background" id="religion" name="religion" @ViewBag.Disabled>
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="advanced-filter-item input-margin">
+                <div class="label filter-label">
+                    @sReportsV2.Resources.TextLanguage.Citizenship
+                </div>
+                <select class="filter-input arrow-select @hasValue patient-background" id="citizenship" name="citizenship" @ViewBag.Disabled>
+                    <option value=""></option>
+                    @foreach (CustomEnumDataOut citizenship in ViewBag.Citizenships)
+                    {
+                        <option value="@citizenship.Id" selected="@(selectedCitizenshipId == citizenship.Id)">@citizenship.Thesaurus.GetPreferredTermByTranslationOrDefault(activeLanguage)</option>
+                    }
+                </select>
+            </div>
+
+            <div class="advanced-filter-item input-margin" id="multiple">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.Multiple_birth
                 </div>
-                <select class="filter-input arrow-select @hasValue patient-background" id="multipleBirth" name="MultipleBirth" onchange="selectChanged()">
+                <select class="filter-input arrow-select @hasValue patient-background" id="multipleBirth" name="MultipleBirth" onchange="selectChanged()" @ViewBag.Disabled>
                     <option value=""></option>
                     <option value="true" @(Model != null && Model.MultipleBirth ? "selected" : "")>@sReportsV2.Resources.TextLanguage.True</option>
                     <option value="false" @(Model == null || !Model.MultipleBirth ? "selected" : "")>@sReportsV2.Resources.TextLanguage.False</option>
                 </select>
             </div>
 
-            <div class="advanced-filter-item filter-item input-margin" id="multipleBirth1" style=" @(Model != null && Model.MultipleBirth ? "" : "display:none") ">
+            <div class="advanced-filter-item input-margin" id="multipleBirth1" style=" @(Model != null && Model.MultipleBirth ? "" : "display:none") ">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.MultipleBirthNumber
                 </div>
-                <input type="number" class="filter-input" id="multipleBirthNumber" min="1" max="10" value="@(Model != null && Model.MultipleBirthNumber > 1 ? Model.MultipleBirthNumber : 1)">
+                <input type="number" class="filter-input" id="multipleBirthNumber" min="1" max="10" value="@(Model != null && Model.MultipleBirthNumber > 1 ? Model.MultipleBirthNumber : 1)" @ViewBag.Disabled>
             </div>
         </div>
 
@@ -97,16 +161,15 @@
             <div class="person-margin communication">
                 <span class="communication-info">@sReportsV2.Resources.TextLanguage.Communication</span>
             </div>
-
-            <div class="advanced-filter-item filter-item input-margin margin-bottom-0">
+            <div class="advanced-filter-item input-margin margin-bottom-0">
                 <div class="label filter-label">
                     @sReportsV2.Resources.TextLanguage.Language
                 </div>
                 <div class="position-relative">
                     <i class="fas fa-plus-circle plus-button"></i>
-                    <select class="filter-input @hasValue patient-background" id="language" style="-webkit-appearance: none;">
+                    <select class="filter-input @hasValue patient-background" id="language" style="-webkit-appearance: none;" @ViewBag.Disabled>
                         <option value=""></option>
-                        @foreach (var language in ViewBag.Languages)
+                        @foreach (var language in ViewBag.PatientLanguages)
                         {
                             <option value=@language.Value @(Model != null && Model.Communications != null)>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
                         }
@@ -121,24 +184,23 @@
         </div>
 
         <div id="communicationTable" class="communication-table">
-            <div id="tableBody" class="preferred-language-group">
+            <div id="tableBody">
                 @if (Model != null && Model.Communications != null)
                 {
                     foreach (CommunicationDTO entry in Model.Communications)
                     {
-                        <div class="preferred-language-group" >
+                        <div class="preferred-language-group @(entry.Preferred ? "preferred-language-text-active" : "")">
                             <span data-property="preferred" data-value="@entry.Preferred" class="radio-space">
-                                @if (entry.Preferred == true)
+                                @if (entry.Preferred)
                                 {
-                                    <input data-id="@entry.Id" type="radio" name="radioPreferred" checked value="@entry.Language" class="form-radio-field">
+                                    <input data-id="@entry.Id" type="radio" name="radioPreferred" checked value="@entry.Language" class="form-radio-field" @ViewBag.Disabled data-no-color-change="true">
                                 }
                                 else
                                 {
-                                    <input data-id="@entry.Id" type="radio" name="radioPreferred" value="@entry.Language" class="form-radio-field">
+                                    <input data-id="@entry.Id" type="radio" name="radioPreferred" value="@entry.Language" class="form-radio-field" @ViewBag.Disabled data-no-color-change="true">
                                 }
                             </span>
                             <span id="firstLanguage" class="preferred-language-text" data-property="language" data-value="@entry.Language">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(entry.Language)</span>
-                            <span class="remove-language-button right-remove-button" onclick="removeLanguage(this)"><i class="fas fa-times"></i></span>
                         </div>
                     }
                 }
@@ -147,3 +209,7 @@
 
     </div>
 </div>
+
+<script>
+    religionId = @selectedReligionId;
+</script>

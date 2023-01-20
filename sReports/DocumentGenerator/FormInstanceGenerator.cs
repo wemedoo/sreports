@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using sReportsV2.Domain.FormValues;
+using sReportsV2.Common.Helpers;
+using System.Data;
 
 namespace DocumentGenerator
 {
@@ -21,6 +23,8 @@ namespace DocumentGenerator
             List<FormInstance> generated = GenerateFormInstances(form, generatedFields, numOfDocuments);
 
             SetDependableFields(formDistribution, generated);
+            RoundNumericFieldValues(form, generated);
+            SetValuesForCalculativeField(form, generated);
 
             return generated;
         }
@@ -125,8 +129,8 @@ namespace DocumentGenerator
                         {
                             Id = f.Id,
                             ThesaurusId = f.ThesaurusId,
-                            InstanceId = $"{fs.Id}-0-{f.Id}-0"
-
+                            InstanceId = $"{fs.Id}-0-{f.Id}-0",
+                            Type = f.Type
                         };
                         formInstance.Fields.Add(fieldValue);
                     }
@@ -222,10 +226,10 @@ namespace DocumentGenerator
 
             double mean = parameters.Mean;
             double standardDeviation = parameters.Deviation;
-
+            
             var samples = new double[numberOfTrials];
             Normal.Samples(samples, mean, standardDeviation);
-            result = samples.Select(x => x < 0 ? "0": x.ToString()).ToList();
+            result = samples.Select(x => x < 0 ? "0": ((float)x).ToString()).ToList();
             ValidateNumericExamples(result, parameters.Mean, parameters.Deviation);
             return result;
 
@@ -412,6 +416,63 @@ namespace DocumentGenerator
             }
             return result;
         }
+
+        private static void RoundNumericFieldValues(Form form, List<FormInstance> formInstances)
+        {
+            foreach (FieldValue fieldValue in formInstances.SelectMany(x => x.Fields).Where(f => f.Type.Equals(FieldTypes.Number)))
+            {
+                FieldNumeric fieldDefinition = (FieldNumeric)form.GetFieldById(fieldValue.Id);
+                double step = fieldDefinition.Step.HasValue ? fieldDefinition.Step.Value : 0.0001;
+                int decimalsNumber = NumericHelper.GetDecimalsNumber(step);
+                List<string> roundedValues = new List<string>();
+                foreach (string value in fieldValue.Value)
+                {
+                    double numericValue;
+                    if(Double.TryParse(value, out numericValue)) {
+                        double numbericValueRounded = Math.Round(numericValue, decimalsNumber);
+                        roundedValues.Add(numbericValueRounded.ToString());
+                    }
+                }
+                fieldValue.Value = roundedValues;
+            }
+
+        }
+
+        private static void SetValuesForCalculativeField(Form form, List<FormInstance> formInstances)
+        {
+            foreach (FormInstance formInstance in formInstances)
+            {
+                foreach (FieldValue calculativeField in formInstance.Fields.Where(f => f.Type.Equals(FieldTypes.Calculative)))
+                {
+                    try
+                    {
+                        string formula = CreateFormulaForCalculatedField(calculativeField.Id, formInstance, form);
+                        object calculatedResult = new DataTable().Compute(formula, null);
+                        double result = Math.Round(Convert.ToDouble(calculatedResult), 4);
+                        calculativeField.Value = new List<string> { result.ToString() };
+                    }
+                    catch (Exception)
+                    {
+                        calculativeField.Value = new List<string> { "NaN" };
+                    }
+                }
+            }
+        }
+
+        private static string CreateFormulaForCalculatedField(string fieldId, FormInstance formInstance, Form form)
+        {
+            FieldCalculative fieldDefinition = (FieldCalculative)form.GetFieldById(fieldId);
+            string formula = fieldDefinition.Formula;
+            foreach (KeyValuePair<string, string> entry in fieldDefinition.IdentifiersAndVariables)
+            {
+                string fieldValue = formInstance.GetFieldValueById(entry.Key);
+                string variable = entry.Value;
+                formula = formula.Replace(string.Concat("[", variable, "]"), fieldValue);
+            }
+            return formula;
+        }
+
+
 
 
         /*HACKATON MODEL*/

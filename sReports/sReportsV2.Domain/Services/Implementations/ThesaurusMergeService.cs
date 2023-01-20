@@ -27,21 +27,21 @@ namespace sReportsV2.Domain.Services.Implementations
             return Collection.AsQueryable().Where(x => !x.IsDeleted && x.State == state).ToList();
         }
 
-        public void InsertOrUpdate(ThesaurusMerge thesaurus)
+        public void InsertOrUpdate(ThesaurusMerge thesaurusMerge)
         {
-            thesaurus = Ensure.IsNotNull(thesaurus, nameof(thesaurus));
+            thesaurusMerge = Ensure.IsNotNull(thesaurusMerge, nameof(thesaurusMerge));
             
-            if (thesaurus.Id == null)
+            if (thesaurusMerge.Id == null)
             {
-                thesaurus.EntryDatetime = DateTime.Now;
-                thesaurus.LastUpdate = DateTime.Now;
-                Collection.InsertOne(thesaurus);
+                thesaurusMerge.Copy(null);
+                Collection.InsertOne(thesaurusMerge);
             }
             else
             {
-                thesaurus.LastUpdate = DateTime.Now;
-                var filter = Builders<ThesaurusMerge>.Filter.Eq(s => s.Id, thesaurus.Id);
-                var result = Collection.ReplaceOne(filter, thesaurus).ModifiedCount;
+                ThesaurusMerge thesaurusMergeForUpdate = Collection.AsQueryable().FirstOrDefault(x => x.Id.Equals(thesaurusMerge.Id));
+                thesaurusMerge.Copy(thesaurusMergeForUpdate);
+                var filter = Builders<ThesaurusMerge>.Filter.Eq(s => s.Id, thesaurusMerge.Id);
+                var result = Collection.ReplaceOne(filter, thesaurusMerge).ModifiedCount;
             }
         }
     }

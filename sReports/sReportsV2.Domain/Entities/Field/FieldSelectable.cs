@@ -57,7 +57,7 @@ namespace sReportsV2.Domain.Entities.FieldEntity
         {
             foreach (FormFieldValue value in Values)
             {
-                value.Label = entries.FirstOrDefault(x => x.Id.Equals(value.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                value.Label = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(value.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
             }
         }
 
@@ -69,6 +69,29 @@ namespace sReportsV2.Domain.Entities.FieldEntity
             {
                 value.ReplaceThesauruses(oldThesaurus, newThesaurus);
             }
+        }
+
+        public override string GetPatholinkValue(string neTranslated, string optionValue = "")
+        {
+            string patholinkValue = string.Empty;
+            if (Value != null && Value.Count > 0)
+            {
+                patholinkValue = Value[0];
+                if (patholinkValue.ShouldSetSpecialValue(IsRequired))
+                {
+                    patholinkValue = neTranslated;
+                }
+                else
+                {
+                    patholinkValue = IsMatchValue(patholinkValue, optionValue) ? "true" : string.Empty;
+                }
+            }
+            return patholinkValue;
+        }
+
+        private bool IsMatchValue(string fieldValue, string optionValue)
+        {
+            return fieldValue != null && fieldValue.Contains(optionValue);
         }
     }
 }

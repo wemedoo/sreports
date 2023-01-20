@@ -1,16 +1,16 @@
 ﻿<div class="login-footer">
     <div class="terms-conditions">
-        2021 Terms and Conditions
+        <a href="@Url.Action("TermsAndConditions", "ThesaurusGlobal")">2021 Terms and Conditions</a>
     </div>
     <div class="links d-flex">
-        <a>Privacy</a>
-        <a>Technology</a>
-        <a>Contact</a>
+        <a href="@Url.Action("Contact", "ThesaurusGlobal")">Contact</a>
         <div class="powered-by">
             <div class="">
                 Powered by
             </div>
-            <img class="img-wemedoo" src="~/Content/img/icons/SwissOpenOncology/wemedooLogo.png">
+            <a href="@Url.Action("Index", "ThesaurusGlobal")" id="footer-logo">
+                <img class="img-wemedoo" src="~/Content/img/icons/SwissOpenOncology/logo/smart oncology logo color.svg">
+            </a>
         </div>
     </div>
 </div>

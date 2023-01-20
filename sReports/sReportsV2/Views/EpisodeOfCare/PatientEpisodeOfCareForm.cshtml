@@ -1,25 +1,44 @@
-﻿@model sReportsV2.DTOs.EpisodeOfCare.EpisodeOfCareDataOut
+﻿@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.EpisodeOfCare.EpisodeOfCareDataOut
 @{
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.EOC_Create;
+    var userCookieData = ViewBag.UserCookieData;
+    var hasAddEocPerm = userCookieData.UserHasPermission(PermissionNames.AddEpisodeOfCare, ModuleNames.Patients);
+    var hasAddEncounterPerm = userCookieData.UserHasPermission(PermissionNames.AddEncounter, ModuleNames.Patients);
+    bool? readOnly = !hasAddEocPerm;
+    string disabled = readOnly.Value ? "disabled" : "";
 }
 
+@if (Model != null)
+{
+    <div>
+        <div class="margin-bottom-20" id="digitalInstancesContainer">
+            <div style="width: fit-content;">
+                <button class="eoc-main-content administrative-content digital-guideline-button" type="button" onclick="loadGuidelineInstanceTable()">
+                    <img style="padding-left: 6px;" src="~/Content/img/icons/administrative_data.svg" />
+                    <span class="administrative-title padding-right-6">Digital Guideline</span>
+                </button>
+            </div>
+        </div>
+    </div>
+}
 <form method="post" id="idEPisodeOfCare" class="formEpisodeOfCare" onsubmit="return submitEOCForm(this)" novalidate>
     <input type="hidden" class="form-control" id="id" value="@(Model != null && Model.Id != 0 ? Model.Id : 0 )" />
     <input type="hidden" class="form-control" id="patientId" value="@(ViewBag.Patient.Id )" />
-    <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
     <input type="hidden" class="form-control" id="episodeOfCareId" value="@(Model != null ? Model.Id : 0 )" />
 
     <div class="form-row">
         <div class="col-12">
             <div class="tree-form-title">
-                @(Model != null && Model.DiagnosisRole != null ? Model.DiagnosisRole.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "New episode of care")
+                @(Model != null && Model.DiagnosisRole != null && Model.DiagnosisRole.Thesaurus != null ? Model.DiagnosisRole.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : sReportsV2.Resources.TextLanguage.NewEoc)
             </div>
             <div class="d-flex margin-top-20">
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.EOC_Type_Name
                     </div>
-                    <select class="filter-input arrow-select patient-background padding-right-36" id="type" name="Type">
+                    <select class="filter-input arrow-select patient-background padding-right-36" id="type" name="Type" @disabled required>
                         <option value=""></option>
                         @foreach (var episodeOfCareType in ViewBag.EpisodeOfCareTypes)
                         {
@@ -30,11 +49,11 @@
                         }
                     </select>
                 </div>
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.Status
                     </div>
-                    <select class="filter-input arrow-select patient-background" id="status" name="Status" required>
+                    <select class="filter-input arrow-select patient-background" id="status" name="Status" required @disabled>
                         <option value=""></option>
                         @foreach (var statusOption in Enum.GetNames(typeof(sReportsV2.Common.Enums.EOCStatus)))
                         {
@@ -48,64 +67,94 @@
             </div>
 
             <div class="d-flex margin-top-20">
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.EOC_DiagnosisRole_Name
                     </div>
-                    <select class="filter-input arrow-select patient-background" id="diagnosisRole" name="Role" required>
+                    <select class="filter-input arrow-select patient-background" id="diagnosisRole" name="Role" required @disabled>
                         <option value=""></option>
                         @foreach (var roleOption in ViewBag.DiagnosisRoles)
                         {
-                            <option value="@roleOption.Thesaurus.Id" @(Model != null && Model.DiagnosisRole != null && Model.DiagnosisRole.Thesaurus.Id.Equals(roleOption.Thesaurus.Id) ? "selected" : "")>
+                            <option value="@roleOption.Thesaurus.Id" @(Model != null && Model.DiagnosisRole != null && Model.DiagnosisRole.Thesaurus != null && Model.DiagnosisRole.Thesaurus.Id.Equals(roleOption.Thesaurus.Id) ? "selected" : "")>
                                 @roleOption.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
                             </option>
                         }
                     </select>
                 </div>
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.EOC_DiagnosisCondition_Name
                     </div>
-                    <input class="filter-input" type="text" id="diagnosisCondition" value="@(Model != null && Model.DiagnosisCondition != null ? Model.DiagnosisCondition : "")" />
+                    <input class="filter-input" type="text" id="diagnosisCondition" value="@(Model != null && Model.DiagnosisCondition != null ? Model.DiagnosisCondition : "")" @disabled />
                 </div>
             </div>
 
             <div class="d-flex margin-top-20">
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.EOC_PeriodStartDate
                     </div>
-                    <input type="text" class="filter-input" id="periodStartDate" value="@(Model != null && Model.Period.StartDate != null ? Model.Period.StartDate.ToShortDateString() : "")" required/>
-                    <img class="date-img eoc-form-date-img" src="~/Content/img/icons/date_field.svg" id="startDateCalendar">
+                    @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                    {
+                        InputAttributes = new Dictionary<object, object> {
+                            { "class", "filter-input" },
+                            { "id", "periodStartDate" },
+                            { "name", "periodStartDate" },
+                            { "value", Model != null && Model.Period.StartDate != null ? Model.Period.StartDate.ToString(ViewBag.DateFormat) : "" },
+                            { @disabled, null},
+                            { "required", null}
+                        },
+                        InputBtnAttributes = new Dictionary<object, object> {
+                            { "class", "date-img eoc-form-date-img" },
+                            { "id", "startDateCalendar"},
+                            { @Html.DateDisabled(readOnly), null }
+                        },
+                    })
                 </div>
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.EOC_PeriodEndDate
                     </div>
-                    <input type="text" class="filter-input" id="periodEndDate" value="@(Model != null && Model.Period.EndDate != null ? Model.Period.EndDate.Value.ToShortDateString() : "")"/>
-                    <img class="date-img eoc-form-date-img" src="~/Content/img/icons/date_field.svg" id="endDateCalendar">
+                    @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                    {
+                        InputAttributes = new Dictionary<object, object> { 
+                            { "class", "filter-input" }, 
+                            { "id", "periodEndDate" }, 
+                            { "name", "periodEndDate" }, 
+                            { "value", Model != null && Model.Period.EndDate != null ? Model.Period.EndDate.Value.ToString(ViewBag.DateFormat) : "" }, 
+                            { @disabled, null } 
+                        },
+                        InputBtnAttributes = new Dictionary<object, object> { 
+                            { "class", "date-img eoc-form-date-img" }, 
+                            { "id", "endDateCalendar" }, 
+                            { @Html.DateDisabled(readOnly), null } 
+                        },
+                    })
                 </div>
             </div>
             <div class="d-flex margin-top-20">
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.Description
                     </div>
-                    <textarea class="filter-input" type="text" form="idEPisodeOfCare" id="description" rows="5" name="Description" value="@(Model != null && Model.Description != null ? Model.Description : "")" required>@(Model != null && Model.Description != null ? Model.Description : "")</textarea>
+                    <textarea class="filter-input" type="text" form="idEPisodeOfCare" id="description" rows="5" name="Description" value="@(Model != null && Model.Description != null ? Model.Description : "")" required @disabled>@(Model != null && Model.Description != null ? Model.Description : "")</textarea>
                 </div>
-                <div class="advanced-filter-item filter-item">
+                <div class="advanced-filter-item">
                     <div class="label filter-label">
                         @sReportsV2.Resources.TextLanguage.EOC_DiagnosisRank_Name
                     </div>
-                    <input class="filter-input" type="number" id="diagnosisRank" name="diagnosisRank" value="@(Model != null && Model.DiagnosisRank != null ? Model.DiagnosisRank : "")" />
+                    <input class="filter-input" type="number" id="diagnosisRank" name="diagnosisRank" value="@(Model != null && Model.DiagnosisRank != null ? Model.DiagnosisRank : "")" @disabled />
                 </div>
             </div>
 
             <div class="button-container">
-                <button class="submit-button" type="submit">
-                    @sReportsV2.Resources.TextLanguage.Save
-                </button>
-                @if (Model != null)
+                @if (hasAddEocPerm)
+                {
+                    <button class="submit-button" type="submit">
+                        @sReportsV2.Resources.TextLanguage.Save
+                    </button>
+                }
+                @if (Model != null && hasAddEncounterPerm)
                 {
                     <button class="submit-button" type="submit" onclick="addNewEncounter(event,'@Model.Id')">
                         @sReportsV2.Resources.TextLanguage.NewEncounter
@@ -118,4 +167,4 @@
 
 </form>
 
-<script src="~/Scripts/sReports/episodeOfCare.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/episodeOfCare.js")

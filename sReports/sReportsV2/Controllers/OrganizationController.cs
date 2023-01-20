@@ -1,24 +1,16 @@
 ﻿using AutoMapper;
 using sReportsV2.Common.CustomAttributes;
-using sReportsV2.DTOs.Common;
 using sReportsV2.DTOs.Organization;
-using sReportsV2.DTOs.Pagination;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using Serilog;
 using System.Web.Mvc;
 using sReportsV2.DTOs.Autocomplete;
 using sReportsV2.Common.Singleton;
 using sReportsV2.DTOs.Organization.DataIn;
 using sReportsV2.DTOs.Organization.DataOut;
-using sReportsV2.Domain.Exceptions;
 using sReportsV2.BusinessLayer.Interfaces;
-using sReportsV2.SqlDomain.Filter;
 using sReportsV2.Common.Enums;
-using sReportsV2.Common.Extensions;
-using sReportsV2.Domain.Sql.Entities.Common;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Controllers
 {
@@ -31,15 +23,15 @@ namespace sReportsV2.Controllers
             this.organizationBLL = organizationBLL;
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Administration)]
         public ActionResult Create()
         {
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type == CustomEnumType.OrganizationIdentifierType).ToList();
-            ViewBag.OrganizationTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type == CustomEnumType.OrganizationType).ToList();
+            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationIdentifierType);
+            ViewBag.OrganizationTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationType);
             return View("Organization");
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Administration)]
         [SReportsAuditLog]
         [HttpPost]
         [SReportsOrganizationValidate]
@@ -49,33 +41,34 @@ namespace sReportsV2.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.Created);       
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Administration)]
         public ActionResult GetAll(OrganizationFilterDataIn dataIn)
         {
+            SetCountryNameIfFilterByCountryIsIncluded(dataIn);
             ViewBag.FilterData = dataIn;
-            ViewBag.OrganizationTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type == CustomEnumType.OrganizationType).ToList();
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type == CustomEnumType.OrganizationIdentifierType).ToList();
+            ViewBag.OrganizationTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationType);
+            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationIdentifierType);
             return View();
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         public ActionResult ReloadTable(OrganizationFilterDataIn dataIn)
         {
             var result = organizationBLL.ReloadTable(dataIn);
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.OrganizationIdentifierType)).ToList();
+            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationIdentifierType);
             return PartialView("OrganizationEntryTable", result);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Administration)]
         public ActionResult Edit(int organizationId)
         {
             var result = organizationBLL.GetOrganizationForEdit(organizationId);
-            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.OrganizationIdentifierType)).ToList();
-            ViewBag.OrganizationTypes = SingletonDataContainer.Instance.GetEnums().Where(x => x.Type.Equals(CustomEnumType.OrganizationType)).ToList();
+            ViewBag.OrganizationTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationType);
+            ViewBag.IdentifierTypes = SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.OrganizationIdentifierType);
             return View("Organization", result);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.Delete, Module = ModuleNames.Administration)]
         [System.Web.Http.HttpDelete]
         [SReportsAuditLog]
         public ActionResult Delete(OrganizationDataIn organizationDataIn)
@@ -107,6 +100,32 @@ namespace sReportsV2.Controllers
         public ActionResult GetUsersByOrganizationCount()
         {
             return PartialView(Mapper.Map<List<OrganizationUsersCountDataOut>>(organizationBLL.GetOrganizationUsersCount(null, null)));
+        }
+
+        public ActionResult GetById(int? organizationId)
+        {
+            if (organizationId.HasValue)
+            {
+                OrganizationDataOut organization = organizationBLL.GetOrganizationById(organizationId.Value);
+                return Json(new { id = organization.Id, text = organization.Name }, JsonRequestBehavior.AllowGet);
+            } else
+            {
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        private void SetCountryNameIfFilterByCountryIsIncluded(OrganizationFilterDataIn dataIn)
+        {
+            if (dataIn != null)
+            {
+                string countryName = string.Empty;
+                if (dataIn.CountryId.HasValue)
+                {
+                    countryName = SingletonDataContainer.Instance.GetCustomEnumPreferredTerm(dataIn.CountryId.Value);
+                }
+                dataIn.CountryName = countryName;
+            }
         }
     }
 }

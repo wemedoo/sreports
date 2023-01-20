@@ -1,0 +1,19 @@
+﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut
+@using sReportsV2.Common.Extensions;
+
+@model List<GuidelineDataOut>
+
+@foreach (GuidelineDataOut guideline in Model)
+{
+    <div class="single-form-list-element" data-guidelineid="@guideline.Id" data-guidelinetitle="@guideline.Title">
+        <div class="title">
+            @guideline.Title - @guideline.EntryDateTime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)
+        </div>
+        <div class="select-button unselect">
+            Unselect
+        </div>
+        <div class="select-button">
+            Select
+        </div>
+    </div>
+}

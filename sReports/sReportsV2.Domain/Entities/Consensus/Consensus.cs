@@ -16,6 +16,7 @@ namespace sReportsV2.Domain.Entities.Form
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string FormRef { get; set; }
+        public int CreatorId { get; set; }
         public ConsensusFindingState? State { get; set; }
         public List<ConsensusIteration> Iterations { get; set; }
 
@@ -37,12 +38,17 @@ namespace sReportsV2.Domain.Entities.Form
             return result.Distinct().ToList();
         }
 
-        public void SetIterationsState() 
+        public void SetIterationsState(string newIterationId) 
         {
-            foreach (ConsensusIteration iteration in this.Iterations) 
+            foreach (ConsensusIteration iteration in this.Iterations.Where(x => !x.Id.Equals(newIterationId))) 
             {
-                iteration.State = iteration.Id == this.Iterations.Last().Id ? IterationState.InProgress : IterationState.Finished;
+                iteration.State = iteration.State != IterationState.Terminated ? IterationState.Finished : IterationState.Terminated;
             }
+        }
+
+        public ConsensusIteration GetIterationById(string id)
+        {
+            return Iterations.FirstOrDefault(x => x.Id.Equals(id));         
         }
     }
 }

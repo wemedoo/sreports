@@ -15,12 +15,14 @@ using sReportsV2.Common.Enums;
 using System.Globalization;
 using sReportsV2.Common.Entities.User;
 using sReportsV2.Domain.Sql.Entities.CodeSystem;
+using sReportsV2.Common.Helpers;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.SqlDomain.Implementations
 {
     public class ThesaurusDAL : IThesaurusDAL
     {
-        private SReportsContext context;
+        private readonly SReportsContext context;
         public ThesaurusDAL(SReportsContext context)
         {
             this.context = context;
@@ -34,19 +36,19 @@ namespace sReportsV2.SqlDomain.Implementations
                 .Include(x => x.Codes)
                 .Include(x => x.AdministrativeData.VersionHistory)
                 .Include("Codes.System")
-                .FirstOrDefault(x => x.Id == id & !x.IsDeleted);
+                .FirstOrDefault(x => x.ThesaurusEntryId == id & !x.IsDeleted);
         }
 
         public O4CodeableConcept GetCodeById(int id)
         {
             return context.O4CodeableConcept
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefault(x => x.O4CodeableConceptId == id);
         }
 
         public List<ThesaurusEntry> GetFiltered(GlobalThesaurusFilter filterDataIn)
         {
             return this.GetFilteredQuery(filterDataIn)
-                      .OrderBy(x => x.Id)
+                      .OrderBy(x => x.ThesaurusEntryId)
                       .Skip((filterDataIn.Page - 1) * filterDataIn.PageSize)
                       .Take(filterDataIn.PageSize)
                       .ToList(); 
@@ -59,136 +61,46 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public IQueryable<ThesaurusEntry> GetFilteredQuery(GlobalThesaurusFilter filterDataIn)
         {
-            IQueryable<ThesaurusEntry> result = context.Thesauruses.Include(x => x.Translations)
-                                                                   .Include(x => x.Codes);
+            IQueryable<ThesaurusEntry> result = context.Thesauruses
+                .Include(x => x.Translations)
+                .Include(x => x.Codes)
+                .Where(x => !x.IsDeleted);
+
             if (filterDataIn != null) 
             {
                 if (!string.IsNullOrWhiteSpace(filterDataIn.Term))
                 {
-                    result = result.Where(x => x.Translations.Any(t => t.PreferredTerm.Contains(filterDataIn.Term) && (filterDataIn.Language == null || t.Language == filterDataIn.Language)));
+                    if(!string.IsNullOrWhiteSpace(filterDataIn.TermIndicator) && filterDataIn.TermIndicator.Equals("exact"))
+                    {
+                        result = result.Where(x => x.Translations.Any(t => t.PreferredTerm.Equals(filterDataIn.Term) && (filterDataIn.Language == null || t.Language == filterDataIn.Language)));
+                    } 
+                    else
+                    {
+                        result = result.Where(x => x.Translations.Any(t => t.PreferredTerm.Contains(filterDataIn.Term) && (filterDataIn.Language == null || t.Language == filterDataIn.Language)));
+                    }
                 }
             }
 
             return result;
         }
 
-        public int InsertOrUpdate(ThesaurusEntry thesaurus)
+        public void InsertOrUpdate(ThesaurusEntry thesaurus)
         {
-            if (thesaurus.Id == 0)
+            if (thesaurus.ThesaurusEntryId == 0)
             {
-                thesaurus.Codes = new List<O4CodeableConcept>();
-                thesaurus.EntryDatetime = DateTime.Now;
                 context.Thesauruses.Add(thesaurus);
             }
-            else 
+            else
             {
-                ThesaurusEntry dbThesaurus = this.GetById(thesaurus.Id);
-                MapThesaurusValues(dbThesaurus, thesaurus);
+                thesaurus.SetLastUpdate();
             }
-
-
 
             context.SaveChanges();
-
-            return thesaurus.Id;
-        }
-
-        public int InsertOrUpdateCode(O4CodeableConcept code, int id)
-        {
-            try
-            {
-                if (code.Id == 0)
-                {
-                    code.ThesaurusEntryId = id;
-                    code.EntryDateTime = DateTime.Now;
-                    ThesaurusEntry t = context.Thesauruses.Include(x => x.Codes).FirstOrDefault(x => x.Id == id);
-                    t.Codes.Add(code);
-                }
-                else
-                {
-                    O4CodeableConcept dbCode = this.GetCodeById(code.Id);
-                    MapCodeValues(dbCode, code);
-                }
-
-                context.SaveChanges();
-            }
-            catch (Exception e) 
-            {
-                
-            }
-
-            return id;
-        }
-
-        private void MapThesaurusValues(ThesaurusEntry dbThesaurus, ThesaurusEntry thesaurus) 
-        {
-            dbThesaurus.State = thesaurus.State;
-            dbThesaurus.Translations = MapTranslationsValues(dbThesaurus.Translations, thesaurus.Translations);
-        }
-
-        private void MapCodes(List<O4CodeableConcept> dbCodes, List<O4CodeableConcept> codes)
-        {
-            RemoveNonExistingCodes(dbCodes, codes);
-            AddNewOrUpdateOldCodes(dbCodes, codes);
-        }
-
-        public void AddNewOrUpdateOldCodes(List<O4CodeableConcept> dbCodes, List<O4CodeableConcept> codes)
-        {
-            foreach (var code in codes)
-            {
-                if (code.Id == 0)
-                {
-                    dbCodes.Add(code);
-                }
-                else
-                {
-                    MapCodeValues(dbCodes.FirstOrDefault(x => x.Id == code.Id), code);
-                }
-            }
-        }
-
-        private void RemoveNonExistingCodes(List<O4CodeableConcept> dbCodes, List<O4CodeableConcept> codes) 
-        {
-            for (int i =0; i< dbCodes.Count(); i++)
-            {
-                if (!codes.Any(x => x.Id == dbCodes[i].Id))
-                {
-                    context.O4CodeableConcept.Remove(dbCodes[i]);
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        private List<ThesaurusEntryTranslation> MapTranslationsValues(List<ThesaurusEntryTranslation> dbTranslations, List<ThesaurusEntryTranslation> translations) 
-        {
-            foreach (var translation in dbTranslations) 
-            {
-                var t = translations.FirstOrDefault(x => x.Language == translation.Language);
-                translation.PreferredTerm = t.PreferredTerm;
-                translation.Definition = t.Definition;
-                translation.Synonyms = t.Synonyms;
-                translation.Abbreviations = t.Abbreviations;
-            }
-
-            foreach (var t in translations.Where(x => !dbTranslations.Select(c => c.Language).Contains(x.Language)).ToList()) 
-            {
-                dbTranslations.Add(t);
-            }
-            return dbTranslations;
-        }
-
-        private void MapCodeValues(O4CodeableConcept dbCode, O4CodeableConcept code)
-        {
-            dbCode.Version = code.Version;
-            dbCode.Code = code.Code;
-            dbCode.Value = code.Value;
-            dbCode.Link = code.Link;
-            dbCode.CodeSystemId = code.CodeSystemId;
         }
 
         public void DeleteCode(int id)
         {
-            O4CodeableConcept code = context.O4CodeableConcept.FirstOrDefault(x => x.Id == id);
+            O4CodeableConcept code = context.O4CodeableConcept.FirstOrDefault(x => x.O4CodeableConceptId == id);
             code.IsDeleted = true;
             context.SaveChanges();
         }
@@ -217,16 +129,21 @@ namespace sReportsV2.SqlDomain.Implementations
             thesaurusesTable.Columns.Add(new DataColumn("IsDeleted", typeof(bool)));
             thesaurusesTable.Columns.Add(new DataColumn("EntryDatetime", typeof(DateTime)));
             thesaurusesTable.Columns.Add(new DataColumn("LastUpdate", typeof(DateTime)));
+            thesaurusesTable.Columns.Add(new DataColumn("PreferredLanguage", typeof(string)));
+            thesaurusesTable.Columns.Add(new DataColumn("AdministrativeDataId", typeof(int)));
 
-
+            int i = 1;
             foreach (var thesaurus in thesauruses)
             {
                 DataRow thesaurusRow = thesaurusesTable.NewRow();
                 thesaurusRow["State"] = thesaurus.State;
                 thesaurusRow["IsDeleted"] = false;
-                thesaurusRow["EntryDatetime"] = DateTime.Now;
-                thesaurusRow["LastUpdate"] = DateTime.Now;
+                thesaurusRow["EntryDatetime"] = thesaurus.EntryDatetime;
+                thesaurusRow["LastUpdate"] = DBNull.Value;
+                thesaurusRow["PreferredLanguage"] = thesaurus.PreferredLanguage;
+                thesaurusRow["AdministrativeDataId"] = i;
                 thesaurusesTable.Rows.Add(thesaurusRow);
+                i++;
             }
 
 
@@ -240,6 +157,8 @@ namespace sReportsV2.SqlDomain.Implementations
             objbulk.ColumnMappings.Add("IsDeleted", "IsDeleted");
             objbulk.ColumnMappings.Add("EntryDateTime", "EntryDatetime");
             objbulk.ColumnMappings.Add("LastUpdate", "LastUpdate");
+            objbulk.ColumnMappings.Add("PreferredLanguage", "PreferredLanguage");
+            objbulk.ColumnMappings.Add("AdministrativeDataId", "AdministrativeDataId");
 
             con.Open();
             objbulk.WriteToServer(thesaurusesTable);
@@ -250,8 +169,14 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public List<int> GetLastBulkInserted(int size)
         {
-             return context.Thesauruses.OrderByDescending(x => x.EntryDatetime).Take(size).Select(x => x.Id).ToList();
+             return context.Thesauruses.OrderByDescending(x => x.EntryDatetime).Take(size).Select(x => x.ThesaurusEntryId).ToList();
             
+        }
+
+        public List<int> GetBulkInserted(int size)
+        {
+            return context.Thesauruses.OrderBy(x => x.ThesaurusEntryId).Take(size).Select(x => x.ThesaurusEntryId).ToList();
+
         }
         //End import thesaurus from UMLS section
 
@@ -265,7 +190,7 @@ namespace sReportsV2.SqlDomain.Implementations
 
             if (filterData != null)
             {
-                result = result.Where(x => (filterData.Id == 0 || x.Id.Equals(filterData.Id))
+                result = result.Where(x => (filterData.Id == 0 || x.ThesaurusEntryId.Equals(filterData.Id))
                         && (filterData.State == null || x.State == filterData.State)
                     );
                 if (!string.IsNullOrEmpty(filterData.PreferredTerm))
@@ -277,14 +202,13 @@ namespace sReportsV2.SqlDomain.Implementations
                 if (!string.IsNullOrEmpty(filterData.Abbreviation))
                 {
                     result = result
-                        .Where(x => x.Translations.Any(y => y.Abbreviations.Any(a => a.Contains(filterData.Abbreviation))));
+                        .Where(x => x.Translations.Any(y => !string.IsNullOrEmpty(y.AbbreviationsString) && y.AbbreviationsString.Contains(filterData.Abbreviation)));
                 }
-
 
                 if (!string.IsNullOrEmpty(filterData.Synonym))
                 {
                     result = result
-                        .Where(x => x.Translations.Any(y => y.Synonyms.Any(a => a.Contains(filterData.Synonym))));
+                        .Where(x => x.Translations.Any(y => !string.IsNullOrEmpty(y.SynonymsString) && y.SynonymsString.Contains(filterData.Synonym)));
                 }
             }
 
@@ -293,58 +217,32 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public List<ThesaurusEntry> GetAll(ThesaurusEntryFilterData filterData)
         {
-            return GetThesaurusEntriesFiltered(filterData)
-                .OrderByDescending(x => x.Id)
-                .Skip((filterData.Page - 1) * filterData.PageSize)
-                .Take(filterData.PageSize)
-                .ToList();
-        }
+            IQueryable<ThesaurusEntry> result = GetThesaurusEntriesFiltered(filterData);
 
-        public string InsertOrUpdate(ThesaurusEntry thesaurusEntry, UserData user)
-        {
-            if (thesaurusEntry.Id != 0)
-            {
-                UpdateThesaurusEntry(thesaurusEntry, user);
-            }
+            if (filterData.ColumnName != null)
+                result = SortByField(result, filterData);
             else
-            {
-                InsertThesaurusEntry(thesaurusEntry, user);
-            }
+                result = result.OrderByDescending(x => x.ThesaurusEntryId)
+                    .Skip((filterData.Page - 1) * filterData.PageSize)
+                    .Take(filterData.PageSize);
 
-            return thesaurusEntry.Id.ToString();
-        }
-
-        private void InsertThesaurusEntry(ThesaurusEntry thesaurusEntry, UserData user) 
-        {
-            thesaurusEntry.EntryDatetime = DateTime.Now;
-            thesaurusEntry.AdministrativeData = new AdministrativeData(user, thesaurusEntry.State);
-
-            context.Thesauruses.Add(thesaurusEntry);
-            context.SaveChanges();
-        }
-
-        private void UpdateThesaurusEntry(ThesaurusEntry thesaurusEntry, UserData user)
-        {
-            ThesaurusEntry entry = this.GetById(thesaurusEntry.Id);
-            MapThesaurusValues(entry, thesaurusEntry);
-            MapCodes(entry.Codes, thesaurusEntry.Codes);
-            entry.AdministrativeData = entry.AdministrativeData == null ? new AdministrativeData(user, ThesaurusState.Draft) : entry.AdministrativeData;
-            entry.AdministrativeData.UpdateVersionHistory(user, thesaurusEntry.State);
-            context.SaveChanges();
-
+            return result.ToList();
         }
 
         public bool ExistsThesaurusEntry(int id)
         {
-            return context.Thesauruses.Any(x => x.Id == id);
+            return context.Thesauruses.Any(x => x.ThesaurusEntryId == id);
         }
 
         public void Delete(int id)
         {
-            var entity = this.GetById(id);
-            entity.IsDeleted = true;
-            context.SaveChanges();
-
+            var fromDb = GetById(id);
+            if(fromDb != null)
+            {
+                fromDb.IsDeleted = true;
+                fromDb.SetLastUpdate();
+                context.SaveChanges();
+            }
         }
 
         public List<ThesaurusEntry> GetAllSimilar(ThesaurusReviewFilterData filter, string preferredTerm, string language)
@@ -368,7 +266,7 @@ namespace sReportsV2.SqlDomain.Implementations
                 .Include(x => x.AdministrativeData)
                 .Include(x => x.Codes)
                 .Include(x => x.AdministrativeData.VersionHistory)
-                .Where(x => !x.IsDeleted && x.Id != filter.Id && x.State == ThesaurusState.Production)
+                .Where(x => !x.IsDeleted && x.ThesaurusEntryId != filter.Id && x.State == ThesaurusState.Production)
                 .Where(x => x.Translations.Any(y => y.Language == language && y.PreferredTerm.Contains(preferredTerm)));
 
         }
@@ -388,7 +286,7 @@ namespace sReportsV2.SqlDomain.Implementations
                 .Include(x => x.AdministrativeData)
                 .Include(x => x.Codes)
                 .Include(x => x.AdministrativeData.VersionHistory)
-                .Where(x => thesaurusList.Contains(x.Id) && !x.IsDeleted)
+                .Where(x => thesaurusList.Contains(x.ThesaurusEntryId) && !x.IsDeleted)
                 .ToList();
         }
 
@@ -402,11 +300,75 @@ namespace sReportsV2.SqlDomain.Implementations
                 .Where(x => !x.IsDeleted)
                 .Where(z => z.Translations
                 .Any(y => y.Language.Equals(language) && y.PreferredTerm.Contains(searchValue)))
-                .OrderBy(x => x.Id)
+                .OrderBy(x => x.ThesaurusEntryId)
                 .Skip(page).Take(10)
                 .ToList()
                 .Select(m => m.GetPreferredTermByActiveLanguage(language))
                 .ToList();
+        }
+
+        public int GetIdByPreferredTerm(string prefferedTerm)
+        {
+            return context.ThesaurusEntryTranslations.Where(x => x.PreferredTerm == prefferedTerm)
+                .Select(x => x.ThesaurusEntryId).FirstOrDefault();
+        }
+
+        private IQueryable<ThesaurusEntry> SortByField(IQueryable<ThesaurusEntry> result, ThesaurusEntryFilterData filterData)
+        {
+            switch (filterData.ColumnName)
+            {
+                case AttributeNames.PreferredTerm:
+                    if (filterData.IsAscending)
+                        return result.ToList().OrderBy(x => x.GetPreferredTermByTranslationOrDefault("en", filterData.ActiveLanguage))
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                    else
+                        return result.ToList().OrderByDescending(x => x.GetPreferredTermByTranslationOrDefault("en", filterData.ActiveLanguage))
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                case AttributeNames.Definition:
+                    if (filterData.IsAscending)
+                        return result.ToList().OrderBy(x => x.GetDefinitionByTranslationOrDefault("en", filterData.ActiveLanguage))
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                    else
+                        return result.ToList().OrderByDescending(x => x.GetDefinitionByTranslationOrDefault("en", filterData.ActiveLanguage))
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                case AttributeNames.State:
+                    string draft = filterData.ThesaurusStates[(int)ThesaurusState.Draft];
+                    string production = filterData.ThesaurusStates[(int)ThesaurusState.Production];
+                    string deprecated = filterData.ThesaurusStates[(int)ThesaurusState.Deprecated];
+                    string disabled = filterData.ThesaurusStates[(int)ThesaurusState.Disabled];
+                    string curated = filterData.ThesaurusStates[(int)ThesaurusState.Curated];
+                    string uncurated = filterData.ThesaurusStates[(int)ThesaurusState.Uncurated];
+                    string metadataIncomplete = filterData.ThesaurusStates[(int)ThesaurusState.MetadataIncomplete];
+                    string requiresDiscussion = filterData.ThesaurusStates[(int)ThesaurusState.RequiresDiscussion];
+                    string pendingFinalVetting = filterData.ThesaurusStates[(int)ThesaurusState.PendingFinalVetting];
+                    string readyForRelease = filterData.ThesaurusStates[(int)ThesaurusState.ReadyForRelease];
+                    string toBeReplacedWithExternalOntologyTerm = filterData.ThesaurusStates[(int)ThesaurusState.ToBeReplacedWithExternalOntologyTerm];
+                    string organizationalTerm = filterData.ThesaurusStates[(int)ThesaurusState.OrganizationalTerm];
+                    string exampleToBeEventuallyRemoved = filterData.ThesaurusStates[(int)ThesaurusState.ExampleToBeEventuallyRemoved];
+                    
+                    if (filterData.IsAscending)
+                        return result.OrderBy(x => (int)x.State == 0 ? draft : (int)x.State == 1 ? production : (int)x.State == 2 ? deprecated : (int)x.State == 3 ? disabled :
+                                (int)x.State == 4 ? curated : (int)x.State == 5 ? uncurated : (int)x.State == 6 ? metadataIncomplete : (int)x.State == 7 ? requiresDiscussion :
+                                (int)x.State == 8 ? pendingFinalVetting : (int)x.State == 9 ? readyForRelease :
+                                (int)x.State == 10 ? toBeReplacedWithExternalOntologyTerm : (int)x.State == 11 ? organizationalTerm : exampleToBeEventuallyRemoved)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize);
+                    else
+                        return result.OrderByDescending(x => (int)x.State == 0 ? draft : (int)x.State == 1 ? production : (int)x.State == 2 ? deprecated : (int)x.State == 3 ? disabled :
+                                (int)x.State == 4 ? curated : (int)x.State == 5 ? uncurated : (int)x.State == 6 ? metadataIncomplete : (int)x.State == 7 ? requiresDiscussion :
+                                (int)x.State == 8 ? pendingFinalVetting : (int)x.State == 9 ? readyForRelease :
+                                (int)x.State == 10 ? toBeReplacedWithExternalOntologyTerm : (int)x.State == 11 ? organizationalTerm : exampleToBeEventuallyRemoved)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize);
+                default:
+                    return SortTableHelper.OrderByField(result, filterData.ColumnName, filterData.IsAscending)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize);
+            }
         }
     }
 }

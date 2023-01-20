@@ -23,7 +23,7 @@ namespace sReportsV2.Initializer
             "Citizenship Card", "Cost Center number", "Country number", "Death Certificate File Number", "Death Certificate ID", "Dentist license number", "Diner's Club card",
             "Diplomatic Passport", "Discover Card", "Doctor number", "Donor Registration Number", "Driver's Licence", "Drug Enforcement Administration registration number",
             "Drug Furnishing or prescriptive authority Number", "Employee number", "Facility ID", "Fetal Death Report File Number", "Fetal Death Report ID", "Filler Identifier",
-            "General ledger number", "Guarantor external identifier", "Guarantor internal identifier", "Health Card Number", "Health Plan Identifier", "Indigenous/Aboriginal",
+            "General ledger number", "Guarantor external identifier", "Guarantor internal identifier", "Health Card Number", "Health Plan Identifier", "Indigenous/Aboriginal", "Insel PID",
             "Jurisdictional health number (Canada)", "Labor and industries number", "Laboratory Accession ID", "License number", "Lifelong physician number", "Living Subject Enterprise Number",
             "Local Registry ID", "Marriage Certificate", "Master Card", "Medical License number", "Medical Record Number", "Medicare/CMS (formerly HCFA)'s Universal Physician Identification numbers",
             "Medicare/CMS Performing Provider Identification Number", "Member Number", "Microchip Number", "Military ID number", "National Health Plan Identifier", "National Insurance Organization Identifier",

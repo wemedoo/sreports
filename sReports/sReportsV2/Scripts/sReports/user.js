@@ -1,29 +1,16 @@
-﻿$(document).on('focus', '.user-input', function (e) {
+﻿$(document).on('focus', '.user-input, .password-input', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    var user = document.getElementById("userIcon");
-    user.style.borderRight = "solid 1px #4dbbc8";
+    $(this)
+        .removeClass("error")
+        .siblings(".login-input-icon").css("border-right", "solid 1px #4dbbc8");
+    $(this).siblings(".login-error").remove();
 })
 
-$(document).on('blur', '.user-input', function (e) {
+$(document).on('blur', '.user-input, .password-input', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    var user = document.getElementById("userIcon");
-    user.style.borderRight = "solid 1px #e5e5e5";
-})
-
-$(document).on('focus', '.password-input', function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    var password = document.getElementById("passwordIcon");
-    password.style.borderRight = "solid 1px #4dbbc8";
-})
-
-$(document).on('blur', '.password-input', function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    var password = document.getElementById("passwordIcon");
-    password.style.borderRight = "solid 1px #e5e5e5";
+    $(e.target).siblings(".login-input-icon").css("border-right", "solid 1px #e5e5e5");
 })
 
 function forgotPassword() {
@@ -33,8 +20,8 @@ function forgotPassword() {
 function generatePassword(e, email, goToLogin) {
     e.preventDefault();
     e.stopPropagation();
-    var userEmail = validateEmail(email);
-    if (userEmail == true) {
+    var valid = validateEmail(email);
+    if (valid) {
         $.ajax({
             type: "POST",
             url: `/User/GeneratePassword?Email=${email}`,
@@ -52,8 +39,14 @@ function generatePassword(e, email, goToLogin) {
             }
         });
     }
-    else
-        $("#userEmail").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter valid email address</div>");
+    else {
+        showGeneratePasswordErrors();
+    }
+}
+
+function showGeneratePasswordErrors() {
+    $(".login-error").html("Please enter valid email address");
+    $(".login-input").addClass("error");
 }
 
 function validateEmail(email) {
@@ -61,10 +54,14 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-$(document).ready(function () {
-    /*let timeZone = -(new Date().getTimezoneOffset() / 60);
-    console.log(timeZone);*/
+$(document).on('focus', '.forgot-password-input', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).removeClass("error");
+    $(this).siblings(".login-error").html("");
+})
 
+$(document).ready(function () {
     $("#timeZone").val(Intl.DateTimeFormat().resolvedOptions().timeZone);
 });
 

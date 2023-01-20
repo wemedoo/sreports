@@ -1,36 +1,35 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
+using sReportsV2.Common.Constants;
+using sReportsV2.Common.Entities.User;
+using sReportsV2.Common.Enums;
+using sReportsV2.Common.Enums.DocumentPropertiesEnums;
+using sReportsV2.Common.Extensions;
+using sReportsV2.Common.Helpers;
 using sReportsV2.Domain.Entities;
-using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Entities.DocumentProperties;
-using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Common.Enums;
-using sReportsV2.Domain.Exceptions;
-using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Mongo;
 using sReportsV2.Domain.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using sReportsV2.Common.Extensions;
-using sReportsV2.Common.Enums.DocumentPropertiesEnums;
-using sReportsV2.Common.Entities.User;
 
 namespace sReportsV2.Domain.Services.Implementations
 {
     public class FormDAL : IFormDAL
     {
         private readonly IMongoCollection<Form> Collection;
+        private readonly IMongoCollection<FormInstance> FormInstanceCollection;
+
         public FormDAL()
         {
             IMongoDatabase MongoDatabase = MongoDBInstance.Instance.GetDatabase();
             Collection = MongoDatabase.GetCollection<Form>("form");
+            FormInstanceCollection = MongoDatabase.GetCollection<FormInstance>("forminstance");
         }
 
         public bool ExistsForm(string id)
@@ -40,14 +39,17 @@ namespace sReportsV2.Domain.Services.Implementations
 
         public List<Form> GetAll(FormFilterData filterData)
         {
-            IQueryable<Form> result = this.GetFormsFiltered(filterData)
-                .OrderByDescending(x => x.EntryDatetime);
+            IQueryable<Form> result = GetFormsFiltered(filterData);
+
             if (filterData != null)
             {
-                result = result
-                    .Skip((filterData.Page - 1) * filterData.PageSize)
-                    .Take(filterData.PageSize);
+                if (filterData.ColumnName != null)
+                    result = SortByField(result, filterData);
+                else
+                    result = result.Skip((filterData.Page - 1) * filterData.PageSize)
+                        .Take(filterData.PageSize);
             }
+
             return result.ToList();
         }
 
@@ -59,16 +61,13 @@ namespace sReportsV2.Domain.Services.Implementations
                                    {
                                        Domain = x.DocumentProperties.ClinicalDomain,
                                        Count = x.DocumentsCount
-
-
                                    })
                                    .ToList()
                                    .GroupBy(x => x.Domain)
                                     .Select(x => new FormInstancePerDomain()
                                     {
                                         Domain = x.Key,
-                                        Count = x.Sum(s => s.Count)
-
+                                        Count = x.Count()
                                     })
                                     .ToList();
             return result.Where(x => x.Count != 0).ToList();
@@ -98,51 +97,42 @@ namespace sReportsV2.Domain.Services.Implementations
         {
             Form formForDelete = GetForm(formId);
             Entity.DoConcurrencyCheckForDelete(formForDelete);
-            formForDelete.DoConcurrencyCheck(lastUpdate);
+            formForDelete.DoConcurrencyBeforeDeleteCheck(lastUpdate);
 
             var filter = Builders<Form>.Filter.Eq(x => x.Id, formId);
             var update = Builders<Form>.Update.Set(x => x.IsDeleted, true).Set(x => x.LastUpdate, DateTime.Now);
             return Collection.UpdateOne(filter, update).IsAcknowledged;
         }
 
-        public List<Form> GetDocumentsByThesaurusAppeareance(int o4mtId)
+        public List<Form> GetFilteredDocumentsByThesaurusAppeareance(int o4mtId, string searchTerm, int thesaurusPageNum, int? organizationId)
         {
-            return GetThesaurusAppereance(o4mtId).ToList();
-        }
-
-        public List<Form> GetFilteredDocumentsByThesaurusAppeareance(int o4mtId, string searchTerm, int thesaurusPageNum)
-        {
-            return GetThesaurusAppereance(o4mtId, searchTerm)
+            return GetThesaurusAppereance(o4mtId, searchTerm, organizationId)
                   .Skip(thesaurusPageNum).Take(15).ToList();
         }
 
-        public long GetThesaurusAppereanceCount(int o4mtId, string searchTerm)
+        public long GetThesaurusAppereanceCount(int o4mtId, string searchTerm, int? organizationId = null)
         {
-            return GetThesaurusAppereance(o4mtId, searchTerm).Count();
+            return GetThesaurusAppereance(o4mtId, searchTerm, organizationId).Count();
         }
 
         public Form InsertOrUpdate(Form form, UserData user, bool updateVersion = true)
         {
             form = Ensure.IsNotNull(form, nameof(form));
             user = Ensure.IsNotNull(user, nameof(user));
+            form.ThesaurusIdsList = form.GetAllThesaurusIds().Distinct().ToList();
 
             if (string.IsNullOrEmpty(form.Id))
             {
-                form.EntryDatetime = DateTime.Now;
-                form.LastUpdate = DateTime.Now;
                 form.Version.Id = updateVersion ? Guid.NewGuid().ToString() : form.Version.Id;
-                form.SetWorkflow(user, form.State);
+                form.Copy(user, null);
 
                 Collection.InsertOne(form);
             }
             else
             {
                 Form formForUpdate = Collection.AsQueryable().FirstOrDefault(x => x.Id.Equals(form.Id));
-                formForUpdate.DoConcurrencyCheck(form.LastUpdate.Value);               
-                form.EntryDatetime = formForUpdate.EntryDatetime;
-                form.LastUpdate = DateTime.Now;
-                form.WorkflowHistory = formForUpdate.WorkflowHistory ?? new List<FormStatus>();
-                form.SetWorkflow(user, form.State);
+                formForUpdate.DoConcurrencyCheck(form.LastUpdate.Value);
+                form.Copy(user, formForUpdate);
 
                 form.DocumentsCount = formForUpdate.DocumentsCount;
                 var filter = Builders<Form>.Filter.Where(s => s.Id.Equals(form.Id));
@@ -175,7 +165,7 @@ namespace sReportsV2.Domain.Services.Implementations
                 .FirstOrDefault();
         }
 
-        public long GetFormByThesaurusAndLanguageAndVersionAndOrganizationCount(string thesaurusId, int organizationId, string activeLanguage, sReportsV2.Domain.Entities.Form.Version version)
+        public long GetFormByThesaurusAndLanguageAndVersionAndOrganizationCount(int thesaurusId, int organizationId, string activeLanguage, sReportsV2.Domain.Entities.Form.Version version)
         {
             return Collection
                 .Find(x => !x.IsDeleted
@@ -200,12 +190,6 @@ namespace sReportsV2.Domain.Services.Implementations
         public List<Form> GetByEntryDatetime(DateTime entryDatetime)
         {
             return Collection.AsQueryable().Where(x => x.EntryDatetime >= entryDatetime).ToList();
-        }
-
-        public List<Form> GetDistinctThesaurus(FormFilterData filterData)
-        {
-
-            return Collection.AsQueryable().ToList();
         }
 
         public List<Form> GetAllByOrganization(int organization, int limit, int offset)
@@ -261,7 +245,7 @@ namespace sReportsV2.Domain.Services.Implementations
                 .Where(x => x.OrganizationId == organization)
                 .Where(x => x.Language == language)
                 .Where(x => x.State == FormDefinitionState.ReadyForDataCapture)
-                .Where(x => string.IsNullOrEmpty(name) || x.Title.ToLower().StartsWith(name.ToLower()))
+                .Where(x => (string.IsNullOrEmpty(name) || x.Title.ToLower().StartsWith(name.ToLower())))
                 .OrderBy(x => x.Title).
                 Select(x => new Form()
                 {
@@ -280,7 +264,7 @@ namespace sReportsV2.Domain.Services.Implementations
                     && x.OrganizationId == organization
                     && x.Language == language
                     && x.State == FormDefinitionState.ReadyForDataCapture
-                    && string.IsNullOrEmpty(name) || x.Title.ToLower().StartsWith(name.ToLower()))
+                    && (string.IsNullOrEmpty(name) || x.Title.ToLower().StartsWith(name.ToLower())))
                 .SortBy(x => x.Title)
                 .Project(x => new Form()
                 {
@@ -299,12 +283,12 @@ namespace sReportsV2.Domain.Services.Implementations
                 .Count();
         }
 
-        public bool ExistsFormByThesaurusAndLanguage(string thesaurusId, string language)
+        public bool ExistsFormByThesaurusAndLanguage(int thesaurusId, string language)
         {
             return Collection.AsQueryable().Any(x => !x.IsDeleted && x.ThesaurusId.Equals(thesaurusId) && x.Language.Equals(language));
         }
 
-        public List<Form> GetFormsByThesaurusAndLanguageAndOrganization(string thesaurus, int organizationId, string activeLanguage)
+        public List<Form> GetFormsByThesaurusAndLanguageAndOrganization(int thesaurus, int organizationId, string activeLanguage)
         {
             return Collection.AsQueryable()
                            .Where(x => !x.IsDeleted
@@ -314,7 +298,7 @@ namespace sReportsV2.Domain.Services.Implementations
                            .ToList();
         }
 
-        public Form GetFormWithGreatestVersion(string thesaurusId, int activeOrganization, string activeLanguage)
+        public Form GetFormWithGreatestVersion(int thesaurusId, int activeOrganization, string activeLanguage)
         {
             List<Form> forms = this.GetFormsByThesaurusAndLanguageAndOrganization(thesaurusId, activeOrganization, activeLanguage);
             Form result =forms != null && forms.Count > 0 ? forms[0] : null;
@@ -348,7 +332,7 @@ namespace sReportsV2.Domain.Services.Implementations
 
         public bool ThesaurusExist(int thesaurusId)
         {
-            return GetDocumentsByThesaurusAppeareance(thesaurusId).Count > 1;
+            return GetDocumentsByThesaurusAppeareance(thesaurusId).Count > 0;
         }
 
         public List<Form> GetByFormIdsList(List<string> ids)
@@ -370,27 +354,35 @@ namespace sReportsV2.Domain.Services.Implementations
                              .ToList();
         }
 
-        private IEnumerable<Form> GetThesaurusAppereance(int o4mtId, string searchTerm = null)
+        public List<Form> GetAllWithEmptyThesaurusIdsList()
         {
-            //var filter = Builders<Form>.Filter.Where(x => x.ThesaurusId == o4mtId
-            //|| x.Chapters.Any(c => c.ThesaurusId == o4mtId 
-            //    || c.Pages.Any(p => p.ThesaurusId == o4mtId || p.ListOfFieldSets.Any(lfs => lfs.Any(fs => fs.ThesaurusId == o4mtId)))));
+            return Collection.AsQueryable().Where(x => x.ThesaurusIdsList == null).ToList();
+        }
 
-            var filter = Builders<Form>.Filter.Eq("ThesaurusId", o4mtId) |
-                         Builders<Form>.Filter.Eq("Chapters.ThesaurusId", o4mtId) |
-                         Builders<Form>.Filter.Eq("Chapters.Pages.ThesaurusId", o4mtId) |
-                         Builders<Form>.Filter.Eq("Chapters.Pages.ListOfFieldSets.0.ThesaurusId", o4mtId) |
-                         Builders<Form>.Filter.Eq("Chapters.Pages.ListOfFieldSets.0.Fields.ThesaurusId", o4mtId);
+        private List<Form> GetDocumentsByThesaurusAppeareance(int o4mtId)
+        {
+            return GetThesaurusAppereance(o4mtId).ToList();
+        }
 
-            return Collection.Find(filter).ToList();
-
+        private IEnumerable<Form> GetThesaurusAppereance(int o4mtId, string searchTerm = null, int? organizationId = null)
+        {
+            var result = Collection.AsQueryable().Where(x => !x.IsDeleted && x.ThesaurusIdsList.Contains(o4mtId));
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                result = result.Where(x => x.Title != null && x.Title.ToUpper().Contains(searchTerm.ToUpper()));
+            }
+            if (organizationId.HasValue)
+            {
+                result = result.Where(x => x.OrganizationId == organizationId);
+            }
+            return result;  
         }
 
         private IQueryable<Form> GetFormsFiltered(FormFilterData filterData)
         {
             IQueryable<Form> result = Collection.AsQueryable(new AggregateOptions() { AllowDiskUse = true }).Where(x => !x.IsDeleted /*&& x.State.Equals(Enums.FormDefinitionState.ReadyForDataCapture)*/);
             if (filterData != null)
-            {
+            {                
                 result = result.Where(x => x.Language != null && x.Language.Equals(filterData.ActiveLanguage)
                         && x.OrganizationId == filterData.OrganizationId
                         && (filterData.AdministrativeContext == null || (x.DocumentProperties != null && x.DocumentProperties.AdministrativeContext == filterData.AdministrativeContext))
@@ -407,10 +399,17 @@ namespace sReportsV2.Domain.Services.Implementations
                         && (filterData.DateTimeFrom == null || x.EntryDatetime > filterData.DateTimeFrom)
 
                    );
-                var test = result.ToList();
                 if (!string.IsNullOrWhiteSpace(filterData.Title))
                 {
-                    result = result.Where(x => x.Title.ToLower().StartsWith(filterData.Title.ToLower()));
+                    result = result.Where(x => x.Title.ToLower().Contains(filterData.Title.ToLower()));
+                }
+
+                if (!string.IsNullOrWhiteSpace(filterData.Content))
+                {
+                    string content = filterData.Content.RemoveDiacritics().ToLower();
+                    List<string> formDefinitionIds = GetFormDefinitonIdsByFormInstanceContent(content);
+
+                    result = result.Where(x => formDefinitionIds.Contains(x.Id));
                 }
 
             }
@@ -418,6 +417,150 @@ namespace sReportsV2.Domain.Services.Implementations
             return result;
         }
 
-        
+        public List<BsonDocument> GetPlottableFields(string formId)
+        {
+            var matchStage = new BsonDocument("_id", new ObjectId(formId));
+
+            var projectStage1 = new BsonDocument("ListOfFieldSets",
+                                    new BsonDocument("$reduce",
+                                    new BsonDocument
+                                                {
+                                                    { "input", "$Chapters.Pages.ListOfFieldSets" },
+                                                    { "initialValue",
+                                    new BsonArray() },
+                                                    { "in",
+                                    new BsonDocument("$concatArrays",
+                                    new BsonArray
+                                                        {
+                                                            "$$value",
+                                                            "$$this"
+                                                        }) }
+                                                }));
+
+            var projectStage2 = new BsonDocument("ListOfFieldSets",
+                                    new BsonDocument("$reduce",
+                                    new BsonDocument
+                                                {
+                                                    { "input", "$ListOfFieldSets" },
+                                                    { "initialValue",
+                                    new BsonArray() },
+                                                    { "in",
+                                    new BsonDocument("$concatArrays",
+                                    new BsonArray
+                                                        {
+                                                            "$$value",
+                                                            "$$this"
+                                                        }) }
+                                                }));
+
+            var projectStage3 = new BsonDocument("Fields",
+                                    new BsonDocument("$reduce",
+                                    new BsonDocument
+                                                {
+                                                    { "input", "$ListOfFieldSets.Fields" },
+                                                    { "initialValue",
+                                    new BsonArray() },
+                                                    { "in",
+                                    new BsonDocument("$concatArrays",
+                                    new BsonArray
+                                                        {
+                                                            "$$value",
+                                                            "$$this"
+                                                        }) }
+                                                }));
+
+            var projectStage4 = new BsonDocument
+                                        {
+                                            { "_id", 0 },
+                                            { "Fields",
+                                    new BsonDocument("$filter",
+                                    new BsonDocument
+                                                {
+                                                    { "input", "$Fields" },
+                                                    { "as", "field" },
+                                                    { "cond",
+                                    new BsonDocument("$gte",
+                                    new BsonArray
+                                                        {
+                                                            "$$field.Values",
+                                                            BsonNull.Value
+                                                        }) }
+                                                }) }};
+
+            var matchFinalStage = new BsonDocument("Fields.Values",
+                new BsonDocument("$elemMatch",
+                new BsonDocument("NumericValue",
+                new BsonDocument("$ne", BsonNull.Value))));
+
+            return Collection.Aggregate()
+                .Match(matchStage)
+                .Project(projectStage1)
+                .Project(projectStage2)
+                .Project(projectStage2)
+                .Project(projectStage3)
+                .Unwind<BsonDocument>("Fields")
+                .Match(matchFinalStage).ToList();
+        }
+
+        private IQueryable<Form> SortByField(IQueryable<Form> result, FormFilterData filterData)
+        {
+            switch (filterData.ColumnName)
+            {
+                case AttributeNames.Version:
+                    if (filterData.IsAscending)
+                        return result.OrderBy(x => x.Version.Major)
+                                .ThenBy(x => x.Version.Minor)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize);
+                    else
+                        return result.OrderByDescending(x => x.Version.Major)
+                                .ThenByDescending(x => x.Version.Minor)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize);
+                case AttributeNames.Title:
+                    if (filterData.IsAscending)
+                        return result.ToList().OrderBy(x => x.Title)
+                                .ThenBy(x => x.Version.Minor)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                    else
+                        return result.ToList().OrderByDescending(x => x.Title)
+                                .ThenByDescending(x => x.Version.Minor)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                case AttributeNames.State:
+                    string designPending = filterData.FormStates[(int)FormDefinitionState.DesignPending];
+                    string design = filterData.FormStates[(int)FormDefinitionState.Design];
+                    string reviewPending = filterData.FormStates[(int)FormDefinitionState.ReviewPending];
+                    string review = filterData.FormStates[(int)FormDefinitionState.Review];
+                    string readyForDataCapture = filterData.FormStates[(int)FormDefinitionState.ReadyForDataCapture];
+                    string archive = filterData.FormStates[(int)FormDefinitionState.Archive];
+
+                    if (filterData.IsAscending)               
+                        return result.ToList().OrderBy(x => (int)x.State == 0 ? designPending : (int)x.State == 1 ? design : (int)x.State == 2 ? reviewPending :
+                                (int)x.State == 3 ? review : (int)x.State == 4 ? readyForDataCapture : archive)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                    else
+                        return result.ToList().OrderByDescending(x => (int)x.State == 0 ? designPending : (int)x.State == 1 ? design : (int)x.State == 2 ? reviewPending :
+                                (int)x.State == 3 ? review : (int)x.State == 4 ? readyForDataCapture : archive)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize).AsQueryable();
+                default:
+                    return SortTableHelper.OrderByField(result, filterData.ColumnName, filterData.IsAscending)
+                                .Skip((filterData.Page - 1) * filterData.PageSize)
+                                .Take(filterData.PageSize);
+            }
+        }
+
+        private List<string> GetFormDefinitonIdsByFormInstanceContent(string content)
+        {
+            IQueryable<FormInstance> result = FormInstanceCollection.AsQueryable(new AggregateOptions() { AllowDiskUse = true });
+
+            FilterDefinition<FormInstance> contentFilter = Builders<FormInstance>.Filter.Text(content.PrepareForMongoStrictTextSearch());  
+            return result
+                .Where(x => contentFilter.Inject())
+                .Select(x => x.FormDefinitionId).Distinct().ToList();
+        }
     }
 }

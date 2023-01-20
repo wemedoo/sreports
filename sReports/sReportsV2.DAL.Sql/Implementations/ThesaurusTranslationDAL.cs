@@ -25,7 +25,7 @@ namespace sReportsV2.SqlDomain.Implementations
                      .SelectMany(x => x.Translations.Select(z => new TranslationBulkInfo()
                      {
                          Id = z.Id,
-                         ThesaurusId = x.Id
+                         ThesaurusId = x.ThesaurusEntryId
                      })).ToList();
             }
 
@@ -39,6 +39,8 @@ namespace sReportsV2.SqlDomain.Implementations
             translationTable.Columns.Add(new DataColumn("Definition", typeof(string)));
             translationTable.Columns.Add(new DataColumn("PreferredTerm", typeof(string)));
             translationTable.Columns.Add(new DataColumn("ThesaurusEntryId", typeof(int)));
+            translationTable.Columns.Add(new DataColumn("SynonymsString", typeof(string)));
+            translationTable.Columns.Add(new DataColumn("AbbreviationsString", typeof(string)));
 
             int i = 0;
             foreach (var thesaurus in thesauruses)
@@ -50,6 +52,8 @@ namespace sReportsV2.SqlDomain.Implementations
                     translationRow["Definition"] = translation.Definition;
                     translationRow["PreferredTerm"] = translation.PreferredTerm;
                     translationRow["ThesaurusEntryId"] = bulkedThesauruses[i];
+                    translationRow["SynonymsString"] = translation.SynonymsString;
+                    translationRow["AbbreviationsString"] = translation.AbbreviationsString;
 
                     translationTable.Rows.Add(translationRow);
                 }
@@ -67,6 +71,8 @@ namespace sReportsV2.SqlDomain.Implementations
             objbulk.ColumnMappings.Add("Definition", "Definition");
             objbulk.ColumnMappings.Add("PreferredTerm", "PreferredTerm");
             objbulk.ColumnMappings.Add("ThesaurusEntryId", "ThesaurusEntryId");
+            objbulk.ColumnMappings.Add("SynonymsString", "SynonymsString");
+            objbulk.ColumnMappings.Add("AbbreviationsString", "AbbreviationsString");
 
             con.Open();
             objbulk.WriteToServer(translationTable);

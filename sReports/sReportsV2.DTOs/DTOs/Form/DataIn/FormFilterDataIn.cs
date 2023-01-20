@@ -11,6 +11,7 @@ namespace sReportsV2.DTOs.Form
 {
     public class FormFilterDataIn : Common.DataIn
     {
+        public string Content { get; set; }
         public string Title { get; set; }
         public int ThesaurusId { get; set; }
         public FormDefinitionState? State { get; set; }
@@ -36,6 +37,8 @@ namespace sReportsV2.DTOs.Form
 
         public DateTime? DateTimeTo { get; set; }
         public DateTime? DateTimeFrom { get; set; }
+        public List<string> FormStates { get; set; } = new List<string>();
+
 
     }
 }

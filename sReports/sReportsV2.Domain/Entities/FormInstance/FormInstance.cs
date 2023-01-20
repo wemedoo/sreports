@@ -5,11 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using sReportsV2.Common.Enums;
-using sReportsV2.Domain.Entities.PatientEntities;
-using sReportsV2.Domain.Extensions;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.FormValues;
 using sReportsV2.Common.Extensions;
+using sReportsV2.Domain.Services.Implementations;
 
 namespace sReportsV2.Domain.Entities.FormInstance
 {
@@ -41,6 +40,7 @@ namespace sReportsV2.Domain.Entities.FormInstance
         public int OrganizationId { get; set; }
 
         public int PatientId { get; set; }
+        public List<FormInstanceStatus> WorkflowHistory { get; set; }
 
         public FormInstance() { }
         public FormInstance(Form.Form form)
@@ -51,18 +51,24 @@ namespace sReportsV2.Domain.Entities.FormInstance
             this.Title = form.Title;
             this.Version = form.Version;
             this.EntryDatetime = form.EntryDatetime;
-            this.LastUpdate = DateTime.Now;
             this.Language = form.Language;
             this.DocumentProperties = form.DocumentProperties;
             this.ThesaurusId = form.ThesaurusId;
+            SetLastUpdate();
         }
-        
 
-
-        /*public Field GetFieldByThesaurus(string thesaurusId)
+        public void Copy(FormInstance entity, FormInstanceStatus formInstanceStatus)
         {
-            return GetAllFields().Where(x => x.ThesaurusId.Equals(thesaurusId)).FirstOrDefault();
-        }*/
+            base.Copy(entity);
+            this.WorkflowHistory = entity?.WorkflowHistory ?? new List<FormInstanceStatus>();
+            this.SetWorkflow(formInstanceStatus);
+        }
+
+        public Field GetFieldByThesaurus(int thesaurusId)
+        {
+            return GetAllFields().Where(x => x.ThesaurusId == thesaurusId).FirstOrDefault();
+        }
+
         public List<FieldSet> GetAllFieldSets(Form.Form formm)
         {
             Form.Form form = new Form.Form(this, formm);
@@ -74,10 +80,10 @@ namespace sReportsV2.Domain.Entities.FormInstance
                         ).ToList();
         }
 
-        /*public List<Field> GetAllFields()
+        public List<Field> GetAllFields()
         {
             //problem!
-            FormService service = new FormService();
+            FormDAL service = new FormDAL();
             Form.Form form = new Form.Form(this, service.GetForm(this.FormDefinitionId));
             return form.Chapters
                         .SelectMany(chapter => chapter.Pages
@@ -88,7 +94,7 @@ namespace sReportsV2.Domain.Entities.FormInstance
                                 )
                             )
                         ).ToList();
-        }*/
+        }
 
         public void SetValueByThesaurusId(int thesaurusId, string value)
         {
@@ -129,5 +135,24 @@ namespace sReportsV2.Domain.Entities.FormInstance
             }
         }
 
+        private void SetWorkflow(FormInstanceStatus formInstanceStatus)
+        {
+            if(formInstanceStatus != null)
+            {
+                WorkflowHistory.Add(formInstanceStatus);
+            }
+        }
+
+        public FormInstanceStatus GetCurrentFormInstanceStatus(int? userId, bool isSigned = false)
+        {
+            FormInstanceStatus formInstanceStatus = null;
+
+            if (userId.HasValue)
+            {
+                formInstanceStatus = new FormInstanceStatus(FormState.Value, userId.Value, isSigned);
+            }
+
+            return formInstanceStatus;
+        }
     }
 }

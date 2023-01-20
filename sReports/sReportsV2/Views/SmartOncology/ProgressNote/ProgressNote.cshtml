@@ -1,0 +1,72 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchemaInstance.DataOut;
+@model ChemotherapySchemaInstanceDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Chemotherapy_Prescription_Progress_Note;
+    var patientName = Model != null && Model.Patient != null ? Model.Patient.GetName() : "";
+    var patientId = Model != null && Model.Patient != null ? Model.Patient.Id : 0;
+    var schemaName = Model != null && Model.ChemotherapySchema != null ? Model.ChemotherapySchema.Name : "";
+}
+
+@if (Model.IsNotPreview())
+{
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Chemotherapy_Prescription_Progress_Note }, { "activeLevel", 1 } })
+}
+else
+{
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Chemotherapy_Prescription_Progress_Note }, { "linkLevel1", "/SmartOncology/ProgressNote" }, { "level2", patientName }, { "linkLevel2", "/SmartOncology/BasicPatientDataOncology" + (patientId > 0 ? string.Format("?selectedPatientId={0}", patientId) : "") }, { "level3", schemaName }, { "activeLevel", 3 } })
+}
+
+@section Stylesheet {
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/open-oncology/scss/style.css")
+}
+
+<div class="smart-oncology-wrapper">
+    <!-- Start .history-wrapper -->
+    <div class="history">
+        <!-- //////// Start - Hidden on tablet //////// -->
+        <div class="history-nav hidden-md">
+            <div class="history-nav-title">
+                <img src="~/Content/open-oncology/images/icons/medications.svg" alt="Medications icon">
+                @sReportsV2.Resources.TextLanguage.History_sheet
+            </div>
+            <a href="#" class="history-nav-comments" onclick="event.preventDefault();">
+                <img src="~/Content/open-oncology/images/icons/coom-icon.svg" alt="Comments icon">
+                @sReportsV2.Resources.TextLanguage.Comments
+            </a>
+        </div>
+        <!-- //////// End - Hidden on tablet //////// -->
+        <!-- //////// Start - Visible on tablet //////// -->
+        @Html.Partial("ProgressNote/ProgressNotePatientHeaderMobile", Model)
+        <!-- //////// End - Visible on tablet //////// -->
+        <!-- Start .history-body -->
+        <div class="history-body">
+            <!-- //////// Start - Hidden on tablet //////// -->
+            <a class="arrow-right toggle hidden-md">
+                <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="//www.w3.org/2000/svg">
+                    <path d="M1.06245 7.12167L16.2293 7.12168L12.7356 10.6073C12.417 10.9259 12.417 11.4425 12.7356 11.7611C13.0542 12.0796 13.5707 12.0796 13.8893 11.7611L18.7643 6.88605C18.8324 6.81658 18.885 6.73351 18.9187 6.6423C18.9734 6.53986 19.0013 6.42528 19 6.30918L19 6.22793C18.9951 6.15876 18.9815 6.0905 18.9593 6.0248C18.9639 5.99791 18.9639 5.97044 18.9593 5.94355C18.9228 5.85374 18.8705 5.77119 18.805 5.6998L13.93 0.8248C13.7774 0.670984 13.5697 0.584464 13.3531 0.584464C13.1364 0.584464 12.9288 0.670984 12.7762 0.8248C12.6224 0.97736 12.5359 1.18503 12.5359 1.40167C12.5359 1.61832 12.6224 1.82599 12.7762 1.97855L16.2293 5.49668L1.06245 5.49667C0.613722 5.49667 0.249953 5.86044 0.249953 6.30917C0.249953 6.75791 0.613722 7.12167 1.06245 7.12167Z" fill="#1C94A3" />
+                </svg>
+            </a>
+            <!-- //////// End - Hidden on tablet //////// -->
+            <!-- //////// Start - Hidden on tablet //////// -->
+            @Html.Partial("ProgressNote/ProgressNotePatientHeader", Model)
+            <!-- //////// End - Hidden on tablet //////// -->
+            <div id="schemaData" class="history-data">
+                @if (!Model.IsNotPreview())
+                {
+                    @Html.Partial("ProgressNote/ViewSchemaData", Model.SchemaTableData)
+                }
+            </div>
+        </div>
+        <!-- End .history-body -->
+    </div>
+    <!-- End .history-wrapper -->
+    @Html.Partial("ProgressNote/AddAllergyModal")
+</div>
+<!-- Chart js -->
+@Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js")
+<!--Custom script -->
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/progressNote.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaInstance.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaInstanceMedication.js")

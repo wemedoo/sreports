@@ -1,5 +1,5 @@
 ﻿function redirectToCreate() {
-    window.location.href = `/Form/CreateForm`;
+    window.location.href = `/Form/Create`;
 }
 
 function editEntity(event, thesaurusId, versionId) {
@@ -27,10 +27,14 @@ function getFilterParametersObject() {
         addPropertyToObject(requestObject, 'ClinicalContext', $('#clinicalContext').val());
         addPropertyToObject(requestObject, 'FollowUp', $('#documentFollowUpSelect').val());
         addPropertyToObject(requestObject, 'AdministrativeContext', $('#administrativeContext').val());
-        addPropertyToObject(requestObject, 'DateTimeTo', $('#dateTimeTo').val());
-        addPropertyToObject(requestObject, 'DateTimeFrom', $('#dateTimeFrom').val());
-
-
+        addPropertyToObject(requestObject, 'DateTimeTo', toLocaleDateStringIfValue($('#dateTimeTo').val()));
+        addPropertyToObject(requestObject, 'DateTimeFrom', toLocaleDateStringIfValue($('#dateTimeFrom').val()));
+    }
+    if (requestObject['DateTimeFrom']) {
+        addPropertyToObject(requestObject, 'DateTimeFrom', toValidTimezoneFormat(requestObject['DateTimeFrom']));
+    }
+    if (requestObject['DateTimeTo']) {
+        addPropertyToObject(requestObject, 'DateTimeTo', toValidTimezoneFormat(requestObject['DateTimeTo']));
     }
 
     return requestObject;
@@ -38,21 +42,28 @@ function getFilterParametersObject() {
 
 function reloadTable(initLoad) {
     $('#advancedFilterModal').modal('hide');
-    setFilterElements();
+    setFilterTagsFromUrl();
     setFilterFromUrl();
     let requestObject = getFilterParametersObject();
     checkUrlPageParams();
+    setAdvancedFilterBtnStyle(requestObject, ['ThesaurusId', 'State', 'Title', 'page', 'pageSize']);
     requestObject.Page = currentPage;
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     $.ajax({
         type: 'GET',
         url: '/Form/ReloadTable',
-        data: requestObject
-    })
-        .done(function (data) {
+        data: requestObject,
+        success: function (data) {
             $("#tableContainer").html(data);
-        });
+            addSortArrows();
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    })
 }
 
 function deleteFormDefinition(event, id, lastUpdate) {
@@ -64,7 +75,7 @@ function deleteFormDefinition(event, id, lastUpdate) {
             toastr.success('Removed');
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -73,9 +84,7 @@ function advanceFilter() {
     $('#TitleTemp').val($('#title').val());
     $('#ThesaurusIdTemp').val($('#thesaurusId').val());
     $('#StateTemp').val($('#state').val()).change();
-    $('#advancedId').children('div:first').addClass('btn-advanced');
-    $('#advancedId').find('button:first').removeClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'inline-block');
+    
     filterData();
     //clearFilters();
 }
@@ -84,11 +93,6 @@ function mainFilter() {
     $('#title').val($('#TitleTemp').val());
     $('#thesaurusId').val($('#ThesaurusIdTemp').val());
     $('#state').val($('#StateTemp').val()).change();
-
-    $('#advancedId').children('div:first').removeClass('btn-advanced');
-    $('#advancedId').find('button:first').addClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'none');
-
 
     filterData();
     //clearFilters();

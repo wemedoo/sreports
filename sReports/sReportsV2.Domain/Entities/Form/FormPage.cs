@@ -49,8 +49,8 @@ namespace sReportsV2.Domain.Entities.Form
             {
                 foreach(FieldSet fieldSet in listOfFS)
                 {
-                    fieldSet.Label = entries.FirstOrDefault(x => x.Id.Equals(fieldSet.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
-                    fieldSet.Description = entries.FirstOrDefault(x => x.Id.Equals(fieldSet.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
+                    fieldSet.Label = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(fieldSet.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                    fieldSet.Description = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(fieldSet.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
                     fieldSet.GenerateTranslation(entries, language, activeLanguage);
                 }
             }

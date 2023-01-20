@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using sReportsV2.BusinessLayer.Interfaces;
-using sReportsV2.DAL.Sql.Implementations;
 using sReportsV2.DAL.Sql.Interfaces;
 using sReportsV2.Domain.Entities.Form;
-using sReportsV2.Domain.Services.Implementations;
 using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.DTOs.Form;
@@ -14,10 +12,6 @@ using sReportsV2.DTOs.User.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using sReportsV2.Common;
 using sReportsV2.DTOs.FormInstance.DataOut;
 using sReportsV2.Domain.Entities.FormInstance;
 using sReportsV2.DTOs.Common.DTO;
@@ -25,30 +19,32 @@ using sReportsV2.DTOs.Form.DataOut.Tree;
 using sReportsV2.SqlDomain.Interfaces;
 using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
 using sReportsV2.Common.Entities.User;
+using sReportsV2.DTOs.DTOs.Form.DataIn;
+using sReportsV2.Domain.Entities.Common;
+using sReportsV2.Domain.Sql.Entities.OrganizationEntities;
+using sReportsV2.Domain.Sql.Entities.User;
+using sReportsV2.Domain.Services.Implementations;
+using sReportsV2.DTOs.Field.DataOut;
+using sReportsV2.Domain.Entities.FieldEntity;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
 
 namespace sReportsV2.BusinessLayer.Implementations
 {
     public class FormBLL : IFormBLL
     {
         private readonly IUserDAL userDAL;
-        private readonly HttpContextBase context;
         private readonly IOrganizationDAL organizationDAL;
-        private readonly IFormInstanceDAL formInstanceDAL;
         private readonly IFormDAL formDAL;
         private readonly IThesaurusDAL thesaurusDAL;
 
-
-        public FormBLL(IUserDAL userDAL, IOrganizationDAL organizationDAL, HttpContextBase context, IFormInstanceDAL formInstanceDAL, IFormDAL formDAL, IThesaurusDAL thesaurusDAL)
+        public FormBLL(IUserDAL userDAL, IOrganizationDAL organizationDAL, IFormDAL formDAL, IThesaurusDAL thesaurusDAL)
         {
             this.organizationDAL = organizationDAL;
             this.userDAL = userDAL;
-            this.context = context;
-            this.formInstanceDAL = formInstanceDAL;
             this.formDAL = formDAL;
             this.thesaurusDAL = thesaurusDAL;
         }
-
-        
 
         public Form GetFormByThesaurusAndLanguage(int thesaurusId, string language)
         {
@@ -58,6 +54,12 @@ namespace sReportsV2.BusinessLayer.Implementations
         public Form GetFormByThesaurusAndLanguageAndVersionAndOrganization(int thesaurusId, int organizationId, string activeLanguage, string versionId)
         {
            return this.formDAL.GetFormByThesaurusAndLanguageAndVersionAndOrganization(thesaurusId, organizationId, activeLanguage, versionId);
+        }
+
+        public FormDataOut GetFormDataOutById(string formId, UserCookieData userCookieData)
+        {
+            Form form = formDAL.GetForm(formId);
+            return GetFormDataOut(form, userCookieData);
         }
 
         public FormDataOut GetFormDataOut(Form form, DTOs.User.DTO.UserCookieData userCookieData)
@@ -85,10 +87,8 @@ namespace sReportsV2.BusinessLayer.Implementations
         {
             return Mapper.Map<List<FormInstancePerDomainDataOut>>(this.formDAL.GetFormInstancePerDomain());
         }
-
-        
-
-        public PaginationDataOut<FormDataOut, FormFilterDataIn> ReloadData(FormFilterDataIn dataIn, DTOs.User.DTO.UserCookieData userCookieData)
+       
+        public PaginationDataOut<FormDataOut, FormFilterDataIn> ReloadData(FormFilterDataIn dataIn, UserCookieData userCookieData)
         {
             FormFilterData filterData = GetFormFilterData(dataIn, userCookieData);
             PaginationDataOut<FormDataOut, FormFilterDataIn> result = new PaginationDataOut<FormDataOut, FormFilterDataIn>()
@@ -119,8 +119,26 @@ namespace sReportsV2.BusinessLayer.Implementations
 
             if (referrals != null)
             {
-                result = Mapper.Map<List<ReferralInfoDTO>>(form.GetValuesFromReferrals(referrals));
+                result = MapReferralInfo(form.GetValuesFromReferrals(referrals));
             }
+            return result;
+        }
+
+        private List<ReferralInfoDTO> MapReferralInfo(List<ReferalInfo> referrals)
+        {
+            List<ReferralInfoDTO> result = new List<ReferralInfoDTO>();
+            
+            foreach(ReferalInfo referralInfo in referrals)
+            {
+                User user = userDAL.GetById(referralInfo.UserId);
+                Organization organization = organizationDAL.GetById(referralInfo.OrganizationId);
+                
+                ReferralInfoDTO referralInfoDTO = Mapper.Map<ReferralInfoDTO>(referralInfo);
+                referralInfoDTO.User = user != null ? new UserDataOut { FirstName = user.FirstName, LastName = user.LastName } : new UserDataOut();
+                referralInfoDTO.Organization = organization != null ? new OrganizationDataOut { Name = organization.Name } : new OrganizationDataOut();
+                result.Add(referralInfoDTO);
+            }
+
             return result;
         }
 
@@ -152,6 +170,9 @@ namespace sReportsV2.BusinessLayer.Implementations
         {
             Form form = this.GetForm(formInstance, userCookieData);
             FormDataOut data = this.SetFormDependablesAndReferrals(form, GetFormsFromReferrals(referrals));
+            
+            data.LastUpdate = formInstance.LastUpdate;
+            data.User = Mapper.Map<UserDataOut>(userCookieData);
 
             return data;
         }
@@ -176,9 +197,9 @@ namespace sReportsV2.BusinessLayer.Implementations
             return formDAL.GetForm(formId);
         }
 
-        public TreeDataOut GetTreeDataOut(int thesaurusId, int thesaurusPageNum, string searchTerm)
+        public TreeDataOut GetTreeDataOut(int thesaurusId, int thesaurusPageNum, string searchTerm, UserCookieData userCookieData = null)
         {
-            var forms = formDAL.GetFilteredDocumentsByThesaurusAppeareance(thesaurusId, searchTerm, thesaurusPageNum);
+            var forms = formDAL.GetFilteredDocumentsByThesaurusAppeareance(thesaurusId, searchTerm, thesaurusPageNum, userCookieData?.ActiveOrganization);
             TreeDataOut result = new TreeDataOut()
             {
                 Forms = Mapper.Map<List<FormTreeDataOut>>(forms),
@@ -234,5 +255,47 @@ namespace sReportsV2.BusinessLayer.Implementations
                 }
             }
         }
+
+        public ResourceCreatedDTO UpdateFormState(UpdateFormStateDataIn updateFormStateDataIn, UserCookieData userCookieData)
+        {
+            Form form = formDAL.GetForm(updateFormStateDataIn.Id);
+            if(form == null)
+            {
+                throw new EntryPointNotFoundException();
+            }
+
+            form.State = updateFormStateDataIn.State;
+            formDAL.InsertOrUpdate(form, Mapper.Map<UserData>(userCookieData));
+
+            return new ResourceCreatedDTO()
+            {
+                Id = form.Id,
+                LastUpdate = form.LastUpdate.Value.ToString("o")
+            };
+        }
+
+        public List<FieldDataOut> GetPlottableFields(string formId)
+        {
+            List<FieldDataOut> fieldsDataOut = new List<FieldDataOut>();
+            List<BsonDocument> bsonFields = formDAL.GetPlottableFields( formId);
+
+            List<Field> fields = new List<Field>();
+            BsonElement fieldsDict;
+
+            if (bsonFields != null && bsonFields.Count > 0)
+            {
+                foreach (var bson in bsonFields)
+                {
+                    if (bson.TryGetElement("Fields", out fieldsDict))
+                    {
+                        fields.Add(BsonSerializer.Deserialize<Field>((BsonDocument)fieldsDict.Value));
+                    }
+                }
+            }
+
+            fieldsDataOut = Mapper.Map<List<FieldDataOut>>(fields);
+            return fieldsDataOut;
+        }
+
     }
 }

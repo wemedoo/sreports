@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Browse_Schemas;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Browse_Schemas }, { "activeLevel", 1 } })
+
+
+<div class="table-container border-0">
+    <div class="header header-new">
+        @sReportsV2.Resources.TextLanguage.Browse_Schemas
+        <button class="btn btn-create float-right" onclick="newEntity()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+    </div>
+
+    @Html.Partial("SchemaDefinition/SchemaDefinitionFilterGroup")
+
+    <div id="tableContainer">
+    </div>
+</div>
+@Html.Partial("SchemaDefinition/AdvancedFilterModal")
+@Html.Partial("~/Views/Administration/DeleteModal.cshtml")
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaDefinitionAll.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/tableCommon.js")

@@ -1,0 +1,67 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Form.DataOut;
+@model ConsensusQuestionDataOut
+
+    <div class="question-preview-container">
+        <div class="qp-question" data-value="@Model.Question">
+            @Model.Question
+            <div class="popup float-right" style="display:none;" onclick="openPopupComment('@Model.ItemRef')">
+                <i class="@(string.IsNullOrWhiteSpace(Model.Comment) ? "far" : "fas") fa-comment" data-itemref="@Model.ItemRef"></i>
+                <span class="popuptext" id="popup-@Model.ItemRef">
+                    @sReportsV2.Resources.TextLanguage.Comment:
+                        <textarea 
+                            class="popup-comment" 
+                            id="qcomment-@Model.ItemRef" 
+                            onclick="preventDefault(event)" 
+                            value="@Model.Comment" 
+                            @Html.Disabled((bool)(ViewBag.ViewType == "View"))
+                            >@Model.Comment</textarea>
+                </span>
+            </div>
+        </div>
+        <div class="qp-options">
+            @foreach (var option in Model.Options)
+            {
+                <div class="qp-option">
+                    <div class="qp-option-label">
+                        <input class="consensus-radio" id="radio-@Model.ItemRef-@option" name="radio-@Model.ItemRef" value="@option" type="radio" @(option == Model.Value ? "checked" : string.Empty)>
+                        <label class="w-100 mb-0" for="radio-@Model.ItemRef-@option">@option</label>
+                    </div>
+                </div>
+            }
+        </div>
+        <i class="fas fa-arrows-alt-h question-item-conector"></i>
+        
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.consensus-tree:first').find('.dd-item').each(function (index, element) {
+                if ($(element).attr('data-id') == '@Model.ItemRef') {
+                    let backgroundColor;
+                    if ($(element).children('.dd-handle').length) {
+                        backgroundColor = $(element).children('.dd-handle').css('background-color');
+                        console.log('dd-handle');
+                        extendMarginBottom($(element).children('.dd-handle'), $(`#qp-@Model.ItemRef`));
+                    } else {
+                        backgroundColor = $(element).children('.dd-nohandle').css('background-color');
+                        console.log('.dd-nohandle');
+                        extendMarginBottom($(element).children('.dd-nohandle'), $(`#qp-@Model.ItemRef`));
+                    }
+                    $(`#qp-@Model.ItemRef`).css('background-color', backgroundColor);
+                }
+            });
+        });
+        function extendMarginBottom(treeItem, questionPreviewItem) {
+            let qpiHeight = parseInt($(questionPreviewItem).css("height"));
+            let treeItemHeight = parseInt($(treeItem).css("height"));
+            let mb = qpiHeight - treeItemHeight + 5;
+            $(treeItem).css("margin-bottom", `${mb}px`);
+            $(treeItem).addClass('tree-item');
+        }
+
+
+        function preventDefault(e) {
+            e.stopPropagation();
+        }
+    </script>

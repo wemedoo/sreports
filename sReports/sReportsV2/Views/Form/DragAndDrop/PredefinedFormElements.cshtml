@@ -1,10 +1,6 @@
-﻿@using sReportsV2.DTOs.Form.DataOut;
-@using sReportsV2.DTOs.Form.DTO;
-@using sReportsV2.Common.Extensions;
-@using sReportsV2.DTOs.Field.DataOut;
+﻿@using sReportsV2.Common.Extensions;
 @using sReportsV2.DTOs.Field.DataOut;
 @using sReportsV2.Common.Constants;
-
 
 @{
     var controller = ViewContext.Controller as sReportsV2.Controllers.FormCommonController;
@@ -37,10 +33,10 @@
                                     <div class="icon-container">
                                         <div class="overlay"></div>
                                         <div class="edit-button">
-                                            <img src="/Content/img/icons/edit_pencil_03.svg">
+                                            <img src="~/Content/img/icons/edit_pencil_03.svg">
                                         </div>
                                         <div class="remove-button">
-                                            <img src="/Content/img/icons/remove_simulator.svg">
+                                            <img src="~/Content/img/icons/remove_simulator.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -69,10 +65,10 @@
                                         <div class="overlay"></div>
 
                                         <div class="edit-button d-none">
-                                            <img src="/Content/img/icons/edit_pencil_03.svg">
+                                            <img src="~/Content/img/icons/edit_pencil_03.svg">
                                         </div>
                                         <div class="remove-button d-none">
-                                            <img src="/Content/img/icons/remove_simulator.svg">
+                                            <img src="~/Content/img/icons/remove_simulator.svg">
                                         </div>
                                     </div>
                                     Page title
@@ -102,10 +98,10 @@
                                         <div class="icon-container">
                                             <div class="overlay"></div>
                                             <div class="edit-button">
-                                                <img src="/Content/img/icons/edit_pencil_03.svg">
+                                                <img src="~/Content/img/icons/edit_pencil_03.svg">
                                             </div>
                                             <div class="remove-button">
-                                                <img src="/Content/img/icons/remove_simulator.svg">
+                                                <img src="~/Content/img/icons/remove_simulator.svg">
                                             </div>
                                         </div>
                                         <img class="field-set-img" src="~/Content/img/icons/field_set.svg">
@@ -134,10 +130,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -145,7 +141,7 @@
                                     Field text label
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <input type="text" class="form-element-field" placeholder="" />
+                                    <input type="text" class="form-element-field" placeholder="" readonly/>
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldTextDataOut())
                             </fieldset>
@@ -164,10 +160,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -175,7 +171,7 @@
                                     Calculative field label
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <input type="text" class="form-element-field" placeholder="" />
+                                    <input type="text" class="form-element-field" placeholder="" readonly/>
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldCalculativeDataOut())
                             </fieldset>
@@ -196,10 +192,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -207,7 +203,16 @@
                                     Date field label
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <input type="text" class="form-element-field" placeholder="" />
+                                    @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                                    {
+                                        InputAttributes = new Dictionary<object, object> { 
+                                            { "class", "form-element-field" }, 
+                                            { "readonly", null} 
+                                        },
+                                        InputBtnAttributes = new Dictionary<object, object> { 
+                                            { "class", "date-img dynamic-form" } 
+                                        },
+                                    })
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldDateDataOut())
                             </fieldset>
@@ -228,10 +233,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -241,14 +246,24 @@
                                 <div class="repetitive-field filter-input d-inline-block">
                                     <div class="row date-time-row datetime-picker-container">
                                         <div class="date-wrapper input-border mr-auto w-60 d-flex">
-                                            <input type="date" class="date-helper d-inline-block border-0 date-width" />
+                                            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                                            {
+                                                InputAttributes = new Dictionary<object, object> {
+                                                    { "class", "date-helper d-inline-block border-0 date-width" },
+                                                    { "readonly", null }
+                                                }
+                                            })
                                             <input type="datetime-local" class="date-time-local date-time-local-hidden form-element-field" />
                                             <div class="img-wrapper">
                                                 <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg">
                                             </div>
                                         </div>
                                         <div class="time-wrapper w-35 input-border">
-                                            <input type="text" class="time-part time-helper d-inline-block border-0">
+                                            <input type="text"
+                                                placeholder="@DateConstants.TimeFormatDisplay"
+                                                class="time-part time-helper d-inline-block border-0"
+                                                   readonly
+                                                   >
                                             <div class="clock-wrapper">
                                                 <i class="fas fa-clock"></i>
                                             </div>
@@ -274,10 +289,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
 
@@ -286,7 +301,7 @@
                                     Email field label
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <input type="email" class="form-element-field email" placeholder="example@gmail.com" />
+                                    <input type="email" class="form-element-field email" placeholder="example@gmail.com" readonly/>
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldEmailDataOut())
                             </fieldset>
@@ -307,10 +322,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
 
@@ -349,10 +364,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -361,7 +376,7 @@
                                     Long Text Field
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <textarea class="form-element-field textarea-repetitive" placeholder=""></textarea>
+                                    <textarea class="form-element-field textarea-repetitive" placeholder="" readonly></textarea>
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldTextAreaDataOut())
                             </fieldset>
@@ -382,10 +397,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -393,7 +408,7 @@
                                     Number field label
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <input type="number" class="form-element-field" placeholder="" />
+                                    <input type="number" class="form-element-field" placeholder="" readonly/>
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldNumericDataOut())
                             </fieldset>
@@ -414,10 +429,10 @@
                             <div class="icon-container d-none">
                                 <div class="overlay"></div>
                                 <div class="edit-button">
-                                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                                 </div>
                                 <div class="remove-button">
-                                    <img src="/Content/img/icons/remove_simulator.svg">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
                                 </div>
                             </div>
                             <fieldset class="form-input d-none">
@@ -425,7 +440,7 @@
                                     Regex field label
                                 </div>
                                 <div class="repetitive-field filter-input d-inline-block">
-                                    <input type="text" class="form-element-field" placeholder="" />
+                                    <input type="text" class="form-element-field" placeholder="" readonly/>
                                 </div>
                                 @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldRegexDataOut())
                             </fieldset>
@@ -433,9 +448,46 @@
                         </div>
                     </li>
                     <!--End regex field-->
+                    <!--Start select field-->
+                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Select" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Select field label">
+                        <div class="dd-handle custom-dd-handle field-custom-dd-handle">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder select-field-predefined-item-placeholder">
+                                <div class="predefined-item-placeholder-title">
+                                    Select Field
+                                </div>
+                            </div>
+                            <div class="drag-item-icon field-drag-item-icon d-none">
+                                <i class="fas fa-arrows-alt"></i>
+                            </div>
+                            <div class="icon-container d-none">
+                                <div class="overlay"></div>
+                                <div class="edit-button">
+                                    <img src="~/Content/img/icons/edit_pencil_03.svg">
+                                </div>
+                                <div class="remove-button">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            </div>
+
+                            <fieldset class="form-element form-select field-set-content d-none">
+                                <div class="field-group">
+                                    <div class="filter-label form-label-size d-inline-block">
+                                        Select field label
+                                    </div>
+                                    <div class="repetitive-field filter-input d-inline-block arrow-select">
+                                        <select class="form-element-field" disabled>
+                                            <option value="" class="form-select-placeholder" data-itemtype="fieldvalue"></option>
+                                        </select>
+                                    </div>
+                                    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", new FieldSelectDataOut())
+                                </div>
+                            </fieldset>
+                        </div>
+                    </li>
+                    <!--End select field-->
                     <!--Start radio field-->
-                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Radio" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Radio field title">
-                        <div class="dd-handle custom-dd-handle radio-custom-dd-handle">
+                    <li class="drag-and-drop-element dd-item padding-right-10 margin-bottom-15" data-itemtype="field" data-type="@FieldTypes.Radio" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Radio field title">
+                        <div class="dd-handle custom-dd-handle radio-custom-dd-handle add-new-element">
                             <div class="predefined-item-placeholder field-predefined-item-placeholder radio-field-predefined-item-placeholder">
                                 <div class="predefined-item-placeholder-title">
                                     Radio Field
@@ -448,10 +500,10 @@
                                 <div class="icon-container">
                                     <div class="overlay"></div>
                                     <div class="edit-button">
-                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                        <img src="~/Content/img/icons/edit_pencil_03.svg">
                                     </div>
                                     <div class="remove-button">
-                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                        <img src="~/Content/img/icons/remove_simulator.svg">
                                     </div>
                                 </div>
                                 Radio Field Label
@@ -470,8 +522,8 @@
                     </li>
                     <!--End radio field-->
                     <!--Start checkbox field-->
-                    <li class="drag-and-drop-element dd-item" data-itemtype="field" data-type="@FieldTypes.Checkbox" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Checkbox field title">
-                        <div class="dd-handle custom-dd-handle checkbox-custom-dd-handle">
+                    <li class="drag-and-drop-element dd-item padding-right-10 margin-bottom-15" data-itemtype="field" data-type="@FieldTypes.Checkbox" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Checkbox field title">
+                        <div class="dd-handle custom-dd-handle checkbox-custom-dd-handle add-new-element">
                             <div class="predefined-item-placeholder field-predefined-item-placeholder checkbox-field-predefined-item-placeholder">
                                 <div class="predefined-item-placeholder-title">
                                     Checkbox Field
@@ -483,10 +535,10 @@
                                 </div>
                                 <div class="icon-container">
                                     <div class="edit-button">
-                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                        <img src="~/Content/img/icons/edit_pencil_03.svg">
                                     </div>
                                     <div class="remove-button">
-                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                        <img src="~/Content/img/icons/remove_simulator.svg">
                                     </div>
                                 </div>
                                 Checkbox Field Label
@@ -505,7 +557,7 @@
                     <!--Start radio option-->
                     <li class="drag-and-drop-element dd-item" data-itemtype="fieldvalue" data-valuetype="radio" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Radio option title">
                         <div class="dd-handle custom-dd-handle radio-value-custom-dd-handle">
-                            <div class="predefined-item-placeholder field-predefined-item-placeholder radio-field-predefined-item-placeholder">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder radio-field-predefined-item-placeholder field-type">
                                 <div class="predefined-item-placeholder-title">
                                     Radio Option
                                 </div>
@@ -518,15 +570,15 @@
                                 <div class="icon-container">
                                     <div class="overlay"></div>
                                     <div class="edit-button">
-                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                        <img src="~/Content/img/icons/edit_pencil_03.svg">
                                     </div>
                                     <div class="remove-button">
-                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                        <img src="~/Content/img/icons/remove_simulator.svg">
                                     </div>
                                 </div>
                                 <input type="radio" class="form-radio-field">
                                 <i class="form-radio-button"></i>
-                                <span class="radio-break-word radio-text">Radio Option Title</span>
+                                <span class="radio-break-word radio-text comment-target-item">Radio Option Title</span>
                             </div>
                         </div>
                     </li>
@@ -534,7 +586,7 @@
                     <!--Start checkbox option-->
                     <li class="drag-and-drop-element dd-item" data-itemtype="fieldvalue" data-valuetype="checkbox" data-id="@GuidExtension.NewGuidStringWithoutDashes()" data-label="Checkbox option title">
                         <div class="dd-handle custom-dd-handle checkbox-value-custom-dd-handle">
-                            <div class="predefined-item-placeholder field-predefined-item-placeholder checkbox-field-predefined-item-placeholder">
+                            <div class="predefined-item-placeholder field-predefined-item-placeholder checkbox-field-predefined-item-placeholder field-type">
                                 <div class="predefined-item-placeholder-title">
                                     Checkbox Option
                                 </div>
@@ -547,15 +599,15 @@
                                 <div class="icon-container">
                                     <div class="overlay"></div>
                                     <div class="edit-button">
-                                        <img src="/Content/img/icons/edit_pencil_03.svg">
+                                        <img src="~/Content/img/icons/edit_pencil_03.svg">
                                     </div>
                                     <div class="remove-button">
-                                        <img src="/Content/img/icons/remove_simulator.svg">
+                                        <img src="~/Content/img/icons/remove_simulator.svg">
                                     </div>
                                 </div>
                                 <input class="form-checkbox-field" type="checkbox" />
                                 <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
-                                <span class="radio-break-word checkbox-text">Checkbox Option Title</span>
+                                <span class="radio-break-word checkbox-text comment-target-item">Checkbox Option Title</span>
                             </div>
                         </div>
                     </li>

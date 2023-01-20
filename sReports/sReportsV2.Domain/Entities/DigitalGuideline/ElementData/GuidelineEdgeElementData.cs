@@ -15,5 +15,11 @@ namespace sReportsV2.Domain.Entities.DigitalGuideline
         public override string Type { get; set; } = GuidelineElementDataTypes.Edge;
         public string Source { get; set; }
         public string Target { get; set; }
+        public string Condition { get; set; }
+
+        public bool SatisfyCondition(string condition)
+        {
+            return Condition != null && Condition.Equals(condition);
+        }
     }
 }

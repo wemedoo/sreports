@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using sReportsV2.DTOs.DTOs.GlobalThesaurus.DataIn;
 
 namespace sReportsV2.DTOs.ThesaurusEntry.DataOut
 {
@@ -21,53 +22,50 @@ namespace sReportsV2.DTOs.ThesaurusEntry.DataOut
         public List<ThesaurusEntryCodingSystemDTO> CodingSystems { get; set; }
         public List<O4CodeableConceptDataOut> Codes { get; set; }
         public ThesaurusState State { get; set; }
+        public string PreferredLanguage { get; set; }
+
+        public string UriClassLink { get; set; }
+        public string UriClassGUI { get; set; }
+        public string UriSourceLink { get; set; }
+        public string UriSourceGUI { get; set; }
+
         public ThesaurusEntryTranslationDTO GetTranslation(string language)
         {
-            return this.Translations.FirstOrDefault(x => x.Language.Equals(language)) ?? new ThesaurusEntryTranslationDTO() { Language = language };
+            return GetTranslationByLanguage(language) ?? GetTranslationByLanguage("en") ?? Translations.FirstOrDefault(x => x.Language != null) ?? new ThesaurusEntryTranslationDTO() { Abbreviations = new List<string>(), Synonyms = new List<string>()};
         }
 
         public string GetAbbreaviations(string language)
         {
-            return JoinList(Translations.FirstOrDefault(x => x.Language.Equals(language))?.Abbreviations);
+            return JoinList(GetTranslationByLanguage(language)?.Abbreviations);
         }
 
         public string GetSynonyms(string language)
         {
-            return JoinList(Translations.FirstOrDefault(x => x.Language.Equals(language))?.Synonyms);
+            return JoinList(GetTranslationByLanguage(language)?.Synonyms);
         }
 
         public List<string> GetSynonymsListByLanguage(string language)
         {
-            return Translations.FirstOrDefault(x => x.Language.Equals(language))?.Synonyms;
+            return GetTranslationByLanguage(language)?.Synonyms;
         }
 
         public List<string> GetAbbreviationListByLanguage(string language)
         {
-            return Translations.FirstOrDefault(x => x.Language.Equals(language))?.Abbreviations;
-        }
-
-        public List<SimilarTermDTO> GetSimilarTermsListByLanguage(string language)
-        {
-            return Translations.FirstOrDefault(x => x.Language.Equals(language))?.SimilarTerms;
-        }
-
-        public string GetSimilarTerms(string language)
-        {
-            return JoinList(Translations.FirstOrDefault(x => x.Language.Equals(language))?.SimilarTerms.Select(x => x.Name).ToList());
+            return GetTranslationByLanguage(language)?.Abbreviations;
         }
 
         public string GetDefinitionByTranslationOrDefault(string language)
         {
             string result = string.Empty;
-            if (Translations.FirstOrDefault(x => x.Language.Equals(language)) != null)
+            if (GetTranslationByLanguage(language) != null)
             {
-                result = Translations.FirstOrDefault(x => x.Language.Equals(language)).Definition;
+                result = GetTranslationByLanguage(language).Definition;
             }
 
             if (string.IsNullOrEmpty(result))
             {
-                if (Translations.FirstOrDefault(x => x.Language.Equals("en")) != null)
-                    result = Translations.FirstOrDefault(x => x.Language.Equals("en")).Definition;
+                if (GetTranslationByLanguage("en") != null)
+                    result = GetTranslationByLanguage("en").Definition;
                 else
                     result = Translations.FirstOrDefault(x => x.Language != null).Definition;
             }
@@ -78,20 +76,76 @@ namespace sReportsV2.DTOs.ThesaurusEntry.DataOut
         public string GetPreferredTermByTranslationOrDefault(string language)
         {
             string result = string.Empty;
-            if (Translations.FirstOrDefault(x => x.Language.Equals(language)) != null)
+            if (GetTranslationByLanguage(language) != null)
             {
-                result = Translations.FirstOrDefault(x => x.Language.Equals(language)).PreferredTerm;
+                result = GetTranslationByLanguage(language).PreferredTerm;
             }
 
             if (string.IsNullOrEmpty(result))
             {
-                if (Translations.FirstOrDefault(x => x.Language.Equals("en")) != null)
-                    result = Translations.FirstOrDefault(x => x.Language.Equals("en")).PreferredTerm;
+                if (GetTranslationByLanguage("en") != null)
+                    result = GetTranslationByLanguage("en").PreferredTerm;
                 else
                     result = Translations.FirstOrDefault(x => x.Language != null).PreferredTerm;
             }
 
             return result;
+        }
+
+        public string GetFilteredTerm(GlobalThesaurusFilterDataIn filterData)
+        {
+            string result = string.Empty;
+            string language = filterData?.Language ?? (filterData?.Term == null ? this.PreferredLanguage : null);
+            if (language != null)
+            {
+                result = GetPreferredTermByTranslationOrDefault(language);
+            }
+            else
+            {
+                if (filterData != null && !string.IsNullOrWhiteSpace(filterData.Term))
+                {
+                    if (!string.IsNullOrWhiteSpace(filterData.TermIndicator) && filterData.TermIndicator.Equals("exact"))
+                    {
+                        result = Translations.FirstOrDefault(t => !string.IsNullOrEmpty(t.PreferredTerm) && t.PreferredTerm.ToLower().Equals(filterData.Term.ToLower()))?.PreferredTerm;
+                    }
+                    else
+                    {
+                        result = Translations.FirstOrDefault(t => !string.IsNullOrEmpty(t.PreferredTerm) && t.PreferredTerm.ToLower().Contains(filterData.Term.ToLower()))?.PreferredTerm;
+                    }
+                }
+                else
+                {
+                    result = Translations.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.PreferredTerm))?.PreferredTerm;
+                }
+            }
+
+            return result ?? "No preferred term";
+        }
+
+        public string GetUserWhoChangedThesaurus(string timeOfChange)
+        {
+            string user = string.Empty;
+
+            if(AdministrativeData != null && AdministrativeData.VersionHistory != null)
+            {
+                VersionDataOut change = null;
+                if(timeOfChange == "Last")
+                {
+                    change = AdministrativeData.VersionHistory.LastOrDefault();
+                }
+                else if (timeOfChange == "First")
+                {
+                    change = AdministrativeData.VersionHistory.FirstOrDefault();
+
+                }
+
+                if (change != null && change.User != null)
+                {
+                    user = string.Concat(change.User.FirstName, " ", change.User.LastName);
+                }
+            }
+
+            return user;
         }
 
         private string JoinList(List<string> list)
@@ -102,6 +156,11 @@ namespace sReportsV2.DTOs.ThesaurusEntry.DataOut
                 result = string.Join(",", list);
             }
             return result;
+        }
+
+        private ThesaurusEntryTranslationDTO GetTranslationByLanguage(string language)
+        {
+            return this.Translations.FirstOrDefault(x => x.Language.Equals(language));
         }
     }
 }

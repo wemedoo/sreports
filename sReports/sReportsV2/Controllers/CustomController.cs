@@ -2,14 +2,9 @@
 using sReportsV2.BusinessLayer.Interfaces;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Exceptions;
 using sReportsV2.SqlDomain.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace sReportsV2.Controllers
@@ -35,15 +30,7 @@ namespace sReportsV2.Controllers
                 formInstance.PatientId = episodeOfCareDAL.GetById(episodeOfCareId).PatientId;
             }
 
-            try
-            {
-                formInstanceDAL.InsertOrUpdate(formInstance);
-            }
-            catch (MongoDbConcurrencyException ex)
-            {
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, Resources.TextLanguage.ConcurrencyExEdit);
-            }
+            formInstanceDAL.InsertOrUpdate(formInstance, formInstance.GetCurrentFormInstanceStatus(userCookieData?.Id));
 
             return Redirect($"{ConfigurationManager.AppSettings["ctcaeUrl"]}?patientId={formInstance.PatientId}&organizationId={userCookieData.ActiveLanguage}&formInstanceId={formInstance.Id}");
         }

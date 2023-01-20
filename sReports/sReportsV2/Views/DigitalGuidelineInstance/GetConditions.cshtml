@@ -1,0 +1,37 @@
+﻿<input type="hidden" id="guidelineInstanceId" value="@ViewBag.GuidelineInstanceId" />
+<input type="hidden" id="nodeId" value="@ViewBag.NodeId" />
+<input type="hidden" id="digitalGuidelineId" value="@ViewBag.GuidelineId" />
+
+<div class="content-container">
+    <div class="forms-container guideline-content">
+        <div class="title">
+            Choose condition
+        </div>
+
+        <div class="forms-container-list" id="formConditionContainer">
+            @foreach (var condition in ViewBag.Conditions)
+            {
+                <div class="single-form-list-element" data-condition="@condition">
+                    <div class="title">
+                        @condition
+                    </div>
+                    <div class="select-button unselect">
+                        Unselect
+                    </div>
+                    <div class="select-button">
+                        Select
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<div class="button-container">
+    <div class="cancel-button" onclick="closeGuidelineInstanceModal()">
+        Back
+    </div>
+
+    <div class="submit-button" onclick="saveCondition()">Continue</div>
+</div>

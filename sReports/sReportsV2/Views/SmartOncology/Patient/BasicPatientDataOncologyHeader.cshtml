@@ -1,0 +1,39 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataIn;
+@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+
+@model  sReportsV2.DTOs.Pagination.PaginationDataOut<SmartOncologyPatientPreviewDataOut, SmartOncologyPatientFilterDataIn>
+
+<div class="small-header hidden-md">
+    <a class="arrow-right toggle hidden-md">
+        <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="//www.w3.org/2000/svg">
+            <path d="M1.06245 7.12167L16.2293 7.12168L12.7356 10.6073C12.417 10.9259 12.417 11.4425 12.7356 11.7611C13.0542 12.0796 13.5707 12.0796 13.8893 11.7611L18.7643 6.88605C18.8324 6.81658 18.885 6.73351 18.9187 6.6423C18.9734 6.53986 19.0013 6.42528 19 6.30918L19 6.22793C18.9951 6.15876 18.9815 6.0905 18.9593 6.0248C18.9639 5.99791 18.9639 5.97044 18.9593 5.94355C18.9228 5.85374 18.8705 5.77119 18.805 5.6998L13.93 0.8248C13.7774 0.670984 13.5697 0.584464 13.3531 0.584464C13.1364 0.584464 12.9288 0.670984 12.7762 0.8248C12.6224 0.97736 12.5359 1.18503 12.5359 1.40167C12.5359 1.61832 12.6224 1.82599 12.7762 1.97855L16.2293 5.49668L1.06245 5.49667C0.613722 5.49667 0.249953 5.86044 0.249953 6.30917C0.249953 6.75791 0.613722 7.12167 1.06245 7.12167Z" fill="#1C94A3"></path>
+        </svg>
+    </a>
+    <span class="small-header-title">@sReportsV2.Resources.TextLanguage.Patients</span>
+</div>
+<div class="smart-oncology-patient-table hidden-md">
+    <div class="patient-table-header">
+        <span class="sidebar-patient-img">
+            <img src="~/Content/open-oncology/images/icons/basic_patient_data_img.svg">
+        </span>
+        <span class="patient-table-header-text"> @sReportsV2.Resources.TextLanguage.Patients </span>
+        <div class="tools">
+            <button class="btn btn-add-new" type="button" onclick="addNewPatient()">
+                <i class="fas fa-plus-circle resize-circle"></i>
+                <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
+            </button>
+            <a class="arrow toggle">
+                <svg width="19" height="13" viewBox="0 0 19 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.9375 5.6875H2.77067L6.26442 2.20187C6.58302 1.88327 6.58302 1.36672 6.26442 1.04812C5.94582 0.729524 5.42927 0.729524 5.11067 1.04812L0.235672 5.92312C0.167626 5.9926 0.11502 6.07566 0.0812968 6.16687C0.0266401 6.26932 -0.00130453 6.38389 4.67797e-05 6.5V6.58125C0.00486648 6.65041 0.0185191 6.71868 0.0406718 6.78437C0.0361261 6.81127 0.0361261 6.83873 0.0406718 6.86562C0.0771763 6.95543 0.129459 7.03798 0.195047 7.10937L5.07005 11.9844C5.22261 12.1382 5.43028 12.2247 5.64692 12.2247C5.86356 12.2247 6.07124 12.1382 6.2238 11.9844C6.37761 11.8318 6.46413 11.6241 6.46413 11.4075C6.46413 11.1909 6.37761 10.9832 6.2238 10.8306L2.77067 7.3125H17.9375C18.3863 7.3125 18.75 6.94873 18.75 6.5C18.75 6.05127 18.3863 5.6875 17.9375 5.6875Z" fill="#1C94A3"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="patient-table-search">
+        <input type="text" class="search-btn-gt patientSearchName" placeholder="@sReportsV2.Resources.TextLanguage.Search_patient_placeholder" name="patientSearchName" value="@(Model.DataIn != null ? Model.DataIn.Name : "")" />
+        <img class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg" onclick="searchTable(event)">
+    </div>
+    <div class="smartOncologyPatientEntries">
+        @Html.Partial("Patient/PatientEntriesTable", Model)
+    </div>
+</div>

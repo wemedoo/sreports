@@ -2,7 +2,7 @@
 @model List<FormDataOut>
     <div class="suggested-forms">
         <div class="title">
-            Suggested forms
+            @sReportsV2.Resources.TextLanguage.SuggestedForms
         </div>
         <div class="suggested-forms-container">
             @foreach (FormDataOut formDataOut in Model)
@@ -15,7 +15,7 @@
                         @formDataOut.Title
                     </div>
                     <div class="select-button">
-                        New
+                        @sReportsV2.Resources.TextLanguage.New
                     </div>
                 </div>
             }

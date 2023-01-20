@@ -4,11 +4,17 @@
 
 <fieldset class="form-input">
     <div class="filter-label form-label-size d-inline-block">
-        <span class="comment-target-item" id="@Model.Id">  @Model.Label </span>
+        <span class="comment-target-item" id="@Model.Id">  @Html.Raw(Model.FullLabel) </span>
 </div>
     <div class="repetitive-field filter-input d-inline-block">
-        <input type="date" class="form-element-field" />
-        <img class="date-img dynamic-form" src="~/Content/img/icons/date_field.svg">
+        @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+        {
+            InputAttributes = new Dictionary<object, object> { 
+                { "class", "form-element-field" }, 
+                {"readonly", null } 
+            },
+            InputBtnAttributes = new Dictionary<object, object> { { "class", "date-img dynamic-form" } },
+        })
     </div>
     @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
 </fieldset>

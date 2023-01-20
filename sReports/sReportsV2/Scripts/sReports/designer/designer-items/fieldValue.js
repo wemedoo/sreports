@@ -1,9 +1,11 @@
 ﻿$(document).on('click', '#submit-fieldvalue-info', function (e) {
     let label = $('#label').val();
     let elementId = $('#elementId').val();
-    let element = getElement('fieldvalue', label);
-    console.log(element);
+    populateValueIfEmpty();
+
     if ($('#fieldValueGeneralInfoForm').valid()) {
+        let element = getElement('fieldvalue', label);
+        console.log(element);
         createNewThesaurusIfNotSelected();
 
         if (element) {
@@ -21,4 +23,19 @@
     else {
         toastr.error("Field value informations are not valid");
     }
-})
+});
+
+$(document).on('blur', '#label', function (e) {
+    populateValueIfEmpty();
+});
+
+function generateValueFromLabel(label) {
+    return label.replace(/\s+/g, '_').toLowerCase();
+}
+
+function populateValueIfEmpty() {
+    let label = $('#label').val();
+    if (!$('#value').val()) {
+        $("#value").val(generateValueFromLabel(label));
+    }
+}

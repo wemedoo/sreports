@@ -15,7 +15,7 @@
                 window.location.href = "/ThesaurusGlobal/Index"
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -52,11 +52,16 @@ function submitUser() {
         url: "/ThesaurusGlobal/RegisterUser",
         data: user,
         success: function (data, textStatus, jqXHR) {
-            goToLogin();
-            toastr.success("Success");
+            toastr.options = {
+                timeOut: 5000
+            }
+            toastr.options.onHidden = function () {
+                goToLogin();
+            }
+            toastr.success("Registration completed! In order to activate your account, open an email which has just been sent.");
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -75,3 +80,23 @@ function getUser() {
 
     return user;
 }
+
+function getTotalChartData() {
+    $.ajax({
+        url: '/ThesaurusGlobal/GetTotalChartData',
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            $('#thesaurusEntriesTotal').html(response.ThesaurusTotal);
+            $('#documentsTotal').html(response.DocumentTotal);
+            $('#datasetsTotal').html(response.DatasetTotal);
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    })
+}
+
+$(document).ready(function () {
+    getTotalChartData();
+});

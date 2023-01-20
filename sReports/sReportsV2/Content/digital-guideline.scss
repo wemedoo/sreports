@@ -11,10 +11,25 @@
     display: inline-block;
 }
 
+.padding-bottom-10{
+    padding-bottom: 10px;
+}
+
 .guideline-sidebar {
     display: inline-block;
     width: 40%;
     padding-left: 10px;
+}
+
+.digitalInstanceCy {
+    #cy {
+        height: calc(100vh - 370px) !important;
+        width: 62% !important;
+    }
+
+    .guideline-sidebar {
+        width: 38%;
+    }
 }
 
 .guideline-button-container {
@@ -145,6 +160,144 @@
             display: inline-block;
             width: auto;
         }
+    }
+}
+
+.digital-guideline-modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    padding-top: 200px; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    &.fade {
+        transition: opacity 0.15s linear;
+    }
+
+    &.show {
+        display: block;
+    }
+
+    .custom-modal-body {
+        float: right;
+        height: calc(100vh - 200px);
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        border-top-left-radius: 27px;
+        width: 55%;
+        padding-left: 45px;
+        padding-top: 33px;
+        padding-right: 45px;
+        padding-bottom: 40px;
+        position: relative;
+
+        .close-guideline-instance-modal-button {
+            position: absolute;
+            background-image: url("img//icons/close_black.svg");
+            width: 17px;
+            height: 17px;
+            background-size: cover;
+            right: 15px;
+            top: 18px;
+            cursor: pointer;
+        }
+
+        .custom-modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.22px;
+            color: #000000;
+            padding-bottom: 19px;
+        }
+
+        .button-container {
+            padding-top: 21px;
+            margin-right: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            div {
+                display: inline-block;
+                margin-left: 22px
+            }
+
+            .cancel-button {
+            }
+        }
+    }
+}
+
+.remove-guideline-instance {
+    content: url("img/icons/Administration_remove.svg");
+    float: right;
+    margin-right: 20px;
+    margin-top: 3px;
+}
+
+.guideline-instance-content {
+    padding-top: 36px;
+
+    div.single-guideline-instance-container {
+        &.selected {
+            div.digital-guidelines-item {
+                border: solid 1px #c7e5ea;
+                background-color: #e8fcff;
+            }
+        }
+
+        i.toggle-arrow {
+            float: right;
+            margin-right: 20px;
+            margin-top: 3px;
+
+            &.hide {
+                display: none;
+            }
+        }
+    }
+}
+
+.digital-guidelines-item {
+    border: solid 1px #e5e5e5;
+    padding-left: 16px;
+    padding-top: 6px;
+    padding-bottom: 4px;
+    padding-right: 4px;
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: normal;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.digital-guideline-button {
+    outline: none;
+    border: none;
+}
+
+.digital-guideline-button {
+    &:focus {
+        outline: none;
+    }
+}
+
+.digital-guidelines-content {
+    height: 356px !important;
+}
+
+.digital-guidelines-td {
+    border-radius: 3px 0px 0px 3px;
+    border: solid 1px #c7e5ea;
 
         .section-tabs {
             margin-top: 10px;
@@ -190,8 +343,6 @@
             }
         }
     }
-}
-
 
 .main-container-gray {
     background-color:#f9f9f9; 
@@ -228,4 +379,24 @@
 
 .publication-full-details{
     display: none;
+}
+
+.padding-right-6 {
+    padding-right: 6px;
+}
+
+.value-title {
+    font-weight: 700;
+    padding-top: 10px;
+}
+
+.completed-button{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.pull-value-btn {
+    position: absolute;
+    top: 2.5px;
+    right: 4px;
 }

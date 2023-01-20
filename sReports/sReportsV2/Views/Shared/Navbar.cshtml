@@ -1,0 +1,188 @@
+﻿@using sReportsV2.Common.Constants;
+
+@{
+    string action = ViewContext.RouteData.Values["Action"].ToString();
+    string controller = ViewContext.RouteData.Values["Controller"].ToString();
+    var userCookieData = ViewBag.UserCookieData;
+}
+
+<div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="~/Home/Index">
+                <i class="fas fa-home"></i>
+                <span> @sReportsV2.Resources.TextLanguage.Overview </span>
+            </a>
+        </li>
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Administration))
+        {
+            <li class="nav-item @((action.Equals("GetAll"))&& controller.Equals("Administration") ? "active" : "")">
+                <a class="nav-link" href="~/Administration/GetAll">
+                    <i class="fas fa-pencil-alt"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.SystemResourceAdministration </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Administration))
+        {
+            <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Organization") ? "active" : "")">
+                <a class="nav-link" href="~/Organization/GetAll">
+                    <i class="fas fa-sitemap"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.Organizations </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Administration))
+        {
+            <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit") ) && controller.Equals("RoleAdministration") ? "active" : "")">
+                <a class="nav-link" href="~/RoleAdministration/GetAll">
+                    <i class="fas fa-pencil-alt"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.Role_Administration </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Administration))
+        {
+            <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("UserAdministration") ? "active" : "")">
+                <a class="nav-link" href="~/UserAdministration/GetAll">
+                    <i class="fas fa-user"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.User_Administration </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+        {
+            <li class="nav-item @((action.Equals("GetAll") || action.Equals("Edit") || action.Equals("Create") || action.Equals("GetReviewTree")) && controller.Equals("ThesaurusEntry") ? "active" : "")">
+                <a class="nav-link" href="~/ThesaurusEntry/GetAll">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.Thesaurus </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Designer))
+        {
+            <li class="nav-item @(action.Equals("GetAll") && controller.Equals("Form") ? "active" : "")">
+                <a class="nav-link" href="~/Form/GetAll">
+                    <i class="fas fa-pen-square"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.Designer </span>
+                </a>
+            </li>
+        }
+        <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit") )&& controller.Equals("DigitalGuideline") ? "active" : "")">
+            <a class="nav-link" href="~/DigitalGuideline/GetAll">
+                <i class="fas fa-pencil-alt"></i>
+                <span> @sReportsV2.Resources.TextLanguage.ClinicalPathwayBuilder </span>
+            </a>
+        </li>
+
+        <li class="nav-item @((action.Equals("CreateNewSchema") || action.Equals("BrowseSchemas") || action.Equals("EditSchema") || action.Equals("PreviewSchema")) && controller.Equals("SmartOncology") ? "active" : "")">
+            <a class="nav-link" href="~/SmartOncology/BrowseSchemas">
+                <img src="~/Content/open-oncology/images/icons/che_onc_compendium_black.svg" style="margin-right: 8px; width: 16px">
+                <span> @sReportsV2.Resources.TextLanguage.Clinical_Oncology - @sReportsV2.Resources.TextLanguage.HemOnc_Compendium </span>
+            </a>
+        </li>
+        <li class="nav-item @((action.Equals("BasicPatientDataOncology")|| action.Equals("PatientOncologyDiseaseHistory")) && controller.Equals("SmartOncology") ? "active" : "")">
+            <a class="nav-link" href="~/SmartOncology/BasicPatientDataOncology">
+                <img src="~/Content/open-oncology/images/icons/basic_patient_data_black.svg" style="margin-right: 8px; width: 16px">
+                <span> @sReportsV2.Resources.TextLanguage.Clinical_Oncology - @sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management</span>
+            </a>
+        </li>
+        <li class="nav-item @(action.Equals("ProgressNote") && controller.Equals("SmartOncology") ? "active" : "")">
+            <a class="nav-link" href="~/SmartOncology/ProgressNote">
+                <img src="~/Content/open-oncology/images/icons/progress_note_black.svg" style="margin-right: 8px; width: 16px">
+                <span> @sReportsV2.Resources.TextLanguage.Clinical_Oncology - @sReportsV2.Resources.TextLanguage.Chemotherapy_Prescription_Progress_Note</span>
+            </a>
+        </li>
+
+        @if (userCookieData != null && userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Patients))
+        {
+            <li class="nav-item @((action.Equals("GetAll") || action.Equals("Create") || action.Equals("Edit"))&& controller.Equals("Patient") ? "active" : "")">
+                <a class="nav-link" href="~/Patient/GetAll">
+                    <i class="fas fa-users"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.Patients </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Engine))
+        {
+            <li class="nav-item @(((action.Equals("GetAll") || action.Equals("GetAllByForm")) && controller.Equals("FormInstance")) ? "active" : "")">
+                <a class="nav-link" href="~/FormInstance/GetAllFormDefinitions">
+                    <i class="fas fa-cogs"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.DataCaptureEngine </span>
+                </a>
+            </li>
+        }
+        @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Simulator))
+        {
+            <li class="nav-item @((action.Equals("GetAll")&& controller.Equals("FormDistribution") || (action.Equals("GetByThesaurusId")&& controller.Equals("FormDistribution"))) ? "active" : "")">
+                <a class="nav-link" href="~/FormDistribution/GetAll">
+                    <i class="fas fa-handshake"></i>
+                    <span> @sReportsV2.Resources.TextLanguage.Simulator </span>
+                </a>
+            </li>
+        }
+        <li class="nav-item dropdown">
+            <a class="dropdown-toggle nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i>
+                <span> @(userCookieData != null ? userCookieData.Username : "") </span>
+            </a>
+            <ul class="dropdown-menu level-1" aria-labelledby="navbarDropdown">
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-link" href="#" id="navbarOrganization" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@sReportsV2.Resources.TextLanguage.Institution</a>
+                    <ul class="dropdown-menu level-1" aria-labelledby="navbarOrganization">
+                        @if (userCookieData != null)
+                        {
+                            foreach (sReportsV2.DTOs.Organization.OrganizationDataOut organization in userCookieData.Organizations as List
+                                                            <sReportsV2.DTOs.Organization.OrganizationDataOut>
+                                                                )
+                            {
+                                if (organization.Id.Equals(userCookieData.ActiveOrganization))
+                                {
+                                    <li onclick="setActiveOrganization(event, '@organization.Id', '/Home/Index')" class="language active"><a class="nav-link" href="#">@organization.Name</a></li>
+                                }
+                                else
+                                {
+                                    <li onclick="setActiveOrganization(event, '@organization.Id', '/Home/Index')" class="language"><a class="nav-link" href="#">@organization.Name</a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-link" href="#" id="navbarLanguage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@sReportsV2.Resources.TextLanguage.Language</a>
+                    <ul class="dropdown-menu level-1" aria-labelledby="navbarLanguage">
+                        @if (userCookieData != null)
+                        {
+                            foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>)
+                            {
+                                if (userCookieData != null && language.Value == (userCookieData.ActiveLanguage as string))
+                                {
+                                    <li onclick="setActiveLanguage(event, '@language.Value')" class="language active">
+                                        <a class="nav-link" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li onclick="setActiveLanguage(event, '@language.Value')" class="language">
+                                        <a class="nav-link" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/UserAdministration/UserProfile?userId=@(userCookieData != null ? userCookieData.Id : -1)">
+                        <span> @sReportsV2.Resources.TextLanguage.Profile </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item" onclick="logout(event)">
+            <a class="nav-link" href="#">
+                <i class="fas fa-sign-out-alt"></i>
+                <span> @sReportsV2.Resources.TextLanguage.Logout </span>
+            </a>
+        </li>
+    </ul>
+</div>

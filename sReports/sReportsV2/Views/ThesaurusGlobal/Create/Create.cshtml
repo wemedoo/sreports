@@ -1,74 +1,23 @@
 ﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
-<input type="hidden" id="id" value="@(Model != null ? Model.Id : 0)" />
+@{
+    var thesaurusId = Model != null ? Model.Id : 0;
+    var backUrlToPreview = thesaurusId > 0 ? string.Format("/ThesaurusGlobal/PreviewThesaurus?Id={0}", thesaurusId) : "/";
+    var backUrlToCreate = thesaurusId > 0 ? string.Format("/ThesaurusGlobal/Create?Id={0}", thesaurusId) : "/";
+    ViewBag.Title = "Submit new term";
+}
+<input type="hidden" id="id" value="@thesaurusId" />
 <div class="thesaurus-preview">
     <div class="tp-title">
-        @(Model != null && Model.Codes.Count() > 0 ? Model.Codes.OrderByDescending(x => x.EntryDateTime).FirstOrDefault().Value : "No value")
-        <div class="contribute-btn">
-            <img src="~/Content/img/icons/SwissOpenOncology/translation.svg"> Contribute to translation
-        </div>
+        <b>@(Model != null ? Model.GetPreferredTermByTranslationOrDefault(Model.PreferredLanguage) : "")</b>
+        @if (thesaurusId > 0)
+        {
+            <div class="contribute-btn" onclick="contributeToTranslation(event, @thesaurusId, '@backUrlToCreate')">
+                <img src="~/Content/img/icons/SwissOpenOncology/translation.svg"> Contribute to translation
+            </div>
+        }
     </div>
     <div class="preview-content">
-
-        <div class="trees-container">
-            <div class="position-relative">
-                <input type="text" class="quick-search-input" placeholder="Quick Search" id="homeSearch" />
-                <img class="search-i" style="top:16px;" src="~/Content/img/icons/search_green.svg">
-            </div>
-
-            <div class="browse-accordion">
-                <div class="browse-accordion-header collapsed" data-toggle="collapse" data-target="#browseAccContent" aria-expanded="false" aria-controls="browseAccContent">
-                    <img src="~/Content/img/icons/SwissOpenOncology/browse.svg" />
-                    <div class="browse-text">Browse</div>
-                    <img class="browse-arrow" src="~/Content/img/icons/SwissOpenOncology/arrow_close.svg" />
-                </div>
-                <div class="collapse" id="browseAccContent">
-                    test
-                </div>
-            </div>
-
-            <div class="knowledge-in-context">
-                Knowledge in context
-            </div>
-
-
-            <div class="preview-accordion">
-                <div class="preview-accordion-header collapsed" data-toggle="collapse" data-target="#formalOntology" aria-expanded="false" aria-controls="formalOntology">
-                    <img class="acc-book" />
-                    <div class="acc-text">Basic Formal Ontology Properties</div>
-                    <img class="acc-arrow" />
-                </div>
-                <div class="collapse" id="formalOntology">
-                    <div class="acc-content">
-                        Basic Formal Ontology Properties content
-                    </div>
-                </div>
-            </div>
-            <div class="preview-accordion">
-                <div class="preview-accordion-header collapsed" data-toggle="collapse" data-target="#documentFound" aria-expanded="false" aria-controls="documentFound">
-                    <img class="acc-book" />
-                    <div class="acc-text">The entity is found in 24 medical documents</div>
-                    <img class="acc-arrow" />
-                </div>
-                <div class="collapse" id="documentFound">
-                    <div class="acc-content">
-                        The entity is found in 24 medical documents content
-                    </div>
-                </div>
-            </div>
-            <div class="preview-accordion">
-                <div class="preview-accordion-header collapsed" data-toggle="collapse" data-target="#documentProperties" aria-expanded="false" aria-controls="documentProperties">
-                    <img class="acc-book" />
-                    <div class="acc-text">Document Properties</div>
-                    <img class="acc-arrow" />
-                </div>
-                <div class="collapse" id="documentProperties">
-                    <div class="acc-content">
-                        Document Properties content
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        @Html.Partial("~/Views/ThesaurusGlobal/Shared/ThesaurusTree.cshtml", Model, new ViewDataDictionary() { { "editable", thesaurusId > 0 } })
 
         <div class="preview-translations">
             @Html.Partial("~/Views/ThesaurusGlobal/Create/TranslationsPreview.cshtml", Model)
@@ -76,9 +25,9 @@
             <div class="@(Model != null ? "buttons-container":"")">
                 <div class="codes-btns " style="height:80px;">
                     <div class="button-wrapper-filter filter-button" id="submitFilterButton" style="right:0px;">
-                        <button class="btn btn-filter-primary w-100 h-100" onclick="submitThesaurus(event)"> Save</button>
+                        <button class="btn btn-filter-primary w-100 h-100" onclick="submitThesaurus(event)">Save</button>
                     </div>
-                    <div class="button-wrapper-filter cancel-filter-btn float-right" id="close" style="right: 90px;">
+                    <div class="button-wrapper-filter cancel-filter-btn float-right" id="close" style="right: 90px;" onclick="goBack('@backUrlToPreview')">
                         <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
                             @sReportsV2.Resources.TextLanguage.Cancel
                         </a>
@@ -90,5 +39,5 @@
     </div>
 </div>
 
-<script src="~/Scripts/SwissOpenOncology/thesaurusPreview.js"></script>
-<script src="~/Scripts/sReports/tableCommon.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/SwissOpenOncology/thesaurusPreview.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/tableCommon.js")

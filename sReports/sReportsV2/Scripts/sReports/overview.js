@@ -220,8 +220,8 @@ function getTotalChartData() {
             $('.items').show();
 
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     })
 }
@@ -234,8 +234,8 @@ function getOrganizationUsersCountData() {
             $('#organizationUsersCount').html(response);
 
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }

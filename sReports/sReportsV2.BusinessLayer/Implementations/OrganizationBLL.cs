@@ -5,8 +5,6 @@ using sReportsV2.DAL.Sql.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using sReportsV2.DTOs.Pagination;
 using sReportsV2.DTOs.Common;
 using sReportsV2.DTOs.Organization.DataIn;
@@ -17,6 +15,12 @@ using sReportsV2.Domain.Sql.Entities.Common;
 using sReportsV2.DTOs.Autocomplete;
 using System.Data.Entity.Core;
 using sReportsV2.SqlDomain.Interfaces;
+using sReportsV2.DTOs.Organization.DataOut;
+using sReportsV2.Domain.Sql.Entities.User;
+using sReportsV2.DTOs.Common.DataOut;
+using sReportsV2.Common.Constants;
+using System.Data.Entity.Infrastructure;
+using sReportsV2.Common.Exceptions;
 
 namespace sReportsV2.BusinessLayer.Implementations
 {
@@ -25,33 +29,41 @@ namespace sReportsV2.BusinessLayer.Implementations
 
         private readonly IOrganizationDAL organizationDAL;
         private readonly IOrganizationRelationDAL organizationRelationDAL;
-        private readonly IAddressDAL addressDAL;
+
+        public OrganizationBLL(IOrganizationDAL organizationDAL, IOrganizationRelationDAL organizationRelationDAL)
+        {
+            this.organizationDAL = organizationDAL;
+            this.organizationRelationDAL = organizationRelationDAL;
+        }
 
         public PaginationDataOut<OrganizationDataOut, DataIn> ReloadTable(OrganizationFilterDataIn dataIn)
         {
-            dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
-            IQueryable<Organization> organizationsFiltered = organizationDAL.Filter(Mapper.Map<OrganizationFilter>(dataIn));
+            Ensure.IsNotNull(dataIn, nameof(dataIn));
+
+            OrganizationFilter filterData = Mapper.Map<OrganizationFilter>(dataIn);
+
+            List<Organization> organizationsFiltered = organizationDAL.GetAll(filterData);
             PaginationDataOut<OrganizationDataOut, DataIn> result = new PaginationDataOut<OrganizationDataOut, DataIn>()
             {
-                Count = (int)organizationsFiltered.Count(),
-                Data = Mapper.Map<List<OrganizationDataOut>>(organizationsFiltered.OrderByDescending(x => x.Id).Skip((dataIn.Page - 1)*dataIn.PageSize).Take(dataIn.PageSize).ToList()),
+                Count = (int) organizationDAL.GetAllFilteredCount(filterData),
+                Data = Mapper.Map<List<OrganizationDataOut>>(organizationsFiltered),
                 DataIn = dataIn
             };
 
             return result;
         }
 
-        public OrganizationBLL(IOrganizationDAL organizationDAL, IOrganizationRelationDAL organizationRelationDAL, IAddressDAL addressDAL)
-        {
-            this.organizationDAL = organizationDAL;
-            this.organizationRelationDAL = organizationRelationDAL;
-            this.addressDAL = addressDAL;
-        }
-
         public void Delete(OrganizationDataIn organizationDataIn)
         {
-            Organization organization = Mapper.Map<Organization>(organizationDataIn);
-            organizationDAL.Delete(organization);
+            try
+            {
+                Organization organization = Mapper.Map<Organization>(organizationDataIn);
+                organizationDAL.Delete(organization);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new ConcurrencyDeleteEditException();
+            }
         }
 
         public bool ExistIdentifier(IdentifierDataIn dataIn)
@@ -67,10 +79,10 @@ namespace sReportsV2.BusinessLayer.Implementations
 
             List<AutocompleteDataOut> organizationDataOuts = new List<AutocompleteDataOut>();
             IQueryable<Organization> filtered = organizationDAL.FilterByName(dataIn.Term);
-            organizationDataOuts = filtered.OrderBy(x => x.Id).Skip(dataIn.Page * 10).Take(10)
+            organizationDataOuts = filtered.OrderBy(x => x.Name).Skip(dataIn.Page * 15).Take(15)
                 .Select(x => new AutocompleteDataOut()
                 {
-                    id = x.Id.ToString(),
+                    id = x.OrganizationId.ToString(),
                     text = x.Name
                 })
                 .Where(x => string.IsNullOrEmpty(dataIn.ExcludeId) || !x.id.Equals(dataIn.ExcludeId))
@@ -80,10 +92,9 @@ namespace sReportsV2.BusinessLayer.Implementations
             {
                 pagination = new AutocompletePaginatioDataOut()
                 {
-                    more = Math.Ceiling(filtered.Count() / 10.00) > dataIn.Page,
+                    more = Math.Ceiling(filtered.Count() / 15.00) > dataIn.Page,
                 },
                 results = organizationDataOuts
-
             };
 
             return result;
@@ -110,20 +121,44 @@ namespace sReportsV2.BusinessLayer.Implementations
 
         public void Insert(OrganizationDataIn organizationDataIn)
         {
-            Organization organization = Mapper.Map<Organization>(organizationDataIn);
-            if (organization.Id != 0)
+            try
             {
-                Organization dbOrganization = organizationDAL.GetById(organization.Id);
-                if (dbOrganization == null) throw new ObjectNotFoundException();
+                Organization organization = Mapper.Map<Organization>(organizationDataIn);
+                if (organization.OrganizationId != 0)
+                {
+                    Organization dbOrganization = organizationDAL.GetById(organization.OrganizationId);
+                    if (dbOrganization == null) throw new ObjectNotFoundException();
 
-                dbOrganization.CopyData(organization);
-                organization = dbOrganization;
+                    dbOrganization.CopyData(organization);
+                    organization = dbOrganization;
+                }
+                organizationDAL.InsertOrUpdate(organization);
+
+                organization.SetRelation(organizationDataIn.ParentId);
+                organization.SetClinicalDomains(organizationDataIn.ClinicalDomain);
+                organizationDAL.InsertOrUpdate(organization);
             }
-            organizationDAL.InsertOrUpdate(organization);
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
+        }
 
-            organization.SetRelation(organizationDataIn.ParentId);
-            organization.SetClinicalDomains(organizationDataIn.ClinicalDomain);
-            organizationDAL.InsertOrUpdate(organization);
+        public List<OrganizationUsersCount> GetOrganizationUsersCount(string term, Dictionary<int, string> countries)
+        {
+            return organizationDAL.GetOrganizationUsersCount(term, countries);
+        }
+
+        public List<OrganizationUsersDataOut> GetUsersByOrganizationsIds(List<int> ids)
+        {
+            List<UserOrganization> userOrganizations = GetUsersByOrganizationsWithPermission(organizationDAL.GetUsersByOrganizationIds(ids));
+            
+            return userOrganizations.GroupBy(x => new { x.OrganizationId, x.Organization.Name }).Select(x => new OrganizationUsersDataOut
+            {
+                Id = x.Key.OrganizationId,
+                Name = x.Key.Name,
+                Users = Mapper.Map<List<UserDataOut>>(x.Select(y => y.User).ToList())
+            }).ToList();
         }
 
         private void LoadHierarchyTree(List<OrganizationRelation> hierarchyList, int parentId, List<OrganizationDataOut> hierarchy)
@@ -133,8 +168,8 @@ namespace sReportsV2.BusinessLayer.Implementations
             {
                 var parent = Mapper.Map<OrganizationDataOut>(parentHierarchy.Parent);
                 var child = Mapper.Map<OrganizationDataOut>(parentHierarchy.Child);
-                
-                if(!hierarchy.Any(x => x.Id == parent.Id))
+
+                if (!hierarchy.Any(x => x.Id == parent.Id))
                 {
                     hierarchy.Add(parent);
                 }
@@ -160,19 +195,19 @@ namespace sReportsV2.BusinessLayer.Implementations
             }
         }
 
-        public long GetAllCount()
+        private List<UserOrganization> GetUsersByOrganizationsWithPermission(List<UserOrganization> userOrganizations)
         {
-            return organizationDAL.GetAllCount();
-        }
+            List<UserOrganization> userOrganizationsWithPermission = new List<UserOrganization>();
 
-        public long GetAllEntriesCountByCountry(string country)
-        {
-            return organizationDAL.GetAllEntriesCountByCountry(country);
-        }
+            foreach (UserOrganization userOrganization in userOrganizations)
+            {
+                if (userOrganization.User.UserHasPermission(PermissionNames.FindConsensus, ModuleNames.Designer))
+                {
+                    userOrganizationsWithPermission.Add(userOrganization);
+                }
+            };
 
-        public List<OrganizationUsersCount> GetOrganizationUsersCount(string term, List<string> countries)
-        {
-            return organizationDAL.GetOrganizationUsersCount(term, countries);
+            return userOrganizationsWithPermission;
         }
     }
 }

@@ -30,26 +30,32 @@ using sReportsV2.Common.Extensions;
 using sReportsV2.Common.Entities.User;
 using sReportsV2.SqlDomain.Interfaces;
 using sReportsV2.Domain.Sql.Entities.Patient;
+using sReportsV2.DTOs.User.DTO;
+using sReportsV2.DTOs.Field.DataOut;
+using sReportsV2.DTOs.Autocomplete;
+using sReportsV2.Common.Singleton;
 
 namespace sReportsV2.Controllers
 {
     public class FormDistributionController : FormCommonController
     {
-        private IFormDistributionService formDistributionService;
-        public FormDistributionController(IPatientDAL patientDAL, IEpisodeOfCareDAL episodeOfCareDAL, IUserBLL userBLL, IOrganizationBLL organizationBLL, ICustomEnumBLL customEnumBLL, IFormInstanceBLL formInstanceBLL, IFormBLL formBLL, IEncounterDAL encounterDAL) : base(patientDAL, episodeOfCareDAL,encounterDAL,userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
+        private readonly IFormDistributionDAL formDistributionService;
+        private readonly IFormDistributionBLL formDistributionBLL;
+        public FormDistributionController(IFormDistributionBLL formDistributionBLL,IPatientDAL patientDAL, IEpisodeOfCareDAL episodeOfCareDAL, IUserBLL userBLL, IOrganizationBLL organizationBLL, ICustomEnumBLL customEnumBLL, IFormInstanceBLL formInstanceBLL, IFormBLL formBLL, IEncounterDAL encounterDAL) : base(patientDAL, episodeOfCareDAL,encounterDAL,userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
         {
-            formDistributionService = new FormDistributionService();
+            formDistributionService = new FormDistributionDAL();
+            this.formDistributionBLL = formDistributionBLL;
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Simulator)]
         public ActionResult GetAll(FormFilterDataIn dataIn)
         {
             ViewBag.FilterData = dataIn;
             return View();
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         public ActionResult ReloadTable(FormDistributionFilterDataIn dataIn)
         {
             dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
@@ -63,34 +69,18 @@ namespace sReportsV2.Controllers
             return PartialView("ReloadTable", result);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         public ActionResult ReloadForms(FormFilterDataIn dataIn)
         {
             dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
             dataIn.State = FormDefinitionState.ReadyForDataCapture;
+            PopulateFormStates(dataIn);
 
-            FormFilterData filterData = GetFormFilterData(dataIn);
-
-            PaginationDataOut<FormDataOut, FormFilterDataIn> result = new PaginationDataOut<FormDataOut, FormFilterDataIn>()
-            {
-                Count = (int)this.formDAL.GetAllFormsCount(filterData),
-                Data = Mapper.Map<List<FormDataOut>>(this.formDAL.GetAll(filterData)),
-                DataIn = dataIn
-            };
+            PaginationDataOut<FormDataOut, FormFilterDataIn> result = formBLL.ReloadData(dataIn, userCookieData);
 
             ReloadFormDataOut(result.Data);
 
             return PartialView(result);
-        }
-
-        public void ReloadFormDataOut(List<FormDataOut> forms) 
-        {
-            var formDistributions = formDistributionService.GetAllVersionAndThesaurus();
-
-            foreach (FormDataOut form in forms)
-            {
-                    form.IsParameterize = formDistributions.Any(x => x.ThesaurusId == form.ThesaurusId && x.VersionId != null && x.VersionId == form.Version.Id);
-            }
         }
 
         public ActionResult Edit(string formDistributionId)
@@ -100,104 +90,30 @@ namespace sReportsV2.Controllers
 
             return View(result);
         }
+
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Simulator)]
+        public ActionResult GetFieldParameters(string formDistributionId, string formFieldDistributionId)
+        {
+            FormFieldDistributionDataOut result = formDistributionBLL.GetFormFieldDistribution(formDistributionId, formFieldDistributionId);
+            return GetFormFieldDistributionView(formDistributionId, result);
+        }
+
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Simulator)]
         public ActionResult GetByThesaurusId(int thesaurusId, string versionId)
         {
-            FormDistributionDataOut dataOut = null;
-            FormDistribution formDistribution = formDistributionService.GetByThesaurusIdAndVersion(thesaurusId, versionId);
-            Form form = formDAL.GetFormByThesaurusAndVersion(thesaurusId, versionId);
-
-            if (formDistribution != null)
-            {
-                dataOut = Mapper.Map<FormDistributionDataOut>(formDistribution);
-            }
-            else
-            {
-                if (form != null)
-                {
-                    formDistribution = GetFromForm(form);
-                    dataOut = Mapper.Map<FormDistributionDataOut>(formDistribution);
-                }
-            }
-
-            List<Field> fields = form.GetAllFields();
-            foreach (var field in dataOut.Fields) 
-            {
-                foreach(var rel in field.RelatedVariables) 
-                {
-                    rel.Label = fields.FirstOrDefault(x => x.Id == rel.Id).Label;
-                }
-            }
-
-            ViewBag.Form = GetFormDataOut(form);
-
-            return View("Edit", dataOut);
-        }
-
-        private FormDistribution GetFromForm(Form form)
-        {
-            return new FormDistribution() {
-                EntryDatetime = form.EntryDatetime,
-                ThesaurusId = form.ThesaurusId,
-                Title = form.Title,
-                Fields = GetDistributionFields(form.GetAllFields().Where(x => x is FieldCheckbox || x is FieldRadio || x is FieldSelect || x is FieldNumeric).ToList()),
-                VersionId = form.Version.Id
-            };
-        }
-
-        private List<FormFieldDistribution> GetDistributionFields(List<Field> fields)
-        {
-            List<FormFieldDistribution> result = new List<FormFieldDistribution>();
-            foreach(Field field in fields)
-            {
-                FormFieldDistribution fieldDistribution = new FormFieldDistribution()
-                {
-                    Id = field.Id,
-                    Label = field.Label,
-                    RelatedVariables = new List<Domain.Entities.Distribution.RelatedVariable>(),
-                    ThesaurusId = field.ThesaurusId,
-                    Type = field.Type,
-                    ValuesAll = new List<FormFieldDistributionSingleParameter>()
-                 {
-                     new FormFieldDistributionSingleParameter()
-                     {
-                         NormalDistributionParameters = new FormFieldNormalDistributionParameters(),
-                         Values = field is FieldSelectable ? (field as FieldSelectable).Values.Select(x => new FormFieldValueDistribution()
-                         {
-                             Label = x.Label,
-                             ThesaurusId = x.ThesaurusId,
-                             Value = x.Value
-                         }).ToList() : null
-                     }
-                 }
-                };
-                result.Add(fieldDistribution);
-            }
-
-            return result;
+            SetViewBagPreviewTypeParameters();
+            return View("Edit", formDistributionBLL.GetFormDistributionForParameterization(thesaurusId, versionId));
         }
 
         [HttpPost]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Simulator)]
         public ActionResult SetParameters(FormDistributionDataIn dataIn)
         {
-            dataIn = Ensure.IsNotNull(dataIn, nameof(dataIn));
-
-            FormDistribution formDistribution;
-            if (!string.IsNullOrEmpty(dataIn.FormDistributionId))
-            {
-                formDistribution = formDistributionService.GetById(dataIn.FormDistributionId);
-            }
-            else
-            {
-                Form form = formDAL.GetFormByThesaurusAndVersion(dataIn.ThesaurusId, dataIn.VersionId);
-                formDistribution = GetFromForm(form);
-            }
-
-            formDistribution.Fields = Mapper.Map<List<FormFieldDistribution>>(dataIn.Fields);
-           
-            formDistributionService.InsertOrUpdate(formDistribution);
+            this.formDistributionBLL.SetParameters(dataIn);
             return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
-        
+
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Simulator)]
         public ActionResult GenerateDocuments(string formId, int numOfDocuments)
         {
             Form form = formDAL.GetForm(formId);
@@ -206,7 +122,6 @@ namespace sReportsV2.Controllers
             FormDistribution formDistribution = formDistributionService.GetByThesaurusIdAndVersion(form.ThesaurusId, form.Version.Id);
             if (formDistribution == null) return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             UserData userData = Mapper.Map<UserData>(userCookieData);
-
 
             List<FormInstance> generated = FormInstanceGenerator.Generate(form, formDistribution, numOfDocuments);
             foreach (FormInstance formInstance in generated)
@@ -223,10 +138,17 @@ namespace sReportsV2.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
 
+        public ActionResult GetRelationFieldAutocompleteData(AutocompleteDataIn dataIn, string formDistributionId)
+        {
+            var result = formDistributionBLL.GetRelationFieldAutocomplete(dataIn, formDistributionId);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Simulator)]
         public ActionResult RenderInputsForDependentVariable(DependentVariableRelatedVariables dataIn)
         {
-            Form form = formDAL.GetFormByThesaurus(dataIn.ThesaurusId);
+            Form form = formDAL.GetFormByThesaurusAndVersion(dataIn.ThesaurusId, dataIn.VersionId);
             List<Field> formFields = form.GetAllFields();
             List<FormFieldDistributionSingleParameterDataOut> variables = new List<FormFieldDistributionSingleParameterDataOut>();
 
@@ -268,8 +190,67 @@ namespace sReportsV2.Controllers
                 ThesaurusId = targetField.ThesaurusId,
                 RelatedVariables = dataIn.RelatedVariables
             };
+            return GetFormFieldDistributionView(dataIn.FormDistributionId, dataOut);
+        }
 
-            return PartialView("RenderInputs",dataOut);
+        [SReportsAuthorize(Permission = PermissionNames.Delete, Module = ModuleNames.Simulator)]
+        public ActionResult ResetAllRelationsForField(string formDistributionId, string formFieldDistributionId)
+        {
+            FormFieldDistributionDataOut result = formDistributionBLL.ResetAllRelationsForField(formDistributionId, formFieldDistributionId, userCookieData);
+            return GetFormFieldDistributionView(formDistributionId, result);
+        }
+
+        public string ShowField(FormFieldDistributionDataOut f)
+        {
+            f = Ensure.IsNotNull(f, nameof(f));
+
+            switch (f.Type)
+            {
+                case FieldTypes.Number:
+                case FieldTypes.Digits:
+                    return RenderPartialViewToString("~/Views/FormDistribution/NormalDistributionParameters.cshtml", f);
+                case FieldTypes.Checkbox:
+                    return RenderPartialViewToString("~/Views/FormDistribution/BinominalDistributionParameters.cshtml", f);
+                case FieldTypes.Radio:
+                case FieldTypes.Select:
+                    return RenderPartialViewToString("~/Views/FormDistribution/MultinominalDistributionParameters.cshtml", f);
+                default:
+                    return string.Empty;
+            }
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
+        private void ReloadFormDataOut(List<FormDataOut> forms)
+        {
+            var formDistributions = formDistributionService.GetAllVersionAndThesaurus();
+
+            foreach (FormDataOut form in forms)
+            {
+                form.IsParameterize = formDistributions.Any(x => x.ThesaurusId == form.ThesaurusId && x.VersionId != null && x.VersionId == form.Version.Id);
+            }
+        }
+
+        private ActionResult GetFormFieldDistributionView(string formDistributionId, FormFieldDistributionDataOut formFieldDistribution)
+        {
+            SetFieldDefinitionForView(formDistributionId, formFieldDistribution, userCookieData);
+            SetViewBagPreviewTypeParameters();
+            return PartialView("RenderInputs", formFieldDistribution);
         }
 
         private void SetField(Field targetField, Field field2, SingleDependOnValueDataOut singleValue1, DTOs.FormDistribution.DataIn.RelatedVariable relatedVariable, List<FormFieldDistributionSingleParameterDataOut> variables)
@@ -345,12 +326,13 @@ namespace sReportsV2.Controllers
             return result;
         }
 
-        private int ParseAndInsertPatient(FormChapter chapter)
+        private int ParseAndInsertPatient(Form form)
         {
             //TO DO
             //PatientParser patientParser = new PatientParser(identifierTypeService.GetAll().Where(x => x.Type == IdentifierKind.PatientIdentifierType.ToString()).ToList());
-            PatientParser patientParser = new PatientParser(new List<Domain.Sql.Entities.Common.CustomEnum>());
-            Patient patient = patientParser.ParsePatientChapter(chapter);
+            PatientParser patientParser = new PatientParser(new List<Domain.Sql.Entities.Common.CustomEnum>(), SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.Country));
+            Patient patient = patientParser.ParsePatientChapter(form.Chapters.FirstOrDefault(x => x.ThesaurusId.ToString().Equals(ResourceTypes.PatientThesaurus)));
+            patient.OrganizationId = form.OrganizationId;
 
             return InsertPatient(patient);
         }
@@ -377,42 +359,6 @@ namespace sReportsV2.Controllers
                     /*FormFieldValueDistributionDataIn valueDataIn = fieldDataIn.Values.FirstOrDefault(x => x.ThesaurusId.Equals(value.ThesaurusId));
                     value.SuccessProbability = valueDataIn?.SuccessProbability;*/
                 }
-            }
-        }
-
-        public string ShowField(FormFieldDistributionDataOut f)
-        {
-            f = Ensure.IsNotNull(f, nameof(f));
-
-            switch (f.Type)
-            {
-                case FieldTypes.Number:
-                case FieldTypes.Digits:
-                    return RenderPartialViewToString("~/Views/FormDistribution/NormalDistributionParameters.cshtml", f);
-                case FieldTypes.Checkbox:
-                    return RenderPartialViewToString("~/Views/FormDistribution/BinominalDistributionParameters.cshtml", f);
-                case FieldTypes.Radio:
-                case FieldTypes.Select:
-                    return RenderPartialViewToString("~/Views/FormDistribution/MultinominalDistributionParameters.cshtml", f);
-                default:
-                    return string.Empty;
-            }
-        }
-
-        protected string RenderPartialViewToString(string viewName, object model)
-        {
-            if (string.IsNullOrEmpty(viewName))
-                viewName = ControllerContext.RouteData.GetRequiredString("action");
-
-            ViewData.Model = model;
-
-            using (StringWriter sw = new StringWriter())
-            {
-                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-                viewResult.View.Render(viewContext, sw);
-
-                return sw.GetStringBuilder().ToString();
             }
         }
 
@@ -445,7 +391,7 @@ namespace sReportsV2.Controllers
         {
             if (!form.DisablePatientData)
             {
-                int patientId = ParseAndInsertPatient(form.Chapters.FirstOrDefault(x => x.ThesaurusId.Equals("9356")));
+                int patientId = ParseAndInsertPatient(form);
                 int eocId = InsertEpisodeOfCare(patientId, form.EpisodeOfCare, "Simulator", DateTime.Now, user);
                 formInstance.PatientId = patientId;
                 formInstance.EpisodeOfCareRef = eocId;
@@ -455,6 +401,7 @@ namespace sReportsV2.Controllers
             formInstance.UserId = userCookieData.Id;
             formInstance.OrganizationId = userCookieData.ActiveOrganization;
         }
+
         private void InsertListOfFormInstances(List<FormInstance> formInstances)
         {
             int skip = 0;
@@ -464,6 +411,20 @@ namespace sReportsV2.Controllers
                 formInstanceDAL.InsertMany(formInstances.Skip(skip).Take(take).ToList());
                 skip += take;
             }
+        }
+
+        private void SetFieldDefinitionForView(string formDistributionId, FormFieldDistributionDataOut formFieldDistribution, UserCookieData userCookieData)
+        {
+            FormDistribution formDistribution = formDistributionService.GetById(formDistributionId);
+            Field fieldDefinition = formDistributionBLL.GetFormField(formDistribution.ThesaurusId, formDistribution.VersionId, userCookieData, formFieldDistribution.Id);
+            FieldDataOut fieldDefinitionDataOut = Mapper.Map<FieldDataOut>(fieldDefinition);
+            ViewBag.FieldDefinition = fieldDefinitionDataOut;
+        }
+
+        private void SetViewBagPreviewTypeParameters()
+        {
+            ViewBag.CanDelete = ViewBag.UserCookieData.UserHasPermission(PermissionNames.Delete, ModuleNames.Simulator);
+            SetReadOnlyAndDisabledViewBag(!ViewBag.UserCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Simulator));
         }
     }
 }

@@ -83,6 +83,7 @@ function setFormVersion(element) {
 
 function setDocumentProperties(element) {
     let documentProperties = getDataProperty(element, 'documentproperties');
+    documentProperties['description'] = $('#description').val();
     setDocumentClass(documentProperties);
     setScopeOfValidity(documentProperties);
     documentProperties['clinicalDomain'] = setClinicalDomain();

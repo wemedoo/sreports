@@ -1,77 +1,68 @@
 ﻿@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions;
 @model FieldFileDataOut
 @{
     bool isChapterReadonly = ViewBag.Chapter;
     int fieldSetCounter = ViewBag.FieldSetCounter;
     string fieldSetId = ViewBag.FieldSetId;
+    string value = Model.HasValue() && !string.IsNullOrEmpty(Model.Value[0]) ? Model.Value[0] : "";
 }
 
-
-
-<fieldset id="@fieldSetId-@fieldSetCounter-@((Model as FieldDataOut).Id)-1" class="form-element form-input position-relative field-set-content" @Html.Raw(Model.Visibility)>
-
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element form-input position-relative field-set-content" @Html.Raw(Model.Visibility) @Html.Disabled(Model.IsDisabled) @Html.Raw(Model.IsRequiredDataAttr)>
     <div class="repetitive-values d-inline-block form-input-size">
-        <div class="field-group">
-            <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
-                @Html.Raw(Model.FullLabel)
-            </div>
-            <div class="repetitive-field d-inline-block">
-                <div class="filter-input  file-field w-100">
-                    @if (Model.IsReadonly || isChapterReadonly)
-                    {
-                        <input type="file"
-                               class="form-element-field file"
-                               data-id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                               placeholder="@Model.DescriptionLabel"
-                               disabled
-                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1" />
-
-                        <input type="hidden"
-                               class="form-element-field file-hid"
-                               data-id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                               placeholder="@Model.DescriptionLabel"
-                               readonly
-                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1" />
-                    }
-                    else
-                    {
-                        <input type="file"
-                               class="form-element-field file"
-                               data-id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                               placeholder="@Model.DescriptionLabel"
-                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1" />
-
-                        <input type="hidden"
-                               class="file-hid"
-                               id="field-@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                               name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
-                               placeholder="@Model.DescriptionLabel"
-                               value="@(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) ? Model.Value[0] :"")" />
-                    }
-                    <div class="file-choose">
-                        <div>Browse file</div>
-                        <img src="~/Content/img/icons/browse.svg" class="ml-auto" style="width:20px;">
-                    </div>
-                </div>
-
-                <div class="file-name-div" style="display:@(Model.Value != null && Model.Value.Count > 0 ? "" : "none")">
-                    <i class="fas fa-check file-check"></i>
-
-                    <div class="file-name-text" onclick="downloadImage(event,'@(Model.Value != null && Model.Value.Count > 0 ? Model.Value[0] : "")')">
-                        @HttpUtility.UrlDecode((Model.Value != null && Model.Value.Count > 0 ?  Model.Value[0].Split('/').Last() : ""))
-                    </div>
-                    <a class="remove-predefined ml-auto file-remove" onclick="removeFile(event)"></a>
-
-                </div>
-
-            </div>
-            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
-        </div>
-
+        @AddField(Html, Model, isChapterReadonly, fieldSetId, fieldSetCounter, 1, value)
     </div>
-    <div style="margin-top:10px;">
-        <div style="display:none" class="form-element-description field-desc">
-            @Html.Raw(Model.Description)
-        </div>
-    </div>
+    @Html.Partial("~/Views/Form/FormFieldDescription.cshtml", Model)
 </fieldset>
+
+@helper AddField(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue)
+{
+    <div class="field-group">
+        <div for="@objectModel.Id" class="filter-label form-label-size d-inline-block">
+            @html.Raw(objectModel.FullLabel)
+        </div>
+        <div class="repetitive-field d-inline-block">
+            @AddInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue.ResetIfSpecialValue())
+        </div>
+        @html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", objectModel, new System.Web.Mvc.ViewDataDictionary(html.ViewData) { { "repetitiveCounter", repetitiveCounter }, { "repetitiveValue", repetitiveValue } })
+    </div>
+}
+
+@helper AddInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue)
+{
+    <div class="filter-input file-field w-100">
+        <input type="text"
+               class="file-hid"
+               id="field-@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter"
+               name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter"
+               placeholder="@objectModel.DescriptionLabel"
+               @html.ReadOnly(objectModel.IsReadonly || isChapterReadonly)
+               value="@repetitiveValue"
+               @html.Raw(objectModel.ValidationAttr) />
+        <input type="file"
+               class="form-element-field file d-none"
+               data-id="field-@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter"
+               placeholder="@objectModel.DescriptionLabel"
+               @html.Disabled(objectModel.IsReadonly || isChapterReadonly)
+               name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" />
+        <div class="file-choose">
+            <div>Browse file</div>
+            <img src="~/Content/img/icons/browse.svg" class="ml-auto" style="width:20px;">
+        </div>
+    </div>
+    @RenderFileDisplayElement(objectModel.IsReadonly, isChapterReadonly, repetitiveValue)
+}
+
+@helper RenderFileDisplayElement(bool isReadonly, bool isChapterReadonly, string repetitiveValue)
+{
+    <div class="file-name-div" style="display:@(string.IsNullOrEmpty(repetitiveValue) ? "none" : "")">
+        <i class="fas fa-check file-check"></i>
+        <div class="file-name-text" onclick="downloadImage(event,'@repetitiveValue.GetResourceNameFromUri()', '@repetitiveValue.GetFileNameFromUri()')">
+            @HttpUtility.UrlDecode(repetitiveValue.GetFileNameFromUri())
+        </div>
+        @if (!(isReadonly || isChapterReadonly))
+        {
+            <a class="remove-predefined ml-auto file-remove" onclick="removeFile(event)"></a>
+        }
+    </div>
+}

@@ -10,8 +10,8 @@
                     $('#clinicalOptions').html(data);
                     $('#clinicalOptions').show();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastr.error(jqXHR.responseText);
+                error: function (xhr, textStatus, thrownError) {
+                    handleResponseError(xhr.responseText);
                 }
             });
         }
@@ -19,55 +19,6 @@
 
 });
 
-
-function optionClicked(e, value, translation) {
-    console.log(value);
-    let exist = false;
-    $("#clinicals").find('div').each(function (index, element) {
-        if ($(element).attr("data-value") == value) {
-            exist = true;
-        }
-    });
-
-    addNewClinicalDomain(exist, value, translation);
-    $("#clinicalDomain").val('');
-}
-
-function addNewClinicalDomain(exist, value, translation) {
-    if (!exist) {
-        let item = document.createElement('div');
-        $(item).attr("data-value", value);
-        $(item).text(translation);
-        $(item).addClass('clinical');
-        let i = document.createElement('i');
-        $(i).addClass('fas fa-times clinical-remove');
-        $(item).append(i);
-        $("#clinicals").append(item);
-        $('#clinicalOptions').hide();
-    }
-}
-$(document).on("click", '.designer-form-modal-body', function (e) {
-    if (!$(e.currentTarget).hasClass('dropdown-search') || $(e.currentTarget).closest('dropdown-search').length == 0) {
-        $("#clinicalOptions").hide();
-    }
-});
-
-$(document).on("click", '.clinical-remove', function (e) {
-    $(this).closest(".clinical").remove();
-});
-
-function setClinicalDomain() {
-    let result = [];
-    $("#clinicals").find('.clinical').each(function (index, element) {
-        result.push($(element).attr("data-value"));
-    });
-
-    return result;
-}
-
-var li = $('.option');
-var liSelected = null;
-var counter = 0;
 $(document).on('keydown', '#search', function (e) {
     console.log(++counter);
     let next;
@@ -102,3 +53,62 @@ $(document).on('keydown', '#search', function (e) {
 
     e.stopImmediatePropagation();
 });
+
+$(document).on("click", '.designer-form-modal-body', function (e) {
+    if (!$(e.currentTarget).hasClass('dropdown-search') || $(e.currentTarget).closest('dropdown-search').length == 0) {
+        $("#clinicalOptions").hide();
+    }
+});
+
+$(document).on("click", '.clinical-remove', function (e) {
+    $(this).closest(".clinical").remove();
+});
+
+$(document).on("click", '.sidebar-shrink', function (e) {
+    let target = e.target;
+    let isClicalDomainInput = $(target).attr('id') === 'clinicalDomain';
+    if (!$(target).hasClass('option') && !isClicalDomainInput) {
+        $("#clinicalOptions").hide();
+    }
+});
+
+function optionClicked(e, value, translation) {
+    console.log(value);
+    let exist = false;
+    $("#clinicals").find('div').each(function (index, element) {
+        if ($(element).attr("data-value") == value) {
+            exist = true;
+        }
+    });
+
+    addNewClinicalDomain(exist, value, decodeLocalizedString(translation));
+    $("#clinicalDomain").val('');
+}
+
+function addNewClinicalDomain(exist, value, translation) {
+    if (!exist) {
+        let item = document.createElement('div');
+        $(item).attr("data-value", value);
+        $(item).text(translation);
+        $(item).addClass('clinical');
+        let i = document.createElement('i');
+        $(i).addClass('fas fa-times clinical-remove');
+        $(item).append(i);
+        $("#clinicals").append(item);
+    }
+    $('#clinicalOptions').hide();
+}
+
+
+function setClinicalDomain() {
+    let result = [];
+    $("#clinicals").find('.clinical').each(function (index, element) {
+        result.push($(element).attr("data-value"));
+    });
+
+    return result;
+}
+
+var li = $('.option');
+var liSelected = null;
+var counter = 0;

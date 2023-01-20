@@ -11,9 +11,9 @@
         {
         <li class="list-group-item">
             <div>@thesaurusEntry.O40MTId</div>
-            <div>@thesaurusEntry.Translations.FirstOrDefault().Language</div>
-            <div>@thesaurusEntry.Translations.FirstOrDefault().PreferredTerm</div>
-            <div>@thesaurusEntry.Translations.FirstOrDefault().Definition</div>
+            <div>@thesaurusEntry.Translations.FirstOrDefault(x => x.Language.Equals("en"))</div>
+            <div>@thesaurusEntry.GetPreferredTermByTranslationOrDefault("en")</div>
+            <div>@thesaurusEntry.GetDefinitionByTranslationOrDefault("en", "en")</div>
         </li>
         }
     </ul>

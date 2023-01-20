@@ -9,5 +9,7 @@ namespace sReportsV2.DTOs.DigitalGuideline.DataOut
     {
         public string Source { get; set; }
         public string Target { get; set; }
+        public string Condition { get; set; }
+
     }
 }

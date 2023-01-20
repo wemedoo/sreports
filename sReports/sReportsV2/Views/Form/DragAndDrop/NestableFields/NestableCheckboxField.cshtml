@@ -10,12 +10,16 @@
                 <i class="fas fa-arrows-alt"></i>
             </div>
             <div class="icon-container">
+                <div class="overlay"></div>
                 <div class="edit-button">
-                    <img src="/Content/img/icons/edit_pencil_03.svg">
+                    <img src="~/Content/img/icons/edit_pencil_03.svg">
                 </div>
-                <div class="remove-button">
-                    <img src="/Content/img/icons/remove_simulator.svg">
-                </div>
+                @if (!Model.IsDisabled)
+                {
+                    <div class="remove-button">
+                        <img src="~/Content/img/icons/remove_simulator.svg">
+                    </div>
+                }
             </div>
                @Html.Raw(Model.FullLabel) 
 </div>
@@ -28,18 +32,21 @@
                     <div class="form-checkbox-label">
                         <div class="drag-item-icon checkbox-drag-item-icon">
                             <i class="fas fa-arrows-alt"></i>
-                        </div>                      
+                        </div>
                         <div class="icon-container">
                             <div class="overlay"></div>
                             <a class="add-comment-link comment-block-hide" onclick="addComment('@fieldValue.Id')">
                                 <img class="add-comment-icon" src="~/Content/img/icons/add_comment_1.svg">
                             </a>
                             <div class="edit-button">
-                                <img src="/Content/img/icons/edit_pencil_03.svg">
+                                <img src="~/Content/img/icons/edit_pencil_03.svg">
                             </div>
-                            <div class="remove-button">
-                                <img src="/Content/img/icons/remove_simulator.svg">
-                            </div>
+                            @if (!Model.IsDisabled)
+                            {
+                                <div class="remove-button">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            }
                         </div>
                         <input class="form-checkbox-field" type="checkbox" />
                         <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
@@ -48,9 +55,12 @@
                 </div>
             </li>
         }
-        <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldvalue" data-valuetype="checkbox" style="display: @(Model.Values.Count == 0 ? "block": "none")">
-            Drag a checkbox option here
-        </li>
+        @if (!Model.IsDisabled)
+        {
+            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldvalue" data-valuetype="checkbox" style="display: @(Model.Values.Count == 0 ? "block": "none")">
+                Drag a checkbox option here
+            </li>
+        }
     </ol>
     @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
 </li>

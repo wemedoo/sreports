@@ -42,7 +42,10 @@
                                                 {
                                                 <div class="sim-group">
                                                     <div class=" horizontal-line sim-horizontal-line-top"></div>
-                                                    <div class="sim-child @(field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut || field is sReportsV2.DTOs.Field.DataOut.FieldNumericDataOut ? "editable" : "")" id="@field.Id" onclick="showFieldDistribution(event)">
+                                                    <div class="sim-child @(field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut || field is sReportsV2.DTOs.Field.DataOut.FieldNumericDataOut ? "editable" : "")" id="@field.Id"
+                                                         @(field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut || field is sReportsV2.DTOs.Field.DataOut.FieldNumericDataOut ? "onclick=showFieldDistribution(event)" : "")
+                                                         >
+                                                         
                                                         @field.Label
                                                         @if (field is sReportsV2.DTOs.Field.DataOut.FieldSelectableDataOut || field is sReportsV2.DTOs.Field.DataOut.FieldNumericDataOut)
                                                         {

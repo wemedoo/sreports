@@ -1,0 +1,64 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchemaInstance.DataOut;
+@using sReportsV2.Common.Extensions;
+
+@model ChemotherapySchemaInstanceHistoryDataOut
+
+<div class="d-flex advanced-filter-header">
+    <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> @sReportsV2.Resources.TextLanguage.Delay_Dose_History
+</div>
+<div class="modal-subtitle">
+    <div class="day-item day-item-display @(Model.FirstDelayDay > 0 ? "green" : "orange")">
+        @sReportsV2.Resources.TextLanguage.DAY
+        <span class="num">@Model.FirstDelayDay</span>
+    </div>
+    <span class="modal-title">@sReportsV2.Resources.TextLanguage.Date: @Model.StartDayDate.ToString(ViewBag.DateFormat)</span>
+</div>
+<div class="margin-bottom-20 margin-top-20">
+    <div class="row">
+        <div class="col font-weight-bold">Start delay</div>
+        <div class="col-3 font-weight-bold">@sReportsV2.Resources.TextLanguage.Created</div>
+        <div class="col-3 font-weight-bold">@sReportsV2.Resources.TextLanguage.Created_by</div>
+        <div class="col font-weight-bold">@sReportsV2.Resources.TextLanguage.Delay_for_days</div>
+        <div class="col font-weight-bold">@sReportsV2.Resources.TextLanguage.Date</div>
+    </div>
+    <div class="divider margin-top-1r"></div>
+    @foreach (var version in Model.History)
+    {
+        <div class="row justify-content-center align-self-center">
+            <div class="col">
+                <div class="day-item day-item-display @(version.FirstDelayDay > 0 ? "green" : "orange")">
+                    <span>@sReportsV2.Resources.TextLanguage.Day_lower @version.FirstDelayDay</span>
+                </div>
+            </div>
+            <div class="col-3"><div class="version-data">@version.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)</div></div>
+            <div class="col-3"><div class="version-data">@version.Creator.GetName()</div></div>
+            <div class="col">
+                <div class="col">
+                    <div class="day-item day-item-display orange">
+                        <span>
+                            + @version.DelayFor
+                        </span>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(version.ReasonForDelay))
+                    {
+                        <div class="input-comment popup" onclick="openPopupComment(event, @version.Id)">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.08831 0.195801C0.492821 0.195801 0 0.688623 0 1.28411V7.93654C0 8.53203 0.492821 9.02569 1.08831 9.02569H1.99019V11.1326C1.99021 11.2948 2.08155 11.4432 2.22638 11.5164C2.3712 11.5895 2.54485 11.5749 2.67542 11.4786L6.00164 9.02569H10.67C11.2655 9.02569 11.7583 8.53203 11.7583 7.93654V1.28411C11.7583 0.688622 11.2655 0.195801 10.67 0.195801H1.08831Z" fill="#FE5959"></path>
+                                <path d="M2.5 3.5H9.5" stroke="white" stroke-linecap="square"></path>
+                                <path d="M2.5 5.5H9.5" stroke="white" stroke-linecap="square"></path>
+                            </svg>
+                            <span class="popuptext" id="popup-@version.Id">
+                                <span class="font-weight-600">
+                                    @sReportsV2.Resources.TextLanguage.Comment:
+                                </span>
+                                <textarea class="popup-comment" readonly onclick="event.preventDefault()" value="@version.ReasonForDelay" data-no-color-change="true">@version.ReasonForDelay</textarea>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col"><div class="version-data">@version.DelayedDate.ToString(ViewBag.DateFormat)</div></div>
+        </div>
+    }
+</div>
+

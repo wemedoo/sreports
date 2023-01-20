@@ -5,10 +5,12 @@ var thesaurusPageNum = 0;
 
 
 $(document).ready(function () {
-    if ($('#O40MTID').val()) {
+    if ($('#Id').val()) {
        loadThesaurusTree();
        loadReviewTree();
     }
+    $('#collapseFoundIn').collapse('show');
+    setValidationCodeFunctions();
 });
 
 function loadReviewTree() {
@@ -20,29 +22,34 @@ function loadReviewTree() {
             success: function (data) {
                 $('#reviewTree').html(data);
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
 }
 
-function reloadTable(initLoad) {
+function reloadTable() {
     $('#advancedFilterModal').modal('hide');
-    setFilterElements();
+    setFilterTagsFromUrl();
     setFilterFromUrl();
-    let requestObject =  getFilterParametersObject();
+    let requestObject = getFilterParametersObject();
+    setAdvancedFilterBtnStyle(requestObject, ['Id', 'State', 'PreferredTerm', 'page', 'pageSize']);
     requestObject.Page = getPageNum();
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
+
     $.ajax({
         type: 'GET',
         url: '/ThesaurusEntry/ReloadTable',
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -61,8 +68,8 @@ function loadDocumentProperties(id) {
                 var element = document.getElementById("documentProperties");
                 checkCodeElement(codeElement, element);
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -80,8 +87,12 @@ function createThesaurusEntry() {
     window.location.href = "/ThesaurusEntry/Create";
 }
 
-function editEntity(event,id) {
+function editThesaurusEntry(id) {
     window.location.href = `/ThesaurusEntry/Edit?thesaurusEntryId=${id}`;
+}
+
+function editEntity(event, id) {
+    editThesaurusEntry(id);
     event.preventDefault();
 }
 
@@ -207,7 +218,6 @@ function getTdDefinition(definition) {
     return tdDefinition;
 }
 
-
 function getTdDateTime() {
     let tdDateTime = document.createElement('td');
     $(tdDateTime).addClass('custom-td');
@@ -236,7 +246,7 @@ function getDotsElement() {
 
     let img = document.createElement('img');
     $(img).addClass('codes-dots');
-    $(img).attr("src", "../Content/img/icons/dots-active.png");
+    $(img).attr("src", "/Content/img/icons/dots-active.png");
 
     $(a).append($(img));
 
@@ -252,7 +262,7 @@ function getDropdownMenuA1() {
 
     let img1 = document.createElement('img');
     $(img1).addClass("edit-svg-size");
-    $(img1).attr("src", "../Content/img/icons/edit.svg");
+    $(img1).attr("src", "/Content/img/icons/edit.svg");
 
     $(dropdownMenuA1).append($(img1)).append("Edit");
 
@@ -268,7 +278,7 @@ function getDropdownMenuA2() {
 
     let img2 = document.createElement('img');
     $(img2).addClass("edit-svg-size");
-    $(img2).attr("src", "../Content/img/icons/remove.svg");
+    $(img2).attr("src", "/Content/img/icons/remove.svg");
 
     $(dropdownMenuA2).append($(img2)).append("Delete");
 
@@ -325,23 +335,28 @@ $(document).on('click', '.remove-similar', function () {
     $(this).closest('.tags-element').remove();
 });
 
+function saveAndCreateNew(event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-function submitThesaurusEntryForm(form) {
-    $('#thesaurusEntryForm').validate();
+    submitThesaurusEntryForm(function () {
+        createThesaurusEntry();
+    });
+}
+
+function submitThesaurusEntryForm(callback) {
+    var form = $('#thesaurusEntryForm');
+    $(form).validate();
     if ($(form).valid()) {
         let data = {};
-        if ($("#Id").length > 0) {
-            data['id'] = $("#Id").val();
-        }
-        data['o40MtId'] = $('#O40MTID').val();
+        data['id'] = $("#Id").val();
         data['state'] = $('#thesaurusState').val();
         data['translations'] = getFormTranslations($(form).serializeArray());
         data['parentId'] = $('#parentId').val();
         data['umlsDefinitions'] = $('#UmlsDefinitions').html();
         data['umlsName'] = $('#UmlsName').val(); 
         data['umlsCode'] = $('#UmlsCode').val();
-        data['codes'] = GetCodes();
-        data['LastUpdate'] = $('#lastUpdate').val();
+        data['codes'] = getCodes();
 
         $.ajax({
             type: "POST",
@@ -351,24 +366,27 @@ function submitThesaurusEntryForm(form) {
                 toastr.options = {
                     timeOut: 100
                 }
-                toastr.options.onHidden = function () { window.location.href = `/ThesaurusEntry/GetAll`; }
                 toastr.success("Success");
 
-                $("[name='O40MTID']").val(data);
-                $("[name='O40MTID']").closest('.row').removeClass('d-none');
+                if (callback) {
+                    callback();
+                    return;
+                }
+
+                editThesaurusEntry(data.Id);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                handleResponseError(xhr, thrownError);
             }
         });
     }
     return false;
 }
 
-function GetCodes() {
+function getCodes() {
     let result = [];
     $('#codeTable').find('tr').each(function (index, element) {
-        let id = $(element).data('id');
+        let codeId = $(element).find('[data-property="codeId"]')[0];
         let codeSystem = $(element).find('[data-property="codeSystem"]')[0];
         let codeVersion = $(element).find('[data-property="codeVersion"]')[0];
         let codeCode = $(element).find('[data-property="codeCode"]')[0];
@@ -377,12 +395,13 @@ function GetCodes() {
 
         if ($(codeSystem).data('value') && $(codeCode).data('value') && $(codeValue).data('value')) {
             result.push({
-                Id: id,
+                Id: $(codeId).data("value"),
                 CodeSystemId: $(codeSystem).data('value'),
                 Version: $(codeVersion).data('value'),
                 Code: $(codeCode).data('value'),
                 Value: $(codeValue).data('value'),
-                VersionPublishDate: new Date($(codeVersionPublishDate).data('value')).toDateString()
+                CodeSystemAbbr: $(codeSystem).data('system'),
+                VersionPublishDate: toDateStringIfValue($(codeVersionPublishDate).data('value'))
             });
         }
     });
@@ -397,25 +416,9 @@ function getFormTranslations(data) {
         object[`definition`] = data.find(x => x.name === `definition-${language.value}`).value;
         object[`preferredTerm`] = data.find(x => x.name === `preferredTerm-${language.value}`).value;
         object[`synonyms`] = getTagValue('synonym', language.value);
-        object[`similarTerms`] = getSimilarTerms(language.value);
         object[`abbreviations`] = getTagValue('abbreviation', language.value);
         result.push(object);
     });
-    return result;
-}
-
-function getSimilarTerms(language) {
-    let result = [];
-    $(`#similarTerm-values-${language}`).find('.tags-element').each(function (index, element) {
-        result.push({
-            Name: $(this).attr("data-name"),
-            Definition: $(this).attr("data-definition"),
-            Type: $(this).attr("data-type"),
-            EntryDateTime: $(this).attr("data-entry-date-time"),
-            Id: $(this).attr('id')
-        });
-    });
-
     return result;
 }
 
@@ -451,7 +454,7 @@ function getNewRemoveIcon(id, tagType, language) {
     $(removeIcon).addClass('ml-2');
     $(removeIcon).addClass('tag-value');
     $(removeIcon).addClass('tag-value-synonym');
-    $(removeIcon).attr("src", "../Content/img/icons/Administration_remove.svg");
+    $(removeIcon).attr("src", "/Content/img/icons/Administration_remove.svg");
     $(removeIcon).attr("data-id", id);
     $(removeIcon).attr('data-action', `remove-tag`);
     $(removeIcon).attr('data-tag', tagType);
@@ -481,6 +484,10 @@ function getNewSignleTagContainer(id, tagType, language) {
     $(element).addClass('synonyms-element');
 
     return element;
+}
+
+function existsCodeValue(element, selector) {
+    return $(element + `:contains(${selector})`).length > 0;
 }
 
 function existsTagValue(value, tagType, language) {
@@ -542,8 +549,8 @@ function loadParent(parentId, language) {
             let thesaurusEntry = getThesaurusEntryFromForm(language);
             $('#treeStructure').html(getTreeStructureDOM(data, createTreeElementWithContent(thesaurusEntry, true)));
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -592,7 +599,7 @@ function createTreeElementWithContent(data, current, child = null) {
     return element;
 }
 
-function removeThesaurusEntry(event, id, lastUpdate) {
+function removeThesaurusEntry(event, id) {
     event.stopPropagation();
     $.ajax({
         type: "DELETE",
@@ -601,7 +608,7 @@ function removeThesaurusEntry(event, id, lastUpdate) {
             $(`#row-${id}`).remove();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -640,34 +647,24 @@ function auto_grow(element) {
     element.style.height = (element.scrollHeight+2) + "px";
 }
 
-function editCodeThesaurus(event, system, version, code, value, versionPublishDate) {
-    $('#codeSystem').val(system);
-    $('#codeVersion').val(version);
-    $('#codeValue').val(value);
-    $('#codeCode').val(code);
-    $('#codeVersionPublishDate').val(versionPublishDate);
-
-    $(event.currentTarget).closest('.tr').remove();
-
+function showUmlsModal(event) {
     event.stopPropagation();
-    $('#codeModal').modal('show');
 
-}
-function deleteCode(e) {
-    $(e.currentTarget).closest('.tr').remove();
+    $('#umlsModal').modal('show');
 }
 
 function showCodeModal(event) {
     event.stopPropagation();
-    if (codeValidator)
-    {
-        codeValidator.resetForm();
-    }
 
     resetCodeForm();
     closestRow = document.createElement('div');
-    $('#forEditing').val('');
+    showCodeModalTitle("addCodeTitle");
     $('#codeModal').modal('show');
+}
+
+function showCodeModalTitle(titleId) {
+    $(".code-form-title").hide();
+    $(`#${titleId}`).show();
 }
 
 function showSimilarTermModal(event) {
@@ -686,13 +683,24 @@ function showAdministrativeModal(event) {
 }
 
 function resetCodeForm() {
+    resetCodeValues();
+    resetValidation();
+    resetValidationColor();
+}
+
+function resetValidation() {
+    if (codeValidator) {
+        codeValidator.resetForm();
+    }
+}
+
+function resetCodeValues() {
     $('#codeSystem').val('');
     $('#codeVersion').val('');
     $('#codeVersionPublishDate').val('');
     $('#codeCode').val('');
     $('#codeValue').val('');
-
-    resetValidationColor();
+    $('#codeId').val('');
 }
 
 function resetValidationColor() {
@@ -707,200 +715,245 @@ function addNewCode(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    codeValidator = $('#newCodeForm').validate(
-        {
-            rules: {
-                codeSystem: {
-                    required: true
-                },
-                codeVersion: {
-                    required: true   
-                },
-                codeValue: {
-                    required: true   
-                },
-                codeCode: {
-                    required: true
-                },
-                bevalid: {
-                    codeValid: true
-                }
-            },
-            errorPlacement: function (error, element) {
-                if (error[0].innerText == 'Code already exist!') {
-                    error.insertBefore($("#bevalid"));
-                }
-                else {
-                    error.insertAfter(element);
-                }
-            }
-        });
-
+    codeValidator = $('#newCodeForm').validate();
     if ($('#newCodeForm').valid()) {
+        let codingObject = getNewCode();
+        let thesaurusEntryId = $("#Id").val();
 
-        let system = document.createElement('td');
-        $(system).attr("data-property", 'codeSystem');
-        $(system).attr("data-value", $('#codeSystem').val());
-        $(system).html($('#codeSystem option:selected').text());
-        $(system).addClass("custom-td-first");
+        if (thesaurusEntryId) {
+            $.ajax({
+                type: "post",
+                data: codingObject,
+                url: `/ThesaurusEntry/CreateCode?thesaurusEntryId=${thesaurusEntryId}`,
+                success: function (data, textStatus, jqXHR) {
+                    if (codingObject["id"]) {
+                        closestRow.replaceWith(data);
+                    } else {
+                        $('#codeTable tbody').append(data);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    handleResponseError(xhr, thrownError);
+                }
+            });
 
-        let version = document.createElement('td');
-        $(version).attr("data-property", 'codeVersion');
-        $(version).attr("data-value", $('#codeVersion').val());
-        $(version).html($('#codeVersion').val());
-        $(version).addClass("custom-td");
-
-        let code = document.createElement('td');
-        $(code).attr("data-property", 'codeCode');
-        $(code).attr("data-value", $('#codeCode').val());
-        $(code).html($('#codeCode').val());
-        $(code).addClass("custom-td");
-
-        let value = document.createElement('td');
-        $(value).attr("data-property", 'codeValue');
-        $(value).attr("data-value", $('#codeValue').val());
-        $(value).html($('#codeValue').val());
-        $(value).addClass("custom-td");
-
-        let versionPublishDate = document.createElement('td');
-        $(versionPublishDate).attr("data-property", 'codeVersionPublishDate');
-        $(versionPublishDate).attr("data-value", $('#codeVersionPublishDate').val());
-        let formatted_date = new Date($(versionPublishDate).data('value')).toLocaleDateString();
-        $(versionPublishDate).html(formatted_date);
-        $(versionPublishDate).addClass("custom-td");
-
-        let del = document.createElement('a');
-        $(del).addClass("dropdown-item delete-code");
-        $(del).attr("href", '#');
-        $(del).append(appendDeleteIcon()).append(deleteItem);
-
-        let edit = document.createElement('a');
-        $(edit).addClass("dropdown-item edit-code");
-        $(edit).attr("href", '#');
-        $(edit).append(appendEditIcon()).append(editItem);
-
-        let dropDownMenu = document.createElement('div');
-        $(dropDownMenu).addClass("dropdown-menu");
-        $(dropDownMenu).append(edit).append(del);
-
-        let icon = document.createElement('img');
-        $(icon).addClass("dots-active");
-        $(icon).attr("src", "../Content/img/icons/dots-active.png");
-
-        let a = document.createElement('a');
-        $(a).addClass("dropdown-button");
-        $(a).attr("href", "#");
-        $(a).attr("role", "button");
-        $(a).attr("data-toggle", "dropdown");
-        $(a).attr("aria-haspopup", "true");
-        $(a).attr("aria-expanded", "false");
-        $(a).append(icon);
-
-        let div = document.createElement('div');
-        $(div).addClass("dropdown show");
-        $(div).append(dropDownMenu).append(a);
-
-        let lastTD = document.createElement('td');
-        lastTD.style.padding = "unset";
-        $(lastTD).addClass("custom-td-last");
-        $(lastTD).append(div);
-
-        let coding = document.createElement('tr');
-        $(coding).addClass("tr edit-raw");
-
-        $(coding).append(system).append(version).append(code).append(value).append(versionPublishDate).append(lastTD);
-
-        if ($('#forEditing').val()) {
-            closestRow.replaceWith(coding);
+            $('#codeModal').modal('hide');
         } else {
-            $('#codeTable tbody').append(coding);
+            var codeRow = addNewCodeRowToTable(
+                codingObject.codeSystemId,
+                codingObject.codeSystem,
+                codingObject.codeSystem,
+                codingObject.version,
+                codingObject.code,
+                codingObject.value,
+                codingObject.versionPublishDate
+            );
+            $('#codeTable tbody').append(codeRow);
+            submitThesaurusEntryForm();
         }
-
-        $('#codeModal').modal('hide');
     }
+}
+
+function getNewCode() {
+    return {
+        "id" : $('#codeId').val(),
+        "codeSystemId" : $('#codeSystem').val(),
+        "codeSystem": $('#codeSystem option:selected').text(),
+        "version" : $('#codeVersion').val(),
+        "code" : $('#codeCode').val(),
+        "value": $('#codeValue').val(),
+        "versionPublishDate": toDateStringIfValue($('#codeVersionPublishDate').val())
+    }
+}
+
+function addNewCodeRowToTable(codeSystemId, codeSystem, codeSystemDisplay, codeVersion, codeCode, codeValue, codeVersionPublishDate) {
+    let system = document.createElement('td');
+    $(system).attr("data-property", 'codeSystem');
+    $(system).attr("data-value", codeSystemId);
+    $(system).attr("data-system", codeSystem);
+    $(system).html(codeSystemDisplay);
+    $(system).addClass("custom-td-first");
+
+    let version = document.createElement('td');
+    $(version).attr("data-property", 'codeVersion');
+    $(version).attr("data-value", codeVersion);
+    $(version).html(codeVersion);
+    $(version).addClass("custom-td");
+
+    let code = document.createElement('td');
+    $(code).attr("data-property", 'codeCode');
+    $(code).attr("data-value", codeCode);
+    $(code).html(codeCode);
+    $(code).addClass("custom-td");
+
+    let value = document.createElement('td');
+    $(value).attr("data-property", 'codeValue');
+    $(value).attr("data-value", codeValue);
+    $(value).html(codeValue);
+    $(value).addClass("custom-td");
+
+    let versionPublishDate = document.createElement('td');
+    $(versionPublishDate).attr("data-property", 'codeVersionPublishDate');
+
+    if (codeVersionPublishDate) {
+        $(versionPublishDate).attr("data-value", codeVersionPublishDate);
+        let formatted_date = $(versionPublishDate).attr('data-value');
+        $(versionPublishDate).html(formatted_date);
+    } else {
+        $(versionPublishDate).attr("data-value", "");
+        $(versionPublishDate).html("");
+    }
+
+    $(versionPublishDate).addClass("custom-td");
+
+    let del = document.createElement('a');
+    $(del).addClass("dropdown-item delete-code");
+    $(del).attr("href", '#');
+    $(del).append(appendDeleteIcon()).append(deleteItem);
+
+    let edit = document.createElement('a');
+    $(edit).addClass("dropdown-item edit-code");
+    $(edit).attr("href", '#');
+    $(edit).append(appendEditIcon()).append(editItem);
+
+    let dropDownMenu = document.createElement('div');
+    $(dropDownMenu).addClass("dropdown-menu");
+    $(dropDownMenu).append(edit).append(del);
+
+    let icon = document.createElement('img');
+    $(icon).addClass("dots-active");
+    $(icon).attr("src", "/Content/img/icons/dots-active.png");
+
+    let a = document.createElement('a');
+    $(a).addClass("dropdown-button");
+    $(a).attr("href", "#");
+    $(a).attr("role", "button");
+    $(a).attr("data-toggle", "dropdown");
+    $(a).attr("aria-haspopup", "true");
+    $(a).attr("aria-expanded", "false");
+    $(a).append(icon);
+
+    let div = document.createElement('div');
+    $(div).addClass("dropdown show");
+    $(div).append(dropDownMenu).append(a);
+
+    let lastTD = document.createElement('td');
+    lastTD.style.padding = "unset";
+    $(lastTD).addClass("custom-td-last");
+    $(lastTD).append(div);
+
+    let coding = document.createElement('tr');
+    $(coding).addClass("tr edit-raw");
+
+    $(coding).append(system).append(version).append(code).append(value).append(versionPublishDate).append(lastTD);
+
+    return coding;
 }
 
 $(document).on('click', '.dropdown-item.edit-code', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    editCodeSystem($(this).closest('td'));
+    editCodeModal($(this).closest('td'));
 });
 
 $(document).on('click', '.tr.edit-raw', function (e) {
     e.stopPropagation();
     e.preventDefault();
     if (!$(e.target).hasClass('dropdown-button') && !$(e.target).hasClass('fa-bars') && !$(e.target).hasClass('dropdown-item')) {
-        editCodeSystem(e.target);
+        editCodeModal(e.target);
     }
 });
 
-function editCodeSystem(elementTd) {
+function editCodeModal(elementTd) {
+    resetCodeForm();
+    setCodeFormValues(elementTd);
+
+    closestRow = $(elementTd).closest('tr');
+
+    showCodeModalTitle("editCodeTitle");
+    $('#codeModal').modal('show');
+}
+
+function setCodeFormValues(elementTd) {
     $(`#${$(elementTd).data('property')}`).val($(elementTd).data('value'));
     $(elementTd).siblings().each(function () {
         $(`#${$(this).data('property')}`).val($(this).data('value'));
     });
-
-    closestRow = $(elementTd).closest('tr');
-
-    $('#forEditing').val('forEdit');
-    if (codeValidator) {
-        codeValidator.resetForm();
-    }
-    resetValidationColor();
-
-    $('#codeModal').modal('show');
 }
 
 $(document).on('click', '.dropdown-item.delete-code', function (e) {
-    $(this).closest(".tr").remove();
+    var codeRow = $(this).closest("tr")
+    var codeId = $(codeRow).data("id");
+    if (codeId) {
+        $.ajax({
+            type: "delete",
+            url: `/ThesaurusEntry/DeleteCode?codeId=${codeId}`,
+            success: function (data, textStatus, jqXHR) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                handleResponseError(xhr, thrownError);
+            }
+        });
+    }
+    $(codeRow).remove();
 });
 
-$.validator.addMethod('codeValid', function (val, element, options) {
-    var isValid = true;
-    let system = $("#codeSystem").val();
-    let version = $("#codeVersion").val();
-    let code = $("#codeCode").val();
-    let value = $("#codeValue").val();
+function setValidationCodeFunctions() {
+    $.validator.addMethod('codeValid', function (val, element, options) {
+        let isValid = true;
 
-
-    $(`#codeTable > tbody > tr`).each(function () {
-        if ($(closestRow).find("td:eq(0)").data('value') == system && $(closestRow).find("td:eq(1)").text() == version && $(closestRow).find("td:eq(2)").text() == code && $(closestRow).find("td:eq(3)").text() == value) {
-            isValid = true;
+        let formObject = {
+            codeSystem: $("#codeSystem").val(),
+            codeVersion: $("#codeVersion").val(),
+            codeCode: $("#codeCode").val(),
+            codeValue: $("#codeValue").val()
         }
-        else {
-            if ($(this).find("td:eq(0)").data('value') == system && $(this).find("td:eq(1)").text() == version && $(this).find("td:eq(2)").text() == code && $(this).find("td:eq(3)").text() == value) {
-                isValid = false;
+
+        let codeId = $("#codeId").val();
+
+        $(`#codeTable > tbody > tr`).each(function () {
+            if ($(this).data('id') != codeId) {
+                let rowCellEqual = [];
+                let rowIsEqual = false;
+                $(this).find("td[data-property]").each(function () {
+                    let propertyName = $(this).data('property');
+                    let propertyValue = $(this).data('value');
+
+                    if (formObject[propertyName]) {
+                        rowCellEqual.push(formObject[propertyName] == propertyValue);
+                    }
+                })
+                rowIsEqual = !(rowCellEqual.length < 4 || rowCellEqual.some(x => !x));
+                if (rowIsEqual) {
+                    isValid = false;
+                }
             }
-        }
+        });
 
+        return isValid;
+    },
+        "Code already exist!"
+    );
+    $('[name="codeSystem"]').each(function () {
+        $(this).rules('add', {
+            codeValid: true
+        });
     });
-
-    return isValid;
-},
-    "Code already exist!"
-);
+}
 
 function advanceFilter() {
-    $('#O40MtIdTemp').val($('#o40MtId').val());
+    $('#O40MtIdTemp').val($('#id').val());
     $('#PreferredTermTemp').val($('#preferredTerm').val());
     $('#StateTemp').val($('#state').val());
 
-    $('#advancedId').children('div:first').addClass('btn-advanced');
-    $('#advancedId').find('button:first').removeClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'inline-block');
-
     filterData();
     //clearFilters();
-
 }
+
 function mainFilter() {
-    $('#o40MtId').val($('#O40MtIdTemp').val());
+    $('#id').val($('#O40MtIdTemp').val());
     $('#preferredTerm').val($('#PreferredTermTemp').val());
     $('#state').val($('#StateTemp').val());
-
-    $('#advancedId').children('div:first').removeClass('btn-advanced');
-    $('#advancedId').find('button:first').addClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'none');
 
     filterData();
     //clearFilters();
@@ -941,10 +994,6 @@ $(document).on('click', '#collapseO4MTSpecificField', function (e) {
     checkArrowClass(arrowElement);
 });
 
-$(document).ready(function () {
-    $('#collapseFoundIn').collapse('show');
-})
-
 $(document).on('click', '#foundIn', function (e) {
     var codeElement = document.getElementById("foundArrow");
     var element = document.getElementById("foundIn");
@@ -968,10 +1017,12 @@ $(document).on('click', '#administrativeButton', function (e) {
     if ($(arrowElement).hasClass("administrative-arrow")) {
         arrowElement.classList.remove("administrative-arrow");
         arrowElement.classList.add("administrative-arrow-up");
-    }
-    else {
+        $("#collapseAdministrativeData").removeClass("d-none");
+        showAdministrativeArrowIfOverflow('collapseAdministrativeData');
+    } else {
         arrowElement.classList.remove("administrative-arrow-up");
         arrowElement.classList.add("administrative-arrow");
+        $("#collapseAdministrativeData").addClass("d-none");
     }
 });
 
@@ -990,9 +1041,7 @@ $(document).on('click', '.arrow-scroll-left', function (e) {
 });
 
 $(document).on('click', '#codeVersionPublishDate', function () {
-    $("#codeVersionPublishDate").datepicker({
-        dateFormat: df
-    }).focus();
+    $("#codeCalendar").click();
 });
 
 function resetDocumentArrow(codeElement) {

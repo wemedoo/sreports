@@ -6,8 +6,8 @@
         <table class="table table-striped table-sreports search-thesaurus-table" style="height:11%;">
             <thead>
                 <tr>
-                    <th>Preview</th>
-                    <th>Select</th>
+                    <th>@sReportsV2.Resources.TextLanguage.Preview</th>
+                    <th>@sReportsV2.Resources.TextLanguage.Select</th>
                     <th>
                         <img onclick="closeThesaurusPreview()" class="set-right mr-2" src="~/Content/img/icons/close_black.svg">
                     </th>
@@ -22,8 +22,8 @@
                         <span class="close-btn">@sReportsV2.Resources.TextLanguage.Close</span>
                     </div>
                     <div data-o4mtid="@Model.Id">
-                        <div class="select-button selected @(Model.Id == ViewBag.ActiveThesaurus ?"":"hide")">Select</div>
-                        <div class="select-button @(Model.Id == ViewBag.ActiveThesaurus ?"hide":"")">Select</div>
+                        <div class="select-button selected @(Model.Id == ViewBag.ActiveThesaurus ?"":"hide")">@sReportsV2.Resources.TextLanguage.Select</div>
+                        <div class="select-button @(Model.Id == ViewBag.ActiveThesaurus ?"hide":"")">@sReportsV2.Resources.TextLanguage.Select</div>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
             
             <div class="property">
                 <div class="key">
-                    Preferred term
+                    @sReportsV2.Resources.TextLanguage.Preferred_term
                 </div>
                 <div class="value">
                     @(Model != null ? Model.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
@@ -39,7 +39,7 @@
             </div>
             <div class="property">
                 <div class="key">
-                    Definition
+                    @sReportsV2.Resources.TextLanguage.Definition
                 </div>
                 <div class="value">
                     @(Model != null ? Model.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
@@ -47,7 +47,7 @@
             </div>
             <div class="property">
                 <div class="key">
-                    Synonims
+                    @sReportsV2.Resources.TextLanguage.Synonyms
                 </div>
                 <div class="value">
                     @if (Model != null)
@@ -64,7 +64,7 @@
             </div>
             <div class="property">
                 <div class="key">
-                    Abbreviations
+                    @sReportsV2.Resources.TextLanguage.Abbreviations
                 </div>
                 <div class="value">
                     @if (Model != null)
@@ -73,22 +73,6 @@
                         {
                             <div class="tag">
                                 @abbreviation
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-            <div class="property">
-                <div class="key">
-                    Similar terms
-                </div>
-                <div class="value">
-                    @if (Model != null)
-                    {
-                        foreach (var st in Model.GetSimilarTermsListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
-                        {
-                            <div class="tag">
-                                @st.Name
                             </div>
                         }
                     }

@@ -5,23 +5,23 @@
 
 @{
     var controller = ViewContext.Controller as sReportsV2.Controllers.FormCommonController;
+    bool readOnly = ((bool?)ViewBag.ReadOnly).GetValueOrDefault();
+    string editItemBtnPosition = readOnly ? "style = \"right: 7px\"" : "";
 }
 
 <div class="cf nestable-lists ">
     <div class="dd" id="nestable">
         <ol class="dd-list dd-scrollable-container">
-            <li class="dd-item dd-nodrag" 
-                data-id="@(Model != null ? Model.Id : FormDataOut.DefaultIdPlaceholder)" 
-                data-itemtype="form" 
+            <li class="dd-item dd-nodrag"
+                data-id="@(Model != null ? Model.Id : FormDataOut.DefaultIdPlaceholder)"
+                data-itemtype="form"
                 data-activeversion='@(Model != null ? Model.GetActiveVersionJsonString() : null)'
                 @(Html.Raw(Model != null ? Model.GetDataAttr() : FormDataOut.GetInitialDataAttributes()))>
 
                 <div class="dd-nohandle" data-toggle="tooltip" data-placement="left" title="@(Model != null ? Model.Title : FormDataOut.DefaultFormPlaceholder)">
                     @(Model != null ? Model.Title : FormDataOut.DefaultFormPlaceholder)
                 </div>
-                <div class="edit-button">
-                    <img src="~/Content/img/icons/edit_pencil_03.svg" />
-                </div>
+                @RenderEditButton(readOnly)
 
                 <ol class="dd-list">
                     @if (Model != null && Model.Chapters != null)
@@ -31,12 +31,8 @@
                             <li class="dd-item addnewlist"
                                 @Html.Raw(chapterDataOut.GetDataAttr()) data-itemtype="chapter">
                                 <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@chapterDataOut.Title">@chapterDataOut.Title</div>
-                                <div class="remove-button">
-                                    <img src="~/Content/img/icons/remove_simulator.svg" />
-                                </div>
-                                <div class="edit-button">
-                                    <img src="~/Content/img/icons/edit_pencil_03.svg" />
-                                </div>
+                                @RenderRemoveButton(readOnly)
+                                @RenderEditButton(readOnly)
 
                                 <ol class="dd-list">
                                     @if (chapterDataOut.Pages != null && chapterDataOut.Pages.Count > 0)
@@ -45,12 +41,8 @@
                                         {
                                             <li class="dd-item" data-itemtype="page" @pageDataOut.GetDataAttr()>
                                                 <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@pageDataOut.Title">@pageDataOut.Title</div>
-                                                <div class="remove-button">
-                                                    <img src="~/Content/img/icons/remove_simulator.svg" />
-                                                </div>
-                                                <div class="edit-button">
-                                                    <img src="~/Content/img/icons/edit_pencil_03.svg" />
-                                                </div>
+                                                @RenderRemoveButton(readOnly)
+                                                @RenderEditButton(readOnly)
 
                                                 <ol class="dd-list">
                                                     @if (pageDataOut.ListOfFieldSets != null && pageDataOut.ListOfFieldSets.Count > 0)
@@ -59,26 +51,20 @@
                                                         {
                                                             <li class="dd-item" @Html.Raw(formFieldSet[0].GetDataAttr()) data-itemtype="fieldset">
                                                                 <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@formFieldSet[0].Label">@(string.IsNullOrEmpty(formFieldSet[0].Label) ? "Label is not defined" : formFieldSet[0].Label)</div>
-                                                                <div class="remove-button">
-                                                                    <img src="~/Content/img/icons/remove_simulator.svg" />
-                                                                </div>
-                                                                <div class="edit-button">
-                                                                    <img src="~/Content/img/icons/edit_pencil_03.svg" />
-                                                                </div>
+                                                                @RenderRemoveButton(readOnly)
+                                                                @RenderEditButton(readOnly)
 
                                                                 <ol class="dd-list">
                                                                     @if (formFieldSet[0].Fields != null && formFieldSet[0].Fields.Count > 0)
                                                                     {
                                                                         foreach (FieldDataOut field in formFieldSet[0].Fields)
                                                                         {
+                                                                            field.IsDisabled = readOnly;
                                                                             <li class="dd-item" data-itemtype="field" @field.GetDataAttr()>
                                                                                 <div class="dd-handle" data-toggle="tooltip" data-placement="left" title="@field.Label">@field.Label</div>
-                                                                                <div class="remove-button">
-                                                                                    <img src="~/Content/img/icons/remove_simulator.svg" />
-                                                                                </div>
-                                                                                <div class="edit-button">
-                                                                                    <img src="~/Content/img/icons/edit_pencil_03.svg" />
-                                                                                </div>
+                                                                                @RenderRemoveButton(readOnly)
+                                                                                @RenderEditButton(readOnly)
+
                                                                                 @if (field is FieldSelectableDataOut)
                                                                                 {
                                                                                     <ol class="dd-list">
@@ -89,76 +75,77 @@
                                                                                             {
                                                                                                 <li class="dd-item" data-itemtype="fieldvalue" @valueDataOut.GetDataAttr()>
                                                                                                     <div @*style="max-width:400px;"*@ class="dd-handle" data-toggle="tooltip" data-placement="left" title="@valueDataOut.Label">@valueDataOut.Label</div>
-                                                                                                    <div class="remove-button">
-                                                                                                        <img src="~/Content/img/icons/remove_simulator.svg" />
-                                                                                                    </div>
-                                                                                                    <div class="edit-button">
-                                                                                                        <img src="~/Content/img/icons/edit_pencil_03.svg" />
-                                                                                                    </div>
+                                                                                                    @RenderRemoveButton(readOnly)
+                                                                                                    @RenderEditButton(readOnly)
                                                                                                 </li>
                                                                                             }
                                                                                         }
-                                                                                        <li class="add-item-button add-page-button dd-nodrag" data-itemtype="fieldvalue" data-parentid="@field.Id">
-                                                                                            <div>
-                                                                                                <img src="~/Content/img/icons/add_new.svg" />
-                                                                                                Add new option
-                                                                                            </div>
-                                                                                        </li>
+                                                                                        @RenderAddNewTreeItem(readOnly, "fieldvalue", "option", @field.Id)
                                                                                     </ol>
-
                                                                                 }
                                                                             </li>
                                                                         }
                                                                     }
-                                                                    <li class="add-item-button add-page-button dd-nodrag" data-itemtype="field" data-parentid="@formFieldSet[0].Id">
-                                                                        <div>
-                                                                            <img src="~/Content/img/icons/add_new.svg" />
-                                                                            Add new field
-                                                                        </div>
-                                                                    </li>
+                                                                    @RenderAddNewTreeItem(readOnly, "field", "field", @formFieldSet[0].Id)
                                                                 </ol>
                                                             </li>
 
                                                         }
                                                     }
-                                                    <li class="add-item-button add-page-button dd-nodrag" data-itemtype="fieldset" data-parentid="@pageDataOut.Id">
-                                                        <div>
-                                                            <img src="~/Content/img/icons/add_new.svg" />
-                                                            Add new fieldset
-                                                        </div>      
-                                                    </li>
+                                                    @RenderAddNewTreeItem(readOnly, "fieldset", "fieldset", @pageDataOut.Id)
                                                 </ol>
                                             </li>
                                         }
                                     }
-                                    <li class="add-item-button add-page-button dd-nodrag" data-itemtype="page" data-parentid="@chapterDataOut.Id">
-                                        <div>
-                                            <img src="~/Content/img/icons/add_new.svg" />
-                                            Add new page
-                                        </div>
-                                    </li>
+                                    @RenderAddNewTreeItem(readOnly, "page", "page", @chapterDataOut.Id)
                                 </ol>
                             </li>
                         }
                     }
-                    <li class="add-item-button add-chapter-button dd-nodrag" data-itemtype="chapter" data-parentid="@(Model != null ? Model.Id : FormDataOut.DefaultIdPlaceholder)">
-                        <div>
-                            <img src="~/Content/img/icons/add_new.svg" />
-                            Add new chapter
-                        </div>
-                    </li>
+                    @RenderAddNewTreeItem(readOnly, "chapter", "chapter", Model != null ? Model.Id : FormDataOut.DefaultIdPlaceholder)
                 </ol>
-
             </li>
         </ol>
     </div>
 </div>
-
-<script>
-     $(document).ready(function (e) {
-        $('#nestable').nestable({
-            group: 1,
-            maxDepth: 7
+@if (!readOnly)
+{
+    <script>
+        $(document).ready(function (e) {
+            $('#nestable').nestable({
+                group: 1,
+                maxDepth: 7
+            });
         });
-    });
-</script>
+    </script>
+}
+
+@helper RenderAddNewTreeItem(bool readOnly, string itemType, string itemLabel, string parentId)
+{
+    if (!readOnly)
+    {
+        <li class="add-item-button add-chapter-button dd-nodrag" data-itemtype="@itemType" data-parentid="@parentId">
+            <div>
+                <img src="~/Content/img/icons/add_new.svg" />
+                Add new @itemLabel
+            </div>
+        </li>
+    }
+}
+
+@helper RenderRemoveButton(bool readOnly)
+{
+    if (!readOnly)
+    {
+        <div class="remove-button">
+            <img src="~/Content/img/icons/remove_simulator.svg" />
+        </div>
+    }
+}
+
+@helper RenderEditButton(bool readOnly)
+{
+    <div class="edit-button @(readOnly ? "to-the-right" : "")">
+        <img src="~/Content/img/icons/edit_pencil_03.svg" />
+    </div>
+}

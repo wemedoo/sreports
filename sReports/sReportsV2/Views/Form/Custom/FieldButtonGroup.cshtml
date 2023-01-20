@@ -1,17 +1,28 @@
-﻿
+﻿@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+
 @model sReportsV2.DTOs.Field.DataOut.FieldDataOut
-    <div class="btns-group d-inline-block">
+@{
+    bool showResetAndNeSection = ((bool?)ViewBag.ShowResetAndNeSection).GetValueOrDefault(true);
+}
+
+<div class="btns-group d-inline-block @(showResetAndNeSection ? "show-reset-and-ne-section" : "")">
+    <div class="basic-actions">
+
         @if (string.IsNullOrWhiteSpace(Model.Description))
         {
-            <img title="Definition" class="mr-1 definition" src="~/Content/img/icons/info_grey.svg">
-
+            <img title="Instruction" class="mr-1 definition" src="~/Content/img/icons/info_grey.svg">
         }
         else
         {
-            <img title="Definition" class="mr-1 definition" src="~/Content/img/icons/info_green.svg" onclick="showHideDescription(event)">
-
+            <img title="Instruction" class="mr-1 definition" src="~/Content/img/icons/info_green.svg" onclick="showHideDescription(event)">
         }
-        <img title="Thesaurus" class="mr-1 thesaurus" src=@(Model.ThesaurusId != null ?"../Content/img/icons/thesaurus_green.svg": "../Content/img/icons/thesaurus_grey.svg") onclick="goToThesaurus('@Model.ThesaurusId')">
+        @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+        {
+            bool thesaurusHasValue = Model.ThesaurusId != 0;
+            <img title="Thesaurus" class="mr-1 thesaurus" src="~/Content/img/icons/@(thesaurusHasValue ? "thesaurus_green.svg": "thesaurus_grey.svg")" onclick="goToThesaurus('@(thesaurusHasValue ? Model.ThesaurusId.ToString() : "")')">
+        }
         @if (Model.Help != null)
         {
             <img title="Info" class="mr-1 info" src="~/Content/img/icons/definition_green.svg" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">
@@ -19,14 +30,55 @@
         else
         {
             <img title="Info" class="mr-1 info" src="~/Content/img/icons/definition_grey.svg">
-
         }
 
-        @if (Model is sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)
+        @if (!Model.IsDisabled)
         {
-            <img title="Add repetitive field" class="mr-1 repeat @(((sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)Model).IsRepetitive ? "button-plus-repetitive" : "")" src="@(((sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)Model).IsRepetitive? "../Content/img/icons/repeat_green.svg" : "../Content/img/icons/repeat_grey.svg")">
-
+            if (Model is sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)
+            {
+                <img title="Add repetitive field" class="mr-1 repeat @(((sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)Model).IsRepetitive ? "button-plus-repetitive" : "")" src="~/Content/img/icons/@(((sReportsV2.DTOs.Field.DataOut.FieldStringDataOut)Model).IsRepetitive? "repeat_green.svg" : "repeat_grey.svg")">
+            }
+            <img title="Remove" class="mr-1 remove remove-repetitive" src="~/Content/img/icons/delete.svg" style="display:@(Model.Value != null && Model.Value.Count() > 1 ? "" : "none")">
         }
-
-        <img title="Remove" class="mr-1 remove remove-repetitive" src="~/Content/img/icons/delete.svg" style="display:@(Model.Value != null && Model.Value.Count() > 1 ? "" : "none")">
     </div>
+    @RenderResetAndNeSection(showResetAndNeSection)
+</div>
+
+@helper RenderResetAndNeSection(bool showResetAndNeSection)
+{
+    string specialValue = ((int)FieldSpecialValues.NE).ToString();
+    if (showResetAndNeSection && Model.AcceptsSpecialValue)
+    {
+        bool isChapterReadonly = ViewBag.Chapter;
+        int fieldSetCounter = ViewBag.FieldSetCounter;
+        string fieldSetId = ViewBag.FieldSetId;
+        int repetitiveCounter = ((int?)ViewBag.RepetitiveCounter).GetValueOrDefault(1);
+        string repetitiveValue = ViewBag.RepetitiveValue;
+        <div class="reset-and-ne-section">
+            @if (!Model.IsDisabled)
+            {
+                <label class="ne-btn mr-1">
+                    <span class="ne-label">
+                        <a href="javascript:"
+                            onclick="resetValue(event)"
+                            title="@sReportsV2.Resources.TextLanguage.Reset"
+                            data-field-name="@fieldSetId-@fieldSetCounter-@Model.Id-@repetitiveCounter"
+                            class="ne-link">
+                            @sReportsV2.Resources.TextLanguage.Reset
+                        </a>
+                    </span>
+                </label>
+            }
+            <label title="@sReportsV2.Resources.TextLanguage.NE_Meaning" class="form-radio-label ne-btn mr-1">
+                <input type="radio"
+                       spec-value
+                       name="@fieldSetId-@fieldSetCounter-@Model.Id-@repetitiveCounter"
+                       value="@specialValue"
+                       class="form-radio-field ne-radio"
+                       @(repetitiveValue.IsSpecialValue() ? "checked" : string.Empty)>
+                <i class="form-radio-button"></i>
+                <span class="ne-label">@sReportsV2.Resources.TextLanguage.N_E</span>
+            </label>
+        </div>
+    }
+}

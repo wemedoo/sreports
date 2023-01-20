@@ -1,13 +1,31 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    Layout = "";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="sotexsolutions.com">
+    <title>Error - @sReportsV2.Common.Constants.ResourceTypes.SoftwareName by weMedoo</title>
+    @Styles.RenderFormat("<link integrity=\"sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://use.fontawesome.com/releases/v5.6.1/css/all.css")
+    @Styles.RenderFormat("<link integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/login.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/newMain.css")
 </head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
+<body class="login-background">
+    <div class="container error-container">
+        <div> 500 - Error </div>
+        <div class="error-message">An error occurred while processing your request.</div>
+        <div class="error-message">@ViewBag.ErrorMessage</div>
+        <div class="back-to-home" onclick="backToHome()">@sReportsV2.Resources.TextLanguage.Back_To_Home_Page</div>
+    </div>
+    
+    <script>
+        function backToHome() {
+            window.location.href = `/Home/Index`;
+        }
+    </script>
 </body>
 </html>

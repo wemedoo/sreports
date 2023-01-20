@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.DTOs.DiagnosticReport;
 using sReportsV2.DTOs.EpisodeOfCare;
 using sReportsV2.DTOs.Form.DataOut;
 using sReportsV2.DTOs.FormInstance;
@@ -67,7 +66,9 @@ namespace sReportsV2.MapperProfiles
             .ForMember(d => d.Version, opt => opt.MapFrom(src => src.Version))
             .ReverseMap();
 
-            CreateMap<FormInstanceFilterDataIn, FormInstanceFilterData>().ReverseMap();
+            CreateMap<FormInstanceFilterData, FormInstanceFilterDataIn>()
+                .ForMember(d => d.CustomFieldFiltersDataIn, opt => opt.MapFrom(src => src.CustomFieldFiltersData))
+                .ReverseMap();
 
             CreateMap<FormInstance, FormInstanceReferralDataOut>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))

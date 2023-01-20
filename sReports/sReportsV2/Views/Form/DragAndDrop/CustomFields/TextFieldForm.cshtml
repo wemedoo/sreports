@@ -9,13 +9,13 @@
         <div class="label filter-label">
             Min Length
         </div>
-        <input class="designer-form-input" id="minLength" name="minLength" type="text" value="@(Model != null && Model.MinLength != null ? Model.MinLength.ToString() : "")" />
+        <input class="designer-form-input" id="minLength" name="minLength" type="text" value="@(Model != null && Model.MinLength != null ? Model.MinLength.ToString() : "")" @ViewBag.Disabled/>
     </div>
     <!--
   --><div class="designer-form-input-group  two-margins">
     <div class="label filter-label">
         Max Length
     </div>
-    <input class="designer-form-input" id="maxLength" name="maxLength" type="text" value="@(Model != null && Model.MaxLength != null ? Model.MaxLength.ToString() : "")" />
+    <input class="designer-form-input" id="maxLength" name="maxLength" type="text" value="@(Model != null && Model.MaxLength != null ? Model.MaxLength.ToString() : "")" @ViewBag.Disabled/>
     </div>
 </div>

@@ -1,0 +1,103 @@
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+
+@{ 
+    bool isEditable = ViewBag.Editable != null && ViewBag.Editable;
+}
+
+<form id="connectionOntologyForm">
+    <div class="modal fade" id="connectionOntologyModal" tabindex="-1" role="dialog" aria-labelledby="connectionOntologyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content connection-ontology-modal-content @(isEditable ? "" : "smaller")">
+                <input type="hidden" id="codeId" />
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-vocabulary" id="connectionOntologyModalContent">
+                    <div class="d-flex advanced-filter-header afh-global-thesaurus codes-header">
+                        Connection with other ontologies
+                    </div>
+
+                    @if (isEditable)
+                    {
+                        <div class="codes-item">
+                            <div class="codes-label">
+                                Uri of the Class [Link]:
+                            </div>
+                            <input class="codes-input" id="uriClassLink" name="uriClassLink" required value="@(Model != null ? Model.UriClassLink : "")" />
+                        </div>
+
+                        <div class="codes-item">
+                            <div class="codes-label">
+                                Uri of the Class [Display on GUI]:
+                            </div>
+                            <input type="text" class="codes-input" id="uriClassGUI" name="uriClassGUI" required value="@(Model != null ? Model.UriClassGUI : "")" />
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="codes-item">
+                            <div class="codes-label">
+                                Uri of the source ontology [Link]:
+                            </div>
+                            <input type="text" class="codes-input" id="uriSourceLink" name="uriSourceLink" required value="@(Model != null ? Model.UriSourceLink : "")" />
+                        </div>
+
+                        <div class="codes-item">
+                            <div class="codes-label">
+                                Uri of the source ontology [Display on GUI]:
+                            </div>
+                            <input type="text" class="codes-input" id="uriSourceGUI" name="uriSourceGUI" required value="@(Model != null ? Model.UriSourceGUI : "")" />
+                        </div>
+
+                        <div class="codes-btns">
+                            <div class="button-wrapper-filter filter-button" style="right:0px;">
+                                <button class="btn btn-filter-primary w-100 h-100" onclick="addConnectionOntology(event)">
+                                    @sReportsV2.Resources.TextLanguage.Save
+                                </button>
+                            </div>
+                            <div class="button-wrapper-filter cancel-filter-btn float-right" style="right: 90px;">
+                                <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                    @sReportsV2.Resources.TextLanguage.Cancel
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="codes-item">
+                            <div class="codes-label">
+                                Uri of the Class:
+                            </div>
+                            @if (Model != null)
+                            {
+                                <a href="@Model.UriClassLink" target="_blank" , rel="noreferrer" class="">@Model.UriClassGUI</a>
+
+                            }
+                            else
+                            {
+                                <div>No value</div>
+                            }
+                        </div>
+
+                        <div class="codes-item">
+                            <div class="codes-label">
+                                Uri of the source ontology:
+                            </div>
+                            @if (Model != null)
+                            {
+                                <a href="@Model.UriSourceLink" target="_blank" , rel="noreferrer" class="">@Model.UriSourceGUI</a>
+                            }
+                            else
+                            {
+                                <div>No value</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

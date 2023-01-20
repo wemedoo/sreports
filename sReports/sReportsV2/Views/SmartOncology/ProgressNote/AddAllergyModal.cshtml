@@ -1,0 +1,38 @@
+﻿<form onsubmit="addAllergy(event)">
+    <div class="modal fade" id="allergyModal" tabindex="-1" role="dialog" aria-labelledby="allergyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content modal-content-custom">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-advanced">
+                    <div class="d-flex advanced-filter-header">
+                        <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> @sReportsV2.Resources.TextLanguage.Add_allergy
+                    </div>
+
+                    <div class="d-flex margin-top-10">
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                            </div>
+                            <textarea class="form-control filter-input" id="allergyName" name="allergyName" placeholder="@sReportsV2.Resources.TextLanguage.Allergy_name_placeholder" maxlength="150" cols="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="advanced-filter-line"></div>
+
+                    <div class="d-flex position-relative margin-top-2r">
+                        <div class="button-wrapper-filter filter-button float-right" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" type="submit"> @sReportsV2.Resources.TextLanguage.AddNew</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

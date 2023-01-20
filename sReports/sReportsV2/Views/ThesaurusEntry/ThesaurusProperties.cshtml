@@ -4,7 +4,7 @@
     <div class="thesaurus-properties">
         <div class="property">
             <div class="key">
-                Preferred term
+                @sReportsV2.Resources.TextLanguage.Preferred_term
             </div>
             <div class="value">
                 @(Model != null ? Model.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
@@ -13,7 +13,7 @@
 
         <div class="property">
             <div class="key">
-                Definition
+                @sReportsV2.Resources.TextLanguage.Definition
             </div>
             <div class="value">
                 @(Model != null ? Model.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "")
@@ -21,7 +21,7 @@
         </div>
         <div class="property">
             <div class="key">
-                Synonims
+                @sReportsV2.Resources.TextLanguage.Synonyms
             </div>
             <div class="value">
                 @if (Model != null)
@@ -38,7 +38,7 @@
         </div>
         <div class="property">
             <div class="key">
-                Abbreviations
+                @sReportsV2.Resources.TextLanguage.Abbreviations
             </div>
             <div class="value">
                 @if (Model != null)
@@ -47,22 +47,6 @@
                     {
                         <div class="tag">
                             @abbreviation
-                        </div>
-                    }
-                }
-                </div>
-        </div>
-        <div class="property">
-            <div class="key">
-                Similar terms
-            </div>
-            <div class="value">
-                @if (Model != null)
-                {
-                    foreach (var st in Model.GetSimilarTermsListByLanguage(ViewBag.UserCookieData.ActiveLanguage) ?? new List<string>())
-                    {
-                        <div class="tag">
-                            @st.Name
                         </div>
                     }
                 }

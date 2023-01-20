@@ -1,0 +1,346 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@model MedicationDataOut
+
+@{
+    string routeOfAdministrationId = Model != null ? Model.RouteOfAdministration.ToString() : "";
+    string unit = Model != null && Model.UnitId.HasValue ? Model.UnitId.ToString() : "";
+    string cumulativeUnit = Model != null && Model.CumulativeDoseUnitId.HasValue ? Model.CumulativeDoseUnitId.ToString() : "";
+    bool isSchemaDefinitionMedication = ViewBag.SchemaDefinitionMedication;
+}
+
+<div class="schema-card new-medication">
+    <form onsubmit="updateMedication(this, event)" novalidate>
+        <input type="hidden" value="@(Model != null ? Model.Id : 0)" id="inputMedicationId" />
+        <input id="rowVersionMedication" name="rowVersionMedication" type="hidden" value="@(Model != null ? Model.RowVersion: "")" />
+        @if (isSchemaDefinitionMedication)
+        {
+            <div class="schema-card-header">
+                <span class="icon">
+                    <img src="~/Content/open-oncology/images/icons/add-block.svg" alt="Add medication icon">
+                </span>
+                <h3>@sReportsV2.Resources.TextLanguage.Adding_medication</h3>
+            </div>
+        }
+        <div class="schema-card-item">
+            <div class="item-body">
+                <div class="item-body-item">
+                    <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Is_same_dose</p>
+                    <div class="select-wrapper">
+                        <div class="schema-text select-radio">
+                            <label class="radio-container" for="same-dose-y">
+                                <input type="radio" name="inputSameDose" id="same-dose-y" value="true" @(Model != null && Model.SameDoseForEveryAplication ? "checked" : "")>
+                                <span class="checkmark"></span>
+                                <span class="schema-text">@sReportsV2.Resources.TextLanguage.Yes</span>
+                            </label>
+                        </div>
+                        <div class="schema-text select-radio ml-4">
+                            <label class="radio-container" for="same-dos-n">
+                                <input type="radio" name="inputSameDose" id="same-dos-n" value="false" @(Model == null ? "" : Model.SameDoseForEveryAplication ? "" : "checked")>
+                                <span class="checkmark"></span>
+                                <span class="schema-text">@sReportsV2.Resources.TextLanguage.No_</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-body-row">
+                    <div class="item-body-item">
+                        <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Has_max_cumulative_dose:</p>
+                        <div class="select-wrapper max-dose-radio">
+                            <div class="schema-text select-radio">
+                                <label class="radio-container" for="hasCumulativeDose">
+                                    <input type="radio" name="inputHasMaximulaCumulativeDose" id="hasCumulativeDose" value="true" @(Model != null && Model.HasMaximalCumulativeDose ? "checked" : "")>
+                                    <span class="checkmark"></span>
+                                    <span class="schema-text">@sReportsV2.Resources.TextLanguage.Yes</span>
+                                </label>
+                            </div>
+                            <div class="schema-text select-radio ml-4">
+                                <label class="radio-container" for="hasNotCumulativeDose">
+                                    <input type="radio" name="inputHasMaximulaCumulativeDose" id="hasNotCumulativeDose" value="false" @(Model == null ? "" : Model.HasMaximalCumulativeDose ? "" : "checked")>
+                                    <span class="checkmark"></span>
+                                    <span class="schema-text">@sReportsV2.Resources.TextLanguage.No_</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-body-item cumulative-dose-wrapper @(Model != null && Model.HasMaximalCumulativeDose ? "": "hide") w-60">
+                        <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Max_cumulative_dose:</p>
+                        <div class="select-wrapper">
+                            <div class="select">
+                                @sReportsV2.Resources.TextLanguage.Amount:
+                                <input id="inputMaxCumulativeDose" name="inputMaxCumulativeDose" class="num-input filter-input" type="number" value="@(Model != null ? Model.CumulativeDose : "0")" min="0">
+                            </div>
+                            <div class="select schema-text ml-4 w-50">
+                                @sReportsV2.Resources.TextLanguage.Unit:
+                                <select name="inputMaxCumulativeDoseUnit" id="inputMaxCumulativeDoseUnit" value="@cumulativeUnit">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item-body-item med-name">
+                    <div class="select-wrapper row">
+                        <p class="item-body-heading col-12">@sReportsV2.Resources.TextLanguage.Medication_name:</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-7 select">
+                                <input type="text" class="filter-input text-input" id="inputMedicationName" name="inputMedicationName" required value="@(Model != null ? Model.Name : "")">
+                            </div>
+                            <div class="form-group col-md-2-5 select">
+                                <label for="inputAmount">@sReportsV2.Resources.TextLanguage.Amount: </label>
+                                <input type="number" class="filter-input num-input filter-input" id="inputAmount" name="inputAmount" value="@(Model != null ? Model.Dose : "")" min="0" data-no-color-change="true">
+                            </div>
+                            <div class="form-group col-md-2-5 select">
+                                <label class="ml-4" for="inputUnit">@sReportsV2.Resources.TextLanguage.Unit: </label>
+                                <select name="inputUnit" id="inputUnit" value="@unit" class="filter-input">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-body-item">
+                    <div class="select-wrapper row">
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label class="item-body-heading" for="inputDoseCalculationFormula">@sReportsV2.Resources.TextLanguage.Body_surface_calculation_formula</label>
+                                <select class="select-input w-100" name="inputDoseCalculationFormula" id="inputDoseCalculationFormula" value="@(Model != null ? Model.BodySurfaceCalculationFormula.ToString() : "")">
+                                    <option value=""></option>
+                                    @foreach (var bodycalculationFormula in ViewBag.BodyCalculationFormulas)
+                                    {
+                                        <option @(Model != null && Model.BodySurfaceCalculationFormula == bodycalculationFormula.Id ? "selected" : "") value="@bodycalculationFormula.Id" title="@bodycalculationFormula.Name">@bodycalculationFormula.Name @*<span class="tooltip-icon"></span>*@</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label class="item-body-heading" for="inputRouteOfAdministration">@sReportsV2.Resources.TextLanguage.Route_of_administration</label>
+                                <select name="inputRouteOfAdministration" id="inputRouteOfAdministration" value="@routeOfAdministrationId" class="filter-input">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-body-item">
+                    <div class="select-wrapper row">
+                        <p class="item-body-heading col-12">@sReportsV2.Resources.TextLanguage.Preparation_instruction:</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 select">
+                                <input type="text" class="filter-input text-input" id="inputPreparationInstruction" value="@(Model != null ? Model.PreparationInstruction : "")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-body-item">
+                    <div class="select-wrapper row">
+                        <p class="item-body-heading col-12">@sReportsV2.Resources.TextLanguage.Application_instruction:</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 select">
+                                <input type="text" class="filter-input text-input" id="inputApplicationInstruction" placeholder="-" value="@(Model != null ? Model.ApplicationInstruction : "")">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (isSchemaDefinitionMedication)
+                {
+                    <div class="item-body-item days-wrapper">
+                        <div class="days-wrapper-header row">
+                            <div class="col-5">
+                                <div class="quantity-wrapper">
+                                    <p>@sReportsV2.Resources.TextLanguage.Premedication_days:</p>
+                                    <div id="prem-day" class="quantity">
+                                        <span class="plus">+</span>
+                                        <input type="text" disabled value="@(Model != null ? Model.GetMedicationDoses(true).Count * -1 : 0)">
+                                        <span class="minus">-</span>
+                                    </div>
+                                </div>
+                                <div class="days-wrapper-body row">
+                                    <div id="prem-day-wrapper">
+                                        @if (Model != null)
+                                        {
+                                            foreach (var dose in Model.GetMedicationDoses(true))
+                                            {
+                                                <div id="prem-day_@dose.DayNumber"
+                                                     class="day-item @(dose.IntervalId.HasValue ? "background": "")"
+                                                     data-set="@dose.ToJson()">
+                                                    @sReportsV2.Resources.TextLanguage.DAY
+                                                    <span class="num">@dose.DayNumber</span>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="quantity-wrapper num-of-days">
+                                    <p>@sReportsV2.Resources.TextLanguage.Number_of_days:</p>
+                                    <div id="num-day" class="quantity">
+                                        <span class="plus">+</span>
+                                        <input type="text" value="@(Model != null ? Model.GetMedicationDoses().Count : 0)" disabled>
+                                        <span class="minus">-</span>
+                                    </div>
+                                    <span id="select-all" class="btn-text text-green">@sReportsV2.Resources.TextLanguage.Select_all_days</span>
+                                </div>
+                                <div class="days-wrapper-body">
+                                    <div id="num-day-wrapper">
+                                        @if (Model != null)
+                                        {
+                                            foreach (var dose in Model.GetMedicationDoses())
+                                            {
+                                                <div id="num-day__@dose.DayNumber"
+                                                     class="day-item @(dose.IntervalId.HasValue ? "background": "")"
+                                                     data-set="@dose.ToJson()">
+                                                    @sReportsV2.Resources.TextLanguage.DAY
+                                                    <span class="num">@dose.DayNumber</span>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="days-wrapper-body row">
+                            <div class="col-4">
+                                <div id="prem-day-wrapper">
+                                </div>
+                            </div>
+                            <div class="col-8">
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="divider"></div>
+                <div class="item-body-row">
+                    <div class="item-body-item">
+                        <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Weekend_holidays_excluded:</p>
+                        <div class="select-wrapper max-dose-radio">
+                            <div class="schema-text select-radio">
+                                <label class="radio-container" for="holidays-y">
+                                    <input type="radio" name="inputHolidaysExcluded" id="holidays-y" value="true" @(Model != null && Model.WeekendHolidaysExcluded ? "checked" : "")>
+                                    <span class="checkmark"></span>
+                                    <span class="schema-text">@sReportsV2.Resources.TextLanguage.Yes</span>
+                                </label>
+                            </div>
+                            <div class="schema-text select-radio ml-4">
+                                <label class="radio-container" for="holidays-n">
+                                    <input type="radio" name="inputHolidaysExcluded" id="holidays-n" value="false" @(Model == null ? "" : Model.WeekendHolidaysExcluded ? "" : "checked")>
+                                    <span class="checkmark"></span>
+                                    <span class="schema-text">@sReportsV2.Resources.TextLanguage.No_</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-body-item">
+                        <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Max_days_of_drug_apl_delay:</p>
+                        <div class="select-wrapper">
+                            <div class="select">
+                                @sReportsV2.Resources.TextLanguage.Days:
+                                <input id="inputMaxDaysOfDelay" name="inputMaxDaysOfDelay" class="num-input filter-input" type="number" value="@(Model != null && Model.MaxDayNumberOfApplicationiDelay.HasValue ? Model.MaxDayNumberOfApplicationiDelay.Value : 0)" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item-body-row">
+                    <div class="item-body-item">
+                        <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Is_supportive_medication:</p>
+                        <div class="select-wrapper max-dose-radio">
+                            <div class="schema-text select-radio">
+                                <label class="radio-container" for="support-med-y">
+                                    <input type="radio" name="inputSupportiveMedication" id="support-med-y" value="true" @(Model != null && Model.IsSupportiveMedication ? "checked" : "")>
+                                    <span class="checkmark"></span>
+                                    <span class="schema-text">@sReportsV2.Resources.TextLanguage.Yes</span>
+                                </label>
+                            </div>
+                            <div class="schema-text select-radio ml-4">
+                                <label class="radio-container" for="support-med--n">
+                                    <input type="radio" name="inputSupportiveMedication" id="support-med--n" value="false" @(Model == null ? "" : Model.IsSupportiveMedication ? "" : "checked")>
+                                    <span class="checkmark"></span>
+                                    <span class="schema-text">@sReportsV2.Resources.TextLanguage.No_</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-body-item">
+                        <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Please_select:</p>
+                        <div class="select-wrapper">
+                            <div class="select-checkbox">
+                                <div class="checkbox-wrapper">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="inputAsReserve" name="inputAsReserve" value="true" @(Model != null && Model.SupportiveMedicationReserve ? "checked" : "")><span class="checkmark"></span>
+                                        <p>@sReportsV2.Resources.TextLanguage.As_reserve</p>
+                                    </label>
+                                </div>
+                                <div class="checkbox-wrapper">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="inputHasAlternative" name="inputHasAlternative" value="true" @(Model != null && Model.SupportiveMedicationAlternative ? "checked" : "")><span class="checkmark"></span>
+                                        <p>@sReportsV2.Resources.TextLanguage.Has_alternative</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (!isSchemaDefinitionMedication)
+                {
+                    <div class="replacement-container hide">
+                        <div class="divider"></div>
+                        <div class="item-body-item">
+                            <div class="select-wrapper row">
+                                <p class="item-body-heading col-12">@sReportsV2.Resources.TextLanguage.Replace_Medication:</p>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 select">
+                                        <select 
+                                            name="inputMedicationReplacements" 
+                                            id="inputMedicationReplacements" 
+                                            value="" class="filter-input" multiple="multiple"
+                                        >
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="divider"></div>
+                <div class="item-body-item">
+                    <div class="select-wrapper row">
+                        <p class="item-body-heading col-12">@sReportsV2.Resources.TextLanguage.Additional_instruction:</p>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 select">
+                                <textarea class="filter-input" id="inputAdditionalInstruction" rows="5" placeholder="-">@(Model != null ? Model.AdditionalInstruction : "")</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-body-item btn-row">
+                    <a href="javascript:;" class="btn-text cancel close-add-med">@sReportsV2.Resources.TextLanguage.Cancel</a>
+                    <button type="submit" class="btn-primary-schema">@sReportsV2.Resources.TextLanguage.Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Modal window for medication days  -->
+    @if (isSchemaDefinitionMedication)
+    {
+        @Html.Partial("SchemaDefinition/EditMedicationDoseModal")
+        @Html.Partial("~/Views/Administration/DeleteModal.cshtml")
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        setSelect2('@routeOfAdministrationId', 'inputRouteOfAdministration', 'GetRouteOfAdministration', 'GetAutocompleteRouteOfAdministrationData', 3);
+        setSelect2('@unit', 'inputUnit', 'GetUnit', 'GetAutocompleteUnitData', 2);
+        setSelect2('@cumulativeUnit', 'inputMaxCumulativeDoseUnit', 'GetUnit', 'GetAutocompleteUnitData', 2);
+        @if (!isSchemaDefinitionMedication)
+        {
+            @: setMedicationReplacementSelect2();
+        }
+    });
+</script>

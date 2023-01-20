@@ -35,7 +35,7 @@ namespace sReportsV2.Initializer.OrganizationCSV
             return csvOrganizations;
         }
 
-        public void InsertOrganization(string csvPath)
+        public void InsertOrganization(string csvPath, int? countryId)
         {
             if (organizationDAL.GetAllCount() == 0) 
             {
@@ -44,15 +44,15 @@ namespace sReportsV2.Initializer.OrganizationCSV
 
                 for (int j = 0; j < groupedOrganizations.Count; j++)
                 {
-                    var partOf = InsertHeadOrganization(groupedOrganizations, j);
+                    var partOf = InsertHeadOrganization(groupedOrganizations, j, countryId);
 
                     if (groupedOrganizations.ElementAt(j).Count() > 1)
-                        InsertSubOrganizations(groupedOrganizations, j, partOf);
+                        InsertSubOrganizations(groupedOrganizations, j, partOf, countryId);
                 }
             }
         }
 
-        private int? InsertHeadOrganization(List<IGrouping<string, CsvOrganization>> groupedOrganizations, int j) 
+        private int? InsertHeadOrganization(List<IGrouping<string, CsvOrganization>> groupedOrganizations, int j, int? countryId) 
         {
             Organization organizationEntry = new Organization
             {
@@ -61,17 +61,17 @@ namespace sReportsV2.Initializer.OrganizationCSV
                 {
                     Street = groupedOrganizations.ElementAt(j).Select(x => x.StreetName).FirstOrDefault(),
                     City = groupedOrganizations.ElementAt(j).Select(x => x.PostalNumberAndMunicipality).FirstOrDefault().Split(new[] { ' ' }, 2)[1],
-                    Country = "Switzerland",
+                    CountryId = countryId,
                     State = groupedOrganizations.ElementAt(j).Select(x => x.LocationCanton).FirstOrDefault(),
                     PostalCode = groupedOrganizations.ElementAt(j).Select(x => x.PostalNumberAndMunicipality).FirstOrDefault().Split(' ').First(),
                 }
             };
 
             organizationDAL.InsertOrUpdate(organizationEntry);
-            return organizationEntry.Id;
+            return organizationEntry.OrganizationId;
         }
 
-        private void InsertSubOrganizations(List<IGrouping<string, CsvOrganization>> groupedOrganizations, int j, int? partOf)
+        private void InsertSubOrganizations(List<IGrouping<string, CsvOrganization>> groupedOrganizations, int j, int? partOf, int? countryId)
         {
             //TO DO IMEPLEMENT 
 
@@ -84,7 +84,7 @@ namespace sReportsV2.Initializer.OrganizationCSV
                     {
                         Street = groupedOrganizations.ElementAt(j).Select(x => x.StreetName).ElementAt(i),
                         City = groupedOrganizations.ElementAt(j).Select(x => x.PostalNumberAndMunicipality).ElementAt(i).Split(new[] { ' ' }, 2)[1],
-                        Country = "Switzerland",
+                        CountryId = countryId,
                         State = groupedOrganizations.ElementAt(j).Select(x => x.LocationCanton).ElementAt(i),
                         PostalCode = groupedOrganizations.ElementAt(j).Select(x => x.PostalNumberAndMunicipality).ElementAt(i).Split(' ').First(),
                     }
@@ -101,10 +101,10 @@ namespace sReportsV2.Initializer.OrganizationCSV
                 OrganizationRelation relation = new OrganizationRelation()
                 {
                     ParentId = partOf.Value,
-                    ChildId = organizationEntry.Id
+                    ChildId = organizationEntry.OrganizationId
                 };
                 organizationDAL.InsertOrganizationRelation(relation);
-                organizationEntry.OrganizationRelationId = relation.Id;
+                organizationEntry.OrganizationRelationId = relation.OrganizationRelationId;
                 organizationDAL.InsertOrUpdate(organizationEntry);
             }
         }

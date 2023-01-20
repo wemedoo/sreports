@@ -15,7 +15,6 @@ namespace sReportsV2.DTOs.Encounter
         public int Class { get; set; }
         public int Type { get; set; }
         public int ServiceType { get; set; }
-        public DateTime? EntryDatetime { get; set; }
         public DateTime? LastUpdate { get; set; }
         public string PatientId { get; set; }
         public PeriodDTO Period { get; set; }

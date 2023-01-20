@@ -1,0 +1,58 @@
+﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut;
+
+<div class="cy" id="cy"></div>
+
+<script>
+    var cy;
+    var elementData = @(Model != null ? Html.Raw(Model.ToJsonNodeElements()): null)
+
+        $(document).ready(function () {
+            if (elementData) {
+                initializeGraph(elementData);
+            }
+           showJsonEditor(@Html.Raw(Model != null ? Newtonsoft.Json.JsonConvert.SerializeObject(Model.ToJson()) : new GuidelineDataOut().ToJson()));
+
+        /*fetch('/Scripts/sReports/DigitalGuideline/pathway-elements-example.json')
+            .then(response => response.json())
+            .then(data => showJsonEditor(data));*/
+        })
+
+    function initializeGraph(elementData) {
+        cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: elementData, //fetch('/Scripts/sReports/DigitalGuideline/pathway-elements-example.json').then(toJson),
+            layout: {
+                name: 'preset'
+            },
+            style: guidelineStyle
+        });
+
+        /*cy.on('tap', 'node', function (evt) {
+            var node = evt.target;
+            console.log('tapped ' + node.id());
+        });*/
+
+        cy.on('select', 'node', function (evt) {
+            var node = evt.target;
+            console.log('selected ' + node.id());
+            previewNode(node.data());
+        });
+
+        cy.on('unselect', 'node', function (evt) {
+            var node = evt.target;
+            console.log('unselected ' + node.id());
+            $('#showJsonDataButton').click();
+        })
+
+        cy.on('dragfreeon', 'node', function (evt) {
+            var node = evt.target;
+            let guidelineData = editorCode.get();
+            let data = cy.json();
+            guidelineData.guidelineElements = data.elements;
+            showJsonEditor(guidelineData);
+
+        })
+    }
+</script>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/digitalGuideline")

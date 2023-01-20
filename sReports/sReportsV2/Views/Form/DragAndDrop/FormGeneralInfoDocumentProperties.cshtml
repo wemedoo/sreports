@@ -3,138 +3,146 @@
 @using sReportsV2.DTOs.DocumentProperties.DataOut;
 @using sReportsV2.Common.Enums.DocumentPropertiesEnums;
 @model FormDataOut
+
+@{string disabledIfNotUpdateable = ""; }
+@if (ViewBag.NotUpdateableField != null)
+{
+    disabledIfNotUpdateable = ViewBag.NotUpdateableField ? "disabled" : "";
+}
+
 <!--DO NOT REMOVE COMMENTS BETWWEN SOME ELEMENTS, BECAUSE COMMENTS ELIMINATES WHITE SPACE WHEN USING DISPALY:INLINE-BLOCK. A COMMENT MUST BE PLACED BETWEEN TWO ELEMENTS WITHOUT ANY SPACE BETWEEN THEM-->
-    <div class="designer-form-section">
-        <div class="designer-form-section-title">
-            Document properties
-        </div>
-        <div class="inputs">
-            <div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.DocumentClass
-                </div>
-                <select class="designer-form-input" id="documentClass">
-                    @Options(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.Class != null ? Model.DocumentProperties.Class.Class : null, "Classes")
-                </select>
-            </div><!--
-         --><div id="documentClassOther" class="designer-form-input-group @(Model != null && Model.DocumentProperties != null &&  Model.DocumentProperties.Class != null && Model.DocumentProperties.Class.Class == DocumentClassEnum.Other ? "d-inline-block":"d-none")">
-                <div class="label filter-label">
-                    Other(Document class)
-                </div>
-                <input required class="designer-form-input" id="documentClassOtherInput" value="@(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.Class != null ? Model.DocumentProperties.Class.Other : string.Empty)" />
-            </div><!--
-         --><div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.General_Purpose
-                </div>
-                <select class="designer-form-input" id="generalPurpose">
-                    @Options(Model != null
-                   && Model.DocumentProperties != null
-                   && Model.DocumentProperties.Purpose != null
-                   && Model.DocumentProperties.Purpose.GeneralPurpose != null ? Model.DocumentProperties.Purpose.GeneralPurpose.GeneralPurpose : null, "GeneralPurpose")
-                </select>
-            </div><!--
-         --><div id="documentContextDependent" class="designer-form-input-group @(Model != null && Model.DocumentProperties != null
-                            && Model.DocumentProperties.Purpose != null
-                            && Model.DocumentProperties.Purpose.GeneralPurpose != null
-                            && Model.DocumentProperties.Purpose.GeneralPurpose.GeneralPurpose == DocumentGeneralPurposeEnum.ContextDependent ? "d-inline-block":"d-none")">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Content_dependent
-                </div>
-                <select class="designer-form-input" id="contextDependent">
-                    @Options(Model != null
-                   && Model.DocumentProperties != null
-                   && Model.DocumentProperties.Purpose != null
-                   && Model.DocumentProperties.Purpose.GeneralPurpose != null ?
-                   Model.DocumentProperties.Purpose.GeneralPurpose.ContextDependent : null, "ContextDependent")
-                </select>
-            </div><!--
-         --><div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Explicit_Purpose
-                </div>
-                <select class="designer-form-input" id="explicitPurpose">
-                    @Options(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.Purpose != null ? Model.DocumentProperties.Purpose.ExplicitPurpose : null, "ExplicitPurpose")
-                </select>
-            </div><!--
-         --><div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Scope_of_Validity
-                </div>
-                <select class="designer-form-input" id="scopeOfValidity">
-                    @Options(Model != null
-                   && Model.DocumentProperties != null
-                   && Model.DocumentProperties.ScopeOfValidity != null ? Model.DocumentProperties.ScopeOfValidity.ScopeOfValidity : null, "ScopeOfValidity")
-                </select>
-            </div><!--
-         --><div class="designer-form-input-group">
-                <div class="label filter-label">
-                    Scope of validity value
-                </div>
-                <input class="designer-form-input"
-                       id="scopeOfValidityValue"
-                       value="@(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.ScopeOfValidity != null ? Model.DocumentProperties.ScopeOfValidity.Value : string.Empty)" />
-            </div><!--
-         --><div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Clinical_Context
-                </div>
-                <select class="designer-form-input" id="clinicalContext">
-                    @Options(Model != null
-                   && Model.DocumentProperties != null
-                   && Model.DocumentProperties.ClinicalContext != null ? Model.DocumentProperties.ClinicalContext.ClinicalContext : null, "ClinicalContext")
-                </select>
-            </div><!--
-         --><div id="documentFollowUp" class="designer-form-input-group @(Model != null
-                   && Model.DocumentProperties != null
-                   && Model.DocumentProperties.ClinicalContext != null
-                   && Model.DocumentProperties.ClinicalContext.ClinicalContext == DocumentClinicalContextEnum.FollowUp? "d-inline-block":"d-none")">
-                <div class="label filter-label">
-                    Follow Up
-                </div>
-                <select class="designer-form-input" id="documentFollowUpSelect">
-                    @Options(Model != null
-               && Model.DocumentProperties != null
-               && Model.DocumentProperties.ClinicalContext != null ? Model.DocumentProperties.ClinicalContext.FollowUp : null, "FollowUp")
-                </select>
-            </div><!--
-         --><div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Administrative_Context
-                </div>
-                <select class="designer-form-input" id="administrativeContext">
-                    @Options(Model != null && Model.DocumentProperties != null ? Model.DocumentProperties.AdministrativeContext : null, "AdministrativeContext")
-                </select>
+<div class="designer-form-section">
+    <div class="designer-form-section-title">
+        Document properties
+    </div>
+    <div class="inputs">
+        <div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.DocumentClass
             </div>
-            <div class="designer-form-input-group">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Clinical_Domain
-                </div>
+            <select class="designer-form-input" id="documentClass" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.Class != null ? Model.DocumentProperties.Class.Class : null, "Classes")
+            </select>
+        </div><!--
+        --><div id="documentClassOther" class="designer-form-input-group @(Model != null && Model.DocumentProperties != null &&  Model.DocumentProperties.Class != null && Model.DocumentProperties.Class.Class == DocumentClassEnum.Other ? "d-inline-block":"d-none")">
+            <div class="label filter-label">
+                Other(Document class)
+            </div>
+            <input required class="designer-form-input" id="documentClassOtherInput" value="@(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.Class != null ? Model.DocumentProperties.Class.Other : string.Empty)" @ViewBag.Disabled @disabledIfNotUpdateable/>
+        </div><!--
+        --><div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.General_Purpose
+            </div>
+            <select class="designer-form-input" id="generalPurpose" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null
+                && Model.DocumentProperties != null
+                && Model.DocumentProperties.Purpose != null
+                && Model.DocumentProperties.Purpose.GeneralPurpose != null ? Model.DocumentProperties.Purpose.GeneralPurpose.GeneralPurpose : null, "GeneralPurpose")
+            </select>
+        </div><!--
+        --><div id="documentContextDependent" class="designer-form-input-group @(Model != null && Model.DocumentProperties != null
+                        && Model.DocumentProperties.Purpose != null
+                        && Model.DocumentProperties.Purpose.GeneralPurpose != null
+                        && Model.DocumentProperties.Purpose.GeneralPurpose.GeneralPurpose == DocumentGeneralPurposeEnum.ContextDependent ? "d-inline-block":"d-none")">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.ContextDependent
+            </div>
+            <select class="designer-form-input" id="contextDependent" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null
+                && Model.DocumentProperties != null
+                && Model.DocumentProperties.Purpose != null
+                && Model.DocumentProperties.Purpose.GeneralPurpose != null ?
+                Model.DocumentProperties.Purpose.GeneralPurpose.ContextDependent : null, "ContextDependent")
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Explicit_Purpose
+            </div>
+            <select class="designer-form-input" id="explicitPurpose" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.Purpose != null ? Model.DocumentProperties.Purpose.ExplicitPurpose : null, "ExplicitPurpose")
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Scope_of_Validity
+            </div>
+            <select class="designer-form-input" id="scopeOfValidity" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null
+                && Model.DocumentProperties != null
+                && Model.DocumentProperties.ScopeOfValidity != null ? Model.DocumentProperties.ScopeOfValidity.ScopeOfValidity : null, "ScopeOfValidity")
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group">
+            <div class="label filter-label">
+                Scope of validity value
+            </div>
+            <input class="designer-form-input"
+                    id="scopeOfValidityValue"
+                    value="@(Model != null && Model.DocumentProperties != null && Model.DocumentProperties.ScopeOfValidity != null ? Model.DocumentProperties.ScopeOfValidity.Value : string.Empty)" @ViewBag.Disabled @disabledIfNotUpdateable/>
+        </div><!--
+        --><div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Clinical_Context
+            </div>
+            <select class="designer-form-input" id="clinicalContext" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null
+                && Model.DocumentProperties != null
+                && Model.DocumentProperties.ClinicalContext != null ? Model.DocumentProperties.ClinicalContext.ClinicalContext : null, "ClinicalContext")
+            </select>
+        </div><!--
+        --><div id="documentFollowUp" class="designer-form-input-group @(Model != null
+                && Model.DocumentProperties != null
+                && Model.DocumentProperties.ClinicalContext != null
+                && Model.DocumentProperties.ClinicalContext.ClinicalContext == DocumentClinicalContextEnum.FollowUp? "d-inline-block":"d-none")">
+            <div class="label filter-label">
+                Follow Up
+            </div>
+            <select class="designer-form-input" id="documentFollowUpSelect" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null
+            && Model.DocumentProperties != null
+            && Model.DocumentProperties.ClinicalContext != null ? Model.DocumentProperties.ClinicalContext.FollowUp : null, "FollowUp")
+            </select>
+        </div><!--
+        --><div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Administrative_Context
+            </div>
+            <select class="designer-form-input" id="administrativeContext" @ViewBag.Disabled @disabledIfNotUpdateable>
+                @Options(Model != null && Model.DocumentProperties != null ? Model.DocumentProperties.AdministrativeContext : null, "AdministrativeContext")
+            </select>
+        </div>
+        <div class="designer-form-input-group">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Clinical_Domain
+            </div>
 
-                <div id="dropdownSearch" class="position-relative dropdown-search">
-                    <div id="search">
-                        <input autocomplete="off" class="designer-form-input" id="clinicalDomain" name="ClinicalDomain" type="text" />
-                    </div>
-                    <div id="clinicalOptions" class="clinical-domain-options" aria-labelledby="search">
-                    </div>
+            <div id="dropdownSearch" class="position-relative dropdown-search">
+                <div id="search">
+                    <input autocomplete="off" class="designer-form-input" id="clinicalDomain" name="ClinicalDomain" type="text" @ViewBag.Disabled @disabledIfNotUpdateable/>
                 </div>
+                <div id="clinicalOptions" class="clinical-domain-options" aria-labelledby="search">
+                </div>
+            </div>
 
-                <div id="clinicals" class="clinical-domain-container">
-                    @if (Model != null && Model.DocumentProperties != null)
+            <div id="clinicals" class="clinical-domain-container">
+                @if (Model != null && Model.DocumentProperties != null)
+                {
+                    foreach (var item in Model.DocumentProperties.ClinicalDomain)
                     {
-                        foreach (var item in Model.DocumentProperties.ClinicalDomain)
-                        {
-                            <div class="clinical" data-value="@item.ToString()">
-                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(item.ToString())
-                                <i class="fas fa-times clinical-remove"></i>
-                            </div>
-                        }
+                        <div class="clinical" data-value="@item.ToString()">
+                            @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(item.ToString())
+                            @if (!ViewBag.ReadOnly && !ViewBag.NotUpdateableField)
+                            { <i class="fas fa-times clinical-remove"></i> }
+                        </div>
                     }
+                }
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 @helper Options(object value, string key)
 {
     <option value="">@sReportsV2.Resources.TextLanguage.SelectOption</option>

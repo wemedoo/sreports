@@ -17,6 +17,7 @@ namespace sReportsV2.Configs
                 cfg.AddProfile<CommentProfile>();
                 cfg.AddProfile<FormInstanceProfile>();
                 cfg.AddProfile<UserProfile>();
+                cfg.AddProfile<RoleProfile>();
                 cfg.AddProfile<ThesaurusEntryProfile>();
                 cfg.AddProfile<DocumentPropertiesProfile>();
                 cfg.AddProfile<PatientProfile>();
@@ -27,13 +28,14 @@ namespace sReportsV2.Configs
                 cfg.AddProfile<FormDistributionProfile>();
                 cfg.AddProfile<FieldProfile>();
                 cfg.AddProfile<DigitalGuidelineProfile>();
+                cfg.AddProfile<DigitalGuidelineInstanceProfile>();
                 cfg.AddProfile<ThesaurusEntrySqlProfile>();
                 cfg.AddProfile<CommentProfile>();
                 cfg.AddProfile<GlobalThesaurusUserProfile>();
                 cfg.AddProfile<CommonProfile>();
                 cfg.AddProfile<CustomEnumProfile>();
-
-
+                cfg.AddProfile<SmartOncologyPatientProfile>();
+                cfg.AddProfile<ChemotherapySchemaProfile>();
             });
         }
     }

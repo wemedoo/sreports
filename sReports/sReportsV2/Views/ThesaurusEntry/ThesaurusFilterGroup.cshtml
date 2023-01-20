@@ -10,7 +10,7 @@
             <div class="label filter-label">
                 O40MTID
             </div>
-            <input type="text" class="filter-input" id="O40MtIdTemp">
+            <input type="text" class="filter-input" id="O40MtIdTemp" value="@(ViewBag.FilterData!= null && ViewBag.FilterData.Id > 0 ? ViewBag.FilterData.Id : "")">
         </div>
         <div class="advanced-filter-item filter-item  margin-right-10 advanced-max-width">
             <div class="label filter-label">
@@ -18,9 +18,9 @@
             </div>
             <select class="filter-input arrow-select" id="StateTemp">
                 <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
-                @foreach (var option in Enum.GetNames(typeof(sReportsV2.Common.Enums.ThesaurusState)))
+                @foreach (var option in Enum.GetValues(typeof(sReportsV2.Common.Enums.ThesaurusState)).Cast<sReportsV2.Common.Enums.ThesaurusState>().Take(4))
                 {
-                    <option value="@option" @(ViewBag.FilterData != null && ViewBag.FilterData.State != null && ViewBag.FilterData.State.ToString() == option ? "selected" : "")>@option</option>
+                    <option value="@option" @(ViewBag.FilterData != null && ViewBag.FilterData.State != null && ViewBag.FilterData.State.ToString() == option.ToString() ? "selected" : "")>@option</option>
                 }
             </select>
         </div>

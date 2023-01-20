@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Sql.Entities.Consensus
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class Consensus : EntitiesBase.Entity
     {
         public int Id { get; set; }
@@ -30,14 +31,6 @@ namespace sReportsV2.Domain.Sql.Entities.Consensus
             }
 
             return result.Distinct().ToList();
-        }
-
-        public void SetIterationsState()
-        {
-            foreach (ConsensusIteration iteration in this.Iterations)
-            {
-                iteration.State = iteration.Id == this.Iterations.Last().Id ? IterationState.InProgress : IterationState.Finished;
-            }
         }
     }
 }

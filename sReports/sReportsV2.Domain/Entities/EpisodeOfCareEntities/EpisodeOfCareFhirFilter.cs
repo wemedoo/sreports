@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.EpisodeOfCareEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class EpisodeOfCareFhirFilter
     {
         public int? Status { get; set; }

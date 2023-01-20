@@ -1,8 +1,73 @@
 ﻿var isInitLoaded = false;
+var isNEValidationErrorShown = false;
+
+$(document).ready(function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element) {
+            let regexp = $(element).data('regex');
+            let elementValue = $(element).val();
+            if (regexp) {
+                var re = new RegExp(regexp);
+                return this.optional(element) || re.test(elementValue) || isSpecialValueSelected($(element));
+            }
+            else {
+                return true;
+            }
+
+        },
+        "Please check your input."
+    );
+
+    $('#fid').validate();
+
+    $('[data-type="regex"]').each(function () {
+        var regexDescription = $(this).data('regexdescription');
+        $(this).rules('add', {
+            required: $(this).data('regex-required') === 'True',
+            regex: true,
+            messages: { // optional custom messages
+                regex: regexDescription
+            }
+        });
+    });
+
+    $.validator.addMethod(
+        "hasNE",
+        function (value, element) {
+            if (value.toUpperCase() === "N/E") {
+                if (!isNEValidationErrorShown) {
+                    isNEValidationErrorShown = true;
+                    toastr.options.onHidden = function () { isNEValidationErrorShown = false; }
+                    toastr.error('N/E is a reserved word in the SmartOncology system and can not be used as a field option and can not be entered in the text field types.');
+                }
+
+                return false;
+            } else {
+                return true;
+            }
+        },
+        "N/E is reserved value."
+    );
+
+    $('input.form-element-field, textarea.form-element-field').each(function () {
+        $(this).rules('add', {
+            hasNE: true
+        });
+    });
+    InitForm();
+    configureImageMap();
+});
+
+function configureImageMap() {
+    $('map').imageMapResize();
+    setTimeout(function () { triggerResize(); }, 100);
+}
 
 function clickedSubmit(event) {
     event.preventDefault();
-    if ($('#fid').valid()) {
+    passInputValidation();
+    if ($('#fid').valid() && !inputsAreInvalid("form instance")) {
         let filesData = [];
         $.each($('#fid').find('input[type="file"]'), function (index, value) {
             if (value.files[0]) {
@@ -25,7 +90,6 @@ function clickedSubmit(event) {
 }
 
 function submitForm() {
-    let action = $('#fid').attr('action');
     $.ajax({
         url: $('#fid').attr('action'),
         type: "POST",
@@ -35,8 +99,8 @@ function submitForm() {
             toastr.success("Success");
             handleSuccessFormSubmit();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(errorThrown);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -72,6 +136,7 @@ function showPageOnIndex(newIndex) {
     $(".page:eq( " + newIndex + " )").show(300);
     $(".page-selector a").removeClass("active");
     $(".page-selector a:eq( " + newIndex + " )").addClass("active");
+    setTimeout(function () { triggerResize(); }, 100);
 }
 
 function collapseChapter(element) {
@@ -81,8 +146,7 @@ function collapseChapter(element) {
     $(element).closest(".chapters-container").find(`.chapter.collapse:not(${id}) .page`).hide();
     $(element).closest(".chapters-container").find(`${id}`).collapse('show');
     $(element).closest(".chapters-container").find(id).find('.page:eq(0)').show(function () {
-        $('map').imageMapResize();
-        setTimeout(function () { triggerResize(); }, 100);
+        configureImageMap();
     });
 }
 
@@ -109,19 +173,18 @@ function showHelpModal(data) {
 }
 
 $(document).on('click', 'area', function (e) {
-
     e.preventDefault();
     e.stopPropagation();
 
     let id = $(this).attr('data-fieldset');
-    $(`#${id}`).show().siblings().hide();
-    console.log('opend: ' + id);
+    let row = $(`#${id}`).parent().parent();
+    $(row).find('.form-fieldset').hide();
+    $(`#${id}`).show();
     scrollToElement($(`#${id}`).first(), 1500);
 })
 
 function scrollToElement(element, duration, additionalOffset) {
     let scrollToId = $(element).attr('id');
-    console.log(scrollToId);
     if ($(`#${scrollToId}`).length > 0) {
         $([document.documentElement, document.body]).animate({
             scrollTop: $(`#${scrollToId}`).offset().top - getScrollOffset() - (additionalOffset ? additionalOffset : 0)
@@ -134,14 +197,20 @@ function getScrollOffset() {
     if ($(window).width() <= 768) {
         offset = 50;
     }
-    console.log(offset);
     return offset;
 }
 
 function calculateFormula(formulaElement, formula, identifiersAndVariables, idPrefix) {
+    let shouldResetCalculation = false;
     Object.keys(identifiersAndVariables).forEach(x => {
         let value = '';
         let element = getElementByIdentifier(idPrefix, x);
+
+        if ($(element).attr("data-set-default-value")) {
+            shouldResetCalculation = true;
+            $(element).removeAttr("data-set-default-value");
+            return;
+        }
 
         if ($(element).attr('type') === 'radio') {
             value = getFormulaVariableValueFromRadio(element);
@@ -158,11 +227,18 @@ function calculateFormula(formulaElement, formula, identifiersAndVariables, idPr
         formula = tryReplaceVariableWithValue(formula, value, identifiersAndVariables[x])
     });
 
-    executeFormulaCalculation(formula, formulaElement);
+    executeFormulaCalculation(formula, formulaElement, shouldResetCalculation);
 }
 
-function executeFormulaCalculation(formula, formulaElement) {
-    $(`input[name*='-${formulaElement}-1']`).val(eval(formula).toFixed(4));
+function executeFormulaCalculation(formula, formulaElement, shouldResetCalculation) {
+    var $calculativeField = $(`input[name*='-${formulaElement}-1'][type='text']`);
+    try {
+        var executedExpression = shouldResetCalculation ? "" : eval(formula).toFixed(4);
+        $calculativeField.val(executedExpression);
+        removeFieldErrorIfValid($calculativeField);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 function tryReplaceVariableWithValue(formula, value, variableName) {
@@ -243,11 +319,11 @@ function checkNumOfFields(formElement) {
 
     if (repetitiveCount && repetitiveCount === 1) {
         $(formElement).children('.repetitive-values:last').children(".field-group").each(function (index, element) {
-            $(element).children(".btns-group").children('.remove-repetitive').hide();
+            $(element).find('.remove-repetitive').hide();
         });
     } else {
         $(formElement).children('.repetitive-values:last').children(".field-group").each(function (index, element) {
-            $(element).children(".btns-group").children('.remove-repetitive').show();
+            $(element).find('.remove-repetitive').show();
         });
     }
 }
@@ -308,10 +384,11 @@ $(document).on('click', '.button-plus-repetitive', function (event) {
     event.stopPropagation();
     event.stopImmediatePropagation();
 
-    let closestFieldSet = $(event.currentTarget).closest(".form-element");
-    let lastDiv = $(closestFieldSet).children(".repetitive-values:last").children(".field-group:last");
+    let closestField = $(event.currentTarget).closest(".form-element");
+    let closestFieldContainer = $(closestField).children(".repetitive-values:last").children(".field-group:last");
+    resetDateFieldsBeforeClone(closestFieldContainer);
 
-    let clone = $(lastDiv).clone();
+    let clone = $(closestFieldContainer).clone();
 
     if ($(clone).hasClass('field-group-date-time')) {
         cloneDateTimeInput(clone);
@@ -319,7 +396,7 @@ $(document).on('click', '.button-plus-repetitive', function (event) {
         cloneInput(clone);
     }
 
-    clone.appendTo($(closestFieldSet).children(".repetitive-values:last"));
+    clone.appendTo($(closestField).children(".repetitive-values:last"));
     checkNumOfFields($(event.currentTarget).closest('.form-element'));
 });
 
@@ -327,34 +404,39 @@ function cloneInput(clone) {
 
     let inputType = getInputType(clone);
     let newNameValue = getNewNameValue($(clone).children(".repetitive-field:last"), inputType);
+    cloneResetAndNeSection(clone, newNameValue);
 
     clone.children(".repetitive-field:last").children(inputType).attr("name", newNameValue);
-    clone.children(".repetitive-field:last").children(inputType).val(' ');
+    clone.children(".repetitive-field:last").children(inputType).val(null);
 }
 
 function cloneDateTimeInput(clone) {
     let inputType = getInputType(clone);
     let newNameValue = getNewNameValueDateTime($(clone).children(".repetitive-field:last"), inputType);
+    cloneResetAndNeSection(clone, newNameValue);
 
     clone.children(".repetitive-field:last").find(inputType).each(function (i, e) {
         if ($(e).attr("name")) {
             $(e).attr("name", newNameValue);
         }
+        $(e).val(null);
     });
-    clone.children(".repetitive-field:last").find(inputType).each(function (index, element) {
-        $(element).val(' ');
-    });
+}
+
+function cloneResetAndNeSection(clone, newName) {
+    $(clone).find(".ne-link").attr("data-field-name", newName);
+    $(clone).find(".ne-radio").attr("name", newName);
 }
 
 function setName(currentInput) {
     let inputName = $(currentInput).attr("name");
-    console.log(inputName);
-        let nameValues = inputName.split("-");
-        let fieldSetCounter = parseInt(nameValues[1]);
-        fieldSetCounter++;
-        let newNameValue = `${nameValues[0]}-${fieldSetCounter}-${nameValues[2]}-${nameValues[3]}`;
-        $(currentInput).attr("name", newNameValue);
-    
+    let nameValues = inputName.split("-");
+    let fieldSetCounter = parseInt(nameValues[1]);
+    fieldSetCounter++;
+    let newNameValue = `${nameValues[0]}-${fieldSetCounter}-${nameValues[2]}-${nameValues[3]}`;
+    $(currentInput).attr("name", newNameValue);
+
+    return newNameValue;
 }
 
 function setId(currentInput) {
@@ -407,7 +489,6 @@ function setDependableVisibility(field) {
 }
 
 function resetValues(currentInput) {
-    console.log($(currentInput).attr('type'));
     if ($(currentInput).attr('type') === "radio" || $(currentInput).attr('type') === "checkbox") {
         $(currentInput).prop('checked', false);
     } else {
@@ -422,7 +503,8 @@ function setCheckBoxFormField(clone) {
         $(value).children('.checkbox-container').children("label").each(function (key, val) {
             let currentInput = $(val).children("input:first");
             resetValues(currentInput);
-            setName(currentInput);
+            let newNameValue = setName(currentInput);
+            cloneResetAndNeSection(value, newNameValue);
             setRadioId(currentInput);
         });
     });
@@ -433,7 +515,8 @@ function setRadioFormField(clone) {
         $(value).children('.radio-container').children("label").each(function (key, val) {
             let currentInput = $(val).children("input:first");
             resetValues(currentInput);
-            setName(currentInput);
+            let newNameValue = setName(currentInput);
+            cloneResetAndNeSection(value, newNameValue);
             setRadioId(currentInput);
         });
 
@@ -447,7 +530,8 @@ function setSelectFormField(clone) {
     $(clone).children(".form-select").each(function (key, value) {
         let currentInput = $(value).find("select:first");
         resetValues(currentInput);
-        setName(currentInput);
+        let newNameValue = setName(currentInput);
+        cloneResetAndNeSection(value, newNameValue);
         setRadioId(currentInput);
     });
 }
@@ -457,6 +541,7 @@ $(document).on('click', '.button-fieldset-repetitive', function (event) {
     event.stopImmediatePropagation();
 
     let closestFieldSet = $(event.currentTarget).closest(".form-fieldset").children(".field-set-container:last").children(".field-set:last");
+    resetDateFieldsBeforeClone(closestFieldSet);
     let clone = $(closestFieldSet).clone();
 
     setClonedFields(clone);
@@ -464,8 +549,14 @@ $(document).on('click', '.button-fieldset-repetitive', function (event) {
     clone.appendTo($(event.currentTarget).closest(".form-fieldset").children(".field-set-container:last"));
     let closestFsContainer = $(event.currentTarget).closest(".form-fieldset").children(".field-set-container:first");
     checkNumOfFieldSets(closestFsContainer);
-    showAddNewForFirst(closestFsContainer);
+    showAddNewForLast(closestFsContainer);
 });
+
+function resetDateFieldsBeforeClone(fieldset) {
+    $(fieldset).find('.datetime-picker-container').each(function (index, value) {
+        $(value).find('input:first').datepicker("destroy").removeAttr('id');
+    });
+}
 
 function setClonedFields(clone) {
     setNonSelectableFormFields(clone);
@@ -504,7 +595,8 @@ function setNonSelectableFormFields(clone) {
 
                         $(cr).each(function (k, currentInput) {
                             resetValues(currentInput);
-                            setName(currentInput);
+                            let newNameValue = setName(currentInput);
+                            cloneResetAndNeSection(v, newNameValue);
                             setIdForFile(currentInput);
                             
                             isFirst = false;
@@ -551,69 +643,21 @@ $(document).on('click', '.remove-field-set', function (event) {
     let closestFsContainer = $(event.currentTarget).closest(".field-set-container");
     $(event.currentTarget).closest('.field-set').remove();
     checkNumOfFieldSets(closestFsContainer);
-    showAddNewForFirst(closestFsContainer);
+    showAddNewForLast(closestFsContainer);
 
 });
 
-function showAddNewForFirst(closestFsContainer) {
-    let isFirst = true;
+function showAddNewForLast(closestFsContainer) {
+    let numOfRepetitiveFieldSet = $(closestFsContainer).children(".field-set").length;
     $(closestFsContainer).children(".field-set").each(function (index, element) {
-        if (isFirst) {
+        if (numOfRepetitiveFieldSet - 1 == index) {
             $(element).children('div:first').children('.fieldset-repetitive').children('div:last').show();
-            isFirst = false;
         } else {
             $(element).children('div:first').children('.fieldset-repetitive').children('div:last').hide();
         }
     });
 
 }
-
-$(document).ready(function () {
-    $.validator.addMethod(
-        "regex",
-        function (value, element) {
-            let regexp = $(element).data('regex');
-            let elementValue = $(element).val();
-            if (regexp) {
-                var re = new RegExp(regexp);
-                return this.optional(element) || re.test(elementValue);
-            }
-            else {
-                return true;
-            }
-
-        },
-        "Please check your input."
-    );
-
-    $('#fid').validate({
-        errorPlacement: function (error, element) {
-            if (element.attr("type") == 'checkbox' || element.attr("type") === 'radio') {
-                error.appendTo(element.parent().parent());
-            }
-            else {
-                error.appendTo(element.parent());
-            }
-        }
-    });
-
-    $('[data-type="regex"]').each(function () {
-        var regexDescription = $(this).data('regexdescription');
-        $(this).rules('add', {
-            required: true,
-            regex: true,
-            messages: { // optional custom messages
-                regex: regexDescription
-            }
-        });
-    });
-    InitForm();
-
-    /*$('map').imageMapResize();
-    setTimeout(function () { triggerResize(); }, 100);*/
-
-
-});
 
 $(document).on('click', '.chapter-li', function (event) {
     event.stopPropagation();
@@ -639,23 +683,21 @@ $(document).on('click', '.chapter-li', function (event) {
 
     $(this).addClass('active');
     $(`#${accordionId}`).find('.pages-link:first').addClass('active');
+
+    if (accordionId == "administrativeChapter-acc") {
+        showAdministrativeArrowIfOverflow('administrative-container-form-instance');
+    }
 });
 
 $(document).on('click', '.form-des', function (event) {
     event.stopPropagation();
     event.stopImmediatePropagation();
-    $(this).closest('.main-content').children('.form-description:first').show();
+    $(this).closest('.main-content').find('.form-description:first').show();
 });
 
 function showDescription(element, elementDesc, description) {
-    if ($(element).find(".fa-angle-down").length > 0) {
-        $(element).closest(elementDesc).find(description).show();
-        $(element).find(".fa-angle-down").addClass('fa-angle-up');
-        $(element).find(".fa-angle-down").removeClass('fa-angle-down');
-    } else {
-        $(element).closest(elementDesc).find(description).hide();
-        $(element).find(".fa-angle-up").addClass('fa-angle-down');
-        $(element).find(".fa-angle-up").removeClass('fa-angle-up');
+    if ($(element).find(".fa-info-circle").length > 0) {
+        $(element).closest(elementDesc).find(description).toggle();
     }
 }
 
@@ -708,7 +750,6 @@ $(document).on('blur', '.form-element-field', function (event) {
 
 function showHideDescription(event) {
     let des = $(event.currentTarget).closest(".form-element").find(".form-element-description");
-    console.log($(des).css('display'));
     if ($(des).is(':visible')) {
         $(des).hide();
     } else {
@@ -718,17 +759,20 @@ function showHideDescription(event) {
 
 $(document).on('click', '.arrow-scroll-right-page', function (e) {
     e.preventDefault();
-    $('#arrowRight').animate({
-        scrollLeft: "+=500px"
-    }, "slow");
+    scrollTabs("+=500px");
 });
 
 $(document).on('click', '.arrow-scroll-left-page', function (e) {
     e.preventDefault();
-    $('#idWorkflow').animate({
-        scrollLeft: "-=500px"
-    }, "slow");
+    scrollTabs("-=500px");
 });
+
+function scrollTabs(scrollDirection) {
+    let activeChapterId = $('.chapter-li.active').data('id');
+    $(`#arrowRight-chapter-${activeChapterId}`).animate({
+        scrollLeft: scrollDirection
+    }, "slow");
+}
 
 $(document).on('click', '.arrow-scroll-right-form', function (e) {
     e.preventDefault();
@@ -746,33 +790,44 @@ $(document).on('click', '.arrow-scroll-left-form', function (e) {
     }, "slow");
 });
 
-
-function downloadImage(event, url) {
-    if (url) {
-        window.open(url);
-    }
-}
-
-function testFileName(event) {
-    console.log($(event.currentTarget).closest('.file-field').find('.form-element-field').val().split("\\")[2]);
-}
-
 $(document).on("change", ".file", function () {
     $(this).closest(".repetitive-field").find(".file-name-text").text($(this).val().split("\\")[2]);
     $(this).closest(".repetitive-field").find(".file-name-div").show();
+    var $fileNameField = $(this).siblings(".file-hid");
+    if (isSpecialValueSelected($(this))) {
+        unsetSpecialValue($(this));
+    }
+    removeFieldErrorIfValid($fileNameField, $fileNameField.attr("id"));
+});
+
+$(document).on("change", ".file-hid", function () {
+    var $fileNameField = $(this);
+    removeFieldErrorIfValid($fileNameField, $fileNameField.attr("id"));
 });
 
 function removeFile(event) {
-    $(event.currentTarget).closest(".repetitive-field").find(".file-name-div").hide();
-    $(event.currentTarget).closest(".repetitive-field").find(".file-name").val('');
-    $(event.currentTarget).closest(".repetitive-field").find(".file-hid").val('');
+    handleRemoveFile($(event.currentTarget).closest(".repetitive-field"));
+}
+
+function handleRemoveFile($field) {
+    $field.find(".file-name-div").hide();
+    $field.find(".file-hid").val('');
+    $field.find("input[type='file']").val('');
 }
 
 $(document).on("click", ".file-choose", function () {
     $(this).closest(".repetitive-field").find(".file").click();
 });
 
+$(document).on("change", ".field-date-input", function () {
+    removeFieldErrorIfValid($(this), $(this).attr("id"));
+    removeFieldErrorIfValidForTimeInput($(this));
+});
 
+function removeFieldErrorIfValidForTimeInput($correspondantDateInput) {
+    var $timeField = $correspondantDateInput.closest(".datetime-picker-container").find(".field-time-input");
+    removeFieldErrorIfValid($timeField, $timeField.attr("id"));
+}
 
 $('input').on('blur', function (e) {
     validateInput(this, e);
@@ -783,17 +838,42 @@ $('input').on('blur', function (e) {
 function validateInput(input,e) {
     e.preventDefault();
     e.stopPropagation();
-    $(input).closest(".repetitive-field").removeClass('repetitive-error');
 
+    if (skipInputValidation($(input))) {
+        return;
+    }
+    $(input).closest(".repetitive-field").removeClass('repetitive-error');
     if ($(input).hasClass("error")) {
         $(input).closest(".repetitive-field").addClass('repetitive-error');
     }
 }
 
-function goToFormInstanceEdit(id, versionId) {
-    window.location.href = `/FormInstance/Edit?VersionId=${versionId}&FormInstanceId=${id}`;
+function skipInputValidation($input) {
+    return $input.hasClass("ne-radio")
+        || $input.hasClass("date-time-local")
+        || $input.hasClass("field-time-input")
+        || $input.attr("type") == "hidden"
+        || $input.attr("type") == "file";
 }
 
+function passInputValidation() {
+    $.each($('#fid').find('input[type="file"]'), function (index, value) {
+        if (value.files[0]) {
+            setImageUrl($(value).data('id'), "temp_value");
+        }
+    });
+}
 
+function removeFieldErrorIfValid($field, customFieldName = '') {
+    if ($field.hasClass("error")) {
+        $field.removeClass("error");
+        var fieldName = customFieldName ? customFieldName : $field.attr("name");
+        var $fieldErrorMessage = $(`#${fieldName}-error`);
+        $fieldErrorMessage.remove();
+    }
+    $field.closest(".repetitive-field").removeClass('repetitive-error');
+}
 
-
+function goToFormInstanceEdit(id, versionId) {
+    window.open(`/FormInstance/Edit?VersionId=${versionId}&FormInstanceId=${id}`, '_blank');
+}

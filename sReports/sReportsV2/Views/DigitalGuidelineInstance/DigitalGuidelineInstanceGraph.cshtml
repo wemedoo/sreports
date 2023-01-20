@@ -1,0 +1,48 @@
+﻿<form>
+    <div class="guideline-container">
+        <div class="cy" id="cy"></div>
+        <div class="guideline-sidebar">
+            <div id="nodePreview-@ViewBag.GuidelineInstanceId" class="node-preview">
+                <div class="node-preview-item"> Node preview</div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    var cy;
+    var elementData = @(Model != null ? Html.Raw(Model.ToJsonNodeElements()): null)
+
+        $(document).ready(function () {
+            if (elementData) {
+                initializeGraph(elementData);
+            }
+        })
+
+    function initializeGraph(elementData) {
+        cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: elementData,
+            layout: {
+                name: 'preset'
+            },
+            style: guidelineStyle
+        });
+
+        cy.on('select', 'node', function (evt) {
+            var node = evt.target;
+            if (node.data().type == "Decision") {
+                previewInstanceDecisionNode(event, node.data(), '@ViewBag.GuidelineInstanceId', '@Model.Id');
+            }
+            else {
+                previewInstanceNode(event, node.data(), '@ViewBag.GuidelineInstanceId', '@Model.Id');
+            }
+        });
+
+        cy.on('unselect', 'node', function (evt) {
+            unselectInstanceNode('@ViewBag.GuidelineInstanceId');
+        })
+    }
+</script>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/digitalGuideline")

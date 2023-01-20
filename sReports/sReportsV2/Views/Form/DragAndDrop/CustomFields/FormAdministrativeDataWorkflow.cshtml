@@ -1,0 +1,23 @@
+﻿@using sReportsV2.Common.Extensions;
+
+@foreach (var workflow in Model)
+{
+    var status = workflow.StatusValue;
+    <div class="workflow d-flex workflow-item">
+        <div class="workflow-form-state @status">
+            <span>
+                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(status.ToString())
+            </span>
+        </div>
+        <div class="workflow-content">
+            <div>
+                @workflow.CreatedName
+            </div>
+            <div>
+                @(((DateTime)workflow.CreatedDateTime).ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string))
+            </div>
+        </div>
+        <div class="triangle-line-form"></div>
+        <div class="triangle-line-bottom-form"></div>
+    </div>
+}

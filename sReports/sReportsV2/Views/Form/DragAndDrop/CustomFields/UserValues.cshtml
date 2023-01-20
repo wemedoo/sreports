@@ -1,0 +1,9 @@
+﻿@using sReportsV2.Common.Entities.User;
+    @model List<UserData>
+
+    @foreach (UserData userData in Model)
+    {
+        <div class="option"onclick="userOptionClicked(event, '@userData.Id', '@HttpUtility.HtmlEncode(userData.FirstName + " " + userData.LastName)', '@ViewBag.CommentId')">
+            @userData.FirstName @userData.LastName (@userData.Username)
+        </div>
+    }

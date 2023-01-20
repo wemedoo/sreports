@@ -9,5 +9,6 @@ namespace sReportsV2.DTOs.DigitalGuideline.DataIn
     {
         public string Source { get; set; }
         public string Target { get; set; }
+        public string Condition { get; set; }
     }
 }

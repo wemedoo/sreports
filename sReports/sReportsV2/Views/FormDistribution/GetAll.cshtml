@@ -4,9 +4,9 @@
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.Simulator;
 }
 <div class="element-background-grey">
-@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Simulator }, { "activeLevel", 1 } })
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Simulator }, { "activeLevel", 1 } })
     <div class="">
         @Html.Partial("~/Views/FormDistribution/GetAllForms.cshtml")
     </div>
-    </div>
-@Scripts.Render("~/bundles/simulator")
+</div>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/simulator")

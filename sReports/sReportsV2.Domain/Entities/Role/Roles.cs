@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.Role
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class Roles
     {
         [BsonId]

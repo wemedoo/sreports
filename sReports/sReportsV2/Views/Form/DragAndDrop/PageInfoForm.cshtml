@@ -18,7 +18,7 @@
             <div class="label filter-label">
                 Page title
             </div>
-            <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" />
+            <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" @ViewBag.Disabled/>
         </div>
     </div>
     <div class="designer-form-section">
@@ -27,7 +27,7 @@
             <div class="label filter-label">
                 Description
             </div>
-            <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")">@(Model != null ? Model.Description : "")</textarea>
+            <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")" @ViewBag.Disabled>@(Model != null ? Model.Description : "")</textarea>
         </div>
     </div>
     <div class="designer-form-section thesaurus-section">
@@ -50,7 +50,7 @@
             <div class="label filter-label">
                 Layout style
             </div>
-            <select class="designer-form-input" id="layoutType">
+            <select class="designer-form-input" id="layoutType" @ViewBag.Disabled>
                 <option value="">Select an option</option>
                 <option value="@LayoutType.Vertical" @(Model.LayoutStyle != null && Model.LayoutStyle.LayoutType == LayoutType.Vertical ? "selected" : "")>Vertical</option>
                 <option value="@LayoutType.Horizontal" @(Model.LayoutStyle != null && Model.LayoutStyle.LayoutType == LayoutType.Horizontal ? "selected" : "")>Horizontal</option>
@@ -60,14 +60,14 @@
             <div class="label filter-label">
                 Max items
             </div>
-            <input class="designer-form-input" id="layoutMaxItems" name="layoutMaxItems" type="number" value="@(Model != null && Model.LayoutStyle != null ? Model.LayoutStyle.MaxItems : "")" />
+            <input class="designer-form-input" id="layoutMaxItems" name="layoutMaxItems" type="number" value="@(Model != null && Model.LayoutStyle != null ? Model.LayoutStyle.MaxItems : "")" @ViewBag.Disabled/>
         </div>
     </div>
     <div class="chechbox-container">
         <div class="checkbox-group right">
             <label class="form-checkbox-label">
                 <span>Is visible?</span>
-                <input name="isVisible" value="isVisible" @(Model.IsVisible ? "checked" : string.Empty) id="isVisible" class="form-checkbox-field" type="checkbox" />
+                <input name="isVisible" value="isVisible" @(Model.IsVisible ? "checked" : string.Empty) id="isVisible" class="form-checkbox-field" type="checkbox" @ViewBag.Disabled/>
                 <i class="form-checkbox-button table-checkbox"></i>
             </label>
         </div>
@@ -76,7 +76,10 @@
         <div class="cancel-button cancel-modal-action">
             Back
         </div>
-        <div class="submit-button" id="submit-page-info">Update data</div>
+        @if (!ViewBag.ReadOnly)
+        {
+            <div class="submit-button" id="submit-page-info">Update data</div>
+        }
     </div>
 </form>
 

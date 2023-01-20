@@ -1,4 +1,5 @@
 ﻿@using sReportsV2.DTOs.CustomEnum.DataOut;
+@using sReportsV2.Common.Extensions;
 
 <form id="advancedFilterForm" name="AdvancedFilterForm" onsubmit="return false">
     <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
@@ -37,7 +38,8 @@
                                 <option @(ViewBag.FilterData.IdentifierType == "O4MtPatientId" ? "selected" : "") value="O4MtPatientId">@sReportsV2.Resources.TextLanguage.IdentifierType_PatientID</option>
                                 @foreach (var option in ViewBag.IdentifierTypes as List<CustomEnumDataOut>)
                                 {
-                                    <option value="@option.Thesaurus.Id" @(ViewBag.FilterData.IdentifierType == option.Thesaurus.Id ? "selected" : "")>@option.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</option>
+                                    var optionName = option.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string);
+                                    <option id="IdentifierType_@option.Thesaurus.Id" data-display="@optionName" value="@option.Thesaurus.Id" @(ViewBag.FilterData.IdentifierType == option.Thesaurus.Id.ToString() ? "selected" : "")>@option.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</option>
                                 }
                             </select>
                         </div>
@@ -53,8 +55,20 @@
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.BirthDate
                             </div>
-                            <input type="text" class="filter-input" id="birthDate" value="@(ViewBag.FilterData != null && ViewBag.FilterData.BirthDate!= null ? ViewBag.FilterData.BirthDate.ToString("yyyy-MM-dd") : "")">
-                            <img class="date-img" src="~/Content/img/icons/date_field.svg" id="advancedFilterBirthCalendar">
+                            <input type="hidden" id="birthDateDefault" value="@(ViewBag.FilterData != null && ViewBag.FilterData.BirthDate!= null ? ViewBag.FilterData.BirthDate.ToString("s") : "")">
+                            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                            {
+                                InputAttributes = new Dictionary<object, object> { 
+                                    { "class", "filter-input" }, 
+                                    { "id", "birthDate" }, 
+                                    { "name", "birthDate" }, 
+                                    { "value", ViewBag.FilterData != null && ViewBag.FilterData.BirthDate != null ? ViewBag.FilterData.BirthDate.ToString(ViewBag.DateFormat) : "" } 
+                                },
+                                InputBtnAttributes = new Dictionary<object, object> { 
+                                    { "class", "date-img" }, 
+                                    { @Html.DateDisabled(readOnly: false), null } 
+                                },
+                            })
                         </div>
                         <div class="advanced-filter-item filter-item">
                             <div class="label filter-label">
@@ -63,13 +77,15 @@
                             <input type="text" class="filter-input" id="city" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.City : "")">
                         </div>
                     </div>
-
                     <div class="d-flex margin-top-20">
-                        <div class="advanced-filter-item filter-item">
+                        <input type="hidden" id="countryName" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.CountryName : "")">
+                        <div class="advanced-filter-item filter-item country-select-input">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Country
                             </div>
-                            <input type="text" class="filter-input" id="country" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Country : "")">
+                            <select class="filter-input arrow-select" id="countryId">
+                                <option value=""></option>
+                            </select>
                         </div>
                         <div class="filter-item advanced-filter-item">
                             <div class="label filter-label">
@@ -92,10 +108,15 @@
                             </a>
                         </div>
                     </div>
-                    
+
 
                 </div>
             </div>
         </div>
     </div>
 </form>
+<script>
+    $(document).ready(function () {
+        initCustomEnumSelect2(hasParamInUrl('CountryId'), getParamFromUrl('CountryId'), "countryId", "country", "Country");
+    });
+</script>

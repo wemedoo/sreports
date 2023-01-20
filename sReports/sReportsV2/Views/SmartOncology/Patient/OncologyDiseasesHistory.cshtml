@@ -1,0 +1,31 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+@model SmartOncologyPatientPreviewDataOut
+
+@{
+    ViewBag.Title = sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease;
+    string patientName = string.Concat(Model.FirstName, " ", Model.LastName);
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management }, { "linkLevel1", "/SmartOncology/BasicPatientDataOncology" }, { "level2", @sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease }, { "linkLevel2", "/SmartOncology/BasicPatientDataOncology?selectedPatientId=" + Model.Id }, { "level3", patientName }, { "activeLevel", 3 } })
+
+<div class="table-container border-0">
+    <div class="header header-new">
+        @sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease (@patientName@(Model.BirthDate != null ? ", " + Model.BirthDate.Value.ToString(ViewBag.DateFormat) : ""))
+        <button class="btn btn-create float-right" onclick="newEntity()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+    </div>
+
+    @Html.Partial("SchemaInstance/SchemaInstanceFilterGroup")
+
+    <div id="tableContainer">
+    </div>
+</div>
+
+@Html.Partial("SchemaInstance/AdvancedFilterModal")
+@Html.Partial("~/Views/Administration/DeleteModal.cshtml")
+
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/smartOncologyPatientDiseasesHistory.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/tableCommon.js")

@@ -1,4 +1,5 @@
 ﻿var PatientId;
+var religionId;
 /*-------------------Episode of care------------------------*/
 
 function newEpisodeOfCare() {
@@ -11,38 +12,28 @@ function editEntity(event,id) {
     event.preventDefault();
 }
 
-function removeEOCEntry(event, id, lastUpdate) {
+function removeEOCEntry(event, id) {
     event.stopPropagation();
     $.ajax({
         type: "DELETE",
-        url: `/EpisodeOfCare/DeleteEOC?eocId=${id}&&LastUpdate=${lastUpdate}`,
+        url: `/EpisodeOfCare/DeleteEOC?eocId=${id}`,
         success: function (data) {
             $(`#row-${id}`).remove();
             toastr.success(`Success`);
             //$(event.srcElement).parent().parent().parent().parent().remove();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 /*-------------------Episode of care------------------------*/
 
 function submitForm(form,e) {
-    console.log('submitting');
     $(form).validate({
         ignore: []
     }); 
-
     if ($(form).valid()) {
-
-        var address = {
-            City: $("#city").val(),
-            State: $("#state").val(),
-            PostalCode: $("#postalCode").val(),
-            Country: $("#country").val(),
-            Street: $("#street").val()
-        };
         var contactAddress = {
             City: $("#contactCity").val(),
             State: $("#contactState").val(),
@@ -51,7 +42,7 @@ function submitForm(form,e) {
             Street: $("#contactStreet").val()
         };
 
-        var conName = {
+        var contactName = {
             Given: $("#contactName").val(),
             Family: $("#contactFamily").val()
         };
@@ -61,10 +52,7 @@ function submitForm(form,e) {
         var contactPerson =
         {
             Relationship: $("#relationship").val(),
-            Name: {
-                Given: $("#contactName").val(),
-                Family: $("#contactFamily").val()
-            },
+            Name: contactName,
             Address: contactAddress,
             Gender: $("#contactGender").val(),
             Telecoms: contactTelecoms
@@ -78,11 +66,14 @@ function submitForm(form,e) {
         request['FamilyName'] = $('#familyName').val();
         request['Name'] = $("#name").val();
         request['Gender'] = $("#gender").val();
-        request['BirthDate'] = $("#birthDate").val() ? new Date($("#birthDate").val()).toDateString() : "";
-        request['LastUpdate'] = $("#lastUpdate").val();
+        request['BirthDate'] = toDateStringIfValue($("#birthDate").val());
+        request['Deceased'] = $("#deceased").is(":checked");
+        request['DeceasedDateTime'] = toDateStringIfValue($("#deceasedDateTime").val());
+        request['ReligionId'] = $("#religion").val();
+        request['CitizenshipId'] = $("#citizenship").val();
         request['MultipleBirth'] = $("#multipleBirth").val();
         request['MultipleBirthNumber'] = $("#multipleBirthNumber").val();
-        request['Address'] = address;
+        request['Addresses'] = getAddresses();
         request['ContactPerson'] = contactPerson;
         request['Telecoms'] = GetTelecoms('PatientTelecom');
         request['Language'] = $("#language").val();
@@ -103,7 +94,7 @@ function submitForm(form,e) {
                 toastr.success("Success");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                handleResponseError(xhr, thrownError);
             }
         });
 
@@ -130,6 +121,31 @@ function selectChanged()
     }
 }
 
+function deceasedChanged(isDeceasedChecked) {
+    var $deceasedDateTimeContainer = $("#deceasedDateTimeContainer");
+    if (isDeceasedChecked) {
+        $deceasedDateTimeContainer.show();
+    } else {
+        $deceasedDateTimeContainer.hide();
+        $("#deceasedDateTime")
+            .val("")
+            .removeClass("error");
+        $deceasedDateTimeContainer.find("label.error").remove();
+    }
+}
+
+$(document).on("change", "#deceased", function () {
+    deceasedChanged($(this).is(":checked"));
+});
+
+$(document).on("change", "#deceasedDateTime", function () {
+    if ($(this).hasClass("error")) {
+        var $deceasedDateTimeContainer = $("#deceasedDateTimeContainer");
+        $(this).removeClass("error");
+        $deceasedDateTimeContainer.find("label.error").remove();
+    }
+});
+
 function goToAllPatient() {
     window.location.href = "/Patient/GetAll";
 }
@@ -145,8 +161,8 @@ function getCommunications() {
     $('input[name=radioPreferred]').each(function (index, element) {
         result.push({
             preferred: $(element).val() == selected ? true : false,
-            language: $(element).val()
-            //Id: $(element).attr("data-id")
+            language: $(element).val(),
+            id: $(element).attr("data-id")
         })
     })
 
@@ -154,6 +170,24 @@ function getCommunications() {
 }
 
 $(document).ready(function () {
+    setPatientId();
+    renderInitialData();
+    setCommonValidatorMethods();
+    setValidationFunctions();
+});
+
+function setPatientId() {
+    var url = new URL(window.location.href);
+    var patientId = url.searchParams.get("patientId");
+
+    if (patientId) {
+        PatientId = patientId;
+    } else {
+        PatientId = null;
+    }
+}
+
+function renderInitialData() {
     $("input[name=radioPreferred]").each(function () {
         if ($(this).is(":checked")) {
             let preferredText = document.createElement('span');
@@ -164,7 +198,35 @@ $(document).ready(function () {
             $(this).closest('div').removeClass("preferred-language-text-active");
         }
     });
-});
+    deceasedChanged($("#deceased").is(":checked"));
+
+    initCustomEnumSelect2(hasSelectedReligion(), religionId, "religion", "religion", "ReligiousAffiliationType");
+    initCustomEnumSelect2(false, 0, "countryId", "country", "Country");
+}
+
+function hasSelectedReligion() {
+    return religionId;
+}
+
+function setValidationFunctions() {
+    $.validator.addMethod(
+        "deceasedDateTime",
+        function (value, element) {
+            if ($("#deceased").is(":checked")) {
+                return $(element).val();
+            } else {
+                return true;
+            }
+        },
+        "Please enter deceased datetime."
+    );
+    $('#idPatientInfo').validate({});
+    $('[name="deceasedDateTime"]').each(function () {
+        $(this).rules('add', {
+            deceasedDateTime: true
+        });
+    });
+}
 
 $(document).on('click', '.plus-button', function (e) {
     if (ValidateLanguage() && $('#language').val()) {
@@ -217,6 +279,8 @@ function createRadioInput() {
     $(input).attr("value", $('#language').val());
     $(input).attr("name", 'radioPreferred');
     $(input).attr("type", 'radio');
+    $(input).attr("data-id", '0');
+    $(input).attr("data-no-color-change", "true");
 
     return input;
 }
@@ -234,6 +298,7 @@ function createRadioField() {
     $(preferred).attr("data-property", 'preferred');
     $(preferred).attr("data-value", $('#preferred').val());
     $(preferred).addClass("radio-space");
+    $(preferred).css("margin-right", "13px");
 
     return preferred;
 }
@@ -264,22 +329,8 @@ function createRemoveLanguageButton() {
 }
 
 $(document).on('click', '.remove-language-button', function (e) {
-    $(e.currentTarget).closest('div').remove();
-});
-
-function removeLanguage(r) {
-    $(r).closest("div").remove();
-}
-
-$(document).ready(function () {
-    var url = new URL(window.location.href);
-    var patientId = url.searchParams.get("patientId");
-
-    if (patientId) {
-        PatientId = patientId;
-    } else {
-        PatientId = null;
-    }
+    var currentEl = e.currentTarget;
+    $(currentEl).closest('div').remove();
 });
 
 function pushStateWithoutFilter(num) {
@@ -330,18 +381,16 @@ function setTagIconActiveClass(iconId) {
     document.getElementById(iconId).classList.add('active');
 }
 
-$(document).ready(function () {
-    document.getElementById("generalButton").click();
-});
-
 $(document).on('click', '[name="radioPreferred"]', function () {
     let selected = $('input[name=radioPreferred]:checked').val();
     var element = document.getElementById("firstLanguage");
     element.classList.remove("preferred-language-text-active");
     var removeElement = document.getElementById("removeButtonId");
-    removeElement.classList.remove("preferred-language-text-active");
-    removeElement.classList.add("right-remove-button");
-
+    if (removeElement) {
+        removeElement.classList.remove("preferred-language-text-active");
+        removeElement.classList.add("right-remove-button");
+    }
+    
     let preferredText = document.createElement('span');
     $(preferredText).addClass("preferred-text-class");
     preferredText.innerHTML = " (Preferred)";
@@ -355,10 +404,4 @@ $(document).on('click', '[name="radioPreferred"]', function () {
             $(this).addClass("preferred-language-text-active");
         }
     });
-});
-
-$('#birthDateCalendar').click(function () {
-    $("#birthDate").datepicker({
-        dateFormat: df
-    }).focus();
 });

@@ -7,7 +7,7 @@
         <span class="comment-target-item" id="@Model.Id"> @Html.Raw(Model.FullLabel) </span>
     </div>
     <div class="repetitive-field filter-input d-inline-block">
-        <textarea class="form-element-field textarea-repetitive" placeholder="@Model.DescriptionLabel"></textarea>
+        <textarea class="form-element-field textarea-repetitive" placeholder="@Model.DescriptionLabel" readonly></textarea>
     </div>
     @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
 </fieldset>

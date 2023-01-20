@@ -20,5 +20,15 @@ namespace sReportsV2.DTOs.FormDistribution.DataOut
         {
             return Type == FieldTypes.Select || Type == FieldTypes.Checkbox || Type == FieldTypes.Radio;
         }
+
+        public bool CanBeAddedToRelation()
+        {
+            return Type == FieldTypes.Number || Type == FieldTypes.Digits || IsSelectableField();
+        }
+
+        public List<string> GetRelatedFieldsIds()
+        {
+            return RelatedVariables.Select(v => v.Id).ToList();
+        }
     }
 }

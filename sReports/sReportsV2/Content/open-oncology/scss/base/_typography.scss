@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "../abstracts/_variables.scss";
+@import "../abstracts/_mixins.scss";//General
+//General
+.history {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    font-weight: $font-weight-regular;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+//Table
+.table {
+    .text-primary {
+        color: $primary-color !important;
+        font-size: 1.3rem;
+        font-weight: $font-weight-semi-bold;
+        margin-bottom: -4px;
+    }
+
+    .text-secondary {
+        font-size: 1.2rem;
+        color: #444 !important;
+        margin-bottom: -4px;
+    }
+}

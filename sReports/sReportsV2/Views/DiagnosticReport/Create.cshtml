@@ -5,12 +5,6 @@
     ViewBag.Action = "/DiagnosticReport/Create?episodeOfCareId=" + Model.EpisodeOfCare.Id;
 }
 
-@if (ViewData.ModelState.Keys.Contains("ConcurrencyException"))
-{
-    <div class="alert alert-danger" role="alert">
-        @Html.ValidationMessage("ConcurrencyException")
-    </div>
-}
 <div class="col">
     <div class="row">
         <div class="col-md-6">

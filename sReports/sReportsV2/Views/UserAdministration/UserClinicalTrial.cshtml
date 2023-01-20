@@ -4,96 +4,103 @@
 
 @{
     string id = Model != null ? Model.Id.ToString() : GuidExtension.NewGuidStringWithoutDashes();
+    bool readOnly = ((bool?)ViewBag.ReadOnly).GetValueOrDefault() || !ViewBag.UserAdministration;
+    string disabled = readOnly ? "disabled" : "";
  }
-    <div class="clinical-trial" data-id="@id">
-        <input type="hidden" id="isArchived-@id" class="form-control" value="@( Model != null && Model.IsArchived != null ? Model.IsArchived.ToString() : "false")" />
+<div class="clinical-trial" data-id="@id">
+    <input type="hidden" id="isArchived-@id" class="form-control" value="@( Model != null && Model.IsArchived != null ? Model.IsArchived.ToString() : "false")" />
 
         <div class="input-group-title d-flex">
             <div>Clinical Research and Academic Data</div>
-            @if (Model != null && Model.IsArchived != null && !Model.IsArchived.Value)
+            @if (Model != null && Model.IsArchived != null && !Model.IsArchived.Value && !readOnly)
             {
                 <div class="ct-archive-btn ml-auto" id="ctBtnArchive-@Model.Id" onclick="archiveClinicalTrial('@Model.Id')"><img class="mr-2" src="~/Content/img/icons/archive_white.svg">Archive</div>
             }
         </div>
         <div class="d-flex">
             <div class="user-input-group">
-                <div class="advanced-filter-item filter-item input-margin margin-top-15">
+                <div class="advanced-filter-item input-margin margin-top-15">
                     <div class="label filter-label">
                         Clinical Trial Name
                     </div>
-                    <input class="filter-input ct-name" type="text" id="name-@id" value="@(Model != null && Model.Name != null ? Model.Name : "")" />
+                    <input class="filter-input ct-name" type="text" id="name-@id" value="@(Model != null && Model.Name != null ? Model.Name : "")" @disabled/>
                 </div>
-                <div class="advanced-filter-item filter-item input-margin">
+                <div class="advanced-filter-item input-margin">
                     <div class="label filter-label">
                         Clinical Trial Acronym
                     </div>
-                    <input class="filter-input" type="text" id="acronym-@id" value="@(Model != null && Model.Acronym != null ? Model.Acronym : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                    <input class="filter-input" type="text" id="acronym-@id" value="@(Model != null && Model.Acronym != null ? Model.Acronym : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional" @disabled/>
                 </div>
-                <div class="advanced-filter-item filter-item input-margin">
+                <div class="advanced-filter-item input-margin">
                     <div class="label filter-label">
                         Clinical Trial Sponsor ID
                     </div>
-                    <input class="filter-input" type="text" id="sponosorId-@id" value="@(Model != null && Model.SponosorId != null ? Model.SponosorId : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                    <input class="filter-input" type="text" id="sponosorId-@id" value="@(Model != null && Model.SponosorId != null ? Model.SponosorId : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional" @disabled/>
                 </div>
-                <div class="advanced-filter-item filter-item input-margin">
+                <div class="advanced-filter-item input-margin">
                     <div class="label filter-label">
-                        Clinical Trial Wemedo ID
+                        Clinical Trial Wemedoo ID
                     </div>
-                    <input class="filter-input" type="text" id="wemedooId-@id" value="@(Model != null && Model.WemedooId != null ? Model.WemedooId : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional"/>
+                    <input class="filter-input" type="text" id="wemedooId-@id" value="@(Model != null && Model.WemedooId != null ? Model.WemedooId : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional" @disabled/>
                 </div>
             </div>
             <div class="user-input-group">
-                <div class="advanced-filter-item filter-item input-margin margin-top-15 col-12">
+                <div class="advanced-filter-item input-margin margin-top-15 col-12">
                     <div class="label filter-label row">
                         Clinical Trial Recruitment Status <div class="user-placeholder">@sReportsV2.Resources.TextLanguage.Optional</div>
                     </div>
                     <div class="position-relative margin-top-10 row">
                         @foreach (var option in Enum.GetNames(typeof(ClinicalTrialRecruitmentsStatus)))
                         {
+                            string displayedStatusValue = sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option);
                             <label class="form-radio-label col-6">
                                 <input type="radio"
+                                       data-display="@displayedStatusValue"
                                        id="status-@id"
                                        name="status-@id"
                                        value="@option"
                                        class="form-radio-field ct-status"
-                                       @(Model != null && Model.Status.ToString() == option ? "checked" : string.Empty)>
+                                       @(Model != null && Model.Status.ToString() == option ? "checked" : string.Empty) @disabled>
 
-                                <i class="form-radio-button user-radio"></i>
-                                <span class="user-radio-span">
-                                    @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)
-                                </span>
-                            </label>
-                        }
-                    </div>
+                            <i class="form-radio-button user-radio"></i>
+                            <span class="user-radio-span">
+                                @displayedStatusValue
+                            </span>
+                        </label>
+                    }
                 </div>
-                @*<div class="advanced-filter-item filter-item input-margin">
+            </div>
+            @*<div class="advanced-filter-item input-margin">
                     <div class="label filter-label">
                         Role on the Trial(V)
                     </div>
                     <input class="filter-input ct-role" type="text" id="role-@id" value="@(Model != null && Model.Role != null ?  Model.Role : "")" placeholder="@sReportsV2.Resources.TextLanguage.Optional" />
                 </div>*@
 
-                <div class="advanced-filter-item filter-item input-margin">
-                    <div class="label filter-label">
-                        Role on the Trial(V)
-                    </div>
-                    <select id="role-@id"
-                            class="filter-input ct-role"
-                            value="@(Model != null && Model.Role.ToString() != null ?  Model.Role.ToString() : "")">
-                        <option value="" class="form-select-placeholder"></option>
-                        @foreach (string option in Enum.GetNames(typeof(ClinicalTrialRole)))
-                        {
-                            <option value="@option" @(Model != null && Model.Role!= null && !string.IsNullOrWhiteSpace(Model.Role.ToString()) ? "selected" : string.Empty)>
-                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)
-                            </option>
-                        }
-                    </select>
+            <div class="advanced-filter-item input-margin">
+                <div class="label filter-label">
+                    Role on the Trial(V)
                 </div>
-               
+                <select id="role-@id"
+                        class="filter-input ct-role"
+                        value="@(Model != null && Model.Role.ToString() != null ?  Model.Role.ToString() : "")" @disabled>
+                    <option value="" class="form-select-placeholder"></option>
+                    @foreach (string option in Enum.GetNames(typeof(ClinicalTrialRole)))
+                    {
+                        string displayedRoleValue = sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option);
+                        <option data-display="@displayedRoleValue" value="@option" @(Model != null && Model.Role != null && option == Model.Role.ToString() ? "selected" : string.Empty)>
+                            @displayedRoleValue
+                        </option>
+                    }
+                </select>
             </div>
+
         </div>
+    </div>
+    @if (!readOnly)
+    {
         <div class="button-partial clinical-trial-btn-group user-btn-top-border">
-            <button class="submit-patient right-button" type="submit" style="outline: none;" onclick="submitClinicalTrial(event, '@id')">
+            <button class="submit-patient right-button" type="button" style="outline: none;" onclick="submitClinicalTrial(event, '@id')">
                 <span class="submit-patient-info">@(Model.Id != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
             </button>
             <i class="angle-left fas fa-angle-left"></i>
@@ -101,5 +108,6 @@
                 <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
             </div>
         </div>
-    </div>
+    }
+</div>
 

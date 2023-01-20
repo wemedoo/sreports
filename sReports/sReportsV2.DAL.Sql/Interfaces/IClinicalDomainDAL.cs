@@ -1,4 +1,5 @@
-﻿using sReportsV2.Domain.Sql.Entities.OrganizationEntities;
+﻿using sReportsV2.Common.Enums.DocumentPropertiesEnums;
+using sReportsV2.Domain.Sql.Entities.OrganizationEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace sReportsV2.SqlDomain.Interfaces
 {
     public interface IClinicalDomainDAL
     {
-        void Insert(ClinicalDomain clinicalDomain);
         int Count();
+        void Insert(DocumentClinicalDomain clinicalDomain);
     }
 }

@@ -1,0 +1,35 @@
+﻿<div class="modal-window modal-delay-dose">
+    <div class="filter-close-btn">
+        <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+    </div>
+    
+    <div class="modal-window-content">
+        <input type="hidden" id="delayStartDay" value="" />
+        <div class="d-flex advanced-filter-header">
+            <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> @sReportsV2.Resources.TextLanguage.Delay_dose_time
+        </div>
+        <div class="modal-subtitle">
+            <div id="day-delay-dose-modal" class="day-item day-item-display">
+                @sReportsV2.Resources.TextLanguage.DAY
+                <span class="num"></span>
+            </div>
+            <span class="modal-title">@sReportsV2.Resources.TextLanguage.Date: <span class="date-title"></span></span>
+        </div>
+        <div class="advanced-filter-item margin-top-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Number_Of_Days_For_Delay:
+            </div>
+            <input type="number" class="filter-input" name="delayFor" id="delayFor" min="1" max="15" value="" onkeydown="pressButtonOnEnterKey(event, 'save-delay-dose')"/>
+        </div>
+        <div class="advanced-filter-item margin-top-20 margin-bottom-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Description:
+            </div>
+            <textarea class="form-control filter-input" id="reasonForDelay" name="reasonForDelay" maxlength="150" cols="3"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button href="javascript:;" class="btn-text close-modal">@sReportsV2.Resources.TextLanguage.Cancel</button>
+            <button id="save-delay-dose" class="btn-primary-schema ml-5">@sReportsV2.Resources.TextLanguage.Save</button>
+        </div>
+    </div>
+</div>

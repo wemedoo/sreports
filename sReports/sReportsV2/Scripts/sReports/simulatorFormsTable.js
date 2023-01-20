@@ -5,6 +5,9 @@
     checkSecondaryPage();
     requestObject.Page = window[pageNumIdentifier];
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
+
     if ($('#title').val()) {
         requestObject.Title = $('#title').val();
     }
@@ -16,10 +19,10 @@
         success: function (data) {
             $(`#${container}`).html(data);
             $(`#${container}`).show();
-
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
             $(`#${container}`).hide();
         }
     });

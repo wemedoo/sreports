@@ -2,6 +2,8 @@
 using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,10 @@ namespace sReportsV2.Domain.Sql.Entities.ThesaurusEntry
 {
     public class AdministrativeData
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("AdministrativeDataId")]
+        public int AdministrativeDataId { get; set; }
         public List<Version> VersionHistory { get; set; }
         public int ThesaurusEntryId { get; set; }
         public AdministrativeData() { }

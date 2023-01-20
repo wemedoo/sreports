@@ -1,0 +1,89 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+
+
+@if (ViewBag.FieldDataOutList != null)
+{
+    if (ViewBag.FormTitle != null)
+    {
+        <input hidden value=@ViewBag.FormTitle id="form-title" />
+    }
+
+    <div class="d-flex main-filter mb-5" style="margin-left:10px">
+        <div class="dropdown advanced-filter-item filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Fields_To_Plot
+            </div>
+            <input id="validateFieldsToPlot" name="validateFieldsToPlot" type="hidden" />
+            <button class="btn btn-default filter-input arrow-select" type="button" id="dropdown-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="max-height:40px; overflow: hidden; text-align:left">
+                0/5 @sReportsV2.Resources.TextLanguage.Selected
+            </button>
+            <ul id="fields-chkbox-list" class="dropdown-menu checkbox-menu allow-focus filter-input list-of-checkboxes" aria-labelledby="dropdown-button">
+
+                @foreach (FieldDataOut field in ViewBag.FieldDataOutList)
+                {
+                    <li>
+                        <label class="form-checkbox-label hidden-checkbox">
+                            <input class="checkbox-radio form-checkbox-field" type="checkbox" id="@field.ThesaurusId" name="fieldChkbox" value="@field.ThesaurusId">
+                            <span class="form-checkbox-button table-checkbox dynamic-checkbox-size"></span>
+                            <text class="ml-2">@field.Label</text>
+                        </label>
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+        <div class="advanced-filter-item filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.From
+            </div>
+            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+            {
+                InputAttributes = new Dictionary<object, object> {
+                    { "class", "filter-input date-chart-filter" },
+                    { "id", "chartDateTimeFrom"},
+                    { "name", "chartDateTimeFrom"},
+                    { "required", null}
+                },
+                InputBtnAttributes = new Dictionary<object, object> {
+                    { "class", "date-img" },
+                    { @Html.DateDisabled(readOnly: false), null }
+                },
+            })
+            <input id="dateTimeFrom" type="hidden" />
+        </div>
+        <div class="advanced-filter-item filter-item margin-right-10 advanced-max-width">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.To_
+            </div>
+            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+            {
+                InputAttributes = new Dictionary<object, object> {
+                    { "class", "filter-input date-chart-filter" },
+                    { "id", "chartDateTimeTo"},
+                    { "name", "chartDateTimeTo"},
+                    { "required", null}
+                },
+                InputBtnAttributes = new Dictionary<object, object> {
+                    { "class", "date-img" },
+                    { @Html.DateDisabled(readOnly: false), null }
+                },
+            })
+            <input id="dateTimeTo" type="hidden" />
+        </div>
+
+        <div class="filter-item border-0 margin-top-15" style="margin-right:10px">
+            <div class="button-wrapper-filter button-filter" id="submitFilterButton">
+                <button class="btn btn-filter-primary w-100 h-100 float-right" onclick="submitFieldsToPlot(event, '@ViewBag.FormID')">@sReportsV2.Resources.TextLanguage.Submit</button>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+    $(document).ready(function () {
+        setValidationChartFunctions();
+    });
+</script>

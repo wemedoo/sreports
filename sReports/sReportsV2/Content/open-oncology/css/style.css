@@ -1,0 +1,604 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.table .text-primary {
+  color: #12707C !important;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: -4px;
+}
+.table .text-secondary {
+  font-size: 1.2rem;
+  color: #444 !important;
+  margin-bottom: -4px;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5% !important;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: $smart-oncology-light-grey;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.mb-25 {
+  margin-bottom: 25px !important;
+}
+
+.mb-35 {
+  margin-bottom: 35px !important;
+}
+
+.mb-50 {
+  margin-bottom: 50px !important;
+}
+
+.mt-15 {
+  margin-top: 15px !important;
+}
+
+.mt-35 {
+  margin-top: 35px !important;
+}
+
+.mt-100 {
+  margin-top: 100px !important;
+}
+
+.text-green {
+  color: #00925D;
+}
+
+.text-red {
+  color: #C84A4A;
+}
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1c94a3;
+  padding: 1.5rem 2rem;
+  height: 4rem;
+  width: 12rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  text-align: center;
+  transition: 0.115s all ease-in;
+}
+.btn-primary svg {
+  margin-left: 5rem;
+}
+.btn-primary:focus, .btn-primary:active, .btn-primary:hover {
+  text-decoration: none !important;
+  background-color: #12707C !important;
+}
+
+.btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  height: 4rem;
+  width: 15rem;
+  font-size: 1.3rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid #12707C;
+  color: #12707C;
+  font-weight: 500;
+  transition: 0.115s all ease-in;
+  background-color: #fff;
+}
+.btn-outline svg {
+  margin-right: 1rem;
+}
+.btn-outline:active, .btn-outline:hover {
+  text-decoration: none !important;
+  color: #fff;
+  background-color: #1f919f !important;
+  border-color: #1f919f;
+}
+.btn-outline:active svg path, .btn-outline:hover svg path {
+  fill: #fff;
+}
+
+.table {
+  margin-bottom: 0 !important;
+  max-width: fit-content;
+}
+.table-wrapper {
+  margin-left: 1.5rem;
+  overflow-x: scroll;
+}
+.table-title {
+  min-width: 32rem !important;
+  text-align: left !important;
+}
+.table thead .table-title {
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+}
+.table thead .table-title svg {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transition: 0.2s ease;
+  transform: translateY(-50%) rotateZ(0deg);
+}
+.table .accordion-toggle[aria-expanded=true] .table-title svg {
+  transform: translateY(-50%) rotateZ(180deg);
+  -webkit-transform: translateY(-50%) rotateZ(180deg);
+  -moz-transform: translateY(-50%) rotateZ(180deg);
+  -ms-transform: translateY(-50%) rotateZ(180deg);
+}
+.table tr.h-0 {
+  height: 0 !important;
+}
+.table tr {
+  height: 4rem;
+}
+.table tbody .table-title {
+  position: relative;
+}
+.table .refresh-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+.table .refresh-icon:hover {
+  transform: scale(1.3);
+}
+.table .input-comment {
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+.table .input-comment:hover {
+  transform: scale(1.2);
+}
+.table th, .table td {
+  min-width: 10rem;
+  max-width: 10rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+.table .labaratory-parent {
+  background-color: #F3FFF0;
+}
+.table .labaratory-parent th {
+  border: 1px solid #12707C;
+  vertical-align: middle;
+}
+.table thead {
+  display: block;
+  background-color: #E3FCFF;
+}
+.table thead th {
+  border: 1px solid #12707C;
+  vertical-align: middle;
+}
+.table:last-child thead th {
+  margin-bottom: 2rem !important;
+}
+.table table {
+  border: none !important;
+}
+.table tbody {
+  border: none;
+}
+.table tbody .input-text-field,
+.table tbody .input-field {
+  position: relative;
+  padding: 0 !important;
+}
+.table tbody .input-text-field input,
+.table tbody .input-field input {
+  text-align: center;
+  position: absolute;
+  color: #000;
+  font-size: 1.3rem;
+  font-weight: 500;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
+}
+.table tbody .input-text-field input:focus,
+.table tbody .input-field input:focus {
+  outline: none;
+  border: 1px solid #1C94A3;
+}
+.table tbody .input-text-field input::-webkit-outer-spin-button,
+.table tbody .input-text-field input::-webkit-inner-spin-button,
+.table tbody .input-field input::-webkit-outer-spin-button,
+.table tbody .input-field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.table tbody .input-text-field input[type=number],
+.table tbody .input-field input[type=number] {
+  -moz-appearance: textfield;
+}
+.table tbody .stop-dose-icon,
+.table tbody .same-dose-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.4rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+.table tbody .stop-dose-icon > *,
+.table tbody .same-dose-icon > * {
+  pointer-events: none;
+}
+.table .tbody-child {
+  background-color: #fff;
+}
+.table .tbody-child td {
+  border: 1px solid $smart-oncology-dark-grey;
+  border-top: none;
+  height: 4.5rem;
+  vertical-align: middle;
+  text-align: center;
+}
+.table .tbody-child .table-title {
+  background-color: #f9f9f9;
+}
+
+.lab-toggle {
+  display: flex;
+  margin: 1rem 1.5rem 2.5rem;
+  justify-content: flex-end;
+}
+.lab-toggle button {
+  margin-left: 1.5rem;
+}
+
+.accordion-toggle[aria-expanded=false] th {
+  border-bottom: 0;
+}
+
+#curve {
+  background-color: #fff;
+  padding: 0 2rem;
+}
+
+.lab-chart {
+  margin: 0 1.5rem;
+}
+
+.new-evaluation {
+  margin: 1.5rem;
+}
+
+.navbar {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 7px 15px;
+}
+.navbar-arrows {
+  flex: 1;
+}
+.navbar-arrows a {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem;
+  padding-left: 0;
+}
+.navbar-arrows .left-arrow {
+  margin-right: 4rem;
+  cursor: pointer;
+}
+.navbar-arrows .disabled {
+  cursor: not-allowed;
+}
+.navbar-arrows .enable svg path {
+  fill: #12707C;
+}
+.navbar-title {
+  color: #000;
+  font-size: 1.7rem;
+}
+.navbar-export {
+  flex: 1;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.navbar-export span {
+  color: #12707C;
+  font-weight: 500;
+  border-bottom: 1px solid #12707C;
+}
+.navbar-export img {
+  margin-right: 0.5rem;
+}
+.navbar-export:hover span {
+  color: #1f919f;
+  border-color: #1f919f;
+}
+
+.header {
+  position: relative;
+  padding: 2.5rem 1.5rem 0 0;
+  margin-bottom: 1.7rem;
+  font-size: 1.3rem;
+}
+.header-about {
+  padding-left: 9rem;
+  color: #444;
+  border-right: 1px solid #CECECE;
+}
+.header-about .row {
+  margin-bottom: 0.5rem;
+}
+.header-about .about-data {
+  color: #000;
+  font-weight: 500;
+}
+.header .dropdown-pick select {
+  text-align: center;
+}
+.header .dropdown-pick select option {
+  background-color: #fff !important;
+  color: #000;
+}
+.header .dropdown-pick select .opt-item {
+  color: #000 !important;
+}
+.header .details-data,
+.header .about-data {
+  color: #000;
+  font-weight: 500;
+}
+.header-details .row {
+  margin-bottom: 0.5rem;
+}
+.header-details .cycle,
+.header-details .course {
+  align-self: flex-end;
+}
+
+.nav-slider {
+  position: absolute;
+  background-color: #1C94A3;
+  height: 5rem;
+  width: 2.5rem;
+  cursor: pointer;
+  z-index: 1;
+  top: 15px;
+}
+.nav-slider:hover {
+  background-color: #198290;
+  transition: 0.2s all ease-in;
+}
+.nav-slider:hover::after {
+  background-color: #198290;
+  transition: 0.2s all ease-in;
+}
+.nav-slider::after {
+  content: "";
+  background-color: #1C94A3;
+  width: 5rem;
+  height: 5rem;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+.nav-slider .arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 2.5rem;
+  z-index: 1;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-left: 1.5rem;
+}
+.date-cycle {
+  background-color: #fff;
+  flex: 1;
+  padding: 1.6rem 2rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.065);
+  color: #444;
+  font-size: 1.3rem;
+  margin-right: 1.5rem;
+}
+.date-cycle label {
+  margin-bottom: 0;
+  cursor: pointer;
+  margin-bottom: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.date-cycle label input {
+  cursor: pointer;
+}
+.date-cycle .date-picker {
+  margin-right: 1rem;
+  border-right: 1px solid #CECECE;
+  cursor: pointer !important;
+}
+.date-cycle .date-picker img {
+  margin-right: 1rem;
+}
+.date-cycle .date-picker #datepicker {
+  width: 9rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border: none !important;
+  margin-left: 5px;
+  margin-top: 1px;
+}
+.date-cycle .dropdown {
+  display: flex;
+  justify-content: space-between;
+}
+.date-cycle .dropdown-pick {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+.date-cycle .dropdown-pick .form-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  width: auto;
+  cursor: pointer;
+  margin-left: 1rem;
+  font-size: 13px;
+  background-color: #1CA37D;
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  height: 3rem;
+}
+.date-cycle .dropdown-pick .form-control option {
+  cursor: pointer;
+  padding: 2rem 1rem;
+  color: #fff;
+}
+.date-cycle .dropdown-pick:last-child {
+  margin-right: 0;
+}
+
+#ui-datepicker-div {
+  font-size: 1.3rem;
+}
+#ui-datepicker-div .ui-state-default {
+  background-color: #EEE;
+}
+
+.ui-datepicker-header {
+  background-color: #EEE;
+}
+
+.hiddenRow {
+  padding: 0 !important;
+}
+
+#drop-menu {
+  position: absolute;
+  z-index: 101;
+  width: 13rem;
+  background-color: #fff;
+  padding: 1rem;
+  font-weight: 400;
+  border-radius: 1rem;
+  box-shadow: 0px 3px 11px #c7cccd;
+  font-size: 1.4rem;
+  top: 0;
+  left: 10rem;
+  cursor: pointer;
+}
+#drop-menu .drop-item {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  padding: 0.5rem 0.4rem;
+  border-radius: 2rem;
+}
+#drop-menu .drop-item .same-dose i {
+  margin-top: -3px;
+}
+#drop-menu .drop-item i {
+  margin-right: 0.8rem;
+  font-size: 1.8rem;
+  width: 1.8rem;
+  margin-top: -1px;
+}
+#drop-menu .drop-item:hover {
+  background-color: #f4f4f4;
+}
+#drop-menu .drop-item.comment {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  background-color: #FE5959;
+  border-radius: 3rem;
+  align-items: center;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  justify-content: center;
+}
+#drop-menu .drop-item.comment i {
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+  width: auto;
+}
+#drop-menu .drop-item.comment:hover {
+  background-color: #a11c1c;
+}
+
+.divider {
+  width: 100%;
+  display: block;
+  background-color: #DFDFDF;
+  height: 1px;
+  margin-bottom: 2rem;
+}
+
+/*# sourceMappingURL=style.css.map */

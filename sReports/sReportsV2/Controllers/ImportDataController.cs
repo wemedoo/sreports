@@ -1,54 +1,39 @@
-﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
-using sReportsV2.Common.Helpers;
-using sReportsV2.Common.Enums;
-using sReportsV2.Domain.Services.Implementations;
-
-using sReportsV2.DAL.Sql.Implementations;
-using sReportsV2.UMLS.Classes;
+﻿using sReportsV2.UMLS.Classes;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using UMLSClient.Client;
 using sReportsV2.SqlDomain.Interfaces;
-using sReportsV2.BusinessLayer.Interfaces;
 using sReportsV2.DAL.Sql.Interfaces;
 using sReportsV2.Initializer.OrganizationCSV;
 using sReportsV2.Initializer.PredefinedTypes;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Controllers
 {
     public class ImportDataController : Controller
     {
-        IThesaurusDAL thesaurusDAL;
-        IThesaurusEntryBLL thesaurusBLL;
-        ICodeSystemDAL codeSystemDAL;
-        public ImportDataController(IThesaurusDAL thesaurusDAL, IOrganizationBLL organizationBLL, IThesaurusEntryBLL thesaurusBLL, ICodeSystemDAL codeSystemDAL)
+        readonly IThesaurusDAL thesaurusDAL;
+        readonly ICodeSystemDAL codeSystemDAL;
+        readonly ICustomEnumDAL customEnumDAL;
+        public ImportDataController(IThesaurusDAL thesaurusDAL, ICustomEnumDAL customEnumDAL, ICodeSystemDAL codeSystemDAL)
         {
-            this.thesaurusBLL = thesaurusBLL;
             this.thesaurusDAL = thesaurusDAL;
             this.codeSystemDAL = codeSystemDAL;
+            this.customEnumDAL = customEnumDAL;
         }
 
         public ActionResult InsertOrganizations()
         {
-
             ImportOrganization importer = new ImportOrganization(DependencyResolver.Current.GetService<IOrganizationDAL>());
-            importer.InsertOrganization(AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\SwissHospitals.csv");
+            int? countryId = customEnumDAL.GetIdByTypeAndPreferredTerm(ResourceTypes.CompanyCountry, Common.Enums.CustomEnumType.Country);
+            importer.InsertOrganization(AppDomain.CurrentDomain.BaseDirectory + "\\App_Data\\SwissHospitals.csv", countryId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         public ActionResult InsertPredefinedTypesSql()
         {
 
-            PredefineTypesImporter importer = new PredefineTypesImporter(DependencyResolver.Current.GetService<ICustomEnumDAL>(), DependencyResolver.Current.GetService<IThesaurusDAL>());
+            PredefinedTypesImporter importer = new PredefinedTypesImporter(DependencyResolver.Current.GetService<ICustomEnumDAL>(), DependencyResolver.Current.GetService<IThesaurusDAL>());
             importer.Import();
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -64,8 +49,8 @@ namespace sReportsV2.Controllers
             SqlImporter importer = new SqlImporter(DependencyResolver.Current.GetService<IThesaurusDAL>(),
                 DependencyResolver.Current.GetService<IThesaurusTranslationDAL>(),
                 DependencyResolver.Current.GetService<IO4CodeableConceptDAL>(),
-                DependencyResolver.Current.GetService<ICodeSystemDAL>());
-            importer.ImportCodingSystems(BlobStorageHelper.GetUrl("UMLS"));
+                DependencyResolver.Current.GetService<ICodeSystemDAL>(), DependencyResolver.Current.GetService<IAdministrativeDataDAL>());
+            importer.ImportCodingSystems();
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -82,8 +67,8 @@ namespace sReportsV2.Controllers
             SqlImporter importer = new SqlImporter(DependencyResolver.Current.GetService<IThesaurusDAL>(),
                 DependencyResolver.Current.GetService<IThesaurusTranslationDAL>(),
                 DependencyResolver.Current.GetService<IO4CodeableConceptDAL>(),
-                DependencyResolver.Current.GetService<ICodeSystemDAL>());
-            importer.Import(BlobStorageHelper.GetUrl("UMLS"));
+                DependencyResolver.Current.GetService<ICodeSystemDAL>(), DependencyResolver.Current.GetService<IAdministrativeDataDAL>());
+            importer.Import();
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

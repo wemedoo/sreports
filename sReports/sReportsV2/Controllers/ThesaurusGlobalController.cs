@@ -3,26 +3,22 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using MongoDB.Driver.Core.Misc;
 using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.Common.Constants;
+using sReportsV2.Common.Entities.User;
 using sReportsV2.Common.Enums;
 using sReportsV2.Common.Singleton;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
-using sReportsV2.Domain.Sql.Entities.GlobalThesaurusUser;
-using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
-using sReportsV2.DTOs.CodeSystem;
+using sReportsV2.DTOs.Common.DTO;
 using sReportsV2.DTOs.DTOs.GlobalThesaurus.DataIn;
+using sReportsV2.DTOs.DTOs.GlobalThesaurus.DataOut;
 using sReportsV2.DTOs.DTOs.GlobalThesaurusUser.DataIn;
+using sReportsV2.DTOs.DTOs.GlobalThesaurusUser.DataOut;
 using sReportsV2.DTOs.O4CodeableConcept.DataIn;
 using sReportsV2.DTOs.O4CodeableConcept.DataOut;
 using sReportsV2.DTOs.Pagination;
 using sReportsV2.DTOs.ThesaurusEntry;
 using sReportsV2.DTOs.ThesaurusEntry.DataOut;
 using sReportsV2.DTOs.User.DataIn;
-using sReportsV2.DTOs.User.DTO;
-using sReportsV2.SqlDomain.Implementations;
-using sReportsV2.SqlDomain.Interfaces;
-using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -32,25 +28,17 @@ namespace sReportsV2.Controllers
 {
     public class ThesaurusGlobalController : BaseController
     {
-        IGlobalUserDAL globalUserDAL;
+        private readonly IGlobalUserBLL globalUserBLL;
+        private readonly IThesaurusEntryBLL thesaurusBLL;
+        private readonly IOrganizationBLL organizationBLL;
 
-        protected IUserBLL userBLL;
-        protected IThesaurusEntryBLL thesaurusBLL;
-        protected IOrganizationBLL organizationBLL;
-
-        public ThesaurusGlobalController()
+        public ThesaurusGlobalController(IGlobalUserBLL globalUserBLL, IThesaurusEntryBLL thesaurusBLL, IOrganizationBLL organizationBLL)
         {
-           
-        }
-
-        public ThesaurusGlobalController(IUserBLL userBLL, IOrganizationBLL organizationBLL, IThesaurusEntryBLL thesaurusBLL)
-        {
-            globalUserDAL = DependencyResolver.Current.GetService<IGlobalUserDAL>();
-            this.userBLL = userBLL;
-            this.organizationBLL = organizationBLL;
+            this.globalUserBLL = globalUserBLL;
             this.thesaurusBLL = thesaurusBLL;
+            this.organizationBLL = organizationBLL;
         }
-        // GET: ThesaurusGlobal
+
         public ActionResult Index()
         {
             return View("~/Views/ThesaurusGlobal/Home/Home.cshtml");
@@ -60,11 +48,11 @@ namespace sReportsV2.Controllers
         public ActionResult RegisterUser(GlobalThesaurusUserDataIn userDataIn)
         {
             userDataIn.Source = GlobalUserSource.Internal;
-            if (globalUserDAL.ExistByEmailAndSource(userDataIn.Email, userDataIn.Source.Value))
+            if (globalUserBLL.ExistByEmailAndSource(userDataIn.Email, userDataIn.Source.Value))
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "User alredy registred!");
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "User with given email is already registered!");
             }
-            globalUserDAL.InsertOrUpdate(Mapper.Map<GlobalThesaurusUser>(userDataIn));
+            globalUserBLL.InsertOrUpdate(userDataIn);
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
         }
 
@@ -73,19 +61,28 @@ namespace sReportsV2.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                return RedirectToAction("Index", "ThesaurusGlobal");
             }
             userDataIn = Ensure.IsNotNull(userDataIn, nameof(userDataIn));
 
             if (ModelState.IsValid)
             {
-                if (this.globalUserDAL.IsValidUser(userDataIn.Username, userDataIn.Password))
+                GlobalThesaurusUserDataOut user = globalUserBLL.TryLoginUser(userDataIn.Username, userDataIn.Password);
+                if (user != null)
                 {
-                    SignInUser(userDataIn);
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                    SignInUser(user);
+                    if (!string.IsNullOrEmpty(userDataIn.ReturnUrl))
+                    {
+                        return Redirect(userDataIn.ReturnUrl);
+                    } 
+                    else
+                    {
+                        return RedirectToAction("Index", "ThesaurusGlobal");
+                    }
                 }
             }
 
+            ViewBag.IsLogin = true;
             ModelState.AddModelError("General", "Invalid Username or Password");
 
             return View("~/Views/User/LoginGlobal.cshtml");
@@ -97,7 +94,7 @@ namespace sReportsV2.Controllers
             return View("~/Views/ThesaurusGlobal/Search/Browse.cshtml");
         }
 
-        [Authorize]
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
         public ActionResult Create(CodesFilterDataIn filterDataIn)
         {
             ThesaurusEntryDataOut dataOut = thesaurusBLL.GetThesaurusByFilter(filterDataIn);
@@ -107,26 +104,38 @@ namespace sReportsV2.Controllers
             return View("~/Views/ThesaurusGlobal/Create/Create.cshtml", dataOut);
         }
 
-        [Authorize]
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
         [HttpPost]
         public ActionResult Create(ThesaurusEntryDataIn thesaurusDataIn)
         {
-            int result = thesaurusBLL.TryInsertOrUpdate(thesaurusDataIn);
+            int result = thesaurusBLL.TryInsertOrUpdate(thesaurusDataIn, Mapper.Map<UserData>(userCookieData));
             
             return Content(result.ToString());
         }
 
-        [Authorize]
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
         [HttpPost]
-        public ActionResult CreateCode(O4CodeableConceptDataIn codeDataIn, int? tid)
+        public ActionResult SubmitConnectionWithOntology(ThesaurusEntryDataIn thesaurusDataIn)
         {
-            int result = this.thesaurusBLL.TryInsertOrUpdateCode(codeDataIn, tid);
-            
+            int result = thesaurusBLL.UpdateConnectionWithOntology(thesaurusDataIn, Mapper.Map<UserData>(userCookieData));
+
             return Content(result.ToString());
         }
 
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
+        [HttpPost]
+        public ActionResult CreateCode(O4CodeableConceptDataIn codeDataIn, int? thesaurusEntryId)
+        {
+            ResourceCreatedDTO result = this.thesaurusBLL.TryInsertOrUpdateCode(codeDataIn, thesaurusEntryId);
 
-        [Authorize]
+            return new JsonResult()
+            {
+                Data = result
+            };
+        }
+
+
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
         [HttpDelete]
         public ActionResult DeleteCode(int thesaurusId, int codeId)
         {
@@ -137,7 +146,7 @@ namespace sReportsV2.Controllers
 
         public ActionResult PreviewThesaurus(CodesFilterDataIn filterDataIn)
         {
-            ThesaurusEntryDataOut dataOut = this.thesaurusBLL.GetThesaurusDataOut(filterDataIn.Id.Value);
+            ThesaurusEntryDataOut dataOut = this.thesaurusBLL.GetThesaurusByFilter(filterDataIn);
             ViewBag.FilterData = filterDataIn;
             ViewBag.CodeSystems = SingletonDataContainer.Instance.GetCodeSystems();
 
@@ -147,7 +156,8 @@ namespace sReportsV2.Controllers
         public ActionResult ReloadThesaurus(DTOs.DTOs.GlobalThesaurus.DataIn.GlobalThesaurusFilterDataIn filterDataIn) 
         {
             var result = thesaurusBLL.ReloadThesaurus(filterDataIn);
-           
+            ViewBag.FilterData = filterDataIn;
+
             return PartialView("~/Views/ThesaurusGlobal/Search/GlobalThesaurusTable.cshtml", result);
         }
 
@@ -165,37 +175,96 @@ namespace sReportsV2.Controllers
             return PartialView("~/Views/ThesaurusGlobal/Preview/CodesTable.cshtml", result);
         }
 
-        private List<O4CodeableConceptDataOut> GetCodes(ThesaurusEntry thesaurusEntry)
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
+        public ActionResult ContributeToTranslation(CodesFilterDataIn filterDataIn)
         {
-            List<O4CodeableConceptDataOut> result = new List<O4CodeableConceptDataOut>();
-            if (thesaurusEntry != null && thesaurusEntry.Codes != null)
-            {
-                foreach (O4CodeableConcept code in thesaurusEntry.Codes)
-                {
-                    O4CodeableConceptDataOut codeDataOut = new O4CodeableConceptDataOut()
-                    {
-                        System = Mapper.Map<CodeSystemDataOut>(code.System),
-                        Version = code.Version,
-                        Code = code.Code,
-                        Value = code.Value,
-                        VersionPublishDate = code.VersionPublishDate,
-                        Link = code.Link,
-                        EntryDateTime = code.EntryDateTime,
-                        Id = code.Id
-                    };
+            ThesaurusEntryDataOut thesaurusDataOut = thesaurusBLL.GetThesaurusByFilter(filterDataIn);
+            ViewBag.FilterData = filterDataIn;
+            ViewBag.CodeSystems = SingletonDataContainer.Instance.GetCodeSystems();
+            ViewBag.ReturnUrl = filterDataIn.ReturnUrl;
 
-                    result.Add(codeDataOut);
-                }
-            }
-
-            return result;
+            return View("~/Views/ThesaurusGlobal/Create/ContributeToTranslation.cshtml", thesaurusDataOut);
         }
 
-        private void SignInUser(UserLoginDataIn userDataIn) 
+        [Authorize(Roles = SmartOncologyRoleNames.EditorOrCurator)]
+        [HttpPost]
+        public ActionResult ContributeToTranslation(ThesaurusEntryTranslationDataIn thesaurusEntryTranslationDataIn)
         {
-            List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Email, userDataIn.Username));
-            var claimsIdentity = new ClaimsIdentity(claims,
+            sReportsV2.Common.Extensions.Ensure.IsNotNull(thesaurusEntryTranslationDataIn, nameof(thesaurusEntryTranslationDataIn));
+            ThesaurusEntryDataOut thesaurusDataOut = thesaurusBLL.UpdateTranslation(thesaurusEntryTranslationDataIn, Mapper.Map<UserData>(userCookieData));
+
+            ViewBag.CurrentTargetLanguage = thesaurusEntryTranslationDataIn.Language;
+            return View("~/Views/ThesaurusGlobal/Create/ContributeToTranslation.cshtml", thesaurusDataOut);
+        }
+
+        public ActionResult Technology()
+        {
+            return View("~/Views/ThesaurusGlobal/GeneralInfo/Technology.cshtml");
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.ReCaptchaSiteKey = ConfigurationManager.AppSettings["ReCaptchaSiteKey"];
+            return View("~/Views/ThesaurusGlobal/GeneralInfo/Contact.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult Contact(ContactFormDataIn contactFormData)
+        {
+            string secretKey = ConfigurationManager.AppSettings["ReCaptchaSecretKey"];
+            bool reCaptchaInputValid = globalUserBLL.IsReCaptchaInputValid(Request.Form["g-recaptcha-response"], secretKey);
+
+            if (reCaptchaInputValid)
+            {
+                globalUserBLL.SubmitContactForm(contactFormData);
+            }
+            return Json(new { reCaptchaInputValid });
+        }
+
+        public ActionResult TermsAndConditions()
+        {
+            return View("~/Views/ThesaurusGlobal/GeneralInfo/TermsAndConditions.cshtml");
+        }
+
+        public ActionResult GetTotalChartData()
+        {
+            ThesaurusGlobalCountDataOut result = thesaurusBLL.GetThesaurusGlobalChartData();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = SmartOncologyRoleNames.SuperAdministrator)]
+        public ActionResult Users()
+        {
+            var data = globalUserBLL.GetUsers();
+            ViewBag.Roles = globalUserBLL.GetRoles().Skip(1);
+            return View("~/Views/ThesaurusGlobal/Administration/UserList.cshtml", data);
+        }
+
+        public ActionResult ActivateUser(string email)
+        {
+            globalUserBLL.ActivateUser(email);
+
+            return RedirectToAction("Login", "User");
+        }
+
+        [HttpPut]
+        public ActionResult SetUserStatus(int userId, GlobalUserStatus newStatus)
+        {
+            globalUserBLL.SetUserStatus(userId, newStatus);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        public ActionResult UpdateUserRoles(GlobalThesaurusUserDataIn userDataIn)
+        {
+            globalUserBLL.UpdateRoles(userDataIn);
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
+
+        private void SignInUser(GlobalThesaurusUserDataOut user) 
+        {
+            globalUserBLL.ActivateUser(user.Email);
+            var claimsIdentity = new ClaimsIdentity(user.GetClaims(),
             CookieAuthenticationDefaults.AuthenticationType);
 
             //This uses OWIN authentication

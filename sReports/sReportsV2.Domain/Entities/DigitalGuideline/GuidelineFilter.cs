@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.DigitalGuideline
 {
@@ -15,6 +11,8 @@ namespace sReportsV2.Domain.Entities.DigitalGuideline
         public int Minor { get; set; }
         public DateTime? DateTimeTo { get; set; }
         public DateTime? DateTimeFrom { get; set; }
+        public string ColumnName { get; set; }
+        public bool IsAscending { get; set; }
 
     }
 }

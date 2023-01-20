@@ -12,8 +12,8 @@ function reloadSimilarThesauruses() {
         success: function (data) {
             $('#cuurentThesaurus').html(data);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -35,8 +35,8 @@ function loadTargetThesaurusTree(O4MTId, element) {
             removeLoadMoreReview(O4MTId);
             setSameHeights();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -50,8 +50,8 @@ function loadTargetThesaurusTree(O4MTId, element) {
             removeLoadMoreReview(O4MTId);
             setSameHeights();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -153,10 +153,10 @@ function mergeThesauruses(event) {
             url: `/ThesaurusEntry/MergeThesauruses?currentId=${currentThesaurus}&targetId=${targetThesaurus}&${mergeParams.join('&')}`,
             success: function (data) {
                 $('#mergeModal').modal('hide');
-                toastr.success(`Success`);
+                reloadThesauruses(`Success! Thesaurus(id=${currentThesaurus}) is merged into Thesaurus(id=${targetThesaurus}.`);
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`ErroR: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -202,8 +202,8 @@ function reloadTable(isFilter) {
                 $(`#${$("#targetO4MTId").val()}`).addClass('active-thesaurus');
             }
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -225,14 +225,16 @@ function getFilterParametersObject() {
 }
 
 function takeBoth(event) {
+    let currentThesaurus = $('#O4MTId').val();
+    let targetThesaurus = $('#targetO4MTId').val();
     $.ajax({
         type: 'GET',
-        url: `/ThesaurusEntry/TakeBoth?currentId=${$('#O4MTId').val()}`,
+        url: `/ThesaurusEntry/TakeBoth?currentId=${currentThesaurus}`,
         success: function (data) {
-            toastr.success('Success');
+            reloadThesauruses(`Success! Both thesauruses (id=${currentThesaurus} and id=${targetThesaurus}) are taken.`);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -318,8 +320,8 @@ function loadMore(id, e) {
             document.getElementById("loadMoreThesaurus-" + id).remove();
             loadTreeStructure(id);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -344,6 +346,16 @@ function removeLoadMoreReview(O4MTId) {
 function setThesaurusAppearances(id) {
     if ($('#foundInContainer-' + id).find(".tree-item-thesaurus").length != 0)
         document.getElementById("thesaurusAppearances-" + id).innerHTML = $('#foundInContainer-' + id).find(".tree-item-thesaurus").length;
+}
+
+function reloadThesauruses(successMsg) {
+    toastr.options = {
+        timeOut: 2000
+    }
+    toastr.options.onHidden = function () {
+        window.location.href = '/ThesaurusEntry/GetAll';
+    }
+    toastr.success(successMsg);
 }
 
 $(document).on('mouseenter', '.thesaurus-merge-btn', function () {

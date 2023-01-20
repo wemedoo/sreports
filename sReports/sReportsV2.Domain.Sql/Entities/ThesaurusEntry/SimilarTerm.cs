@@ -11,7 +11,10 @@ namespace sReportsV2.Domain.Sql.Entities.ThesaurusEntry
 {
     public class SimilarTerm
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("SimilarTermId")]
+        public int SimilarTermId { get; set; }
 
         [Column(TypeName = "varchar")]
         [MaxLength(2950)]
@@ -19,6 +22,7 @@ namespace sReportsV2.Domain.Sql.Entities.ThesaurusEntry
         public string Definition { get; set; }
         public SimilarTermType Source { get; set; }
         public DateTime? EntryDateTime { get; set; }
+        [ForeignKey("ThesaurusEntryTranslationId")]
         public ThesaurusEntryTranslation ThesaurusEntryTranslation { get; set; }
         public int ThesaurusEntryTranslationId { get; set; }
 

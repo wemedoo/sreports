@@ -16,14 +16,19 @@ namespace sReportsV2.SqlDomain.Implementations
         {
             this.context = context;
         }
-        public void Delete(int encounterId, DateTime lastUpdate)
+        public void Delete(int encounterId)
         {
-            context.Encounters.FirstOrDefault(x => x.Id == encounterId).IsDeleted = true;
-            context.SaveChanges();
+            Encounter fromDb = context.Encounters.FirstOrDefault(x => x.EncounterId == encounterId);
+            if (fromDb != null)
+            {
+                fromDb.IsDeleted = true;
+                fromDb.SetLastUpdate();
+                context.SaveChanges();
+            }
         }
             
 
-        public List<Encounter> GetAllByEocIdAsync(int eocId)
+        public List<Encounter> GetAllByEocId(int eocId)
         {
             return context.Encounters
                 .Where(x => !x.IsDeleted && x.EpisodeOfCareId.Equals(eocId))
@@ -33,19 +38,18 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public Encounter GetById(int id)
         {
-            return context.Encounters.FirstOrDefault(x => x.Id == id);
+            return context.Encounters.FirstOrDefault(x => x.EncounterId == id);
         }
 
-        public int Insert(Encounter encounter)
+        public int InsertOrUpdate(Encounter encounter)
         {
-            if (encounter.Id == 0)
+            if (encounter.EncounterId == 0)
             {
-                encounter.EntryDatetime = DateTime.Now;
                 context.Encounters.Add(encounter);
             }
             else 
             {
-                Encounter dbEncounter = this.GetById(encounter.Id);
+                Encounter dbEncounter = this.GetById(encounter.EncounterId);
                 dbEncounter.Class = encounter.Class;
                 dbEncounter.Type = encounter.Type;
                 dbEncounter.Status = encounter.Status;
@@ -57,14 +61,13 @@ namespace sReportsV2.SqlDomain.Implementations
 
             context.SaveChanges();
 
-            return encounter.Id;
+            return encounter.EncounterId;
         }
 
         public bool ThesaurusExist(int thesaurusId)
         {
             return context.Encounters
-                .Where(x => x.Status == thesaurusId || x.Class == thesaurusId || x.Type == thesaurusId || x.ServiceType == thesaurusId)
-                .Count() > 1;
+                .Any(x => x.Status == thesaurusId || x.Class == thesaurusId || x.Type == thesaurusId || x.ServiceType == thesaurusId);
         }
 
         public void UpdateManyWithThesaurus(int oldThesaurus, int newThesaurus)
@@ -72,10 +75,7 @@ namespace sReportsV2.SqlDomain.Implementations
             List<Encounter> encounters = context.Encounters.Where(x => x.Status == oldThesaurus || x.Class == oldThesaurus || x.Type == oldThesaurus || x.ServiceType == oldThesaurus).ToList();
             foreach (Encounter encounter in encounters) 
             {
-                encounter.ServiceType = encounter.ServiceType == oldThesaurus ? newThesaurus : encounter.ServiceType;
-                encounter.Type = encounter.Type == oldThesaurus ? newThesaurus : encounter.Type;
-                encounter.Class = encounter.Class == oldThesaurus ? newThesaurus : encounter.Class;
-                encounter.Status = encounter.Status == oldThesaurus ? newThesaurus : encounter.Status;
+                encounter.ReplaceThesauruses(oldThesaurus, newThesaurus);
             }
 
             context.SaveChanges();

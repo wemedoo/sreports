@@ -1,11 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using sReportsV2.Domain.Exceptions;
+using sReportsV2.Common.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities
 {
@@ -23,7 +19,15 @@ namespace sReportsV2.Domain.Entities
         {
             if (this.LastUpdate != lastUpdate.ToUniversalTime())
             {
-                throw new MongoDbConcurrencyException();
+                throw new ConcurrencyException();
+            }
+        }
+
+        public void DoConcurrencyBeforeDeleteCheck(DateTime lastUpdate)
+        {
+            if (this.LastUpdate != lastUpdate.ToUniversalTime())
+            {
+                throw new ConcurrencyDeleteEditException();
             }
         }
 
@@ -31,8 +35,19 @@ namespace sReportsV2.Domain.Entities
         {
             if (forDelete == null)
             {
-                throw new MongoDbConcurrencyDeleteException();
+                throw new ConcurrencyDeleteException();
             }
+        }
+
+        public void Copy(Entity entity)
+        {
+            this.EntryDatetime = entity == null ? DateTime.Now : entity.EntryDatetime;
+            SetLastUpdate();
+        }
+
+        public void SetLastUpdate()
+        {
+            this.LastUpdate = DateTime.Now;
         }
     }
 }

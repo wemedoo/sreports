@@ -8,8 +8,6 @@ namespace sReports.PathoLink.Entities
 {
     public class PathoLinkField
     {
-        public string id { get; set; }
-
         public string o40MtId { get; set; }
 
         public string value { get; set; }

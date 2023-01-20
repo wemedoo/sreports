@@ -10,7 +10,7 @@ namespace sReportsV2.SqlDomain.Interfaces
 {
     public interface IEpisodeOfCareDAL
     {
-        bool Delete(int eocId, DateTime lastUpdate);
+        void Delete(int eocId);
         EpisodeOfCare GetById(int id);
         List<EpisodeOfCare> GetAll(EpisodeOfCareFilter filter);
         long GetAllEntriesCount(EpisodeOfCareFilter filter);

@@ -8,6 +8,8 @@ function reloadTable() {
     requestObject.PageSize = getPageSize();
     requestObject.PredefinedType = $("#predefinedType").val();
     requestObject.PreferredTerm = $("#preferredTermSearch").val();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     if (!requestObject.Page) {
         requestObject.Page = 1;
@@ -19,9 +21,10 @@ function reloadTable() {
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -62,7 +65,7 @@ function removePredefinedType(e) {
             e.stopPropagation();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
     reloadTable();

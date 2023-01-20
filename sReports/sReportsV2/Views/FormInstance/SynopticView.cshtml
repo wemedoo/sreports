@@ -1,0 +1,74 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions;
+@model FormDataOut
+
+@{
+    string neValue = sReportsV2.Resources.TextLanguage.N_E;
+}
+
+<input type="hidden" name="formInstanceId" value="@ViewBag.FormInstanceId" />
+<div>
+    <div class="form-instance-synoptic-view box-shadow">
+        @foreach (FormChapterDataOut c in Model.Chapters)
+        {
+            <div class="synoptic-chapter">
+                <div class="title">
+                    @c.Title
+                </div>
+                @foreach (FormPageDataOut p in c.Pages)
+                {
+                    <div class="synoptic-page">
+                        <div class="title">
+                            @p.Title
+                        </div>
+                        @foreach (List<FormFieldSetDataOut> fieldSet in p.ListOfFieldSets)
+                        {
+                            int numOfFieldsetRepetitions = fieldSet.Count;
+                            for (int i = 0; i < numOfFieldsetRepetitions; i++)
+                            {
+                                FormFieldSetDataOut repetitiveFieldSet = fieldSet[i];
+                                <div class="synoptic-fieldset">
+                                    <div class="title">@repetitiveFieldSet.Label @RenderRepetitionSuffix(numOfFieldsetRepetitions, i)</div>
+                                    @foreach (FieldDataOut field in repetitiveFieldSet.Fields.Where(f => f.HasValue() && f.IsVisible))
+                                    {
+                                        int numOfFieldRepetitions = field.Value.Count;
+                                        for (int j = 0; j < numOfFieldRepetitions; j++)
+                                        {
+                                            string repetitiveValue = field.Value[j];
+                                            <div class="synoptic-field">
+                                                <div class="title">@field.Label @RenderRepetitionSuffix(numOfFieldRepetitions, j)</div>
+                                                <div class="title" onclick="@GetDownloadCallBack(field)" style="cursor:pointer">
+                                                    @field.GetSynopticValue(repetitiveValue, neValue)
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@helper RenderRepetitionSuffix(int numOfRepetitions, int repetitionIndex)
+{
+    if (numOfRepetitions > 1)
+    {
+        <span>(@(repetitionIndex + 1))</span>
+    }
+}
+
+@helper GetDownloadCallBack(FieldDataOut field)
+{
+    string downloadCallBack = "";
+    if (field is FieldFileDataOut)
+    {
+        string uri = field.Value != null && field.Value.Count > 0 ? field.Value[0] : "";
+        downloadCallBack = "downloadImage(event,'" + uri.GetResourceNameFromUri() + "','" + uri.GetFileNameFromUri() + "')";
+    }
+    @downloadCallBack;
+} 

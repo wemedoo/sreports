@@ -19,12 +19,15 @@ namespace sReportsV2.SqlDomain.Implementations
             this.context = context;
         }
 
-        public bool Delete(int eocId, DateTime lastUpdate)
+        public void Delete(int eocId)
         {
-            EpisodeOfCare eoc = this.GetById(eocId);
-            eoc.IsDeleted = true;
-            context.SaveChanges();
-            return true;
+            EpisodeOfCare fromDb = this.GetById(eocId);
+            if (fromDb != null)
+            {
+                fromDb.IsDeleted = true;
+                fromDb.SetLastUpdate();
+                context.SaveChanges();
+            }
         }
 
         public List<EpisodeOfCare> GetAll(EpisodeOfCareFilter filter)
@@ -43,20 +46,19 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public EpisodeOfCare GetById(int id)
         {
-            return context.EpisodeOfCares.Include(x => x.WorkflowHistory).FirstOrDefault(x => x.Id == id);
+            return context.EpisodeOfCares.Include(x => x.WorkflowHistory).FirstOrDefault(x => x.EpisodeOfCareId == id);
         }
 
         public int InsertOrUpdate(EpisodeOfCare entity, UserData user)
         {
-            if (entity.Id == 0)
+            if (entity.EpisodeOfCareId == 0)
             {
-                entity.EntryDatetime = DateTime.Now;
                 entity.SetWorkflow(user);
                 context.EpisodeOfCares.Add(entity);
             }
             else 
             {
-                EpisodeOfCare episode = this.GetById(entity.Id);
+                EpisodeOfCare episode = this.GetById(entity.EpisodeOfCareId);
                 episode.Status = entity.Status;
                 episode.Type = entity.Type;
                 episode.DiagnosisCondition = entity.DiagnosisCondition;
@@ -70,7 +72,7 @@ namespace sReportsV2.SqlDomain.Implementations
 
             context.SaveChanges();
 
-            return entity.Id;
+            return entity.EpisodeOfCareId;
         }
 
         public bool ThesaurusExist(int thesaurusId)
@@ -83,8 +85,7 @@ namespace sReportsV2.SqlDomain.Implementations
             List<EpisodeOfCare> episodes = context.EpisodeOfCares.Where(x => x.Type == oldThesaurus || x.DiagnosisRole == oldThesaurus).ToList();
             foreach (EpisodeOfCare eoc in episodes)
             {
-                eoc.Type = eoc.Type == oldThesaurus ? newThesaurus : eoc.Type;
-                eoc.DiagnosisRole = eoc.DiagnosisRole == oldThesaurus ? newThesaurus : eoc.DiagnosisRole;
+                eoc.ReplaceThesauruses(oldThesaurus, newThesaurus);
             }
 
             context.SaveChanges();

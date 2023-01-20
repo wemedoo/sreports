@@ -1,0 +1,14 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataIn;
+@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+
+@model  sReportsV2.DTOs.Pagination.PaginationDataOut<SmartOncologyPatientPreviewDataOut, SmartOncologyPatientFilterDataIn>
+
+@foreach (SmartOncologyPatientPreviewDataOut patient in Model.Data)
+{
+    <div class="patient-table-entry @(Model.DataIn.SelectedPatientId == patient.Id ? "active" : "")" data-id="@patient.Id">
+        <span>
+            @patient.FirstName @patient.LastName@(patient.BirthDate != null ? ", " + patient.BirthDate.Value.ToString(ViewBag.DateFormat) : ""), @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(patient.Gender)
+        </span>
+        <i class="fas fa-chevron-right"></i>
+    </div>
+}

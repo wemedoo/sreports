@@ -47,15 +47,13 @@ namespace sReportsV2.Domain.Services.Implementations
 
             if (user.Id == null)
             {
-                user.EntryDatetime = DateTime.Now;
-                user.LastUpdate = user.EntryDatetime;
+                user.Copy(null);
                 Collection.InsertOne(user);
             }
             else
             {
                 OutsideUser userForUpdate = Collection.AsQueryable().FirstOrDefault(x => x.Id.Equals(user.Id));
-                user.EntryDatetime = userForUpdate.EntryDatetime;
-                user.LastUpdate = DateTime.Now;
+                user.Copy(userForUpdate);
                 FilterDefinition<OutsideUser> filter = Builders<OutsideUser>.Filter.Eq(s => s.Id, user.Id);
                 var result = Collection.ReplaceOne(filter, user).ModifiedCount;
             }

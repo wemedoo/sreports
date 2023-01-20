@@ -1,0 +1,75 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Form.DataOut;
+
+@{
+    var consensus = ViewBag.ConsensusQuestionnaire.Consensus as ConsensusDataOut;
+    var iteration = consensus != null ? consensus.GetActiveIteration() : null;
+    var loggedUserId = ViewBag.UserCookieData != null ? ViewBag.UserCookieData.Id : -1;
+    string terminateButtonDisplayStyle = iteration.State == IterationState.Design || iteration.State == IterationState.InProgress ? "" : "style=\"display: none;\"";
+    bool initialIterationState = iteration == null || iteration.State == IterationState.NotStarted;
+}
+<div class="consensus-decision-title">Define Question Occurrences for the iteration</div>
+
+<div class="consensus-visible consensus-container">
+    <label class="form-checkbox-label form-level consensus-decision-item @(iteration != null && iteration.State != IterationState.NotStarted ? "started-iteration" : "")">
+        <b class="ml-2">One question for whole form</b>
+        <input name="@FormItemLevel.Form.ToString()" 
+               class="form-checkbox-field consensus-checkbox" 
+               type="checkbox" 
+               @Html.Disabled(!initialIterationState)
+               @(iteration.GetQuestionOccurenceTypeByLevel(FormItemLevel.Form.ToString()) == QuestionOccurenceType.Same ? "checked":"") 
+               value="" />
+        <i class="form-checkbox-button table-checkbox top-0"></i>
+    </label>
+    <div class="consensus-proceed">
+        @foreach (var option in Enum.GetNames(typeof(FormItemLevel)).Where(x => x != FormItemLevel.Form.ToString()))
+    {
+        <div class="item-questions-container consensus-decision-item @(iteration != null && iteration.State != IterationState.NotStarted ? "started-iteration" : "")">
+            <h3>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)</h3>
+            <label class="form-radio-label">
+                <span>Same question must be answered for every @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)</span>
+                <input data-question-type="@QuestionOccurenceType.Same"
+                        @(iteration.GetQuestionOccurenceTypeByLevel(option) == QuestionOccurenceType.Same ? "checked" : "")
+                        @Html.Disabled(!initialIterationState)
+                        name="@option"
+                        class="form-radio-field"
+                        type="radio"
+                        value="@option" />
+                <i class="form-radio-button top-0"></i>
+            </label>
+            <label class="form-radio-label">
+                <span>Every @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option) has unique question</span>
+                <input data-question-type="@QuestionOccurenceType.Different"
+                        @(iteration.GetQuestionOccurenceTypeByLevel(option) == QuestionOccurenceType.Different || iteration.State == IterationState.NotStarted ? "checked" : "")
+                        @Html.Disabled(!initialIterationState)
+                        name="@option" class="form-radio-field"
+                        type="radio"
+                        value="@option" />
+                <i class="form-radio-button top-0"></i>
+            </label>
+            <button class="btn btn-add-new float-right btn-question-occurence-item-reset @(iteration == null || iteration.State == IterationState.NotStarted ? "" : "d-none")">
+                <i class="fas fa-refresh"></i> Reset
+            </button>
+        </div>
+    }
+        @if (iteration == null || iteration.State == IterationState.NotStarted)
+    {
+        <div id="proceedButtonContainer" class="button-partial margin-top-15">
+            <button class="submit-patient right-button" type="submit" style="outline: none;" onclick="proceed()">
+                <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Proceed</span>
+            </button>
+            <i class="angle-left fas fa-angle-left"></i>
+            <div class="text-underline right-button" type="button" onclick="cancelConsensus()">
+                <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
+            </div>
+        </div>
+    }
+        @if (iteration != null && loggedUserId == consensus.CreatorId)
+    {
+        <div id="terminateButtonContainer" class=" margin-top-15 margin-bottom-35" @Html.Raw(terminateButtonDisplayStyle)>
+            <button class="btn btn-create float-right" onclick="terminateCurrentIteration()"><i class="fas fa-ban"></i> Terminate current iteration</button>
+        </div>
+    }
+    </div>  
+</div>

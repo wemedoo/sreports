@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Sql.Entities.Common
 {
-    public class Telecom
+    public class Telecom : TelecomBase
     {
-        public int Id { get; set; }
-        public string System { get; set; }
-        public string Value { get; set; }
-        public string Use { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("TelecomId")]
+        public int TelecomId { get; set; }
+        [Column("OrganizationId")]
+        public int? OrganizationId { get; set; }
+        [Column("ContactId")]
+        public int? ContactId { get; set; }
 
         public Telecom() { }
         public Telecom(string system, string value, string use)

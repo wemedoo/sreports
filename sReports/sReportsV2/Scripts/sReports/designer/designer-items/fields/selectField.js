@@ -1,4 +1,4 @@
 ﻿
-function setCustomFields(element) {
+function setCustomSelectFields(element) {
     setCommonSelectableFields(element);
 }

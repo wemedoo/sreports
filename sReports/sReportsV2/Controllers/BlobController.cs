@@ -1,13 +1,9 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
+﻿using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.Common.CustomAttributes;
+using sReportsV2.Common.Exceptions;
 using sReportsV2.Common.Extensions;
-using sReportsV2.Domain.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,9 +11,10 @@ namespace sReportsV2.Controllers
 {
     public class BlobController : BaseController
     {
-        public BlobController()
+        private readonly IBlobStorageBLL blobStorageBLL;
+        public BlobController(IBlobStorageBLL blobStorageBLL)
         {
-            
+            this.blobStorageBLL = blobStorageBLL;
         }
 
         public ActionResult Create()
@@ -28,23 +25,45 @@ namespace sReportsV2.Controllers
         [HttpPost]
         public ActionResult Create(HttpPostedFileBase file)
         {
-            MemoryStream stream = new MemoryStream();
-            file = Ensure.IsNotNull(file, nameof(file));
-            file.InputStream.CopyTo(stream);
-            CloudStorageAccount account = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["AccountStorage"]);
-            CloudBlobClient serviceClient = account.CreateCloudBlobClient();
-            CloudBlobContainer container = serviceClient.GetContainerReference("sreportscontainer");
+            return Content(blobStorageBLL.Create(file));
+        }
 
-            CloudBlockBlob cloudBlockBlob = container.GetBlockBlobReference($"{Guid.NewGuid().ToString()}{file.FileName}");
-            stream.Position = 0;//Move the pointer to the start of stream.
+        [SReportsAuthorize]
+        public ActionResult Download(string resourceId)
+        {
+            return File(blobStorageBLL.Download(resourceId), MimeMapping.GetMimeMapping(resourceId));
+        }
 
-            // Create or overwrite the "myblob" blob with contents from a local file.
-            using (var fileStream = stream)
+        [HttpPost]
+        public ActionResult UploadLogo(HttpPostedFileBase file)
+        {
+            Ensure.IsNotNull(file, nameof(file));
+            CheckLogoSize(file.ContentLength);
+            return Content(blobStorageBLL.Create(file));
+        }
+
+        private void CheckLogoSize(int fileLength)
+        {
+            if (!IsLessThanLimit(fileLength))
             {
-                cloudBlockBlob.UploadFromStream(stream);
+                throw new UserAdministrationException(System.Net.HttpStatusCode.Conflict, $"Your logo size is limited to {GetLogoLimitFromConfiguration()}MB. Please upload the appropriate logo size.");
             }
+        }
 
-            return Content(cloudBlockBlob.StorageUri.PrimaryUri.AbsoluteUri);
+        private bool IsLessThanLimit(int fileLength)
+        {
+            return fileLength < GetLogoLimit();
+        }
+
+        private double GetLogoLimit()
+        {
+            return GetLogoLimitFromConfiguration() * Math.Pow(10, 6);
+        }
+
+        private double GetLogoLimitFromConfiguration()
+        {
+            double logoLimitInMB = double.TryParse(ConfigurationManager.AppSettings["LogoSizeLimit"], out double logoSizeLimit) ? logoSizeLimit : 3;
+            return logoLimitInMB;
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿@using sReportsV2.Common.Extensions
+@using sReportsV2.DTOs.Common;
+
+@model DateInputDTO
+
+<input type="text" @Html.Raw(Model.InputAttributes.GetAttr()) placeholder="@sReportsV2.Common.Constants.DateConstants.DateFormatDisplay" autocomplete="off"  data-date-input>
+@if (Model.InputBtnAttributes != null)
+{
+    <img src="~/Content/img/icons/date_field.svg" @Html.Raw(Model.InputBtnAttributes.GetAttr()) />
+}

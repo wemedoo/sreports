@@ -1,10 +1,9 @@
 ﻿using sReportsV2.Common.Enums;
+using sReportsV2.Domain.Sql.Entities.Common;
 using sReportsV2.Domain.Sql.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.DAL.Sql.Interfaces
 {
@@ -16,10 +15,12 @@ namespace sReportsV2.DAL.Sql.Interfaces
         User GetByUsername(string username);
         User GetByEmail(string email);
         void InsertOrUpdate(User user);
-        IQueryable<User> GetAllByActiveOrganization(int activeOrganization);
+        IQueryable<UserView> GetAllByActiveOrganization(int activeOrganization);
         UserClinicalTrial GetClinicalTrial(int clinicalTrialId);
         void SaveClinicalTrial(UserClinicalTrial clinicalTrial);
         IQueryable<UserClinicalTrial> GetClinicalTrialsByUser(int userId);
+        List<UserClinicalTrial> GetlClinicalTrialsByName(string name);
+        List<UserClinicalTrial> GetlClinicalTrialByIds(List<int> ids);
         bool IsUserStillValid(int id);
         void Save();
         List<User> GetAllByIds(List<int> ids);
@@ -29,6 +30,13 @@ namespace sReportsV2.DAL.Sql.Interfaces
         bool IsUsernameValid(string username);
         bool UserExist(int id);
         void SetState(int id, UserState state, int organizationId);
-        void UpdateOrganizationsUserCounts(User user, User userForUpdate);
+        void Delete(int id);
+        void UpdateOrganizationsUserCounts(User user, User dbUser);
+        void UpdatePassword(User user, string newPassword);
+        List<User> GetAllBySearchWord(string searchWord);
+        void UpdateUsersCountForAllOrganization();
+        List<AutoCompleteUserData> GetUsersFilteredByName(string searchValue);
+        List<UserView> GetAll(UserFilter userFilter, int activeOrganization);
+        long GetAllFilteredCount(int activeOrganization);
     }
 }

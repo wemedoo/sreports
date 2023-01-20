@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Chapters</RootNamespace>
     <AssemblyName>Chapters</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DocumentExtensions.cs" />
+    <Compile Include="Generators\SynopticPdfGenerator.cs" />
     <Compile Include="Helpers\ParagraphParameters.cs" />
     <Compile Include="MapperProfiles\FhirCustomClassesProfile.cs" />
     <Compile Include="Extensions\ParagraphExtensions.cs" />
@@ -85,6 +86,10 @@
       <Project>{f6570a48-cae5-4412-940e-05a081aad9c4}</Project>
       <Name>sReportsV2.DAL.MongoDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DTOs\sReportsV2.DTOs.csproj">
+      <Project>{9DF5131D-C4AD-4BDA-925F-E073BDADC513}</Project>
+      <Name>sReportsV2.DTOs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UmlsClient\UmlsClient.csproj">
       <Project>{e73fbb54-341d-4c9f-bea4-7cc29443ef6a}</Project>
       <Name>UmlsClient</Name>
@@ -107,13 +112,10 @@
       <Version>8.1.5717</Version>
     </PackageReference>
     <PackageReference Include="itext7">
-      <Version>7.1.8</Version>
+      <Version>7.1.16</Version>
     </PackageReference>
     <PackageReference Include="itext7.pdfhtml">
-      <Version>2.1.4</Version>
-    </PackageReference>
-    <PackageReference Include="iTextSharp">
-      <Version>5.5.13.1</Version>
+      <Version>3.0.5</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>

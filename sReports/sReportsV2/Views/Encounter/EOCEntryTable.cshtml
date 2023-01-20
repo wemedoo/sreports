@@ -18,8 +18,8 @@
                     <tr id="row-@entry.Id" onclick="getAllEncounter('@entry.Id')">
                         <td>@entry.Description</td>
                         <td>@entry.Status</td>
-                        <td>@(entry.Period != null && entry.Period.StartDate != null ? entry.Period.StartDate.ToShortDateString() : "")</td>
-                        <td>@(entry.Period != null && entry.Period.EndDate != null ? entry.Period.EndDate.Value.ToShortDateString() : "")</td>
+                        <td>@(entry.Period != null && entry.Period.StartDate != null ? entry.Period.StartDate.ToString(ViewBag.DateFormat) : "")</td>
+                        <td>@(entry.Period != null && entry.Period.EndDate != null ? entry.Period.EndDate.Value.ToString(ViewBag.DateFormat) : "")</td>
                         <td>
                             <i class="fas fa-folder folder-color"></i>
                         </td>

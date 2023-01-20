@@ -14,5 +14,10 @@ namespace sReportsV2.DTOs.FormDistribution.DataOut
         public List<FormFieldDistributionDataOut> Fields { get; set; }
         public string VersionId { get; set; }
 
+        public FormFieldDistributionDataOut GetFieldById(string id)
+        {
+            return Fields.FirstOrDefault(f => f.Id == id);
+        }
+
     }
 }

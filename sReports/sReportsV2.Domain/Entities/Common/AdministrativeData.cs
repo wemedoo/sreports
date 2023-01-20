@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.Common
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class AdministrativeData
     {        
         public List<Version> VersionHistory { get; set; }

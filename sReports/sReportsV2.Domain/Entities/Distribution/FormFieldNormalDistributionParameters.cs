@@ -8,7 +8,7 @@ namespace sReportsV2.Domain.Entities.Distribution
 {
     public class FormFieldNormalDistributionParameters
     {
-        public double Mean { get; set; }
-        public double Deviation { get; set; }
+        public float Mean { get; set; }
+        public float Deviation { get; set; }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using sReportsV2.Common.Enums.DocumentPropertiesEnums;
-using sReportsV2.Domain.Entities.DocumentProperties;
-using System;
+using sReportsV2.Domain.Entities.CustomFieldFilters;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.FormInstance
 {
@@ -16,7 +12,7 @@ namespace sReportsV2.Domain.Entities.FormInstance
 
         public string Title { get; set; }
 
-        public string ThesaurusId { get; set; }
+        public int ThesaurusId { get; set; }
 
         public string VersionId { get; set; }
 
@@ -44,5 +40,11 @@ namespace sReportsV2.Domain.Entities.FormInstance
         public FollowUp? FollowUp { get; set; }
 
         public AdministrativeContext? AdministrativeContext { get; set; }
+
+        public string Content { get; set; }
+        public List<int> UserIds { get; set; } = new List<int> { }; 
+        public List<int> PatientIds { get; set; } = new List<int> { };
+        public List<CustomFieldFilterData> CustomFieldFiltersData { get; set; } = new List<CustomFieldFilterData> { };
+        public string FieldFiltersOverallOperator { get; set; }
     }
 }

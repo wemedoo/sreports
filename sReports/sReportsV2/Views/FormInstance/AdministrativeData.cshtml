@@ -1,0 +1,138 @@
+﻿@using sReportsV2.Common.Constants;
+@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.Common.Enums;
+@using sReportsV2.DTOs.DTOs.FormInstance.DataOut;
+
+@model FormDataOut
+@{
+    string hasValue = "-hasvalue";
+    var userCookieData = ViewBag.UserCookieData;
+    bool readOnlyMode = ViewBag.ReadOnlyMode;
+    bool isEngineModule = ViewBag.IsEngineModule;
+    bool hasTrackedChange = false;
+    string disabled = ViewBag.Disabled != null ? ViewBag.Disabled : string.Empty;
+    if (ViewBag.FormInstanceWorkflowHistory != null)
+    {
+        hasTrackedChange = (ViewBag.FormInstanceWorkflowHistory as List<FormInstanceStatusDataOut>).Any();
+    }
+    bool canChangeFormInstanceState = userCookieData != null
+        && userCookieData.UserHasPermission(PermissionNames.ChangeFormInstanceState, ModuleNames.Engine);
+        
+    bool canSignInstanceState = userCookieData != null && userCookieData.UserHasPermission(PermissionNames.SignFormInstance, ModuleNames.Engine);
+}
+
+@if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.ViewAdministrativeData, ModuleNames.Designer))
+{
+    <div class="form-accordion @(isEngineModule ? "hide-arrow" : "")" style="display:@(isEngineModule ? "none" : "block");" id="administrativeChapter-acc">
+        <div class="form-accordion-header color-green-primary position-relative " data-toggle="collapse" onclick="collapseChapter(this)" data-target="#administrativeChapter" aria-expanded="false" aria-controls="administrativeChapter">
+            <img class="mr-2" style="margin-bottom:4px;" src="~/Content/img/icons/chapter.svg">Administrative data
+        </div>
+        <div class="collapse chapter" id="administrativeChapter">
+            <div class="card">
+                <div class='card-body'>
+                    <div class="field-group">
+                        <label for="notes" class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Notes</label>
+                        <textarea @Html.ReadOnly(readOnlyMode) class="repetitive-field filter-input d-inline-block administrative-input" type="text" id="notes" name="Notes" value="@(Model != null && Model.Notes != null ? Model.Notes : "")">@(Model != null && Model.Notes != null ? Model.Notes : "")</textarea>
+                    </div>
+                    <div class="field-group">
+                        <div for="date" class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Date</div>
+                        <div class="repetitive-field filter-input d-inline-block datetime-picker-container">
+                            @{ var date = Model != null && Model.Date != null ? Model.Date.Value : DateTime.Now; }
+                            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                            {
+                                InputAttributes = new Dictionary<object, object> {
+                                    { "class", "filter-input d-inline-block administrative-input date-field-input" },
+                                    { "id", "date" },
+                                    { "name", "Date" },
+                                    { "data-parent-field", ".datetime-picker-container" },
+                                    { "value", date.ToString(ViewBag.DateFormat) },
+                                    { disabled, null }
+                                },
+                                InputBtnAttributes = new Dictionary<object, object> {
+                                    { "class", "date-img dynamic-form" },
+                                    { @Html.DateTimeDisabled(readOnlyMode), null }
+                                },
+                            })
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="formState" class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Document_State</label>
+                        <select 
+                                @Html.Disabled(readOnlyMode || !canChangeFormInstanceState)
+                                class=" repetitive-field filter-input w-75 d-inline-block arrow-select @hasValue administrative-input" 
+                                id="formState" 
+                                name="FormState">
+                            @foreach (var state in Enum.GetNames(typeof(FormState)))
+                            {
+                                if (Model != null && Model.FormState != null && Model.FormState.ToString().Equals(state))
+                                {
+                                    <option value="@state" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
+                                }
+                                else
+                                {
+                                    if (state != FormState.Signed.ToString())
+                                    {
+                                        <option value="@state" @(Model.FormState == null && FormState.OnGoing == (FormState)Enum.Parse(typeof(FormState), state) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    @if (Model.FormState == FormState.Signed && hasTrackedChange)
+                    {
+                        FormInstanceStatusDataOut formInstanceSignInfo = (ViewBag.FormInstanceWorkflowHistory as List<FormInstanceStatusDataOut>).First();
+                        <div class="field-group margin-top-15">
+                            <label class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.SignedBy</label>
+                            <input type="text" readonly class="repetitive-field filter-input d-inline-block administrative-input" value="@formInstanceSignInfo.CreatedByName">
+                        </div>
+                        <div class="field-group">
+                            <label class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Organization</label>
+                            <input type="text" readonly class="repetitive-field filter-input d-inline-block administrative-input" value="@formInstanceSignInfo.CreatedByActiveOrganization">
+                        </div>
+                        <div class="field-group">
+                            <label class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.SignedOn</label>
+                            <div class="repetitive-field filter-input d-inline-block datetime-picker-container">
+                            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                            {
+                                InputAttributes = new Dictionary<object, object> {
+                                    { "class", "filter-input d-inline-block administrative-input date-field-input" },
+                                    { "value", formInstanceSignInfo.CreatedOn.ToString(ViewBag.DateFormat) },
+                                    { "readonly", null },
+                                    { "id", "signedOnDisplay" },
+                                    { "name", "signedOnDisplay" },
+                                },
+                                InputBtnAttributes = new Dictionary<object, object> { { "class", "date-img dynamic-form" } },
+                            })
+                            </div>
+                        </div>
+                        if (canChangeFormInstanceState && canSignInstanceState)
+                        {
+                            <div class="administrative-unlock-doc">
+                                <button class="float-right btn btn-create" title="@sReportsV2.Resources.TextLanguage.UnlockDocument" onclick="showSignDocumentModal(event, '@FormState.OnGoing')">
+                                    <i class="fa fa-unlock"></i>
+                                    @sReportsV2.Resources.TextLanguage.UnlockDocument
+                                </button>
+                            </div>
+                        }
+                    }
+                    @if (isEngineModule && hasTrackedChange)
+                    {
+                        <div class="form-instance-changes">
+                            <div class="field-group">
+                                <label class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Administative_data</label>
+                            </div>
+                            <div class="administrative-container-form-instance" id="administrative-container-form-instance">
+                                <span class="arrow-scroll-left-form d-none arrow-scroll"></span>
+                                <span class="arrow-scroll-right-form d-none arrow-scroll"></span>
+                                <div class="workflow-container" id="idWorkflow">
+                                    @Html.Partial("~/Views/Form/DragAndDrop/CustomFields/FormAdministrativeDataWorkflow.cshtml", ViewBag.FormInstanceWorkflowHistory as List<FormInstanceStatusDataOut>)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

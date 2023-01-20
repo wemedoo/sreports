@@ -19,12 +19,27 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public List<CodeSystem> GetAll()
         {
-            return context.CodeSystems.ToList();
+            return context.CodeSystems.Where(x => x.SAB != null).ToList();
         }
 
         public int GetAllCount()
         {
             return context.CodeSystems.Count();
+        }
+
+        public CodeSystem GetById(int id)
+        {
+            return context.CodeSystems.FirstOrDefault(c => c.CodeSystemId == id);
+        }
+
+        public CodeSystem GetBySAB(string SAB)
+        {
+            return context.CodeSystems.FirstOrDefault(s => s.SAB == SAB);
+        }
+
+        public CodeSystem GetByValue(string value)
+        {
+            return context.CodeSystems.FirstOrDefault(s => s.Value == value);
         }
 
         public void InsertMany(List<CodeSystem> codeSystems)
@@ -36,5 +51,14 @@ namespace sReportsV2.SqlDomain.Implementations
             context.SaveChanges();
         }
 
+        public void InsertOrUpdate(CodeSystem codeSystem)
+        {
+            if (codeSystem.CodeSystemId == 0)
+            {
+                context.CodeSystems.Add(codeSystem);
+            }
+
+            context.SaveChanges();
+        }
     }
 }

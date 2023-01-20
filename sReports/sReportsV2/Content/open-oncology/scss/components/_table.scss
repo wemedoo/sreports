@@ -1,0 +1,529 @@
+.table {
+    margin-bottom: 0 !important;
+    max-width: fit-content;
+
+    &-wrapper {
+        margin-left: 1.5rem;
+        overflow-x: auto;
+
+        .table:last-child thead th {
+            border-bottom: 1px solid #12707C !important;
+        }
+    }
+
+    &-title {
+        min-width: 32rem !important;
+        text-align: left !important;
+    }
+
+    .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: none;
+    }
+
+    thead .table-title {
+        text-transform: uppercase;
+        cursor: pointer;
+        position: relative;
+
+        .actions {
+            position: absolute;
+            right: .8rem;
+            top: 50%;
+            transition: .2s ease;
+            transform: translateY(-50%) rotateZ(0deg);
+
+            .add-medication {
+                background-color: #FE5959;
+                border-radius: 50%;
+                color: #fff;
+                border: 0;
+                transition: .15s all ease-in;
+                height: 24px;
+                width: 24px;
+                margin-right: 1rem;
+
+                &:hover {
+                    background-color: #a11c1c;
+                }
+            }
+        }
+    }
+
+    .accordion-toggle[aria-expanded="true"] .table-title svg {
+        transform: translateY(-50%) rotateZ(180deg);
+        -webkit-transform: translateY(-50%) rotateZ(180deg);
+        -moz-transform: translateY(-50%) rotateZ(180deg);
+        -ms-transform: translateY(-50%) rotateZ(180deg);
+    }
+
+    tr.h-0 {
+        height: 0 !important;
+    }
+
+    tr {
+        height: 4rem;
+    }
+
+    tr[data-medication] {
+        td {
+            &.replaced {
+                background-color: beige !important;
+
+                input {
+                    background-color: beige !important;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+
+    tbody .table-title {
+        position: relative;
+
+        .table-title-container {
+            display: flex;
+
+            .medication-data {
+                width: 85%;
+            }
+
+            .actions {
+                position: absolute;
+                display: flex;
+                right: .8rem;
+                top: 50%;
+                transition: .2s ease;
+                transform: translateY(-50%) rotateZ(0deg);
+
+                .replace-icon {
+                    cursor: pointer;
+                    margin: 0 .5rem;
+
+                    &:hover {
+                        transform: scale(1.3);
+                    }
+                }
+
+                .delete-icon {
+                    cursor: pointer;
+                    margin: 0 .5rem;
+
+                    img {
+                        width: 12px;
+                        height: 12px;
+
+                        &:hover {
+                            transform: scale(1.3);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .delay-icon {
+        cursor: pointer;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+
+        &:hover {
+            transform: scale(1.3);
+        }
+    }
+
+    th, td {
+        min-width: 10rem;
+        max-width: 10rem;
+        font-size: 1.2rem;
+        font-weight: $font-weight-medium;
+        text-align: center;
+
+        &.expand {
+            min-width: 15rem;
+        }
+    }
+
+    .labaratory-parent {
+        background-color: #F3FFF0;
+
+        th {
+            border: 1px solid $primary-color;
+            vertical-align: middle;
+        }
+    }
+
+    thead {
+        display: block;
+        background-color: $primary-color-background;
+        max-height: 40px;
+        min-height: 40px;
+        display: inline-table;
+
+        th {
+            border: 1px solid $primary-color;
+            vertical-align: middle;
+        }
+
+        .full-width {
+            max-width: inherit;
+            position: relative;
+            width: 100vw;
+        }
+    }
+
+    &:last-child thead th {
+        margin-bottom: 2rem !important;
+    }
+
+    table {
+        border: none !important;
+    }
+
+    .labaratory-parent th {
+        border-bottom: 1px solid #12707C !important;
+    }
+
+    tbody {
+        border: none;
+
+        .input-text-field,
+        .input-field {
+            position: relative;
+            padding: 0 !important;
+
+            input {
+                text-align: center;
+                position: absolute;
+                color: #000;
+                font-size: 1.3rem;
+                font-weight: $font-weight-medium;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                border: none;
+                text-overflow: ellipsis;
+                cursor: pointer;
+                padding: 0px 5px;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid $smart-oncology-green-primary;
+                }
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+        }
+
+        .stop-dose-icon,
+        .same-dose-icon {
+            @include absCenterXY;
+            font-size: 2.4rem;
+            background-color: #fff;
+            cursor: pointer;
+
+            & > * {
+                pointer-events: none;
+            }
+        }
+    }
+
+    .tbody-child {
+        background-color: #fff;
+
+        td {
+            border: 1px solid $smart-oncology-dark-grey;
+            border-top: none;
+            height: 4rem;
+            vertical-align: middle;
+            text-align: center;
+            position: relative;
+        }
+
+        .table-title {
+            background-color: #f9f9f9;
+            z-index: 1;
+        }
+    }
+
+    .thead-fixed {
+        margin-left: 15px;
+    }
+
+    #labaratory {
+        width: fit-content;
+    }
+}
+
+.input-comment {
+    cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+
+    svg:hover {
+        transform: scale(1.2);
+    }
+}
+
+.toggle-chart-desk {
+    right: 0;
+    position: absolute;
+    z-index: 101;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+
+    a {
+        margin-left: auto;
+        z-index: 1;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        height: 0;
+
+        &:hover {
+            background-color: transparent !important;
+            color: #0f545d;
+
+            path {
+                fill: #0f545d;
+            }
+        }
+    }
+}
+
+.lab-toggle {
+    display: flex;
+    margin: 1rem 1.5rem 2.5rem;
+    justify-content: flex-end;
+
+    button {
+        margin-left: 1.5rem;
+    }
+}
+
+.accordion-toggle[aria-expanded='false'] {
+    th {
+        border-bottom: none;
+    }
+}
+
+#curve {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    max-height: 45rem;
+}
+
+.lab-chart {
+    margin: 0 1.5rem;
+}
+
+.new-evaluation {
+    margin: 1.5rem;
+}
+
+.table-tumor-response input,
+.table-symptoms-data input,
+.table-findings-data input {
+    font-weight: $font-weight-bold !important;
+}
+
+.table-history-data {
+    .box-style {
+        text-transform: uppercase;
+        padding: 5px 12px;
+        background-color: #1CA37D;
+        color: #fff;
+        border-radius: .4rem;
+
+        &.orange {
+            background-color: #ff8821;
+        }
+    }
+
+    .signed {
+        padding: 5px 12px;
+        background-color: $primary-color-background;
+        font-size: 1.4rem;
+        font-weight: $font-weight-medium;
+        border-radius: .4rem;
+    }
+
+    .signature-link {
+        color: $primary-color;
+        border-bottom: 1px solid;
+        font-size: 1.3rem;
+        font-weight: $font-weight-regular;
+    }
+
+    td:first-child {
+        position: sticky;
+        left: 0;
+        background-color: #ddd;
+
+        &::after {
+            content: "";
+            border-right: 1px solid $smart-oncology-dark-grey;
+            position: absolute;
+            right: -1px;
+            height: 100%;
+            width: 1px;
+            top: 0;
+        }
+
+        &::before {
+            content: "";
+            border-left: 2px solid $smart-oncology-dark-grey;
+            position: absolute;
+            left: -2px;
+            height: 100%;
+            width: 2px;
+            top: 0;
+        }
+    }
+}
+
+.has-btn {
+    .t-btn {
+        position: absolute;
+        right: 0;
+    }
+
+    .accordian-body {
+        margin-bottom: 90px;
+    }
+}
+
+
+@media screen and (min-width: 968px) {
+    #labaratory {
+        .tbody-child td:first-child {
+            position: sticky;
+            left: 0;
+
+            &::after {
+                content: "";
+                border-right: 1px solid $smart-oncology-dark-grey;
+                position: absolute;
+                right: -1px;
+                height: 100%;
+                width: 1px;
+                top: 0;
+            }
+
+            &::before {
+                content: "";
+                border-left: 2px solid $smart-oncology-dark-grey;
+                position: absolute;
+                left: -2px;
+                height: 100%;
+                width: 2px;
+                top: 0;
+            }
+        }
+    }
+
+    .tables {
+        th.table-title,
+        td.table-title {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            height: 4rem;
+            background-clip: padding-box;
+        }
+
+        th.table-title {
+            background-color: #E4FBFF;
+            z-index: 500;
+
+            &::after {
+                content: "";
+                border-right: 1px solid #12707C;
+                position: absolute;
+                right: -1px;
+                height: 4rem;
+                width: 1px;
+                top: 0;
+            }
+
+            &::before {
+                content: "";
+                border-left: 2px solid #12707C;
+                position: absolute;
+                left: -2px;
+                height: 4rem;
+                width: 2px;
+                top: 0;
+            }
+        }
+
+        td.table-title {
+            &::after {
+                content: "";
+                border-right: 1px solid $smart-oncology-dark-grey;
+                position: absolute;
+                right: -1px;
+                height: 100%;
+                width: 1px;
+                top: 0;
+            }
+
+            &::before {
+                content: "";
+                border-left: 2px solid $smart-oncology-dark-grey;
+                position: absolute;
+                left: -2px;
+                height: 100%;
+                width: 2px;
+                top: 0;
+            }
+        }
+    }
+}
+
+.table td, .table th {
+    border-top: none;
+}
+
+.tooltip {
+    z-index: 500;
+    opacity: 1 !important;
+
+    &-inner {
+        background-color: $color-white;
+        color: $color-black;
+        border-radius: 1rem;
+        box-shadow: 0px 3px 11px #c7cccd;
+        width: 13rem;
+        padding: 1rem;
+        position: absolute;
+        left: -8rem;
+        font-weight: $font-weight-medium;
+
+        ol {
+            padding-left: 2rem;
+            font-size: 10px;
+
+            li {
+                text-align: left;
+                padding-left: 5px;
+            }
+        }
+    }
+}

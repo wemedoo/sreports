@@ -11,18 +11,18 @@
             <div class="label filter-label">
                 Min value
             </div>
-            <input class="designer-form-input" id="min" name="min" type="text" value="@(Model != null && Model.Min != null ? Model.Min.ToString() : "")" />
+            <input class="designer-form-input" id="min" name="min" type="text" value="@(Model != null && Model.Min != null ? Model.Min.ToString() : "")" @ViewBag.Disabled/>
         </div><!--
     --><div class="designer-form-input-group  two-margins">
             <div class="label filter-label">
                 Max value
             </div>
-            <input class="designer-form-input" id="max" name="max" type="text" value="@(Model != null && Model.Max != null ? Model.Max.ToString() : "")" />
+            <input class="designer-form-input" id="max" name="max" type="text" value="@(Model != null && Model.Max != null ? Model.Max.ToString() : "")" @ViewBag.Disabled/>
         </div><!--
     --><div class="designer-form-input-group  two-margins no-margin-right">
             <div class="label filter-label">
                Step
             </div>
-            <input class="designer-form-input" id="step" name="step" type="text" value="@(Model != null && Model.Step != null ? Model.Step.ToString() : "")" />
+            <input class="designer-form-input" id="step" name="step" type="text" value="@(Model != null && Model.Step != null ? Model.Step.ToString() : "")" @ViewBag.Disabled/>
         </div>
     </div>

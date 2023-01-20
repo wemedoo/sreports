@@ -1,0 +1,34 @@
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+@{
+    var consensus = ViewBag.ConsensusQuestionnaire.Consensus as ConsensusDataOut;
+    var iteration = consensus != null ? consensus.GetActiveIteration() : null;
+    var loggedUserId = ViewBag.UserCookieData != null ? ViewBag.UserCookieData.Id : -1;
+    var showQuestionnaireType = ViewBag.ConsensusQuestionnaire.ShowQuestionnaireType;
+}
+<div class="consensus consensus-questionnaire" id="consensus">
+    @if (iteration != null && showQuestionnaireType == null)
+    {
+        <div class="consensus-decision">
+            @Html.Partial("~/Views/Form/Consensus/Questionnaire/ConsensusDecision.cshtml", Model)
+        </div>
+    }
+    <div class="consensus-tree-container" id="consensusTree"></div>
+</div>
+@if (showQuestionnaireType != null)
+{
+    <script>
+        $(document).ready(function () {
+            loadConsensusInstanceTree();
+        })
+    </script>
+}
+else
+{
+    <script>
+        $(document).ready(function () {
+            loadConsensusTree();
+        });
+    </script>
+}
+

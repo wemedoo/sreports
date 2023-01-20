@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Web;
+using sReportsV2.Common.Constants;
 
 namespace CTCAE.Controllers
 {
@@ -173,7 +174,7 @@ namespace CTCAE.Controllers
                 {
                     return Redirect(string.Format(configuration.GetSection("sReportsPatientUrl").Value,patient.PatientId, patient.FormInstanceId));
                 }
-                TempData["Message"] = "Successfully sent to sReports";
+                TempData["Message"] = $"Successfully sent to {ResourceTypes.SoftwareName}";
             }
 
             return null;

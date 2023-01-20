@@ -1,0 +1,53 @@
+﻿<div class="modal fade" id="codeSystemModal" tabindex="-1" role="dialog" aria-labelledby="codeSystemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-content-code-systems">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-12">
+                    <form id="codeSystemForm">
+                        <input type="hidden" id="codeSystemId" name="codeSystemId" />
+                        <div class="d-flex advanced-filter-header">
+                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">
+                            <label class="code-system-form-title" id="addCodeSystemTitle">
+                                @sReportsV2.Resources.TextLanguage.AddCode @sReportsV2.Resources.TextLanguage.System.ToLower()
+                            </label>
+                            <label class="code-system-form-title" style="display: none" id="editCodeSystemTitle">
+                                @sReportsV2.Resources.TextLanguage.EditCode @sReportsV2.Resources.TextLanguage.System.ToLower()
+                            </label>
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Label
+                            </div>
+                            <input required class="filter-input" type="text" id="codeSystemLabel" name="codeSystemLabel" />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Value
+                            </div>
+                            <input required class="filter-input" type="text" id="codeSystemValue" name="codeSystemValue" />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                SAB
+                            </div>
+                            <input required class="filter-input" type="text" id="codeSystemSAB" name="codeSystemSAB" />
+                        </div>
+                        <div class="button-partial">
+                            <button class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="addCodeSystem(event)" dismiss="modal">
+                                <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
+                            </button>
+                            <div class="button-wrapper-filter float-right" id="close">
+                                <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                    @sReportsV2.Resources.TextLanguage.Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

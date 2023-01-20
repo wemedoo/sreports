@@ -1,15 +1,17 @@
 ﻿@using sReportsV2.DTOs.Form.DataOut;
+@using System.Web.Mvc.Html;
 @using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
 @using sReportsV2.Common.Extensions;
 @model FieldCheckboxDataOut
 @{
     bool isChapterReadonly = ViewBag.Chapter;
     int fieldSetCounter = ViewBag.FieldSetCounter;
     string fieldSetId = ViewBag.FieldSetId;
+    string value = Model.GetSelectedValue();
 }
 
-<div id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-checkbox form-checkbox-inline field-set-content" @Html.Raw(Model.Visibility)>
-
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-checkbox form-checkbox-inline field-set-content" @Html.Raw(Model.Visibility) @Html.Raw(Model.IsRequiredDataAttr)>
     <div class="form-checkbox-legend d-inline-block form-label-size filter-label" title="@Model.DescriptionLabel">
         @Html.Raw(Model.FullLabel)
     </div>
@@ -17,11 +19,8 @@
         @{ int counter = 0;}
         @foreach (FormFieldValueDataOut ffv in Model.Values)
         {
-
-            <label class="form-checkbox-label">
-
-                @AddCheckBox(Model.Value != null && Model.Value.Count > 0 && Model.Value[0].Contains(ffv.Value), Model.IsReadonly || isChapterReadonly, ffv, fieldSetId, fieldSetCounter)
-
+            <label class="form-checkbox-label field-instance">
+                @AddCheckBox(value.Contains(ffv.Value), Model.IsReadonly || isChapterReadonly, ffv, fieldSetId, fieldSetCounter, value.IsSpecialValue())
                 <i class="form-checkbox-button table-checkbox dynamic-checkbox-size"></i>
                 <span>@ffv.Label</span>
             </label>
@@ -32,17 +31,14 @@
             if (counter % 2 == 0)
             {
                 <br />
-
             }
         }
     </div>
-    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+    @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model, new System.Web.Mvc.ViewDataDictionary(ViewData) { { "repetitiveValue", value } })
     <div style="display:none" class="form-element-description field-desc">
         @Html.Raw(Model.Description)
     </div>
-
-</div>
-
+</fieldset>
 
 <script>
     $(document).ready(function () {
@@ -57,40 +53,38 @@
             }
     });
 
-    $(document).on("change", 'input[name^="@fieldSetId-"][name*="@Model.Id"]', function () {
+    $(document).on("change", 'input[class~="checkbox-radio"][name^="@fieldSetId-"][name*="@Model.Id"]', function () {
         console.log($(this).attr("id"));
             fieldSetIdentificator = $(this).attr("id").split('-')[1];
-            @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
-            {
-                @: if (!$(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
-                      @HideDependables(ffd,  fieldSetId);
-                @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
-                @: }
-
-            }
 
             @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
             {
-            @: if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
-                   @ShowDependables(ffd, fieldSetId);
-            @:    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
-            @: }
+                <text>
+                if ($(`#@Model.Id-${fieldSetIdentificator}-@ffd.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
+                    @ShowDependables(ffd, fieldSetId);
+                    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+                    @SetDependentFieldToDefaultCall(fieldSetId, ffd.ActionParams, showDependables: true)
+                } else {
+                    @HideDependables(ffd,  fieldSetId);
+                    $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
+                    @SetDependentFieldToDefaultCall(fieldSetId, ffd.ActionParams)
+                }
+                </text>
             }
     });
 </script>
-@helper AddCheckBox(bool isChecked, bool isReadonly, FormFieldValueDataOut ffv, string fieldSetId, int fieldSetCounter)
+@helper AddCheckBox(bool isChecked, bool isReadonly, FormFieldValueDataOut ffv, string fieldSetId, int fieldSetCounter, bool isSpecialValue)
 {
     <input name="@fieldSetId-@fieldSetCounter-@Model.Id-1" @Model.ValidationAttr
            value="@ffv.Value"
            id="@Model.Id-@fieldSetCounter-@ffv.Value.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()"
            @(isChecked ? "checked" : "")
-           class="form-checkbox-field"
+           class="checkbox-radio form-checkbox-field"
            type="checkbox"
            data-numericvalue="@ffv.NumericValue"
-           onclick="return @((!isReadonly).ToString().ToLower())" />
+           onclick="return @((!isReadonly).ToString().ToLower())"
+           @Html.Disabled(isSpecialValue) />
 }
-
-
 @helper ShowDependables(FormFieldDependableDataOut ffd, string fieldSetId)
 {
 
@@ -100,7 +94,8 @@
         {
             <text>
                 if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
-                $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+                $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).show()
+                @SetDependentFieldToDefaultCall(fieldSetId, ffddo.ActionParams, showDependables: true)
                 }
             </text>
             @ShowDependables(ffddo, fieldSetId);
@@ -116,8 +111,21 @@
             <text>
                 $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).hide();
                 $(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).prop('checked', false);
+                @SetDependentFieldToDefaultCall(fieldSetId, ffddo.ActionParams)
             </text>
             @HideDependables(ffddo, fieldSetId);
         }
     }
+}
+
+
+@*
+    ---------------------------------------------------------------------------------------------------
+                                        Temporarily - Hotfix
+    ---------------------------------------------------------------------------------------------------
+*@
+
+@helper SetDependentFieldToDefaultCall(string fieldSetId, string fieldId, bool showDependables = false)
+{
+    @: setDependentInputFieldToDefault($(`#@fieldSetId-${fieldSetIdentificator}-@fieldId-1`), @showDependables.ToString().ToLower());
 }

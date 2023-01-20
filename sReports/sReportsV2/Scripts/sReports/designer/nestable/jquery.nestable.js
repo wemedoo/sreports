@@ -476,7 +476,7 @@
                 }
                 if ($(this.pointEl).attr('data-itemtype') !== $(this.dragEl.find('li')[0]).attr('data-itemtype')) {
                     return;
-                }
+                }                
                 var before = e.pageY < (this.pointEl.offset().top + this.pointEl.height() / 2);
                     parent = this.placeEl.parent();
                 // if empty create new list to replace empty placeholder

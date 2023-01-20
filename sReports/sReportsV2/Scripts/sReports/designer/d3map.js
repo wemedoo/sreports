@@ -28,8 +28,8 @@ $(document).ready(function () {
             console.log(d3);
             drawMap();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 });
@@ -105,7 +105,7 @@ function autocompleteSelect(country) {
     $(element).attr('data-value', country);
 
     let imgRemove = document.createElement('img');
-    $(imgRemove).attr('src', '../Content/img/icons/Administration_remove.svg');
+    $(imgRemove).attr('src', '/Content/img/icons/Administration_remove.svg');
     $(imgRemove).addClass('remove-country-filter');
 
     $(element).append(imgRemove);

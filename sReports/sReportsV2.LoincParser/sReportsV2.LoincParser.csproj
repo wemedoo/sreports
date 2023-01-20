@@ -125,7 +125,7 @@
       <Name>sReportsV2.DAL.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
-      <Project>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</Project>
+      <Project>{b409aa17-11c7-4e45-9382-fe1ff764a31d}</Project>
       <Name>sReportsV2.Domain.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">

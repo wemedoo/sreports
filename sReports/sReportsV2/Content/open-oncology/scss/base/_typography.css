@@ -1,0 +1,20 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+.history {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400; }
+
+a:hover {
+  text-decoration: none; }
+
+.table .text-primary {
+  color: #12707C !important;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: -4px; }
+
+.table .text-secondary {
+  font-size: 1.2rem;
+  color: #444 !important;
+  margin-bottom: -4px; }

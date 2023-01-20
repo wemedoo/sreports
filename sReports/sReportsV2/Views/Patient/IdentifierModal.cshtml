@@ -12,11 +12,11 @@
                         <div class="d-flex advanced-filter-header">
                             <img class="mr-3" src="~/Content/img/icons/change_password.svg">@sReportsV2.Resources.TextLanguage.Identifier_add
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Identifier_name
                             </div>
-                            <select class="filter-input arrow-select" id="newIdentifierSystem" name="newIdentifierSystem">
+                            <select required class="filter-input arrow-select" id="newIdentifierSystem" name="newIdentifierSystem">
                                 <option value=""></option>
                                 @foreach (CustomEnumDataOut type in ViewBag.IdentifierTypes as List<CustomEnumDataOut>)
                                 {
@@ -24,13 +24,13 @@
                                 }
                             </select>
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Value
                             </div>
-                            <input required class="filter-input" type="text" id="newIdentifierValue" name="newIdentifierValue" />
+                            <input required class="filter-input" type="text" id="newIdentifierValue" name="newIdentifierValue" onkeydown="pressButtonOnEnterKey(event, 'identifier-modal-button')"/>
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.IdentifierUse
                             </div>
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="button-partial">
-                            <button class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="addNewIdentifier(event)" dismiss="modal">
+                            <button id="identifier-modal-button" class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="addNewIdentifier(event)" dismiss="modal">
                                 <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
                             </button>
                             <div class="button-wrapper-filter float-right" id="close">

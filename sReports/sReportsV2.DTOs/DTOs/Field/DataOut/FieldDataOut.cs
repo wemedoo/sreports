@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using sReportsV2.Common.CustomAttributes;
-using sReportsV2.Domain.Extensions;
 using sReportsV2.DTOs.Form.DataOut;
-using System;
 using System.Collections.Generic;
+using sReportsV2.Common.Constants;
+using sReportsV2.Common.Extensions;
+using System;
 using System.Linq;
-using System.Web;
 
 namespace sReportsV2.DTOs.Field.DataOut
 {
@@ -41,6 +41,7 @@ namespace sReportsV2.DTOs.Field.DataOut
         public FormHelpDataOut Help { get; set; }
         [DataProp]
         public bool IsHiddenOnPdf { get; set; }
+        public bool IsDisabled { get; set; }
         public virtual string GetValue() 
         {
             return this.Value?[0];
@@ -66,7 +67,7 @@ namespace sReportsV2.DTOs.Field.DataOut
         }
 
         [JsonIgnore]
-        public string DescriptionLabel
+        public virtual string DescriptionLabel
         {
             get
             {
@@ -79,9 +80,7 @@ namespace sReportsV2.DTOs.Field.DataOut
         {
             get
             {
-                string retVal = "";
-                retVal += IsRequired ? " required " : "";
-                return retVal;
+                return IsRequired ? " required " : "";
             }
         }
 
@@ -95,6 +94,38 @@ namespace sReportsV2.DTOs.Field.DataOut
                     retVal = " style='display: none; ' ";
                 return retVal;
             }
+        }
+
+        [JsonIgnore]
+        public string IsRequiredDataAttr
+        {
+            get
+            {
+                return string.Format("data-is-required=\"{0}\"", IsRequired);
+            }
+        }
+
+        public bool HasValue()
+        {
+            return Value != null && Value.Count > 0;
+        }
+
+        public bool AcceptsSpecialValue
+        {
+            get
+            {
+                return Type != FieldTypes.CustomButton;
+            }
+        }
+
+        public virtual string GetSynopticValue(string value, string neTranslated)
+        {
+            return value.ShouldSetSpecialValue(IsRequired) ? neTranslated : value;
+        }
+
+        public string GetCSVValue(string neTranslated)
+        {
+            return Value != null ? string.Join(Environment.NewLine, Value.Select(v => GetSynopticValue(v, neTranslated))) : string.Empty;
         }
     }
     #endregion HTML Helper Attributes

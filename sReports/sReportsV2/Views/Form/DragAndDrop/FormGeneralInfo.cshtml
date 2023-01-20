@@ -22,18 +22,27 @@
             <div class="label filter-label">
                 Title
             </div>
-            <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" />
+            <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" @ViewBag.Disabled />
         </div> <!--
-     --><div class="designer-form-input-group">
+        --><div class="designer-form-input-group">
             <div class="label filter-label">
                 State
             </div>
-            <select required class="designer-form-input" id="state" name="state" type="text">
+            <select required class="designer-form-input" id="state" name="state" type="text" @ViewBag.Disabled>
                 @foreach (FormDefinitionState s in Enum.GetValues(typeof(FormDefinitionState)).Cast<FormDefinitionState>())
-                {               
-                     <option value="@s" @((Model != null && Model.State == s) || (Model == null && s == FormDefinitionState.DesignPending) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(s.ToString())</option>
+                {
+                    <option value="@s" @((Model != null && Model.State == s) || (Model == null && s == FormDefinitionState.DesignPending) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(s.ToString())</option>
                 }
             </select>
+        </div>
+    </div>
+    <div class="designer-form-section">
+
+        <div class="designer-form-input-group full-width">
+            <div class="label filter-label">
+                Description
+            </div>
+            <textarea class="designer-form-input" id="description" name="description" value="@(Model != null && Model.DocumentProperties != null ? Model.DocumentProperties.Description : "")" @ViewBag.Disabled>@(Model != null && Model.DocumentProperties != null ? Model.DocumentProperties.Description : "")</textarea>
         </div>
     </div>
     <div class="designer-form-section thesaurus-section">
@@ -46,23 +55,23 @@
         <div class="designer-form-section-title">
             Version
         </div><!--
-     --><div id="versionWarning" class="sreports-warning" style="display: none;">
+        --><div id="versionWarning" class="sreports-warning" style="display: none;">
             <div class="warning-icon">
                 <img src="~/Content/img/icons/warning.svg" />
             </div>
             If you change the version, a new document will be created after form definition is updated
         </div><!--
-     --><div class="designer-form-input-group">
+        --><div class="designer-form-input-group">
             <div class="label filter-label">
                 Major
             </div>
-            <input required class="designer-form-input version" id="versionMajor" name="versionMajor" type="number" step="1" value="@(Model != null && Model.Version != null ? Model.Version.Major.ToString() : "")" />
+            <input required class="designer-form-input version" id="versionMajor" name="versionMajor" type="number" min="1" step="1" value="@(Model != null && Model.Version != null ? Model.Version.Major.ToString() : "")" @ViewBag.Disabled />
         </div><!--
-     --><div class="designer-form-input-group">
+        --><div class="designer-form-input-group">
             <div class="label filter-label">
                 Minor
             </div>
-            <input required id="versionMinor" class="designer-form-input version" name="versionMinor" type="number" value="@(Model != null && Model.Version != null ? Model.Version.Minor.ToString() : "")" />
+            <input required id="versionMinor" class="designer-form-input version" name="versionMinor" type="number" min="0" value="@(Model != null && Model.Version != null ? Model.Version.Minor.ToString() : "")" @ViewBag.Disabled />
         </div>
     </div>
     <!--END GENERAL INFO-->
@@ -73,7 +82,7 @@
         <div class="checkbox-group">
             <label class="form-checkbox-label">
                 <span>Integrate with patient</span>
-                <input id="disablePatientData" value="disablePatientData" @(!Model.DisablePatientData ? "checked" : string.Empty) class="form-checkbox-field" type="checkbox">
+                <input id="disablePatientData" value="disablePatientData" @(!Model.DisablePatientData ? "checked" : string.Empty) class="form-checkbox-field" type="checkbox" @ViewBag.Disabled>
                 <i class="form-checkbox-button table-checkbox"></i>
             </label>
         </div>
@@ -83,7 +92,10 @@
         <div class="cancel-button cancel-modal-action">
             Back
         </div>
-        <div class="submit-button" id="submit-general-form-info">Update data</div>
+        @if (!ViewBag.ReadOnly)
+        {
+            <div class="submit-button" id="submit-general-form-info">Update data</div>
+        }
     </div>
 </form>
 

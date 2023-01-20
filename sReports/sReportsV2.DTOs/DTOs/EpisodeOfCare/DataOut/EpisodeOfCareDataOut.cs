@@ -1,13 +1,13 @@
-﻿using sReportsV2.Domain.Entities.Encounter;
-using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
+﻿using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
 using sReportsV2.DTOs.Common.DTO;
+using sReportsV2.DTOs.DigitalGuideline.DataOut;
+using sReportsV2.DTOs.DigitalGuidelineInstance.DataOut;
 using sReportsV2.DTOs.CustomEnum.DataOut;
 using sReportsV2.DTOs.Encounter;
 using sReportsV2.DTOs.Encounter.DataOut;
 using sReportsV2.DTOs.Patient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +17,7 @@ namespace sReportsV2.DTOs.EpisodeOfCare
     {
         public string Description { get; set; }
         public List<EpisodeOfCareStatus> ListHistoryStatus { get; set; }
+        public List<GuidelineInstanceDataOut> ListGuidelines { get; set; } = new List<GuidelineInstanceDataOut>();
         public int Id { get; set; }
         public int PatientId { get; set; }
         public string OrganizationRef { get; set; }

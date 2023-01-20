@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.EpisodeOfCareEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class EpisodeOfCareFilter
     {
         public int Page { get; set; }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.Form
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class OutsideUser : Entity
     {
         [BsonId]

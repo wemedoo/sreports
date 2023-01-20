@@ -1,0 +1,203 @@
+body.modal-active {
+  &::before {
+    content: "";
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    z-index: 1050;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+  }
+}
+
+.modal-delay-dose,
+.modal-med-day,
+.modal-schema-name,
+.modal-reference,
+.modal-indication {
+    display: none;
+}
+
+.modal-window {
+    background-color: $color-white;
+    @include absCenterXY;
+    position: fixed;
+    z-index: 1050;
+    width: 55rem;
+    max-width: 90%;
+    max-height: 100%;
+    height: auto;
+    overflow: auto;
+    border-radius: 9px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 2rem;
+
+    &-content {
+        margin: 30px 10px 0px;
+        padding: 0rem 3rem;
+    }
+
+    .modal-title {
+        font-family: 'NunitoSans', sans-serif;
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+
+        &.no-margin-top {
+            margin-top: 0rem;
+        }
+    }
+
+    p.text {
+        color: #000;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .modal-footer {
+        padding-top: 2rem;
+
+        .btn-text {
+            font-weight: 500 !important;
+            margin-right: 2rem;
+        }
+
+        button {
+            font-size: 1.4rem;
+        }
+    }
+
+    span.close-modal {
+        position: absolute;
+        right: 2rem;
+        cursor: pointer;
+        padding: .3rem;
+        transition: .2s opacity;
+
+        &:hover {
+            opacity: .5;
+        }
+    }
+
+    .dose-time-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1px;
+
+        .dose-time {
+            margin: 1rem;
+            width: 10rem;
+
+            input {
+                text-indent: 3px;
+                font-weight: $font-weight-regular;
+            }
+        }
+    }
+}
+
+.modal-subtitle {
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    .modal-title {
+        font-family: 'NunitoSans', sans-serif;
+        font-weight: 600;
+        font-size: 1.6rem;
+        margin-left: 1rem;
+    }
+}
+
+.modal-reference,
+.modal-schema-name,
+.modal-indication {
+    .reference-item-wrapper {
+        position: relative;
+    }
+
+    .indication-item-wrapper {
+        position: relative;
+        margin: .8rem 0;
+    }
+
+    .add-item,
+    .remove-item {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1rem;
+        cursor: pointer;
+        padding: 0.2rem;
+
+        img {
+            transition: .2s;
+        }
+
+        &:hover img {
+            transform: scale(1.2);
+        }
+    }
+}
+
+.modal-delay-dose {
+    .modal-subtitle {
+        margin-bottom: 1rem;
+    }
+}
+
+.modal-med-day {
+    .advanced-filter-item {
+        padding-right: 5px;
+        padding-left: 5px;
+        margin-right: 0px;
+
+        input, select {
+            cursor: pointer;
+        }
+
+        #cycle-starts {
+            text-indent: 3px;
+        }
+    }
+}
+
+#allergyModal {
+    .modal-dialog {
+        transform: translate(0%, 50%);
+    }
+}
+
+#historyDelayDoseModal {
+    .modal-dialog {
+        transform: translate(0%, 50%);
+
+        .modal-content {
+            height: unset !important;
+            width: 900px;
+
+            .modal-body {
+                overflow: unset;
+                font-size: 14px;
+
+                .day-item {
+                    margin: 5px 0px 5px 5px;
+                    min-width: unset !important;
+                }
+
+                .version-data {
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(0%, -50%);
+                }
+            }
+        }
+    }
+}

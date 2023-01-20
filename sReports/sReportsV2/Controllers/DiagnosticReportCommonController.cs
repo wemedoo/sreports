@@ -1,20 +1,13 @@
 ﻿using AutoMapper;
-using Serilog;
 using sReportsV2.BusinessLayer.Interfaces;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Exceptions;
 using sReportsV2.DTOs.EpisodeOfCare;
 using sReportsV2.DTOs.Form;
-using sReportsV2.DTOs.Form.DataOut;
-using sReportsV2.DTOs.FormInstance.DataOut;
 using sReportsV2.DTOs.Patient;
 using sReportsV2.SqlDomain.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace sReportsV2.Controllers

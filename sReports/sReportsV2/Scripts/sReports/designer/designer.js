@@ -87,7 +87,7 @@ function deleteFormItem(e) {
     $('#deleteModal').modal('hide');
     let nestable = $('#nestableFormPartial').data('nestable');
     nestable.managePlaceholderElements('nestableFormPartial');
-
+    submitFullFormDefinition();
 }
 
 $(document).on('click', '.remove-modal-button', function (e) {
@@ -130,8 +130,8 @@ function showForm(config, element) {
             $('.designer-form-title-text').html(config.title);
             $('.designer-form-modal').addClass('show');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -141,6 +141,10 @@ $(document).on('click', '#submit-full-form-definition', function (e) {
     e.preventDefault();
     e.stopPropagation();
 
+    submitFullFormDefinition(true);
+});
+
+function submitFullFormDefinition(fullFormSubmit = false, reloadPartial = false) {
     setDependableFields();
 
     let formDefinition;
@@ -155,6 +159,7 @@ $(document).on('click', '#submit-full-form-definition', function (e) {
         return;
     }
 
+    let createForm = isNewFormCreated(formDefinition);
 
     $.ajax({
         method: 'post',
@@ -162,19 +167,50 @@ $(document).on('click', '#submit-full-form-definition', function (e) {
         url: '/Form/Create',
         contentType: 'application/json',
         success: function (data) {
-            var url = window.location.href;
-            if (url.indexOf('?') == -1) {
+            updateFormWithLastUpdate(data);
+            if (fullFormSubmit || createForm || isNewFormGenerated(data, createForm)) {
                 window.location.href = `/Form/Edit?thesaurusId=${data.thesaurusId}&versionId=${data.versionId}`;
+                toastr.success('Success');
             } else {
-                window.location.reload();
+                updateAdministrativeData(data.id);
+                reloadFormPartialIfNecessary(reloadPartial, data.lastUpdate, formDefinition);
             }
-            toastr.success('Success');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
-});
+}
+
+function updateAdministrativeData(id) {
+    $.ajax({
+        method: 'GET',
+        url: `/Form/GetFormAdministrativeData?formId=${id}`,
+        contentType: 'application/json',
+        success: function (data) {
+            console.log('success');
+            $('#idWorkflow').html(data);
+            showAdministrativeArrowIfOverflow('administrative-container-form');
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    });
+}
+
+function updateFormWithLastUpdate(data) {
+    $('li[data-itemtype=form]').attr('data-lastupdate', data.lastUpdate);
+}
+
+function isNewFormGenerated(data, createForm) {
+    let x = $('li[data-itemtype=form]').attr('data-id');
+
+    return $('li[data-itemtype=form]').attr('data-id') != data.id && !createForm;
+}
+
+function isNewFormCreated(formDefinition) {
+    return !formDefinition.id;
+}
 
 function appendParameters(parameters) {
     var url = window.location.href;
@@ -190,6 +226,7 @@ function updateNestableData(id) {
     let formDefinition = getNestableFullFormDefinition($(`#${id}`).find(`li[data-itemtype='form']`).first());
     if (id === "nestable") {
         getFormPartial(formDefinition);
+        submitFullFormDefinition();
     }
     else {
         getNestableTree(formDefinition);
@@ -205,8 +242,8 @@ function getFormPartial(formDefinition) {
         success: function (data) {
             $('#formPreviewContainer').html(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -219,9 +256,10 @@ function getNestableTree(formDefinition) {
         contentType: 'application/json',
         success: function (data) {
             $('#formTreeNestable').html(data);
+            submitFullFormDefinition();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -288,8 +326,9 @@ function loadFieldValueIfSelectable(field, fieldElement) {
     if (selectableFields.includes($(fieldElement).attr('data-type'))) {
         field.Values = [];
         $(fieldElement)
-            .find(`li[data-itemtype='fieldvalue']`)
+            .find(`[data-itemtype='fieldvalue']`)
             .not('.add-item-button')
+            .not('.form-select-placeholder')
             .not('.dd-item-placeholder')
             .each(function (index, fieldValueElement) {
                 if (!$(fieldValueElement).attr('data-ignore')) {
@@ -411,10 +450,14 @@ function createDragAndDropOrderedlist(type, elementId) {
 function createDragAndDropInsertItemButton(type, elementId) {
     let child = getDragAndDropChildNameForParent(type);
     let li = document.createElement('li');
-    $(li).addClass('add-item-button dd-nodrag');
+    $(li).addClass('add-item-button add-page-button dd-nodrag');
     $(li).attr('data-itemtype', child);
     $(li).attr('data-parentid', elementId);
-    $(li).html(`Add new ${child}`);
+    let div = document.createElement('div');
+    let img = document.createElement('img');
+    $(img).attr('src', '/Content/img/icons/add_new.svg');
+    $(div).append(img).append(` Add new ${getPlaceholderText(child)}`);
+    $(li).append(div);
     return li;
 }
 
@@ -433,6 +476,10 @@ function getDragAndDropChildNameForParent(parentType) {
     }
 }
 
+function getPlaceholderText(elementName) {
+    return elementName === 'fieldvalue' ? 'option' : elementName;
+}
+ 
 function decodeToJsonOrText(value) {
     let decoded = decode(value);
     let result = '';
@@ -467,8 +514,8 @@ $(document).on('click', '#thesaurusShowModal', function (e) {
                 $('#filterThesaurusModal').modal('show');
 
             },
-            error: function () {
-
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     } else {
@@ -478,12 +525,15 @@ $(document).on('click', '#thesaurusShowModal', function (e) {
 });
 
 function reloadFormPreviewPartial() {
-    setDependableFields();
-    let formDefinition = getNestableFullFormDefinition($(`li[data-itemtype='form']`).first());
-    console.log(formDefinition);
-    getFormPartial(formDefinition);
+    submitFullFormDefinition(false, true);
     getNestableFormElements();
-    
+}
+
+function reloadFormPartialIfNecessary(reloadPartial, lastUpdate, formDefinition) {
+    if (reloadPartial) {
+        formDefinition['lastupdate'] = decodeToJsonOrText(lastUpdate);
+        getFormPartial(formDefinition);
+    }
 }
 
 function getNestableFormElements() {
@@ -494,8 +544,8 @@ function getNestableFormElements() {
         success: function (data) {
             $('#nestableFormElements').html(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -511,12 +561,37 @@ function setCanvasSize() {
 }
 
 $('.dropdown-select').on('click', '.menu-state li a', function () {
-    var targetValue = $(this).attr('data-value');
+    var target = $(this);
+    var targetValue = $(target).attr('data-value');
     $('li[data-itemtype=form]').attr('data-state', decodeURIComponent(targetValue));
    
     //Adds active class to selected item
-    $(this).parents('.dropdown-menu').find('.state-option').removeClass('active');
-    $(this).addClass('active');
+    var previousSelected = $(target).parents('.dropdown-menu').find('.state-option.active');
+    $(previousSelected).removeClass('active');
+    $(target).addClass('active');
+
+    let data = {
+        State: targetValue,
+        Id: decodeToJsonOrText($('li[data-itemtype=form]').attr('data-id')),
+        LastUpdate: decodeToJsonOrText($('li[data-itemtype=form]').attr('data-lastupdate'))
+    }
+    console.log(data);
+    $.ajax({
+        method: 'PUT',
+        data: data,
+        url: `/Form/UpdateFormState`,
+        success: function (data) {
+            $('li[data-itemtype=form]').attr('data-lastupdate', encodeURIComponent(data.LastUpdate));
+            updateAdministrativeData(data.Id);
+            toastr.success('You have successfully changed the state');
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+            $(previousSelected).addClass('active');
+            $(target).removeClass('active');
+        }
+        
+    })
 });
 
 function getNestableFullFormDefinition(formElement) {
@@ -531,27 +606,6 @@ function getNestableFullFormDefinition(formElement) {
 
     return formDefinition;
 }
-
-function setPlusAndMinusIcons() {
-    /*$("#nestableFormPartial").find('[data-action="collapse"').each(function (index, element) {
-        $(element).css("content", "unset");
-        $(element).css("outlnie", "none");
-        let img = document.createElement('img');
-        $(img).attr("src", "../Content/img/icons/minus.svg");
-        $(img).addClass('plus-minus-icon');
-        $(element).html(img);
-    });
-
-    $("#nestableFormPartial").find('[data-action="expand"').each(function (index, element) {
-        $(element).css("content", "unset");
-        $(element).css("outlnie", "none");
-        let img = document.createElement('img');
-        $(img).attr("src", "../Content/img/icons/plus.svg");
-        $(img).addClass('plus-minus-icon');
-        $(element).html(img);
-    });*/
-}
-
 /*END COMMON CODE*/
 
 /*form modal*/
@@ -592,12 +646,13 @@ function showFormJson() {
         success: function (data) {
             $('#formTreeContainer').html(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 /*End form modal*/
+
 $(document).on('click', '.drag-icon-container', function (e) {
     if ($("#nestableFormElements").css('display') === "none") {
         $("#nestableFormElements").show();
@@ -636,16 +691,15 @@ function createNewThesaurusIfNotSelected() {
             method: 'post',
             url: `/ThesaurusEntry/CreateByPreferredTerm?preferredTerm=${preferredTerm}&description=${description}`,
             success: function (data) {
-                setThesaurusDetailsContainer(data),
-                loadThesaurusData(data)
+                setThesaurusDetailsContainer(data.Id);
+                loadThesaurusData(data.Id);
             },
-            error: function () {
-
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             },
             async: false
         });
     }
-
 }
 
 $(document).on('click', ".comment-button", function (e) {
@@ -667,34 +721,34 @@ $(document).on('click', ".comment-button", function (e) {
 
     else {
         $this.removeClass('active');
-
         removeCommentSection();
         showNestableContainer();
     }
-
 }); 
 
 function hideNestableContainer() {
     $('.comments-hidden').hide();
     $('#formPreviewContainer').addClass('comments-active');
 }
+
 function showNestableContainer() {
     $('.comments-hidden').show();
     $('#formPreviewContainer').removeClass('comments-active');
 }
 
-function reloadComments(dataToSend) {
+function reloadComments(dataToSend, taggedCommentId = 0) {
+    let urlParameter = taggedCommentId > 0 ? `?taggedCommentId=${taggedCommentId}`: '';
     $.ajax({
         method: 'post',
-        url: '/Form/GetAllCommentsByForm',
+        url: `/Form/GetAllCommentsByForm${urlParameter}`,
         data: JSON.stringify(dataToSend),
         contentType: 'application/json',
         success: function (data) {
             $('#commentSection').html(data);
             redrawLines();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -734,9 +788,7 @@ function removeCommentSection() {
 }
 
 function addComment(id) {
-
     var dataToSend = {  fieldId: id };
-
     $.ajax({
         method: 'post',
         url: '/Form/AddCommentSection',
@@ -746,13 +798,11 @@ function addComment(id) {
             $('#newComment').html(data);  
             redrawLines();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
-
     $('#newComment').css('display', 'flex');
-
 }
 
 function redrawLines() {
@@ -782,11 +832,12 @@ function submitCommentForm(form, e) {
     });
 
     if ($(form).valid()) {
-       
+        let commentId = $(form).attr('data-id');
         var commentDataIn = {
-            Value: $("#commentText").val(),
+            Value: $(`#commentText_${commentId}`).html(),
             FormRef: $("li[data-itemtype='form']:first").attr('data-id'),
-            ItemRef: $("#itemRef").val()
+            ItemRef: $("#itemRef").val(),
+            TaggedUsers: getTaggedUsers(commentId)
         };
 
         $.ajax({
@@ -798,29 +849,27 @@ function submitCommentForm(form, e) {
                 $('#commentSection').html(data);
                 redrawLines();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                toastr.error(jqXHR.responseText);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
-   
     return false;
 }
 
 function submitReplayComment(form, e) {
-
     $(form).validate({
         ignore: []
     });
 
     if ($(form).valid()) {
-
-        var commText = $(form).find("#commentText").val();
-        var commentId = $(form).closest(".comment-group").find('.comment-section').attr('id');
+        let commentId = $(form).attr('data-id');
+        var commText = $(form).find(`#commentText_${commentId}`).html();
 
         var dataToSend = {        
             commText: commText,
-            commentId: commentId
+            commentId: commentId,
+            TaggedUsers: getTaggedUsers(commentId)
         };
 
         $.ajax({
@@ -832,8 +881,8 @@ function submitReplayComment(form, e) {
                 $('#commentSection').html(data); 
                 redrawLines();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                toastr.error(jqXHR.responseText);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -842,16 +891,12 @@ function submitReplayComment(form, e) {
 }
 
 function replayComment(id) {
-
-    $(`#${id}`).closest('.comment-group').find('.replay-container:first').css('display', 'flex');
+    $(`#${id}`).find('.replay-container:first').css('display', 'block');
     redrawLines();
-
-    //var $commId = $divrpl.find('input#commentId');
-    //$commId.val(id);
 }
 
 function cancelReplay(id) {
-    $(`#${id}`).closest('.comment-group').find('.replay-container:first').css('display', 'none');
+    $(`#${id}`).find('.replay-container:first').css('display', 'none');
     redrawLines();
 }
 
@@ -876,7 +921,7 @@ function sendCommentStatus(id, status) {
             $('#commentSection').html(data);
             redrawLines();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (xhr, textStatus, thrownError) {
             toastr.error("Your account cannot change the status of comments");
         }
     });
@@ -889,8 +934,8 @@ function drawCommentLines(){
         drawLine(targetItem, element);
     });
 }
-function drawLine(item, comment) {
 
+function drawLine(item, comment) {
     if ($('#comments-btn') && $('#comments-btn').hasClass('active')) {
         let canvasXoffset = $("#designerCanvas").offset().left;
         let canvasYoffset = $("#designerCanvas").offset().top;
@@ -906,9 +951,6 @@ function drawLine(item, comment) {
 
         let c = document.getElementById("designerCanvas");
         let ctx = c.getContext("2d");
-
-
-
         ctx.beginPath();
         ctx.strokeStyle = '#d93d3d';
         ctx.moveTo(x1, y1);
@@ -919,14 +961,41 @@ function drawLine(item, comment) {
         ctx.quadraticCurveTo(x1 + 3 * (x2 - x1) / 4, y2, x2, y2);
         ctx.stroke();
     }
-    
 }
 
 function clearCommentLines() { }
 
 $(document).click(function () {
-    if ($('#comments-btn').hasClass('comment-button-active')) {
+    if ($('#comments-btn').hasClass('active')) {
         redrawLines();
     }
 });
+
+function getTaggedUsers(commentId) {
+    let taggedUsers = $(`#commentText_${commentId}`).data();
+    delete taggedUsers['text'];
+    delete taggedUsers['id'];
+    let taggedUserIds = []
+    for (let key in taggedUsers) {
+        if (taggedUsers[key]) {
+            taggedUserIds.push(taggedUsers[key]);
+        }
+    }
+    return taggedUserIds;
+}
+
+function renderViewWhenCommentsTabIsActive(taggedCommentId) {
+    var $this = $(".comment-button");
+    var formId = $this.attr('data-value');
+    var dataToSend = { formId: formId };
+
+    $this.addClass('active');
+    reloadComments(dataToSend, taggedCommentId);
+    showCommentSection();
+    hideNestableContainer();
+}
+
+function renderViewWhenConsensusTabIsActive() {
+    activateConsensusMode();
+}
 

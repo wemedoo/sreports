@@ -1,11 +1,23 @@
-﻿@{
-    var controller = ViewContext.Controller as sReportsV2.Controllers.FormCommonController;
-    string hasValue = "-hasvalue";
-}
-@using sReportsV2.DTOs.Field.DataOut;
+﻿@using sReportsV2.DTOs.Field.DataOut;
 @using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.Extensions;
 
 @model FormDataOut
+@{
+    var controller = ViewContext.Controller as sReportsV2.Controllers.FormCommonController;
+    var userCookieData = ViewBag.UserCookieData;
+    bool readOnlyPermission = ((bool?)ViewBag.ReadOnly).GetValueOrDefault();
+    bool activeFormState = !Model.FormState.HasValue || Model.FormState.Equals(FormState.OnGoing);
+    bool readOnlyMode = readOnlyPermission || !activeFormState;
+    bool isEngineModule = ViewBag.Action == "/FormInstance/Create";
+    bool isEdit = ViewBag.FormInstanceId != null;
+    bool canSignDocument = userCookieData != null
+        && userCookieData.UserHasPermission(PermissionNames.SignFormInstance, ModuleNames.Engine)
+        && userCookieData.UserHasPermission(PermissionNames.ChangeFormInstanceState, ModuleNames.Engine)
+        && isEngineModule && isEdit && !Model.FormState.Equals(FormState.Signed);
+}
 <form id="fid" method="post" action="@ViewBag.Action" novalidate onsubmit="return clickedSubmit(event);">
     <input type="hidden" name="formDefinitionId" value="@Model.Id" />
     <input type="hidden" name="thesaurusId" value="@Model.ThesaurusId" />
@@ -43,11 +55,6 @@
         <input type="hidden" name="encounterId" value="@ViewBag.EncounterId" />
     }
 
-    @if (ViewBag.FormValueId != null && !string.IsNullOrEmpty(ViewBag.FormValueId.ToString()))
-    {
-        <input type="hidden" name="formValueId" value="@ViewBag.FormValueId" />
-    }
-
     @if (ViewBag.Referrals != null)
     {
         foreach (var referral in ViewBag.Referrals)
@@ -57,17 +64,20 @@
     }
 
     <div class="d-flex">
-        <div id="chapters" class="chapters-ul mr-3 sticky" style="display:@(ViewBag.Action == "/FormInstance/Create" ? "" : "none")">
+        <div id="chapters" class="chapters-ul mr-3 sticky" style="display:@(isEngineModule ? "" : "none")">
             @foreach (FormChapterDataOut c in Model.Chapters)
             {
                 int counter = 0;
-                <div id="@c.Id-li" class="chapter-li @(c.Id == Model.Chapters[0].Id ? "active" : "") ">
+                <div id="@c.Id-li" class="chapter-li @(c.Id == Model.Chapters[0].Id ? "active" : "") " data-id="@c.Id">
                     <i class="fas fa-angle-right mr-3"></i>@c.Title
                 </div>
             }
-            <div id="administrativeChapter-li" class="chapter-li">
-                <i class="fas fa-angle-right mr-3"></i>Administrative data
-            </div>
+            @if (userCookieData != null && userCookieData.UserHasPermission(PermissionNames.ViewAdministrativeData, ModuleNames.Designer))
+            {
+                <div id="administrativeChapter-li" class="chapter-li">
+                    <i class="fas fa-angle-right mr-3"></i>@sReportsV2.Resources.TextLanguage.Administative_data
+                </div>
+            }
             @if (ViewBag.Referrals != null)
             {
                 <div id="referralChapter-li" class="chapter-li">
@@ -76,256 +86,206 @@
             }
 
         </div>
-        <div class="box-shadow @(ViewBag.Action == "/FormInstance/Create" ? "w-75" : "w-100") chapters-container">
-            @foreach (FormChapterDataOut c in Model.Chapters)
-            {
-                bool isChapterReadonly = (ViewBag.formInstanceId != null && !string.IsNullOrEmpty(ViewBag.formInstanceId.ToString()) && c.IsReadonly);
-                isChapterReadonly = Model.FormState != null && Model.FormState.Equals(sReportsV2.Common.Enums.FormState.Finished.ToString()) ? true : isChapterReadonly;
-                <div class="des-container form-accordion @(ViewBag.Action == "/FormInstance/Create" ? "hide-arrow" : "")" style="display:@(ViewBag.Action == "/FormInstance/Create" && c.Id != Model.Chapters[0].Id ? "none" : "block");margin-bottom:@(ViewBag.Action == "/FormInstance/Create" ? "" : "15px");" id="@c.Id-acc">
-                    <div class="form-accordion-header color-green-primary position-relative " data-toggle="collapse" onclick="collapseChapter(this)" data-target="#@c.Id" aria-expanded="false" aria-controls="@c.Id">
-                        <img class="mr-2" style="margin-bottom:3px;" src="~/Content/img/icons/chapter.svg">@c.Title
-                        <div class="chapter-des designer-description des color-white">
-                            <u>
+        <div class="@(isEngineModule ? "w-75" : "w-100") chapters-container">
+            <div class="box-shadow">
+                @foreach (FormChapterDataOut c in Model.Chapters)
+                {
+                    bool isChapterReadonly = (ViewBag.formInstanceId != null && !string.IsNullOrEmpty(ViewBag.formInstanceId.ToString()) && c.IsReadonly);
+                    isChapterReadonly = Model.FormState != null && Model.FormState.Equals(FormState.Finished.ToString()) ? true : isChapterReadonly;
+                    <div class="des-container form-accordion @(isEngineModule ? "hide-arrow" : "")" style="display:@(isEngineModule && c.Id != Model.Chapters[0].Id ? "none" : "block");margin-bottom:@(isEngineModule ? "" : "15px");" id="@c.Id-acc">
+                        <div class="form-accordion-header color-green-primary position-relative " data-toggle="collapse" onclick="collapseChapter(this)" data-target="#@c.Id" aria-expanded="false" aria-controls="@c.Id">
+                            <img class="mr-2" style="margin-bottom:3px;" src="~/Content/img/icons/chapter.svg">@c.Title
+                            <div class="chapter-des designer-description des color-white">
                                 @if (!string.IsNullOrEmpty(c.Description) && !c.Description.Equals(c.Title))
                                 {
-                                    @sReportsV2.Resources.TextLanguage.Description
-
+                                    <i class="ml-1 fas fa-info-circle"></i>
                                 }
-                            </u>
-                            @if (!string.IsNullOrEmpty(c.Description) && !c.Description.Equals(c.Title))
-                            {
-                                <i class="ml-1 fas fa-angle-down"></i>
-
-                            }
-
+                            </div>
                         </div>
-                    </div>
-                    <div class="collapse chapter" id="@c.Id">
-
-                        <div class="card">
-                            @if (!string.IsNullOrEmpty(c.Description) && !c.Description.Equals(c.Title))
-                            {
-                                <div class='chapter-description desc position-relative' style="display:none;">@Html.Raw(c.Description)<img src="~/Content/img/icons/Administration_remove.svg" class="x-des"></div>
-                            }
-                            @if (c.Pages.Count > 1)
-                            {
-                                <span class="arrow-scroll-left-page"></span>
-                                <span class="arrow-scroll-right-page"></span>
-                                <div class="page-selector pages-links d-flex" style="overflow-x:hidden" id="arrowRight">
-                                    @{ int counter = 0;}
+                        <div class="collapse chapter" id="@c.Id">
+                            <div class="card">
+                                @if (!string.IsNullOrEmpty(c.Description) && !c.Description.Equals(c.Title))
+                                {
+                                    <div class='chapter-description desc position-relative' style="display:none;">@Html.Raw(c.Description)<img src="~/Content/img/icons/Administration_remove.svg" class="x-des"></div>
+                                }
+                                @if (c.Pages.Count > 1)
+                                {
+                                    <span class="arrow-scroll-left-page"></span>
+                                    <span class="arrow-scroll-right-page"></span>
+                                    <div class="page-selector pages-links d-flex" style="overflow-x:hidden" id="arrowRight-chapter-@c.Id">
+                                        @{ int counter = 0;}
+                                        @foreach (FormPageDataOut p in c.Pages)
+                                        {
+                                            { counter++; }
+                                            <div class="pages-link @(counter == 1 ? "active" : "")" onclick="showPageById('@p.Id', event)">@p.Title</div>
+                                        }
+                                    </div>
+                                }
+                                <div class='card-body' style="padding:unset;">
                                     @foreach (FormPageDataOut p in c.Pages)
                                     {
-                                        { counter++; }
-                                        <div class="pages-link @(counter == 1 ? "active" : "")" onclick="showPageById('@p.Id', event)">@p.Title</div>
-                                    }
-                                </div>
-                            }
-                            <div class='card-body' style="padding:unset;">
-                                @foreach (FormPageDataOut p in c.Pages)
-                                {
-                                    <div class='page des-container' id='@p.Id'>
-                                        @if (!string.IsNullOrEmpty(p.Title) && p.IsVisible)
-                                        {
-                                            <div class="page-header position-relative">
-                                                @p.Title
-                                                <div class="page-des des">
-                                                    <u>
-                                                        @if (!string.IsNullOrEmpty(p.Description) && !c.Description.Equals(p.Title))
-                                                        {
-                                                            @sReportsV2.Resources.TextLanguage.Description
-
-                                                        }
-                                                    </u>
-                                                    <i class="ml-1 fas fa-angle-down"></i>
-                                                </div>
-                                            </div>
-                                        }
-                                        @if (!string.IsNullOrEmpty(p.Description) && p.IsVisible)
-                                        {
-                                            <div class='page-description desc position-relative' style="display:none;">@Html.Raw(p.Description)<img src="~/Content/img/icons/Administration_remove.svg" class="x-des"></div>
-
-                                        }
-
-                                        <div class="row @(p.ImageMap != null ? "image-map" : "")">
-                                            @if (p.ImageMap != null)
+                                        <div class='page des-container' id='@p.Id'>
+                                            @if (!string.IsNullOrEmpty(p.Title) && p.IsVisible)
                                             {
-                                                <div class="col-lg-6 col-md-12">
-                                                    <div class="image-map-container">
-                                                        <img src="@p.ImageMap.Url" usemap="#@p.ImageMap.MapId" />
-                                                        <map name="@p.ImageMap.MapId" id="@p.ImageMap.MapId">
-                                                            @Html.Raw(p.ImageMap.Map)
-                                                        </map>
+                                                <div class="page-header position-relative">
+                                                    @p.Title
+                                                    <div class="page-des des">
+                                                        <u>
+                                                            @if (!string.IsNullOrEmpty(p.Description) && !c.Description.Equals(p.Title))
+                                                            {
+                                                                @sReportsV2.Resources.TextLanguage.Description
+
+                                                            }
+                                                        </u>
+                                                        <i class="ml-1 fas fa-info-circle"></i>
                                                     </div>
                                                 </div>
                                             }
+                                            @if (!string.IsNullOrEmpty(p.Description) && p.IsVisible)
+                                            {
+                                                <div class='page-description desc position-relative' style="display:none;">@Html.Raw(p.Description)<img src="~/Content/img/icons/Administration_remove.svg" class="x-des"></div>
 
-                                            <div class="@(p.ImageMap != null ? "col-md-12 col-lg-6 " : " col-md-12 col-lg-12")">
+                                            }
 
-                                                <div class="row">
+                                            <div class="row @(p.ImageMap != null ? "image-map" : "")">
+                                                @Html.Partial("~/Views/Form/DragAndDrop/ImageMapPreview.cshtml", p)
+                                                <div class="@(p.ImageMap != null ? "col-md-12 col-lg-6 " : " col-md-12 col-lg-12")">
 
-                                                        @foreach (List<FormFieldSetDataOut> ListFs in p.ListOfFieldSets)
+                                                    <div class="row">
+
+                                                        @for (int i = 0; i < p.ListOfFieldSets.Count; i++)
                                                         {
-                                                            <div class="col-12">
-                                                            <fieldset class='form-fieldset @*col-md-12 col-lg-6*@ w-100' id="@ListFs[0].Id" page-id='@p.Id' data-map-area="@ListFs[0].MapAreaId">
-                                                                <div class="field-set-container">
-                                                                    @{int repetitiveFieldSetCounter = 0;}
 
-                                                                @foreach (FormFieldSetDataOut fs in ListFs)
-                                                                {
-                                                                    <div class="field-set field-set-border des-container" name="@repetitiveFieldSetCounter">
-                                                                        <div class="d-flex justify-content-between field-set-content">
-                                                                            @if (!string.IsNullOrEmpty(fs.Label))
-                                                                            {
-                                                                                <h3 class="field-set-title d-flex">
-                                                                                    <img class="field-set-img" src="~/Content/img/icons/field_set.svg">
-                                                                                    <div>@fs.Label</div>
-                                                                                </h3>
-                                                                            }
-                                                                            @if (!string.IsNullOrWhiteSpace(fs.Description))
-                                                                            {
-                                                                                <div class="field-set-des des">
-                                                                                    <u>
-                                                                                        @if (!string.IsNullOrEmpty(p.Description) && !p.Description.Equals(p.Title))
+                                                            List<FormFieldSetDataOut> ListFs = p.ListOfFieldSets[i];
+
+                                                            <div class="col-12">
+                                                                <fieldset class='form-fieldset @*col-md-12 col-lg-6*@ w-100' id="@ListFs[0].Id" page-id='@p.Id' data-map-area="@ListFs[0].MapAreaId" @Html.Disabled(readOnlyMode)>
+                                                                    <div class="field-set-container">
+                                                                        @{int repetitiveFieldSetCounter = 0;}
+
+                                                                        @for (int j = 0; j < ListFs.Count; j++)
+                                                                        {
+
+                                                                            FormFieldSetDataOut fs = ListFs[j];
+                                                                            bool isLastField = i == p.ListOfFieldSets.Count - 1 && j == ListFs.Count - 1 && !(i == 0 && j == 0);
+                                                                            bool isLastRepetitiveFieldSet = j == ListFs.Count - 1;
+                                                                            <div class="field-set field-set-border des-container @(isLastField ? "last-field-set-border" : "") " name="@repetitiveFieldSetCounter">
+                                                                                <div class="d-flex justify-content-between field-set-content">
+                                                                                    @if (!string.IsNullOrEmpty(fs.Label))
+                                                                                    {
+                                                                                        <h3 class="field-set-title d-flex">
+                                                                                            <img class="field-set-img" src="~/Content/img/icons/field_set.svg">
+                                                                                            <div>
+                                                                                                @if (fs.IsBold)
+                                                                                                {
+                                                                                                    <b>@fs.Label</b>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    @fs.Label
+                                                                                                }
+                                                                                            </div>
+                                                                                        </h3>
+                                                                                    }
+                                                                                    @if (!string.IsNullOrWhiteSpace(fs.Description))
+                                                                                    {
+                                                                                        <div class="field-set-des des">
+                                                                                            <i class="ml-1 fas fa-info-circle"></i>
+                                                                                        </div>
+                                                                                    }
+                                                                                    <div class="fieldset-repetitive d-flex">
+                                                                                        @if (fs.Help != null)
                                                                                         {
-                                                                                            @sReportsV2.Resources.TextLanguage.Description
+                                                                                            <a class="notes-btn" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(fs.Help, Newtonsoft.Json.Formatting.Indented))"><span class="filter-element filter-element-radius"><img class="notes-svg-size" src="~/Content/img/icons/notes_button.svg">@sReportsV2.Resources.TextLanguage.Notes@*(@(fs.Help.Title))*@</span></a>
+                                                                                        }
+                                                                                        @if (ListFs[0].IsRepetitive)
+                                                                                        {
+                                                                                            <div class="" style="font-size:12px; margin-right:10px; display:@(isLastRepetitiveFieldSet ? "block" : "none")">
+                                                                                                <button type="button" class="btn btn-add-new button-fieldset-repetitive"> <i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.AddNew</button>
+                                                                                            </div>
 
                                                                                         }
-                                                                                    </u>
-                                                                                    <i class="ml-1 fas fa-angle-down"></i>
-                                                                                </div>
-                                                                            }
-                                                                            <div class="fieldset-repetitive d-flex">
-                                                                                @if (fs.Help != null)
-                                                                                {
-                                                                                    <a class="notes-btn" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(fs.Help, Newtonsoft.Json.Formatting.Indented))"><span class="filter-element filter-element-radius"><img class="notes-svg-size" src="~/Content/img/icons/notes_button.svg">@sReportsV2.Resources.TextLanguage.Notes@*(@(fs.Help.Title))*@</span></a>
-                                                                                }
-                                                                                @if (ListFs[0].IsRepetitive)
-                                                                                {
-                                                                                    <div class="" style="font-size:12px; margin-right:10px; display:@(repetitiveFieldSetCounter == 0 ? "block" : "none")">
-                                                                                        <button type="button" class="btn btn-add-new button-fieldset-repetitive"> <i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.AddNew</button>
                                                                                     </div>
 
-                                                                                }
-                                                                            </div>
 
-
-                                                                            @if (fs.IsRepetitive)
-                                                                            {
-                                                                                <div>
-
-                                                                                    @if (ListFs.Count == 1)
+                                                                                    @if (fs.IsRepetitive)
                                                                                     {
-                                                                                        <button type="button" class="btn remove-field-set float-right btn-remove" style="display:none">
-                                                                                            <img class="remove-repetitive-icon" src="~/Content/img/icons/remove_button.svg">@sReportsV2.Resources.TextLanguage.Remove
-                                                                                        </button>
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <button type="button" class="btn remove-field-set float-right btn-remove">
-                                                                                            <img class="remove-repetitive-icon " src="~/Content/img/icons/remove_button.svg">@sReportsV2.Resources.TextLanguage.Remove
-                                                                                        </button>
+                                                                                        <div>
+
+                                                                                            @if (ListFs.Count == 1)
+                                                                                            {
+                                                                                                <button type="button" class="btn remove-field-set float-right btn-remove" style="display:none">
+                                                                                                    <img class="remove-repetitive-icon" src="~/Content/img/icons/remove_button.svg">@sReportsV2.Resources.TextLanguage.Remove
+                                                                                                </button>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <button type="button" class="btn remove-field-set float-right btn-remove">
+                                                                                                    <img class="remove-repetitive-icon " src="~/Content/img/icons/remove_button.svg">@sReportsV2.Resources.TextLanguage.Remove
+                                                                                                </button>
+                                                                                            }
+
+                                                                                        </div>
                                                                                     }
 
                                                                                 </div>
-                                                                            }
 
-                                                                        </div>
+                                                                                @if (!string.IsNullOrEmpty(fs.Description))
+                                                                                {
+                                                                                    <div class="fieldset-description desc position-relative" style="display:none">@fs.Description <img src="~/Content/img/icons/Administration_remove.svg" class="x-des"></div>
+                                                                                }
 
-                                                                        @if (!string.IsNullOrEmpty(fs.Description))
-                                                                        {
-                                                                            <div class="fieldset-description desc position-relative" style="display:none">@fs.Description <img src="~/Content/img/icons/Administration_remove.svg" class="x-des"></div>
+                                                                                <div style="padding-top: 6px;"></div>
+                                                                                @foreach (FieldDataOut field in fs.Fields)
+                                                                                {
+                                                                                    field.IsDisabled = readOnlyMode;
+                                                                                    @Html.Raw(controller.RenderPartialViewToString(field.PartialView, field, isChapterReadonly, repetitiveFieldSetCounter, ListFs[0].Id))
+                                                                                }
+
+                                                                            </div>
+
+                                                                            repetitiveFieldSetCounter++;
+
                                                                         }
-
-                                                                        <div></div>
-                                                                        @foreach (FieldDataOut field in fs.Fields)
-                                                                        {
-                                                                            @Html.Raw(controller.RenderPartialViewToString(field.PartialView, field, isChapterReadonly, repetitiveFieldSetCounter, ListFs[0].Id))
-                                                                        }
-
                                                                     </div>
 
-                                                                    repetitiveFieldSetCounter++;
-
-                                                                }
+                                                                </fieldset>
                                                             </div>
 
-                                                            </fieldset>
-                                                            </div>
+                                                        }
+                                                    </div>
 
-                                                    }
                                                 </div>
-
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-            @if (Model.ReferrableFields != null && Model.ReferrableFields.Count > 0)
-            {
-                <div>
-                    @Html.Partial("~/Views/DiagnosticReport/ReferrableFields.cshtml", Model.ReferrableFields)
-                </div>
-            }
-
-            <div class="form-accordion @(ViewBag.Action == "/FormInstance/Create" ? "hide-arrow" : "")" style="display:@(ViewBag.Action == "/FormInstance/Create" ? "none" : "block");" id="administrativeChapter-acc">
-                <div class="form-accordion-header color-green-primary position-relative " data-toggle="collapse" onclick="collapseChapter(this)" data-target="#administrativeChapter" aria-expanded="false" aria-controls="administrativeChapter">
-                    <img class="mr-2" style="margin-bottom:4px;" src="~/Content/img/icons/chapter.svg">Administrative data
-
-                </div>
-                <div class="collapse chapter" id="administrativeChapter">
-
-                    <div class="card">
-                        <div class='card-body'>
-                            <div class="  field-group margin-top-15">
-                                <label for="notes" class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Notes</label>
-                                <textarea @(!(Model != null && Model.FormState != null && Model.FormState.Equals(sReportsV2.Common.Enums.FormState.Finished)) ? "" : "readonly") class="repetitive-field filter-input w-75 d-inline-block administrative-input" type="text" id="notes" name="Notes" value="@(Model != null && Model.Notes != null ? Model.Notes : "")">@(Model != null && Model.Notes != null ? Model.Notes : "")</textarea>
-                            </div>
-
-
-                            @if (ViewBag.UserCookieData != null)
-                            {
-                                <div class=" field-group margin-top-15">
-                                    <label for="formState" class="filter-label form-label-size d-inline-block">@sReportsV2.Resources.TextLanguage.Document_State</label>
-                                    <select @(!(Model != null && Model.FormState != null && Model.FormState.Equals(sReportsV2.Common.Enums.FormState.Finished)) ? "" : "readonly") class=" repetitive-field filter-input w-75 d-inline-block arrow-select @hasValue administrative-input" id="formState" name="FormState">
-                                        @foreach (var state in Enum.GetNames(typeof(sReportsV2.Common.Enums.FormState)))
-                                        {
-                                            if (Model != null && Model.FormState != null && Model.FormState.ToString().Equals(state))
-                                            {
-                                                <option value="@state" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@state">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(state)</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
-
-                                <div class=" field-group margin-top-15">
-                                    <label for="date" class="filter-label form-label-size d-inline-block">Date</label>
-                                    <input @(!(Model != null && Model.FormState != null && Model.FormState.Equals(sReportsV2.Common.Enums.FormState.Finished)) ? "" : "readonly") class="repetitive-field filter-input w-75 d-inline-block administrative-input" id="date" name="Date" value="@(Model != null && Model.Date != null ? Model.Date.Value.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" type="date" />
-                                </div>
-                            }
-                        </div>
+                }
+                @if (Model.ReferrableFields != null && Model.ReferrableFields.Count > 0)
+                {
+                    <div>
+                        @Html.Partial("~/Views/DiagnosticReport/ReferrableFields.cshtml", Model.ReferrableFields)
                     </div>
-                </div>
+                }
+                @Html.Partial("~/Views/FormInstance/AdministrativeData.cshtml", Model, new ViewDataDictionary(ViewData) { { "readOnlyMode", readOnlyMode }, { "isEngineModule", isEngineModule } })
+            </div>
+            <div class="form-instance-button-container">
+                @if (canSignDocument)
+                {
+                    <button class="btn btn-filter-primary" style="height:unset;" onclick="showSignDocumentModal(event, '@FormState.Signed')">@sReportsV2.Resources.TextLanguage.LockDocument</button>
+                }
+                @if (!readOnlyMode)
+                {
+                    <input type="submit" data-no-color-change="true" class="btn btn-filter-primary float-right" style="height:unset;" id='submitBtn' value="@(ViewBag.FormInstanceId != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)" />
+                }
             </div>
         </div>
     </div>
-
-    @if (!(Model != null && Model.FormState != null && Model.FormState.Equals(sReportsV2.Common.Enums.FormState.Finished)))
-    {
-        <div class="form-button-container">
-            <input type="submit" class="btn btn-filter-primary " style="height:unset;" id='submitBtn' value="@(ViewBag.FormInstanceId != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)" />
-        </div>
-    }
-
 </form>
-
+@Html.Partial("~/Views/FormInstance/SignDocumentModal.cshtml")
 <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -345,6 +305,5 @@
     </div>
 </div>
 
-@Scripts.Render("~/bundles/formPartial")
-<script src="~/Scripts/sReports/datetimepicker.js"></script>
-
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/formPartial")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/datetimepicker.js")

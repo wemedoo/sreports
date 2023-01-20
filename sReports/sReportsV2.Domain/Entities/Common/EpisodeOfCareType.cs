@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.Common
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class EpisodeOfCareType : Entity
     {
         [BsonId]

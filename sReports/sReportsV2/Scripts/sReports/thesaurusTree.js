@@ -1,13 +1,13 @@
 ﻿function loadThesaurusTree() {
     $.ajax({
         type: 'GET',
-        url: `/Form/FilterThesaurusTree?o4MtId=${$('#O40MTID').val()}&searchTerm=&thesaurusPageNum=${thesaurusPageNum}`,
+        url: `/Form/FilterThesaurusTree?o4MtId=${$('#Id').val()}&searchTerm=&thesaurusPageNum=${thesaurusPageNum}`,
         success: function (data) {
             $('#treeThesaurusContainer').html(data);
             loadThesaurusTreeStructure();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -41,14 +41,14 @@ function loadMoreThesaurus() {
     removeLoadMoreThesaurus();
     $.ajax({
         type: 'GET',
-        url: `/Form/FilterThesaurusTree?o4MtId=${$('#O40MTID').val()}&searchTerm=${$('#quickSearch').val()}&thesaurusPageNum=${thesaurusPageNum}`,
+        url: `/Form/FilterThesaurusTree?o4MtId=${$('#Id').val()}&searchTerm=${$('#quickSearch').val()}&thesaurusPageNum=${thesaurusPageNum}`,
         success: function (data) {
             $('#thesaurusTreeItems').append(data);
             document.getElementById("loadMoreThesaurus").remove();
             loadThesaurusTreeStructure();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -63,8 +63,8 @@ function quickSearchTerm() {
             loadThesaurusTreeStructure();
             loadDocumentProperties("");
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -135,13 +135,17 @@ function calculateLineHeight(indicatorClass, secondClass, topElement) {
             if (twoLineHeight != 0)
                 h += 12;
             let top = topElement;
-            if (countArray[i - 1] > 0) {
+            if (countArray[i - 1] >= 0) {
                 if (indicatorClass != '.c2:visible' && indicatorClass != '.c:visible') {
                     h = h + countArray[i - 1] * 42 + twoLineHeight;
                     if (topElement == -19)
                         top = top - countArray[i - 1] * 42 - twoLineHeight;
                     else
                         top = top - countArray[i - 1] * 42 - 19 - twoLineHeight;
+                    if ((secondClass == '.f2:visible' || secondClass == '.f:visible') & countArray[i - 1] > 0) {
+                        top -= 19;
+                        h += 19;
+                    }
                 }
                 else {
                     h = h + countArray[i - 1] * 42;

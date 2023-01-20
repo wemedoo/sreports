@@ -22,5 +22,53 @@
   {
     "outputFile": "Content/swissOpenOncology.css",
     "inputFile": "Content/swissOpenOncology.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/abstracts/_functions.css",
+    "inputFile": "Content/open-oncology/scss/abstracts/_functions.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/abstracts/_mixins.css",
+    "inputFile": "Content/open-oncology/scss/abstracts/_mixins.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/abstracts/_variables.css",
+    "inputFile": "Content/open-oncology/scss/abstracts/_variables.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/base/_base.css",
+    "inputFile": "Content/open-oncology/scss/base/_base.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/base/_typography.css",
+    "inputFile": "Content/open-oncology/scss/base/_typography.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/base/_utilities.css",
+    "inputFile": "Content/open-oncology/scss/base/_utilities.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/layout/_header.css",
+    "inputFile": "Content/open-oncology/scss/layout/_header.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/layout/_main.css",
+    "inputFile": "Content/open-oncology/scss/layout/_main.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/style.css",
+    "inputFile": "Content/open-oncology/scss/style.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/schema_style.css",
+    "inputFile": "Content/open-oncology/scss/schema_style.scss"
+  },
+  {
+    "outputFile": "Content/open-oncology/scss/components/schema/_main.css",
+    "inputFile": "Content/open-oncology/scss/components/schema/_main.scss"
+  },
+  {
+    "outputFile": "Content/toggle-switch-button.css",
+    "inputFile": "Content/toggle-switch-button.scss"
   }
 ]

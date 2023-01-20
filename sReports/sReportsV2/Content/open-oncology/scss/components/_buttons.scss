@@ -1,0 +1,64 @@
+.btn-primary-schema-instance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $smart-oncology-green-primary;
+    padding: 1.5rem 2rem;
+    height: 4rem;
+    width: 12rem;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    font-weight: $font-weight-regular;
+    text-align: center;
+    transition: .115s all ease-in;
+    border: none;
+    color: $color-white;
+
+    svg {
+        margin-left: 5rem;
+    }
+
+    &:focus,
+    &:active,
+    &:hover {
+        text-decoration: none !important;
+        background-color: $primary-color !important;
+        color: $color-white;
+    }
+}
+
+.btn-outline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    height: 4rem;
+    width: 15rem;
+    font-size: 1.3rem;
+    border-radius: .5rem;
+    font-weight: $font-weight-regular;
+    text-align: center;
+    border: 1px solid #12707C;
+    color: #12707C;
+    font-weight: $font-weight-medium;
+    transition: .115s all ease-in;
+    background-color: #fff;
+
+    svg {
+        margin-right: 1rem;
+    }
+
+    &:active,
+    &:hover {
+        text-decoration: none !important;
+        color: #fff;
+        background-color: $primary-color-hover !important;
+        border-color: $primary-color-hover;
+
+        svg path {
+            fill: #fff;
+        }
+    }
+}

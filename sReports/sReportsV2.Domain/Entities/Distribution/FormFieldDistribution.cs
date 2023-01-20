@@ -14,8 +14,6 @@ namespace sReportsV2.Domain.Entities.Distribution
         public string Label { get; set; }
         public string Type { get; set; }
         public int ThesaurusId { get; set; }
-        public float? Mean { get; set; }
-        public float? StandardDeviation { get; set; }
         public List<FormFieldValueDistribution> Values { get; set; }
         public List<RelatedVariable> RelatedVariables { get; set; }
         public List<FormFieldDistributionSingleParameter> ValuesAll { get; set; }

@@ -3,6 +3,7 @@ $color-secondary: #2a796b;
 $color-header: #E0F2F1;
 $color-breadcrumb-active: #777777;
 $color-border: #dee2e6;
+$sidebar-width: 400px;
 /*--------------------LOADER----------------------*/
 .loader-overlay {
     display: none;
@@ -330,10 +331,9 @@ a {
     background-color: white;
     border-right: 1px solid #f0f1f1;
     position: fixed;
-    width: 228px;
     height: 100%;
     max-height: 100%;
-    z-index: 999;
+    z-index: 1052;
     transition: all 0.15s ease;
     font-size: 100px;
     left: 0px;
@@ -374,7 +374,7 @@ a {
     padding: 15px 30px;
     padding-bottom: 0;
    // margin-left: 213px;
-   padding-left:228px;
+    padding-left: $sidebar-width;
     width: 100%;
 
     @media(max-width: 768px) {
@@ -399,6 +399,7 @@ a {
         width: 50px;
         overflow: hidden;
         left: 0;
+        overflow-y: auto;
 
         .nav-link {
             & > span {
@@ -408,17 +409,21 @@ a {
 
         &:focus,
         &:hover {
-            width: 228px;
+            width: $sidebar-width;
 
             .nav-link {
-
-
                 & > span {
                     opacity: 1;
                 }
-
             }
         }
+
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .sidebar::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
     }
 
     .main-content {
@@ -1186,32 +1191,8 @@ select.form-control:not([size]):not([multiple]) {
     margin-bottom: 15px;
 }
 /*------------!THESAURUS FORM------------------  */
-.collapse-filter-container {
-    .filter-item {
-        padding: 10px 5px;
 
-        select {
-            min-width: 200px;
-        }
-
-        .additional-filter-field {
-            padding-top: 15px;
-        }
-    }
-}
-
-.filter-button-collapse {
-    display: inline-flex;
-    float: right;
-    padding-top: 3px;
-    fill: $color-secondary;
-    margin-left: 15px;
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-
+// common btn wrapper for forms/modals
 .button-wrapper-filter {
     float: left;
     margin-bottom: 10px;
@@ -1543,6 +1524,15 @@ input, select {
 
 .select2-container, .select2-selection {
     height: 40px !important;
+
+    .select2-selection--multiple {
+        border: 1px solid #ced4da;
+    }
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #ced4da;
+    outline: 0;
 }
 
 .select2-search__field {
@@ -1554,6 +1544,13 @@ input, select {
     &.select2-selection--single {
         border: 1px solid #ced4da;
         border-radius: 4px;
+
+        &.error {
+            border: 1px solid red;
+            border-radius: 4px;
+            background-color: #fff5f5;
+            color: red;
+        }
 
         &:focus {
             outline: none;
@@ -1587,6 +1584,7 @@ input, select {
         border-bottom: unset;
         border-top: unset;
         border-radius: unset;
+        font-size: 14px;
     }
 }
 
@@ -2084,11 +2082,9 @@ textarea {
     }
 }
 
-.form-button-container {
+.form-instance-button-container {
     width: 100%;
-    text-align: right;
     margin-top: 15px;
-
 
     @media(max-width: 576px) {
         margin-bottom: 15px;
@@ -2123,6 +2119,11 @@ textarea {
 }
 
 .widgets-container {
+    /*min-height: 600px;
+
+    .element-background-white, .element-background-grey {
+        min-height: 300px;
+    }*/
 }
 
 .widget {
@@ -2562,8 +2563,9 @@ h3 {
 
 .repetitive-field, .checkbox-container, .radio-container {
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     width: 45% !important;
+    
 }
 
 .button-plus-repetitive, .button-plus-repetitive-textarea {
@@ -2632,12 +2634,6 @@ h3 {
     }
 }
 
-.field-set-border {
-    /* border: 2px solid;
-    border-color : $color-secondary;*/
-    margin-bottom: 10px;
-    padding: 15px;
-}
 
 //simulator
 .add-relation-link {

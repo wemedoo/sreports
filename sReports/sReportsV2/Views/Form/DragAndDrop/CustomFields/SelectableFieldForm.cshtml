@@ -28,9 +28,9 @@
                             @dependableDataOut.ActionType
                         </div>
 
-                        <div class="remove-dependable-item">
+                        @if (!ViewBag.ReadOnly) {<div class="remove-dependable-item">
                             <i class="fas fa-minus-circle"></i>
-                        </div>
+                        </div>}
                     </div>
                 }
         <div class="dependable-item-row dependable-inputs">
@@ -39,7 +39,7 @@
                     <div class="label filter-label">
                         Condition
                     </div>
-                    <select class="designer-form-input  manual-validation" required name="condition" id="condition">
+                    <select class="designer-form-input  manual-validation" name="condition" id="condition" @ViewBag.Disabled>
                         <option value="">Select condition</option>
                     </select>
                 </div>
@@ -49,26 +49,26 @@
                    <div class="label filter-label">
                        Action parameter
                    </div>
-                   <select class="designer-form-input manual-validation" required name="actionParams" id="actionParams">
+                   <select class="designer-form-input manual-validation" name="actionParams" id="actionParams" @ViewBag.Disabled>
                        <option value="">Select action parameter</option>
                    </select>
                </div>
             </div><!--
-         --><div class="dependable-item-cell last-cell">
-                <div class="designer-form-input-group last-group">
+         --><div class="dependable-item-cell last-cell @(ViewBag.ReadOnly ? "pr-0" : "")">
+                <div class="designer-form-input-group @(!ViewBag.ReadOnly ? "last-group" : "")">
                     <div class="label filter-label">
                         Action type
                     </div>
-                    <select class="designer-form-input  manual-validation" required name="actionType" id="actionType">
+                    <select class="designer-form-input  manual-validation" name="actionType" id="actionType" @ViewBag.Disabled>
                         <option value="">Select action type</option>
                         <option value="toggle">Toggle</option>
                         <option value="email">Email</option>
                     </select>
                 </div>
             </div><!--
-            --><div class="submitDependableForm">
+            -->@if (!ViewBag.ReadOnly) {<div class="submitDependableForm">
                 <i class="fas fa-check"></i>
-            </div>
+            </div>}
         </div>
             }
         </div>

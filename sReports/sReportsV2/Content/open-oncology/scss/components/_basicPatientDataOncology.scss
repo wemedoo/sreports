@@ -1,0 +1,515 @@
+﻿.smart-oncology-header {
+    font-size: 22px;
+    margin-bottom: 15px;
+    margin-top: 30px;
+    font-weight: 800;
+
+    .new-patient {
+        background-color: $smart-oncology-green-primary;
+        width: 120px;
+        height: 40px;
+        border: 2px solid white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+        color: white;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+}
+
+.smart-oncology-container {
+    background-color: $smart-oncology-light-grey;
+    margin: 0px -30px;
+    padding: 15px 30px;
+}
+
+.smart-oncology-search-container {
+    display: flex;
+    background-color: white;
+
+    .small-header {
+        z-index: 1;
+        width: 44px;
+        min-width: 44px;
+        border: 1px solid $smart-oncology-dark-grey;
+        transition: all .15s ease-in;
+        cursor: pointer;
+        position: relative;
+        background-color: $smart-oncology-light-grey;
+        display: none;
+
+        .small-header-title {
+            font-size: 13px;
+            color: $smart-oncology-grey-text;
+            text-transform: uppercase;
+            transform-origin: center;
+            position: absolute;
+            transform: rotate( -90deg);
+            left: -10px;
+            top: 90px;
+        }
+
+        .arrow-right {
+            z-index: 1;
+            width: 100%;
+            min-width: 100%;
+            border-bottom: 1px solid $smart-oncology-dark-grey;
+            justify-content: center;
+            align-items: center;
+            transition: all .15s ease-in;
+            cursor: pointer;
+            height: 44px;
+            background-color: $smart-oncology-light-grey;
+
+            &:hover {
+                background-color: #12707C;
+
+                path {
+                    fill: #fff;
+                }
+            }
+
+            &.show {
+                display: flex;
+            }
+        }
+    }
+}
+
+.smart-oncology-patient-table {
+    background-color: white;
+    border: 1px solid $smart-oncology-dark-grey;
+    min-width: 25rem;
+    width: 25rem;
+    position: relative;
+
+    .patient-table-search {
+        border-bottom: 1px solid $smart-oncology-dark-grey;
+        position: relative;
+
+        input {
+            padding-left: 16px;
+            height: 42px;
+            width: 100%;
+            border: none;
+
+            &:focus {
+                outline: none;
+                border: 2px solid $smart-oncology-green-primary;
+                border-radius: 4px;
+                box-shadow: 0 0 20px 0 #c2e8ed;
+            }
+        }
+
+        .search-i {
+            position: absolute;
+            right: 10px;
+            top: 13px;
+            cursor: pointer;
+        }
+    }
+
+    .patient-table-header {
+        padding: 0.5rem 0.5rem 0.5rem 0rem;
+        height: 45px;
+        border-bottom: 1px solid $smart-oncology-dark-grey;
+
+        .sidebar-patient-img {
+            padding-left: 16px;
+            height: 100%;
+        }
+
+        .patient-table-header-text {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 6px;
+        }
+
+        .tools {
+            display: flex;
+            justify-content: flex-end;
+            height: 45px;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            button {
+                margin: 10px;
+            }
+
+            .arrow {
+                z-index: 1;
+                width: 44px;
+                border-left: 1px solid $smart-oncology-dark-grey;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all .15s ease-in;
+                cursor: pointer;
+                height: fit-content;
+                height: 44px;
+                background-color: $smart-oncology-light-grey;
+
+                path {
+                    transition: all .15s ease-in;
+                }
+
+                &:hover {
+                    background-color: #12707C;
+
+                    path {
+                        fill: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.patient-table-entry {
+    padding: 10px 0.5rem 0.5rem 16px;
+    border-bottom: 1px solid $smart-oncology-dark-grey;
+    background-color: $smart-oncology-light-grey;
+    position: relative;
+    height: 50px;
+    cursor: pointer;
+
+    span {
+        font-weight: 600;
+    }
+
+    i {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        color: $smart-oncology-dark-grey;
+    }
+
+    &.active {
+        border: 1px solid $smart-oncology-green-primary;
+        background-color: #e3fcff;
+    }
+}
+
+
+.smart-oncology-patient-detail {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    height: fit-content;
+    padding: 40px 50px 40px 15px;
+    font-size: 14px;
+
+    .smart-oncology-patient-detail-header {
+        margin-bottom: 15px;
+
+        .save-btn {
+            width: 76px;
+            position: absolute;
+            top: -5px;
+            right: 0px;
+
+            .btn-save {
+                color: white;
+                background-color: $smart-oncology-green-primary;
+                border-color: $smart-oncology-green-primary;
+                box-shadow: unset;
+                width: 100%;
+            }
+        }
+
+        .cancel-btn {
+            position: absolute;
+            top: -5px;
+            right: 80px;
+        }
+    }
+
+    .smart-oncology-patient-detail-title {
+        font-size: 13px;
+        color: $smart-oncology-grey-text;
+        text-transform: uppercase;
+    }
+
+    .column {
+        padding: 10px;
+        border: 1px solid $smart-oncology-dark-grey;
+
+        .edit-button {
+            float: right;
+            margin-right: 20px;
+        }
+
+        &.data-name {
+            background-color: $smart-oncology-light-grey;
+        }
+
+        .data-value {
+            padding: 10px 0px;
+        }
+
+        .input {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 5px;
+        }
+    }
+
+    .column-input {
+        padding: 0px;
+        border: 1px solid $smart-oncology-dark-grey;
+
+        &.focus {
+            outline: none;
+            border: 2px solid $smart-oncology-green-primary;
+            border-radius: 4px;
+            box-shadow: 0 0 20px 0 #c2e8ed;
+        }
+
+        input {
+            width: 100%;
+            height: 45px;
+            border: none;
+            padding: 15px;
+
+            &:focus {
+                outline: none;
+                border: none;
+            }
+        }
+
+        select {
+            width: 100%;
+            height: 45px;
+            border: none;
+            padding: 8.5px 15px;
+            -webkit-appearance: none;
+
+            &:focus {
+                outline: none;
+                border: none;
+            }
+
+            &.error {
+                background-color: #fff5f5;
+                color: red;
+            }
+        }
+
+        .select2-selection__arrow {
+            display: none;
+        }
+
+        .select2-container, .select2-selection {
+            height: 45px !important;
+
+            &.select2-selection--single {
+                border: none;
+
+                &:focus {
+                    outline: none;
+                    border: 2px solid $smart-oncology-green-primary;
+                    border-radius: 4px;
+                    box-shadow: 0 0 20px 0 #c2e8ed;
+                }
+            }
+
+            .select2-selection.select2-selection--single .select2-selection__rendered {
+                padding-top: 10px;
+                padding-left: 15px;
+                font-size: 14px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .repetitive-values {
+            margin-left: 10px;
+            margin-top: 10px;
+
+            .repetitive-value {
+                display: inline-flex;
+                margin-top: 0px;
+                border-radius: 5px;
+                font-weight: 600;
+                color: #12707c;
+                width: auto;
+                background-color: #e8fcff;
+                margin-right: 10px;
+                margin-bottom: 5px;
+                font-size: 13px;
+                padding: 6px 15px;
+                letter-spacing: 0.5px;
+                padding-right: 11px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+
+                .tag-text {
+                    height: 18px;
+                }
+
+                .tag-icon {
+                    cursor: pointer;
+                    width: 8px;
+                    height: 12px;
+                    margin-top: 3px;
+                    margin-left: 15px !important;
+                }
+            }
+        }
+    }
+
+    .edit-patient-field-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: none;
+
+        &.toggle {
+            display: inherit;
+        }
+    }
+
+    .radio-btn-container {
+        label {
+            position: relative;
+            cursor: pointer;
+            padding-left: 19px;
+            text-align: left;
+            color: #333;
+            margin-bottom: 5px;
+
+            input[type="radio"] {
+                display: none
+            }
+
+            .option-span {
+                font-size: 13px;
+                padding-left: 6px;
+                padding-top: 4px;
+            }
+        }
+    }
+}
+
+.smart-oncology-patient-edit-btn {
+    border-radius: 3px;
+    height: fit-content;
+    cursor: pointer;
+    float: right;
+
+    .btn-label {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: $smart-oncology-green-primary;
+        text-decoration: underline;
+    }
+}
+
+.patient-button-container {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-direction: row-reverse;
+
+    .btn-save {
+        color: white;
+        background-color: $smart-oncology-green-primary;
+        border-color: $smart-oncology-green-primary;
+        box-shadow: unset;
+    }
+}
+
+.visible-md {
+    display: none !important;
+}
+
+@media screen and (max-width: 967px) {
+    .hidden-md {
+        display: none !important;
+    }
+
+    .visible-md {
+        display: block !important;
+
+        .divider {
+            background-color: $smart-oncology-light-grey;
+            height: 30px;
+        }
+
+        .header-patient {
+            position: relative;
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            background-color: #fff;
+        }
+
+        .search-container-mobile {
+            position: relative;
+
+            input {
+                border-radius: 6px;
+                border-color: $smart-oncology-dark-grey;
+                padding-left: 50px;
+                font-size: 1rem;
+                height: 40px;
+
+                &:focus {
+                    outline: none;
+                    border: 2px solid $smart-oncology-green-primary;
+                    border-radius: 4px;
+                    box-shadow: 0 0 20px 0 #c2e8ed;
+                }
+            }
+
+            .search-i {
+                position: absolute;
+                top: 10px;
+                left: 15px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+
+            .close-i {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+
+        .smartOncologyPatientEntries {
+            height: 200px;
+            overflow-x: hidden;
+            margin: 0.5rem 1.5rem;
+            border-top: 1px solid $smart-oncology-dark-grey;
+
+            .patient-table-entry {
+                background-color: white;
+
+                &.active {
+                    border: 1 px solid $smart-oncology-green-primary;
+                    background-color: #e3fcff;
+                }
+            }
+        }
+    }
+
+    .smart-oncology-search-container {
+        display: block;
+    }
+}

@@ -21,43 +21,45 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public void Delete(int id)
         {
-            OutsideUser forDelete = context.OutsideUsers.FirstOrDefault(x => x.Id == id);
-            forDelete.IsDeleted = true;
-            context.SaveChanges();
+            OutsideUser formDb = context.OutsideUsers.FirstOrDefault(x => x.OutsideUserId == id);
+            if (formDb != null)
+            {
+                formDb.IsDeleted = true;
+                formDb.SetLastUpdate();
+                context.SaveChanges();
+            }
         }
 
 
         public List<OutsideUser> GetAllByIds(List<int> ids)
         {
-            return context.OutsideUsers.Include(x => x.Address).Where(x => ids.Contains(x.Id)).ToList();
+            return context.OutsideUsers.Include(x => x.Address).Where(x => ids.Contains(x.OutsideUserId)).ToList();
         }
 
         public OutsideUser GetById(int id)
         {
-            return context.OutsideUsers.Include(x => x.Address).FirstOrDefault(x => x.Id == id);
+            return context.OutsideUsers.Include(x => x.Address).FirstOrDefault(x => x.OutsideUserId == id);
         }
 
         public int InsertOrUpdate(OutsideUser user)
         {
-            if (user.Id == 0)
+            if (user.OutsideUserId == 0)
             {
-                user.EntryDatetime = DateTime.Now;
-                user.LastUpdate = user.EntryDatetime;
                 context.OutsideUsers.Add(user);
             }
             else
             {
-                OutsideUser dbUser = this.GetById(user.Id);
+                OutsideUser dbUser = this.GetById(user.OutsideUserId);
                 dbUser.FirstName = user.FirstName;
                 dbUser.LastName = user.LastName;
                 dbUser.Email = user.Email;
                 dbUser.Institution = user.Institution;
                 dbUser.InstitutionAddress = user.InstitutionAddress;
                 dbUser.Address = UpdateAddress(dbUser.Address, user.Address);
-
+                dbUser.SetLastUpdate();
             }
             context.SaveChanges();
-            return user.Id;
+            return user.OutsideUserId;
 
         }
 

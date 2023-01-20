@@ -1,13 +1,10 @@
-﻿using sReportsV2.Domain.Entities.ThesaurusEntry;
-using sReportsV2.Domain.Services.Implementations;
+﻿using sReportsV2.Common.Helpers;
+using sReportsV2.Domain.Entities.ThesaurusEntry;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using UMLSClient.Client;
 
 namespace sReportsV2.UMLS.Classes
 {
@@ -50,17 +47,17 @@ namespace sReportsV2.UMLS.Classes
             LoadMRCONSOIntoMemory();
         }
 
-        public List<UmlsCsvEntity> GetCsvEntities()
+        private List<UmlsCsvEntity> GetCsvEntities()
         {
             return csvEntries;
         }
 
-        public void SetTermsCsv(List<string> values)
+        private void SetTermsCsv(List<string> values)
         {
             terms = values;
         }
 
-        public static void LoadMRCONSOIntoMemory()
+        private static void LoadMRCONSOIntoMemory()
         {
             string currentConcept = string.Empty;
             UmlsConcept concept = new UmlsConcept();
@@ -108,12 +105,11 @@ namespace sReportsV2.UMLS.Classes
             catch (Exception e)
             {
                 errorCount++;
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                HandleException(e, "MRCONSO.RRF");
             }
         }
 
-        public static void AddToCsvEntriesIfValid(UmlsConcept concept)
+        private static void AddToCsvEntriesIfValid(UmlsConcept concept)
         {
             if (concept != null && concept.Atoms != null) 
             {
@@ -137,7 +133,7 @@ namespace sReportsV2.UMLS.Classes
             }
         }
 
-        public static string GetAtomsForCsv(List<UmlsAtom> atoms)
+        private static string GetAtomsForCsv(List<UmlsAtom> atoms)
         {
             string result = string.Empty;
             foreach (UmlsAtom atom in atoms)
@@ -150,11 +146,11 @@ namespace sReportsV2.UMLS.Classes
 
 
 
-        public static string GetDefinition(string atomIdentifier)
+        private static string GetDefinition(string atomIdentifier)
         {
             return defDictionary.ContainsKey(atomIdentifier) ? string.Join(Environment.NewLine, defDictionary[atomIdentifier]) : string.Empty;
         }
-        public static void LoadMRDEFIntoMemory()
+        private static void LoadMRDEFIntoMemory()
         {
             try
             {
@@ -182,12 +178,11 @@ namespace sReportsV2.UMLS.Classes
             }
             catch (Exception e)
             {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                HandleException(e, "MRDEF.RRF");
             }
         }
 
-        public static void LoadMRRANKIntoMemory()
+        private static void LoadMRRANKIntoMemory()
         {
             try
             {
@@ -212,11 +207,10 @@ namespace sReportsV2.UMLS.Classes
             }
             catch (Exception e)
             {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                HandleException(e, "MRRANK.RRF");
             }
         }
-        public static void LoadMRSTYIntoMemory()
+        private static void LoadMRSTYIntoMemory()
         {
             try
             {
@@ -240,9 +234,14 @@ namespace sReportsV2.UMLS.Classes
             }
             catch (Exception e)
             {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                HandleException(e, "MRSTY.RRF");
             }
+        }
+
+        private static void HandleException(Exception ex, string fileName)
+        {
+            LogHelper.Error($"The file ({fileName}) could not be read, exception message: {ex.Message}");
+            LogHelper.Error(ex.StackTrace);
         }
     }
 }

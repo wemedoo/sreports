@@ -67,14 +67,23 @@ function setThesaurusDetailsContainer(o4mtid) {
     $('#thesaurusId').val(o4mtid);
     $('#thesaurusId').removeClass('hide').removeClass('error');
     $('#thesaurusId').siblings('label.error').remove();
-    if ($('.current-thesaurus-tag.selected').hasClass('hide')) {
+    
+    if ($('.current-thesaurus-tag.selected').hasClass('hide') || !o4mtid) {
         $('.current-thesaurus-tag.selected').toggleClass('hide');
         $('.current-thesaurus-tag.no-selection').toggleClass('hide');
-
-        $('#thesaurusLabelPlaceholder').addClass('hide');
+        $('.remove-current-thesaurus-tag').toggleClass('hide');
+        $('#thesaurusLabelPlaceholder').toggleClass('hide');
     }
-
     $('#thesaurusWarning').addClass('d-none');
+}
+
+function removeSelectedThesaurus() {
+    $('#thesaurusId').val('');
+    $("#activeThesaurus").attr('data-value', 0);
+    loadThesaurusData(-1);
+    setThesaurusDetailsContainer('');
+    $('.select-button:not(".selected")').removeClass('hide');
+    $('.select-button.selected').addClass('hide');
 }
 
 function reloadTable() {
@@ -96,8 +105,8 @@ function reloadTable() {
                 $('#tableContainer').removeClass('w-50');
                 $('#reviewContainer').hide();
             },
-            error: function () {
-
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -112,8 +121,8 @@ function loadThesaurusData(thesaurusId) {
             success: function (data) {
                 $('#activeThesaurusInfo').html(data);
             },
-            error: function () {
-
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }
@@ -163,8 +172,8 @@ function loadThesaurusPreview(thesaurusId) {
                 $('#reviewContainer').show();
 
             },
-            error: function () {
-
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
     }

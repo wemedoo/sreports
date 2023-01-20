@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Questionnaire results";
+}
+
+@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+@Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/nestable.min.css")
+
+<div class="mb-2">
+    <input type="hidden" name="questionnaireViewType" id="questionnaireViewType" value="View" />
+    @Html.Partial("~/Views/Form/Consensus/Instance/ConsensusUserQuestionnaire.cshtml", Model)
+</div>

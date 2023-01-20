@@ -1,11 +1,14 @@
 ﻿function reloadTable(initLoad) {
     $('#advancedFilterModal').modal('hide');
-    setFilterElements();
+    setFilterTagsFromUrl();
     setFilterFromUrl();
     let requestObject = getFilterParametersObject();
+    setAdvancedFilterBtnStyle(requestObject, ['Title', 'State', 'ThesaurusId', 'page', 'pageSize']);
     //checkUrlPageParams();
     requestObject.Page = currentPage;
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     $.ajax({
         type: 'GET',
@@ -13,9 +16,10 @@
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -27,6 +31,7 @@ function getFilterParametersObject() {
         requestObject = defaultFilter;
         defaultFilter = null;
     } else {
+        addPropertyToObject(requestObject, 'Content', $('#ContentTemp').val());
         addPropertyToObject(requestObject, 'Title', $('#TitleTemp').val());
         addPropertyToObject(requestObject, 'ThesaurusId', $('#ThesaurusIdTemp').val());
         addPropertyToObject(requestObject, 'State', $('#StateTemp').val());
@@ -40,8 +45,14 @@ function getFilterParametersObject() {
         addPropertyToObject(requestObject, 'ClinicalContext', $('#clinicalContext').val());
         addPropertyToObject(requestObject, 'FollowUp', $('#documentFollowUpSelect').val());
         addPropertyToObject(requestObject, 'AdministrativeContext', $('#administrativeContext').val());
-        addPropertyToObject(requestObject, 'DateTimeTo', $('#dateTimeTo').val());
-        addPropertyToObject(requestObject, 'DateTimeFrom', $('#dateTimeFrom').val());
+        addPropertyToObject(requestObject, 'DateTimeTo', toLocaleDateStringIfValue($('#dateTimeTo').val()));
+        addPropertyToObject(requestObject, 'DateTimeFrom', toLocaleDateStringIfValue($('#dateTimeFrom').val()));
+    }
+    if (requestObject['DateTimeFrom']) {
+        addPropertyToObject(requestObject, 'DateTimeFrom', toValidTimezoneFormat(requestObject['DateTimeFrom']));
+    }
+    if (requestObject['DateTimeTo']) {
+        addPropertyToObject(requestObject, 'DateTimeTo', toValidTimezoneFormat(requestObject['DateTimeTo']));
     }
 
     return requestObject;
@@ -58,7 +69,7 @@ function loadFormInstances(event, formId, thesaurusId, title, versionId) {
     var documentClassOtherInput = $('i[name="DocumentClassOtherInput"]:first').attr('data-value');
     var documentFollowUpSelect = $('i[name="DocumentFollowUpSelect"]:first').attr('data-value');
 
-    var url = `/FormInstance/GetAllByFormThesaurus?VersionId=${versionId}&FormId=${formId}&ThesaurusId=${thesaurusId}&Title=${encodeURIComponent(title)}`;
+    var url = `/FormInstance/GetAllByFormThesaurus?VersionId=${versionId}&FormId=${formId}&ThesaurusId=${thesaurusId}&Title=${encodeURIComponent(decodeLocalizedString(title))}`;
     if (documentClass) {
         url = `${url}&DocumentClass=${documentClass}`
     }
@@ -109,24 +120,26 @@ function downloadCSVs(event) {
     event.preventDefault();
     let checkedRows = getCheckedRows();
 
-    if (checkedRows.length === 0) {
+    var numOfSelectedDocuments = checkedRows.length;
+    if (numOfSelectedDocuments === 0) {
         toastr.warning("Please select at least one document to download.");
         return;
     }
-    for (var i = 0; i < checkedRows.length; i++) {
+    for (var i = 0; i < numOfSelectedDocuments; i++) {
         var formId = $(checkedRows[i]).val();
         var formTitle = $(checkedRows[i]).data('title');
 
-        getDocument(`/FormInstance/ExportToCSV?formId=${formId}`, `${formTitle}.csv`);
+        getDocument(`/FormInstance/ExportToCSV?formId=${formId}`, `${formTitle}.csv`, i === numOfSelectedDocuments - 1);
     } 
 }
 
 function downloadDocuments(baseUrl, chkArray) {
-    for (var i = 0; i < chkArray.length; i++) {
+    var numOfSelectedDocuments = chkArray.length;
+    for (var i = 0; i < numOfSelectedDocuments; i++) {
         var formId = $(chkArray[i]).val();
         var formTitle = $(chkArray[i]).data('title');
 
-        getDocument(`${baseUrl}?formId=${formId}`, formTitle);
+        getDocument(`${baseUrl}?formId=${formId}`, formTitle, i === numOfSelectedDocuments - 1);
     } 
 }
 
@@ -138,10 +151,13 @@ function getCheckedRows() {
     return result;
 }
 
-function getDocument(url, title) {
+function getDocument(url, title, lastFile = true) {
     console.log(title);
     $.ajax({
         url: url,
+        beforeSend: function (request) {
+            request.setRequestHeader("LastFile", lastFile);
+        },
         xhr: function () {
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'blob';
@@ -156,6 +172,9 @@ function getDocument(url, title) {
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -170,27 +189,22 @@ function advanceFilter() {
     $('#ThesaurusIdTemp').val($('#thesaurusId').val());
     $('#StateTemp').val($('#state').val()).change();
 
-    $('#advancedId').children('div:first').addClass('btn-advanced');
-    $('#advancedId').find('button:first').removeClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'inline-block');
     filterData();
     //clearFilters();
 }
 
 function mainFilter() {
+    $('#content').val($('#ContentTemp').val());
     $('#title').val($('#TitleTemp').val());
     $('#thesaurusId').val($('#ThesaurusIdTemp').val());
     $('#state').val($('#StateTemp').val()).change();
-
-    $('#advancedId').children('div:first').removeClass('btn-advanced');
-    $('#advancedId').find('button:first').addClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'none');
 
     filterData();
     //clearFilters();
 }
 
 function clearFilters() {
+    $('#content').val('');
     $('#title').val('');
     $('#thesaurusId').val('');
     $('#state').val('');

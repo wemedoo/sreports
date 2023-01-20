@@ -97,5 +97,24 @@ namespace sReportsV2.Common.Extensions
 
             return ids;
         }
+
+        public static string GetAttr(this Dictionary<object, object> htmlAttributes)
+        {
+            htmlAttributes = Ensure.IsNotNull(htmlAttributes, nameof(htmlAttributes));
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (KeyValuePair<object, object> attribute in htmlAttributes)
+            {
+                if (attribute.Value != null)
+                {
+                    stringBuilder.Append($"{attribute.Key}=\"{attribute.Value}\" ");
+                }
+                else
+                {
+                    stringBuilder.Append($"{attribute.Key} ");
+                }
+            }
+            
+            return stringBuilder.ToString();
+        }
     }
 }

@@ -13,23 +13,24 @@
                     <div class="d-flex margin-top-10 ">
                         <div class="advanced-filter-item filter-item">
                             <div class="label filter-label">
-                                O40MTID
-                            </div>
-                            <input type="text" class="filter-input" id="o40MtId" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Id : "")">
-                        </div>
-                        <div class="advanced-filter-item filter-item">
-                            <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Preferred_term
                             </div>
                             <input type="text" class="filter-input" id="preferredTerm" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.PreferredTerm : "")">
                         </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                O40MTID
+                            </div>
+                            <input type="text" class="filter-input" id="id" value="@(ViewBag.FilterData!= null && ViewBag.FilterData.Id > 0 ? ViewBag.FilterData.Id : "")">
+                        </div>
 
-                        
                     </div>
                     <div class="d-flex margin-top-10 margin-top-20">
                         <div class="advanced-filter-item filter-item">
-                            <div class="label filter-label">@sReportsV2.Resources.TextLanguage.Similar_term</div>
-                            <input class="filter-input " id="similarTerm" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.SimilarTerm : "")" />
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Synonym
+                            </div>
+                            <input type="text" class="filter-input" id="synonym" value="@(ViewBag.FilterData != null && ViewBag.FilterData.Synonym!= null ? ViewBag.FilterData.Synonym : "")">
                         </div>
                         <div class="advanced-filter-item filter-item">
                             <div class="label filter-label">@sReportsV2.Resources.TextLanguage.Abbreviation</div>
@@ -39,36 +40,17 @@
                     <div class="d-flex margin-top-10 margin-top-20">
                         <div class="advanced-filter-item filter-item">
                             <div class="label filter-label">
-                                @sReportsV2.Resources.TextLanguage.UMLS_Code
-                            </div>
-                            <input type="text" class="filter-input" id="umlsCode" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.UmlsCode : "")">
-                        </div>
-
-                        <div class="advanced-filter-item filter-item">
-                            <div class="label filter-label">
-                                @sReportsV2.Resources.TextLanguage.UMLS_Name
-                            </div>
-                            <input type="text" class="filter-input" id="umlsName" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.UmlsName : "")">
-                        </div>
-                    </div>
-                    <div class="d-flex margin-top-10 margin-top-20">
-                        <div class="advanced-filter-item filter-item">
-                            <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.State_
                             </div>
                             <select class=" filter-input arrow-select" id="state">
                                 <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
-                                @foreach (var option in Enum.GetNames(typeof(sReportsV2.Common.Enums.ThesaurusState)))
+                                @foreach (var option in Enum.GetValues(typeof(sReportsV2.Common.Enums.ThesaurusState)).Cast<sReportsV2.Common.Enums.ThesaurusState>().Take(4))
                                 {
-                                    <option value="@option" @(ViewBag.FilterData != null && ViewBag.FilterData.State != null && ViewBag.FilterData.State.ToString() == option ? "selected" : "")>@option</option>
+                                    <option value="@option" @(ViewBag.FilterData != null && ViewBag.FilterData.State != null && ViewBag.FilterData.State.ToString() == option.ToString() ? "selected" : "")>@option</option>
                                 }
                             </select>
                         </div>
                         <div class="advanced-filter-item filter-item">
-                            <div class="label filter-label">
-                                @sReportsV2.Resources.TextLanguage.Synonym
-                            </div>
-                            <input type="text" class="filter-input" id="synonym" value="@(ViewBag.FilterData != null && ViewBag.FilterData.Synonym!= null ? ViewBag.FilterData.Synonym : "")">
                         </div>
                     </div>
                     <div class="advanced-filter-line"></div>

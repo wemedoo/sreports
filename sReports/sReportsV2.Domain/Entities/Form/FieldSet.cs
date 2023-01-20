@@ -32,7 +32,7 @@ namespace sReportsV2.Domain.Entities.Form
         public string MapAreaId { get; set; }
         public bool IsBold { get; set; }
         public bool IsRepetitive { get; set; }
-        public int NumberOfRepetitionsForPdf { get; set; }
+        public int NumberOfRepetitions { get; set; }
         public string InstanceId { get; set; }
 
 
@@ -126,8 +126,8 @@ namespace sReportsV2.Domain.Entities.Form
         {
             foreach (Field field in Fields)
             {
-                field.Label = entries.FirstOrDefault(x => x.Id.Equals(field.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
-                field.Description = entries.FirstOrDefault(x => x.Id.Equals(field.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
+                field.Label = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(field.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                field.Description = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(field.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
                 field.GenerateTranslation(entries, language, activeLanguage);
             }
         }

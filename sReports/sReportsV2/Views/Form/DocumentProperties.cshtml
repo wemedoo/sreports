@@ -7,7 +7,7 @@
         @sReportsV2.Resources.TextLanguage.Class
     </div>
     <div class="value document-properties document-values">
-        @(Model != null && Model.Class != null ? Model.Class.ToString() : "")
+        @(Model != null && Model.Class != null && Model.Class.Class != null ? Model.Class.Class.ToString() : "")
     </div>
 </div>
 

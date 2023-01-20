@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>sReportsV2.DTOs</RootNamespace>
     <AssemblyName>sReportsV2.DTOs</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="JsonSubTypes, Version=1.8.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
       <HintPath>..\packages\JsonSubTypes.1.8.0\lib\net47\JsonSubTypes.dll</HintPath>
     </Reference>
@@ -80,21 +83,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="CustomAttributes\DataPropAttribute.cs" />
+    <Compile Include="CustomAttributes\DateRangeAttribute.cs" />
+    <Compile Include="CustomAttributes\YearAttribute.cs" />
+    <Compile Include="DTOs\AccessManagment\DataIn\PermissionRoleDataIn.cs" />
+    <Compile Include="DTOs\AccessManagment\DataIn\RoleDataIn.cs" />
+    <Compile Include="DTOs\AccessManagment\DataOut\ModuleDataOut.cs" />
+    <Compile Include="DTOs\AccessManagment\DataOut\PermissionDataOut.cs" />
+    <Compile Include="DTOs\AccessManagment\DataOut\PermissionRoleDataOut.cs" />
+    <Compile Include="DTOs\AccessManagment\DataOut\RoleDataOut.cs" />
     <Compile Include="DTOs\Administration\AdministrationFilterDataIn.cs" />
     <Compile Include="DTOs\Autocomplete\DataIn\AutocompleteDataIn.cs" />
     <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteDataOut.cs" />
     <Compile Include="DTOs\Autocomplete\DataOut\AutocompletePaginatioDataOut.cs" />
     <Compile Include="DTOs\Autocomplete\DataOut\AutocompleteResultDataOut.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\RelationFieldAutocompleteDataOut.cs" />
+    <Compile Include="DTOs\Autocomplete\DataOut\RelationFieldAutocompleteResultDataOut.cs" />
     <Compile Include="DTOs\ClinicalTrials\Icd10ResultDataOut.cs" />
     <Compile Include="DTOs\CodeSystem\CodeSystemDataIn.cs" />
     <Compile Include="DTOs\CodeSystem\CodeSystemDataOut.cs" />
+    <Compile Include="DTOs\Common\DataIn\AddressDataIn.cs" />
     <Compile Include="DTOs\Common\DataIn\DataIn.cs" />
     <Compile Include="DTOs\Common\DTO\AddressDTO.cs" />
     <Compile Include="DTOs\Common\DTO\CommunicationDTO.cs" />
     <Compile Include="DTOs\Common\DTO\ContactDTO.cs" />
     <Compile Include="DTOs\Common\DTO\CreateResponseResult.cs" />
+    <Compile Include="DTOs\Common\DTO\DateInputDTO.cs" />
     <Compile Include="DTOs\Common\DTO\EnumDTO.cs" />
     <Compile Include="DTOs\Common\DTO\KeyValueDTO.cs" />
     <Compile Include="DTOs\Common\DTO\NameDTO.cs" />
@@ -116,8 +130,11 @@
     <Compile Include="DTOs\Consensus\DataOut\ConsensusIterationDataOut.cs" />
     <Compile Include="DTOs\Consensus\DataOut\ConsensusOrganizationUserInfoDataOut.cs" />
     <Compile Include="DTOs\Consensus\DataOut\ConsensusQuestionDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusUsersDataOut.cs" />
     <Compile Include="DTOs\Consensus\DataOut\IterationTrackerDataOut.cs" />
     <Compile Include="DTOs\Consensus\DataOut\OutsideUserDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\ConsensusQuestionnaireDataOut.cs" />
+    <Compile Include="DTOs\Consensus\DataOut\TrackerDataOut.cs" />
     <Compile Include="DTOs\CRF\DataOut\TreeJsonDataOut.cs" />
     <Compile Include="DTOs\CRF\DataOut\TreeJsonState.cs" />
     <Compile Include="DTOs\CTCAE\DataIn\CTCAEPatient.cs" />
@@ -128,6 +145,9 @@
     <Compile Include="DTOs\DfD\DfDDataOut\SurveySubmittedDataOut.cs" />
     <Compile Include="DTOs\DiagnosticReport\DataIn\DiagnosticReportFilterDataIn.cs" />
     <Compile Include="DTOs\DiagnosticReport\DataOut\DiagnosticReportCreateFromPatientDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuidelineInstance\DataIn\GuidelineInstanceDataIn.cs" />
+    <Compile Include="DTOs\DigitalGuidelineInstance\DataOut\GuidelineInstanceDataOut.cs" />
+    <Compile Include="DTOs\DigitalGuidelineInstance\DataOut\GuidelineInstanceViewDataOut.cs" />
     <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineDecisionElementDataDataIn.cs" />
     <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineEdgeElementDataDataIn.cs" />
     <Compile Include="DTOs\DigitalGuideline\DataIn\ElementData\GuidelineElementDataDataIn.cs" />
@@ -183,6 +203,7 @@
     <Compile Include="DTOs\Field\DataIn\Custom\Action\CustomActionDataIn.cs" />
     <Compile Include="DTOs\Field\DataIn\Custom\Action\JavascriptActionDataIn.cs" />
     <Compile Include="DTOs\Field\DataIn\Custom\CustomFieldButtonDataIn.cs" />
+    <Compile Include="DTOs\Field\DataIn\Custom\CustomFieldFilterDataIn.cs" />
     <Compile Include="DTOs\Field\DataIn\FieldCalculativeDataIn.cs" />
     <Compile Include="DTOs\Field\DataIn\FieldCheckboxDataIn.cs" />
     <Compile Include="DTOs\Field\DataIn\FieldDataIn.cs" />
@@ -202,6 +223,7 @@
     <Compile Include="DTOs\Field\DataOut\Custom\Action\CustomActionDataOut.cs" />
     <Compile Include="DTOs\Field\DataOut\Custom\Action\JavascriptActionDataOut.cs" />
     <Compile Include="DTOs\Field\DataOut\Custom\CustomFieldButtonDataOut.cs" />
+    <Compile Include="DTOs\Field\DataOut\Custom\CustomFieldFilterDataOut.cs" />
     <Compile Include="DTOs\Field\DataOut\FieldCalculativeDataOut.cs" />
     <Compile Include="DTOs\Field\DataOut\FieldCheckboxDataOut.cs" />
     <Compile Include="DTOs\Field\DataOut\FieldDataOut.cs" />
@@ -218,6 +240,8 @@
     <Compile Include="DTOs\Field\DataOut\FieldTextAreaDataOut.cs" />
     <Compile Include="DTOs\Field\DataOut\FieldTextDataOut.cs" />
     <Compile Include="DTOs\FormConsensus\DataIn\ConsensusDefinitionParameter.cs" />
+    <Compile Include="DTOs\FormConsensus\DataIn\ProceedConsensusDataIn.cs" />
+    <Compile Include="DTOs\FormConsensus\DTO\QuestionOccurenceConfigDTO.cs" />
     <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionDataIn.cs" />
     <Compile Include="DTOs\FormDistribution\DataIn\FormDistributionFilterDataIn.cs" />
     <Compile Include="DTOs\FormDistribution\DataIn\FormFieldDistributionDataIn.cs" />
@@ -229,6 +253,7 @@
     <Compile Include="DTOs\FormDistribution\DataIn\SingleDependOnValuDataIn.cs" />
     <Compile Include="DTOs\FormDistribution\DataIn\VariableDependentRelatedVariables.cs" />
     <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionDataOut.cs" />
+    <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionParameterizationDataOut.cs" />
     <Compile Include="DTOs\FormDistribution\DataOut\FormDistributionTableDataOut.cs" />
     <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDependableValue.cs" />
     <Compile Include="DTOs\FormDistribution\DataOut\FormFieldDistributionDataOut.cs" />
@@ -237,12 +262,14 @@
     <Compile Include="DTOs\FormDistribution\DataOut\FormFieldNormalDistributionParametersDataOut.cs" />
     <Compile Include="DTOs\FormDistribution\DataOut\FormFieldValueDistributionDataOut.cs" />
     <Compile Include="DTOs\FormDistribution\DataOut\SingleDependOnValueDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataIn\FormInstanceSignDataIn.cs" />
     <Compile Include="DTOs\FormInstance\DataIn\FormInstanceCovidFilterDataIn.cs" />
     <Compile Include="DTOs\FormInstance\DataIn\FormInstanceDataIn.cs" />
     <Compile Include="DTOs\FormInstance\DataIn\FormInstanceFilterDataIn.cs" />
     <Compile Include="DTOs\FormInstance\DataOut\FormInstanceDataOut.cs" />
     <Compile Include="DTOs\FormInstance\DataOut\FormInstancePerDomainDataOut.cs" />
     <Compile Include="DTOs\FormInstance\DataOut\FormInstanceReferralDataOut.cs" />
+    <Compile Include="DTOs\FormInstance\DataOut\FormInstanceStatusDataOut.cs" />
     <Compile Include="DTOs\FormInstance\DataOut\FormInstanceTableDataOut.cs" />
     <Compile Include="DTOs\Form\DataIn\FormAboutDataIn.cs" />
     <Compile Include="DTOs\Form\DataIn\FormChapterDataIn.cs" />
@@ -257,6 +284,7 @@
     <Compile Include="DTOs\Form\DataIn\FormLayoutStyleDataIn.cs" />
     <Compile Include="DTOs\Form\DataIn\FormPageDataIn.cs" />
     <Compile Include="DTOs\Form\DataIn\FormPageImageMapDataIn.cs" />
+    <Compile Include="DTOs\Form\DataIn\UpdateFormStateDataIn.cs" />
     <Compile Include="DTOs\Form\DataOut\FormAboutDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\FormChapterDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\FormCommentDataOut.cs" />
@@ -271,6 +299,7 @@
     <Compile Include="DTOs\Form\DataOut\FormLayoutStyleDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\FormPageDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\FormPageImageMapDataOut.cs" />
+    <Compile Include="DTOs\Form\DataOut\FormStatusAbstractDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\FormStatusDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\Tree\FormTreeChapterDataOut.cs" />
     <Compile Include="DTOs\Form\DataOut\Tree\FormTreeDataOut.cs" />
@@ -283,7 +312,9 @@
     <Compile Include="DTOs\GlobalThesaurusUser\DataIn\GlobalThesaurusUserDataIn.cs" />
     <Compile Include="DTOs\GlobalThesaurusUser\DataOut\GlobalThesaurusUserDataOut.cs" />
     <Compile Include="DTOs\GlobalThesaurus\DataIn\CodesFilterDataIn.cs" />
+    <Compile Include="DTOs\GlobalThesaurus\DataIn\ContactFormDataIn.cs" />
     <Compile Include="DTOs\GlobalThesaurus\DataIn\GlobalThesaurusFilterDataIn.cs" />
+    <Compile Include="DTOs\GlobalThesaurus\DataOut\ThesaurusGlobalCountDataOut.cs" />
     <Compile Include="DTOs\O4CodeableConcept\DataIn\O4CodeableConceptDataIn.cs" />
     <Compile Include="DTOs\O4CodeableConcept\DataOut\O4CodeableConceptDataOut.cs" />
     <Compile Include="DTOs\Organization\DataIn\IdentifierDataIn.cs" />
@@ -303,6 +334,68 @@
     <Compile Include="DTOs\Patient\DataOut\PatientDataOut.cs" />
     <Compile Include="DTOs\Patient\DataOut\PatientFormInstanceDataOut.cs" />
     <Compile Include="DTOs\Patient\DataOut\PatientTableDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\ChemotherapySchemaInstanceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\ChemotherapySchemaInstanceFilterDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\DelayDoseDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\DelayDoseHistoryDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\DeleteMedicationInstanceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\MedicationDoseInstanceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\MedicationDoseTimeInstanceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\MedicationInstanceAutocompleteDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataIn\MedicationInstanceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\ChemotherapySchemaInstanceDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\ChemotherapySchemaInstanceVersionDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\ChemotherapySchemaInstanceHistoryDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\ChemotherapySchemaInstancePreviewDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\MedicationDoseInstanceDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\MedicationDoseTimeInstanceDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\MedicationInstanceDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\MedicationInstancePreviewDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\MedicationReplacementDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchemaInstance\DataOut\MedicationReplacementHistoryDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\ChemotherapySchemaDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\ChemotherapySchemaFilterDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\EditGeneralPropertiesDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\EditIndicationsDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\EditLiteratureReferenceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\EditMedicationDoseDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\EditMedicationDoseInBatchDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\EditNameDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\IndicationDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\LiteratureReferenceDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\MedicationDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\MedicationDoseDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataIn\MedicationDoseTimeDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\ChemotherapySchemaDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\ChemotherapySchemaPreviewDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\EditMedicationDoseInBatchDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\IndicationDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\LiteratureReferenceDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\MedicationDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\MedicationDoseDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\MedicationDosePreviewDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\MedicationDoseTimeDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DataOut\MedicationPreviewDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DTO\BodySurfaceCalculationFormulaDTO.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DTO\ChemotherapySchemaResourceCreatedDTO.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DTO\MedicationDoseTypeDTO.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DTO\MedicationPreviewDoseTypeDTO.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DTO\RouteOfAdministrationDTO.cs" />
+    <Compile Include="DTOs\SmartOncology\ChemotherapySchema\DTO\UnitDTO.cs" />
+    <Compile Include="DTOs\SmartOncology\Enum\DataIn\SmartOncologyEnumAutocompleteDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\HistorySheet\DataOut\HistorySheetDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\Patient\DataIn\SmartOncologyPatientDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\Patient\DataIn\SmartOncologyPatientFilterDataIn.cs" />
+    <Compile Include="DTOs\SmartOncology\Enum\DataOut\SmartOncologyEnumDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\Patient\DataOut\SmartOncologyPatientDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\Patient\DataOut\SmartOncologyPatientPreviewDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaMedicationDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaDayDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaTableDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaTableDayDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaTableMedicationDataOut.cs" />
+    <Compile Include="DTOs\SmartOncology\ProgressNote\DataOut\SchemaTableMedicationInstanceDataOut.cs" />
     <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryCodingSystemDataIn.cs" />
     <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryDataIn.cs" />
     <Compile Include="DTOs\ThesaurusEntry\DataIn\ThesaurusEntryFilterDataIn.cs" />
@@ -328,6 +421,7 @@
     <Compile Include="DTOs\Umls\DataOut\UmlsDataOut.cs" />
     <Compile Include="DTOs\Umls\UmlsDataIn.cs" />
     <Compile Include="DTOs\User\DataIn\ArchiveTrialDataIn.cs" />
+    <Compile Include="DTOs\User\DataIn\UserFilterDataIn.cs" />
     <Compile Include="DTOs\User\DataIn\ClinicalTrialWithUserInfoDataIn.cs" />
     <Compile Include="DTOs\User\DataIn\LinkOrganizationDataIn.cs" />
     <Compile Include="DTOs\User\DataIn\UserDataIn.cs" />
@@ -337,8 +431,8 @@
     <Compile Include="DTOs\User\DataOut\UserDataOut.cs" />
     <Compile Include="DTOs\User\DataOut\UserOrganizationDataOut.cs" />
     <Compile Include="DTOs\User\DataOut\UserShortInfoDataOut.cs" />
+    <Compile Include="DTOs\User\DataOut\UserViewDataOut.cs" />
     <Compile Include="DTOs\User\DTO\ClinicalTrialDTO.cs" />
-    <Compile Include="DTOs\User\DTO\RoleDTO.cs" />
     <Compile Include="DTOs\User\DTO\UserCookieData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -353,15 +447,13 @@
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj">
       <Project>{406BDC5C-0219-4083-B83F-0A33A46BCCDC}</Project>
-      <Name>sReportsV2.SqlDomain</Name>
+      <Name>sReportsV2.DAL.Sql</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTOs\GlobalThesaurus\DataOut\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

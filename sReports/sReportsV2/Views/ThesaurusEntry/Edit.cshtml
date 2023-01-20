@@ -1,27 +1,19 @@
 ﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
 
 @{
-    ViewBag.Title = @sReportsV2.Resources.TextLanguage.CreateThesaurus;
+    bool isEdit = Model != null;
+    ViewBag.Title = isEdit ? @sReportsV2.Resources.TextLanguage.EditThesaurus : sReportsV2.Resources.TextLanguage.CreateThesaurus;
 }
 
 <div>
     @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Thesaurus }, { "linkLevel1", "/ThesaurusEntry/GetAll" }, { "level2", Model != null && Model.Id != 0 ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus }, { "activeLevel", 2 } })
     <div class="col-12">
         <div class="row margin-bottom-8">
-            @if (Model == null)
-            {
-                <div class="thesaurus-id padding-bottom-5 margin-bottom-8">@(Model != null && Model.Id != null ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus)</div>
-            }
-            else
-            {
-                <div class="thesaurus-id padding-bottom-5">@(Model != null && Model.Id != null ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus)</div>
-            }
+            <div class="thesaurus-id padding-bottom-5 @(isEdit ? "" : "margin-bottom-8")">@(isEdit ? Model.Id.ToString() : @sReportsV2.Resources.TextLanguage.CreateThesaurus)</div>
             @Html.Partial("AdministrativeData")
         </div>
     </div>
 </div>
-
-<input id="lastUpdate" type="text" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : null )" hidden />
 
 <div class="display-container thesaurus-content-modals thesaurus-elements user-border">
 
@@ -59,13 +51,9 @@
 
     <div class="col-8">
 
-        <form class="thesaurus-entry-form" onsubmit="return submitThesaurusEntryForm(this)" novalidate id="thesaurusEntryForm">
-            <input type="hidden" value="@(Model != null && Model.Id != 0 ? Model.Id.ToString(): "")" id="O40MTID" />
+        <form class="thesaurus-entry-form" onsubmit="return submitThesaurusEntryForm()" novalidate id="thesaurusEntryForm">
             <input type="hidden" name="parentId" id="parentId" />
-            @if (Model != null && Model.Id != 0)
-            {
-                <input type="hidden" name="Id" value="@Model.Id" id="Id" />
-            }
+            <input type="hidden" name="Id" value="@(isEdit ? Model.Id.ToString() : "")" id="Id" />
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -83,22 +71,25 @@
 
                 <div class="row">
                     <div class="button-partial col-12">
-                        @*@if (Model != null && Model.State.Equals(sReportsV2.Common.Enums.ThesaurusState.Draft))
-                            {
-                                <button type="button" onclick="reviewThesaurus(event,$('#Id').val())" class="submit-patient right-button" style="outline: none;">
-                                    <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.ReviewThesaurus</span>
+                        @if (!ViewBag.ReadOnly)
+                        {
+                            <span class="btn-save-and-add-new">
+                                <button class="submit-button" onclick="saveAndCreateNew(event)">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>
+                                        @sReportsV2.Resources.TextLanguage.SaveAndCreateNewEntry
+                                    </span>
                                 </button>
-
-                            }*@
-                        <button class="submit-button right-button margin-left-17" form="thesaurusEntryForm" type="submit" style="outline: none;">
-                            <span class="submit-patient-info">@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
-                        </button>
+                            </span>
+                            <button class="submit-button right-button margin-left-17" form="thesaurusEntryForm" type="submit" style="outline: none;">
+                                <span class="submit-patient-info">@(isEdit ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
+                            </button>
+                        }
                         <div class="text-underline right-button" type="button" onclick="backToList()">
                             <span class="back">@sReportsV2.Resources.TextLanguage.Cancel</span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </form>
 
@@ -108,9 +99,9 @@
 </div>
 
 @Html.Partial("CodeModal")
-@Html.Partial("SimilarTermModal")
+@*@Html.Partial("SimilarTermModal")*@
 
-@Scripts.Render("~/bundles/thesaurusGetAll")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/thesaurusGetAll")
 
 <script>
     var languages =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>, Newtonsoft.Json.Formatting.Indented));

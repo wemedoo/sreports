@@ -1,4 +1,6 @@
-﻿using sReportsV2.Domain.Entities.Form;
+﻿using sReportsV2.Common.Enums;
+using sReportsV2.Domain.Entities.Consensus;
+using sReportsV2.Domain.Entities.Form;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,10 @@ namespace sReportsV2.Domain.Services.Interfaces
         void Insert(Consensus consensus);
         Consensus GetByFormId(string formId);
         Consensus GetById(string id);
-        void InsertQuestion(ConsensusQuestion question, string formId, string iterationId);
+        ConsensusIteration GetLastIteration(string id);
+
         bool IsLastIterationFinished(string consensusId);
+        bool CanStartConsensusFindingProcess(string consensusId);
+        IterationState GetLastIterationState(string consensusId);
     }
 }

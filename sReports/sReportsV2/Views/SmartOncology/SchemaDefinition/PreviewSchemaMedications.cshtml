@@ -1,0 +1,62 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@using sReportsV2.Common.Extensions;
+
+@model ChemotherapySchemaDataOut
+
+<div class="schema-col col-8">
+    <div class="schema-medications">
+        <div>
+            @RenderMedications(sReportsV2.Resources.TextLanguage.Cytostatic_therapy_desc, Model.FilterMedications())
+        </div>
+        <div class="mt-4">
+            @RenderMedications(sReportsV2.Resources.TextLanguage.Supportive_therapy_desc, Model.FilterMedications(true))
+        </div>
+    </div>
+</div>
+
+@helper RenderMedications(string title, List<MedicationPreviewDataOut> medications)
+{
+    <div class="schema-card-header">
+        <span class="icon">
+            <img src="/Content/open-oncology/images/icons/medications.svg" alt="">
+        </span>
+        <h3>
+            @(title.ToUpper())
+        </h3>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>@sReportsV2.Resources.TextLanguage.Medication_name</th>
+                <th>@sReportsV2.Resources.TextLanguage.Dose</th>
+                <th>@sReportsV2.Resources.TextLanguage.Route_of_administration</th>
+                <th>@sReportsV2.Resources.TextLanguage.Preparation_instruction</th>
+                <th>@sReportsV2.Resources.TextLanguage.Application_instruction</th>
+                <th>@sReportsV2.Resources.TextLanguage.Schedule_First_Dose</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @foreach (var medication in medications)
+            {
+                <tr>
+                    <td>@medication.Name</td>
+                    <td>@medication.Dose</td>
+                    <td>@(medication.RouteOfAdministrationDTO != null ? medication.RouteOfAdministrationDTO.Name.CapitalizeFirstLetter() : "")</td>
+                    <td>@medication.PreparationInstruction</td>
+                    <td>@medication.ApplicationInstruction</td>
+                    <td>
+                        @{ var firstDose = medication.MedicationDoses.FirstOrDefault();}
+                        @if(firstDose != null)
+                        {
+                            <div class="day-item day-item-display @(firstDose.DayNumber > 0 ? "green" : "orange")">
+                                @sReportsV2.Resources.TextLanguage.DAY
+                                <span class="num">@firstDose.DayNumber</span>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

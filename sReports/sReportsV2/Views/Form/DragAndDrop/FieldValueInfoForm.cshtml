@@ -11,21 +11,21 @@
     <div class="designer-form-section">
         <div class="designer-form-input-group two-margins">
             <div class="label filter-label">
-                Label
+                @sReportsV2.Resources.TextLanguage.Label
             </div>
-            <input required class="designer-form-input item-title" id="label" name="label" type="text" value="@(Model != null && Model.Label != null ? Model.Label : "")" />
+            <input required class="designer-form-input item-title" id="label" name="label" type="text" value="@(Model != null && Model.Label != null ? Model.Label : "")" @ViewBag.Disabled/>
         </div><!--
         --><div class="designer-form-input-group two-margins">
             <div class="label filter-label">
-                Value
+                @sReportsV2.Resources.TextLanguage.Value
             </div>
-            <input required class="designer-form-input" id="value" name="value" type="text" value="@(Model != null ? Model.Value : "")" />
+            <input required class="designer-form-input" id="value" name="value" type="text" value="@(Model != null ? Model.Value : "")" @ViewBag.Disabled/>
         </div><!--
         --><div class="designer-form-input-group no-margin-right">
             <div class="label filter-label">
-                Numeric value
+                @sReportsV2.Resources.TextLanguage.NumericValue
             </div>
-            <input class="designer-form-input" id="numericValue" name="numericValue" type="number" value="@(Model != null && Model.NumericValue != null ? Model.NumericValue.ToString() : "")" />
+            <input class="designer-form-input" id="numericValue" name="numericValue" type="number" value="@(Model != null && Model.NumericValue != null ? Model.NumericValue.ToString() : "")" @ViewBag.Disabled/>
         </div>
     </div>
     <div class="designer-form-section thesaurus-section">
@@ -34,12 +34,16 @@
         </div>
         @Html.Partial("~/Views/Form/DragAndDrop/ThesaurusFilterModal.cshtml")
     </div>
+    <input id="description" name="description" value="" type="hidden" />
 </form>
 <div class="button-container">
     <div class="cancel-button cancel-modal-action">
-        Back
+        @sReportsV2.Resources.TextLanguage.Back
     </div>
-    <div class="submit-button" id="submit-fieldvalue-info">Update data</div>
+    @if (!ViewBag.ReadOnly)
+    {
+        <div class="submit-button" id="submit-fieldvalue-info">@sReportsV2.Resources.TextLanguage.UpdateData</div>
+    }
 </div>
 
 <script>

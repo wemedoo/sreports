@@ -8,7 +8,7 @@
                 <div class="label filter-label">
                     Chapter title
                 </div>
-                <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" />
+                <input required class="designer-form-input item-title" id="title" name="title" type="text" value="@(Model != null && Model.Title != null ? Model.Title : "")" @ViewBag.Disabled/>
             </div>
         </div>
         <div class="designer-form-section">
@@ -17,7 +17,7 @@
                 <div class="label filter-label">
                     Description
                 </div>
-                <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")">@(Model != null ? Model.Description : "")</textarea>
+                <textarea required class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")" @ViewBag.Disabled>@(Model != null ? Model.Description : "")</textarea>
             </div>
         </div>
         <div class="designer-form-section thesaurus-section">
@@ -30,7 +30,10 @@
             <div class="cancel-button cancel-modal-action">
                 Back
             </div>
-            <div class="submit-button" id="submit-chapter-info">Update data</div>
+            @if (!ViewBag.ReadOnly)
+            {
+                <div class="submit-button" id="submit-chapter-info">Update data</div>
+            }
         </div>
     </form>
 

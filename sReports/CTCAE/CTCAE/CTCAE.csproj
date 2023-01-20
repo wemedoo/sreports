@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\sReportsV2.Common\sReportsV2.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="App_Data\CTCAE_v5.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

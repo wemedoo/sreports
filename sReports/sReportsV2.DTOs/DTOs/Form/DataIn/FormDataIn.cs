@@ -17,14 +17,11 @@ namespace sReportsV2.DTOs.Form.DataIn
         public List<FormChapterDataIn> Chapters { get; set; } = new List<FormChapterDataIn>();
         public FormDefinitionState State { get; set; }
         public string Language { get; set; }
-        public string ThesaurusId { get; set; }
-        public DateTime? EntryDatetime { get; set; }
+        public int ThesaurusId { get; set; }
         public DateTime? LastUpdate { get; set; }
         public DocumentPropertiesDataIn DocumentProperties { get; set; }
         public FormEpisodeOfCareDataDataIn EpisodeOfCare { get; set; }
         public bool DisablePatientData { get; set; }
-        public string Description { get; set; }
-
 
         public List<FieldDataIn> GetAllFields()
         {

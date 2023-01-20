@@ -1,8 +1,10 @@
 ﻿@using sReportsV2.DTOs.ThesaurusEntry.DataOut;
+@using sReportsV2.Common.Constants;
 @model PagedList.IPagedList<ThesaurusEntryDataOut>
 
 @{
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.Thesaurus;
+    var userCookieData = ViewBag.UserCookieData;
 }
 
 @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", sReportsV2.Resources.TextLanguage.Thesaurus }, { "activeLevel", 1 } })
@@ -10,10 +12,11 @@
 <div class="table-container border-0">
     <div class="header header-new">
         @sReportsV2.Resources.TextLanguage.Thesaurus
-        @*<div class="filter-button-collapse" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" /></svg>
-            </div>*@
-        <button class="btn btn-create float-right" onclick="createThesaurusEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        @if (userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Thesaurus))
+        {
+            <button class="btn btn-create float-right" onclick="createThesaurusEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+            @Html.ActionLink(sReportsV2.Resources.TextLanguage.Start_Merge_Process, "Merge", "ThesaurusEntry", new { }, new { target = "_blank", rel = "noreferrer", @class = "btn btn-filter-primary h-100 float-right mr-3 font-size-14px" })
+        }
     </div>
     @Html.Partial("ThesaurusFilterGroup")
 
@@ -29,4 +32,4 @@
     var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
 </script>
 
-@Scripts.Render("~/bundles/thesaurusGetAll")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/thesaurusGetAll")

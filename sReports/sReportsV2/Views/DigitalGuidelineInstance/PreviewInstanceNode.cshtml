@@ -1,0 +1,84 @@
+﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut
+@using sReportsV2.DTOs.DigitalGuideline.DTO;
+@using sReportsV2.Common.Constants;
+@model GuidelineElementDataDataOut
+
+<div class="single-node-preview" style="padding-top: unset">
+    <div class="title">
+        @Model.Title
+    </div>
+    <div class="node-preview-section">
+        <div>
+            <div class="section-title">Thesarus data</div>
+            <div class="section-items">
+                <div class="section-items-row">
+                    <div class="section-items-cell key-cell">Preferred term</div>
+                    <div class="section-items-cell no-left-border key-cell">O4MtId</div>
+                </div>
+                <div class="section-items-row">
+                    <div class="section-items-cell no-top-border">
+                        @if (Model.Thesaurus != null)
+                        {
+                            @(Model.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage))
+                        }
+                        else
+                        {
+                            <div>Not defined</div>
+                        }
+                    </div>
+                    <div class="section-items-cell no-left-border no-top-border">
+                        @if (Model.Thesaurus != null)
+                        {
+                            @(Model.Thesaurus.Id)
+                            if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+                            {
+                                <div class="thesaurus-link">
+                                    <img title="Thesaurus" class="mr-1 thesaurus" src="~/Content/img/icons/thesaurus_green.svg" onclick="goToThesaurus('@Model.Thesaurus.Id')">
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div>Not defined</div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <form>
+                <input type="hidden" id="nodeGuidelineInstanceId" value="@ViewBag.NodeGuidelineInstanceId">
+                <input type="hidden" id="nodeGuidelineId" value="@ViewBag.NodeGuidelineId">
+                <input type="hidden" id="nodeThesaurusId" value="@(Model.Thesaurus != null ? Model.Thesaurus.Id.ToString() : "")">
+            </form>
+
+            <div class="value-title">Value</div>
+            <div class="position-relative">
+                <input type="text" class="filter-input" id="valueId" value="@(Model.Value != null ? Model.Value : "")">
+                <div class="dropdown show float-right dropleft pull-value-btn">
+                    <a class="dropdown-button" href="#" role="button" id="dropdownMenuLinkGroup" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div id="btns" class="btn btn-filter-primary btns"><img src="~/Content/img/icons/dropdown.svg" /></div>
+                    </a>
+                    <div class="dropdown-menu-customize dropdown-menu" aria-labelledby="dropdownMenuLinkGroup">
+                        <a class="dropdown-item" href="#" onclick="addValueFromDocument(event)">Pull value from document</a>
+                        @*<a class="dropdown-item" href="#" onclick="">Calculate value from inputs</a>*@
+                    </div>
+                </div>
+            </div>
+            <button class="eoc-main-content administrative-content digital-guideline-button completed-button" id="nodeValue" type="button" onclick="markAsCompleted('@Model.Id')">
+                <span class="administrative-title padding-right-6">Mark as completed</span>
+            </button>
+        </div>
+    </div>
+
+    @if (Model.EvidenceProperties != null && Model.EvidenceProperties.Publications != null && Model.EvidenceProperties.Publications.Count > 0)
+    {
+        @Html.Partial("~/Views/DigitalGuideline/EvidencePropertiesPublications.cshtml", Model)
+    }
+    @if (Model.EvidenceProperties != null && Model.EvidenceProperties.EvidenceCategory != null)
+    {
+        @Html.Partial("~/Views/DigitalGuideline/EvidencePropertiesCategory.cshtml", Model)
+    }
+</div>

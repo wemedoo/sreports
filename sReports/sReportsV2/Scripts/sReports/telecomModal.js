@@ -79,7 +79,7 @@ function GetTelecoms(container) {
         let telecomUse = $(element).find('[data-property="use"]')[0];
 
 
-        if ($(telecomSystem).data('value') && $(telecomValue).data('value') && $(telecomUse).data('value')) {
+        if ($(telecomValue).data('value')) {
             result.push({
                 Id: $(element).data("value"),
                 System: $(telecomSystem).data('value'),

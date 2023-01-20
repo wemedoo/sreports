@@ -19,10 +19,12 @@ namespace sReportsV2.SqlDomain.Implementations
             codesTable.Columns.Add(new DataColumn("Version", typeof(string)));
             codesTable.Columns.Add(new DataColumn("Code", typeof(string)));
             codesTable.Columns.Add(new DataColumn("Value", typeof(string)));
+            codesTable.Columns.Add(new DataColumn("Link", typeof(string)));
             codesTable.Columns.Add(new DataColumn("VersionPublishDate", typeof(DateTime)));
             codesTable.Columns.Add(new DataColumn("ThesaurusEntryId", typeof(int)));
             codesTable.Columns.Add(new DataColumn("CodeSystemId", typeof(int)));
-
+            codesTable.Columns.Add(new DataColumn("IsDeleted", typeof(bool)));
+            codesTable.Columns.Add(new DataColumn("EntryDateTime", typeof(DateTime)));
 
             int i = 0;
             foreach (var thesaurus in thesauruses)
@@ -33,10 +35,12 @@ namespace sReportsV2.SqlDomain.Implementations
                     codeRow["Version"] = code.Version;
                     codeRow["Code"] = code.Code;
                     codeRow["Value"] = code.Value;
+                    codeRow["Link"] = code.Link;
                     codeRow["VersionPublishDate"] = code.VersionPublishDate;
                     codeRow["ThesaurusEntryId"] = bulkedThesauruses[i];
                     codeRow["CodeSystemId"] = code.CodeSystemId;
-
+                    codeRow["EntryDateTime"] = code.EntryDateTime;
+                    codeRow["IsDeleted"] = false;
                     codesTable.Rows.Add(codeRow);
                 }
 
@@ -55,6 +59,9 @@ namespace sReportsV2.SqlDomain.Implementations
             objbulk.ColumnMappings.Add("VersionPublishDate", "VersionPublishDate");
             objbulk.ColumnMappings.Add("ThesaurusEntryId", "ThesaurusEntryId");
             objbulk.ColumnMappings.Add("CodeSystemId", "CodeSystemId");
+            objbulk.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            objbulk.ColumnMappings.Add("EntryDateTime", "EntryDateTime");
+            objbulk.ColumnMappings.Add("Link", "Link");
 
             con.Open();
             objbulk.WriteToServer(codesTable);

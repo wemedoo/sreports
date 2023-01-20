@@ -1,0 +1,34 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Field.DataOut.Custom;
+
+@model CustomFieldButtonDataOut
+
+@{
+    bool isChapterReadonly = ViewBag.Chapter;
+    int fieldSetCounter = ViewBag.FieldSetCounter;
+    string fieldSetId = ViewBag.FieldSetId;
+}
+
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element form-input position-relative">
+    <div class="repetitive-values d-inline-block form-input-size">
+        @AddField(isChapterReadonly, fieldSetId, fieldSetCounter)
+    </div>
+</fieldset>
+
+@helper AddField(bool isChapterReadonly, string fieldSetId, int fieldSetCounter)
+{
+    <div class="field-group">
+        <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
+            Call to action:
+        </div>
+        <div class="repetitive-field filter-input d-inline-block">
+            @AddInput(isChapterReadonly, fieldSetId, fieldSetCounter, 0, "", false)
+        </div>
+        @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+    </div>
+}
+
+@helper AddInput(bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive)
+{
+    <button name="@fieldSetId-@fieldSetCounter-@Model.Id-@repetitiveCounter" id="@Model.Id" type="button" class="btn custom-button btn-filter-primary" @Html.Disabled(Model.IsDisabled)>@Model.Label</button>
+}

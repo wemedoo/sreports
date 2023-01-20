@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace sReportsV2.DTOs.Common.DTO
 {
@@ -9,14 +6,14 @@ namespace sReportsV2.DTOs.Common.DTO
     {
         public string Relationship { get; set; }
         public NameDTO Name { get; set; }
-        public AddressDTO Address { get; set; }
+        public AddressDataIn Address { get; set; }
         public string Gender { get; set; }
         public List<TelecomDTO> Telecoms { get; set; }
 
         public ContactDTO()
         {
         }
-        public ContactDTO(string relationship, NameDTO name, AddressDTO address, string gender, List<TelecomDTO> telecoms)
+        public ContactDTO(string relationship, NameDTO name, AddressDataIn address, string gender, List<TelecomDTO> telecoms)
         {
             this.Relationship = relationship;
             this.Name = name;

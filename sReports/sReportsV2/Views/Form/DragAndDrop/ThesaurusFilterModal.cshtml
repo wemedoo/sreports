@@ -8,9 +8,9 @@
 <div class="thesarus-container">
     <div class="thesaurus-active-value-container">
         <div id="thesaurusLabelPlaceholder" class="active-value no-value @(Model != null && Model.ThesaurusId != 0 ? "hide" : "")">
-            Find thesaurus
+            @sReportsV2.Resources.TextLanguage.Find_thesaurus
         </div>
-        <input id="thesaurusId" type="text" readonly class="active-value @(Model != null && Model.ThesaurusId != 0 ? "" : "hide")" value="@Model.ThesaurusId" />
+        <input id="thesaurusId" type="text" readonly class="active-value @(Model != null && Model.ThesaurusId != 0 ? "" : "hide")" value="@Model.ThesaurusId" @ViewBag.Disabled/>
         <div class="thesaurus-button-dropdown">
 
         </div>
@@ -18,34 +18,38 @@
 
     <div class="thesaurus-full-info-container">
         <div class="current-thesaurus">
-            <div class="current-thesaurus-tag  selected @(Model.ThesaurusId != 0 ? "hide" : "")">Currently selected</div>
-            <div class="current-thesaurus-tag  no-selection @(Model.ThesaurusId != 0 ? "" : "hide")">Not selected any thesaurus</div>
+            <div class="current-thesaurus-tag selected @(Model.ThesaurusId != 0 ? "" : "hide")">@sReportsV2.Resources.TextLanguage.Currently_Selected</div>
+            <div class="current-thesaurus-tag no-selection @(Model.ThesaurusId != 0 ? "hide" : "")">@sReportsV2.Resources.TextLanguage.Not_selected_any_thesaurus</div>
+            <div class="remove-current-thesaurus-tag @(Model.ThesaurusId != 0 ? "" : "hide")" onclick="removeSelectedThesaurus()">@sReportsV2.Resources.TextLanguage.Remove_selected</div>
             <div id="activeThesaurusInfo">
             </div>
         </div>
-        <div class="search-container">
-            <div class="input-container">
-                <input class="form-control search-input" type="text" id="thesaurusSearchInput" />
-                <img id="applySearchButton" src="~/Content/img/icons/search_green.svg" />
-            </div>
-            <div class="d-flex">
-                <div class="thesaurus-table-container" id="tableContainer">
-                    <div class="single-table thesaurus-search-table">
-                        <table class="table table-striped table-sreports search-thesaurus-table">
-                            <thead>
-                                <tr>
-                                    <th>04.0MT ID</th>
-                                    <th>@sReportsV2.Resources.TextLanguage.Preferred_term</th>
-                                    <th>@sReportsV2.Resources.TextLanguage.Definition</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+        @if (!ViewBag.ReadOnly) 
+        { 
+            <div class="search-container">
+                <div class="input-container">
+                    <input class="form-control search-input" type="text" id="thesaurusSearchInput" @ViewBag.Disabled />
+                    <img id="applySearchButton" src="~/Content/img/icons/search_green.svg" />
                 </div>
-                <div class="review-container" id="reviewContainer"></div>
+                <div class="d-flex">
+                    <div class="thesaurus-table-container" id="tableContainer">
+                        <div class="single-table thesaurus-search-table">
+                            <table class="table table-striped table-sreports search-thesaurus-table">
+                                <thead>
+                                    <tr>
+                                        <th>04.0MT ID</th>
+                                        <th>@sReportsV2.Resources.TextLanguage.Preferred_term</th>
+                                        <th>@sReportsV2.Resources.TextLanguage.Definition</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="review-container" id="reviewContainer"></div>
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 

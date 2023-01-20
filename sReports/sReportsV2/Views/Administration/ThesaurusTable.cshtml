@@ -1,4 +1,8 @@
 ﻿@using sReportsV2.DTOs.ThesaurusEntry.DataOut;
+@using sReportsV2.Common.Constants;
+@{
+    var userCookieData = ViewBag.UserCookieData;
+}
 <div class="table-responsive">
     <table class="table table-striped table-border">
         <thead class="color-header">
@@ -18,8 +22,10 @@
                     <td class="truncate">@entry.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</td>
                     <td class="truncate">@entry.GetDefinitionByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</td>
                     <td class="table-more thesaurus-table-last">
-                        <span class="thesaurus-item thesaurus-item-underline" onclick="thesaurusMoreModal(event, '@entry.Id')">@sReportsV2.Resources.TextLanguage.More</span>
-
+                        @if (userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+                        {
+                            <span class="thesaurus-item thesaurus-item-underline" onclick="thesaurusMoreModal(event, '@entry.Id')">@sReportsV2.Resources.TextLanguage.More</span>
+                        }
                         <span class="thesaurus-item-underline" onclick="submitFormPredefined(event, '@ViewBag.PredefinedType', '@entry.Id')">@sReportsV2.Resources.TextLanguage.Submit</span>
                         <i class="angle-right fas fa-angle-right thesaurus-submit"></i>
                     </td>

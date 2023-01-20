@@ -23,8 +23,8 @@ function reloadTable() {
         success: function (data) {
             $("#tableContainer").html(data);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -135,7 +135,7 @@ $(document).on('click', '.see-all', function (e) {
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
     this.remove();
@@ -155,7 +155,7 @@ $(document).ready(function () {
                         response(data)
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        toastr.error(`${thrownError} `);
+                        handleResponseError(xhr, thrownError);
                     }
                 });
             },

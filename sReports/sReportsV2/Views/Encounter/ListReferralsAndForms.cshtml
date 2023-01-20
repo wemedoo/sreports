@@ -8,7 +8,7 @@
 <div class="content-container">
     <div class="referrals-container">
         <div class="title">
-            Select referrals for the new document
+            @sReportsV2.Resources.TextLanguage.SelectRefsForNewDoc
         </div>
         <div class="referrals-list">
             @foreach (sReportsV2.DTOs.FormInstance.DataOut.FormInstanceDataOut formInstanceDataOut in Model.FormInstances)
@@ -19,17 +19,17 @@
 
                         </div>
                         <div class="datetime">
-                            @formInstanceDataOut.EntryDatetime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string)
+                            @formInstanceDataOut.EntryDatetime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)
                         </div>
                     </div>
                     <div class="title">
                         @formInstanceDataOut.Title
                     </div>
                     <div class="select-button unselect">
-                        Unselect
+                        @sReportsV2.Resources.TextLanguage.Unselect
                     </div>
                     <div class="select-button">
-                        Select
+                        @sReportsV2.Resources.TextLanguage.Select
                     </div>
                 </div>
             }
@@ -39,7 +39,7 @@
     <div class="forms-container">
 
         <div class="title">
-            Search for documents
+            @sReportsV2.Resources.TextLanguage.SearchForDocs
         </div>
         <div class="input-container">
             <input class="filter-input" type="text" id="searchCondition" />
@@ -57,8 +57,10 @@
 
 <div class="button-container">
     <div class="cancel-button" onclick="closeCustomModal()">
-        Back
+        @sReportsV2.Resources.TextLanguage.Back
     </div>
 
-    <div class="submit-button" onclick="loadDynamicForm()">Continue</div>
+    <div class="submit-button" onclick="loadDynamicForm()">
+        @sReportsV2.Resources.TextLanguage.Continue
+    </div>
 </div>

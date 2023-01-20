@@ -1,13 +1,11 @@
-﻿using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
-using sReportsV2.DTOs.Common;
+﻿using sReportsV2.DTOs.Common;
 using sReportsV2.DTOs.Common.DTO;
+using sReportsV2.DTOs.CustomEnum.DataOut;
 using sReportsV2.DTOs.EpisodeOfCare;
 using sReportsV2.DTOs.Organization.DataOut;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace sReportsV2.DTOs.Patient
 {
@@ -28,16 +26,43 @@ namespace sReportsV2.DTOs.Patient
         public string Relationship { get; set; }
         public string Language { get; set; }
 
+        public int? CitizenshipId { get; set; }
+        public int? ReligionId { get; set; }
+        public DateTime? DeceasedDateTime { get; set; }
+        public bool? Deceased { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public List<TelecomDTO> ContactTelecoms { get; set; }
         public List<TelecomDTO> Telecoms { get; set; }
-        public AddressDTO Address { get; set; }
+        public List<AddressDTO> Addresses { get; set; }
         public AddressDTO ContactAddress { get; set; }
         public List<CommunicationDTO> Communications { get; set; }
         public DateTime? LastUpdate { get; set; }
+        public string CityNames
+        {
+            get
+            {
+                return string.Join(", ", Addresses.Select(a => a.City).Where(c => !string.IsNullOrEmpty(c)));
+            }
+        }
 
         public List<EpisodeOfCareDataOut> EpisodeOfCares { get; set; }
+
+        public EpisodeOfCareDataOut GetEpisodeOfCare(int id)
+        {
+            return EpisodeOfCares.FirstOrDefault(eoc => eoc.Id == id);
+        }
+
+        public void ReplaceEpisodeOfCare(int id, EpisodeOfCareDataOut eocReplacement)
+        {
+            EpisodeOfCareDataOut eocToReplace = GetEpisodeOfCare(id);
+            int eocIndex = EpisodeOfCares.IndexOf(eocToReplace);
+            if (eocIndex != -1)
+            {
+                EpisodeOfCares[eocIndex] = eocReplacement;
+            }
+        }
     }
 }

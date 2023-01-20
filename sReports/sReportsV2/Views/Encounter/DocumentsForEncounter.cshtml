@@ -1,10 +1,13 @@
 ﻿@using sReportsV2.DTOs.FormInstance.DataOut;
 @using sReportsV2.Common.Extensions;
+@using sReportsV2.Common.Constants;
 @model List<FormInstanceDataOut>
-
+@{
+    var userCookieData = ViewBag.UserCookieData;
+}
 <div class="documents">
     <div class="title">
-        Documents
+        @sReportsV2.Resources.TextLanguage.Documents
     </div>
     <div class="documents-container">
         @foreach (FormInstanceDataOut formInstanceDataOut in Model)
@@ -15,24 +18,26 @@
 
                     </div>
                     <div class="datetime">
-                        @formInstanceDataOut.EntryDatetime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string)
+                        @formInstanceDataOut.EntryDatetime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)
                     </div>
                 </div>
                 <div class="title">
                     @formInstanceDataOut.Title
                 </div>
                 <div class="select-button view">
-                    View
+                    @sReportsV2.Resources.TextLanguage.View
                 </div>
             </div>
         }
 
-        <div class="single-document-item add-new-document-item-button show-form-referrals-button">
-            <div class="icon">
+        @if (userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Patients)) {
+            <div class="single-document-item add-new-document-item-button show-form-referrals-button">
+                <div class="icon">
+                </div>
+                <div class="title">
+                    @sReportsV2.Resources.TextLanguage.BrowseDocsOrApps
+                </div>
             </div>
-            <div class="title">
-                Browse document or Apps
-            </div>
-        </div>
+        }
     </div>
 </div>

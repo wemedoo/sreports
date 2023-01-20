@@ -86,16 +86,16 @@ namespace sReportsV2.MapperProfiles
 
 
             CreateMap<EvidenceCategory, EvidenceCategoryDataOut>()
-            .ForMember(o => o.OxfordLevelOfEvidenceSystem, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.OxfordLevelOfEvidenceSystem)).Thesaurus))
-            .ForMember(o => o.StrengthOfRecommendation, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.StrengthOfRecommendation)).Thesaurus));
+            .ForMember(o => o.OxfordLevelOfEvidenceSystem, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.OxfordLevelOfEvidenceSystem)).Thesaurus))
+            .ForMember(o => o.StrengthOfRecommendation, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.StrengthOfRecommendation)).Thesaurus));
 
             CreateMap<NCCNEvidenceCategory, NCCNEvidenceCategoryDataOut>()
                 .ForMember(o => 
                 o.CategoryOfEvidenceAndConsensus, 
-                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.CategoryOfEvidenceAndConsensus)).Thesaurus))
+                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetNCCNCategoriesOfEvidenceAndConsensus().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.CategoryOfEvidenceAndConsensus)).Thesaurus))
                 .ForMember(o => 
                 o.CategoryOfPreference, 
-                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.CategoryOfPreference)).Thesaurus));
+                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetNCCNCategoriesOfPreference().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.CategoryOfPreference)).Thesaurus));
 
             
             CreateMap<Publication, PublicationDTO>().ReverseMap();
@@ -126,16 +126,16 @@ namespace sReportsV2.MapperProfiles
             CreateMap<EvidencePropertiesDataIn, EvidencePropertiesDataOut>();
 
             CreateMap<EvidenceCategoryDataIn, EvidenceCategoryDataOut>()
-            .ForMember(o => o.OxfordLevelOfEvidenceSystem, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.OxfordLevelOfEvidenceSystem.Id)).Thesaurus))
-            .ForMember(o => o.StrengthOfRecommendation, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.StrengthOfRecommendation.Id)).Thesaurus));
+            .ForMember(o => o.OxfordLevelOfEvidenceSystem, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.OxfordLevelOfEvidenceSystem.Id)).Thesaurus))
+            .ForMember(o => o.StrengthOfRecommendation, opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.StrengthOfRecommendation.Id)).Thesaurus));
 
             CreateMap<NCCNEvidenceCategoryDataIn, NCCNEvidenceCategoryDataOut>()
                 .ForMember(o =>
                 o.CategoryOfEvidenceAndConsensus,
-                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.CategoryOfEvidenceAndConsensus.Id)).Thesaurus))
+                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetOxfordLevelOfEvidenceSystem().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.CategoryOfEvidenceAndConsensus.Id)).Thesaurus))
                 .ForMember(o =>
                 o.CategoryOfPreference,
-                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.Equals(src.CategoryOfPreference.Id)).Thesaurus));
+                opt => opt.MapFrom(src => SingletonDataContainer.Instance.GetStrengthOfRecommendation().FirstOrDefault(x => x.Thesaurus.Id.ToString().Equals(src.CategoryOfPreference.Id)).Thesaurus));
 
 
         }

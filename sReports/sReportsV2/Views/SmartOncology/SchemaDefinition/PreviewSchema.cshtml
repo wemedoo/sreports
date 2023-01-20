@@ -1,0 +1,38 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+
+@model ChemotherapySchemaDataOut
+
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.Preview_Chemotherapy_Schema;
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Chemotherapy_Schema }, { "linkLevel1", "/SmartOncology/BrowseSchemas" }, { "level2", Model != null ? Model.Name : @sReportsV2.Resources.TextLanguage.Preview_Chemotherapy_Schema }, { "activeLevel", 2 } })
+
+@section Stylesheet {
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/open-oncology/scss/schema_style.css")
+}
+
+<div class="schema-definition-wrapper">
+    <div class="chemotherapy-schema-content">
+        <div class="chemotherapy-schema-header">
+            <h1 class="title">
+                @sReportsV2.Resources.TextLanguage.Preview_Chemotherapy_Schema
+            </h1>
+            <button class="btn-primary-schema btn-icon font-size-14 float-right" onclick="newEntity()">
+                <span class="icon white-background">
+                    <img src="~/Content/open-oncology/images/icons/plus.svg" alt="Add icon">
+                </span>
+                @sReportsV2.Resources.TextLanguage.Add_New_Chemotherapy_Schema
+            </button>
+        </div>
+        <section class="chemotherapy-schema" data-id="@(Model != null ? Model.Id : 0)">
+            <div class="row">
+                @Html.Partial("SchemaDefinition/EditPreviewBasicProperties", Model, new ViewDataDictionary { { "Preview", true }, { "DateFormat", ViewBag.DateFormat } })
+                @Html.Partial("SchemaDefinition/PreviewSchemaMedications", Model)
+                @Html.Partial("SchemaDefinition/PreviewSchemaApprovedBy", Model)
+            </div>
+        </section>
+    </div>
+</div>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaDefinitionPreview.js")

@@ -16,7 +16,7 @@
         <div class="csvUpload input.upload margin-down">
             <input id="uploadFile2" class="f-input" placeholder="No Content" />
             <button type="button" class="fileUpload btn upload-button" style="width: 10%; background-color:#1c94a3"><span style="color:white">Choose file</span></button>
-            <input id="file2" name="file2" type="file" class="upload upload-input"/>
+            <input id="file2" name="file2" type="file" class="upload upload-input" />
         </div>
     </div>
     <div>
@@ -25,4 +25,4 @@
 </div>
 
 
-<script src="~/Scripts/sReports/export_csv.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/export_csv.js")

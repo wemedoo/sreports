@@ -1,0 +1,63 @@
+﻿<form id="advancedFilterForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="advancedFilterModal" tabindex="-1" role="dialog" aria-labelledby="advancedFilterModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-advanced">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-advanced" id="advancedFilterModalContent">
+                    <div class="d-flex advanced-filter-header">
+                        <img class="mr-3" src="~/Content/img/icons/advanced_filter.svg">  @sReportsV2.Resources.TextLanguage.Advanced_filter
+                    </div>
+                    <div class="d-flex margin-top-10">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Indication
+                            </div>
+                            <input type="text" class="filter-input" id="indication" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Indication : "")">
+                        </div>
+
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Stage
+                            </div>
+                            <select class="filter-input arrow-select" id="stage">
+                                <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex margin-top-10">
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Clinical_constellation
+                            </div>
+                            <input type="text" class="filter-input " id="clinicalConstelation" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.ClinicalConstelation : "")" />
+                        </div>
+                        <div class="advanced-filter-item filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Name
+                            </div>
+                            <input type="text" class="filter-input" id="name" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Name : "")">
+                        </div>
+                    </div>
+
+                    <div class="advanced-filter-line"></div>
+
+                    <div class="d-flex mt-3 position-relative margin-top-20">
+                        <div class="button-wrapper-filter filter-button float-right" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="advanceFilter()"> @sReportsV2.Resources.TextLanguage.Filter</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

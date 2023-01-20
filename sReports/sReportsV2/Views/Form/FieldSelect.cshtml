@@ -1,43 +1,37 @@
 ﻿@using sReportsV2.DTOs.Form.DataOut;
-@using sReportsV2.Common.Extensions;
+@using System.Web.Mvc.Html;
 @using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
 @model FieldSelectDataOut
 @{
-    string hasValue = Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) ? "-hasvalue" : "";
+    string hasValue = Model.HasValue() && !string.IsNullOrEmpty(Model.Value[0]) ? "-hasvalue" : "";
     bool isChapterReadonly = ViewBag.Chapter;
     int fieldSetCounter = ViewBag.FieldSetCounter;
     string fieldSetId = ViewBag.FieldSetId;
+    string value = Model.GetSelectedValue();
 }
-    <fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-select field-set-content" @Html.Raw(Model.Visibility)>
-        @*<label class="form-element-label" for="sel-@Model.Id">
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-select field-set-content" @Html.Raw(Model.Visibility) @Html.Raw(Model.IsRequiredDataAttr)>
+    <div class="field-group">
+        <div for="sel-@Model.Id" class="filter-label form-label-size d-inline-block">
             @Html.Raw(Model.FullLabel)
-            @if (Model.Help != null)
-            {
-                <a class="help-button" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">(<span>@(Model.Help.Title)</span>)</a>
-            }
-        </label>*@
-        <div class="field-group">
-            <div for="sel-@Model.Id" class="filter-label form-label-size d-inline-block">
-                <span class="comment-target-item" id="@Model.Id" >@Html.Raw(Model.FullLabel)</span>
-            </div>
-            <div class="repetitive-field filter-input d-inline-block arrow-select">
-                @AddSelect(fieldSetCounter, fieldSetId, hasValue, Model.IsReadonly || isChapterReadonly)
-            </div>
-            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
         </div>
-        <div class="form-element-description field-desc" style="display:none">
-            @Html.Raw(Model.Description)
+        <div class="repetitive-field filter-input d-inline-block arrow-select">
+            @AddSelect(fieldSetCounter, fieldSetId, hasValue, Model.IsReadonly || isChapterReadonly || value.IsSpecialValue())
         </div>
-    </fieldset>
+        @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model, new System.Web.Mvc.ViewDataDictionary(ViewData) { { "repetitiveValue", value } })
+    </div>
+    @Html.Partial("~/Views/Form/FormFieldDescription.cshtml", Model)
+</fieldset>
 
-    <script>
+<script>
     $(document).ready(function () {
         fieldSetIdentificator = @fieldSetCounter;
         @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
         {
             <text>
-        if ($(`select[name="@fieldSetId-${fieldSetIdentificator}-@Model.Id-1"]`).val() === '@ffd.Condition') {
-                @ShowDependables(ffd, fieldSetId);
+            if ($(`select[name="@fieldSetId-${fieldSetIdentificator}-@Model.Id-1"]`).val() === '@ffd.Condition') {
+                @ShowDependables(ffd, fieldSetId)
                 $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
             }
             </text>
@@ -45,17 +39,18 @@
     })
     $(document).on("change", 'select[name^="@fieldSetId-"][name*="@Model.Id"]', function () {
         fieldSetIdentificator = $(this).attr("name").split('-')[1];
-        @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
-        {
-            @HideDependables(ffd, fieldSetId);
-            @: $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
-        }
+
         @foreach (FormFieldDependableDataOut ffd in @Model.Dependables)
         {
             <text>
             if ($(this).val() === '@ffd.Condition') {
-                @ShowDependables(ffd, fieldSetId);
+                @ShowDependables(ffd, fieldSetId)
                 $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+                @SetDependentFieldToDefaultCall(fieldSetId, ffd.ActionParams, showDependables: true)
+            } else {
+                @HideDependables(ffd, fieldSetId)
+                $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).hide();
+                @SetDependentFieldToDefaultCall(fieldSetId, ffd.ActionParams)
             }
             </text>
         }
@@ -70,10 +65,11 @@
         {
             <text>
             if ($(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).is(':checked')) {
-                $(`#@fieldSetId-${fieldSetIdentificator}-@ffd.ActionParams-1`).show();
+                $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).show();
+                @SetDependentFieldToDefaultCall(fieldSetId, ffddo.ActionParams, showDependables: true)
             }
             </text>
-            @ShowDependables(ffddo, fieldSetId);
+            @ShowDependables(ffddo, fieldSetId)
         }
     }
 }
@@ -86,65 +82,54 @@
         if (ffd.Dependables != null && ffd.Dependables.Count() > 0)
         {
             <text>
-                $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).hide();
-                $(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).prop('checked', false);
+            $(`#@fieldSetId-${fieldSetIdentificator}-@ffddo.ActionParams-1`).hide();
+            $(`#@ffd.ActionParams-${fieldSetIdentificator}-@ffddo.Condition.ReplaceNonAlphaCharactersWithDash().RemoveDiacritics()`).prop('checked', false);
+            @SetDependentFieldToDefaultCall(fieldSetId, ffddo.ActionParams)
             </text>
-            @HideDependables(ffddo, fieldSetId);
+            @HideDependables(ffddo, fieldSetId)
         }
     }
 }
 
-        @*@helper AddButtons()
-{
-    <div class="btns-group d-inline-block">
-        @if (string.IsNullOrWhiteSpace(Model.Description))
-        {
-            <img title="Definition" class="mr-1 definition" src="~/Content/img/icons/info_grey.svg">
-
-        }
-        else
-        {
-            <img title="Definition" class="mr-1 definition" src="~/Content/img/icons/info_green.svg" onclick="showHideDescription(event)">
-
-        }
-        <img title="Thesaurus" class="mr-1 thesaurus" src=@(Model.ThesaurusId != null ?"../Content/img/icons/thesaurus_green.svg": "../Content/img/icons/thesaurus_grey.svg") onclick="goToThesaurus('@Model.ThesaurusId')">
-        @if (Model.Help != null)
-        {
-            <img title="Info" class="mr-1 info" src="~/Content/img/icons/definition_green.svg" onclick="showHelpModal(@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Help, Newtonsoft.Json.Formatting.Indented))">
-        }
-        else
-        {
-            <img title="Info" class="mr-1 info" src="~/Content/img/icons/definition_grey.svg">
-
-        }
-
-        <img title="Remove" class="mr-1 remove remove-repetitive" src="~/Content/img/icons/delete.svg" style="display:@(Model.Value != null && Model.Value.Count() > 1 ? "inherit" : "none")">
-    </div>
-}*@
 @helper AddSelect(int fieldSetCounter, string fieldSetId, string hasValue,bool isDisabled)
 {
+    bool fieldHasValue = Model.HasValue();
     <select
             id="sel-@fieldSetCounter-@Model.Id"
             name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
-    class="form-element-field  @hasValue"
-    value="@(Model.Value != null && Model.Value.Count() > 0 ? Model.Value[0] : string.Empty)"
-    @(isDisabled ? "disabled" : string.Empty)>
-           <option value="" class="form-select-placeholder" @(Model.Value != null && Model.Value.Count > 0 && string.IsNullOrEmpty(Model.Value[0]) ? "disabled selected" : string.Empty)></option>
+            class="form-element-field  @hasValue"
+            value="@(fieldHasValue ? Model.GetValue() : string.Empty)"
+           @Html.Disabled(isDisabled)
+           @Html.Raw(Model.ValidationAttr)
+    >
+           <option value="" class="form-select-placeholder" @(fieldHasValue && string.IsNullOrEmpty(Model.Value[0]) ? "disabled selected" : string.Empty) data-itemtype="fieldvalue"></option>
            @foreach (FormFieldValueDataOut ffv in Model.Values)
            {
                 <option
                  value="@ffv.Value"
                   title="@ffv.Label"
-                @(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) && Model.Value[0].Contains(ffv.Value) ? "selected" : string.Empty)
-                data-numericvalue="@ffv.NumericValue"
+                @(fieldHasValue && !string.IsNullOrEmpty(Model.Value[0]) && Model.Value[0].Contains(ffv.Value) ? "selected" : string.Empty)
+                @ffv.GetDataAttr()
+                data-valuetype="option"
+                data-itemtype="fieldvalue"
             >@ffv.GetShortValue()</option>
            }
     </select>
 
     if (isDisabled)
     {
-        <input type="hidden" id="sel-@Model.Id" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element-field @hasValue" value="@(Model.Value != null && Model.Value.Count() > 0 ? Model.Value[0] : string.Empty)">
+        <input type="hidden" id="sel-@Model.Id" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element-field @hasValue" value="@(fieldHasValue ? Model.GetValue() : string.Empty)">
     }
 }
-    </script>
+</script>
 
+@*
+    ---------------------------------------------------------------------------------------------------
+                                        Temporarily - Hotfix
+    ---------------------------------------------------------------------------------------------------
+*@
+
+@helper SetDependentFieldToDefaultCall(string fieldSetId, string fieldId, bool showDependables = false)
+{
+    @: setDependentInputFieldToDefault($(`#@fieldSetId-${fieldSetIdentificator}-@fieldId-1`), @showDependables.ToString().ToLower());
+}

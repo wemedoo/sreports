@@ -1,6 +1,8 @@
 ﻿using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,10 @@ namespace sReportsV2.Domain.Sql.Entities.ThesaurusEntry
 {
     public class Version
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("VersionId")]
+        public int VersionId { get; set; }
         public VersionType Type { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? RevokedOn { get; set; }

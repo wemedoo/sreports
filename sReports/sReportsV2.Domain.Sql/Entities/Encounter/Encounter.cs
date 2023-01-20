@@ -1,6 +1,8 @@
 ﻿using sReportsV2.Domain.Sql.Entities.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,10 @@ namespace sReportsV2.Domain.Sql.Entities.Encounter
 {
     public class Encounter : EntitiesBase.Entity
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("EncounterId")]
+        public int EncounterId { get; set; }
         public int EpisodeOfCareId { get; set; }
         public int Status { get; set; }
         public int Class { get; set; }

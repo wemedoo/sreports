@@ -14,6 +14,8 @@ using sReportsV2.Domain.Sql.Entities.EpisodeOfCare;
 using sReportsV2.Domain.Sql.Entities.Patient;
 using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
 using sReportsV2.Domain.Sql.Entities.User;
+using sReportsV2.DTOs.CustomEnum.DataOut;
+using sReportsV2.DTOs.Form.DataOut;
 using sReportsV2.DTOs.User.DTO;
 using sReportsV2.SqlDomain.Interfaces;
 using System;
@@ -66,6 +68,22 @@ namespace sReportsV2.BusinessLayer.Implementations
             return pdfGenerator.Generate();
         }
 
+        public byte[] GenerateSynoptic(FormDataOut data, UserCookieData userCookieData, Dictionary<string, string> translatedFields, string signingUserCompleteName)
+        {
+            SynopticPdfGenerator pdfGenerator = new SynopticPdfGenerator(data, basePath, signingUserCompleteName)
+            {
+                Organization = organizationDAL.GetById(userCookieData.ActiveOrganization),
+                User = new User()
+                {
+                    FirstName = userCookieData?.FirstName ?? string.Empty,
+                    LastName = userCookieData?.LastName ?? string.Empty,
+                },
+                Translations = translatedFields
+            };
+
+            return pdfGenerator.GenerateSynoptic();
+        }
+
         public void Upload(HttpPostedFileBase file, UserCookieData userCookieData)
         {
             Ensure.IsNotNull(file, nameof(file));
@@ -79,7 +97,7 @@ namespace sReportsV2.BusinessLayer.Implementations
                     Form form = formDAL.GetForm(formId);
                     Ensure.IsNotNull(form, nameof(form));
 
-                    PdfFormParser parser = new PdfFormParser(form, pdfDocument, customEnumDAL.GetAll().Where(x => x.Type == CustomEnumType.PatientIdentifierType).ToList());
+                    PdfFormParser parser = new PdfFormParser(form, pdfDocument, customEnumDAL.GetAll().Where(x => x.Type == CustomEnumType.PatientIdentifierType).ToList(), Mapper.Map<List<CustomEnumDataOut>>(customEnumDAL.GetAll().Where(x => x.Type == CustomEnumType.Country)));
                     Form parsedForm = parser.ReadFieldsFromPdf();
                     FormInstance parsedFormInstance = new FormInstance(parsedForm);
                     parsedFormInstance.Fields = parser.Fields;
@@ -98,6 +116,7 @@ namespace sReportsV2.BusinessLayer.Implementations
         {
             if (!form.DisablePatientData)
             {
+                patient.OrganizationId = form.OrganizationId;
                 int patientId = InsertPatient(patient);
 
                 int episodeOfCareId = InsertEpisodeOfCare(patientId, form.EpisodeOfCare, "Pdf", parsedFormInstance.Date.Value, user);
@@ -116,7 +135,7 @@ namespace sReportsV2.BusinessLayer.Implementations
             formInstance.Language = userCookieData.ActiveLanguage;
             formInstance.OrganizationId = userCookieData.ActiveOrganization;
 
-            return formInstanceDAL.InsertOrUpdate(formInstance);
+            return formInstanceDAL.InsertOrUpdate(formInstance, formInstance.GetCurrentFormInstanceStatus(userCookieData?.Id));
         }
 
         private int InsertPatient(Patient patient)
@@ -125,7 +144,7 @@ namespace sReportsV2.BusinessLayer.Implementations
             if (patient != null)
             {
                 patientId = patient != null && patient.Identifiers != null && patient.Identifiers.Count > 0 ?
-                    patientDAL.GetByIdentifier(patient.Identifiers[0]).Id
+                    patientDAL.GetByIdentifier(patient.Identifiers[0]).PatientId
                     :
                     0;
 
@@ -183,7 +202,7 @@ namespace sReportsV2.BusinessLayer.Implementations
                 ServiceType = 11087
             };
 
-            return encounterDAL.Insert(encounterEntity);
+            return encounterDAL.InsertOrUpdate(encounterEntity);
         }
     }
 }

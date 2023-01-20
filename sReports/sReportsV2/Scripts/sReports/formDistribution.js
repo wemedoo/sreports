@@ -15,8 +15,8 @@ var formValidator;
             success: function (data) {
                 toastr.success('Success');
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
         return false;
@@ -40,8 +40,8 @@ function submitDistributionConfigForm() {
             success: function (data) {
                 toastr.success('Success');
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error(`Error: ${errorThrown}`);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         });
         return false;
@@ -219,64 +219,106 @@ function addRelation(event, id) {
     //$('#relationModal').modal('hide');
 }
 
-$(document).on('change', '#relation-item', function (e) {
-    var selected = $(this).find('option:selected');
-    var type = selected.data('type');
-    if (type == 'number') {
-        $('.boundaries-container').show();
+function resetlAllRelations(event, id) {
+    event.preventDefault();
+    let formFieldDistributionId = id;
+    let formDistributionId = $('#formDistributionId').val();
 
+    $.ajax({
+        type: "GET",
+        url: `/FormDistribution/ResetAllRelationsForField?formFieldDistributionId=${formFieldDistributionId}&formDistributionId=${formDistributionId}`,
+        success: function (data) {
+            toastr.success('Related fields are deleted!');
+            $('#parameters-container').html(data);
+            $('.simulator-submit-btn-container').show();
+            dependantElements[formFieldDistributionId] = [];
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+    });
+}
+
+function changeSelectedRelation(e) {
+    var data = e.params.data;
+    if (data.type == 'number') {
+        $('.boundaries-container').show();
     } else {
         $('.boundaries-container').hide();
     }
-});
+}
 
 function createRelatedField() {
-    var selected = $('#relation-item').find('option:selected');
-    var type = selected.data('type');
+    if (isRelationFieldSelected()) {
+        var selected = getSelectedRelationObject();
+        var type = selected.type;
 
-    let lowerBoundary = $('#lowerBoundary').val();
-    let upperBoundary = $('#upperBoundary').val();
-    if (!dependantElements[$('#targetVariable').val()]) {
-        dependantElements[$('#targetVariable').val()] = [];
+        let lowerBoundary = $('#lowerBoundary').val();
+        let upperBoundary = $('#upperBoundary').val();
+        if (!dependantElements[$('#targetVariable').val()]) {
+            dependantElements[$('#targetVariable').val()] = [];
+        }
+        let dependent = dependantElements[$('#targetVariable').val()];
+
+        let relatedVariable = {
+            Id: selected.id,
+            Label: selected.text
+        };
+
+        if (type == 'number') {
+            if (lowerBoundary) {
+                relatedVariable['LowerBoundary'] = lowerBoundary;
+            }
+            if (upperBoundary) {
+                relatedVariable['UpperBoundary'] = upperBoundary;
+            }
+
+        }
+        dependent.push(relatedVariable);
+
+        let postData = {
+            TargetVariable: $('#targetVariable').val(),
+            ThesaurusId: $('#thesaurusId').val(),
+            RelatedVariables: dependent,
+            VersionId: $('#versionId').val(),
+            FormDistributionId: $('#formDistributionId').val(),
+        };
+
+        $.ajax({
+            method: 'POST',
+            data: postData,
+            url: '/FormDistribution/RenderInputsForDependentVariable',
+            success: function (data) {
+                $('#parameters-container').html(data);
+                //$(`#field-distribution-${postData.TargetVariable}`).children('.row:first').show();
+                $('#relationModal').modal('hide');
+
+            },
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
+            }
+        });
     }
-    let dependent = dependantElements[$('#targetVariable').val()];
+    resetRelationModalValues();
+}
 
-    let relatedVariable = {
-        Id: $(selected).val(),
-        Label: $(selected).text()
-    };
+function isRelationFieldSelected() {
+    return getSelectedRelationObject().id;
+}
 
-    if (type == 'number') {
-        if (lowerBoundary) {
-            relatedVariable['LowerBoundary'] = lowerBoundary;
-        }
-        if (upperBoundary) {
-            relatedVariable['UpperBoundary'] = upperBoundary;
-        }
+function getSelectedRelationObject() {
+    return $('#relation-item').select2('data')[0];
+}
 
-    }
-    dependent.push(relatedVariable);
+$('#relationModal').on('hide.bs.modal', function (e) {
+    resetRelationModalValues();
+});
 
-    let postData = {
-        TargetVariable: $('#targetVariable').val(),
-        ThesaurusId: $('#thesaurusId').val(),
-        RelatedVariables: dependent
-    };
-
-    $.ajax({
-        method: 'POST',
-        data: postData,
-        url: '/FormDistribution/RenderInputsForDependentVariable',
-        success: function (data) {
-            $(`#field-distribution-${postData.TargetVariable}`).html(data);
-            $(`#field-distribution-${postData.TargetVariable}`).children('.row:first').show();
-            $('#relationModal').modal('hide');
-
-        },
-        error: function () {
-
-        }
-    });
+function resetRelationModalValues() {
+    $('#relation-item').val("").trigger("change");
+    $('.boundaries-container').hide();
+    $('#lowerBoundary').val('');
+    $('#upperBoundary').val('');
 }
 
 function remoevErrorClassFromInputs() {
@@ -297,22 +339,27 @@ function clearInputIfNotValid() {
     });
 }
 
-function hideAllDistributionFields() {
-    $('.distribution-field').each(function (index, element) {
-        $(element).hide();
-    });
-}
-
 function showFieldDistribution(event) {
     event.preventDefault();
     event.stopPropagation();
-    $('label.error').remove();
-
-    remoevErrorClassFromInputs();
-    clearInputIfNotValid();
-    hideAllDistributionFields();
 
     $(`#row-${$(event.currentTarget).attr('id')}`).show();
+    let parent = $(event.currentTarget).closest('.sim-child');
+    $('.sim-child').removeClass('active');
+    $(parent).addClass('active');
+
+    $.ajax({
+        url: `/FormDistribution/GetFieldParameters?formFieldDistributionId=${$(event.currentTarget).attr('id')}&formDistributionId=${$('#formDistributionId').val()}`,
+        method: 'get',
+        success: function (data) {
+            $('#parameters-container').html(data);
+            $('.simulator-submit-btn-container').show();
+        },
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
+        }
+
+    })
 }
 
 function goBack(event) {
@@ -364,10 +411,10 @@ $.validator.addMethod('equalToOne', function (val, el, options) {
 
     let result = 0;
     $(element).find('.form-element').each(function (ind, ele) {
-        result += parseFloat($(ele).find('input:first').val());
+        result += Number($(ele).find('input:first').val());
     });
 
-    if (result == 1) {
+    if (result.toFixed(4) == "1.0000") {
         valid = true;
     }
 

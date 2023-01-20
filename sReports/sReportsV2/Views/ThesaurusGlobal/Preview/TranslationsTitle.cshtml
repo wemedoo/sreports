@@ -25,10 +25,10 @@
             </div>
             <div class="preview-user-info">
                 <div class="pu-title">
-                    Verified by:
+                    Curated by:
                 </div>
                 <div class="pu-value">
-                    Peter Schuchmacher
+                    @(Model != null ? Model.GetUserWhoChangedThesaurus("Last") : "")
                 </div>
             </div>
         </div>

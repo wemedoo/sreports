@@ -82,8 +82,8 @@
     <Reference Include="AutoMapper, Version=6.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Azure.Core, Version=1.4.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Core.1.4.1\lib\netstandard2.0\Azure.Core.dll</HintPath>
+    <Reference Include="Azure.Core, Version=1.15.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.15.0\lib\net461\Azure.Core.dll</HintPath>
     </Reference>
     <Reference Include="Azure.Identity, Version=1.1.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.1.1\lib\netstandard2.0\Azure.Identity.dll</HintPath>
@@ -91,8 +91,8 @@
     <Reference Include="Azure.Security.KeyVault.Keys, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Security.KeyVault.Keys.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Keys.dll</HintPath>
     </Reference>
-    <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.0.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.0.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
+    <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.2.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.2.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
     </Reference>
     <Reference Include="Azure.Storage.Blobs, Version=12.6.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Storage.Blobs.12.6.0\lib\netstandard2.0\Azure.Storage.Blobs.dll</HintPath>
@@ -100,8 +100,8 @@
     <Reference Include="Azure.Storage.Common, Version=12.5.2.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Storage.Common.12.5.2\lib\netstandard2.0\Azure.Storage.Common.dll</HintPath>
     </Reference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\Portable.BouncyCastle.1.8.1.3\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.9\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
@@ -158,32 +158,32 @@
     <Reference Include="Hl7.FhirPath, Version=1.9.0.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <HintPath>..\packages\Hl7.FhirPath.1.9.0\lib\net45\Hl7.FhirPath.dll</HintPath>
     </Reference>
-    <Reference Include="itext.barcodes, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.barcodes.dll</HintPath>
+    <Reference Include="itext.barcodes, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.barcodes.dll</HintPath>
     </Reference>
-    <Reference Include="itext.forms, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.forms.dll</HintPath>
+    <Reference Include="itext.forms, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.forms.dll</HintPath>
     </Reference>
-    <Reference Include="itext.io, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.io.dll</HintPath>
+    <Reference Include="itext.io, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.io.dll</HintPath>
     </Reference>
-    <Reference Include="itext.kernel, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.kernel.dll</HintPath>
+    <Reference Include="itext.kernel, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.kernel.dll</HintPath>
     </Reference>
-    <Reference Include="itext.layout, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.layout.dll</HintPath>
+    <Reference Include="itext.layout, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.layout.dll</HintPath>
     </Reference>
-    <Reference Include="itext.pdfa, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.pdfa.dll</HintPath>
+    <Reference Include="itext.pdfa, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.pdfa.dll</HintPath>
     </Reference>
-    <Reference Include="itext.sign, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.sign.dll</HintPath>
+    <Reference Include="itext.sign, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.sign.dll</HintPath>
     </Reference>
-    <Reference Include="itext.styledxmlparser, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.styledxmlparser.dll</HintPath>
+    <Reference Include="itext.styledxmlparser, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.styledxmlparser.dll</HintPath>
     </Reference>
-    <Reference Include="itext.svg, Version=7.1.8.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itext7.7.1.8\lib\net40\itext.svg.dll</HintPath>
+    <Reference Include="itext.svg, Version=7.1.16.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itext7.7.1.16\lib\net45\itext.svg.dll</HintPath>
     </Reference>
     <Reference Include="JsonSubTypes, Version=1.8.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
       <HintPath>..\packages\JsonSubTypes.1.8.0\lib\net47\JsonSubTypes.dll</HintPath>
@@ -233,11 +233,11 @@
     <Reference Include="Microsoft.Build.Utilities.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Build.Utilities.Core.16.9.0\lib\netstandard2.0\Microsoft.Build.Utilities.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Azure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Azure.1.0.1\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Azure.dll</HintPath>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Azure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Azure.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Azure.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.1.0.1\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Graph, Version=3.25.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -246,8 +246,8 @@
     <Reference Include="Microsoft.Graph.Core, Version=1.24.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Graph.Core.1.24.0\lib\net45\Microsoft.Graph.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Client, Version=4.27.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Client.4.27.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Client, Version=4.33.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.33.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.0\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
@@ -266,6 +266,9 @@
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -337,6 +340,7 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -374,12 +378,15 @@
     <Reference Include="System.Collections.Immutable, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.5.0.0\lib\net461\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
@@ -394,6 +401,9 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -428,8 +438,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
@@ -485,12 +495,13 @@
     <Reference Include="System.Text.Encoding.CodePages, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encoding.CodePages.4.0.1\lib\net46\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.2\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
@@ -573,7 +584,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\CustomAttributes\SReportsAdministrationValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsAuditLogAttribute.cs" />
-    <Compile Include="Common\CustomAttributes\SReportsAutorizeAttribute.cs" />
+    <Compile Include="Common\CustomAttributes\SReportsAuthorizeAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsEncounterValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsEpisodeOfCareValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsFormValidateAttribute.cs" />
@@ -581,14 +592,16 @@
     <Compile Include="Common\CustomAttributes\SReportsPatientValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsThesaurusValidateAttribute.cs" />
     <Compile Include="Common\CustomAttributes\SReportsUserValidateAttribute.cs" />
+    <Compile Include="Common\Extensions\HtmlExtension.cs" />
+    <Compile Include="Common\Extensions\LocalizationExtension.cs" />
     <Compile Include="Common\Extensions\ObjectExtension.cs" />
-    <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Extensions\HttpSessionStateExtension.cs" />
     <Compile Include="Common\JsonModelBinder\JsonNetModelBinder.cs" />
     <Compile Include="Common\Localization\SpokenLang.cs" />
     <Compile Include="Common\MicrosoftAuthentificationHelper\GraphHelper.cs" />
     <Compile Include="Common\MicrosoftAuthentificationHelper\SameSiteCookieManager.cs" />
     <Compile Include="Common\Singleton\SingletonDataContainer.cs" />
+    <Compile Include="Configs\AutofacConfiguration.cs" />
     <Compile Include="Configs\AutoMapperWebConfiguration.cs" />
     <Compile Include="Configs\SerilogConfiguration.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
@@ -598,9 +611,11 @@
     <Compile Include="Controllers\CRFController.cs" />
     <Compile Include="Controllers\CSVExportController.cs" />
     <Compile Include="Controllers\CustomController.cs" />
+    <Compile Include="Controllers\CustomFieldFilterController.cs" />
     <Compile Include="Controllers\DiagnosticReportCommonController.cs" />
     <Compile Include="Controllers\DiagnosticReportController.cs" />
     <Compile Include="Controllers\DigitalGuidelineController.cs" />
+    <Compile Include="Controllers\DigitalGuidelineInstanceController.cs" />
     <Compile Include="Controllers\EncounterController.cs" />
     <Compile Include="Controllers\EpisodeOfCareController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -612,11 +627,13 @@
     <Compile Include="Controllers\FormInstanceCommonController.cs" />
     <Compile Include="Controllers\FormInstanceController.cs" />
     <Compile Include="Controllers\ImportDataController.cs" />
+    <Compile Include="Controllers\SmartOncologyController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatholinkController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
+    <Compile Include="Controllers\RoleAdministrationController.cs" />
     <Compile Include="Controllers\SimplifiedPageController.cs" />
     <Compile Include="Controllers\ThesaurusEntryController.cs" />
     <Compile Include="Controllers\ThesaurusGlobalController.cs" />
@@ -628,9 +645,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MapperProfiles\ChemotherapySchemaProfile.cs" />
     <Compile Include="MapperProfiles\CommentProfile.cs" />
     <Compile Include="MapperProfiles\CommonProfile.cs" />
     <Compile Include="MapperProfiles\CustomEnumProfile.cs" />
+    <Compile Include="MapperProfiles\DigitalGuidelineInstanceProfile.cs" />
     <Compile Include="MapperProfiles\DigitalGuidelineProfile.cs" />
     <Compile Include="MapperProfiles\DocumentPropertiesProfile.cs" />
     <Compile Include="MapperProfiles\EncounterProfile.cs" />
@@ -642,12 +661,16 @@
     <Compile Include="MapperProfiles\GlobalThesaurusUserProfile.cs" />
     <Compile Include="MapperProfiles\OrganizationProfile.cs" />
     <Compile Include="MapperProfiles\PatientProfile.cs" />
+    <Compile Include="MapperProfiles\RoleProfile.cs" />
+    <Compile Include="MapperProfiles\SmartOncologyPatientProfile.cs" />
     <Compile Include="MapperProfiles\ThesaurusEntrySqlProfile.cs" />
     <Compile Include="MapperProfiles\ThesaurusEntryProfile.cs" />
     <Compile Include="MapperProfiles\UmlsProfile.cs" />
     <Compile Include="MapperProfiles\UserProfile.cs" />
     <Compile Include="Models\MicrosoftAuthentification\Alert.cs" />
     <Compile Include="Models\MicrosoftAuthentification\CachedUser.cs" />
+    <Compile Include="Models\Omnia\OmniaFieldValue.cs" />
+    <Compile Include="Models\Omnia\PassDataToOmniaDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\TextLanguage.sr-Cyrl-RS.Designer.cs">
       <DependentUpon>TextLanguage.sr-Cyrl-RS.resx</DependentUpon>
@@ -676,8 +699,10 @@
   <ItemGroup>
     <Content Include="App_Data\AppResource\fieldSetBackground.jpg" />
     <Content Include="App_Data\AppResource\footerIcons.png" />
+    <Content Include="App_Data\AppResource\SynopticCover.svg" />
     <Content Include="App_Data\AppResource\icon1.jpg" />
     <Content Include="App_Data\AppResource\insel.png" />
+    <Content Include="App_Data\AppResource\footerLogo.png" />
     <Content Include="App_Data\domains.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -691,6 +716,30 @@
     </Content>
     <Content Include="App_Data\serviceTypes.csv" />
     <Content Include="App_Data\countries-50m.json" />
+    <Content Include="App_Data\Chemotherapy_Compendium.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\sReports Vocabulary and FHIR Resources.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\ThesaurusMetaData_SmartOncology.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Chem_Onc_Additional_Data.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Chem_Onc_Drug_Dosing_Times.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Chemotherapy Compendium Import - 25.11.2021.xlsx" />
+    <Content Include="App_Data\Chemotherapy Compendium Import - 26.11.2021.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Code\FieldHelper.cshtml" />
+    <Content Include="App_Data\AppResource\NunitoSans-Regular.ttf" />
+    <Content Include="App_Data\CountryCodes.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\digital-guideline.scss" />
     <Content Include="Content\digital-guideline.css">
       <DependentUpon>digital-guideline.scss</DependentUpon>
@@ -704,6 +753,7 @@
     <Content Include="Content\img\icons\3dots.svg" />
     <Content Include="Content\img\icons\add.svg" />
     <Content Include="Content\img\icons\adding_doc.svg" />
+    <Content Include="Content\img\icons\add_comment_1.svg" />
     <Content Include="Content\img\icons\add_new.svg" />
     <Content Include="Content\img\icons\add_relation.svg" />
     <Content Include="Content\img\icons\Administration_remove.svg" />
@@ -835,6 +885,8 @@
     <Content Include="Content\img\icons\minus_white.svg" />
     <Content Include="Content\img\icons\nianalitycs-logo.png" />
     <Content Include="Content\img\icons\notes_button.svg" />
+    <Content Include="Content\img\icons\noun-sorting-asc.svg" />
+    <Content Include="Content\img\icons\noun-sorting-desc.svg" />
     <Content Include="Content\img\icons\no_results.svg" />
     <Content Include="Content\img\icons\organization_black.svg" />
     <Content Include="Content\img\icons\organization_silver.svg" />
@@ -880,6 +932,10 @@
     <Content Include="Content\img\icons\signInMicrosoft.svg" />
     <Content Include="Content\img\icons\simulator_black.svg" />
     <Content Include="Content\img\icons\simulator_silver.svg" />
+    <Content Include="Content\img\icons\sort_arrow.svg" />
+    <Content Include="Content\img\icons\status_archive.svg" />
+    <Content Include="Content\img\icons\status_reject.svg" />
+    <Content Include="Content\img\icons\status_resloved.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\Abbreviations_remove.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\add.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\add_small.svg" />
@@ -894,29 +950,42 @@
     <Content Include="Content\img\icons\SwissOpenOncology\dots.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\dots_hover.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\edit.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\email.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\filter.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\goal.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\google.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\header_backround.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home\smart oncology home 1.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home\smart oncology home 2.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home\smart oncology home 3.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home\smart oncology home datasets.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home\smart oncology home documents.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home\smart oncology home thesauruses.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\home_header_background.jpg" />
     <Content Include="Content\img\icons\SwissOpenOncology\linkedin.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\location.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\logo\smart oncology logo color.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\logo\smart oncology logo combination.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\logo\smart oncology logo white.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\microsoft.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\number_1.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\number_2.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\number_3.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\phone.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\primary_language.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\search.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\search_icon.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\sec_language.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\status_arrow.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\submit_new_term.svg" />
-    <Content Include="Content\img\icons\SwissOpenOncology\swiss.svg" />
-    <Content Include="Content\img\icons\SwissOpenOncology\swissopen logo.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\logo\swiss.svg" />
+    <Content Include="Content\img\icons\SwissOpenOncology\logo\swissopen logo.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\synonyms_remove.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\translation.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\tree_black.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\tree_white.svg" />
     <Content Include="Content\img\icons\SwissOpenOncology\verified_by.svg" />
-    <Content Include="Content\img\icons\SwissOpenOncology\wemedooLogo.png" />
+    <Content Include="Content\img\icons\SwissOpenOncology\logo\wemedooLogo.png" />
     <Content Include="Content\img\icons\telecoms_black.svg" />
     <Content Include="Content\img\icons\telecoms_white.svg" />
     <Content Include="Content\img\icons\thesaurus_black.svg" />
@@ -933,7 +1002,6 @@
     <Content Include="Content\img\icons\warning.svg" />
     <Content Include="Content\img\icons\weMedoo-logo.png" />
     <Content Include="Content\img\icons\world_level.svg" />
-    <Content Include="Content\img\niAnalytics-logo.png" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
@@ -971,6 +1039,91 @@
     </Content>
     <Content Include="Content\nestable.min.css">
       <DependentUpon>nestable.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\css\owl.carousel.min.css" />
+    <Content Include="Content\open-oncology\css\style.css" />
+    <Content Include="Content\open-oncology\images\icons\add-block.svg" />
+    <Content Include="Content\open-oncology\images\icons\add-new.svg" />
+    <Content Include="Content\open-oncology\images\icons\basic_patient_data.svg" />
+    <Content Include="Content\open-oncology\images\icons\basic_patient_data_black.svg" />
+    <Content Include="Content\open-oncology\images\icons\basic_patient_data_img.svg" />
+    <Content Include="Content\open-oncology\images\icons\calendar.svg" />
+    <Content Include="Content\open-oncology\images\icons\che_onc_compendium.svg" />
+    <Content Include="Content\open-oncology\images\icons\che_onc_compendium_black.svg" />
+    <Content Include="Content\open-oncology\images\icons\coom-icon.svg" />
+    <Content Include="Content\open-oncology\images\icons\cycle.svg" />
+    <Content Include="Content\open-oncology\images\icons\dashboard.svg" />
+    <Content Include="Content\open-oncology\images\icons\doctor-img.jpg" />
+    <Content Include="Content\open-oncology\images\icons\edit-icon.svg" />
+    <Content Include="Content\open-oncology\images\icons\medications.svg" />
+    <Content Include="Content\open-oncology\images\icons\pdf-icon.svg" />
+    <Content Include="Content\open-oncology\images\icons\plus.svg" />
+    <Content Include="Content\open-oncology\images\icons\progress_note.svg" />
+    <Content Include="Content\open-oncology\images\icons\progress_note_black.svg" />
+    <Content Include="Content\open-oncology\images\icons\remove.svg" />
+    <Content Include="Content\open-oncology\images\icons\smart_oncology.svg" />
+    <Content Include="Content\open-oncology\images\icons\smart_oncology_black.svg" />
+    <Content Include="Content\open-oncology\images\icons\user.jpg" />
+    <Content Include="Content\open-oncology\images\wemedoo-logo-final-02.png" />
+    <Content Include="Content\open-oncology\scss\abstracts\_functions.css">
+      <DependentUpon>_functions.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\abstracts\_functions.min.css">
+      <DependentUpon>_functions.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\abstracts\_mixins.css">
+      <DependentUpon>_mixins.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\abstracts\_mixins.min.css">
+      <DependentUpon>_mixins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\abstracts\_variables.css">
+      <DependentUpon>_variables.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\abstracts\_variables.min.css">
+      <DependentUpon>_variables.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\base\_base.css">
+      <DependentUpon>_base.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\base\_base.min.css">
+      <DependentUpon>_base.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\base\_typography.css">
+      <DependentUpon>_typography.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\base\_typography.min.css">
+      <DependentUpon>_typography.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\base\_utilities.css">
+      <DependentUpon>_utilities.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\base\_utilities.min.css">
+      <DependentUpon>_utilities.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\layout\_header.css">
+      <DependentUpon>_header.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\layout\_header.min.css">
+      <DependentUpon>_header.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\layout\_main.css">
+      <DependentUpon>_main.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\layout\_main.min.css">
+      <DependentUpon>_main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\schema_style.css">
+      <DependentUpon>schema_style.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\schema_style.min.css">
+      <DependentUpon>schema_style.css</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\style.css">
+      <DependentUpon>style.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\open-oncology\scss\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\swissOpenOncology.css">
@@ -1022,10 +1175,17 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\toggle-switch-button.css">
+      <DependentUpon>toggle-switch-button.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\toggle-switch-button.min.css">
+      <DependentUpon>toggle-switch-button.css</DependentUpon>
+    </Content>
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
     <Content Include="favicon.ico" />
+    <Content Include="favicon2.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\additional-methods.min.js" />
@@ -1051,6 +1211,34 @@
     <None Include="Content\nestable.scss" />
     <Content Include="libman.json" />
     <Content Include="Content\swissOpenOncology.scss" />
+    <Content Include="Content\open-oncology\css\style.css.map" />
+    <Content Include="Content\open-oncology\scss\abstracts\_functions.scss" />
+    <Content Include="Content\open-oncology\scss\abstracts\_mixins.scss" />
+    <Content Include="Content\open-oncology\scss\abstracts\_variables.scss" />
+    <Content Include="Content\open-oncology\scss\base\_base.scss" />
+    <Content Include="Content\open-oncology\scss\base\_typography.scss" />
+    <Content Include="Content\open-oncology\scss\base\_utilities.scss" />
+    <Content Include="Content\open-oncology\scss\components\_buttons.scss" />
+    <Content Include="Content\open-oncology\scss\components\_table.scss" />
+    <Content Include="Content\open-oncology\scss\layout\_header.scss" />
+    <Content Include="Content\open-oncology\scss\layout\_main.scss" />
+    <Content Include="Content\open-oncology\scss\layout\_navbar.scss" />
+    <Content Include="Content\open-oncology\scss\style.scss" />
+    <Content Include="Content\open-oncology\scss\components\_history.scss" />
+    <Content Include="Content\open-oncology\scss\components\_basicPatientDataOncology.scss" />
+    <Content Include="Content\open-oncology\scss\layout\_modal.scss" />
+    <Content Include="Content\open-oncology\scss\abstracts\_schema_variables.scss" />
+    <Content Include="Content\open-oncology\scss\schema_style.scss" />
+    <Content Include="Content\open-oncology\scss\base\_schema_typography.scss" />
+    <Content Include="Content\open-oncology\scss\components\schema\_buttons.scss" />
+    <Content Include="Content\open-oncology\scss\components\schema\_checkbox.scss" />
+    <Content Include="Content\open-oncology\scss\components\schema\_header.scss" />
+    <Content Include="Content\open-oncology\scss\components\schema\_main.scss" />
+    <Content Include="Content\open-oncology\scss\components\schema\_modals.scss" />
+    <Content Include="Content\open-oncology\scss\components\schema\_preview.scss" />
+    <Content Include="Content\open-oncology\scss\abstracts\_common_variables.scss" />
+    <Content Include="Content\open-oncology\scss\layout\_medicationInstanceModal.scss" />
+    <Content Include="Content\toggle-switch-button.scss" />
     <None Include="packages.config" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -1489,7 +1677,25 @@
     <Content Include="Scripts\ckeditor\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\openOncology\chart-config.js" />
+    <Content Include="Scripts\openOncology\clinicalTrialAutocomplete.js" />
+    <Content Include="Scripts\openOncology\schemaInstanceMedication.js" />
+    <Content Include="Scripts\openOncology\smartOncologyPatient.js" />
+    <Content Include="Scripts\openOncology\progressNote.js" />
+    <Content Include="Scripts\openOncology\progressNoteDatepicker.js" />
+    <Content Include="Scripts\openOncology\progressNoteSelect2.js" />
+    <Content Include="Scripts\openOncology\schemaInstanceData.js" />
+    <Content Include="Scripts\openOncology\schemaDefinition.js" />
+    <Content Include="Scripts\openOncology\schemaDefinitionAll.js" />
+    <Content Include="Scripts\openOncology\schemaDefinitionPreview.js" />
+    <Content Include="Scripts\openOncology\schemaInstance.js" />
+    <Content Include="Scripts\openOncology\schemaDefinitionMedication.js" />
+    <Content Include="Scripts\openOncology\schemaDefinitionReference.js" />
+    <Content Include="Scripts\openOncology\smartOncologyPatientDiseasesHistory.js" />
+    <Content Include="Scripts\sReports\addressModal.js" />
     <Content Include="Scripts\sReports\common\clinicalDomainAutocomplete.js" />
+    <Content Include="Scripts\sReports\common\patientAutoComplete.js" />
+    <Content Include="Scripts\sReports\common\userAutoComplete.js" />
     <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.cjs.js" />
     <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.esm.js" />
     <Content Include="Scripts\sReports\Cytoscape\node_modules\cytoscape\dist\cytoscape.esm.min.js" />
@@ -1654,6 +1860,7 @@
     <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\index.js" />
     <Content Include="Scripts\sReports\Cytoscape\node_modules\heap\lib\heap.js" />
     <Content Include="Scripts\sReports\Cytoscape\node_modules\lodash.debounce\index.js" />
+    <Content Include="Scripts\sReports\date-helper.js" />
     <Content Include="Scripts\sReports\datetimepicker.js" />
     <Content Include="Scripts\sReports\designer\consensus.js" />
     <Content Include="Scripts\sReports\designer\consensusInstance.js" />
@@ -1681,12 +1888,15 @@
     <Content Include="Scripts\sReports\administration\administration.js" />
     <Content Include="Scripts\sReports\administration\administrationPredefinedTable.js" />
     <Content Include="Scripts\sReports\bootstrap-treeview.js" />
+    <Content Include="Scripts\sReports\designer\tagUserAutocomplete.js" />
     <Content Include="Scripts\sReports\designer\validation.js" />
+    <Content Include="Scripts\sReports\digitalGuidelineInstance\patient-digital-guideline.js" />
     <Content Include="Scripts\sReports\digitalGuideline\digital-guideline.js" />
     <Content Include="Scripts\sReports\digitalGuideline\digital-guideline.style.js" />
     <Content Include="Scripts\sReports\digitalGuideline\digitalGuidelineTable.js" />
     <Content Include="Scripts\sReports\digitalGuideline\json-editor.js" />
     <Content Include="Scripts\sReports\dynamicForm.js" />
+    <Content Include="Scripts\sReports\formInstanceCommon.js" />
     <Content Include="Scripts\sReports\export_csv.js" />
     <Content Include="Scripts\sReports\designer\formDefinitionTable.js" />
     <Content Include="Scripts\sReports\formDistribution.js" />
@@ -1776,8 +1986,9 @@
     <Content Include="Scripts\sReports\imageMapResize.js" />
     <Content Include="Scripts\sReports\jquery.line.js" />
     <Content Include="Scripts\sReports\organization\organization.js" />
+    <Content Include="Scripts\sReports\DataCaptureChart\chartDataCapture.js" />
+    <Content Include="Scripts\sReports\roleAdministration.js" />
     <Content Include="Scripts\sReports\schema-json.js" />
-    <Content Include="Scripts\sReports\thesaurusDetails.js" />
     <Content Include="Scripts\sReports\reviewTree.js" />
     <Content Include="Scripts\sReports\thesaurusTree.js" />
     <Content Include="Scripts\sReports\uploadModal.js" />
@@ -1803,6 +2014,7 @@
     <Content Include="Scripts\SwissOpenOncology\home.js" />
     <Content Include="Scripts\SwissOpenOncology\swissOpenOncology.js" />
     <Content Include="Scripts\SwissOpenOncology\thesaurusPreview.js" />
+    <Content Include="Scripts\SwissOpenOncology\userAdministration.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
@@ -2050,11 +2262,16 @@
     <Content Include="Views\DigitalGuideline\DigitalGuidelineTable.cshtml" />
     <Content Include="Views\DigitalGuideline\AdvancedFilterModal.cshtml" />
     <Content Include="Views\DigitalGuideline\GuidelineFilterGroup.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\ListDigitalGuidelines.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\GuidelineInstanceTable.cshtml" />
     <Content Include="Views\Form\DragAndDrop\DragAndDropFormPartial.cshtml" />
-    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableFieldRadio.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableRadioField.cshtml" />
     <Content Include="Views\Form\DragAndDrop\NestableFields\NestableCheckboxField.cshtml" />
     <Content Include="Views\Form\DragAndDrop\FormJson.cshtml" />
+    <Content Include="Views\DigitalGuideline\DigitalGuidelineGraph.cshtml" />
     <Content Include="Views\Form\DragAndDrop\FormTreeContainer.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\GuidelineInstance.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\DigitalGuidelineInstanceGraph.cshtml" />
     <Content Include="Views\Encounter\PatientTreeEncounterItems.cshtml" />
     <Content Include="Views\Form\DragAndDrop\FormTreeNestable.cshtml" />
     <Content Include="Views\Form\DragAndDrop\PredefinedFormElements.cshtml" />
@@ -2065,7 +2282,6 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\UserAdministration\UserClinicalResearchData.cshtml" />
     <Content Include="Views\UserAdministration\UserClinicalTrial.cshtml" />
-    <Content Include="Views\UserAdministration\UserIdAndLastUpdate.cshtml" />
     <Content Include="Views\UserAdministration\ClinicalTrialLists.cshtml" />
     <Content Include="Views\User\ChooseActiveOrganization.cshtml" />
     <Content Include="Views\Form\DragAndDrop\NestableFields\NestableTextField.cshtml" />
@@ -2082,22 +2298,22 @@
     <Content Include="Views\Form\DragAndDrop\FormAllComments.cshtml" />
     <Content Include="Views\Form\Comments\CommentStatusPartial.cshtml" />
     <Content Include="Views\Form\Consensus\ConsensusPartial.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusFormTree.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusDecision.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusCreateQuestion.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusQuestionPreview.cshtml" />
-    <Content Include="Views\Form\Consensus\CreateOrPreviewQuestion.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusUserFilter.cshtml" />
-    <Content Include="Views\Form\Consensus\MapFilterPartial.cshtml" />
-    <Content Include="Views\Form\Consensus\OrganizationFilter.cshtml" />
-    <Content Include="Views\Form\Consensus\OrganizationHierarchy.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusUsers.cshtml" />
-    <Content Include="Views\Form\Consensus\ConsensusOrganizationUserInfo.cshtml" />
-    <Content Include="Views\Form\Consensus\AddUserModal.cshtml" />
-    <Content Include="Views\Form\Consensus\OutsideUsers.cshtml" />
-    <Content Include="Views\Form\Consensus\CreateConsensusInstance.cshtml" />
-    <Content Include="Views\Form\Consensus\InsideUsers.cshtml" />
-    <Content Include="Views\Form\Consensus\TrackerPartial.cshtml" />
+    <Content Include="Views\Form\Consensus\Questionnaire\ConsensusFormTree.cshtml" />
+    <Content Include="Views\Form\Consensus\Questionnaire\ConsensusDecision.cshtml" />
+    <Content Include="Views\Form\Consensus\Questionnaire\ConsensusCreateQuestion.cshtml" />
+    <Content Include="Views\Form\Consensus\Questionnaire\ConsensusQuestionPreview.cshtml" />
+    <Content Include="Views\Form\Consensus\Questionnaire\CreateOrPreviewQuestion.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\ConsensusUserFilter.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\MapFilterPartial.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\OrganizationFilter.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\OrganizationHierarchy.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\ConsensusUsers.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\ConsensusOrganizationUserInfo.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\AddUserModal.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\OutsideUsers.cshtml" />
+    <Content Include="Views\Form\Consensus\Instance\CreateConsensusInstance.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\InsideUsers.cshtml" />
+    <Content Include="Views\Form\Consensus\Tracker\ConsensusTrackerPartial.cshtml" />
     <Content Include="Views\User\LoginGlobal.cshtml" />
     <Content Include="Views\ThesaurusGlobal\Login\RegistrationPartial.cshtml" />
     <Content Include="Views\ThesaurusGlobal\Login\LoginPartial.cshtml" />
@@ -2117,6 +2333,102 @@
     <Content Include="Views\ThesaurusGlobal\Create\TranslationsTitle.cshtml" />
     <Content Include="Views\ThesaurusGlobal\Create\CodesModal.cshtml" />
     <Content Include="Views\Form\DragAndDrop\NestableFields\NestableCalculativeField.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableRegexField.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\ContributeToTranslation.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\ContributeToTranslationForm.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Create\ContributeToTranslationSubmitModal.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\GeneralInfo\Technology.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\GeneralInfo\Contact.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\GeneralInfo\TermsAndConditions.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\UserValues.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CommentInputText.cshtml" />
+    <Content Include="Views\Form\Consensus\Instance\ConsensusUserQuestionnaire.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\CustomFields\FormAdministrativeDataWorkflow.cshtml" />
+    <Content Include="Views\FormDistribution\AddRelationModal.cshtml" />
+    <Content Include="Views\Form\Consensus\Instance\ShowUserQuestionnaire.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\ListGuidelineDocuments.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\GetConditions.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\FilterGuidelineDocuments.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\FilterDigitalGuidelines.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\PreviewInstanceNode.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\NestableFields\NestableCustomButton.cshtml" />
+    <Content Include="Views\Form\Consensus\Questionnaire\ConsensusQuestionnairePartial.cshtml" />
+    <Content Include="Views\Form\Consensus\Users\ConsensusUsersPartial.cshtml" />
+    <Content Include="Views\RoleAdministration\GetAll.cshtml" />
+    <Content Include="Views\RoleAdministration\RoleEntryTable.cshtml" />
+    <Content Include="Views\RoleAdministration\Edit.cshtml" />
+    <Content Include="Views\UserAdministration\UserRolesForm.cshtml" />
+    <Content Include="Views\UserAdministration\UserRolesDisplay.cshtml" />
+    <Content Include="Views\SmartOncology\HistorySheet.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Shared\ThesaurusTree.cshtml" />
+    <Content Include="Views\Form\FormFieldDescription.cshtml" />
+    <Content Include="Views\DigitalGuideline\EvidencePropertiesCategory.cshtml" />
+    <Content Include="Views\DigitalGuideline\EvidencePropertiesPublications.cshtml" />
+    <Content Include="Views\DigitalGuidelineInstance\PreviewInstanceDecisionNode.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\BasicPatientDataOncology.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\ViewPatientData.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\EditPatientData.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\PatientEntriesTable.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\ClinicalTrialValues.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\ProgressNote.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\AddAllergyModal.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\ViewPatientData.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\ProgressNotePatientHeader.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\ViewSchemaData.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\ProgressNotePatientHeaderMobile.cshtml" />
+    <Content Include="Views\SmartOncology\ProgressNote\ViewPatientDataMobile.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\BasicPatientDataOncologyHeader.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\BasicPatientDataOncologyHeaderMobile.cshtml" />
+    <Content Include="Views\Form\Consensus\Instance\QuestionnaireSaveModal.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Administration\UserList.cshtml" />
+    <Content Include="Views\ThesaurusGlobal\Shared\ConnectionOntologyModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditSchema.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditNameModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditIndicationsModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditMedication.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditMedicationDoseModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditPreviewBasicProperties.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditGeneralProperties.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditReferenceModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\GetAll.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\SchemaDefinitionFilterGroup.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\SchemaDefinitionEntryTable.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\PreviewSchema.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\PreviewSchemaApprovedBy.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\PreviewSchemaMedications.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditMedicationDoseTimes.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaDefinition\EditMedicationDoseContent.cshtml" />
+    <Content Include="Views\SmartOncology\Patient\OncologyDiseasesHistory.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\AdvancedFilterModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\SchemaInstanceFilterGroup.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\SchemaInstanceEntryTable.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\EditDelayDoseModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\ViewHistoryOfDayDoseContent.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\ViewHistoryOfDayDoseModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\EditMedicationModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\ViewMedicationReplacementModal.cshtml" />
+    <Content Include="Views\SmartOncology\SchemaInstance\ViewMedicationReplacementContent.cshtml" />
+    <Content Include="Views\ThesaurusEntry\CodeRow.cshtml" />
+    <Content Include="Views\Administration\CodeSystemTable.cshtml" />
+    <Content Include="Views\Administration\CodeSystemModal.cshtml" />
+    <Content Include="Views\User\GetByName.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\Sidebar.cshtml" />
+    <Content Include="Views\Shared\Navbar.cshtml" />
+    <Content Include="Views\Patient\GetByName.cshtml" />
+    <Content Include="Views\FormInstance\FormInstanceHeader.cshtml" />
+    <Content Include="Views\FormInstance\SynopticView.cshtml" />
+    <Content Include="Views\FormInstance\SignDocumentModal.cshtml" />
+    <Content Include="Views\FormInstance\SignDocumentModalForm.cshtml" />
+    <Content Include="Views\FormInstance\AdministrativeData.cshtml" />
+    <Content Include="Views\FormInstance\ChartPartial.cshtml" />
+    <Content Include="Views\FormInstance\ChartFiltersPartial.cshtml" />
+    <Content Include="Views\Patient\PatientAutocomplete.cshtml" />
+    <Content Include="Views\Patient\AddressTable.cshtml" />
+    <Content Include="Views\Patient\AddressModal.cshtml" />
+    <Content Include="Views\Form\DragAndDrop\ImageMapPreview.cshtml" />
+    <Content Include="Views\Shared\DateInput.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\EmailHelper\" />
@@ -2124,6 +2436,7 @@
     <Folder Include="Models\User\" />
     <Folder Include="Scripts\nestable\" />
     <Folder Include="Scripts\sReports\formDefinition\" />
+    <Folder Include="Scripts\sReports\Patient\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ClinicalTrials\" />
     <Folder Include="Views\FormConsensus\" />
@@ -2185,6 +2498,10 @@
       <Project>{d2faff68-2149-4e4e-b2d9-305d75e8f959}</Project>
       <Name>DocumentGenerator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExcelImporter\ChemotherapyExcelImporter.csproj">
+      <Project>{65d22046-d764-45da-92f1-2911e852df86}</Project>
+      <Name>ChemotherapyExcelImporter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Generator\Generator.csproj">
       <Project>{8c537fcd-e4df-4e0d-90f7-ce669fbe958c}</Project>
       <Name>Generator</Name>
@@ -2206,7 +2523,7 @@
       <Name>sReportsV2.DAL.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
-      <Project>{b409aa17-11c7-4e45-9382-fe1ff764a31d}</Project>
+      <Project>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</Project>
       <Name>sReportsV2.Domain.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">
@@ -2218,7 +2535,7 @@
       <Name>sReportsV2.DTOs</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Initializer\sReportsV2.Initializer.csproj">
-      <Project>{5715FE95-B5F5-4C98-A8A1-D8F190363FBE}</Project>
+      <Project>{5715fe95-b5f5-4c98-a8a1-d8f190363fbe}</Project>
       <Name>sReportsV2.Initializer</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.UMLS\sReportsV2.UMLS.csproj">

@@ -37,10 +37,10 @@ namespace sReportsV2.Domain.Entities.Form
         public List<FormStatus> WorkflowHistory { get; set; }
         public FormEpisodeOfCare EpisodeOfCare { get; set; }
         public bool DisablePatientData { get; set; }
-        public string Description { get; set; }
         public int DocumentsCount { get; set; }
         public int UserId { get; set; }
         public int OrganizationId { get; set; }
+        public List<int> ThesaurusIdsList { get; set; }
         public Form() 
         {
             WorkflowHistory = new List<FormStatus>();
@@ -64,6 +64,13 @@ namespace sReportsV2.Domain.Entities.Form
             this.UserId = formValue.UserId;
             this.OrganizationId = formValue.OrganizationId;
             this.SetFields(formValue.Fields);
+        }
+
+        public void Copy(UserData user, Form entity)
+        {
+            base.Copy(entity);
+            this.WorkflowHistory = entity?.WorkflowHistory ?? new List<FormStatus>();
+            this.SetWorkflow(user, State);
         }
 
         public Field GetFieldById(string id)
@@ -91,6 +98,18 @@ namespace sReportsV2.Domain.Entities.Form
                          )
                         ).ToList();
         }
+        public List<FormFieldValue> GetAllFieldValues()
+        {
+            return GetAllFields()
+                .Where(x => x is FieldSelectable)
+                .Select(x => x as FieldSelectable)
+                .SelectMany(x => x.Values).ToList();
+        }
+        public List<FormPage> GetAllPages()
+        {
+            return this.Chapters
+                .SelectMany(x => x.Pages).ToList();
+        }
         public List<Field> GetAllFieldsFromListOfFieldSets()
         {
             return this.Chapters
@@ -114,7 +133,7 @@ namespace sReportsV2.Domain.Entities.Form
         }
         public List<Field> GetAllNonPatientFields()
         {
-            return this.Chapters.Where(x => !x.ThesaurusId.Equals("9356"))
+            return this.Chapters.Where(x => !x.ThesaurusId.ToString().Equals(ResourceTypes.PatientThesaurus))
                         .SelectMany(chapter => chapter.Pages
                             .SelectMany(page => page.ListOfFieldSets
                                 .SelectMany(listOfFS => listOfFS
@@ -177,12 +196,12 @@ namespace sReportsV2.Domain.Entities.Form
         {
             string activeLanguage = this.Language;
             this.Language = language;
-            this.Title = entries.FirstOrDefault(x => x.Id.Equals(ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);            
+            this.Title = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);            
 
             foreach (FormChapter formChapter in this.Chapters)
             {
-                formChapter.Title = entries.FirstOrDefault(x => x.Id.Equals(formChapter.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
-                formChapter.Description = entries.FirstOrDefault(x => x.Id.Equals(formChapter.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
+                formChapter.Title = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(formChapter.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                formChapter.Description = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(formChapter.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
                 formChapter.GenerateTranslation(entries, language, activeLanguage);
             }
         }
@@ -234,14 +253,6 @@ namespace sReportsV2.Domain.Entities.Form
             }
         }
 
-        private void SetInstanceId(List<FieldSet> referralFieldSet, List<FieldSet> formFieldSet) 
-        {
-            foreach (FieldSet item in referralFieldSet)
-            {
-                item.Id = formFieldSet[0].Id;
-            }
-        }
-
         public void SetFieldsFromNonRepetitiveFieldSets(List<Field> allReferralsFields) 
         {
             foreach (Field field in this.GetAllFieldsFromNonRepetititveFieldSets())
@@ -252,132 +263,6 @@ namespace sReportsV2.Domain.Entities.Form
                     field.Value = referralField.Value;
                 };
             }
-        }
-
-        public List<ReferalInfo> GetReferalInfoFromRepetitiveFieldSets(List<Form> formInstances)
-        {
-            formInstances = Ensure.IsNotNull(formInstances, nameof(formInstances));
-
-            List<ReferalInfo> result = new List<ReferalInfo>();
-            List<int> thesaurusesAdded = new List<int>();
-
-            foreach (Form instance in formInstances)
-            {
-                ReferalInfo referalInfo = new ReferalInfo
-                {
-                    Id = instance.Id,
-                    VersionId = instance.Version.Id,
-                    Title = instance.Title,
-                    ThesaurusId = instance.ThesaurusId,
-                    LastUpdate = instance.LastUpdate,
-                    UserId = instance.UserId,
-                    OrganizationId = instance.OrganizationId,
-                    ReferrableFields = new List<KeyValue>()
-                };
-
-                foreach (List<FieldSet> formFieldSet in this.GetFieldSetsByRepetitivity(true))
-                {
-                    foreach (List<FieldSet> referralFieldSet in instance.GetFieldSetsByRepetitivity(true))
-                    {
-                        if (formFieldSet[0].IsReferable(referralFieldSet[0]))
-                        {
-                            if (!thesaurusesAdded.Contains(formFieldSet[0].ThesaurusId)) 
-                            {
-                                thesaurusesAdded.Add(formFieldSet[0].ThesaurusId);
-                                AddReferrableFieldSet(referalInfo, referralFieldSet);
-                            }
-                        }
-                    }
-                }
-
-                result.Add(referalInfo);
-            }
-
-            return result;
-        }
-
-        public List<ReferalInfo> GetReferalInfoFromNonRepetitiveFieldSets(List<Form> formInstances)
-        {
-            formInstances = Ensure.IsNotNull(formInstances, nameof(formInstances));
-            List<ReferalInfo> result = new List<ReferalInfo>();
-            List<ReferralForm> allReferrals = formInstances
-                .Select(x => new ReferralForm
-                { 
-                    Id = x.Id,
-                    Title = x.Title,
-                    VersionId = x.Version.Id,
-                    ThesaurusId = x.ThesaurusId,
-                    LastUpdate = x.LastUpdate,
-                    UserId = x.UserId,
-                    OrganizationId = x.OrganizationId,
-                    Fields = x.GetAllFieldsFromNonRepetititveFieldSets() 
-                })
-                .ToList();
-
-
-            foreach (ReferralForm referral in allReferrals)
-            {
-                ReferalInfo referalInfo = new ReferalInfo
-                {
-                    Id = referral.Id,
-                    VersionId = referral.VersionId,
-                    Title = referral.Title,
-                    ThesaurusId = referral.ThesaurusId,
-                    LastUpdate = referral.LastUpdate,
-                    UserId = referral.UserId,
-                    OrganizationId = referral.OrganizationId,
-                    ReferrableFields = new List<KeyValue>()
-                };
-
-                foreach (Field field in this.GetAllFieldsFromNonRepetititveFieldSets())
-                {
-                    Field referralField = referral.Fields.FirstOrDefault(x => x.ThesaurusId == field.ThesaurusId && x.Type == field.Type);
-
-                    if (referralField != null/* && !addedThesauruses.Contains(referralField.ThesaurusId)*/)
-                    {
-                        SetReferralInfo(referalInfo, field, referralField);                      
-                    }
-                }
-                result.Add(referalInfo);
-            }
-
-            return result;
-        }
-
-        private void SetReferralInfo(ReferalInfo referalInfo, Field field, Field referralField) 
-        {
-            if (referralField is FieldString @string && @string.IsRepetitive && referralField.Value != null && referralField.Value.Count > 0)
-            {
-                referalInfo.ReferrableFields.Add(new KeyValue 
-                { 
-                    Key = referralField.Label, 
-                    Value = @string.GetReferrableRepetitiveValue(), 
-                    ThesaurusId = referralField.ThesaurusId 
-                });
-
-            }
-
-            if (IsFieldStringAndRepetitiveAndHasValue(referralField) || IsFieldSelectableAndHasValue(referralField))
-            {
-                referalInfo.ReferrableFields.Add(new KeyValue 
-                { 
-                    Key = referralField.Label, 
-                    Value = field.GetReferrableValue(referralField.Value[0]), 
-                    ThesaurusId = referralField.ThesaurusId 
-                });
-            }
-        }
-
-        private bool IsFieldStringAndRepetitiveAndHasValue(Field referralField) 
-        {
-            return referralField is FieldString @string
-                && !@string.IsRepetitive 
-                && referralField.HasValue();
-        }
-
-        private bool IsFieldSelectableAndHasValue(Field referralField) 
-        {
-            return referralField is FieldSelectable && referralField.HasValue();
         }
 
         public void AddReferrableFieldSet(ReferalInfo referalInfo, List<FieldSet> referralFieldSet) 
@@ -449,14 +334,9 @@ namespace sReportsV2.Domain.Entities.Form
             return result;
         }
 
-        public void SetWorkflow(UserData user, FormDefinitionState state)
+        private void SetWorkflow(UserData user, FormDefinitionState state)
         {
             user = Ensure.IsNotNull(user, nameof(user));
-
-            if (WorkflowHistory == null)
-            {
-                WorkflowHistory = new List<FormStatus>();
-            }
 
             WorkflowHistory.Add(new FormStatus()
             {
@@ -493,19 +373,16 @@ namespace sReportsV2.Domain.Entities.Form
                     {
                         int position = Int32.Parse(key.Split('-')[1]);
                         string fieldId = key.Split('-')[2];
-                        list[position].Fields.FirstOrDefault(x => x.Id == fieldId).Value = fields.FirstOrDefault(x => x.InstanceId == key).Value;
+                        Field field = list[position].Fields.FirstOrDefault(x => x.Id == fieldId);
+                        if(field != null)
+                        {
+                            field.Value = fields.FirstOrDefault(x => x.InstanceId == key).Value;
+                        }
                     }                   
                 }
             }
         }
-        private List<string> GetDistinctedListOfFieldSetsKeys(List<string> allKeysForFieldSetId)
-        {
-            return allKeysForFieldSetId
-                .Select(x => x.Split('-')[1])
-                .Distinct()
-                .ToList();
-        }
-
+        
         public List<List<FieldSet>> GetAllListOfFieldSets()
         {
             return this.Chapters
@@ -514,20 +391,6 @@ namespace sReportsV2.Domain.Entities.Form
                             )
                         )
                         .ToList();
-        }
-
-        public void SetFieldsValuesFromFormValue(FormInstance.FormInstance formInstance)
-        {
-            formInstance = Ensure.IsNotNull(formInstance, nameof(formInstance));
-            List<Field> allFields = GetAllFields();
-            foreach(FieldValue fieldValue in formInstance.Fields)
-            {
-                Field field = allFields.FirstOrDefault(x => x.Id.Equals(fieldValue.Id));
-                if(field != null)
-                {
-                    field.Value = fieldValue.Value;
-                }
-            }
         }
 
         public List<Field> GetAllFieldsWhichAreDependable()
@@ -571,6 +434,148 @@ namespace sReportsV2.Domain.Entities.Form
             {
                 chapter.ReplaceThesauruses(oldThesaurus, newThesaurus);
             }
+        }
+
+        private void SetInstanceId(List<FieldSet> referralFieldSet, List<FieldSet> formFieldSet)
+        {
+            foreach (FieldSet item in referralFieldSet)
+            {
+                item.Id = formFieldSet[0].Id;
+            }
+        }
+
+        private List<ReferalInfo> GetReferalInfoFromNonRepetitiveFieldSets(List<Form> formInstances)
+        {
+            formInstances = Ensure.IsNotNull(formInstances, nameof(formInstances));
+            List<ReferalInfo> result = new List<ReferalInfo>();
+            List<ReferralForm> allReferrals = formInstances
+                .Select(x => new ReferralForm
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    VersionId = x.Version.Id,
+                    ThesaurusId = x.ThesaurusId,
+                    LastUpdate = x.LastUpdate,
+                    UserId = x.UserId,
+                    OrganizationId = x.OrganizationId,
+                    Fields = x.GetAllFieldsFromNonRepetititveFieldSets()
+                })
+                .ToList();
+
+
+            foreach (ReferralForm referral in allReferrals)
+            {
+                ReferalInfo referalInfo = new ReferalInfo
+                {
+                    Id = referral.Id,
+                    VersionId = referral.VersionId,
+                    Title = referral.Title,
+                    ThesaurusId = referral.ThesaurusId,
+                    LastUpdate = referral.LastUpdate,
+                    UserId = referral.UserId,
+                    OrganizationId = referral.OrganizationId,
+                    ReferrableFields = new List<KeyValue>()
+                };
+
+                foreach (Field field in this.GetAllFieldsFromNonRepetititveFieldSets())
+                {
+                    Field referralField = referral.Fields.FirstOrDefault(x => x.ThesaurusId == field.ThesaurusId && x.Type == field.Type);
+
+                    if (referralField != null/* && !addedThesauruses.Contains(referralField.ThesaurusId)*/)
+                    {
+                        SetReferralInfo(referalInfo, field, referralField);
+                    }
+                }
+                result.Add(referalInfo);
+            }
+
+            return result;
+        }
+
+        private void SetReferralInfo(ReferalInfo referalInfo, Field field, Field referralField)
+        {
+            if (referralField is FieldString @string && @string.IsRepetitive && referralField.Value != null && referralField.Value.Count > 0)
+            {
+                referalInfo.ReferrableFields.Add(new KeyValue
+                {
+                    Key = referralField.Label,
+                    Value = @string.GetReferrableRepetitiveValue(),
+                    ThesaurusId = referralField.ThesaurusId
+                });
+
+            }
+
+            if (IsFieldStringAndRepetitiveAndHasValue(referralField) || IsFieldSelectableAndHasValue(referralField))
+            {
+                referalInfo.ReferrableFields.Add(new KeyValue
+                {
+                    Key = referralField.Label,
+                    Value = field.GetReferrableValue(referralField.Value[0]),
+                    ThesaurusId = referralField.ThesaurusId
+                });
+            }
+        }
+
+        private bool IsFieldStringAndRepetitiveAndHasValue(Field referralField)
+        {
+            return referralField is FieldString @string
+                && !@string.IsRepetitive
+                && referralField.HasValue();
+        }
+
+        private bool IsFieldSelectableAndHasValue(Field referralField)
+        {
+            return referralField is FieldSelectable && referralField.HasValue();
+        }
+
+        private List<ReferalInfo> GetReferalInfoFromRepetitiveFieldSets(List<Form> formInstances)
+        {
+            formInstances = Ensure.IsNotNull(formInstances, nameof(formInstances));
+
+            List<ReferalInfo> result = new List<ReferalInfo>();
+            List<int> thesaurusesAdded = new List<int>();
+
+            foreach (Form instance in formInstances)
+            {
+                ReferalInfo referalInfo = new ReferalInfo
+                {
+                    Id = instance.Id,
+                    VersionId = instance.Version.Id,
+                    Title = instance.Title,
+                    ThesaurusId = instance.ThesaurusId,
+                    LastUpdate = instance.LastUpdate,
+                    UserId = instance.UserId,
+                    OrganizationId = instance.OrganizationId,
+                    ReferrableFields = new List<KeyValue>()
+                };
+
+                foreach (List<FieldSet> formFieldSet in this.GetFieldSetsByRepetitivity(true))
+                {
+                    foreach (List<FieldSet> referralFieldSet in instance.GetFieldSetsByRepetitivity(true))
+                    {
+                        if (formFieldSet[0].IsReferable(referralFieldSet[0]))
+                        {
+                            if (!thesaurusesAdded.Contains(formFieldSet[0].ThesaurusId))
+                            {
+                                thesaurusesAdded.Add(formFieldSet[0].ThesaurusId);
+                                AddReferrableFieldSet(referalInfo, referralFieldSet);
+                            }
+                        }
+                    }
+                }
+
+                result.Add(referalInfo);
+            }
+
+            return result;
+        }
+
+        private List<string> GetDistinctedListOfFieldSetsKeys(List<string> allKeysForFieldSetId)
+        {
+            return allKeysForFieldSetId
+                .Select(x => x.Split('-')[1])
+                .Distinct()
+                .ToList();
         }
     }
 }

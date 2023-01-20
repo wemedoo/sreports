@@ -4,12 +4,9 @@ using sReportsV2.Common.Extensions;
 using sReportsV2.Domain.Entities.CustomFHIRClasses;
 using sReportsV2.Domain.Entities.FieldEntity.Custom;
 using sReportsV2.Domain.Entities.Form;
-using sReportsV2.Domain.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using sReportsV2.Common.Enums;
 
 namespace sReportsV2.Domain.Entities.FieldEntity
 {
@@ -57,10 +54,10 @@ namespace sReportsV2.Domain.Entities.FieldEntity
         #region virtual methods
         public void SetValue(string value)
         {
-            if (!string.IsNullOrWhiteSpace(value))
+            if (!(string.IsNullOrWhiteSpace(value) || value.All(c => c.Equals(','))))
             {
                 this.Value = this.Value ?? new List<string>();
-                this.Value.Add(value);
+                this.Value.Add(PrepareInputValue(value));
             }
         }
 
@@ -91,12 +88,17 @@ namespace sReportsV2.Domain.Entities.FieldEntity
 
         public virtual string GetReferrableValue(string referalValue)
         {
-            return referalValue;
+            return GetSingleValue(referalValue, "N/E");
         }
 
-        public string GetValue()
+        public virtual string GetPatholinkValue(string neTranslated, string optionValue = "")
         {
-            return this.Value != null ? string.Join(",", this.Value) : string.Empty;
+            return this.Value != null ? string.Join(",", Value.Select(v => GetSingleValue(v, neTranslated))) : string.Empty;
+        }
+
+        protected virtual string GetSingleValue(string value, string neTranslated)
+        {
+            return value.ShouldSetSpecialValue(IsRequired) ? neTranslated : value;
         }
 
         public virtual void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
@@ -110,6 +112,24 @@ namespace sReportsV2.Domain.Entities.FieldEntity
              && Value.Count > 0
              && !string.IsNullOrWhiteSpace(Value?[0].Replace(",", " "));
         }
+
+        public virtual List<string> GetValueLabelsFromValue()
+        {
+            return Value;
+        }
+
+        private string PrepareInputValue(string inputValue)
+        {
+            if (inputValue.IncludesSpecialValue())
+            {
+                return ((int)FieldSpecialValues.NE).ToString();
+            }
+            else
+            {
+                return inputValue;
+            }
+        }
+        
         #endregion
     }
 }

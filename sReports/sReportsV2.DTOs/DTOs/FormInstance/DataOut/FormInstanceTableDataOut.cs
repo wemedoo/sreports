@@ -1,9 +1,6 @@
 ﻿using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.DTOs.Patient.DataOut;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace sReportsV2.DTOs.FormInstance.DataOut
 {
@@ -18,6 +15,7 @@ namespace sReportsV2.DTOs.FormInstance.DataOut
         public UserDataOut User { get; set; }
         public PatientTableDataOut Patient { get; set; }
         public int UserId { get; set; }
+        public int PatientId { get; set; }
 
     }
 }

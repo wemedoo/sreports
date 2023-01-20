@@ -7,16 +7,11 @@ function createPatientEntry() {
     window.location.href = "/Patient/Create";
 }
 
-function showEpisodeOfCares(id, event) {
-    event.preventDefault();
-    window.location.href = `/EpisodeOfCare/GetAll?IdentifierType=O4MtPatientId&IdentifierValue=${id}`;
-}
-
-function removePatientEntry(event, id, lastUpdate) {
+function removePatientEntry(event, id) {
     event.stopPropagation();
     $.ajax({
         type: "DELETE",
-        url: `/Patient/Delete?PatientId=${id}&&LastUpdate=${lastUpdate}`,
+        url: `/Patient/Delete?PatientId=${id}`,
         success: function (data) {
             $(`#row-${id}`).remove();
             toastr.success(`Success`);
@@ -24,18 +19,21 @@ function removePatientEntry(event, id, lastUpdate) {
             //$(event.srcElement).parent().parent().parent().parent().remove();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
 function reloadTable() {
     $('#advancedFilterModal').modal('hide');
-    setFilterElements();
     setFilterFromUrl();
     let requestObject = getFilterParametersObject();
+    setFilterTagsFromObj(requestObject);
+    setAdvancedFilterBtnStyle(requestObject, ['Given', 'Family', 'BirthDate', 'page', 'pageSize']);
     requestObject.Page = getPageNum();
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     $.ajax({
         type: 'GET',
@@ -43,9 +41,10 @@ function reloadTable() {
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -57,38 +56,57 @@ function getFilterParametersObject() {
         defaultFilter = null;
     }
     else {
-        if ($('#identifierType').val() && $('#identifierType').val().trim()) {
-            result['IdentifierValue'] = $('#identifierValue').val().trim();
-            result['IdentifierType'] = $('#identifierType').val();
+        if ($('#identifierType').val()) {
+            addPropertyToObject(result, 'IdentifierType', $('#identifierType').val());
         }
-        if ($('#country').val()) {
-            result['Country'] = $('#country').val().trim();
+        if ($('#identifierValue').val()) {
+            addPropertyToObject(result, 'IdentifierValue', $('#identifierValue').val());
+        }
+        if ($('#countryId').val()) {
+            addPropertyToObject(result, 'CountryId', $('#countryId').val());
         }
         if ($('#city').val()) {
-            result['City'] = $('#city').val().trim();
+            addPropertyToObject(result, 'City', $('#city').val().trim());
         }
         if ($('#BirthDateTemp').val()) {
-            result['BirthDate'] = new Date($('#BirthDateTemp').val().trim()).toLocaleDateString();
+            addPropertyToObject(result, 'BirthDate', $('#birthDateDefault').val());
         }
         if ($('#GivenTemp').val()) {
-            result['Given'] = $('#GivenTemp').val().trim();
+            addPropertyToObject(result, 'Given', $('#GivenTemp').val().trim());
         }
         if ($('#FamilyTemp').val()) {
-            result['Family'] = $('#FamilyTemp').val().trim();
+            addPropertyToObject(result, 'Family', $('#FamilyTemp').val().trim());
         }
         if ($('#postalCode').val()) {
-            result['PostalCode'] = $('#postalCode').val().trim();
+            addPropertyToObject(result, 'PostalCode', $('#postalCode').val().trim());
         }
-
     }
     
     return result;
+}
+
+function getFilterParametersObjectForDisplay(filterObject) {
+    getFilterParameterObjectForDisplay(filterObject, 'IdentifierType');
+
+    if (filterObject.hasOwnProperty('CountryId')) {
+        let countryNameByHidden = $('#countryName').val();
+        if (countryNameByHidden) {
+            addPropertyToObject(filterObject, 'CountryId', countryNameByHidden);
+        }
+        let countryNameBySelect2 = $('#select2-countryId-container').attr('title');
+        if (countryNameBySelect2) {
+            addPropertyToObject(filterObject, 'CountryId', countryNameBySelect2);
+        }
+    }
+
+    return filterObject;
 }
 
 function advanceFilter() {
     $('#FamilyTemp').val($('#family').val());
     $('#GivenTemp').val($('#given').val());
     $('#BirthDateTemp').val($('#birthDate').val());
+    copyDateToHiddenField($("#BirthDateTemp").val(), "birthDateDefault");
 
     $('#advancedId').children('div:first').addClass('btn-advanced');
     $('#advancedId').find('button:first').removeClass('btn-advanced-link');
@@ -101,7 +119,8 @@ function advanceFilter() {
 function mainFilter() {
     $('#family').val($('#FamilyTemp').val());
     $('#given').val($('#GivenTemp').val());
-    $('#birthDate').val(new Date($("#BirthDateTemp").val()).toLocaleDateString());
+    $('#birthDate').val($("#BirthDateTemp").val());
+    copyDateToHiddenField($("#birthDate").val(), "birthDateDefault");
 
     $('#advancedId').children('div:first').removeClass('btn-advanced');
     $('#advancedId').find('button:first').addClass('btn-advanced-link');
@@ -123,16 +142,5 @@ function clearFilters() {
     $('#FamilyTemp').val('');
     $('#GivenTemp').val('');
     $('#BirthDateTemp').val('');
+    $('#birthDateDefault').val('');
 }
-
-$('#mainFilterBirthCalendar').click(function () {
-    $("#BirthDateTemp").datepicker({
-        dateFormat: df
-    }).focus();
-});
-
-$('#advancedFilterBirthCalendar').click(function () {
-    $("#birthDate").datepicker({
-        dateFormat: df
-    }).focus();
-});

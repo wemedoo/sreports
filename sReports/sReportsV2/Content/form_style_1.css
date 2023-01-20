@@ -147,11 +147,11 @@
 .form-radio-label {
     position: relative;
     cursor: pointer;
-    padding-left: 1.5rem;
+    padding-left: 19px;
     text-align: left;
     color: #333;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
 }
 
     .form-checkbox-label:hover i,

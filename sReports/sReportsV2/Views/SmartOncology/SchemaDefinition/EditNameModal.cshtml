@@ -1,0 +1,20 @@
+﻿<div class="modal-window modal-schema-name">
+    <div class="filter-close-btn">
+        <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+    </div>
+    <div class="modal-window-content">
+        <div class="d-flex advanced-filter-header">
+            <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> @sReportsV2.Resources.TextLanguage.Chemotherapy_Schema_Name
+        </div>
+        <div class="advanced-filter-item margin-top-20 margin-bottom-20">
+            <div class="label filter-label">
+                @sReportsV2.Resources.TextLanguage.Name
+            </div>
+            <input type="text" class="filter-input" id="schemaNameInput" name="schemaNameInput" value="" onkeydown="pressButtonOnEnterKey(event, 'save-schema-name')">
+        </div>
+        <div class="modal-footer">
+            <button href="javascript:;" class="btn-text close-modal">@sReportsV2.Resources.TextLanguage.Cancel</button>
+            <button id="save-schema-name" class="btn-primary-schema ml-5">@sReportsV2.Resources.TextLanguage.Save</button>
+        </div>
+    </div>
+</div>

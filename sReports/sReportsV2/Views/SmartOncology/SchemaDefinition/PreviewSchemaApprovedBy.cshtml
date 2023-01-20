@@ -1,0 +1,35 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@using sReportsV2.Common.Extensions;
+
+@model ChemotherapySchemaDataOut
+
+<div class="vl"></div>
+<div class="schema-col col-2">
+    <div class="shema-card-no-border">
+        <div class="schema-card-header">
+            <span class="icon">
+                <img src="~/Content/open-oncology/images/icons/medications.svg" alt="">
+            </span>
+            <h3>@sReportsV2.Resources.TextLanguage.Approved_by:</h3>
+        </div>
+        <div class="schema-card-item">
+            <div class="item-header">
+                <h3>
+                    @sReportsV2.Resources.TextLanguage.Name:
+                </h3>
+                <p class="schema-text">@(Model != null && Model.Creator != null ? string.Concat(Model.Creator.FirstName, " ", Model.Creator.LastName) : "")</p>
+            </div>
+            <div class="item-body">
+                <div class="divider smaller-margin"></div>
+                <p class="schema-text">@sReportsV2.Resources.TextLanguage.Created @Model.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)</p>
+                <p class="schema-text">@sReportsV2.Resources.TextLanguage.Updated @Model.LastUpdate.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)</p>
+            </div>
+        </div>
+        <div>
+            <span class="btn-preview-edit float-right" onclick="editEntity(event, '@(Model != null ? Model.Id : 0)')">
+                <i class="fas fa-cog"></i>
+                @sReportsV2.Resources.TextLanguage.Edit
+            </span>
+        </div>
+    </div>
+</div>

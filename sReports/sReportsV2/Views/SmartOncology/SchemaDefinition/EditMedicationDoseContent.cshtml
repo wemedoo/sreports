@@ -1,0 +1,62 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+
+@if (Model is MedicationDoseDataOut)
+{
+    <input type="hidden" value="@(Model != null ? Model.Id.ToString() : "")" id="doseId" name="doseId" />
+}
+else
+{
+    <input type="hidden" value="@(Model != null ? Model.Id.ToString() : "")" id="doseInstanceId" name="doseInstanceId" />
+    <input type="hidden" value="@(Model != null ? Model.MedicationInstanceId.ToString() : "")" id="medicationInstanceId" name="medicationInstanceId" />
+}
+
+<div class="advanced-filter-item margin-top-20">
+    <div class="label filter-label">
+        @sReportsV2.Resources.TextLanguage.Interval:
+    </div>
+    <select class="filter-input" name="interval" id="interval">
+        <option value=""></option>
+        @foreach (var medicationDoseType in ViewBag.MedicationDoseTypes)
+        {
+            <option value="@medicationDoseType.Id" startAt="@medicationDoseType.StartAt" @(Model != null && medicationDoseType.Id == Model.IntervalId ? "selected" : "")>@medicationDoseType.Type</option>
+        }
+    </select>
+</div>
+<div class="advanced-filter-item margin-top-20">
+    <div class="label filter-label">
+        @sReportsV2.Resources.TextLanguage.Cycle_starts_at:
+    </div>
+    <input type="text" class="filter-input" name="cycle-starts" id="cycle-starts" readonly value="@(Model != null ? Model.StartsAt : "")">
+</div>
+<div class="advanced-filter-item margin-top-20 margin-bottom-20">
+    <div class="label filter-label">
+        @sReportsV2.Resources.TextLanguage.Unit
+    </div>
+    <select class="filter-input" name="dose-time-unit" id="dose-time-unit" value="">
+        <option value=""></option>
+    </select>
+</div>
+<div class="form-group col-12">
+    <div class="label filter-label">
+        @sReportsV2.Resources.TextLanguage.Enter_Dose_per_Time:
+    </div>
+    <div class="dose-time-wrapper">
+        @if (Model != null)
+        {
+            foreach (var interval in Model.MedicationDoseTimes)
+            {
+                <div class="dose-time dose-time-value" data-doseTime="@interval.Id">
+                    <div class="label filter-label">
+                        @interval.Time
+                    </div>
+                    <input class="num-input num-input-instance filter-input" type="number" value="@interval.Dose" min="0" onkeydown="pressButtonOnEnterKey(event, 'save-dose')"> <!--save-dose button is in EditMedicationDoseModal-->
+                </div>
+            }
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        setSelect2('@Model.UnitId', 'dose-time-unit', 'GetUnit', 'GetAutocompleteUnitData', 2);
+    });
+</script>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.PatientEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class Contact
     {
         public string Relationship { get; set; }

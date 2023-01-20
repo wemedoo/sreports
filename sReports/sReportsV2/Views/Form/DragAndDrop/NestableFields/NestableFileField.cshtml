@@ -1,11 +1,12 @@
 ﻿@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Extensions;
 @model FieldFileDataOut
 
-<fieldset class="form-input">
+<fieldset class="form-input" @Html.Disabled(Model.IsDisabled)>
     <div class="repetitive-values d-inline-block form-input-size">
         <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
             <span class="comment-target-item" id="@Model.Id">   @Html.Raw(Model.FullLabel) </span>
-</div>
+        </div>
         <div class="repetitive-field d-inline-block">
             <div class="filter-input  file-field w-100">
                 <input type="file" class="form-element-field file" placeholder="@Model.DescriptionLabel" />

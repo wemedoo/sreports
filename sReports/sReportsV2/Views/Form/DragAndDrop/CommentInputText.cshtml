@@ -1,0 +1,10 @@
+﻿@{ 
+    var commentId = ViewBag.CommentId;
+}
+<div id="dropdownSearch" class="position-relative dropdown-search comment-input-div">
+    <div id="search-user" data-id="0">
+        <div contenteditable="true" class="designer-form-input filter-input comment-text" data-text="Comment" id="commentText_@commentId" data-id="@commentId"></div>
+    </div>
+    <div id="userOptions" class="clinical-domain-options user-options" data-id="@commentId" aria-labelledby="search-user">
+    </div>
+</div>

@@ -8,8 +8,6 @@ using sReportsV2.DAL.Sql.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Version = sReportsV2.Domain.Sql.Entities.ThesaurusEntry.Version;
 using sReportsV2.DTOs.ThesaurusEntry;
 using sReportsV2.SqlDomain.Interfaces;
@@ -22,23 +20,46 @@ using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.Domain.Services.Implementations;
 using sReportsV2.DTOs.Common;
 using sReportsV2.Common.Entities.User;
-using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Common.Enums;
 using sReportsV2.Common.Extensions;
 using sReportsV2.DTOs.Administration;
+using sReportsV2.DTOs.Common.DTO;
+using sReportsV2.Domain.Sql.Entities.CodeSystem;
+using sReportsV2.DTOs.DTOs.GlobalThesaurus.DataOut;
+using sReportsV2.DTOs.DTOs.CodeSystem;
 
 namespace sReportsV2.BusinessLayer.Implementations
 {
-    public class ThesaurusEntryBLL : IThesaurusEntryBLL
+    public partial class ThesaurusEntryBLL : IThesaurusEntryBLL
     {
         private readonly IUserDAL userDAL;
+        private readonly IGlobalThesaurusUserDAL globalThesaurusUserDAL;
         private readonly IOrganizationDAL organizationDAL;
         private readonly IThesaurusDAL thesaurusDAL;
-        public ThesaurusEntryBLL(IUserDAL userDAL, IOrganizationDAL organizationDAL, IThesaurusDAL thesaurusDAL)
+        private readonly IThesaurusMergeDAL thesaurusMergeDAL;
+        private readonly IFormDAL formService;
+        private readonly IFormInstanceDAL formInstanceService;
+        private readonly IFormDistributionDAL formDistributionService;
+        private readonly IEncounterDAL encounterDAL;
+        private readonly IEpisodeOfCareDAL episodeOfCareDAL;
+        private readonly ICustomEnumDAL customEnumDAL;
+
+        private readonly ICodeSystemDAL codeSystemDAL;
+        
+        public ThesaurusEntryBLL(IUserDAL userDAL, IGlobalThesaurusUserDAL globalThesaurusUserDAL, IOrganizationDAL organizationDAL, IThesaurusDAL thesaurusDAL, ICodeSystemDAL codeSystemDAL, IThesaurusMergeDAL thesaurusMergeDAL, ICustomEnumDAL customEnumDAL, IEncounterDAL encounterDAL, IEpisodeOfCareDAL episodeOfCareDAL)
         {
             this.userDAL = userDAL;
             this.organizationDAL = organizationDAL;
             this.thesaurusDAL = thesaurusDAL;
+            this.codeSystemDAL = codeSystemDAL;
+            this.thesaurusMergeDAL = thesaurusMergeDAL;
+            this.customEnumDAL = customEnumDAL;
+            this.encounterDAL = encounterDAL;
+            this.episodeOfCareDAL = episodeOfCareDAL;
+            this.formService = new FormDAL();
+            this.formInstanceService = new FormInstanceDAL();
+            this.formDistributionService = new FormDistributionDAL();
+            this.globalThesaurusUserDAL = globalThesaurusUserDAL;
         }
 
         public bool ExistsThesaurusEntry(int id)
@@ -59,6 +80,7 @@ namespace sReportsV2.BusinessLayer.Implementations
                 ThesaurusEntry thesaurus = thesaurusDAL.GetById(filterDataIn.Id.Value);
                 dataOut = Mapper.Map<ThesaurusEntryDataOut>(thesaurus);
                 dataOut.Codes = GetCodes(thesaurus);
+                SetUserAdministrativeData(thesaurus, dataOut);
             }
 
             return dataOut;
@@ -92,7 +114,7 @@ namespace sReportsV2.BusinessLayer.Implementations
         {
             ThesaurusEntry thesaurus = thesaurusDAL.GetById(filterDataIn.Id.Value);
             List<O4CodeableConceptDataOut> codes = GetCodes(thesaurus)
-                        .Where(x => (filterDataIn.CodeSystems == null || filterDataIn.CodeSystems.Count() == 0 || filterDataIn.CodeSystems.Contains(x.System.Value)))
+                        .Where(x => (filterDataIn.CodeSystems == null || filterDataIn.CodeSystems.Count() == 0 || filterDataIn.CodeSystems.Contains(x.System.SAB)))
                         .OrderByDescending(x => x.EntryDateTime)
                         .ToList();
 
@@ -122,13 +144,13 @@ namespace sReportsV2.BusinessLayer.Implementations
         public PaginationDataOut<ThesaurusEntryDataOut, DataIn> GetReviewTreeDataOut(ThesaurusReviewFilterDataIn filter, ThesaurusEntry thesaurus, DTOs.User.DTO.UserCookieData userCookieData)
         {
             ThesaurusReviewFilterData filterData = Mapper.Map<ThesaurusReviewFilterData>(filter);
+            string preferredTerm = string.IsNullOrWhiteSpace(filter.PreferredTerm) ? thesaurus.GetPreferredTermByTranslationOrDefault(userCookieData.ActiveLanguage) : filter.PreferredTerm;
 
-            List<ThesaurusEntry> similarThesauruses = thesaurusDAL.GetAllSimilar(filterData, string.IsNullOrWhiteSpace(filter.PreferredTerm) ? thesaurus.Translations.FirstOrDefault(x => x.Language == userCookieData.ActiveLanguage).PreferredTerm : filter.PreferredTerm, userCookieData.ActiveLanguage);
-            List<ThesaurusEntryDataOut> list = Mapper.Map<List<ThesaurusEntryDataOut>>(similarThesauruses);
+            List<ThesaurusEntry> similarThesauruses = thesaurusDAL.GetAllSimilar(filterData, preferredTerm, userCookieData.ActiveLanguage);
 
             PaginationDataOut<ThesaurusEntryDataOut, DataIn> result = new PaginationDataOut<ThesaurusEntryDataOut, DataIn>()
             {
-                Count = (int)thesaurusDAL.GetAllSimilarCount(filterData, string.IsNullOrWhiteSpace(filter.PreferredTerm) ? thesaurus.Translations.FirstOrDefault(x => x.Language == userCookieData.ActiveLanguage).PreferredTerm : filter.PreferredTerm, userCookieData.ActiveLanguage),
+                Count = (int)thesaurusDAL.GetAllSimilarCount(filterData, preferredTerm, userCookieData.ActiveLanguage),
                 Data = Mapper.Map<List<ThesaurusEntryDataOut>>(similarThesauruses),
                 DataIn = filter
             };
@@ -178,7 +200,7 @@ namespace sReportsV2.BusinessLayer.Implementations
                     {
                         CreatedOn = version.CreatedOn,
                         RevokedOn = version.RevokedOn,
-                        Id = version.Id,
+                        Id = version.VersionId,
                         User = Mapper.Map<UserShortInfoDataOut>(userDAL.GetById(version.UserId)),
                         Organization = Mapper.Map<OrganizationDataOut>(organizationDAL.GetById(version.OrganizationId)),
                         State = version.State
@@ -187,32 +209,77 @@ namespace sReportsV2.BusinessLayer.Implementations
             }
         }
 
-        public int TryInsertOrUpdate(ThesaurusEntryDataIn thesaurusDataIn)
+        public int TryInsertOrUpdate(ThesaurusEntryDataIn thesaurusDataIn, UserData userData)
         {
             ThesaurusEntry thesaurusEntry = Mapper.Map<ThesaurusEntry>(thesaurusDataIn);
-            int result = this.thesaurusDAL.InsertOrUpdate(thesaurusEntry);
-            return result;
+            if(thesaurusEntry.ThesaurusEntryId != 0)
+            {
+                ThesaurusEntry thesaurusEntryDb = this.thesaurusDAL.GetById(thesaurusEntry.ThesaurusEntryId);
+                thesaurusEntryDb.Copy(thesaurusEntry, false);
+                thesaurusEntry = thesaurusEntryDb;
+            }
+            UpdateAdministrativeData(thesaurusEntry, userData, thesaurusDataIn.State);
+            this.thesaurusDAL.InsertOrUpdate(thesaurusEntry);
+            return thesaurusEntry.ThesaurusEntryId;
         }
 
-        public int TryInsertOrUpdateCode(O4CodeableConceptDataIn codeDataIn, int? tid)
+        public int UpdateConnectionWithOntology(ThesaurusEntryDataIn thesaurusDataIn, UserData userData)
         {
-            O4CodeableConcept code = Mapper.Map<O4CodeableConcept>(codeDataIn);
-            int result = this.thesaurusDAL.InsertOrUpdateCode(code, tid.Value);
-            return result;
+            ThesaurusEntry thesaurusEntry = Mapper.Map<ThesaurusEntry>(thesaurusDataIn);
+            if (thesaurusEntry.ThesaurusEntryId != 0)
+            {
+                ThesaurusEntry thesaurusEntryDb = this.thesaurusDAL.GetById(thesaurusEntry.ThesaurusEntryId);
+                thesaurusEntryDb.CopyConnectionWithOntology(thesaurusEntry);
+                thesaurusEntry = thesaurusEntryDb;
+            }
+            UpdateAdministrativeData(thesaurusEntry, userData, thesaurusEntry.State);
+            this.thesaurusDAL.InsertOrUpdate(thesaurusEntry);
+            return thesaurusEntry.ThesaurusEntryId;
         }
 
-        public string CreateThesaurus(ThesaurusEntryDataIn thesaurusEntryDTO, DTOs.User.DTO.UserCookieData userCookieData)
+        public ResourceCreatedDTO TryInsertOrUpdateCode(O4CodeableConceptDataIn codeDataIn, int? thesaurusEntryId)
         {
-            UserData userData = Mapper.Map<Common.Entities.User.UserData>(userCookieData);
+            var savedObjects = SaveCodeChanges(codeDataIn, thesaurusEntryId);
+            ThesaurusEntry thesaurus = savedObjects.Item1;
+            return new ResourceCreatedDTO() 
+            {
+                Id = thesaurus.ThesaurusEntryId.ToString(),
+                RowVersion = Convert.ToBase64String(thesaurus.RowVersion)
+            };
+        }
+
+        public O4CodeableConceptDataOut InsertOrUpdateCode(O4CodeableConceptDataIn codeDataIn, int? thesaurusEntryId)
+        {
+            var savedObjects = SaveCodeChanges(codeDataIn, thesaurusEntryId);
+            int codeId = savedObjects.Item2;
+            ThesaurusEntry thesaurusEntry = thesaurusDAL.GetById(thesaurusEntryId.GetValueOrDefault());
+            O4CodeableConcept code = thesaurusEntry.Codes.FirstOrDefault(x => x.O4CodeableConceptId == codeId);
+            return Mapper.Map<O4CodeableConceptDataOut>(code);
+        }
+
+        public ResourceCreatedDTO CreateThesaurus(ThesaurusEntryDataIn thesaurusEntryDTO, UserData userData)
+        {
+            MapCodesToExistingValues(thesaurusEntryDTO);
             ThesaurusEntry thesaurusEntry = Mapper.Map<ThesaurusEntry>(thesaurusEntryDTO);
-            string result = thesaurusDAL.InsertOrUpdate(thesaurusEntry, userData);
+            ThesaurusEntry thesaurusEntryDb = thesaurusDAL.GetById(thesaurusEntry.ThesaurusEntryId);
+            if (thesaurusEntryDb == null)
+            {
+                thesaurusEntryDb = thesaurusEntry;
+                thesaurusEntryDb.AdministrativeData = new Domain.Sql.Entities.ThesaurusEntry.AdministrativeData(userData, thesaurusEntryDb.State);
+            }   
+            else
+            {
+                thesaurusEntryDb.Copy(thesaurusEntry);
+                UpdateAdministrativeData(thesaurusEntryDb, userData, thesaurusEntry.State);
+            }
 
-            return result;
-        }
+            thesaurusDAL.InsertOrUpdate(thesaurusEntryDb);
 
-        public void UpdateState(int thesaurusId, ThesaurusState state)
-        {
-            thesaurusDAL.UpdateState(thesaurusId, state);
+            return new ResourceCreatedDTO()
+            {
+                Id = thesaurusEntryDb.ThesaurusEntryId.ToString(),
+                RowVersion = Convert.ToBase64String(thesaurusEntryDb.RowVersion)
+            };
         }
 
         public void TryDelete(int id)
@@ -232,6 +299,43 @@ namespace sReportsV2.BusinessLayer.Implementations
             thesaurusDAL.DeleteCode(id);
         }
 
+        public ThesaurusEntryDataOut UpdateTranslation(ThesaurusEntryTranslationDataIn thesaurusEntryTranslationDataIn, UserData userData)
+        {
+            ThesaurusEntryTranslation thesaurusEntryTranslation = Mapper.Map<ThesaurusEntryTranslation>(thesaurusEntryTranslationDataIn);
+            ThesaurusEntry thesaurusEntry = this.thesaurusDAL.GetById(thesaurusEntryTranslation.ThesaurusEntryId);
+            thesaurusEntry.UpdateTranslation(thesaurusEntryTranslation);
+            UpdateAdministrativeData(thesaurusEntry, userData, thesaurusEntry.State);
+            thesaurusDAL.InsertOrUpdate(thesaurusEntry);
+            ThesaurusEntryDataOut thesaurusEntryDataOut = Mapper.Map<ThesaurusEntryDataOut>(thesaurusEntry);
+            return thesaurusEntryDataOut;
+        }
+
+        public ThesaurusGlobalCountDataOut GetThesaurusGlobalChartData()
+        {
+            ThesaurusGlobalCountDataOut result = new ThesaurusGlobalCountDataOut()
+            {
+                ThesaurusTotal = this.thesaurusDAL.GetFilteredCount(null),
+            };
+
+            return result;
+        }
+
+        public void InsertOrUpdateCodeSystem(CodeSystemDataIn codeSystemDataIn)
+        {
+            CodeSystem codeSystem = Mapper.Map<CodeSystem>(codeSystemDataIn);
+            CodeSystem codeSystemDb = codeSystemDAL.GetById(codeSystemDataIn.Id);
+            if (codeSystemDb == null)
+            {
+                codeSystemDb = codeSystem;
+            }
+            else
+            {
+                codeSystemDb.Copy(codeSystem);
+            }
+
+            codeSystemDAL.InsertOrUpdate(codeSystemDb);
+        }
+
         private List<O4CodeableConceptDataOut> GetCodes(ThesaurusEntry thesaurusEntry)
         {
             List<O4CodeableConceptDataOut> result = new List<O4CodeableConceptDataOut>();
@@ -248,7 +352,7 @@ namespace sReportsV2.BusinessLayer.Implementations
                         VersionPublishDate = code.VersionPublishDate,
                         Link = code.Link,
                         EntryDateTime = code.EntryDateTime,
-                        Id = code.Id
+                        Id = code.O4CodeableConceptId
 
                     };
 
@@ -257,6 +361,72 @@ namespace sReportsV2.BusinessLayer.Implementations
             }
 
             return result;
+        }
+
+        private void MapCodesToExistingValues(ThesaurusEntryDataIn thesaurusEntry)
+        {
+            if (thesaurusEntry.Codes != null)
+            {
+                foreach (O4CodeableConceptDataIn code in thesaurusEntry.Codes.FindAll(c => c.CodeSystemId <= 0))
+                {
+                    CodeSystem system = codeSystemDAL.GetBySAB(code.CodeSystemAbbr);
+                    if (system != null)
+                    {
+                        code.CodeSystemId = system.CodeSystemId;
+                    }
+                }
+                int numOfDeleted = thesaurusEntry.Codes.RemoveAll(c => c.CodeSystemId <= 0);
+            }
+        }
+
+        private void UpdateAdministrativeData(ThesaurusEntry thesaurusEntry, UserData userData, ThesaurusState? state)
+        {
+            thesaurusEntry.AdministrativeData = thesaurusEntry.AdministrativeData ?? new Domain.Sql.Entities.ThesaurusEntry.AdministrativeData(userData, ThesaurusState.Draft);
+            thesaurusEntry.AdministrativeData.UpdateVersionHistory(userData, state);
+        }
+
+        private void SetUserAdministrativeData(ThesaurusEntry data, ThesaurusEntryDataOut dataOut)
+        {
+            if(data.AdministrativeData != null)
+            {
+                foreach(var version in data.AdministrativeData.VersionHistory)
+                {
+                    var versionDataOut = dataOut.AdministrativeData.VersionHistory.FirstOrDefault(v => v.Id == version.VersionId);
+                    var globalUser = globalThesaurusUserDAL.GetById(version.UserId);
+                    if(globalUser != null && versionDataOut != null)
+                    {
+                        versionDataOut.User = new UserShortInfoDataOut() { Username = globalUser.Email, FirstName = globalUser.FirstName, LastName = globalUser.LastName };
+                    }
+                }
+            }
+        }
+
+        private Tuple<ThesaurusEntry, int> SaveCodeChanges(O4CodeableConceptDataIn codeDataIn, int? thesaurusEntryId)
+        {
+            O4CodeableConcept code = Mapper.Map<O4CodeableConcept>(codeDataIn);
+
+            code.EntryDateTime = DateTime.Now;
+            ThesaurusEntry thesaurus = thesaurusDAL.GetById(thesaurusEntryId.GetValueOrDefault());
+            if (thesaurus != null)
+            {
+                if (code.O4CodeableConceptId == 0)
+                {
+                    thesaurus.Codes.Add(code);
+                }
+                else
+                {
+                    var dbCode = thesaurus.Codes.FirstOrDefault(x => x.O4CodeableConceptId == code.O4CodeableConceptId);
+                    if (dbCode != null)
+                    {
+                        dbCode.Copy(code);
+                    }
+                }
+                thesaurus.SetLastUpdate();
+
+                thesaurusDAL.InsertOrUpdate(thesaurus);
+            }
+
+            return new Tuple<ThesaurusEntry, int>(thesaurus, code.O4CodeableConceptId);
         }
     }
 }

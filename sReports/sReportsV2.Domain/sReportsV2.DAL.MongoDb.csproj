@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>sReportsV2.Domain</RootNamespace>
     <AssemblyName>sReportsV2.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -41,6 +41,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,13 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseMigrationScripts\MongoMigration\Implementations\M_202212081410_DateFormat.cs" />
+    <Compile Include="DatabaseMigrationScripts\MongoMigration\Implementations\M_202211221536_ValueLabel.cs" />
+    <Compile Include="DatabaseMigrationScripts\MongoMigrator\MongoMigrator.cs" />
+    <Compile Include="DatabaseMigrationScripts\MongoMigration\Interface\MongoMigration.cs" />
     <Compile Include="Entities\Common\ImportSettings.cs" />
     <Compile Include="Entities\Common\KeyValue.cs" />
+    <Compile Include="Entities\Common\NodeValue.cs" />
     <Compile Include="Entities\Common\ReferalInfo.cs" />
     <Compile Include="Entities\Consensus\ConsensusInstance.cs" />
     <Compile Include="Entities\Consensus\ConsensusIteration.cs" />
+    <Compile Include="Entities\Consensus\QuestionOccurenceConfig.cs" />
     <Compile Include="Entities\DFD\Constants.cs" />
     <Compile Include="Entities\DFD\DFDFormInfo.cs" />
+    <Compile Include="Entities\DigitalGuidelineInstance\GuidelineInstance.cs" />
     <Compile Include="Entities\DigitalGuideline\ElementData\GuidelineEdgeElementData.cs" />
     <Compile Include="Entities\DigitalGuideline\ElementData\GuidelineEventElementData.cs" />
     <Compile Include="Entities\DigitalGuideline\EvidenceProperties\EvidenceCategory.cs" />
@@ -108,6 +116,8 @@
     <Compile Include="Entities\Field\FieldText.cs" />
     <Compile Include="Entities\Field\FieldString.cs" />
     <Compile Include="Entities\Field\FieldTextArea.cs" />
+    <Compile Include="Entities\CustomFieldFilters\CustomFieldFilterGroup.cs" />
+    <Compile Include="Entities\FormInstance\FormInstanceStatus.cs" />
     <Compile Include="Entities\FormInstance\DocumentPropertiesOverriden.cs" />
     <Compile Include="Entities\FormInstance\FormInstanceCovidFilter.cs" />
     <Compile Include="Entities\FormInstance\FormInstanceFhirFilter.cs" />
@@ -132,6 +142,7 @@
     <Compile Include="Entities\Form\OutsideUser.cs" />
     <Compile Include="Entities\Form\Version.cs" />
     <Compile Include="Entities\Form\ReferralForm.cs" />
+    <Compile Include="Entities\MongoMigrationVersion\MongoMigrationVersion.cs" />
     <Compile Include="Entities\PatientEntities\Communication.cs" />
     <Compile Include="Entities\PatientEntities\Contact.cs" />
     <Compile Include="Entities\PatientEntities\MultipleBirth.cs" />
@@ -150,9 +161,6 @@
     <Compile Include="Entities\UMLSEntities\MRCONSOEntity.cs" />
     <Compile Include="Entities\UMLSEntities\MRDEFEntity.cs" />
     <Compile Include="Entities\UMLSEntities\MRRANKEntity.cs" />
-    <Compile Include="Exceptions\ConcurrencyDeleteException.cs" />
-    <Compile Include="Exceptions\ConcurrencyException.cs" />
-    <Compile Include="Exceptions\DuplicateException.cs" />
     <Compile Include="Extensions\BundleExtension.cs" />
     <Compile Include="Entities\Common\AuditLog.cs" />
     <Compile Include="Entities\Common\EnumData.cs" />
@@ -172,18 +180,28 @@
     <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryTranslation.cs" />
     <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryTree.cs" />
     <Compile Include="Entities\FormInstance\FormInstance.cs" />
+    <Compile Include="Extensions\ListFieldFilterExtension.cs" />
     <Compile Include="Extensions\SystemExtension.cs" />
     <Compile Include="Extensions\PatientExtensions.cs" />
+    <Compile Include="FieldFilters\Enum\FieldOperators.cs" />
+    <Compile Include="Entities\CustomFieldFilters\CustomFieldFilterData.cs" />
+    <Compile Include="FieldFilters\Implementations\DateCustomFieldFilter.cs" />
+    <Compile Include="FieldFilters\Implementations\Factory\CustomFieldFiltersFactory.cs" />
+    <Compile Include="FieldFilters\Implementations\NumericCustomFieldFilter.cs" />
+    <Compile Include="FieldFilters\Implementations\TextualCustomFieldFilter.cs" />
+    <Compile Include="FieldFilters\Interface\CustomFieldFilter.cs" />
+    <Compile Include="FieldFilters\OperatorsFiltersBuilders.cs" />
     <Compile Include="FormValues\FieldValue.cs" />
     <Compile Include="Mongo\MongoConfiguration.cs" />
     <Compile Include="Mongo\MongoDBInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implementations\ConsensusInstanceService.cs" />
+    <Compile Include="Services\Implementations\ConsensusInstanceDAL.cs" />
     <Compile Include="Services\Implementations\ConsensusDAL.cs" />
+    <Compile Include="Services\Implementations\CustomFieldFilterDAL.cs" />
     <Compile Include="Services\Implementations\DFDService.cs" />
-    <Compile Include="Services\Implementations\DigitalGuidelineService.cs" />
-    <Compile Include="Services\Implementations\EpisodeOfCareService.cs" />
-    <Compile Include="Services\Implementations\FormDistributionService.cs" />
+    <Compile Include="Services\Implementations\DigitalGuidelineInstanceDAL.cs" />
+    <Compile Include="Services\Implementations\DigitalGuidelineDAL.cs" />
+    <Compile Include="Services\Implementations\FormDistributionDAL.cs" />
     <Compile Include="Services\Implementations\FormInstanceDAL.cs" />
     <Compile Include="Services\Implementations\FormDAL.cs" />
     <Compile Include="Services\Implementations\ImportSettingsService.cs" />
@@ -191,12 +209,13 @@
     <Compile Include="Services\Implementations\OutsideUserService.cs" />
     <Compile Include="Services\Implementations\RoleService.cs" />
     <Compile Include="Services\Implementations\ThesaurusMergeService.cs" />
-    <Compile Include="Services\Interfaces\FormDistributionService.cs" />
-    <Compile Include="Services\Interfaces\IConsensusInstanceService.cs" />
+    <Compile Include="Services\Interfaces\ICustomFieldFilterDAL.cs" />
+    <Compile Include="Services\Interfaces\IFormDistributionDAL.cs" />
+    <Compile Include="Services\Interfaces\IConsensusInstanceDAL.cs" />
     <Compile Include="Services\Interfaces\IConsensusDAL.cs" />
     <Compile Include="Services\Interfaces\IDFDService.cs" />
-    <Compile Include="Services\Interfaces\IDigitalGuidelineService.cs" />
-    <Compile Include="Services\Interfaces\IEpisodeOfCareService.cs" />
+    <Compile Include="Services\Interfaces\IDigitalGuidelineInstanceDAL.cs" />
+    <Compile Include="Services\Interfaces\IDigitalGuidelineDAL.cs" />
     <Compile Include="Services\Interfaces\IFormInstanceDAL.cs" />
     <Compile Include="Services\Interfaces\IFormDAL.cs" />
     <Compile Include="Services\Interfaces\IImportSettingsService.cs" />
@@ -207,13 +226,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\sReportsV2.Domain.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\sReportsV2.Domain.csprojAssemblyReference.cache" />
     <None Include="sReportsV2.Domain.ruleset" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\Debug\" />
-    <Folder Include="bin\Release\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
@@ -245,7 +260,6 @@
     <Content Include="DatabaseMigrationScripts\Archived\R15\setThesaurusEntryiesListIntoForm.js" />
     <Content Include="DatabaseMigrationScripts\Archived\R17\updateUsers.js" />
     <Content Include="DatabaseMigrationScripts\New\userClinicalTrials.js" />
-    <Content Include="obj\Debug\sReportsV2.Domain.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper">
@@ -279,6 +293,10 @@
     <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
       <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
       <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj">
+      <Project>{406BDC5C-0219-4083-B83F-0A33A46BCCDC}</Project>
+      <Name>sReportsV2.DAL.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
       <Project>{b409aa17-11c7-4e45-9382-fe1ff764a31d}</Project>

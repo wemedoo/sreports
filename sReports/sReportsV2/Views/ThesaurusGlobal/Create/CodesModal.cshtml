@@ -1,7 +1,7 @@
 ﻿@using sReportsV2.DTOs.Common.DataOut;
 @using sReportsV2.DTOs;
 
-<form id="codesForm" name="CodesFilterForm" onsubmit="return false">
+<form id="codesForm">
     <div class="modal fade" id="codesModal" tabindex="-1" role="dialog" aria-labelledby="codesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content codes-modal-content">
@@ -13,28 +13,28 @@
 
                 <div class="modal-body modal-body-vocabulary" id="codesModalContent">
                     <div class="d-flex advanced-filter-header afh-global-thesaurus codes-header">
-                        Coding and Classification Systems:
+                        @sReportsV2.Resources.TextLanguage.CodingClassificationSystem:
                     </div>
 
                     <div class="codes-item">
                         <div class="codes-label">
-                            Code:
+                            @sReportsV2.Resources.TextLanguage.Code:
                         </div>
-                        <input type="text" class="codes-input" id="code" />
+                        <input type="text" class="codes-input" id="code" name="code" required/>
                     </div>
 
                     <div class="codes-item">
                         <div class="codes-label">
-                            String:
+                            @sReportsV2.Resources.TextLanguage.String:
                         </div>
-                        <input type="text" class="codes-input" id="string" />
+                        <input type="text" class="codes-input" id="string" name="string" required/>
                     </div>
 
                     <div class="codes-item">
                         <div class="codes-label">
-                            System full name:
+                            @sReportsV2.Resources.TextLanguage.SystemFullName:
                         </div>
-                        <select type="text" class="codes-input codes-select" id="system">
+                        <select class="codes-input codes-select" id="system" name="system" required>
                             <option value=""></option>
                             @foreach (var codeSystem in ViewBag.CodeSystems)
                             {
@@ -46,7 +46,7 @@
 
                     <div class="codes-item">
                         <div class="codes-label">
-                            Link:
+                            @sReportsV2.Resources.TextLanguage.Link                            :
                         </div>
                         <input type="text" class="codes-input" id="link" />
                     </div>
@@ -54,7 +54,9 @@
 
                     <div class="codes-btns ">
                         <div class="button-wrapper-filter filter-button" id="submitFilterButton" style="right:0px;">
-                            <button class="btn btn-filter-primary w-100 h-100" onclick="addCode(event)"> Save</button>
+                            <button class="btn btn-filter-primary w-100 h-100" onclick="addCode(event)">
+                                @sReportsV2.Resources.TextLanguage.Save
+                            </button>
                         </div>
                         <div class="button-wrapper-filter cancel-filter-btn float-right" id="close" style="right: 90px;">
                             <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">

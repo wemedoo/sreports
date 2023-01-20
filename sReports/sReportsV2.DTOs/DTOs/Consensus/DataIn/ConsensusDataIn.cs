@@ -11,7 +11,6 @@ namespace sReportsV2.DTOs.Form.DataIn
     {
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime EntryDatetime { get; set; }
         public DateTime? LastUpdate { get; set; }
         public string FormRef { get; set; }
         public List<ConsensusQuestionDataIn> Questions { get; set; }

@@ -15,5 +15,10 @@ namespace sReportsV2.Common.Entities.User
         public string LastName { get; set; }
         public int? ActiveOrganization { get; set; }
         public List<int> Organizations { get; set; }
+
+        public string GetName()
+        {
+            return FirstName + " " + LastName;
+        }
     }
 }

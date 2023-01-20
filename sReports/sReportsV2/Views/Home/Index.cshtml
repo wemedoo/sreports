@@ -2,52 +2,52 @@
     ViewBag.Title = "Home Page";
 }
 <div class="element-background-white" style="padding-bottom:unset;">
-@Html.Partial("Breadcrumb", new ViewDataDictionary { { "activeLevel", 0 } })
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "activeLevel", 0 } })
 </div>
 <div class="widgets-container">
-    <div class="element-background-white border-beetwen-widgets" >
-    <div class="widget first">
-        <div class="users-by-organization-header">
-            @sReportsV2.Resources.TextLanguage.Documents_per_group
-        </div>
-        <div class="widget-content">
-            <canvas id="documentsPerThesaurus" width="200" height="200"></canvas>
-        </div>
-    </div>
-        </div>
-
-    <div class="element-background-grey element-background-grey-height-overview pt-2 overview-grey-widgets">
-    <div class="widget right">
-        <div class="users-by-organization-header" >
-            @sReportsV2.Resources.TextLanguage.Total_thesaurus_entries
-        </div>
-        <div class="widget-content widget-border background-white">
-            <div class="items d-flex">
-                <div class="total-item display-block">
-                    <img class="overview-icon" src="~/Content/img/icons/thesaurus_entries.svg">
-                    <div class="total-label">Thesaurus entries</div>
-                    <div id="totalThesaurusEntries" class="total-number"></div>
-                </div>
-                <div class="items-line"></div>
-                <div class="total-item">
-                    <img class="overview-icon" src="~/Content/img/icons/conected_with_ulms.svg" style="width:42px;">
-                    <div class="total-label">Connected with UMLS</div>
-                    <div id="totalUmls" class="total-number"></div>
-
-
-                </div>
+    <div class="element-background-white border-beetwen-widgets">
+        <div class="widget first">
+            <div class="users-by-organization-header">
+                @sReportsV2.Resources.TextLanguage.Documents_per_group
+            </div>
+            <div class="widget-content">
+                <canvas id="documentsPerThesaurus" width="200" height="200"></canvas>
             </div>
         </div>
     </div>
-    <div class="widget">
-        <div class="users-by-organization-header">
-            @sReportsV2.Resources.TextLanguage.Users_by_organization
-        </div>
-        <div class="widget-content widget-border background-white" id="organizationUsersCount">
 
+    <div class="element-background-grey element-background-grey-height-overview pt-2 overview-grey-widgets">
+        <div class="widget right">
+            <div class="users-by-organization-header">
+                @sReportsV2.Resources.TextLanguage.Total_thesaurus_entries
+            </div>
+            <div class="widget-content widget-border background-white">
+                <div class="items d-flex">
+                    <div class="total-item display-block">
+                        <img class="overview-icon" src="~/Content/img/icons/thesaurus_entries.svg">
+                        <div class="total-label">@sReportsV2.Resources.TextLanguage.ThesaurusEntries</div>
+                        <div id="totalThesaurusEntries" class="total-number"></div>
+                    </div>
+                    <div class="items-line"></div>
+                    <div class="total-item">
+                        <img class="overview-icon" src="~/Content/img/icons/conected_with_ulms.svg" style="width:42px;">
+                        <div class="total-label">@sReportsV2.Resources.TextLanguage.ConnectedWithUmls</div>
+                        <div id="totalUmls" class="total-number"></div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="users-by-organization-header">
+                @sReportsV2.Resources.TextLanguage.Users_by_organization
+            </div>
+            <div class="widget-content widget-border background-white" id="organizationUsersCount">
+
+            </div>
         </div>
     </div>
-        </div>
     <!--<div class="widget right">
         <div class="widget-header">
             Documents per Group
@@ -58,5 +58,5 @@
     </div>-->
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-<script src="~/Scripts/sReports/overview.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/overview.js")

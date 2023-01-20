@@ -17,11 +17,11 @@ namespace sReportsV2.Domain.Mongo
         {
             var mongoClientSettings = MongoClientSettings.FromUrl(new MongoUrl(MongoConfiguration.ConnectionString));
             mongoClientSettings.SslSettings.CheckCertificateRevocation = false;
-            mongoClientSettings.ClusterConfigurator = cb => {
+            /*mongoClientSettings.ClusterConfigurator = cb => {
                 cb.Subscribe<CommandStartedEvent>(e => {
-                    //Debug.WriteLine($"{e.CommandName} - {e.Command.ToJson()}");
+                    Debug.WriteLine($"{e.CommandName} - {e.Command.ToJson()}");
                 });
-            };
+            };*/
             MongoClient Client = new MongoClient(mongoClientSettings);
 
             db = Client.GetDatabase("sReports");

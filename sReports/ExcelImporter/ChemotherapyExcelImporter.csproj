@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65D22046-D764-45DA-92F1-2911E852DF86}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ExcelImporter</RootNamespace>
+    <AssemblyName>ExcelImporter</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.14.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.14.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445B106A-0B89-41E7-BB97-AF841F375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj">
+      <Project>{406bdc5c-0219-4083-b83f-0a33a46bccdc}</Project>
+      <Name>sReportsV2.DAL.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
+      <Project>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</Project>
+      <Name>sReportsV2.Domain.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sReportsV2.DTOs\sReportsV2.DTOs.csproj">
+      <Project>{9df5131d-c4ad-4bda-925f-e073bdadc513}</Project>
+      <Name>sReportsV2.DTOs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Common\CellInfo.cs" />
+    <Compile Include="Classes\Common\RowInfo.cs" />
+    <Compile Include="Classes\ChemotherapySchema.cs" />
+    <Compile Include="Constants\ChemotherapySchemaConstants.cs" />
+    <Compile Include="Constants\ChemotherapySchemaV2Constants.cs" />
+    <Compile Include="Constants\GlobalThesaurusConstants.cs" />
+    <Compile Include="Importers\MedicationDoseTypeImporter.cs" />
+    <Compile Include="Importers\BodySurfaceCalculationFormulaImporter.cs" />
+    <Compile Include="Importers\CountryCodeImporter.cs" />
+    <Compile Include="Importers\RouteOfAdministrationImporter.cs" />
+    <Compile Include="Importers\Base\ExcelImporter.cs" />
+    <Compile Include="Importers\Base\ExcelSaxImporter.cs" />
+    <Compile Include="Importers\GlobalThesaurusImporter.cs" />
+    <Compile Include="Importers\SchemaColumnImporter.cs" />
+    <Compile Include="Importers\SchemaImporter.cs" />
+    <Compile Include="Importers\SchemaImporterV2.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

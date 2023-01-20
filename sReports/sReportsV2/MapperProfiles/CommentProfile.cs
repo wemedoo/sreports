@@ -2,10 +2,6 @@
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.DTOs.Form.DataIn;
 using sReportsV2.DTOs.Form.DataOut;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace sReportsV2.MapperProfiles
 {
@@ -13,17 +9,21 @@ namespace sReportsV2.MapperProfiles
     {
         public CommentProfile()
         {
-           CreateMap<Comment, FormCommentDataOut>()
-          .ReverseMap();
+            CreateMap<Comment, FormCommentDataOut>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
 
-           CreateMap<FormCommentDataIn, Comment>()
-          .ReverseMap();
+            CreateMap<FormCommentDataIn, Comment>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
 
-            CreateMap<sReportsV2.Domain.Sql.Entities.FormComment.Comment, FormCommentDataOut>()
-          .ReverseMap();
+            CreateMap<Domain.Sql.Entities.FormComment.Comment, FormCommentDataOut>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.CommentId))
+                .ReverseMap();
 
-            CreateMap<FormCommentDataIn, sReportsV2.Domain.Sql.Entities.FormComment.Comment>()
-           .ReverseMap();
+            CreateMap<FormCommentDataIn, Domain.Sql.Entities.FormComment.Comment>()
+                .ForMember(d => d.CommentId, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
         }
     }
 }

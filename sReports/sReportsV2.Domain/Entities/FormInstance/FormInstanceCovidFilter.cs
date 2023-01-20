@@ -9,7 +9,7 @@ namespace sReportsV2.Domain.Entities.FormInstance
     public class FormInstanceCovidFilter
     {
         public DateTime LastUpdate { get; set; }
-        public string ThesaurusId { get; set; }
+        public int ThesaurusId { get; set; }
         public string FieldThesaurusId { get; set; }
     }
 }

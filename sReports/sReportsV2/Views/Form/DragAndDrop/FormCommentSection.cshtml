@@ -1,4 +1,5 @@
 ﻿@using sReportsV2.DTOs.Form.DataOut
+@using sReportsV2.Common.Extensions
 
 @model FormCommentListDataOut
 
@@ -6,8 +7,8 @@
     ViewBag.Title = "FormCommentSection";
 }
 
-<form class="w-100" method="post" id="idCommentInfo" onsubmit="return submitCommentForm(this, event)" novalidate>
-   
+<form class="w-100" method="post" id="idCommentInfo" onsubmit="return submitCommentForm(this, event)" novalidate data-id="0">
+
     <input type="text" name="itemRef" id="itemRef" value="@(ViewBag.ItemRef !=null ? ViewBag.ItemRef : "")" hidden />
 
     <div class="comment-header">
@@ -16,13 +17,12 @@
         </div>
         <div class="comment-user-information">
             <label class="user-info-label">@ViewBag.UserCookieData.FirstName @ViewBag.UserCookieData.LastName</label>
-            <label class="create-date-comment">@DateTime.Now.ToString("h:mm tt MMM dd")</label>
+            <label class="create-date-comment">@DateTime.Now.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)</label>
         </div>
     </div>
-    <input type="text" name="commentText" id="commentText" placeholder="Comment" />
+    @Html.Partial("~/Views/Form/DragAndDrop/CommentInputText.cshtml", new ViewDataDictionary { {"commentId", "0"} })
     <div class="replay-btns">
         <a class="cancel-new-comment-button" onclick="cancelNewComment()">Cancel</a>
-        <button type="submit" class="save-comment-button">Comment</button>
+        <button type="submit" class="save-comment-button">@sReportsV2.Resources.TextLanguage.Comment</button>
     </div>
 </form>
-

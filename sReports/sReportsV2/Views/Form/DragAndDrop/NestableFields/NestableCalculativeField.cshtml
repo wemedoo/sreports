@@ -3,10 +3,10 @@
 
 <fieldset class="form-input">
     <div class="filter-label form-label-size d-inline-block">
-        <span class="comment-target-item" id="@Model.Id">  @Model.Label </span>
+        <span class="comment-target-item" id="@Model.Id">  @Html.Raw(Model.FullLabel) </span>
     </div>
     <div class="repetitive-field filter-input d-inline-block">
-        <input type="number" class="form-element-field" placeholder="@Model.DescriptionLabel" />
+        <input type="number" class="form-element-field" placeholder="@Model.DescriptionLabel" readonly/>
     </div>
     @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
 </fieldset>

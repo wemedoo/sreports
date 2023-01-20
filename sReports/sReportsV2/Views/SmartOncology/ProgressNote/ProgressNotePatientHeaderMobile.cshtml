@@ -1,0 +1,129 @@
+﻿<!-- //////// Start - Visible on tablet //////// -->
+@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchemaInstance.DataOut;
+
+@model ChemotherapySchemaInstanceDataOut
+
+<nav class="navbar visible-md">
+    <div class="navbar-arrows">
+        <a class="left-arrow enable">
+            <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="//www.w3.org/2000/svg">
+                <path d="M10.8158 1.06817C7.68327 4.21275 4.52275 7.35713 1.40954 10.5017C1.40954 10.2071 1.40954 9.91254 1.40954 9.61796C4.52275 12.6763 7.51142 15.7344 10.5582 18.7928C11.1265 19.3632 10.2502 20.2469 9.68175 19.6765C6.63495 16.6182 3.59024 13.56 0.543651 10.5017C0.303726 10.2611 0.304764 9.85859 0.544688 9.61796C3.67741 6.47338 6.80639 3.329 9.9391 0.184419C10.5074 -0.386206 11.3843 0.497752 10.8158 1.06817Z" fill="#BFBFBF" />
+            </svg>
+        </a>
+        <a class="right-arrow disabled">
+            <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="//www.w3.org/2000/svg">
+                <path d="M0.348463 1.13772C3.48097 4.2823 6.6415 7.42668 9.75471 10.5713C9.75471 10.2767 9.75471 9.98209 9.75471 9.68751C6.6415 12.7458 3.65282 15.804 0.606029 18.8623C0.0377646 19.4327 0.914029 20.3165 1.4825 19.7461C4.52929 16.6877 7.57401 13.6296 10.6206 10.5713C10.8605 10.3306 10.8595 9.92814 10.6196 9.68751C7.48684 6.54293 4.35786 3.39855 1.22514 0.253969C0.656878 -0.316656 -0.220009 0.567302 0.348463 1.13772Z" fill="#BFBFBF" />
+            </svg>
+        </a>
+    </div>
+    <div class="navbar-title">
+        @sReportsV2.Resources.TextLanguage.History_sheet
+    </div>
+    <div class="navbar-right">
+        <div class="navbar-export">
+            <a href="#" onclick="event.preventDefault();">
+                <img src="~/Content/open-oncology/images/icons/pdf-icon.svg" alt="PDF">
+                <span>@sReportsV2.Resources.TextLanguage.Export_to_pdf</span>
+            </a>
+        </div>
+        <div class="navbar-lang">
+            <a class="lang-item active" href="#" onclick="changeLanguage(event)">Eng</a>
+            <a class="lang-item" href="#" onclick="changeLanguage(event)">Deu</a>
+        </div>
+    </div>
+</nav>
+<!-- //////// End - Visible on tablet //////// -->
+<!-- //////// Start - Visible on tablet //////// -->
+<div class="visible-md">
+    <header class="header">
+        @if (Model.IsNotPreview())
+        {
+            <div class="search-container">
+                <select id="patientNameMobile" name="patientNameMobile" class="w-100">
+                    <option selected value=""></option>
+                </select>
+                <img class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg">
+            </div>
+        }
+        else
+        {
+            <input type="hidden" id="patientNameMobile" name="patientNameMobile" value="@Model.Patient.Id" />
+        }
+        <div class="row" id="patientDataMobile">
+            @Html.Partial("ProgressNote/ViewPatientDataMobile")
+        </div>
+        <div class="collapse-date collapse show">
+            <div class="date">
+                <div class="schema-name">
+                    @sReportsV2.Resources.TextLanguage.Schema_name:
+                    @if (Model.IsNotPreview())
+                    {
+                        <div class="search-container no-margin">
+                            <select id="schemaNameMobile" name="schemaNameMobile" class="w-100">
+                                <option selected value=""></option>
+                            </select>
+                            <img class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg">
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" id="schemaNameMobile" name="schemaNameMobile" value="@(Model != null && Model.ChemotherapySchema != null ? Model.ChemotherapySchema.Id : 0)" />
+                        <div>@(Model != null && Model.ChemotherapySchema != null ? Model.ChemotherapySchema.Name : "")</div>
+                    }
+                </div>
+                <div class="date-cycle">
+                    <div class="date-picker">
+                        <label>
+                            @sReportsV2.Resources.TextLanguage.Date:
+                            @if (Model.IsNotPreview())
+                            {
+                                @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                                {
+                                    InputAttributes = new Dictionary<object, object> { 
+                                        { "class", "schema-start-datepicker" }, 
+                                        { "id", "schemaStartMobile" }, 
+                                        { "name", "schemaStartMobile" } 
+                                    }
+                                })
+                            }
+                            else
+                            {
+                                <input type="hidden" id="schemaStartMobile" name="schemaStartMobile" value="@(Model != null && Model.StartDate.HasValue ? Model.StartDate.Value.ToString(ViewBag.DateFormat) : "")" />
+                                <span>@(Model != null && Model.StartDate.HasValue ? Model.StartDate.Value.ToString(ViewBag.DateFormat) : "")</span>
+                            }
+                        </label>
+                    </div>
+                    <div class="dropdown">
+                        <div class="dropdown-pick">
+                            @sReportsV2.Resources.TextLanguage.Cycle_sequential_number:
+                            <select class="form-control">
+                                @foreach (string orderNum in new List<string>() { { @sReportsV2.Resources.TextLanguage.First }, { @sReportsV2.Resources.TextLanguage.Second }, { @sReportsV2.Resources.TextLanguage.Third }, { @sReportsV2.Resources.TextLanguage.Fourth }, })
+                                {
+                                    <option class="opt-item">@orderNum.ToUpper() @sReportsV2.Resources.TextLanguage.Cycle.ToUpper()</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="dropdown-pick">
+                            @sReportsV2.Resources.TextLanguage.Day_lower:
+                            <select class="form-control">
+                                @for (int i = 1; i < 4; i++)
+                                {
+                                    <option class="opt-item">@sReportsV2.Resources.TextLanguage.DAY @i</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End .header  -->
+    <div class="signe">
+        <a href="#" class="btn-primary-schema-instance" onclick="event.preventDefault();">@sReportsV2.Resources.TextLanguage.Sign</a>
+    </div>
+</div>
+
+@if (Model.IsNotPreview())
+{
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/progressNoteSelect2.js")
+}

@@ -1,0 +1,28 @@
+﻿@using sReportsV2.DTOs.DTOs.Consensus.DataOut
+@using sReportsV2.Common.Extensions
+
+@model ConsensusUsersDataOut
+
+@{ 
+    bool canEditConsensusUsers = Convert.ToBoolean(ViewBag.CanEditConsensusUsers);
+}
+
+<div id="usersCosensus" class="consensus-organization-partial">
+    @Html.Partial("~/Views/Form/Consensus/Users/ConsensusUserFilter.cshtml", Model)
+    <div class="email-message-container">
+        <div class="d-flex">
+            <div class="email-message-label"> Write message to the users</div>
+            <div class="num-of-users"> Number of users: <div class="users-count-value" id="numOfSelectedUsers"></div></div>
+        </div>
+        <textarea id="emailMessage" class="email-message" @Html.ReadOnly(!canEditConsensusUsers)></textarea>
+
+        @if (ViewBag.CanEditConsensusUsers)
+        {
+            <div class="button-partial margin-top-15" style="height:50px;">
+                <button class="submit-patient right-button" type="submit" style="outline: none;" onclick="startConsensusFindingProcess()">
+                    <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.StartConsensusBtn</span>
+                </button>
+            </div>
+        }
+    </div>
+</div>

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using sReportsV2.Common.Constants;
+using sReportsV2.Common.Extensions;
 using sReportsV2.Domain.Entities.Form;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,29 @@ namespace sReportsV2.Domain.Entities.FieldEntity
 
         public override string GetReferrableValue(string referalValue)
         {
-            return this.Values.FirstOrDefault(x => x.ThesaurusId.Equals(referalValue)).Label;
+            string radioValue = this.Values.FirstOrDefault(x => x.ThesaurusId.ToString().Equals(referalValue))?.Label;
+            if (radioValue == null)
+            {
+                if (referalValue.ShouldSetSpecialValue(IsRequired))
+                {
+                    return "N/E";
+                }
+            }
+            return radioValue;
+        }
+
+        public override List<string> GetValueLabelsFromValue()
+        {
+            List<string> valueLabels = new List<string>();
+            foreach (var val in Value)
+            {
+                string valueLabel = Values.FirstOrDefault(x => int.TryParse(val, out int parsedValue) && x.ThesaurusId == parsedValue)?.Label;
+                if (!string.IsNullOrEmpty(valueLabel))
+                {
+                    valueLabels.Add(valueLabel);
+                }
+            }
+            return valueLabels;
         }
     }
 }

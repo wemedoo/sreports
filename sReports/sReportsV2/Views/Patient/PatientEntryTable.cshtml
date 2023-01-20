@@ -1,56 +1,77 @@
 ﻿@using sReportsV2.DTOs.Patient
-    <div class="table-responsive filter-border">
-        <table class="table table-striped table-border">
-            <thead class="color-header">
-                <tr class="table-header-row">
-                    <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.Name.ToUpper()</th>
-                    <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.Family.ToUpper()</th>
-                    <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.Gender.ToUpper()</th>
-                    <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.Activity.ToUpper()</th>
-                    <th style="border-bottom: unset;border-top: unset;">@sReportsV2.Resources.TextLanguage.BirthDate.ToUpper()</th>
-                    <th style="border-bottom: unset;border-top: unset;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (PatientDataOut entry in Model.Data)
-                {
-                    <tr id="row-@entry.Id" onclick="clickedRow(event, '@entry.Id')" class="table-content-row">
-                        <td>@entry.Name</td>
-                        <td>@entry.FamilyName</td>
-                        <td>@entry.Gender</td>
-                        <td class="color-green-primary">@(entry.Activity ? sReportsV2.Resources.TextLanguage.Active : sReportsV2.Resources.TextLanguage.Inactive)</td>
-                        <td>@(entry.BirthDate != null ? entry.BirthDate.Value.ToShortDateString() : "")</td>
-                        <td>
+@using sReportsV2.Common.Constants;
+@{
+    var userCookieData = ViewBag.UserCookieData;
+    bool hasCreateUpdatePerm = userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Patients);
+    bool hasViewPerm = userCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Patients);
+    bool hasDeletePerm = userCookieData.UserHasPermission(PermissionNames.Delete, ModuleNames.Patients);
+}
+
+<div class="table-responsive filter-border">
+    <table class="table table-striped table-border">
+        <thead class="color-header">
+            <tr class="table-header-row">
+                <th id="Name.Given" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Name.Given')">@sReportsV2.Resources.TextLanguage.Name.ToUpper()</th>
+                <th id="Name.Family" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Name.Family')">@sReportsV2.Resources.TextLanguage.Family.ToUpper()</th>
+                <th id="Gender" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Gender')">@sReportsV2.Resources.TextLanguage.Gender.ToUpper()</th>
+                <th id="Active" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('Active')">@sReportsV2.Resources.TextLanguage.Activity.ToUpper()</th>
+                <th id="BirthDate" class="sort-arrow" style="border-bottom: unset;border-top: unset;" onclick="sortTable('BirthDate')">@sReportsV2.Resources.TextLanguage.BirthDate.ToUpper()</th>
+                <th style="border-bottom: unset;border-top: unset;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PatientDataOut entry in Model.Data)
+            {
+                <tr id="row-@entry.Id" onclick="clickedRow(event, '@entry.Id')" class="table-content-row">
+                    <td>@entry.Name</td>
+                    <td>@entry.FamilyName</td>
+                    <td>
+                        @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(entry.Gender)
+                    </td>
+                    <td class="color-green-primary">@(entry.Activity ? sReportsV2.Resources.TextLanguage.Active : sReportsV2.Resources.TextLanguage.Inactive)</td>
+                    <td>@(entry.BirthDate != null ? entry.BirthDate.Value.ToString(ViewBag.DateFormat) : "")</td>
+                    <td>
+                        @if (hasCreateUpdatePerm || hasDeletePerm || hasViewPerm)
+                        {
                             <div class="dropdown show">
                                 <a class="dropdown-button" href="#" data-toggle="dropdown" role="button" id="dropdownMenuLink-@entry.Id" aria-haspopup="true" aria-expanded="false">
-                                    <img class="dots" src="../Content/img/icons/3dots.png">
+                                    <img class="dots" src="~/Content/img/icons/3dots.png">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-@entry.Id">
-                                    <a class="dropdown-item" href="#" onclick="showEpisodeOfCares('@entry.Id', event)">@sReportsV2.Resources.TextLanguage.EOC_Show</a>
-
-                                    <a class="dropdown-item" href="#" onclick="editEntity(event,'@entry.Id')"><img class="edit-svg-size" src="~/Content/img/icons/edit.svg">@sReportsV2.Resources.TextLanguage.Edit</a>
-                                    <!--<a class="dropdown-item" href="#">Edit</a>-->
-                                    <a class="dropdown-item" href="#" onclick="removePatientEntry(event, '@entry.Id', '@entry.LastUpdate.Value.ToString("o")')"><img class="edit-svg-size" src="~/Content/img/icons/remove.svg">@sReportsV2.Resources.TextLanguage.Delete</a>
+                                    @if (hasCreateUpdatePerm)
+                                    {
+                                        <a class="dropdown-item" href="#" onclick="editEntity(event,'@entry.Id')"><img class="edit-svg-size" src="~/Content/img/icons/edit.svg">@sReportsV2.Resources.TextLanguage.Edit</a>
+                                    }
+                                    @if (hasViewPerm)
+                                    {
+                                        <a class="dropdown-item" href="#" onclick="editEntity(event,'@entry.Id')"><img class="edit-svg-size" src="~/Content/img/icons/info_grey.svg">@sReportsV2.Resources.TextLanguage.View</a>
+                                    }
+                                    @if (hasDeletePerm)
+                                    {
+                                        <a class="dropdown-item" href="#" onclick="removePatientEntry(event, '@entry.Id')"><img class="edit-svg-size" src="~/Content/img/icons/remove.svg">@sReportsV2.Resources.TextLanguage.Delete</a>
+                                    }
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        @if (Model.Data.Count == 0)
-        {
-            <div class="no-result-content">
-                <img class="margin-" src="~/Content/img/icons/no_results.svg">
-                <br>
-                <div class="no-result-text">@sReportsV2.Resources.TextLanguage.NoResultFound</div>
-            </div>
-        }
-        @if (Model.Data.Count > 0)
-        {
-            <div class="pager-container">
-                @Html.Partial("Pagination")
-            </div>
-        }
-    </div>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.Data.Count == 0)
+    {
+        <div class="no-result-content">
+            <img class="margin-" src="~/Content/img/icons/no_results.svg">
+            <br>
+            <div class="no-result-text">@sReportsV2.Resources.TextLanguage.NoResultFound</div>
+        </div>
+    }
+    @if (Model.Data.Count > 0)
+    {
+        <div class="pager-container">
+            @Html.Partial("Pagination")
+        </div>
+    }
+</div>
 

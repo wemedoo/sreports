@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.UMLSEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class MRCONSOEntity : Entity
     {
         [BsonId]
@@ -54,9 +55,8 @@ namespace sReportsV2.Domain.Entities.UMLSEntities
             this.SRL = srl;
             this.SUPPRESS = suppress;
             this.CVF = cvf;
-            this.EntryDatetime = DateTime.Now;
-            this.LastUpdate = DateTime.Now;
             this.IsDeleted = false;
+            this.Copy(null);
         }
 
 

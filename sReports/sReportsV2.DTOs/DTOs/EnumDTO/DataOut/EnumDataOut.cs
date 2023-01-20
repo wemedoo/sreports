@@ -11,7 +11,7 @@ namespace sReportsV2.DTOs.CustomEnum.DataOut
     public class CustomEnumDataOut
     {
         public int Id { get; set; }
-        public string OrganizationId { get; set; }
+        public int OrganizationId { get; set; }
         public CustomEnumType Type { get; set; }
         public ThesaurusEntryDataOut Thesaurus { get; set; }
         public string RowVersion { get; set; }

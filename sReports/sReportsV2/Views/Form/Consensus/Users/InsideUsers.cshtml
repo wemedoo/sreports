@@ -1,0 +1,108 @@
+﻿@using sReportsV2.DTOs.Common.DataOut
+@model List<UserDataOut>
+<div class="outside-users">
+    <div class="c-user-filter-title d-flex">
+        <img class="user-filter-icon" src="~/Content/img/icons/select_users.svg">
+        <div class="ml-2">Selected Users inside @sReportsV2.Common.Constants.ResourceTypes.SoftwareName system</div>
+    </div>
+    <div style="width:100%;">
+        @foreach (var user in Model)
+        {
+        <div class="outside-user" id="@user.Id">
+            <img src="~/Content/img/icons/profile_silver.svg">
+            <div class="outside-user-item">
+                <div class="item-label" title="@user.FirstName">
+                    @sReportsV2.Resources.TextLanguage.FirstName
+                </div>
+                <div class="item-value color-green-primary">
+                    @user.FirstName
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.LastName
+                </div>
+                <div class="item-value color-green-primary" title="@user.LastName">
+                    @user.LastName
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Email
+                </div>
+                <div class="item-value color-green-primary" title="@user.Email">
+                    @user.Email
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Institution
+                </div>
+                <div class="item-value" title="@(user.Organizations != null && user.Organizations[0] != null && user.Organizations[0].Organization != null ? user.Organizations[0].Organization.Name : string.Empty)">
+                    @(user.Organizations != null && user.Organizations[0] != null && user.Organizations[0].Organization != null ? user.Organizations[0].Organization.Name : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Institution  @sReportsV2.Resources.TextLanguage.Address
+                </div>
+                <div class="item-value" title="@(user.Organizations != null && user.Organizations[0] != null && user.Organizations[0].Organization != null && user.Organizations[0].Organization.Address != null ? user.Organizations[0].Organization.Address.GetAddressFormated() : string.Empty)">
+                    @(user.Organizations != null && user.Organizations[0] != null && user.Organizations[0].Organization != null && user.Organizations[0].Organization.Address != null ? user.Organizations[0].Organization.Address.GetAddressFormated() : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Country
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.Country : string.Empty)">
+                    @(user.Address != null ? user.Address.Country : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.City
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.City : string.Empty)">
+                    @(user.Address != null ? user.Address.City : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Postal_code
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.PostalCode : string.Empty)">
+                    @(user.Address != null ? user.Address.PostalCode : string.Empty)
+                </div>
+            </div>
+            <div class="outside-user-item">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.Street
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.Street : string.Empty)">
+                    @(user.Address != null ? user.Address.Street : string.Empty)
+                </div>
+            </div>
+
+            <div class="outside-user-item border-unset">
+                <div class="item-label">
+                    @sReportsV2.Resources.TextLanguage.StreetNumber
+                </div>
+                <div class="item-value" title="@(user.Address != null ? user.Address.StreetNumber : string.Empty)">
+                    @(user.Address != null ? user.Address.StreetNumber : string.Empty)
+                </div>
+            </div>
+            @if (ViewBag.CanEditConsensusUsers)
+            {
+                <img class="remove-outside-user" style="margin-left:140px;" onclick="deleteInsideUser('@user.Id')" src="~/Content/img/icons/Administration_remove.svg">
+            }
+        </div>
+        }
+    </div>
+</div>

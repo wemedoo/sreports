@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.PatientEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     [BsonIgnoreExtraElements]
     public class PatientEntity : Entity
     {

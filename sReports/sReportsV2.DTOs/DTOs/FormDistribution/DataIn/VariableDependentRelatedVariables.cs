@@ -9,6 +9,9 @@ namespace sReportsV2.DTOs.FormDistribution.DataIn
     {
         public int ThesaurusId { get; set; }
         public string TargetVariable { get; set; }
+        public string VersionId { get; set; }
         public List<RelatedVariable> RelatedVariables { get; set; }
+        public string FormDistributionId { get; set; }
+
     }
 }

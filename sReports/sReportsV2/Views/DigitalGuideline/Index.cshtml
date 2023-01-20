@@ -3,90 +3,40 @@
 
 @section Scripts
 {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.15.2/cytoscape.min.js" integrity="sha512-PqivlaNWoXvHYlvku80fbWO/yBiRmGhISj5uVdAodyqsGprDcVZy6aecJDVNE0fIIE/YeiOzp5yJTR5ZjFlR4Q==" crossorigin="anonymous"></script>
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha512-PqivlaNWoXvHYlvku80fbWO/yBiRmGhISj5uVdAodyqsGprDcVZy6aecJDVNE0fIIE/YeiOzp5yJTR5ZjFlR4Q==\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.15.2/cytoscape.min.js")
 }
 
 @section Stylesheet
 {
-    <link rel="stylesheet" href="~/Content/digital-guideline.css">
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/digital-guideline.css")
 }
-    <form>
-        <input type="hidden" id="guidelineId" name="id" value="@(Model != null ? Model.Id : "")" />
-        <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
-        <div class="guideline-header-container">
-            <a id="showJsonDataButton" href="#" class="guideline-header-option active" onclick="showJsonData(event);return false;">
-                JSON data
-            </a>
-            <a id="showNodePreviewButton" href="#" class="guideline-header-option" onclick="showNodePreview(event);return false;">Active node preview</a>
-        </div>
-        <div class="guideline-container">
-            <div id="cy"></div>
-            <div class="guideline-sidebar">
-                <div id="jsoneditorCode" class="guideline-sidebar-element json-editor"></div>
-                <div id="nodePreview" class="guideline-sidebar-element node-preview">
-                    <div> Node preview</div>
-                </div>
+
+@{
+    ViewBag.Title = "Digital guideline";
+}
+
+<form>
+    <input type="hidden" id="guidelineId" name="id" value="@(Model != null ? Model.Id : "")" />
+    <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
+    <div class="guideline-header-container">
+        <a id="showJsonDataButton" href="#" class="guideline-header-option active" onclick="showJsonData(event);return false;">
+            JSON data
+        </a>
+        <a id="showNodePreviewButton" href="#" class="guideline-header-option" onclick="showNodePreview(event);return false;">Active node preview</a>
+    </div>
+    <div class="guideline-container">
+        @Html.Partial("~/Views/DigitalGuideline/DigitalGuidelineGraph.cshtml")
+        <div class="guideline-sidebar">
+            <div id="jsoneditorCode" class="guideline-sidebar-element json-editor"></div>
+            <div id="nodePreview" class="guideline-sidebar-element node-preview">
+                <div> Node preview</div>
             </div>
         </div>
-        <div class="guideline-button-container">
-            <button type="button" class="btn btn-filter-primary update-guideline">Update graph</button>
-            <button type="button" class="btn btn-filter-primary submit-data">Submit</button>
-        </div>
-    </form>
-@Scripts.Render("~/bundles/digitalGuideline")
+    </div>
+    <div class="guideline-button-container">
+        <button type="button" class="btn btn-filter-primary update-guideline">Update graph</button>
+        <button type="button" class="btn btn-filter-primary submit-data" onclick="submitGuidline(event)">@sReportsV2.Resources.TextLanguage.Submit</button>
+    </div>
+</form>
 
-
-
-<script>
-    var cy;
-    var elementData = @(Model != null ? Html.Raw(Model.ToJsonNodeElements()): null)
-
-        $(document).ready(function () {
-            $('main').addClass('main-container-gray');
-            if (elementData) {
-                initializeGraph(elementData);
-            }
-           showJsonEditor(@Html.Raw(Model != null ? Newtonsoft.Json.JsonConvert.SerializeObject(Model.ToJson()) : new GuidelineDataOut().ToJson()));
-
-        /*fetch('/Scripts/sReports/DigitalGuideline/pathway-elements-example.json')
-            .then(response => response.json())
-            .then(data => showJsonEditor(data));*/
-        })
-
-    function initializeGraph(elementData) {
-        cy = cytoscape({
-            container: document.getElementById('cy'),
-            elements: elementData, //fetch('/Scripts/sReports/DigitalGuideline/pathway-elements-example.json').then(toJson),
-            layout: {
-                name: 'preset'
-            },
-            style: guidelineStyle
-        });
-
-        /*cy.on('tap', 'node', function (evt) {
-            var node = evt.target;
-            console.log('tapped ' + node.id());
-        });*/
-
-        cy.on('select', 'node', function (evt) {
-            var node = evt.target;
-            console.log('selected ' + node.id());
-            previewNode(node.data());
-        });
-
-        cy.on('unselect', 'node', function (evt) {
-            var node = evt.target;
-            console.log('unselected ' + node.id());
-            $('#showJsonDataButton').click();
-        })
-
-        cy.on('dragfreeon', 'node', function (evt) {
-            var node = evt.target;
-            let guidelineData = editorCode.get();
-            let data = cy.json();
-            guidelineData.guidelineElements = data.elements;
-            showJsonEditor(guidelineData);
-
-        })
-    }
-</script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/digitalGuideline")

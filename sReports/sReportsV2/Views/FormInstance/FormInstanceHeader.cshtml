@@ -1,0 +1,35 @@
+﻿@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Enums;
+
+@{ 
+    bool isEdit = ViewBag.FormInstanceId != null;
+}
+
+<div class="form-instance-header">
+    <div class="title">@Model.Title</div>
+    @if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+    {
+        <img class="mr-1 thesaurus form-title-thesaurus" src="~/Content/img/icons/@(Model.ThesaurusId != null ? "thesaurus_green.svg": "thesaurus_grey.svg")" onclick="goToThesaurus('@Model.ThesaurusId')">
+    }
+    <div class="form-des">
+        <u>
+            @if (Model.DocumentProperties != null && !string.IsNullOrEmpty(Model.DocumentProperties.Description))
+            {
+                @sReportsV2.Resources.TextLanguage.Description
+            }
+        </u>
+    </div>
+    @if (isEdit)
+    {
+        <div class="form-instance-header-view-mode">
+            <button onclick="switchFormInstanceViewMode('@FormInstanceViewMode.RegularView')" class="btn btn-filter-primary form-instance-view-mode" style="display: none" title="@sReportsV2.Resources.TextLanguage.Edit @sReportsV2.Resources.TextLanguage.Document"><img src="~/Content/img/icons/chapter.svg" /></button>
+            <button onclick="switchFormInstanceViewMode('@FormInstanceViewMode.SynopticView')" class="btn btn-filter-primary form-instance-view-mode" title="Synoptic @sReportsV2.Resources.TextLanguage.View"><img src="~/Content/img/icons/general_info_white.svg" /></button>
+            <button onclick="downloadSynopticPdf('@Model.Title')" class="btn btn-filter-primary form-instance-view-mode" style="display: none" title="@sReportsV2.Resources.TextLanguage.DownloadPdf Synoptic"><i class="fas fa-arrow-down"></i></button>
+        </div>
+    }
+</div>
+@if (Model.DocumentProperties != null && !string.IsNullOrEmpty(Model.DocumentProperties.Description))
+{
+    <div class='form-description desc position-relative' style="display:none;">@Html.Raw(Model.DocumentProperties.Description)<i class="fas fa-times x-des"></i></div>
+}
+

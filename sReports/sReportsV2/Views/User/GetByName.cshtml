@@ -1,0 +1,10 @@
+﻿@using sReportsV2.DTOs.Common.DataOut;
+@model List<UserDataOut>
+
+@foreach (UserDataOut user in Model)
+{
+    string name = user.FirstName + " " + user.LastName + " ";
+    <div class="option" data-value="@user.Id" data-display="@name" onclick="userOptionClicked(event, '@user.Id', '@HttpUtility.HtmlEncode(name)')">
+        @(name + "(" + user.Username + ")")
+    </div>
+}

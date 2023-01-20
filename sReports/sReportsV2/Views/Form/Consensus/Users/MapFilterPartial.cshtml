@@ -1,0 +1,24 @@
+﻿
+<div class="user-filter-part">
+    <div class="consensus-input-group mt-3">
+        <div class="label filter-label">
+            Select Country
+        </div>
+        <input class="consensus-input" type="text" id="countriesAutocomplete">
+    </div>
+
+    <div class="map-filter-countries">
+        <div class="map-filter-container">
+            <div class="map-title">
+                Selected
+            </div>
+            <div id="filteredCountries">
+
+            </div>
+        </div>
+        <svg class="map-click" id="map" viewBox="0 0 960 500"></svg>
+    </div>
+</div>
+
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/designer/d3map.js")

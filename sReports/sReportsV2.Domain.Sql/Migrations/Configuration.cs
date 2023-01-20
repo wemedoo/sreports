@@ -9,7 +9,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             AutomaticMigrationDataLossAllowed = true;
             ContextKey = "sReportsV2.Domain.Sql.Migrations.Configuration";
         }

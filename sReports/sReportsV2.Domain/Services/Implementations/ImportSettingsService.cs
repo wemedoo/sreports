@@ -30,9 +30,7 @@ namespace sReportsV2.Domain.Services.Implementations
         {
             settings = Ensure.IsNotNull(settings, nameof(settings));
 
-            settings.EntryDatetime = DateTime.Now;
-            settings.IsDeleted = false;
-            settings.LastUpdate = settings.EntryDatetime;
+            settings.Copy(null);
             Collection.InsertOne(settings);
         }
     }

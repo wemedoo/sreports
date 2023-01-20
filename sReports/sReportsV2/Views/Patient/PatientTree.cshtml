@@ -1,7 +1,8 @@
-﻿@using sReportsV2.DTOs.EpisodeOfCare;
-@using System.Linq;
-@using sReportsV2.Common.Extensions;
-
+﻿@using sReportsV2.Common.Constants;
+@{
+    var userCookieData = ViewBag.UserCookieData;
+    var canAddEoC = userCookieData.UserHasPermission(PermissionNames.AddEpisodeOfCare, ModuleNames.Patients);
+}
 @model sReportsV2.DTOs.Patient.PatientDataOut
 
 @if (Model != null)
@@ -11,9 +12,12 @@
             <div class="patient-tree-title tree-form-title">
                 @sReportsV2.Resources.TextLanguage.Episodes_of_cares
             </div>
-            <button type="button" class="btn btn-add-new float-right" onclick="addNewEpisodeOfCare('@Model.Id')">
-                <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.Add_New</span>
-            </button>
+            @if (canAddEoC)
+            {
+                <button type="button" class="btn btn-add-new float-right" onclick="addNewEpisodeOfCare('@Model.Id')">
+                    <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.Add_New</span>
+                </button>
+            }
         </div>
         @if (Model.EpisodeOfCares != null && Model.EpisodeOfCares.Count > 0)
         {
@@ -26,7 +30,7 @@
                             <span class="arrow-icon">
                             </span>
                             <span class="title">
-                                @(Model.EpisodeOfCares[i].DiagnosisRole != null ? Model.EpisodeOfCares[i].DiagnosisRole.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "Not defined")
+                                @(Model.EpisodeOfCares[i].DiagnosisRole != null && Model.EpisodeOfCares[i].DiagnosisRole.Thesaurus != null ? Model.EpisodeOfCares[i].DiagnosisRole.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage) : "Not defined")
                             </span>
                             <span class="status">
                                 @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.EpisodeOfCares[i].Status)
@@ -38,7 +42,7 @@
                                     <img src="~/Content/img/icons/calendar_green.svg" />
                                 </span>
                                 <span class="calendar-text">
-                                    @(Model.EpisodeOfCares[i].Period.StartDate.ToShortDateString())
+                                    @(Model.EpisodeOfCares[i].Period.StartDate.ToString(ViewBag.DateFormat))
                                 </span>
                             </div>
                             <div class="end-date">
@@ -50,20 +54,23 @@
                                     }
                                 </span>
                                 <span class="calendar-text">
-                                    @(Model.EpisodeOfCares[i].Period.EndDate != null ? Model.EpisodeOfCares[i].Period.EndDate.Value.ToShortDateString() : "")
+                                    @(Model.EpisodeOfCares[i].Period.EndDate != null ? Model.EpisodeOfCares[i].Period.EndDate.Value.ToString(ViewBag.DateFormat) : "")
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="encounter-container">
-                        <div class="add-new-button" onclick="addNewEncounter(event, '@Model.EpisodeOfCares[i].Id')">
-                            <span class="icon-plus">
-                                <img src="~/Content/img/icons/add_new.svg" />
-                            </span>
-                            <span class="label">
-                                @sReportsV2.Resources.TextLanguage.Add_new_encounter
-                            </span>
-                        </div>
+                        @if (userCookieData.UserHasPermission(PermissionNames.AddEncounter, ModuleNames.Patients))
+                        {
+                            <div class="add-new-button" onclick="addNewEncounter(event, '@Model.EpisodeOfCares[i].Id')">
+                                <span class="icon-plus">
+                                    <img src="~/Content/img/icons/add_new.svg" />
+                                </span>
+                                <span class="label">
+                                    @sReportsV2.Resources.TextLanguage.Add_new_encounter
+                                </span>
+                            </div>
+                        }
                         <div class="encounter-container-items">
                             @if (Model.EpisodeOfCares[i].Encounters != null)
                             {
@@ -93,7 +100,7 @@
     {
         <text>
             $(document).ready(function () {
-                setDefaultTreeSelectedValue('@ViewBag.ActiveElementParent', '@ViewBag.ActiveElement', '@ViewBag.ActiveElementType')
+                setDefaultTreeSelectedValue('@ViewBag.ActiveElementParent', '@ViewBag.ActiveElement', '@ViewBag.ActiveElementType', @(canAddEoC ? "true" : ""))
             })
         </text>
     }

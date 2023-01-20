@@ -19,5 +19,16 @@ namespace sReportsV2.DTOs.Form.DataOut
         public List<string> OutsideUserRefs { get; set; }
         public ConsensusFindingState? State { get; set; }
         public List<ConsensusIterationDataOut> Iterations { get; set; }
+        public int CreatorId { get; set; }
+
+        public ConsensusIterationDataOut GetActiveIteration()
+        {
+            return Iterations?.Last();
+        }
+
+        public ConsensusIterationDataOut GetIterationById(string id)
+        {
+            return Iterations.FirstOrDefault(x => x.Id.Equals(id));
+        }
     }
 }

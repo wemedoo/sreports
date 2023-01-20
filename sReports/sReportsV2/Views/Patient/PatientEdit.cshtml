@@ -6,14 +6,12 @@
     <form method="post" id="idPatientInfo" class="formPatientInfo patient-create @(Model != null ? "patient-edit-view":"")" onsubmit="return submitForm(this, event)" novalidate>
 
         <input type="hidden" class="form-control" id="patientId" name="Id" value="@( Model != null && Model.Id != 0 ? Model.Id : 0)" />
-        <input class="form-control" id="lastUpdate" name="LastUpdate" value="@(Model != null && Model.LastUpdate != null ? Model.LastUpdate.Value.ToString("o") : "")" type="hidden" />
-        
         <div>
 
 
             <div class="info-align" id="createGroup">
-                <div class="tab-item" onclick="showGeneralInfo(event, this)">
-                    <i id="general-icon" class="tab-icon general-info-icon"></i>
+                <div class="tab-item active" onclick="showGeneralInfo(event, this)">
+                    <i id="general-icon" class="tab-icon general-info-icon active"></i>
                     <span type="text" id="generalButton">@sReportsV2.Resources.TextLanguage.GeneralInfo</span>
                 </div>
                 <div class="tab-item" onclick="showTelecomInfo(event, this)">
@@ -41,9 +39,12 @@
             </div>
 
             <div class="button-partial">
-                <button class="submit-patient right-button" type="submit" style="outline: none;">
-                    <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Patient_submit</span>
-                </button>
+                @if (!ViewBag.ReadOnly)
+                {
+                    <button class="submit-patient right-button" type="submit" style="outline: none;">
+                        <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Patient_submit</span>
+                    </button>
+                }
                 <i class="angle-left fas fa-angle-left"></i>
                 <div class="text-underline right-button" type="button" onclick="cancelPatientEdit()">
                     <span class="back">@sReportsV2.Resources.TextLanguage.Back</span>
@@ -57,6 +58,7 @@
 
 @Html.Partial("IdentifierModal", new ViewDataDictionary { { "ActiveEntity", "Patient" }, { "IdentifierTypes", ViewBag.IdentifierTypes }, { "ActiveLanguage", ViewBag.UserCookieData.ActiveLanguage } })
 @Html.Partial("TelecomModal")
+@Html.Partial("AddressModal")
 @Html.Partial("TelecomModalForPatient")
 
-@Scripts.Render("~/bundles/patient")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/patientInfo")

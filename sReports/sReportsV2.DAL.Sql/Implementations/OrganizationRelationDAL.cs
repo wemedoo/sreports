@@ -43,16 +43,15 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public void InsertOrUpdate(OrganizationRelation organizationRelation)
         {
-            if(organizationRelation.Id == 0)
+            if(organizationRelation.OrganizationRelationId == 0)
             {
-                organizationRelation.EntryDatetime = DateTime.Now;
                 context.OrganizationRelation.Add(organizationRelation);
             }
             else
             {
                 context.Entry(organizationRelation).State = EntityState.Modified;
+                organizationRelation.SetLastUpdate();
             }
-            organizationRelation.LastUpdate = DateTime.Now;
             context.SaveChanges();
         }
     }

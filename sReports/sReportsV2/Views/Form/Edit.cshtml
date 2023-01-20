@@ -8,7 +8,7 @@
     <div id="jsoneditorContainer" class="designer">
 
         @Html.Partial("StatusGraphPartial")
-       
+
         <div class="accordion">
             <div class="header-accordion" data-toggle="collapse" onclick="collapseChapter(this)" data-target="#defineForm" aria-expanded="false" aria-controls="defineForm">
                 @sReportsV2.Resources.TextLanguage.DefineForm
@@ -34,8 +34,7 @@
     </div>
 </div>
 
-<script src="~/Scripts/sReports/form.js"></script>
-
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/form.js")
 <script>
     var json = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented))
     $(document).ready(function(){

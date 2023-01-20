@@ -19,6 +19,6 @@ namespace sReportsV2.DTOs.Field.DataOut
         public override string PartialView { get; } = "~/Views/Form/FieldRegex.cshtml";
 
         [JsonIgnore]
-        public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableTextField.cshtml";
+        public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableRegexField.cshtml";
     }
 }

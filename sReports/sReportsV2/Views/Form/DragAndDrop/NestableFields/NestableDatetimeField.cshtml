@@ -1,23 +1,35 @@
 ﻿@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+
 @model FieldDatetimeDataOut
 
 <fieldset class="form-input">
     <div class="filter-label form-label-size d-inline-block">
-        <span class="comment-target-item" id="@Model.Id">   @Model.Label </span>
+        <span class="comment-target-item" id="@Model.Id">   @Html.Raw(Model.FullLabel) </span>
 </div>
     <div class="repetitive-field filter-input d-inline-block">
         <div class="row date-time-row datetime-picker-container">
             <div class="date-wrapper input-border mr-auto w-60 d-flex">
-                <input type="date" class="date-helper d-inline-block border-0 date-width" />
+                @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                {
+                    InputAttributes = new Dictionary<object, object> {
+                        { "class", "date-helper d-inline-block border-0 date-width" },
+                        { "readonly", null}
+                    }
+                })
                 <input type="datetime-local" class="date-time-local d-none form-element-field" />
                 <div class="img-wrapper">
                     <img class=" d-inline-block" src="~/Content/img/icons/datetime_field.svg">
                 </div>
             </div>
             <div class="time-wrapper w-35 input-border">
-                <input type="text" class="time-part time-helper d-inline-block border-0">
+                <input type="text"                                
+                     placeholder="@DateConstants.TimeFormatDisplay"
+                     class="time-part time-helper d-inline-block border-0"
+                       readonly
+                       >
                 <div class="clock-wrapper">
-                    <i class="fas fa-clock" onclick="openTimePicker(event)"></i>
+                    <i class="fas fa-clock"></i>
                 </div>
             </div>
         </div>

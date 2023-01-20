@@ -43,7 +43,6 @@
 <script>
     $(document).ready(function () {
         let element = $('.documents-list-horizontal')[0];
-        console.log(isOverflown(element));
         if (!isOverflown(element)) {
             $('.scroll-button').hide();
             $(element).parent().addClass('no-overflow')

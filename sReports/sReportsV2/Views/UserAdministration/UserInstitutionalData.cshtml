@@ -1,13 +1,17 @@
-﻿@using sReportsV2.Common.Enums;
-@using sReportsV2.Common.Extensions;
-@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+﻿@model sReportsV2.DTOs.Common.DataOut.UserDataOut
 
-    <div class="person-margin" style="min-height:40px;">
-       <button class="btn btn-add-new float-right" type="button" onclick="openInstitutionModal(event)">
+@{ 
+    bool readOnly = ((bool?)ViewBag.ReadOnly).GetValueOrDefault();
+}
+<div class="person-margin" style="min-height:40px;">
+    @if (ViewBag.UserAdministration && !readOnly)
+    {
+        <button class="btn btn-add-new float-right" type="button" onclick="openInstitutionModal(event)">
             <i class="fas fa-plus-circle resize-circle"></i>
             <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
         </button>
-    </div>
+    }
+</div>
     <div class="institutions" id="institutions">
         @if (Model != null)
         {

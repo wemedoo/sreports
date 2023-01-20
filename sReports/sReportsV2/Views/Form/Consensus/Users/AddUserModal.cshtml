@@ -1,0 +1,104 @@
+﻿@using sReportsV2.DTOs.Common.DataOut;
+
+<form id="addUserForm" name="AddUserForm" onsubmit="return submitOutsideUser(event)">
+    <input type="hidden" id="userId" />
+    <div class="modal fade" id="addUserFormModal" tabindex="-1" role="dialog" aria-labelledby="addUserFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-advanced form-advanced-content">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="modal-body modal-body-advanced" id="advancedFilterModalContent">
+                    <div class="d-flex advanced-filter-header">
+                        <img class="mr-3" src="~/Content/img/icons/select_users.svg"> Outside User
+                    </div>
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.FirstName
+                            </div>
+                            <input type="text" class="filter-input designer-form-input" id="firstName" required>
+                        </div>
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.LastName
+                            </div>
+                            <input type="text" class="filter-input designer-form-input" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Email
+                            </div>
+                            <input type="email" class="filter-input" id="email" required>
+                        </div>
+
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Institution
+                            </div>
+                            <input type="text" class="filter-input" id="institution">
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Institution  @sReportsV2.Resources.TextLanguage.Address
+                            </div>
+                            <input type="text" class="filter-input" id="institutionAddress">
+                        </div>
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Country
+                            </div>
+                            <input type="text" class="filter-input" id="country">
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.City
+                            </div>
+                            <input type="text" class="filter-input" id="city">
+                        </div>
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Postal_code
+                            </div>
+                            <input type="text" class="filter-input" id="postalCode">
+                        </div>
+                    </div>
+                    <div class="d-flex margin-top-20">
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Street
+                            </div>
+                            <input type="text" class="filter-input" id="street">
+                        </div>
+                        <div class="advanced-filter-item">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.StreetNumber
+                            </div>
+                            <input type="text" class="filter-input" id="streetNumber">
+                        </div>
+                    </div>
+
+
+                    <div class="advanced-filter-line"></div>
+                    <div class="d-flex mt-3 position-relative margin-top-10">
+                        <div class="button-wrapper-filter filter-button" id="submitFilterButton">
+                            <button class="btn btn-filter-primary w-100 h-100" type="submit"> @sReportsV2.Resources.TextLanguage.Save</button>
+                        </div>
+                        <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -8,8 +8,8 @@ namespace sReportsV2.DTOs.Common.DTO
 {
     public class ResourceCreatedDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string RowVersion { get; set; }
-        public DateTime? LastUpdate { get; set; }
+        public string LastUpdate { get; set; }
     }
 }

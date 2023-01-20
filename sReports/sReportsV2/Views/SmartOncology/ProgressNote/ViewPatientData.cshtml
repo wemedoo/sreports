@@ -1,0 +1,173 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchemaInstance.DataOut;
+
+@model ChemotherapySchemaInstanceDataOut
+
+@{
+    var patient = Model != null ? Model.Patient : null;
+}
+
+
+@if (Model.IsNotPreview())
+{
+    <div class="row margin-top-2r margin-bottom-1r">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.Schema_name:​</div>
+    </div>
+    <div class="schema-table-search">
+        <select id="schemaName" name="schemaName" class="w-100">
+            <option selected value=""></option>
+        </select>
+        @*<img class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg">*@
+    </div>
+    <div class="row margin-top-2r">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.Schema_start_date:​</div>
+        <div class="col-6 about-data">
+            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+            {
+                InputAttributes = new Dictionary<object, object> { 
+                    { "class", "date-picker schema-start-datepicker" }, 
+                    { "id", "schemaStart" }, 
+                    { "name", "schemaStart" }, 
+                    { "data-no-color-change", "true" } 
+                }
+            })
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.FirstName:​</div>
+        <div class="col-6 f-name about-data">@(patient != null ? patient.Name : "")</div>
+    </div>
+}
+else
+{
+    <input type="hidden" id="schemaName" name="schemaName" value="@(Model != null && Model.ChemotherapySchema != null ? Model.ChemotherapySchema.Id : 0)" />
+    <input type="hidden" id="schemaStart" name="schemaStart" value="@(Model != null && Model.StartDate.HasValue ? Model.StartDate.Value.ToString(ViewBag.DateFormat) : "")" />
+    <div class="row margin-top-2r">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.FirstName:​</div>
+        <div class="col-6 f-name about-data">@(patient != null ? patient.Name : "")</div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.SecondName:​​</div>
+    <div class="col-6 s-name about-data">@(patient != null ? patient.FamilyName : "")</div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Date_of_birth:​</div>
+    <div class="col-6 f-name date-of-birth about-data">@(patient != null && patient.BirthDate != null ? patient.BirthDate.Value.ToString(ViewBag.DateFormat) : "")</div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Identification_number:​</div>
+    <div class="col-6 id-num about-data">@(patient != null ? patient.IdentificationNumber : "")</div>
+</div>
+<div class="divider"></div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Allergies:</div>
+    <div class="col-6 allergies about-data">
+        <ol id="patientAllergies" class="@(patient == null || patient.GetRepetitiveValues(patient.Allergies).Count == 0 ? "d-none" : "") pl-0">
+            @if (patient != null)
+            {
+                foreach (string allergy in patient.GetRepetitiveValues(patient.Allergies))
+                {
+                    <li>@allergy</li>
+                }
+            }
+        </ol>
+        <button class="add-allergies" onclick="showAllergyModal(event)">
+            <i class="fas fa-plus-circle"></i>
+            @sReportsV2.Resources.TextLanguage.AddNew
+        </button>
+    </div>
+</div>
+
+@if (!Model.IsNotPreview())
+{
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.Schema_name:</div>
+        <div class="col-6 patient-informed about-data">@(Model != null && Model.ChemotherapySchema != null ? Model.ChemotherapySchema.Name : "")​</div>
+    </div>
+    <div class="row">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.Schema_start_date:</div>
+        <div class="col-6 about-data">@(Model != null && Model.StartDate.HasValue ? Model.StartDate.Value.ToString(ViewBag.DateFormat) : "")</div>
+    </div>
+}
+
+<div class="divider"></div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Cycle_sequential_number:​</div>
+    <div class="col-6 about-data">@(patient != null ? patient.ChemotherapyCycle.ToString() : "")​</div>
+</div>
+<div class="divider"></div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Patient_is_informed_for:</div>
+    <div class="col-6 patient-informed about-data">@(patient != null ? patient.PatientInformedFor : "")​</div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Patient_Informed_by:</div>
+    <div class="col-6 about-data">@(patient != null ? patient.PatientInformedBy : "")</div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Patient_info_signed_on:</div>
+    <div class="col-6 about-data">@(patient != null && patient.PatientInfoSignedOn != null ? patient.PatientInfoSignedOn.Value.ToString(ViewBag.DateFormat) : "")</div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Copy_delivered_on:</div>
+    <div class="col-6 copy-deliver-date about-data">@(patient != null && patient.CopyDeliveredOn != null ? patient.CopyDeliveredOn.Value.ToString(ViewBag.DateFormat) : "")</div>
+</div>
+<div class="divider"></div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Desire_to_have_children:</div>
+    <div class="col-6 patient-aufg about-data">
+        @(patient == null ? "" : patient.DesireToHaveChildren ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Fertility_conservation:</div>
+    <div class="col-6 fertility-conservation about-data">
+        @(patient == null ? "" : patient.FertilityConservation ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Semen_cryopreservation:</div>
+    <div class="col-6 semen-cryo about-data">
+        @(patient == null ? "" : patient.SemenCryopreservation ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Egg_cell_cryopreservation:</div>
+    <div class="col-6 egg-cell about-data">
+        @(patient == null ? "" : patient.EggCellCryopreservation ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+    </div>
+</div>
+<div class="divider"></div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Sexual_health_addressed:</div>
+    <div class="col-6 sex-health about-data">
+        @(patient == null ? "" : patient.SexualHealthAddressed ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Contraception:</div>
+    <div class="col-6 contraception about-data">@(patient == null ? "" : patient.Contraception)</div>
+</div>
+<div class="row">
+    <div class="col-6">@sReportsV2.Resources.TextLanguage.Clinical_trials:</div>
+    <div class="col-6 clinical-trials about-data">
+        <ol class="pl-0">
+            @if (patient != null)
+            {
+                foreach (var clinicalTrial in patient.ClinicalTrials)
+                {
+                    <li>@clinicalTrial.Name</li>
+                }
+            }
+        </ol>
+    </div>
+</div>
+
+@if (Model.IsNotPreview())
+{
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/progressNoteSelect2.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/progressNoteDatepicker.js")
+}

@@ -1,0 +1,91 @@
+// Tablet navbar
+.navbar {
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 7px 15px;
+
+    &-arrows {
+        flex: 1;
+
+        a {
+            cursor: pointer;
+            display: inline-block;
+            padding: .5rem;
+            padding-left: 0;
+        }
+
+        .left-arrow {
+            margin-right: 4rem;
+            cursor: pointer;
+        }
+
+        .disabled {
+            cursor: not-allowed;
+        }
+
+        .enable svg path {
+            fill: $primary-color;
+        }
+    }
+
+    &-title {
+        color: #000;
+        font-size: 1.7rem;
+    }
+
+    &-right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &-export {
+        margin-right: 2rem;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        span {
+            color: $primary-color;
+            font-weight: $font-weight-medium;
+            border-bottom: 1px solid $primary-color;
+        }
+
+        img {
+            margin-right: .5rem;
+        }
+
+        &:hover span {
+            color: $primary-color-hover;
+            border-color: $primary-color-hover;
+        }
+    }
+
+    &-lang {
+        display: flex;
+        align-items: center;
+
+        .lang-item {
+            font-size: 1.4rem;
+            font-weight: $font-weight-medium;
+            margin-left: 1rem;
+            color: $primary-color;
+            padding: .3rem .8rem;
+            border-radius: .5rem;
+            transition: all .2s ease-in;
+
+            &.active {
+                background-color: $smart-oncology-green-primary;
+                color: #fff;
+            }
+
+            &:hover {
+                background-color: $smart-oncology-green-primary;
+                color: #fff;
+            }
+        }
+    }
+}

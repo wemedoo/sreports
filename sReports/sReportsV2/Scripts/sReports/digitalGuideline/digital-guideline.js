@@ -11,8 +11,7 @@ $(document).on('click', '.update-guideline', function (e) {
     }
 });
 
-
-$(document).on('click', '.submit-data', function (data) {
+function submitGuidline (e) {
     let jsonData = editorCode.get();
     console.log(jsonData);
     $.ajax({
@@ -22,12 +21,13 @@ $(document).on('click', '.submit-data', function (data) {
         contentType: 'application/json',
         success: function (data) {
             toastr.success('Success');
+            updateGuidelineWithLastUpdate(data);
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
-})
+}
 
 function previewNode(data) {
     console.log(data);
@@ -39,8 +39,8 @@ function previewNode(data) {
             $('#nodePreview').html(data);
             $('#showNodePreviewButton').click();
         },
-        error: function () {
-
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     })
     //$('#nodePreview').html(JSON.stringify(data));
@@ -87,3 +87,10 @@ $(document).on('click', '.publication-show-full-details', function (e) {
 
     $(this).toggleClass('active');
 })
+
+function updateGuidelineWithLastUpdate(data) {
+    $('#lastUpdate').val(data.LastUpdate);
+    let jsonData = editorCode.get();
+    jsonData['lastUpdate'] = data.LastUpdate;
+    editorCode.set(jsonData);
+}

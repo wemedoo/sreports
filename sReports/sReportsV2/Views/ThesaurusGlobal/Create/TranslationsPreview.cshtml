@@ -2,30 +2,33 @@
 @model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
 @{
     ThesaurusEntryTranslationDTO translation = null;
+    string preferredLanguage = Model != null && Model.PreferredLanguage != null ? Model.PreferredLanguage : "en";
 }
 @Html.Partial("~/Views/ThesaurusGlobal/Create/TranslationsTitle.cshtml", Model)
-
 
 <div class="language-input-create">
     <div class="language-input-title input-label">
         Language:
     </div>
-    <div class="languages-select w-50">
+    <div class="w-50">
         <select class="languages-input" id="selectedLanguage" style="-webkit-appearance: none;">
             @foreach (var language in ViewBag.Languages)
             {
-                if (language.Value == "en")
+                if (Model == null || Model.PreferredLanguage == null)
                 {
-                    <option value="@language.Value" selected>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                    <option value="@language.Value" @(language.Value == "en" ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
                 }
                 else
                 {
-                    <option value="@language.Value">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                    <option value="@language.Value" @(Model.PreferredLanguage.Equals(language.Value) ? "selected" : "" )>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
                 }
             }
         </select>
-        <img class="languages-arrow" />
     </div>
+    <label class="inline-checkbox-label">
+        <input name="preferredLanguage" id="preferredLanguage" type="checkbox" data-value="@(Model != null && Model.PreferredLanguage != null ? Model.PreferredLanguage : "en")" checked/>
+        <span>Set as preferred</span>
+    </label>
 </div>
 
 <div class="translations-language-gt margin-top-20">
@@ -36,7 +39,7 @@
             {
                 translation = Model != null ? Model.GetTranslation(language.Value) : null;
             }
-        <div class="tab-pane fade @(language.Value == "en" ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
+        <div class="tab-pane fade @(language.Value == preferredLanguage ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
             <input type="hidden" class="translation-id" value="@(translation != null ? translation.Id : 0)">
 
             <div class="input-item" style="margin-bottom:20px !important;">
@@ -51,7 +54,7 @@
             </div>
             <div class="input-item">
                 <div class="input-label">
-                    Preferred Definition:
+                    Definition:
                 </div>
                 <div class="translations-item-value input-value">
                     <textarea class="thesaurus-textarea w-100 thesaurus-definition"
@@ -60,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="gt-items d-block">
+            <div class="gt-items d-block gt-items-container">
                 <div class="translations-item-label d-flex input-item">
                     <div class="d-inline-block input-label">Synonyms: </div>
                     <div class="input-value input">
@@ -73,7 +76,7 @@
                     {
                         foreach (var synonym in translation.Synonyms)
                         {
-                            <div class="rounded-item synonym-color" data-value="@synonym">
+                            <div class="rounded-item synonym-color synonym-item" data-value="@synonym">
                                 @synonym <div class="synonym-remove item-remove"></div>
                             </div>
                         }
@@ -81,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="gt-items d-block margin-top-20">
+            <div class="gt-items d-block margin-top-20 gt-items-container">
                 <div class="translations-item-label d-flex input-item">
                     <div class="d-inline-block input-label">Abbreviations: </div>
                     <div class="input-value input">
@@ -95,7 +98,7 @@
                     {
                         foreach (var abbreviation in translation.Abbreviations)
                         {
-                            <div class="rounded-item abbreviation-color" data-value="@abbreviation">
+                            <div class="rounded-item abbreviation-color abbreviation-item" data-value="@abbreviation">
                                 @abbreviation <div class="abbreviation-remove item-remove"></div>
                             </div>
                         }
@@ -118,12 +121,12 @@
                 Coding and Classification Systems:
             </div>
             <div class="codes-title-btns">
-                <div class="filter-vocabulary" onclick="openCodingSystemModal(event)">
+                <div class="filter-vocabulary pr-0" onclick="openCodingSystemModal(event)">
                     <img src="~/Content/img/icons/SwissOpenOncology/add_small.svg">Add C&C System
                 </div>
-                <div class="view-all">
+                @*<div class="view-all">
                     <img class="mr-2" src="~/Content/img/icons/SwissOpenOncology/browse.svg">Browse
-                </div>
+                </div>*@
             </div>
         </div>
 

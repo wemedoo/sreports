@@ -1,26 +1,22 @@
-﻿using AutoMapper;
-using Microsoft.VisualBasic.FileIO;
+﻿using Microsoft.VisualBasic.FileIO;
 using sReportsV2.Common.Enums;
 using sReportsV2.Common.Enums.DocumentPropertiesEnums;
-using sReportsV2.Domain.Entities.Common;
 using sReportsV2.Domain.Entities.DocumentProperties;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Sql.Entities.User;
 using sReportsV2.DAL.Sql.Implementations;
-using sReportsV2.DAL.Sql.Sql;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
 using sReportsV2.SqlDomain.Implementations;
 using sReportsV2.Common.Entities.User;
+using sReportsV2.DAL.Sql.Sql;
+using sReportsV2.Domain.Sql.Entities.User;
+using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
 
 namespace sReportsV2.LoincParser.LoincParser
 {
@@ -188,11 +184,11 @@ namespace sReportsV2.LoincParser.LoincParser
                 thesaurusDAL.InsertOrUpdate(thesaurus);
 
                 Form form = new Form();
-                form.ThesaurusId = thesaurus.Id;
+                form.ThesaurusId = thesaurus.ThesaurusEntryId;
                 form.Title = doc.Name;
                 form.Version = new Domain.Entities.Form.Version() { Major = 1, Minor = 1, Id = Guid.NewGuid().ToString() };
                 form.State = FormDefinitionState.DesignPending;
-                form.UserId = user.Id;
+                form.UserId = user.UserId;
                 form.OrganizationId = 1;
                 form.Language = "en";
                 form.DisablePatientData = true;
@@ -217,7 +213,7 @@ namespace sReportsV2.LoincParser.LoincParser
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 ActiveOrganization = user.UserConfig.ActiveOrganizationId,
-                Id = user.Id,
+                Id = user.UserId,
                 Organizations = user.GetOrganizationRefs(),
                 Username = user.Username 
             };            

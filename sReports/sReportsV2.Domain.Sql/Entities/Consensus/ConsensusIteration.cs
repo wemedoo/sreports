@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Sql.Entities.Consensus
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class ConsensusIteration
     {
         public int Id { get; set; }

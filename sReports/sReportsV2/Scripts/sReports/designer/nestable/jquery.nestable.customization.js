@@ -66,7 +66,7 @@ $(document).ready(function () {
 
         isTargetValid: function (sourceTreeId) {
             return (this.hasNewRoot && this.isAddingNewElement(sourceTreeId) && this.isFieldValueTypeMatching())
-                || (!this.isDragInsidePredefinedItems(sourceTreeId) && this.isFieldValueTypeMatching());
+                || (!this.hasNewRoot && !this.isDragInsidePredefinedItems(sourceTreeId) && this.isFieldValueTypeMatching());
         },
 
         isAddingNewElement: function (sourceTreeId) {
@@ -119,7 +119,8 @@ $(document).ready(function () {
         setStyleIfFieldValueItem: function (draggingItem) {
             if ($(draggingItem).attr('data-type') === "checkbox" || $(draggingItem).attr('data-type') === "radio") {
                 $(draggingItem).addClass("d-flex");
-                $(draggingItem).children('.dd-handle').addClass("w-32");
+                $(draggingItem).children('.dd-handle')
+                    .removeClass("add-new-element");
             }
         },
         handleDrop: function () {

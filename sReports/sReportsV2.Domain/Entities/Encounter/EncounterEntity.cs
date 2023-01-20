@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.Encounter
 {
+    // ---------------------------- NOT USED ANYMORE --------------------------
     public class EncounterEntity: Entity
     {
         [BsonId]

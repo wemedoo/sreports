@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,10 @@ namespace sReportsV2.Domain.Sql.Entities.Patient
 {
     public class MultipleBirth
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("MultipleBirthId")]
+        public int MultipleBirthId { get; set; }
 
         public int Number { get; set; }
         public bool isMultipleBorn { get; set; }

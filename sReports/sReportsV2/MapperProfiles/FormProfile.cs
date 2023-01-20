@@ -10,6 +10,7 @@ using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.DTOs.Common.DTO;
 using sReportsV2.DTOs.Consensus.DataIn;
 using sReportsV2.DTOs.Consensus.DataOut;
+using sReportsV2.DTOs.DTOs.FormConsensus.DTO;
 using sReportsV2.DTOs.Form;
 using sReportsV2.DTOs.Form.DataIn;
 using sReportsV2.DTOs.Form.DataOut;
@@ -53,6 +54,8 @@ namespace sReportsV2.MapperProfiles
 
             CreateMap<Consensus, ConsensusDataIn>().ReverseMap();
             CreateMap<Consensus, ConsensusDataOut>().ReverseMap();
+
+            CreateMap<QuestionOccurenceConfigDTO, QuestionOccurenceConfig>().ReverseMap();
 
             CreateMap<ConsensusQuestion, ConsensusQuestionDataIn>().ReverseMap();
             CreateMap<ConsensusQuestion, ConsensusQuestionDataOut>().ReverseMap();
@@ -162,7 +165,6 @@ namespace sReportsV2.MapperProfiles
             .ForMember(d => d.Language, opt => opt.MapFrom(src => src.Language))
             .ForMember(d => d.Version, opt => opt.MapFrom(src => src.Version))
             .ForMember(d => d.ThesaurusId, opt => opt.MapFrom(src => src.ThesaurusId))
-            .ForMember(d => d.EntryDatetime, opt => opt.MapFrom(src => src.EntryDatetime))
             .ForMember(d => d.LastUpdate, opt => opt.MapFrom(src => src.LastUpdate))
             .ForMember(d => d.DocumentProperties, opt => opt.MapFrom(src => src.DocumentProperties))
             .ReverseMap();

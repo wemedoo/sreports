@@ -6,11 +6,18 @@ $(document).ready(function () {
 var currentPage = 1;
 var tableConfigs = [];
 var defaultFilter;
+var columnName;
+var switchcount = 0;
+var isAscending = null;
+
 $(document).on('keypress', '.filter-item input', function (e) {
     if (e.which === 13) {
+        if (inputsAreInvalid()) {
+            return;
+        }
         try {
             pushState();
-            mainFilter();
+            callCorrespondingFilter($(this));
 
         } catch (error) {
             pushStateWithoutFilter(1);
@@ -21,7 +28,17 @@ $(document).on('keypress', '.filter-item input', function (e) {
     }
 });
 
+function callCorrespondingFilter($filterInput) {
+    if (belongsToAdvanceFilter($filterInput)) {
+        advanceFilter();
+    } else {
+        mainFilter();
+    }
+}
 
+function belongsToAdvanceFilter($filterInput) {
+    return $filterInput.parents('#advancedFilterForm').length == 1;
+}
 
 function changePage(num,e, url, container, pageNumIdentifier, preventPushHistoryState) {
     e.preventDefault();
@@ -60,9 +77,22 @@ function getFilterUrlParams(filter) {
 }
 
 function filterData() {
+    if (inputsAreInvalid()) {
+        return;
+    }
+    setDatetimeFieldsIfNotAlreadySet();
     pushState();
     currentPage = 1;
     reloadTable();
+}
+
+function setDatetimeFieldsIfNotAlreadySet() {
+    $(".date-helper").each(function () {
+        handleDateHelper($(this));
+    });
+    $(".time-helper").each(function () {
+        handleTimePartChange(this);
+    });
 }
 
 function addPropertyToObject(object, name, value) {
@@ -152,8 +182,8 @@ function thesaurusMoreModal(event, id) {
         success: function (data) {
             $('#thesaurusMoreModalContent').html(data);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 
@@ -196,7 +226,7 @@ function appendEditIcon() {
     return editElement;
 }
 
-function setFilterElements() {
+function setFilterTagsFromUrl() {
     let url = new URL(window.location.href);
     let entries = url.searchParams.entries();
     let params = paramsToObject(entries);
@@ -213,42 +243,121 @@ function setFilterElements() {
         if (params[param] && param !== 'page' && param !== 'pageSize') {
             let element = document.createElement('div');
             $(element).addClass('filter-element');
-            if (param === "DateTimeFrom" || param === "DateTimeTo") {
-                $(element).html(getFormatDateTimaValue(params, param));
-
+            if (isDateTimeFilter(param)) {
+                $(element).html(getDateTimeFilterTag(params, param));
             } else {
                 $(element).html(params[param]);
             }
             
-            $(element).append(getTagCloseSign(params, param, element));
+            $(element).append(getTagCloseSign(param, params[param]));
             $('#filterElements').append(element);
         }
     }
 }
 
-function getFormatDateTimaValue(params, param) {
-    let value;
-    let partsOfDate = params[param].split('T')[0].split('-');
-
-    if (param === "DateTimeFrom") {
-        value = `From: ${partsOfDate[1]}/${partsOfDate[2]}/${partsOfDate[0]} ${params[param].split('T')[1]}`;
-    } else {
-        value = `To: ${partsOfDate[1]}/${partsOfDate[2]}/${partsOfDate[0]} ${params[param].split('T')[1]}`;
+function setFilterTagsFromObj(requestObject) {
+    if(defaultFilter) {
+        defaultFilter = params;
     }
+    document.querySelectorAll('.filter-element').forEach(function (a) {
+        a.remove();
+    });
+    let requestObjectForDisplay = Object.assign({}, requestObject);
+    let params = getFilterParametersObjectForDisplay(requestObjectForDisplay);
+    for (let param in params) {
+        if (params[param] && isNonPagingParam(param)) {
+            let element = document.createElement('div');
+            $(element).addClass('filter-element');
+            if (isDateTimeFilter(param)) {
+                $(element).html(getDateTimeFilterTag(params, param));
+            } else {
+                $(element).html(params[param]);
+            }
 
-    return value;
+            $(element).append(getTagCloseSign(param, requestObject[param]));
+            $('#filterElements').append(element);
+        }
+    }
 }
 
-function getTagCloseSign(params, param, element) {
+function getTagCloseSign(name, value) {
     let x = document.createElement('img');
-    $(x).attr('src', "../Content/img/icons/Administration_remove.svg");
+    $(x).attr('src', "/Content/img/icons/Administration_remove.svg");
     $(x).addClass('ml-2');
     $(x).addClass('remove-filter');
-    $(x).attr('name', param);
+    $(x).attr('name', name);
     $(x).css('font-size', '12px');
     $(x).css('width', '15px');
     $(x).css('padding', '5px');
-    $(x).attr('data-value', params[param]);
+    $(x).attr('data-value', value);
 
     return x;
+}
+
+function setAdvancedFilterBtnStyle(object, excludePropertiesList) {
+    if (objectHasNoProperties(object, excludePropertiesList)) {
+        $('#advancedId').children('div:first').removeClass('btn-advanced');
+        $('#advancedId').find('button:first').addClass('btn-advanced-link');
+        $('#advancedId').find('img:first').css('display', 'none');
+    } else {
+        $('#advancedId').children('div:first').addClass('btn-advanced');
+        $('#advancedId').find('button:first').removeClass('btn-advanced-link');
+        $('#advancedId').find('img:first').css('display', 'inline-block');
+    }
+}
+
+function getFilterParameterObjectForDisplay(filterObject, attributeName) {
+    if (filterObject.hasOwnProperty(attributeName)) {
+        let attributeId = filterObject[attributeName];
+        let attributeDisplay = $(`option#${attributeName}_${attributeId}`).attr('data-display');
+        if (attributeDisplay) {
+            addPropertyToObject(filterObject, attributeName, attributeDisplay);
+        }
+    }
+}
+
+function isNonPagingParam(param) {
+    return param.toLowerCase() != 'page' && param.toLowerCase() != 'pagesize';
+}
+
+function sortTable(column) {
+    if (switchcount == 0) {
+        if (columnName == column)
+            isAscending = checkIfAsc(isAscending);
+        else
+            isAscending = true;
+        switchcount++;
+    }
+    else {
+        if (columnName != column)
+            isAscending = true;
+        else
+            isAscending = checkIfAsc(isAscending);
+        switchcount--;
+    }
+    columnName = column;
+    reloadTable(columnName, isAscending);
+}
+
+function checkIfAsc(isAscending) {
+    if (!isAscending)
+        return true;
+    else
+        return false;
+}
+
+function addSortArrows()
+{
+    var element = document.getElementById(columnName);
+    if (element != null) {
+        element.classList.remove("sort-arrow");
+        if (isAscending) {
+            element.classList.remove("sort-arrow-desc");
+            element.classList.add("sort-arrow-asc");
+        }
+        else {
+            element.classList.remove("sort-arrow-asc");
+            element.classList.add("sort-arrow-desc");
+        }
+    }
 }

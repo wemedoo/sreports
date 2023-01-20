@@ -1,10 +1,10 @@
-﻿@using sReportsV2.DTOs.Common
-@using sReportsV2.Common.Enums.DocumentPropertiesEnums
-@using sReportsV2.DTOs.DocumentProperties.DataOut
+﻿@using sReportsV2.Common.Extensions;
 @model sReportsV2.DTOs.Organization.OrganizationDataOut
+
 @{
     ViewBag.Title = @sReportsV2.Resources.TextLanguage.Organization_Create;
     string hasValue = "-hasvalue";
+    string selectedOrganizationId = Model != null && Model.Address != null && Model.Address.CountryId.HasValue ? Model.Address.CountryId.ToString() : "";
 }
 
 <div class="element-background-grey">
@@ -19,9 +19,8 @@
 
         <div class="organization-general">
             @Html.Partial("~/Views/Patient/IdentifierTable.cshtml", Model != null ? Model.Identifiers : null)
-
             <input type="hidden" class="form-control" id="id" value="@(Model != null ? Model.Id.ToString() : "" )" />
-            <input class="form-control" id="rowVersion" name="RowVersion" type="hidden"  value="@(Model != null ? Model.RowVersion: "")"/>
+            <input class="form-control" id="rowVersion" name="RowVersion" type="hidden" value="@(Model != null ? Model.RowVersion: "")" />
             <div class="organization-margin">
 
                 <form method="post" id="idOrganization" class="formOrganization organization-space" onsubmit="return false" novalidate>
@@ -29,94 +28,61 @@
                     <div class="margin-reset display-container">
 
                         <div class="organization-space-part margin-right-15">
-
-                            <div class="advanced-filter-item filter-item input-margin">
+                            <div class="advanced-filter-item input-margin">
                                 <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organization_Activity
+                                    @sReportsV2.Resources.TextLanguage.Organization_Name @RenderRequiredIndicator()
                                 </div>
-                                <select class="filter-input arrow-select @hasValue patient-background" id="activity" name="Activity" required>
-                                    <option value=""></option>
-                                    @if (Model != null && Model.Activity)
-                                    {
-                                        <option value="true" selected>@sReportsV2.Resources.TextLanguage.Active</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="true">@sReportsV2.Resources.TextLanguage.Active</option>
-                                    }
-
-                                    @if (Model != null && !Model.Activity)
-                                    {
-                                        <option value="false" selected>@sReportsV2.Resources.TextLanguage.Inactive</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="false">@sReportsV2.Resources.TextLanguage.Inactive</option>
-                                    }
-                                </select>
+                                <input required class="filter-input" id="name" name="Name" type="text" value="@(Model != null && Model.Name != null ? Model.Name : "")" @ViewBag.Disabled />
                             </div>
 
-                            <div class="advanced-filter-item filter-item input-margin">
+                            <div class="advanced-filter-item input-margin">
                                 <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organization_Name
+                                    @sReportsV2.Resources.TextLanguage.Organizatin_Alias @RenderRequiredIndicator()
                                 </div>
-                                <input required class="filter-input" id="name" name="Name" type="text" value="@(Model != null && Model.Name != null ? Model.Name : "")" />
+                                <input required class="filter-input" type="text" id="alias" name="alias" value="@(Model != null && Model.Alias != null ? Model.Alias : "")" @ViewBag.Disabled />
                             </div>
 
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organizatin_Alias
-                                </div>
-                                <input required class="filter-input" type="text" id="alias" name="alias" value="@(Model != null && Model.Alias != null ? Model.Alias : "")" />
-                            </div>
-
-                            <div class="advanced-filter-item filter-item input-margin">
+                            <div class="advanced-filter-item input-margin">
                                 <div class="label filter-label">
                                     @sReportsV2.Resources.TextLanguage.Organization_PartOf
                                 </div>
-                                <select class="organizations filter-input arrow-select patient-background" id="parentId" name="parentId" placeholder="@sReportsV2.Resources.TextLanguage.Organization_PartOfPlaceholder">
+                                <select class="organizations filter-input arrow-select patient-background" id="parentId" name="parentId" placeholder="@sReportsV2.Resources.TextLanguage.Organization_PartOfPlaceholder" @ViewBag.Disabled>
                                     @if (Model != null && Model.Parent != null)
                                     {
-                                        <option value=" "></option>
+                                        <option value=""></option>
                                         <option selected value="@Model.Parent.Id">@Model.Parent.Name</option>
                                     }
                                     else
                                     {
-                                        <option selected value=" "></option>
+                                        <option selected value=""></option>
                                     }
                                 </select>
                             </div>
-
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.LogoUrl
-                                </div>
-                                <input class="filter-input" id="logoUrl" name="LogoUrl" type="text" value="@(Model != null && Model.LogoUrl != null ? Model.LogoUrl.ToString() : "")" />
-                            </div>
-                            <div class="advanced-filter-item filter-item input-margin">
+                            @RenderLogoInput()
+                            <div class="advanced-filter-item input-margin">
                                 <div class="label filter-label">
                                     @sReportsV2.Resources.TextLanguage.PrimaryColor
                                 </div>
                                 <div class="color-input-wrapper">
-                                    <input class="color-field wrapped" id="primaryColor" name="PrimaryColor" type="color" value="@(Model != null && Model.PrimaryColor != null ? Model.PrimaryColor : "#1c94a3")" />
+                                    <input class="color-field wrapped" id="primaryColor" name="PrimaryColor" type="color" value="@(Model != null && Model.PrimaryColor != null ? Model.PrimaryColor : "#1c94a3")" @ViewBag.Disabled />
                                     <div class="color-input arrow-select @hasValue patient-background wrapped" id="primaryColorInput" name="PrimaryColorInput">
                                         <div class="color-class" id="colorPrimary"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="advanced-filter-item filter-item input-margin secondary-color">
+                            <div class="advanced-filter-item input-margin secondary-color">
                                 <div class="label filter-label">
                                     @sReportsV2.Resources.TextLanguage.SecondaryColor
                                 </div>
                                 <div class="color-input-wrapper">
-                                    <input class="color-field wrapped" id="secondaryColor" name="SecondaryColor" type="color" value="@(Model != null && Model.SecondaryColor != null ? Model.SecondaryColor : "000000")" />
+                                    <input class="color-field wrapped" id="secondaryColor" name="SecondaryColor" type="color" value="@(Model != null && Model.SecondaryColor != null ? Model.SecondaryColor : "000000")" @ViewBag.Disabled />
                                     <div class="color-input arrow-select @hasValue patient-background wrapped" id="secondaryColorInput" name="SecondaryColorInput">
                                         <div class="color-class-secondary" id="colorSecondary"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="advanced-filter-item filter-item input-margin">
+                            <div class="advanced-filter-item input-margin">
                                 <div class="label filter-label organization-item">
                                     @sReportsV2.Resources.TextLanguage.Organization_Types
                                 </div>
@@ -129,7 +95,7 @@
                                         @for (int i = 0; i < half; i++)
                                         {
                                             <label class="form-checkbox-label reset-margin" id="checkBoxGroup">
-                                                <input value="@ViewBag.OrganizationTypes[i].Thesaurus.Id" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.OrganizationTypes[i].Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)" checked="@(Model !=null && Model.Type != null? Model.Type.Contains(ViewBag.OrganizationTypes[i].Thesaurus.Id.ToString()): false)" />
+                                                <input value="@ViewBag.OrganizationTypes[i].Thesaurus.Id" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.OrganizationTypes[i].Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)" checked="@(Model !=null && Model.Type != null? Model.Type.Contains(ViewBag.OrganizationTypes[i].Thesaurus.Id.ToString()): false)" @ViewBag.Disabled />
                                                 <i class="form-checkbox-button custom-checkbox"></i>
                                                 <span class="organization-types">
                                                     @ViewBag.OrganizationTypes[i].Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
@@ -142,7 +108,7 @@
                                         @for (int i = half; i < length; i++)
                                         {
                                             <label class="form-checkbox-label reset-margin" id="checkBoxGroup">
-                                                <input value="@ViewBag.OrganizationTypes[i].Thesaurus.Id" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.OrganizationTypes[i].Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)" checked="@(Model !=null && Model.Type != null? Model.Type.Contains(ViewBag.OrganizationTypes[i].Thesaurus.Id.ToString()): false)" />
+                                                <input value="@ViewBag.OrganizationTypes[i].Thesaurus.Id" class="form-checkbox-field chk" type="checkbox" id="@ViewBag.OrganizationTypes[i].Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)" checked="@(Model !=null && Model.Type != null? Model.Type.Contains(ViewBag.OrganizationTypes[i].Thesaurus.Id.ToString()): false)" @ViewBag.Disabled />
                                                 <i class="form-checkbox-button custom-checkbox"></i>
                                                 <span class="organization-types">
                                                     @ViewBag.OrganizationTypes[i].Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
@@ -158,115 +124,113 @@
 
                         @if (Model != null && Model.Address != null)
                         {
-                            <input type="hidden" id="addressId" value="@Model.Address.Id"/>
+                            <input type="hidden" id="addressId" value="@Model.Address.Id" />
                         }
 
-                        <div class="organization-space-part margin-left-15">
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organization_City
-                                </div>
-                                <input required class="filter-input" type="text" id="city" name="City" value="@(Model != null && Model.Address != null ? Model.Address.City : "")" />
+                    <div class="organization-space-part margin-left-15">
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Organization_City @RenderRequiredIndicator()
                             </div>
-
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organization_State
-                                </div>
-                                <input required class="filter-input" type="text" id="state" name="state" value="@(Model != null && Model.Address != null ? Model.Address.State : "")" />
-                            </div>
-
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organization_PostalCode
-                                </div>
-                                <input required class="filter-input" type="text" id="postalCode" name="PostalCode" value="@(Model != null && Model.Address != null ? Model.Address.PostalCode : "")" />
-                            </div>
-
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.OrganizationStreet
-                                </div>
-                                <input required class="filter-input" type="text" id="street" name="Street" value="@(Model != null && Model.Address != null ? Model.Address.Street : "")" />
-                            </div>
-
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Organization_Country
-                                </div>
-                                <input required class="filter-input" type="text" id="country" name="country" value="@(Model != null && Model.Address != null ? Model.Address.Country : "")" />
-                            </div>
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Email
-                                </div>
-                                <input required class="filter-input" type="email" id="email" name="email" value="@(Model != null && Model.Email != null ? Model.Email : "")" />
-                            </div>
-                            <div class="advanced-filter-item filter-item input-margin">
-                                <div class="label filter-label">
-                                    @sReportsV2.Resources.TextLanguage.Clinical_Domain
-                                </div>
-
-                                <div id="dropdownSearch" class="position-relative dropdown-search">
-                                    <div id="search">
-                                        <input autocomplete="off" class="designer-form-input filter-input" id="clinicalDomain" name="ClinicalDomain" type="text" />
-                                    </div>
-                                    <div id="clinicalOptions" class="clinical-domain-options" aria-labelledby="search">
-                                    </div>
-                                </div>
-
-                                <div id="clinicals" class="clinical-domain-container">
-                                    @if (Model != null && Model.ClinicalDomain != null)
-                                    {
-                                        foreach (var item in Model.ClinicalDomain)
-                                        {
-                                            <div class="clinical" data-value="@item.ToString()">
-                                                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(item.ToString())
-                                                <i class="fas fa-times clinical-remove"></i>
-                                            </div>
-                                        }
-                                    }
-
-                                </div>
-                            </div>
-
-
+                            <input required class="filter-input" type="text" id="city" name="City" value="@(Model != null && Model.Address != null ? Model.Address.City : "")" @ViewBag.Disabled />
                         </div>
+
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Organization_State @RenderRequiredIndicator()
+                            </div>
+                            <input required class="filter-input" type="text" id="state" name="state" value="@(Model != null && Model.Address != null ? Model.Address.State : "")" @ViewBag.Disabled />
+                        </div>
+
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Organization_PostalCode @RenderRequiredIndicator()
+                            </div>
+                            <input required class="filter-input" type="text" id="postalCode" name="PostalCode" value="@(Model != null && Model.Address != null ? Model.Address.PostalCode : "")" @ViewBag.Disabled />
+                        </div>
+
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.OrganizationStreet @RenderRequiredIndicator()
+                            </div>
+                            <input required class="filter-input" type="text" id="street" name="Street" value="@(Model != null && Model.Address != null ? Model.Address.Street : "")" @ViewBag.Disabled />
+                        </div>
+                        <div class="advanced-filter-item input-margin country-select-input">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Organization_Country @RenderRequiredIndicator()
+                            </div>
+                            <select class="filter-input arrow-select" id="countryId" name="countryId" @ViewBag.Disabled required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Email @RenderRequiredIndicator()
+                            </div>
+                            <input required class="filter-input" type="email" id="email" name="email" value="@(Model != null && Model.Email != null ? Model.Email : "")" @ViewBag.Disabled />
+                        </div>
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Clinical_Domain
+                            </div>
+
+                            <div id="dropdownSearch" class="position-relative dropdown-search">
+                                <div id="search">
+                                    <input autocomplete="off" class="designer-form-input filter-input" id="clinicalDomain" name="ClinicalDomain" type="text" @ViewBag.Disabled />
+                                </div>
+                                <div id="clinicalOptions" class="clinical-domain-options" aria-labelledby="search">
+                                </div>
+                            </div>
+
+                            <div id="clinicals" class="clinical-domain-container">
+                                @if (Model != null && Model.ClinicalDomain != null)
+                                {
+                                    foreach (var item in Model.ClinicalDomain)
+                                    {
+                                        <div class="clinical" data-value="@item.Id">
+                                            @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(item.Translation)
+                                            @if (!ViewBag.ReadOnly)
+                                            {
+                                                <i class="fas fa-times clinical-remove"></i>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <div class="advanced-filter-item input-margin">
+                            <div class="label filter-label">
+                                @sReportsV2.Resources.TextLanguage.Impressum
+                            </div>
+                            <textarea class="filter-input organization-impressum-textbox" maxlength="600" id="impressum" name="impressum" @ViewBag.Disabled>@(Model != null && Model.Impressum != null ? Model.Impressum : "")</textarea>
+                            <p class="char-limit-text"></p>
+                        </div>
+
+                    </div>
                     </div>
 
-                    @Html.Partial("~/Views/Patient/TelecomTable.cshtml", new ViewDataDictionary { { "Container", "OrganizationTelecom" }, { "Telecoms", Model != null ? Model.Telecoms : null }, { "TelecomsCount", Model != null && Model.Telecoms != null ? Model.Telecoms.Count : 0 } })
+                    @Html.Partial("~/Views/Patient/TelecomTable.cshtml", new ViewDataDictionary { { "Container", "OrganizationTelecom" }, { "Telecoms", Model != null ? Model.Telecoms : null }, { "TelecomsCount", Model != null && Model.Telecoms != null ? Model.Telecoms.Count : 0 }, { "ReadOnly", ViewBag.ReadOnly } })
 
                     <div class="organization-line"></div>
-
                     <div class="button-partial">
-                        <button class="submit-patient right-button" type="button" onclick="submitOrganizationForm()" style="outline: none;">
-                            <span class="submit-patient-info">@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
-                        </button>
+                        @if (!ViewBag.ReadOnly)
+                        {
+                            <button class="submit-patient right-button" type="button" onclick="clickedSubmit()" style="outline: none;">
+                                <span class="submit-patient-info">@(Model != null ? sReportsV2.Resources.TextLanguage.Save : sReportsV2.Resources.TextLanguage.Create)</span>
+                            </button>
+                        }
                         <i class="angle-left fas fa-angle-left"></i>
                         <div class="text-underline right-button" type="button" onclick="cancelOrganization()">
                             <span class="back">@sReportsV2.Resources.TextLanguage.Back</span>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-
-@helper RenderClinicalDomainCheckbox(DocumentClinicalDomain option)
-{
-    <label class="form-checkbox-label reset-margin" id="checkBoxGroup">
-        <input value="@(option)"
-               class="form-checkbox-field chk-clinical-domain"
-               type="checkbox" id="@option"
-               checked="@(Model !=null && Model.ClinicalDomain != null? Model.ClinicalDomain.Contains(option): false)" />
-        <i class="form-checkbox-button custom-checkbox"></i>
-        <span class="organization-types">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option.ToString())</span>
-    </label>
-    <br />
-}
 <script>
     $(document).ready(function () {
         $('.organizations').select2({
@@ -287,7 +251,9 @@
             }
         });
         reloadHierarchy();
-        setCountryAutocomplete();
+        //setCountryAutocomplete();
+        var selectedOrganizationId = '@selectedOrganizationId';
+        initCustomEnumSelect2(selectedOrganizationId, selectedOrganizationId, "countryId", "country", "Country");
     });
 
 
@@ -296,5 +262,54 @@
 @Html.Partial("~/Views/Patient/IdentifierModal.cshtml", new ViewDataDictionary { { "ActiveEntity", "Organization" }, { "IdentifierTypes", ViewBag.IdentifierTypes }, { "ActiveLanguage", ViewBag.UserCookieData.ActiveLanguage } })
 @Html.Partial("~/Views/Patient/TelecomModal.cshtml")
 
-@Scripts.Render("~/bundles/organization")
-<script src="~/Scripts/sReports/common/clinicalDomainAutocomplete.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/organization")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/common/clinicalDomainAutocomplete.js")
+
+@helper RenderLogoInput()
+{
+    string logoUrl = Model != null && Model.LogoUrl != null ? Model.LogoUrl.ToString() : "";
+    <div class="advanced-filter-item input-margin">
+        <div class="label filter-label">
+            @sReportsV2.Resources.TextLanguage.LogoUrl
+        </div>
+        <div class="filter-input file-field">
+            <input type="file"
+                   class="form-element-field file d-none"
+                   data-id="logoUrl"
+                   id="uploadLogo"
+                   name="uploadLogo" />
+            <input type="hidden"
+                   id="logoUrl"
+                   name="LogoUrl"
+                   value="@logoUrl" />
+            <div class="d-flex">
+                <span>@sReportsV2.Resources.TextLanguage.UploadFile</span>
+                @if (ViewBag.Readonly)
+                {
+                    <img src="~/Content/img/icons/thesaurus_green.svg" class="ml-2 cursor-pointer" style="width:20px;">
+                }
+                else
+                {
+                    <img src="~/Content/img/icons/browse.svg" class="ml-2 cursor-pointer upload-logo-btn" style="width:20px;">
+                }
+                <span class="file-name-display ml-2">@logoUrl.GetFileNameFromUri()</span>
+                <span id="logo-action-btns" class="ml-auto @(string.IsNullOrEmpty(logoUrl) ? "d-none" : "")">
+                    <a type="button" href="@Url.Action("Download", "Blob", routeValues: new { resourceId = logoUrl.GetResourceNameFromUri() })" target="_blank" download="@logoUrl.GetFileNameFromUri()">
+                        <i class="fas fa-arrow-down file-check"></i>
+                        <span class="get-logo">@sReportsV2.Resources.TextLanguage.View @sReportsV2.Resources.TextLanguage.File</span>
+                    </a>
+                    @if (!ViewBag.Readonly)
+                    {
+                        <img src="~/Content/img/icons/Administration_remove.svg" class="ml-3 cursor-pointer" onclick="removeLogo()" title="@sReportsV2.Resources.TextLanguage.Remove_selected">
+                    }
+                </span>
+            </div>
+        </div>
+        <label id="logoUrlError" class="error"></label>
+    </div>
+}
+
+@helper RenderRequiredIndicator()
+{
+    <div class="label-required">*</div>
+}

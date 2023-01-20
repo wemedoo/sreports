@@ -17,7 +17,7 @@
     @media(max-width : 576px) {
         width: 100%;
     }
-    
+
     .login-organization {
         border: 1px solid #ced4da;
         border-radius: 4px;
@@ -37,177 +37,155 @@
             border-color: #2a796b;
         }
     }
-}
 
-.login-logo{
-    content: url("img/icons/weMedoo-logo.png");
-}
+    .s-reports {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.26px;
+        color: #000000;
+    }
 
-.login-text {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.22px;
-    color: #000000;
-    margin-bottom: 10px;
-    margin-top: 22px;
-}
+    &-logo {
+        width: 75%;
+        content: url("img/icons/weMedoo-logo.png");
+    }
 
-.s-reports {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.26px;
-    color: #000000;
-}
+    &-text {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 18px;
+        letter-spacing: 0.22px;
+        color: #000000;
+        margin-bottom: 10px;
+        margin-top: 22px;
+    }
 
-.login-background {
-    background-image: url("img/icons/image_login.png");
-    background-color: #1c94a3;
-    background-size: cover;
-}
+    &-background {
+        background-image: url("img/icons/image_login.png");
+        background-color: #1c94a3;
+        background-size: cover;
+    }
 
-.login-button {
-    border-radius: 3px;
-    background-color: #1c94a3;
-    text-align: center;
-    border: none;
-    display: inline-block;
-    font-size: 14px;
-    padding: 10px 31px;
-    font-family: 'Nunito Sans', sans-serif;
-    color: white;
-    font-weight: 500;
-    float: right;
-    cursor: pointer;
-}
+    &-button {
+        border-radius: 3px;
+        background-color: #1c94a3;
+        text-align: center;
+        border: none;
+        display: inline-block;
+        font-size: 14px;
+        padding: 10px 31px;
+        font-family: 'Nunito Sans', sans-serif;
+        color: white;
+        font-weight: 500;
+        float: right;
+        cursor: pointer;
 
-.login-button {
-    &:focus {
-        outline: none;
+        &:focus {
+            outline: none;
+        }
+
+        &-forgot-password {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 14px;
+            color: #000000;
+            text-decoration: underline;
+            margin-bottom: 18px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    }
+
+    &-group {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    &-input {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        width: 100%;
+        font-size: 14px;
+        padding: 8.5px 6px;
+        height: 55px;
+        padding-left: 72px;
+        padding-top: 25px;
+
+        &.forgot-password-input {
+            padding-left: 15px;
+        }
+
+        &:focus {
+            color: #495057;
+            background-color: white;
+            border-color: #4dbbc8;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(77, 187, 200, 0.25) !important;
+        }
+
+        &::after {
+            color: palevioletred;
+        }
+
+        &.error {
+            border: solid 1px #ed1e1e;
+            background-color: #fff5f5;
+        }
+
+        &-icon {
+            width: 53px;
+            height: 55px;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-right: solid 1px #e5e5e5;
+
+            &.error {
+                border-right: solid 1px #ed1e1e;
+            }
+
+            > span {
+                left: 17px;
+                position: absolute;
+
+                &.input-user {
+                    content: url("img/icons/user .svg");
+                }
+
+                &.input-password {
+                    content: url("img/icons/pass.svg");
+                }
+            }
+        }
+
+        &-label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 0.83px;
+            color: #000000;
+            position: absolute;
+            top: 9px;
+            left: 73px;
+
+            &.forgot-password-label {
+                left: 15px;
+            }
+        }
+    }
+
+    &-error {
+        color: #ed1e1e
     }
 }
 
-.input-user {
-    content: url("img/icons/user .svg");
-    left: 17px;
-    position: absolute;
-}
-
-.input-password {
-    content: url("img/icons/pass.svg");
-    left: 17px;
-    position: absolute;
-}
-
-.login-input {
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    width: 100%;
-    font-size: 14px;
-    padding: 8.5px 6px;
-    height: 55px;
-    padding-left: 72px;
-    padding-top: 25px;
-
-    &:focus {
-        color: #495057;
-        background-color: white;
-        border-color: #4dbbc8;
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgba(77, 187, 200, 0.25) !important;
-    }
-
-    &::after {
-        color: palevioletred;
-    }
-
-    &.error {
-        border: solid 1px #ed1e1e;
-        background-color: #fff5f5;
-    }
-}
-
-.input-icon {
-    width: 53px;
-    height: 55px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border-right: solid 1px #e5e5e5;
-}
-
-.username-label {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 0.83px;
-    color: #000000;
-    position: absolute;
-    left: 73px;
-    top: 9px;
-}
-
-.forgot-password {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
-    color: #000000;
-    text-decoration: underline;
-    margin-bottom: 18px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.login-group {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-}
-
-.margin-12 {
+.margin-bottom-12 {
     margin-bottom: 12px;
 }
 
-.email-label {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 0.83px;
-    color: #000000;
-    position: absolute;
-    left: 15px;
-    top: 9px;
-}
-
-.email-input {
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    width: 100%;
-    font-size: 14px;
-    padding: 8.5px 6px;
-    height: 55px;
-    padding-left: 15px;
-    padding-top: 25px;
-
-    &:focus {
-        color: #495057;
-        background-color: white;
-        border-color: #4dbbc8;
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgba(77, 187, 200, 0.25) !important;
-    }
-
-    &::after {
-        color: palevioletred;
-    }
-
-    &.error {
-        border: solid 1px #ed1e1e;
-        background-color: #fff5f5;
-    }
-}
 /*.login {
     position: absolute;
     width: 360px;
@@ -329,7 +307,7 @@
 }
 
 .img-google-btn {
-    content: url("../Content/img/icons/googleBtn.png");
+    content: url("/Content/img/icons/googleBtn.png");
 }
 
 .login-page{
@@ -341,7 +319,7 @@
     //min-height: calc(100vh - 80px);
     
     background-color: #1c94a3;
-    background-image: url("../Content/img/icons/SwissOpenOncology/background.png");
+    background-image: url("/Content/img/icons/SwissOpenOncology/background.png");
     background-size: cover;
     padding-left: 30px;
     padding-top: 30px;
@@ -405,7 +383,7 @@
 }
 
 .img-wemedoo{
-    height:21px;
+    height:30px;
 }
 
 .powered-by{
@@ -496,4 +474,16 @@
     font-weight:600;
     color:#1c94a3;
     cursor:pointer;
+}
+
+$color-primary: #184d40;
+$color-secondary: #2a796b;
+a {
+    color: $color-primary;
+
+    &:focus,
+    &:hover {
+        color: $color-secondary;
+        text-decoration: none;
+    }
 }

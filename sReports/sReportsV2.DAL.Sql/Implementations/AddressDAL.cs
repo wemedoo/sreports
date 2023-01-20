@@ -20,7 +20,7 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public void InsertOrUpdate(Address address)
         {
-            if(address.Id == 0)
+            if(address.AddressId == 0)
             {
                 context.Address.Add(address);
             }

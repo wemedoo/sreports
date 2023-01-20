@@ -47,7 +47,7 @@ function upload() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $("#uploadModal").modal('toggle');
-            toastr.error(` Error: ${xhr.status} ${thrownError}`);
+            handleResponseError(xhr, thrownError);
         }
     });
     return false;
@@ -65,22 +65,26 @@ function downloadTxt(event) {
         chkArray.push(element);
     });
 
-    if (chkArray.length === 0) {
+    var numOfSelectedDocuments = chkArray.length;
+    if (numOfSelectedDocuments === 0) {
         toastr.warning("Please select at least one document for export.");
         return;
     }
-    for (var i = 0; i < chkArray.length; i++) {
+    for (var i = 0; i < numOfSelectedDocuments; i++) {
         var formId = $(chkArray[i]).val();
         var formTitle = $(chkArray[i]).data('title');
 
-        exportToTxt(formId, formTitle);
+        exportToTxt(formId, formTitle, i === numOfSelectedDocuments - 1);
     }
 }
 
-function exportToTxt(id, formTitle) {
+function exportToTxt(id, formTitle, lastFile = true) {
     event.stopPropagation();
     $.ajax({
         url: `/FormInstance/ExportToTxt?FormInstanceId=${id}`,
+        beforeSend: function (request) {
+            request.setRequestHeader("LastFile", lastFile);
+        },
         xhr: function () {
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'blob';
@@ -120,29 +124,30 @@ function removeFormInstance(event, id, lastUpdate) {
             toastr.success('Removed');
             //$(event.srcElement).parent().parent().parent().parent().remove();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
 
 function reloadTable(initLoad) {
-    setFilterFromUrl();
     let requestObject = getFilterParametersObject();
     checkUrlPageParams();
     requestObject.Page = currentPage;
     requestObject.PageSize = getPageSize();
+    setFilterTagsFromObj(requestObject);
 
     $.ajax({
         type: 'GET',
         url: '/FormInstance/ReloadByFormThesaurusTable',
         data: requestObject,
+        traditional: true, // Explanation: https://stackoverflow.com/questions/31152130/is-it-good-to-use-jquery-ajax-with-traditional-true/31152304#31152304
         success: function (data) {
             $("#tableContainer").html(data);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Status: ${textStatus}; Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -154,15 +159,18 @@ function getFilterParametersObject() {
         requestObject = filter;
         defaultFilter = null;
     } else {
-        requestObject.VersionId = $('#VersioId').html();
-        requestObject.ThesaurusId = $('#thesaurusId').html();
-        requestObject.Classes = $('#DocumentClass').html();
-        requestObject.GeneralPurpose = $('#GeneralPurpose').html();
-        requestObject.ExplicitPurpose = $('#ExplicitPurpose').html();
-        requestObject.ScopeOfValidity = $('#ScopeOfValidity').html();
-        requestObject.ClinicalDomain = $('#ClinicalDomain').html();
-        requestObject.ClinicalContext = $('#ClinicalContext').html();
-        requestObject.AdministrativeContext = $('#AdministrativeContext').html();
+        requestObject.Content = $('#content').val();
+        //requestObject.UserIds = setUser();
+        //requestObject.PatientIds = setPatient();
+        requestObject.VersionId = $('#VersioId').val();
+        requestObject.ThesaurusId = $('#thesaurusId').val();
+        requestObject.Classes = $('#DocumentClass').val();
+        requestObject.GeneralPurpose = $('#GeneralPurpose').val();
+        requestObject.ExplicitPurpose = $('#ExplicitPurpose').val();
+        requestObject.ScopeOfValidity = $('#ScopeOfValidity').val();
+        requestObject.ClinicalDomain = $('#ClinicalDomain').val();
+        requestObject.ClinicalContext = $('#ClinicalContext').val();
+        requestObject.AdministrativeContext = $('#AdministrativeContext').val();
     }
 
     return requestObject;
@@ -180,26 +188,24 @@ function downloadJsons(event) {
         chkArray.push(element);
     });
 
-    if (chkArray.length === 0) {
+    var numOfSelectedDocuments = chkArray.length;
+    if (numOfSelectedDocuments === 0) {
         toastr.warning("Please select at least one document for export.");
         return;
     }
-    for (var i = 0; i < chkArray.length; i++) {
+    for (var i = 0; i < numOfSelectedDocuments; i++) {
         var formId = $(chkArray[i]).val();
         var formTitle = $(chkArray[i]).data('title');
 
-        getJson(formId, formTitle);
+        getJson(formId, formTitle, i === numOfSelectedDocuments - 1);
     }
 }
 
-function getJson(formId, formTitle) {
-
+function getJson(formId, formTitle, lastFile = true) {
     $.ajax({
         url: `/Patholink/Export?formInstanceId=${formId}`,
-        xhr: function () {
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'application/json';
-            return xhr;
+        beforeSend: function (request) {
+            request.setRequestHeader("LastFile", lastFile);
         },
         success: function (data) {
             var jsonse = JSON.stringify(data, null, 2);
@@ -214,8 +220,8 @@ function getJson(formId, formTitle) {
             a.click();
             window.URL.revokeObjectURL(url);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Status: ${textStatus}; Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -274,7 +280,34 @@ $(document).on('change', '#selectAllCheckboxes', function () {
     $(':checkbox').prop('checked', c);
 });
 
+function singleDocumentFilter() {
+    $('#content').val($('#ContentTemp').val());
 
+    if (filter) {
+        filter['Content'] = $('#ContentTemp').val();
+        //filter['UserIds'] = setUser();
+        //filter['PatientIds'] = setPatient();
+    }
 
+    filterData();
+    //clearSingleDocumentFilters();
+}
 
+function clearSingleDocumentFilters() {
+    $('#ContentTemp').val(' ');
+}
 
+function advanceFilter() {
+
+    $('#ContentTemp').val($('#content').val());
+
+    singleDocumentFilter();
+    //clearFilters();
+}
+
+function getFilterParametersObjectForDisplay(requestObject) {
+    let filterObject = {};
+    filterObject['Content'] = requestObject['Content'];
+
+    return filterObject;
+}

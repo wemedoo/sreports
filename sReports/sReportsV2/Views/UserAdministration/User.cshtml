@@ -1,62 +1,64 @@
-﻿@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+﻿@using sReportsV2.Common.Extensions
+@model sReportsV2.DTOs.Common.DataOut.UserDataOut
 @{
     ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Profile;
     var activeUser = (Model != null ? Model.Id : -1);
     bool isReadonly = (activeUser == ViewBag.UserCookieData.Id ? true : false);
+    bool readOnlyView = ((bool?)ViewBag.ReadOnly).GetValueOrDefault(); ;
 }
-    <form method="post" id="idUserInfo" class="form-user-info element-background-grey" onsubmit="return submitForm(this, event)" novalidate>
-        <input type="hidden" class="form-control" id="readonlyField" name="ReadonlyField" value="@isReadonly.ToString()" />
-        <input type="hidden" class="form-control" id="currentUsername" value="@( Model != null && !string.IsNullOrWhiteSpace(Model.Username) ? Model.Username : "")" />
-        <input type="hidden" class="form-control" id="currentEmail" value="@( Model != null && !string.IsNullOrWhiteSpace(Model.Email) ? Model.Email : "")" />
-        @if (Model != null)
-        {
-            @Html.HiddenFor(model => model.RowVersion)
-        }
-        <input type="hidden" class="form-control" id="userId" value="@( Model != null  ? Model.Id : 0)" />
-        <div class="user-content element-background-white">
-            @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.User }, { "linkLevel1", "/UserAdministration/GetAll" }, { "level2", Model != null ? Model.Username : sReportsV2.Resources.TextLanguage.Create_user }, { "activeLevel", 2 } })
-            <div class="user-title">@sReportsV2.Resources.TextLanguage.User</div>
+<form method="post" id="idUserInfo" class="form-user-info element-background-grey" onsubmit="return submitForm(this, event)" novalidate>
+    <input type="hidden" class="form-control" id="readonlyField" name="ReadonlyField" value="@isReadonly.ToString()" />
+    <input type="hidden" class="form-control" id="currentUsername" value="@( Model != null && !string.IsNullOrWhiteSpace(Model.Username) ? Model.Username : "")" />
+    <input type="hidden" class="form-control" id="currentEmail" value="@( Model != null && !string.IsNullOrWhiteSpace(Model.Email) ? Model.Email : "")" />
+    @if (Model != null)
+    {
+        @Html.HiddenFor(model => model.RowVersion)
+    }
+    <input type="hidden" class="form-control" id="userId" value="@( Model != null  ? Model.Id : 0)" />
+    <div class="user-content element-background-white">
+        @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.User }, { "linkLevel1", "/UserAdministration/GetAll" }, { "level2", Model != null ? Model.Username : sReportsV2.Resources.TextLanguage.Create_user }, { "activeLevel", 2 } })
+        <div class="user-title">@sReportsV2.Resources.TextLanguage.User</div>
+    </div>
+    <div class="user-container position-relative" id="userInfo">
+        <div class="user-tabs element-background-white-user">
+            <div data-id="personalData" class="user-tab active">
+                <img class="pd-img" src="~/Content/img/icons/person_data_silver.svg"> @sReportsV2.Resources.TextLanguage.PersonalData
+            </div>
+            <div data-id="institutionData" class="user-tab">
+                <img class="id-img" src="~/Content/img/icons/institution_data_silver.svg"> @sReportsV2.Resources.TextLanguage.InstitutionData
+            </div>
+            <div data-id="clinicalData" class="user-tab">
+                <img class="cr-img" src="~/Content/img/icons/clinical_research_silver.svg"> @sReportsV2.Resources.TextLanguage.ClinicalResearch
+            </div>
         </div>
-        <div class="user-container position-relative" id="userInfo">
-            <div class="user-tabs element-background-white-user">
-                <div data-id="personalData" class="user-tab active">
-                    <img class="pd-img" src="~/Content/img/icons/person_data_silver.svg"> @sReportsV2.Resources.TextLanguage.PersonalData
-                </div>
-                <div data-id="institutionData" class="user-tab">
-                    <img class="id-img" src="~/Content/img/icons/institution_data_silver.svg"> @sReportsV2.Resources.TextLanguage.InstitutionData
-                </div>
-                <div data-id="clinicalData" class="user-tab">
-                    <img class="cr-img" src="~/Content/img/icons/clinical_research_silver.svg"> @sReportsV2.Resources.TextLanguage.ClinicalResearch
-                </div>
-            </div>
-            <img style="display:none" class="user-arrow-left" src="~/Content/img/icons/arrow_left.svg">
-            <img class="user-arrow-right" src="~/Content/img/icons/arrow_right.svg">
+        <img style="display:none" class="user-arrow-left" src="~/Content/img/icons/arrow_left.svg">
+        <img class="user-arrow-right" src="~/Content/img/icons/arrow_right.svg">
 
-            <div class="user-containers">
-                <div id="personalData" class="user-cont">
-                    @Html.Partial("UserPersonalData", Model)
-                </div>
-                <div id="institutionData" class="user-cont" style="display:none">
-                    @Html.Partial("UserInstitutionalData", Model)
-                </div>
-                <div id="clinicalData" class="user-cont" style="display:none">
-                    @Html.Partial("UserClinicalResearchData", Model)
-                </div>
+        <div class="user-containers">
+            <div id="personalData" class="user-cont">
+                @Html.Partial("UserPersonalData", Model)
             </div>
-            <div class="button-partial user-containers user-btn-top-border" id="buttonGroupPrimary">
+            <div id="institutionData" class="user-cont" style="display:none">
+                @Html.Partial("UserInstitutionalData", Model)
+            </div>
+            <div id="clinicalData" class="user-cont" style="display:none">
+                @Html.Partial("UserClinicalResearchData", Model)
+            </div>
+        </div>
+        <div class="button-partial user-containers user-btn-top-border" id="buttonGroupPrimary">
+            @if (!readOnlyView)
+            {
                 <button class="submit-patient right-button" type="submit" style="outline: none;">
                     <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Submit</span>
                 </button>
-                <i class="angle-left fas fa-angle-left"></i>
-                <div class="text-underline right-button" type="button" onclick="cancelUserEdit()">
-                    <span class="back">@sReportsV2.Resources.TextLanguage.Back</span>
-                </div>
+            }
+            <i class="angle-left fas fa-angle-left"></i>
+            <div class="text-underline right-button" type="button" onclick="cancelUserEdit()">
+                <span class="back">@sReportsV2.Resources.TextLanguage.Back</span>
             </div>
         </div>
-
-
-
-    </form>
+    </div>
+</form>
 
 
 
@@ -64,4 +66,8 @@
 @Html.Partial("ChangePasswordModal")
 @Html.Partial("AddInstitutionModal")
 
-@Scripts.Render("~/bundles/user")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/user")
+<script>
+    setReadOnly(@(readOnlyView ? "true" : ""));
+    setUserAdministration(@(ViewBag.UserAdministration ? "true" : ""));
+</script>

@@ -19,7 +19,7 @@ namespace sReportsV2.DTOs.DTOs.GlobalThesaurusUser.DataIn
         public string Phone { get; set; }
         public string Password { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime EntryDatetime { get; set; }
         public DateTime? LastUpdate { get; set; }
+        public List<int> Roles { get; set; } = new List<int>();
     }
 }

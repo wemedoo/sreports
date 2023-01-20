@@ -1,0 +1,737 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.HistorySheet.DataOut;
+@model HistorySheetDataOut
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sotex Solutions</title>
+    <meta name="description" content="">
+
+    <!-- Bootstrap CDN -->
+    @Styles.RenderFormat("<link integrity=\"sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "//cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css")
+    <!-- Font awesome CDN -->
+    @Styles.RenderFormat("<link integrity=\"sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    <!-- jqueryUI -->
+    @Styles.RenderFormat("<link type=\"text/css\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css")
+    <!-- Custom CSS -->
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/open-oncology/scss/style.css")
+</head>
+<body>
+    <!-- Start .navbar  -->
+    <nav class="navbar">
+        <div class="navbar-arrows">
+            <a href="#" class="left-arrow enable">
+                <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.8158 1.06817C7.68327 4.21275 4.52275 7.35713 1.40954 10.5017C1.40954 10.2071 1.40954 9.91254 1.40954 9.61796C4.52275 12.6763 7.51142 15.7344 10.5582 18.7928C11.1265 19.3632 10.2502 20.2469 9.68175 19.6765C6.63495 16.6182 3.59024 13.56 0.543651 10.5017C0.303726 10.2611 0.304764 9.85859 0.544688 9.61796C3.67741 6.47338 6.80639 3.329 9.9391 0.184419C10.5074 -0.386206 11.3843 0.497752 10.8158 1.06817Z" fill="#BFBFBF" />
+                </svg>
+            </a>
+            <a href="#" class="right-arrow disabled">
+                <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.348463 1.13772C3.48097 4.2823 6.6415 7.42668 9.75471 10.5713C9.75471 10.2767 9.75471 9.98209 9.75471 9.68751C6.6415 12.7458 3.65282 15.804 0.606029 18.8623C0.0377646 19.4327 0.914029 20.3165 1.4825 19.7461C4.52929 16.6877 7.57401 13.6296 10.6206 10.5713C10.8605 10.3306 10.8595 9.92814 10.6196 9.68751C7.48684 6.54293 4.35786 3.39855 1.22514 0.253969C0.656878 -0.316656 -0.220009 0.567302 0.348463 1.13772Z" fill="#BFBFBF" />
+                </svg>
+            </a>
+        </div>
+        <div class="navbar-title">
+            @sReportsV2.Resources.TextLanguage.History_sheet
+        </div>
+        <div class="navbar-export">
+            <a href="#">
+                <img src="~/Content/open-oncology/images/icons/pdf-icon.svg" alt="PDF">
+                <span>@sReportsV2.Resources.TextLanguage.Export_to_pdf</span>
+            </a>
+        </div>
+    </nav>
+    <!-- End .navbar  -->
+    <!-- Start .header -->
+    <header class="header">
+        <div class="nav-slider">
+            <span class="arrow">
+                <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.348463 1.13772C3.48097 4.2823 6.6415 7.42668 9.75471 10.5713C9.75471 10.2767 9.75471 9.98209 9.75471 9.68751C6.6415 12.7458 3.65282 15.804 0.606029 18.8623C0.0377646 19.4327 0.914029 20.3165 1.4825 19.7461C4.52929 16.6877 7.57401 13.6296 10.6206 10.5713C10.8605 10.3306 10.8595 9.92814 10.6196 9.68751C7.48684 6.54293 4.35786 3.39855 1.22514 0.253969C0.656878 -0.316656 -0.220009 0.567302 0.348463 1.13772Z" fill="white" />
+                </svg>
+            </span>
+        </div>
+        <div class="row">
+            <div class="header-about col-6">
+                <div class="row">
+                    <div class="col-6">@sReportsV2.Resources.TextLanguage.PatientName:</div>
+                    <div class="f-name about-data col-6">@(Model != null && Model.Patient != null ? Model.Patient.GetName() : "")</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">@sReportsV2.Resources.TextLanguage.Identification_number:</div>
+                    <div class="id-num about-data col-6">@(Model != null && Model.Patient != null ? Model.Patient.IdentificationNumber : "")</div>
+                </div>
+            </div>
+            <div class="header-details col-6">
+                <div class="row">
+                    <div class="col-5">@sReportsV2.Resources.TextLanguage.Schema_name:</div>
+                    <div class="schema-name details-data col-7">
+                        Alimta®/Carboplatin® palliativ bei
+                        fortgeschrittenem NSCLC
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End .header  -->
+
+    <div class="divider"></div>
+
+    <!-- Start .table-wrapper  -->
+    <div class="table-wrapper mb-50">
+        <table class="table">
+            <thead>
+                <tr data-toggle="collapse" aria-expanded="false" data-target="#table-1" class="accordion-toggle">
+                    <th class="table-title ">
+                        <span>@sReportsV2.Resources.TextLanguage.Findings</span>
+                        <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                        </svg>
+                    </th>
+                    <th>Jun 02.2021</th>
+                    <th>Jul 05.2021</th>
+                    <th>Aug 15.2021</th>
+                    <th>Sep 03.2021</th>
+                    <th>Sep 23.2021</th>
+                    <th>Oct 03.2021</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr class="h-0">
+                    <td colspan="12" class="hiddenRow">
+                        <div class="accordian-body collapse" id="table-1">
+                            <table class="table">
+                                <tbody class="tbody-child">
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Weight
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="stable">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="stable">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Height
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Body_surface
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Blood_surface
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Blood_pressure
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Heartbeat
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Body_temperature
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Respiration
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Skin
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Hair
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Mucous_membrane
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Heart
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="0">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr data-toggle="collapse" aria-expanded="false" data-target="#table-2" class="accordion-toggle">
+                    <th class="table-title ">
+                        <span>@sReportsV2.Resources.TextLanguage.Symptoms</span>
+                        <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.82635 7.744L0.269461 1.51467C-0.0898204 1.152 -0.0898204 0.597333 0.269461 0.256C0.628743 -0.0853333 1.21257 -0.0853333 1.59431 0.256L7.5 5.86667L13.4057 0.256C13.765 -0.0853333 14.3713 -0.0853333 14.7305 0.256C15.0898 0.597333 15.0898 1.152 14.7305 1.51467L8.1512 7.744C7.79192 8.08533 7.20808 8.08533 6.82635 7.744Z" fill="black" />
+                        </svg>
+                    </th>
+                    <th>Jun 02.2021</th>
+                    <th>Jul 05.2021</th>
+                    <th>Aug 15.2021</th>
+                    <th>Sep 03.2021</th>
+                    <th>Sep 23.2021</th>
+                    <th>Oct 03.2021</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr class="h-0">
+                    <td colspan="12" class="hiddenRow">
+                        <div class="accordian-body collapse" id="table-2">
+                            <table class="table">
+                                <tbody class="tbody-child">
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Weight
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="stable">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="stable">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Height
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Body_surface
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Blood_surface
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Blood_surface
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Heartbeat
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Body_temperature
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Respiration
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Skin
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Hair
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Mucous_membrane
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-title">
+                                            @sReportsV2.Resources.TextLanguage.Heart
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                        <td class="input-text-field">
+                                            <input type="text" value="-">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- End .table-wrapper -->
+    <div class="new-evaluation d-flex justify-content-end">
+        <button class="btn-outline">@sReportsV2.Resources.TextLanguage.New_evaluation</button>
+    </div>
+
+
+    <!-- jquery CDN -->
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//code.jquery.com/jquery-2.2.4.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//code.jquery.com/ui/1.12.1/jquery-ui.min.js")
+    <!-- bootstrap CDN -->
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "//cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js")
+</body>
+</html>

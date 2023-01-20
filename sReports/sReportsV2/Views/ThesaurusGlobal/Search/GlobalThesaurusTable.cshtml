@@ -23,8 +23,8 @@
         @foreach (var entity in Model.Data)
         {
             <div class="single-result w-100" onclick="previewThesaurus('@entity.Id')">
-                @(entity.Translations != null && ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).Count() > 0 && ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.PreferredTerm)) != null ?
-                ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.PreferredTerm)).PreferredTerm: "No preferred term")
+                @(entity.Translations != null && ((List<sReportsV2.DTOs.ThesaurusEntry.DTO.ThesaurusEntryTranslationDTO>)entity.Translations).Count() > 0 != null ?
+                entity.GetFilteredTerm(ViewBag.FilterData) : "No preferred term")
             </div>
         }
     </div>

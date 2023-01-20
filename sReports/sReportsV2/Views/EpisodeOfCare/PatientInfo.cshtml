@@ -17,7 +17,7 @@
         </div>
         <div class="property">
             <div class="property-name">@sReportsV2.Resources.TextLanguage.BirthDate:</div>
-            <div class="property-value">@(Model.BirthDate != null ? Model.BirthDate.ToShortDateString() : "")</div>
+            <div class="property-value">@(Model.BirthDate != null ? Model.BirthDate.ToString(ViewBag.DateFormat) : "")</div>
         </div>
         <div class="property">
             <div class="property-name">@sReportsV2.Resources.TextLanguage.City:</div>

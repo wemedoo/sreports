@@ -121,7 +121,7 @@ namespace sReportsV2.Controllers
             }
             FormInstance formInstance = GetFormInstanceSet(form);
 
-            formInstanceDAL.InsertOrUpdate(formInstance);
+            formInstanceDAL.InsertOrUpdate(formInstance, formInstance.GetCurrentFormInstanceStatus(userCookieData?.Id));
 
             return RedirectToAction("GetAllByFormThesaurus", "FormInstance", new
             {

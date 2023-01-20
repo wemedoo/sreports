@@ -28,18 +28,35 @@ namespace sReportsV2.DTOs.Field.DataOut
                     {
                         LoadMoreDependables(fields, dependableField as FieldSelectableDataOut, formFieldDependable);
                     }
+                    HideDependableFieldIfConditionIsNotMet(dependableField, formFieldDependable.Condition);
                 }
             }
+        }
+
+        public virtual string GetSelectedValue()
+        {
+            return GetValue() ?? string.Empty;
         }
         
         protected void LoadMoreDependables(List<FieldDataOut> fields, FieldSelectableDataOut field, FormFieldDependableDataOut formFieldDependable)
         {
-
             field = Ensure.IsNotNull(field, nameof(field));
             if (field.Dependables != null && field.Dependables.Any())
             {
                 GetDependablesData(fields, field.Dependables);
                 formFieldDependable.Dependables.AddRange(field.Dependables);
+            }
+        }
+
+        private void HideDependableFieldIfConditionIsNotMet(FieldDataOut fieldDataOut, string condition)
+        {
+            if (GetValue() != condition)
+            {
+                fieldDataOut.IsVisible = false;
+            }
+            else
+            {
+                fieldDataOut.IsVisible = true;
             }
         }
     }

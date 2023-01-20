@@ -5,6 +5,9 @@
        : new List<Alert>();
 
     Layout = "";
+    bool hasUsernameErrors = ViewData.ModelState["Username"] != null && ViewData.ModelState["Username"].Errors.Any();
+    bool hasPasswordErrors = ViewData.ModelState["Password"] != null && ViewData.ModelState["Password"].Errors.Any();
+    bool hasGeneralErrors = ViewData.ModelState["General"] != null && ViewData.ModelState["General"].Errors.Any();
 }
 @model sReportsV2.DTOs.User.DataIn.UserLoginDataIn
 <!DOCTYPE html>
@@ -13,13 +16,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="sotexsolutions.com">
-    <title>Login - sReports by weMedoo</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <link rel="stylesheet" href="~/Content/login.min.css" />
+    <title>Login - @sReportsV2.Common.Constants.ResourceTypes.SoftwareName by weMedoo</title>
+    @Styles.RenderFormat("<link integrity=\"sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://use.fontawesome.com/releases/v5.6.1/css/all.css")
+    @Styles.RenderFormat("<link integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/login.min.css")
 </head>
 <body class="login-background">
-    @foreach (var alert in alerts) 
+    @foreach (var alert in alerts)
     {
         <div>@alert.Message</div>
     }
@@ -27,40 +30,47 @@
         <div class="login">
             <div class="login-header">
                 <span class="login-logo"></span>
-                <span class="s-reports">sReports</span>
+                <span class="s-reports">@sReportsV2.Common.Constants.ResourceTypes.SoftwareName</span>
             </div>
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
             {
                 <div class="login-text">Login</div>
                 <input type="hidden" id="timeZone" name="TimeZone">
-                <div class="login-group margin-12">
-                    <div class="input-icon" id="userIcon">
+                <div class="login-group margin-bottom-12">
+                    <div class="login-input-icon @(hasUsernameErrors || hasGeneralErrors ? "error": "")">
                         <span class="input-user" id="basic-addon1"></span>
                     </div>
                     <div>
-                        <label class="username-label">USERNAME</label>
+                        <label class="login-input-label">USERNAME</label>
                     </div>
-                    <input type="text" class="login-input user-input" value="@(Model != null ? Model.Username : "")" aria-label="Username" aria-describedby="basic-addon1" name="username">
-                    <div class="w-100">
-                        @Html.ValidationMessageFor(m => m.Username)
-                    </div>
+                    <input type="text" class="login-input user-input @(hasUsernameErrors || hasGeneralErrors ? "error": "")" value="@(Model != null ? Model.Username : "")" aria-label="Username" aria-describedby="basic-addon1" name="username">
+                    @if (hasUsernameErrors)
+                    {
+                        <div class="login-error">
+                            @Html.ValidationMessageFor(m => m.Username)
+                        </div>
+                    }
                 </div>
-
                 <div class="login-group">
-                    <div class="input-icon" id="passwordIcon">
+                    <div class="login-input-icon @(hasPasswordErrors || hasGeneralErrors ? "error": "")">
                         <span class="input-password" id="basic-addon2"></span>
                     </div>
                     <div>
-                        <label class="username-label">PASSWORD</label>
+                        <label class="login-input-label">PASSWORD</label>
                     </div>
-                    <input type="password" class="login-input password-input" value="@(Model != null ? Model.Password : "")" aria-label="Password" aria-describedby="basic-addon2" name="password">
-                    <div class="w-100">
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
+                    <input type="password" class="login-input password-input @(hasPasswordErrors || hasGeneralErrors ? "error": "")" value="@(Model != null ? Model.Password : "")" aria-label="Password" aria-describedby="basic-addon2" name="password">
+                    @if (hasPasswordErrors)
+                    {
+                        <div class="login-error">
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                    }
                 </div>
-                if (Html.ValidationMessage("General") != null)
+                if (hasGeneralErrors)
                 {
-                    <div>@Html.ValidationMessage("General")</div>
+                    <div class="login-error">
+                        @Html.ValidationMessage("General")
+                    </div>
                 }
                 if (Model != null && !string.IsNullOrWhiteSpace(Model.ReturnUrl.ToString()))
                 {
@@ -71,29 +81,29 @@
                     <input type="hidden" value="@ViewBag.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
                 }
                 <div style="display:flex">
-                    <div class="forgot-password" onclick="forgotPassword()">Forgot Password?</div>
+                    <div class="login-button-forgot-password" onclick="forgotPassword()">Forgot Password?</div>
                 </div>
                 <button class="login-button" id="loginButton" type="submit">Login</button>
 
                 @*<div class="d-flex w-100 mt-2">
-                    <a class="sign-in-button" href="@Url.Action("SignIn", "User")" style="text-decoration: none;">
-                        <img src="~/Content/img/icons/signInMicrosoft.svg">
-                    </a>
-                </div>
-                <div class="d-flex w-100 mt-2">
-                    <a class="sign-in-button" href="@Url.Action("SignInGoogle", "User")" style="text-decoration: none;">
-                        <img class="img-google-btn" src="~/Content/img/icons/googleBtn.png">
-                    </a>
-                </div>*@
+                        <a class="sign-in-button" href="@Url.Action("SignIn", "User")" style="text-decoration: none;">
+                            <img src="~/Content/img/icons/signInMicrosoft.svg">
+                        </a>
+                    </div>
+                    <div class="d-flex w-100 mt-2">
+                        <a class="sign-in-button" href="@Url.Action("SignInGoogle", "User")" style="text-decoration: none;">
+                            <img class="img-google-btn" src="~/Content/img/icons/googleBtn.png">
+                        </a>
+                    </div>*@
 
             }
         </div>
-        
+
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="~/Scripts/sReports/user.js"></script>
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://code.jquery.com/jquery-3.2.1.slim.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" integrity=\"sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl\" crossorigin=\"anonymous\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/user.js")
 </body>
 </html>

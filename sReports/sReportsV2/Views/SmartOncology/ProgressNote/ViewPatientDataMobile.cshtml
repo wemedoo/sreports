@@ -1,0 +1,41 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchemaInstance.DataOut;
+
+@model ChemotherapySchemaInstanceDataOut
+
+@{
+    var patient = Model != null ? Model.Patient : null;
+}
+
+<div class="user">
+    <img src="~/Content/open-oncology/images/icons/user.jpg" alt="User Image">
+</div>
+<div class="header-about col-6">
+    <div class="row">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.FirstName:</div>
+        <div class="f-name about-data col-6">@(patient != null ? patient.Name : "")</div>
+    </div>
+    <div class="row">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.SecondName:</div>
+        <div class="s-name about-data col-6">@(patient != null ? patient.FamilyName : "")</div>
+    </div>
+    <div class="row collapse-date collapse show">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.Date_of_birth:</div>
+        <div class="date-of-birth about-data col-6">@(patient != null && patient.BirthDate != null ? patient.BirthDate.Value.ToString(ViewBag.DateFormat) : "")</div>
+    </div>
+    <div class="row collapse-date collapse show">
+        <div class="col-6">@sReportsV2.Resources.TextLanguage.Identification_number:</div>
+        <div class="id-num about-data col-6">@(patient != null ? patient.IdentificationNumber : "")</div>
+    </div>
+</div>
+<div class="col w-100 position-relative">
+    <div class="toggle-date-section active">
+        <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="//www.w3.org/2000/svg">
+            <path d="M1.38015 10.4235C4.23887 7.57574 7.09739 4.70253 9.9561 1.87234C9.6883 1.87234 9.42049 1.87234 9.15269 1.87234C11.933 4.70253 14.7131 7.41951 17.4934 10.1893C18.012 10.7059 18.8154 9.90932 18.2968 9.39253C15.5165 6.62272 12.7364 3.85479 9.9561 1.08517C9.73735 0.867058 9.37144 0.868001 9.15269 1.08611C6.29398 3.93404 3.43546 6.77857 0.576745 9.62649C0.0579948 10.1431 0.861593 10.9403 1.38015 10.4235V10.4235Z" fill="#12707C"></path>
+        </svg>
+    </div>
+</div>
+
+@if (Model.IsNotPreview())
+{
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/progressNoteDatepicker.js")
+}

@@ -1,284 +1,210 @@
 ﻿using AutoMapper;
 using Serilog;
 using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.Common.Constants;
 using sReportsV2.Common.CustomAttributes;
 using sReportsV2.Common.Enums;
-using sReportsV2.Common.Helpers;
+using sReportsV2.Common.Exceptions;
+using sReportsV2.Common.Extensions;
+using sReportsV2.Common.Singleton;
 using sReportsV2.DAL.Sql.Interfaces;
 using sReportsV2.Domain.Entities.Consensus;
 using sReportsV2.Domain.Entities.Form;
-using sReportsV2.Domain.Services.Implementations;
 using sReportsV2.Domain.Services.Interfaces;
-using sReportsV2.Domain.Sql.Entities.OutsideUser;
-using sReportsV2.Domain.Sql.Entities.User;
 using sReportsV2.DTOs.Common.DataOut;
+using sReportsV2.DTOs.Common.DTO;
 using sReportsV2.DTOs.Consensus.DataIn;
-using sReportsV2.DTOs.Consensus.DataOut;
+using sReportsV2.DTOs.DTOs.Consensus.DataOut;
+using sReportsV2.DTOs.DTOs.FormConsensus.DataIn;
 using sReportsV2.DTOs.Form.DataIn;
 using sReportsV2.DTOs.Form.DataOut;
-using sReportsV2.DTOs.FormConsensus.DataIn;
-using sReportsV2.DTOs.Organization;
 using sReportsV2.DTOs.Organization.DataOut;
 using sReportsV2.SqlDomain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace sReportsV2.Controllers
 {
     public class FormConsensusController : FormCommonController
     {
-        protected readonly IConsensusInstanceService consensusInstanceService;
-        protected readonly Domain.Services.Interfaces.IConsensusDAL consensusDAL;
+        protected readonly IConsensusInstanceDAL consensusInstanceDAL;
+        protected readonly IConsensusBLL consensusBLL;
+        protected readonly IConsensusDAL consensusDAL;
 
         private readonly IOutsideUserDAL outsideUserDAL;
         private readonly IUserDAL userDAL;
         private readonly IOrganizationDAL organizationDAL;
         public ILogger Logger;
 
-
-        public FormConsensusController(IPatientDAL patientDAL, IEpisodeOfCareDAL episodeOfCareDAL,IEncounterDAL encounterDAL, IUserBLL userBLL, IOrganizationBLL organizationBLL, ICustomEnumBLL customEnumBLL, IFormInstanceBLL formInstanceBLL, IFormBLL formBLL, IOutsideUserDAL outsideUserDAL, IUserDAL userDAL, IOrganizationDAL organizationDAL, IConsensusDAL consensusDAL) : base(patientDAL, episodeOfCareDAL, encounterDAL,userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
+        public FormConsensusController(IPatientDAL patientDAL, 
+            IEpisodeOfCareDAL episodeOfCareDAL,
+            IEncounterDAL encounterDAL, 
+            IUserBLL userBLL, 
+            IOrganizationBLL organizationBLL, 
+            ICustomEnumBLL customEnumBLL, 
+            IFormInstanceBLL formInstanceBLL, 
+            IFormBLL formBLL, 
+            IOutsideUserDAL outsideUserDAL, 
+            IUserDAL userDAL, 
+            IOrganizationDAL organizationDAL,
+            IConsensusDAL consensusDAL,
+            IConsensusInstanceDAL consensusInstanceDAL,
+            IConsensusBLL consensusBLL) : base(patientDAL, episodeOfCareDAL, encounterDAL, userBLL, organizationBLL, customEnumBLL, formInstanceBLL, formBLL)
         {
             this.outsideUserDAL = outsideUserDAL;
-            consensusInstanceService = new ConsensusInstanceService();
-            this.consensusDAL = new Domain.Services.Implementations.ConsensusDAL();
+            this.consensusDAL = consensusDAL;
+            this.consensusInstanceDAL = consensusInstanceDAL;
             this.userDAL = userDAL;
             this.organizationDAL = organizationDAL;
+            this.consensusBLL = consensusBLL;
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize]
         [HttpGet]
-
         public ActionResult GetMapObject()
         {
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var obj = System.IO.File.ReadAllText($@"{path}\App_Data\countries-50m.json");
             return Content(obj);
         }
+
         [SReportsAuditLog]
-        [SReportsAutorize]
-
-        public ActionResult StartNewIteration(string consensusId)
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
+        public ActionResult StartNewIteration(string consensusId, string formId)
         {
-            if(consensusDAL.IsLastIterationFinished(consensusId))
-            {
-                Consensus consensus = consensusDAL.GetById(consensusId);
-                consensus.Iterations.Add(new ConsensusIteration()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Questions = new List<ConsensusQuestion>(),
-                    UserIds = consensus.Iterations.Last().UserIds,
-                    OutsideUserIds = consensus.Iterations.Last().OutsideUserIds,
-                    State = IterationState.NotStarted
-                });
+            ResourceCreatedDTO resourceCreatedDTO = consensusBLL.StartNewIteration(consensusId, formId, userCookieData.Id);
 
-                consensus.SetIterationsState();
-                consensusDAL.Insert(consensus);
-                ViewBag.Consensus = Mapper.Map<ConsensusDataOut>(consensus);
-                return PartialView("~/Views/Form/Consensus/ConsensusPartial.cshtml", GetFormDataOut(formDAL.GetForm(consensus.FormRef)));
-            }
-            else 
+            return new JsonResult()
             {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "Current iteration is not finished!");
-            }
+                Data = resourceCreatedDTO,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
+        public ActionResult TerminateCurrentIteration(string consensusId)
+        {
+            ResourceCreatedDTO resourceCreatedDTO = consensusBLL.TerminateCurrentIteration(consensusId);
+           
+            return new JsonResult()
+            {
+                Data = resourceCreatedDTO,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
 
+        [SReportsAuditLog]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         public ActionResult LoadConsensusPartial(string formId)
         {
-            Consensus consensus = consensusDAL.GetByFormId(formId);
-            ViewBag.Consensus = Mapper.Map<ConsensusDataOut>(consensus);
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut(Mapper.Map<ConsensusDataOut>(consensusDAL.GetByFormId(formId)));
             return PartialView("~/Views/Form/Consensus/ConsensusPartial.cshtml", GetFormDataOut(formDAL.GetForm(formId)));
         }
 
-        
         [SReportsAuditLog]
-        [SReportsAutorize]
-        [HttpPost]
-
-        public ActionResult ProceedConsensus(List<ConsensusDefinitionParameter> parameters, string formId)
+        public ActionResult GetQuestionnairePartial(string formId, string showQuestionnaireType)
         {
-           var consensus = new Consensus()
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut(Mapper.Map<ConsensusDataOut>(consensusDAL.GetByFormId(formId)))
             {
-                FormRef = formId
+                ShowQuestionnaireType = string.IsNullOrWhiteSpace(showQuestionnaireType) ? null : showQuestionnaireType
             };
-
-            consensusDAL.Insert(consensus);
-
-            return GetConsensusTreePartialResult(formId);
+            return PartialView("~/Views/Form/Consensus/Questionnaire/ConsensusQuestionnairePartial.cshtml", GetFormDataOut(formDAL.GetForm(formId)));
         }
-        
 
         [SReportsAuditLog]
-        [HttpPost]
-
-        public ActionResult AddQuestion(ConsensusQuestionDataIn questionDataIn, string formId, string iterationId)
+        [SReportsAuthorize]
+        public ActionResult GetConsensusUsersPartial(string consensusId)
         {
-            consensusDAL.InsertQuestion(Mapper.Map<ConsensusQuestion>(questionDataIn), formId, iterationId);
-            return GetConsensusTreePartialResult(formId);
+            ConsensusUsersDataOut data = consensusBLL.GetConsensusUsers(consensusId, userCookieData.ActiveOrganization);
+            SetLastIterationStateViewBag(consensusId);
+            return PartialView("~/Views/Form/Consensus/Users/ConsensusUsersPartial.cshtml", data);
         }
 
+        [SReportsAuditLog]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
+        [HttpPost]
+        public ActionResult ProceedConsensus(ProceedConsensusDataIn proceedConsensusDataIn)
+        {
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut(consensusBLL.ProceedIteration(proceedConsensusDataIn));
+            return PartialView("~/Views/Form/Consensus/Questionnaire/ConsensusFormTree.cshtml", formBLL.GetFormDataOutById(proceedConsensusDataIn.FormId, userCookieData));
+        }
+
+        public ActionResult ReloadConsensusTree(string consensusId, string formId)
+        {
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut(consensusBLL.GetById(consensusId));
+            return PartialView("~/Views/Form/Consensus/Questionnaire/ConsensusFormTree.cshtml", formBLL.GetFormDataOutById(formId, userCookieData));
+        }
 
         [SReportsAuditLog]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
+        public ActionResult AddQuestion(ConsensusQuestionDataIn questionDataIn)
+        {
+            Ensure.IsNotNull(questionDataIn, nameof(questionDataIn));
+            consensusBLL.AddQuestion(questionDataIn);
+            return GetConsensusTreePartial(questionDataIn.FormId);
+        }
 
+        [SReportsAuditLog]
         public ActionResult GetConsensusFormPreview(string formId)
         {
             Form form = formDAL.GetForm(formId);
             FormDataOut formDataOut = Mapper.Map<FormDataOut>(form);
+            SetReadOnlyAndDisabledViewBag(true);
+            SetViewBagAndMakeResetAndNeSectionHidden();
             return PartialView("~/Views/Form/FormPartial.cshtml", formDataOut);
         }
 
-
-        [SReportsAuditLog]
-
-        public ActionResult GetOutsideUsers(string consensusId)
-        {
-            Consensus consensus = consensusDAL.GetById(consensusId);
-            List<OutsideUserDataOut> users = Mapper.Map<List<OutsideUserDataOut>>(outsideUserDAL.GetAllByIds(consensus.Iterations.Last().OutsideUserIds));
-            return PartialView("~/Views/Form/Consensus/OutsideUsers.cshtml", users);
-        }
-        
-        [SReportsAuditLog]
-
-        public ActionResult GetInsideUsers(string consensusId)
-        {
-            return GetInsideUsersByConsensus(consensusDAL.GetById(consensusId));
-        }
-        
-        private void SetOrganizationsForUsers(List<UserDataOut> users, List<OrganizationDataOut> organizations)
-        {
-            foreach (var user in users)
-            {
-                foreach (var organization in user.Organizations)
-                {
-                    organization.Organization = organizations.FirstOrDefault(x => x.Id == organization.OrganizationId);
-                }
-            }
-        }
-        
-
         [SReportsAuditLog]
         [HttpGet]
-
         public ActionResult ReloadConsensusTree(string formId)
         {
-            return GetConsensusTreePartialResult(formId);
+            return GetConsensusTreePartial(formId);
         }
         
         [SReportsAuditLog]
         [HttpGet]
-
-        public ActionResult ReloadConsensusInstanceTree(string formId, string consensusInstanceId, string iterationId)
+        public ActionResult ReloadConsensusInstanceTree(string formId, string consensusInstanceId, string iterationId, string questionnaireViewType)
         {
-            Form form = formDAL.GetForm(formId);
-            Consensus consensus = consensusDAL.GetByFormId(formId);
-            ConsensusDataOut dataOut = Mapper.Map<ConsensusDataOut>(consensus);
-            dataOut.Iterations = dataOut.Iterations.Where(x => x.Id == iterationId).ToList();
+            ConsensusDataOut consensus = Mapper.Map<ConsensusDataOut>(consensusDAL.GetByFormId(formId));
+            consensus.Iterations = consensus.Iterations.Where(x => x.Id == iterationId).ToList();
+
             if (!string.IsNullOrWhiteSpace(consensusInstanceId))
             {
-                dataOut.Iterations.FirstOrDefault(x => x.Id == iterationId).SetQuestionsValue(Mapper.Map<List<ConsensusQuestionDataOut>>(consensusInstanceService.GetById(consensusInstanceId).Questions));
+                consensus.GetIterationById(iterationId).SetQuestionsValue(Mapper.Map<List<ConsensusQuestionDataOut>>(consensusInstanceDAL.GetById(consensusInstanceId).Questions));
             }
-
-            ViewBag.Consensus = dataOut;
-
-            return PartialView("~/Views/Form/Consensus/ConsensusFormTree.cshtml", GetFormDataOut(form));
+            
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut()
+            {
+                Consensus = consensus,
+                ViewType = questionnaireViewType ?? "View"
+            };
+            return PartialView("~/Views/Form/Consensus/Questionnaire/ConsensusFormTree.cshtml", GetFormDataOut(formDAL.GetForm(formId)));
         }
 
-
-
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize]
         [HttpGet]
-
         public ActionResult GetTrackerData(string consensusId)
         {
-            Consensus consensus = consensusDAL.GetById(consensusId);
-            List<ConsensusInstance> consensusInstances = consensusInstanceService.GetAllByConsensusId(consensusId);
-            List<User> users = userDAL.GetAllByIds(consensus.GetAllUserIds(false));
-            List<Domain.Sql.Entities.OutsideUser.OutsideUser> outsideUsers = outsideUserDAL.GetAllByIds(consensus.GetAllUserIds(true));
-
-            List<IterationTrackerDataOut> data = GetIterationTrackerData(consensus, consensusInstances, users, outsideUsers);
-            return PartialView("~/Views/Form/Consensus/TrackerPartial.cshtml", data);
-        }
-
-        private List<IterationTrackerDataOut> GetIterationTrackerData(Consensus consensus, List<ConsensusInstance> consensusInstances, List<User> users, List<Domain.Sql.Entities.OutsideUser.OutsideUser> outsideUsers)
-        {
-            List<IterationTrackerDataOut> result = new List<IterationTrackerDataOut>();
-            foreach(ConsensusIteration iteration in consensus.Iterations.Where(x => x.State == IterationState.Finished).ToList())
-            {
-                IterationTrackerDataOut iterationTracker = GetSingleIterationTracker(consensus.Id, iteration, users, outsideUsers, consensusInstances);
-                result.Add(iterationTracker);
-            }
-
-            return result;
-        }
-
-        private IterationTrackerDataOut GetSingleIterationTracker(string consensusId, ConsensusIteration iteration, List<User> users, List<Domain.Sql.Entities.OutsideUser.OutsideUser> outsideUsers, List<ConsensusInstance> consensusInstances) 
-        {
-            IterationTrackerDataOut iterationTracker = new IterationTrackerDataOut(iteration.Id);
-
-            foreach (int userId in iteration.UserIds)
-            {
-                User user = users.FirstOrDefault(x => x.Id == userId);
-                ConsensusInstance consensusInstance = consensusInstances.FirstOrDefault(x => x.UserId == userId && x.ConsensusRef == consensusId.ToString() && x.IterationId == iteration.Id);
-                iterationTracker.Instances.Add(GetSingleInstanceTracker(user.Id, $"{user.FirstName} {user.LastName}", false, consensusInstance));
-
-            }
-
-            foreach (int userId in iteration.OutsideUserIds)
-            {
-                Domain.Sql.Entities.OutsideUser.OutsideUser outsideUser = outsideUsers.FirstOrDefault(x => x.Id == userId);
-                ConsensusInstance consensusInstance = consensusInstances.FirstOrDefault(x => x.UserId == userId && x.ConsensusRef == consensusId.ToString() && x.IterationId == iteration.Id);
-                iterationTracker.Instances.Add(GetSingleInstanceTracker(outsideUser.Id, $"{outsideUser.FirstName} {outsideUser.LastName}", true, consensusInstance));
-            }
-
-            return iterationTracker;
-        }
-
-        private ConsensusInstanceTrackerDataOut GetSingleInstanceTracker(int userId, string userName, bool isOutsideUser, ConsensusInstance consensusInstance) 
-        {
-            double percentDone = consensusInstance != null ? consensusInstance.GetPercentDone() : 0;
-
-            return new ConsensusInstanceTrackerDataOut(userId, userName, isOutsideUser, consensusInstance?.EntryDatetime, consensusInstance?.LastUpdate, percentDone);
-        }
-        
-        [SReportsAuditLog]
-        //[SReportsAutorize]
-        [HttpGet]
-
-        public ActionResult GetOrganizationUserInfo()
-        {
-            string country = organizationBLL.GetOrganizationById(userCookieData.ActiveOrganization)?.Address?.Country;
-            ConsensusOrganizationUserInfoDataOut data = new ConsensusOrganizationUserInfoDataOut()
-            {
-                UsersCount = (int)userBLL.GetAllCount(),
-                OrganizationsCount = (int)organizationBLL.GetAllCount(),
-                OrganizationsCountByState = !string.IsNullOrWhiteSpace(country) ? (int)organizationBLL.GetAllEntriesCountByCountry(country) : 0
-            };
-            return PartialView("~/Views/Form/Consensus/ConsensusOrganizationUserInfo.cshtml", data);
+            return PartialView("~/Views/Form/Consensus/Tracker/ConsensusTrackerPartial.cshtml", consensusBLL.GetTrackerData(consensusId));
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
         public ActionResult GetUserHierarchy(string name, List<string> countries)
         {
-            List<OrganizationUsersCountDataOut> data = Mapper.Map<List<OrganizationUsersCountDataOut>>(organizationBLL.GetOrganizationUsersCount(name, countries));
-            return PartialView("~/Views/Form/Consensus/OrganizationHierarchy.cshtml", data);
+            List<OrganizationUsersCountDataOut> data = Mapper.Map<List<OrganizationUsersCountDataOut>>(organizationBLL.GetOrganizationUsersCount(name, MapCountriesToCustomEnum(countries)));
+            return PartialView("~/Views/Form/Consensus/Users/OrganizationHierarchy.cshtml", data);
         }
         
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
         public ActionResult CreateOutsideUser(OutsideUserDataIn userDataIn)
         {
             int userId = outsideUserDAL.InsertOrUpdate(Mapper.Map<Domain.Sql.Entities.OutsideUser.OutsideUser>(userDataIn));
@@ -291,41 +217,29 @@ namespace sReportsV2.Controllers
             consensusDAL.Insert(consensus);
 
             List<OutsideUserDataOut> users = Mapper.Map<List<OutsideUserDataOut>>(outsideUserDAL.GetAllByIds(consensus.Iterations.Last().OutsideUserIds));
-            return PartialView("~/Views/Form/Consensus/OutsideUsers.cshtml", users);
+            SetLastIterationStateViewBag(consensus.Id);
+            return PartialView("~/Views/Form/Consensus/Users/OutsideUsers.cshtml", users);
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
-        public ActionResult ReloadUsers(List<int> organizationIds)
+        public ActionResult ReloadUsers(List<int> organizationIds, string consensusId)
         {
             List<OrganizationUsersDataOut> result = new List<OrganizationUsersDataOut>();
 
-            if (organizationIds != null && organizationIds.Count > 0) 
+            if (organizationIds != null) 
             {
-                List<OrganizationDataOut> organizations = Mapper.Map<List<OrganizationDataOut>>(organizationDAL.GetByIds(organizationIds));
-                List<UserDataOut> users = Mapper.Map<List<UserDataOut>>(userDAL.GetAllByOrganizationIds(organizationIds));
-
-                foreach (int organizationId in organizationIds)
-                {
-                    result.Add(new OrganizationUsersDataOut()
-                    {
-                        Id = organizationId,
-                        Name = organizations.FirstOrDefault(x => x.Id == organizationId).Name,
-                        Users = users.Where(x => x.Organizations.Any(o => o.OrganizationId == organizationId)).ToList()
-                    });
-                }
+                result = organizationBLL.GetUsersByOrganizationsIds(organizationIds);
             }
-
-            return PartialView("~/Views/Form/Consensus/ConsensusUsers.cshtml", result);
+            SetLastIterationStateViewBag(consensusId);
+            return PartialView("~/Views/Form/Consensus/Users/ConsensusUsers.cshtml", result);
         }
 
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
         public ActionResult DeleteOutsideUser(int userId, string consensusId)
         {
             Consensus consensus = consensusDAL.GetById(consensusId);
@@ -336,9 +250,8 @@ namespace sReportsV2.Controllers
 
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
         public ActionResult DeleteInsideUser(int userId, string consensusId)
         {
             Consensus consensus = consensusDAL.GetById(consensusId);
@@ -348,118 +261,119 @@ namespace sReportsV2.Controllers
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
         public ActionResult SaveUsers(List<int> usersIds, string consensusId)
         {
-            Consensus consensus = consensusDAL.GetById(consensusId);
-            consensus.Iterations.Last().UserIds.AddRange(usersIds);
-            consensus.Iterations.Last().UserIds = consensus.Iterations.Last().UserIds.Distinct().ToList();
-            consensusDAL.Insert(consensus);
-
-            return GetInsideUsersByConsensus(consensus);
-        }
-
-        private ActionResult GetInsideUsersByConsensus(Consensus consensus) 
-        {
-            List<UserDataOut> users = Mapper.Map<List<UserDataOut>>(userDAL.GetAllByIds(consensus.Iterations.Last().UserIds));
-            List<int> organizationsIds = GetOrganizationsIds(users);
-            List<OrganizationDataOut> organizations = Mapper.Map<List<OrganizationDataOut>>(organizationDAL.GetByIds(organizationsIds));
-            SetOrganizationsForUsers(users, organizations);
-
-            return PartialView("~/Views/Form/Consensus/InsideUsers.cshtml", users);
+            List<UserDataOut> users = consensusBLL.SaveUsers(usersIds, consensusId);
+            SetLastIterationStateViewBag(consensusId);
+            return PartialView("~/Views/Form/Consensus/Users/InsideUsers.cshtml", users);
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.FindConsensus, Module = ModuleNames.Designer)]
         [HttpPost]
-
         public ActionResult StartConsensusFindingProcess(ConsensusFindingProcessDataIn dataIn)
         {
-            if (!consensusDAL.IsLastIterationFinished(dataIn.ConsensusId))
+            if (consensusDAL.CanStartConsensusFindingProcess(dataIn.ConsensusId))
             {
-                Consensus consensus = consensusDAL.GetById(dataIn.ConsensusId);
-                consensus.Iterations.Last().State = IterationState.Finished;
-                consensusDAL.Insert(consensus);
-
-                SendMailsToUsers(dataIn.OutsideUsersIds, dataIn.EmailMessage, dataIn.ConsensusId, true, consensus.Iterations.Last().Id);
-                SendMailsToUsers(dataIn.UsersIds, dataIn.EmailMessage, dataIn.ConsensusId, false, consensus.Iterations.Last().Id);
-
+                this.consensusBLL.StartConsensusFindingProcess(dataIn);
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
             }
-            else {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "You alredy finished current iteration!");
+            else
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, Resources.TextLanguage.CF_iteration_stop);
             }
         }
-
-        
 
         [SReportsAuditLog]
         public ActionResult CreateConsensusInstance(int userId, string consensusId, bool isOutsideUser, string iterationId)
         {
-            ViewBag.UserId = userId;
-            ViewBag.ConsensusId = consensusId;
-            ViewBag.IsOutsideUser = isOutsideUser;
-            ConsensusInstance instance = consensusInstanceService.GetByConsensusAndUserAndIteration(consensusId.ToString(), userId, iterationId);
-            Consensus consensus = consensusDAL.GetById(consensusId);
-            ViewBag.Consensus = instance != null ? Mapper.Map<ConsensusDataOut>(instance) : Mapper.Map<ConsensusDataOut>(consensus);
-            ViewBag.ConsensusInstanceId = instance != null ? instance.Id : string.Empty;
-            ViewBag.IterationId = iterationId;
-            return View("~/Views/Form/Consensus/CreateConsensusInstance.cshtml",GetFormDataOut(formDAL.GetForm(consensus.FormRef)));
+            return ShowQuestionnaire(userId, consensusId, isOutsideUser, iterationId, "Create", "~/Views/Form/Consensus/Instance/CreateConsensusInstance.cshtml");
+        }
+
+        [SReportsAuditLog]
+        public ActionResult ShowUserQuestionnaire(int userId, string consensusId, bool isOutsideUser, string iterationId)
+        {
+            return ShowQuestionnaire(userId, consensusId, isOutsideUser, iterationId, "View", "~/Views/Form/Consensus/Instance/ShowUserQuestionnaire.cshtml");
         }
 
         [HttpPost]
-
         public ActionResult CreateConsensusInstance(ConsensusInstanceDataIn consensusInstance)
         {
-            consensusInstanceService.InsertOrUpdate(Mapper.Map<ConsensusInstance>(consensusInstance));
+            if (consensusBLL.CanSubmitConsensusInstance(consensusInstance))
+            {
+                ResourceCreatedDTO resourceCreatedDTO = consensusBLL.SubmitConsensusInstance(consensusInstance);
 
-            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+                return new JsonResult()
+                {
+                    Data = resourceCreatedDTO,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+            else
+            {
+                SignOut();
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
+            }
+
         }
 
         [SReportsAuditLog]
         public ActionResult RemindUser(int userId, string consensusId, bool isOutsideUser, string iterationId)
         {
-            SendMailsToUsers(new List<int>() { userId }, "Reminder message", consensusId, isOutsideUser, iterationId);
+            consensusBLL.RemindUser(new List<int>() { userId }, consensusId, isOutsideUser, iterationId);
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
         }
 
-        private void SendMailsToUsers(List<int> usersIds, string emailMessage, string consensusId, bool isOutsideUsers, string iterationId) 
+        private ActionResult GetConsensusTreePartial(string formId)
         {
-            string domain = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority);
-
-            if (usersIds != null) 
-            {
-                foreach (int userId in usersIds)
-                {
-                    string url = $"{domain}/FormConsensus/CreateConsensusInstance?userId={userId}&consensusId={consensusId}&isOutsideUser={isOutsideUsers}&iterationId={iterationId}";
-                    string email = isOutsideUsers ? outsideUserDAL.GetById(userId).Email : userDAL.GetById(userId).Email;
-
-                    Task.Run(() => EmailSender.SendAsync("sReports consensus finding process", "",
-                    $"{emailMessage} </br> <a href=\"{url}\">FORM</a>", email));
-                }
-            }
-
-        }
-
-        private ActionResult GetConsensusTreePartialResult(string formId)
-        {
-            Form form = formDAL.GetForm(formId);
-            ViewBag.Consensus = Mapper.Map<ConsensusDataOut>(consensusDAL.GetByFormId(formId));
-            return PartialView("~/Views/Form/Consensus/ConsensusFormTree.cshtml", GetFormDataOut(form));
-
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut(Mapper.Map<ConsensusDataOut>(consensusDAL.GetByFormId(formId)));
+            return PartialView("~/Views/Form/Consensus/Questionnaire/ConsensusFormTree.cshtml", GetFormDataOut(formDAL.GetForm(formId)));
         }
         
-        private List<int> GetOrganizationsIds(List<UserDataOut> users) 
+        private ActionResult ShowQuestionnaire(int userId, string consensusId, bool isOutsideUser, string iterationId, string viewType, string viewName)
         {
-            List<int> result = new List<int>();
-            foreach (var user in users) 
-            {
-                result.AddRange(user.Organizations.Select(x => x.OrganizationId));
-            }
+            ConsensusInstance instance = consensusInstanceDAL.GetByConsensusAndUserAndIteration(consensusId.ToString(), userId, iterationId);
+            Consensus consensus = consensusDAL.GetById(consensusId);
 
-            return result.Distinct().ToList();
+            ViewBag.ConsensusQuestionnaire = new ConsensusQuestionnaireDataOut()
+            {
+                Consensus = instance != null ? Mapper.Map<ConsensusDataOut>(instance) : Mapper.Map<ConsensusDataOut>(consensus),
+                ConsensusInstanceId = instance != null ? instance.Id : string.Empty,
+                IterationId = iterationId,
+                IterationState = consensus.GetIterationById(iterationId).State ?? IterationState.NotStarted,
+                UserId = userId,
+                IsOutsideUser = isOutsideUser,
+                ShowQuestionnaireType = "ConsensusInstance",
+                Completed = instance != null ? instance.IsCompleted() : false,
+                ViewType = viewType
+            };
+
+            return View(viewName, GetFormDataOut(formDAL.GetForm(consensus.FormRef)));
+        }
+
+        private void SetLastIterationStateViewBag(string consensusId)
+        {
+            ViewBag.CanEditConsensusUsers = consensusDAL.GetLastIterationState(consensusId) == IterationState.Design;
+        }
+
+        private Dictionary<int, string> MapCountriesToCustomEnum(List<string> countryNames)
+        {
+            Dictionary<int, string> countries = new Dictionary<int, string>();
+            if (countryNames != null)
+            {
+                foreach (string countryName in countryNames)
+                {
+                    int customEnumId = SingletonDataContainer.Instance.GEtCustomEnumId(countryName, CustomEnumType.Country);
+                    if (customEnumId > 0)
+                    {
+                        countries.Add(customEnumId, countryName);
+                    }
+                }
+            }
+            
+            return countries;
         }
     }
 }

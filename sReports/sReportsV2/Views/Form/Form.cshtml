@@ -6,40 +6,12 @@
 
 <div class="element-background-grey element-background-grey-height-form-partial">
     <input type="hidden" name="formPartialIndicator" value="@ViewBag.Action" />
-
-    <div>
-        @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Engine }, { "linkLevel1", "/FormInstance/GetAllFormDefinitions" }, { "level2", Model.Title }, { "linkLevel2", "/FormInstance/GetAllByFormThesaurus?VersionId=" + Model.Version.Id + "&thesaurusId=" + Model.ThesaurusId + "&title=" + Model.Title + "&documentClass=" + ViewBag.FilterFormInstanceDataIn.DocumentClass + "&ClassesOtherValue=" + ViewBag.FilterFormInstanceDataIn.ClassesOtherValue + "&FollowUp=" + ViewBag.FilterFormInstanceDataIn.FollowUp + "&GeneralPurpose=" + ViewBag.FilterFormInstanceDataIn.GeneralPurpose + "&explicitPurpose=" + ViewBag.FilterFormInstanceDataIn.ExplicitPurpose + "&scopeOfValididty=" + ViewBag.FilterFormInstanceDataIn.ScopeOfValidity + "&clinicalDomain=" + ViewBag.FilterFormInstanceDataIn.ClinicalDomain + "&clinicalContext=" + ViewBag.FilterFormInstanceDataIn.ClinicalContext + "&administrativeContext=" + ViewBag.FilterFormInstanceDataIn.AdministrativeContext }, { "level3", ViewBag.formInstanceId != null ? ViewBag.formInstanceId : @sReportsV2.Resources.TextLanguage.CreateNewInstance }, { "activeLevel", 3 } })
-    </div>
-    @if (ViewData.ModelState.Keys.Contains("ConcurrencyException"))
-    {
-        <div class="alert alert-danger" role="alert">
-            @Html.ValidationMessage("ConcurrencyException")
-        </div>
-    }
-    <div class="d-flex">
-        <div class="form-title">@Model.Title</div>
-        <img class="mr-1 thesaurus form-title-thesaurus" src=@(Model.ThesaurusId != null ?"../Content/img/icons/thesaurus_green.svg": "../Content/img/icons/thesaurus_grey.svg") onclick="goToThesaurus('@Model.ThesaurusId')">
-        <div class="form-des">
-            <u>
-                @if (!string.IsNullOrEmpty(Model.Description))
-                {
-                    @sReportsV2.Resources.TextLanguage.Description
-
-                }
-            </u>
-        </div>
-
-
-    </div>
-    @if (!string.IsNullOrEmpty(Model.Description))
-    {
-        <div class='form-description desc position-relative' style="display:none;">@Html.Raw(Model.Description)<i class="fas fa-times x-des"></i></div>
-    }
-    <div>
+    @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.DataCaptureEngine }, { "linkLevel1", "/FormInstance/GetAllFormDefinitions" }, { "level2", Model.Title }, { "linkLevel2", "/FormInstance/GetAllByFormThesaurus?VersionId=" + Model.Version.Id + "&thesaurusId=" + Model.ThesaurusId + "&title=" + Model.Title + "&documentClass=" + ViewBag.FilterFormInstanceDataIn.DocumentClass + "&ClassesOtherValue=" + ViewBag.FilterFormInstanceDataIn.ClassesOtherValue + "&FollowUp=" + ViewBag.FilterFormInstanceDataIn.FollowUp + "&GeneralPurpose=" + ViewBag.FilterFormInstanceDataIn.GeneralPurpose + "&explicitPurpose=" + ViewBag.FilterFormInstanceDataIn.ExplicitPurpose + "&scopeOfValididty=" + ViewBag.FilterFormInstanceDataIn.ScopeOfValidity + "&clinicalDomain=" + ViewBag.FilterFormInstanceDataIn.ClinicalDomain + "&clinicalContext=" + ViewBag.FilterFormInstanceDataIn.ClinicalContext + "&administrativeContext=" + ViewBag.FilterFormInstanceDataIn.AdministrativeContext }, { "level3", ViewBag.formInstanceId != null ? ViewBag.formInstanceId : @sReportsV2.Resources.TextLanguage.CreateNewInstance }, { "activeLevel", 3 } })
+    @Html.Partial("FormInstanceHeader")
+    <div id="formInstanceContentContainer">
         @Html.Partial("~/Views/Form/FormPartial.cshtml", Model)
     </div>
 </div>
 
 
-@Scripts.Render("~/bundles/formEngine")
-
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/formEngine")

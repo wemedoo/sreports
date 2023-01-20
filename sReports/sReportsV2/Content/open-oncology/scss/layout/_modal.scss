@@ -1,0 +1,110 @@
+﻿.modal-content-custom {
+    height: 250px !important;
+    width: 400px;
+    margin: auto;
+    margin-top: 10%;
+    border-radius: 9px;
+
+    .input-container {
+        width: 100%;
+        position: relative;
+        margin: 0px;
+        margin-right: 20px;
+
+        .input {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 14px;
+            padding: 8.5px 6px;
+        }
+    }
+
+    .buttons-container {
+        display: flex;
+        float: right;
+        height: 40px;
+
+        .cancel {
+            text-decoration: underline !important;
+            font-size: 14px;
+            margin-top: 1px;
+            cursor: pointer;
+        }
+
+        .add {
+            height: 100%;
+            color: white;
+            background-color: $smart-oncology-green-primary;
+            border-color: $smart-oncology-green-primary;
+            box-shadow: unset;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+    }
+}
+
+.replacement {
+    &-row {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0rem 2rem;
+
+        &.first {
+            margin-top: 2rem;
+        }
+
+        div {
+            width: 25%;
+
+            &.middle {
+                background-color: white !important;
+            }
+        }
+
+        .relation-medication {
+            background-color: yellow;
+            color: $color-black;
+        }
+    }
+
+    &-date {
+        font-size: 14px;
+        line-height: 1.14;
+        text-align: center;
+        background-color: beige;
+        border-radius: 20px;
+        padding: 10px;
+
+        span {
+            font-weight: $font-weight-bold
+        }
+    }
+
+    &-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    &-medication {
+        background-color: yellow;
+        border-radius: 20px;
+        padding: 10px;
+        font-weight: $font-weight-semi-bold;
+    }
+}
+
+#medicationReplacementModal {
+    .modal-content {
+        height: unset !important;
+        width: 1000px;
+    }
+}
+
+.margin-right-25 {
+    margin-right: 25px;
+}

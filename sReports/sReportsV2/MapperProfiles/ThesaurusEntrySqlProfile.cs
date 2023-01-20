@@ -22,38 +22,49 @@ namespace sReportsV2.MapperProfiles
         public ThesaurusEntrySqlProfile() 
         {
             CreateMap<ThesaurusEntryTranslationDataOut, ThesaurusEntryTranslation>()
-               .ReverseMap();
+                .ReverseMap();
 
             CreateMap<ThesaurusFilterDataIn, ThesaurusFilter>()
-                   .ReverseMap();
+                .ReverseMap();
 
             CreateMap<O4CodeableConcept, O4CodeableConceptDataOut>()
-               .ReverseMap();
-            CreateMap<O4CodeableConceptDataIn, O4CodeableConcept>()
-               .ReverseMap();
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.O4CodeableConceptId))
+                .ReverseMap();
 
-            CreateMap<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntry, ThesaurusEntryDataIn>()
-                 .ForMember(x => x.UmlsCode, opt => opt.Ignore())
-                 .ForMember(x => x.UmlsDefinitions, opt => opt.Ignore())
-                 .ForMember(x => x.UmlsName, opt => opt.Ignore())
+            CreateMap<O4CodeableConceptDataIn, O4CodeableConcept>()
+                .ForMember(d => d.O4CodeableConceptId, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
+
+            CreateMap<ThesaurusEntry, ThesaurusEntryDataIn>()
+                .ForMember(x => x.UmlsCode, opt => opt.Ignore())
+                .ForMember(x => x.UmlsDefinitions, opt => opt.Ignore())
+                .ForMember(x => x.UmlsName, opt => opt.Ignore())
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.ThesaurusEntryId))
+                .ReverseMap();
+
+            CreateMap<ThesaurusEntry, ThesaurusEntryDataOut>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.ThesaurusEntryId))
+                .ForMember(d => d.Codes, opt => opt.MapFrom(src => src.Codes.Where(x => !x.IsDeleted)))
                 .ReverseMap();
 
             CreateMap<AdministrativeDataDataOut, AdministrativeData>()
-                 
                 .ReverseMap();
 
             CreateMap<Domain.Sql.Entities.ThesaurusEntry.Version, VersionDataOut>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.VersionId))
                 .ReverseMap();
 
             CreateMap<SimilarTermDataOut, SimilarTerm>()
-               .ReverseMap();
+                .ReverseMap();
 
-            CreateMap<ThesaurusEntryTranslation, ThesaurusEntryTranslationDataIn>().ReverseMap();
+            CreateMap<ThesaurusEntryTranslation, ThesaurusEntryTranslationDataIn>()
+                .ReverseMap();
+
             CreateMap<ThesaurusFilterDataIn, ThesaurusFilter>()
-                   .ReverseMap();
+                .ReverseMap();
 
             CreateMap<GlobalThesaurusFilter, GlobalThesaurusFilterDataIn>()
-               .ReverseMap();
+                .ReverseMap();
 
             CreateMap<ThesaurusEntryFilterDataIn, ThesaurusEntryFilterData>()
                 .ReverseMap();
@@ -62,19 +73,21 @@ namespace sReportsV2.MapperProfiles
                 .ReverseMap();
 
             CreateMap<CodeSystem, CodeSystemDataOut>()
-               .ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id.ToString()))
-               .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
-               .ForMember(d => d.Value, opt => opt.MapFrom(src => src.Value));
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.CodeSystemId))
+                .ForMember(d => d.Label, opt => opt.MapFrom(src => src.Label))
+                .ForMember(d => d.SAB, opt => opt.MapFrom(src => src.SAB))
+                .ForMember(d => d.Value, opt => opt.MapFrom(src => src.Value));
 
 
             CreateMap<AdministrationFilterDataIn, ThesaurusEntryFilterData>()
-               .ForMember(d => d.PreferredTerm, opt => opt.MapFrom(src => src.PreferredTerm))
-               .ForMember(d => d.Page, opt => opt.MapFrom(src => src.Page))
-               .ForMember(d => d.PageSize, opt => opt.MapFrom(src => src.PageSize))
-               .ReverseMap();
+                .ForMember(d => d.PreferredTerm, opt => opt.MapFrom(src => src.PreferredTerm))
+                .ForMember(d => d.Page, opt => opt.MapFrom(src => src.Page))
+                .ForMember(d => d.PageSize, opt => opt.MapFrom(src => src.PageSize))
+                .ReverseMap();
 
             CreateMap<CodeSystem, CodeSystemDataIn>()
-               .ReverseMap();
+                .ForMember(d => d.Id, opt => opt.MapFrom(src => src.CodeSystemId))
+                .ReverseMap();
         }
         
     }

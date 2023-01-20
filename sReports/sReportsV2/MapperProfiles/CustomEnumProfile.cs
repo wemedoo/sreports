@@ -15,7 +15,7 @@ namespace sReportsV2.MapperProfiles
         public CustomEnumProfile()
         {
             CreateMap<CustomEnum, CustomEnumDataOut>()
-                .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(o => o.Id, opt => opt.MapFrom(src => src.CustomEnumId))
                 .ForMember(o => o.Thesaurus, opt => opt.MapFrom(src => src.ThesaurusEntry))
                 .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
                 .ForMember(o => o.OrganizationId, opt => opt.MapFrom(src => src.OrganizationId))
@@ -25,6 +25,7 @@ namespace sReportsV2.MapperProfiles
                 .ForMember(o => o.ThesaurusEntryId, opt => opt.MapFrom(src => src.Thesaurus.Id))
                 .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
                 .ForMember(o => o.OrganizationId, opt => opt.MapFrom(src => src.OrganizationId))
+                .ForMember(d => d.CustomEnumId, opt => opt.MapFrom(src => src.Id))
                 .ForAllOtherMembers(opts => opts.Ignore());
 
             CreateMap<int, CustomEnumDataOut>()
@@ -33,8 +34,9 @@ namespace sReportsV2.MapperProfiles
 
             CreateMap<CustomEnumDataIn, CustomEnum>()
                 .ForMember(o => o.Type, opt => opt.MapFrom(src => src.Type))
-                .ForMember(o => o.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(o => o.CustomEnumId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(o => o.OrganizationId, opt => opt.MapFrom(src => src.OrganizationId))
+                .ForMember(o => o.ThesaurusEntryId, opt => opt.MapFrom(src => src.ThesaurusEntryId))
                 .ForAllOtherMembers(opts => opts.Ignore());
         }
     }

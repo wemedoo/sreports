@@ -1,0 +1,31 @@
+﻿@using sReportsV2.DTOs.DigitalGuidelineInstance.DataOut;
+
+@model GuidelineInstanceViewDataOut
+
+<div class="content-container">
+    <div class="forms-container guideline-content">
+
+        <div class="title">
+            @sReportsV2.Resources.TextLanguage.Search_for_digital_guideline
+        </div>
+        <div class="input-container">
+            <input class="filter-input" type="text" id="searchDigitalGuideline" />
+            <span class="search-icon" onclick="searchDigitalGuideline()">
+                <img src="~/Content/img/icons/search_green.svg" />
+            </span>
+        </div>
+
+        <div class="forms-container-list guidelines-container-list" id="formsContainer">
+            @Html.Partial("FilterDigitalGuidelines", Model.Guidelines)
+        </div>
+    </div>
+
+</div>
+
+<div class="button-container">
+    <div class="cancel-button" onclick="closeGuidelineInstanceModal()">
+        @sReportsV2.Resources.TextLanguage.Back
+    </div>
+
+    <div class="submit-button" onclick="insertGuidelineInstance()">@sReportsV2.Resources.TextLanguage.Continue</div>
+</div>

@@ -22,8 +22,8 @@ function searchByTerm(clearTable) {
             }
 
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -69,8 +69,14 @@ function showModal(event) {
 }
 
 function loadDetails(event, id) {
-    $(event.srcElement).closest('tr').addClass('selected').siblings().removeClass('selected');
-    $(event.srcElement).closest('tr').addClass('active-umls').siblings().removeClass('active-umls');
+    var selectedRow = $(event.srcElement).closest('tr');
+    if ($(selectedRow).hasClass('selected')) {
+        $(selectedRow).removeClass('selected active-umls');
+        id = 0;
+    } else {
+        $(selectedRow).addClass('selected active-umls');
+    }
+    $(selectedRow).siblings().removeClass('selected active-umls');
     loadAtoms(id);
     loadDefinitions(id);
 }
@@ -82,8 +88,8 @@ function loadAtoms(id) {
         success: function (data) {
             $('#atomsData').html(data);
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -96,20 +102,30 @@ function loadDefinitions(id) {
             $('#definitionsData').html(data);
             $('#collapseO4MTSpecificFields').collapse('show');
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
 
 function selectDefinition(event) {
+    var selectedLiItem;
     if ($(event.srcElement).hasClass("single-definition")) {
-        $(event.srcElement).addClass('active').siblings().removeClass('active');
+        selectedLiItem = $(event.srcElement);
     } else {
-        var element = $(event.srcElement).closest('.single-definition');
-        $(element).addClass('active').siblings().removeClass('active');
+        selectedLiItem = $(event.srcElement).closest('.single-definition');
     }
+    selectUnselectDefinition(selectedLiItem);
+}
+
+function selectUnselectDefinition(element) {
+    if ($(element).hasClass('active')) {
+        $(element).removeClass('active');
+    } else {
+        $(element).addClass('active');
+    }
+    $(element).siblings().removeClass('active');
 }
 
 function confirmUmlsSelection() {
@@ -122,11 +138,8 @@ function confirmUmlsSelection() {
         console.log(`https://uts.nlm.nih.gov/metathesaurus.html?cui=${ui}`);
         $("#umlsLink").attr("href", `https://uts.nlm.nih.gov/metathesaurus.html?cui=${ui}`);
         $("#umlsLink").text(`https://uts.nlm.nih.gov/metathesaurus.html?cui=${ui}`);
-        populateUmlsDefinitions();
-        populateO4MTDefinitions();
-        populateSynonyms();
+        populateCodes(item);
         $('#umlsModal').modal('toggle');
-
     }
 }
 
@@ -141,6 +154,50 @@ function populateO4MTDefinitions() {
             $(`#definition-${language.Value}`).val($(selectedDefinition).text().trim());
         }
     });
+}
+
+function populateCodes(umlsConcept) {
+    populateWithUmlsConcept(umlsConcept);
+    populateWithAtoms();
+    submitThesaurusEntryForm();
+}
+
+function populateWithAtoms() {
+    $.each($("#atomsData [data-field='language'][data-value='ENG']"), function (index, value) {
+        let code = {};
+        $.each($(value).siblings(), function (i, nameColumn) {
+            let fieldName = $(nameColumn).data("field");
+            let fieldValue = $(nameColumn).data("value");
+            code[fieldName] = fieldValue;
+        });
+        let codeSystemId = "-11";
+        let codeSystem = code['rootSource'];
+        let codeSystemDisplay = codeSystem;
+        let codeVersion = "";
+        let codeCode = code['ui'];
+        let codeValue = code['name'];
+        let codeVersionPublishDate = "";
+
+        if (!existsCodeValue('#codeTable tbody', codeCode)) {
+            let codingRow = addNewCodeRowToTable(codeSystemId, codeSystem, codeSystemDisplay, codeVersion, codeCode, codeValue, codeVersionPublishDate);
+            $('#codeTable tbody').append(codingRow);
+        }
+    });
+}
+
+function populateWithUmlsConcept(umlsConcept) {
+    let codeSystemId = "-1";
+    let codeSystem = "MTH";
+    let codeSystemDisplay = "UMLS";
+    let codeVersion = "";
+    let codeCode = $(umlsConcept).find("[data-field='ui']")[0].innerHTML;
+    let codeValue = $(umlsConcept).find("[data-field='name']")[0].innerHTML;
+    let codeVersionPublishDate = "";
+
+    if (!existsCodeValue('#codeTable tbody', codeCode)) {
+        let codingRow = addNewCodeRowToTable(codeSystemId, codeSystem, codeSystemDisplay, codeVersion, codeCode, codeValue, codeVersionPublishDate);
+        $('#codeTable tbody').append(codingRow);
+    }
 }
 
 function populateUmlsDefinitions() {
@@ -178,4 +235,5 @@ $(document).on('click', '.close-custom-modal-button', function (e) {
 
 function closeCustomModal() {
     $('#umlsModal').modal('hide');
+    $('.custom-modal').trigger('defaultZIndex');
 }

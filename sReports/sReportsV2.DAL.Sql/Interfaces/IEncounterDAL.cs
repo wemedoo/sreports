@@ -9,10 +9,10 @@ namespace sReportsV2.SqlDomain.Interfaces
 {
     public interface IEncounterDAL
     {
-        int Insert(Encounter encounter);
-        List<Encounter> GetAllByEocIdAsync(int eocId);
+        int InsertOrUpdate(Encounter encounter);
+        List<Encounter> GetAllByEocId(int eocId);
         Encounter GetById(int id);
-        void Delete(int encounterId, DateTime lastUpdate);
+        void Delete(int encounterId);
         bool ThesaurusExist(int thesaurusId);
         void UpdateManyWithThesaurus(int oldThesaurus, int newThesaurus);
     }

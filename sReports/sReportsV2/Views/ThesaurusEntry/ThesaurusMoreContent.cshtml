@@ -1,5 +1,7 @@
 ﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
-
+@{ 
+    var translation = Model.GetTranslation(ViewBag.UserCookieData.ActiveLanguage);
+}
 
 <div class="label thesaurus-more-label">
     04.OMT ID
@@ -36,9 +38,9 @@
         @sReportsV2.Resources.TextLanguage.Synonyms.ToUpper()
     </div>
     <div class=" thesaurus-more-content-padding">
-        @if (Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Synonyms.Count > 0)
+        @if (translation.Synonyms.Count > 0)
         {
-           foreach (var synonym in Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Synonyms)
+           foreach (var synonym in translation.Synonyms)
             {
                 <div class="filter-element d-inline-block mr-0 mb-0">
                     @synonym
@@ -58,12 +60,12 @@
         <div class="dot">
 
         </div>
-        @sReportsV2.Resources.TextLanguage.Abbreaviations.ToUpper()
+        @sReportsV2.Resources.TextLanguage.Abbreviations.ToUpper()
     </div>
     <div class=" thesaurus-more-content-padding">
-        @if (Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Abbreviations.Count > 0)
+        @if (translation.Abbreviations.Count > 0)
         {
-            foreach (var abbreaviation in Model.Translations.FirstOrDefault(x => x.Language == ViewBag.UserCookieData.ActiveLanguage).Abbreviations)
+            foreach (var abbreaviation in translation.Abbreviations)
             {
                 <div class="filter-element d-inline-block  mr-0 mb-0">
                     @abbreaviation

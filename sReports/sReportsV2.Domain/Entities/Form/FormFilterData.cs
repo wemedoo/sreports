@@ -11,6 +11,7 @@ namespace sReportsV2.Domain.Entities.Form
 {
     public class FormFilterData
     {
+        public string Content { get; set; }
         public string Title { get; set; }
         public int ThesaurusId { get; set; }
         public FormDefinitionState? State { get; set; }
@@ -44,5 +45,9 @@ namespace sReportsV2.Domain.Entities.Form
 
         public DateTime? DateTimeTo { get; set; }
         public DateTime? DateTimeFrom { get; set; }
+        public string ColumnName { get; set; }
+        public bool IsAscending { get; set; }
+        public List<string> FormStates { get; set; } = new List<string>();
+
     }
 }

@@ -1,37 +1,45 @@
-﻿
-    <div id="loginPartial" class="registration-part" style="display:@(ViewBag.IsLogin ? "" : "none")">
-        <div class="registration-title">Log in</div>
+﻿@model sReportsV2.DTOs.User.DataIn.UserLoginDataIn
+<div id="loginPartial" class="registration-part" style="display:@(((bool?)ViewBag.IsLogin).GetValueOrDefault() ? "" : "none")">
+    <div class="registration-title">Log in</div>
 
-        <form id="registrationForm" onsubmit="return loginUser(this, event)">
-            <div class="sub-title">
-                Please fill in the form bellow
-            </div>
-            <div class="input-row">
-                <div class="registration-input w-100">
-                    <div class="input-title">
-                        Username (email)
-                    </div>
-                    <input type="text" id="username" required />
+    @using (Html.BeginForm("Login", "ThesaurusGlobal", FormMethod.Post))
+    {
+        <div class="sub-title">
+            Please fill in the form bellow
+        </div>
+        <div class="input-row">
+            <div class="registration-input w-100">
+                <div class="input-title">
+                    Username (email)
                 </div>
+                <input type="text" class="login-input user-input" value="@(Model != null ? Model.Username : "")" aria-label="Username" name="username">
             </div>
-            <div class="input-row">
-                <div class="registration-input w-100">
-                    <div class="input-title">
-                        Password
-                    </div>
-                    <input type="password" id="password" required />
+        </div>
+        <div class="input-row">
+            <div class="registration-input w-100">
+                <div class="input-title">
+                    Password
                 </div>
+                <input type="password" class="login-input password-input" value="@(Model != null ? Model.Password : "")" aria-label="Password" name="password">
             </div>
-            @if(Html.ValidationMessage("General") != null)
-            {
-                <div>@Html.ValidationMessage("General")</div>
-            }
-            <div class="input-row">
-                <div class="go-to-link" onclick="goToRegister()">Register</div>
-                <button class="login-button register-btn" id="loginButton" type="submit">Login</button>
-            </div>
-        </form>
-
-    </div>
+        </div>
+        if (Model != null && !string.IsNullOrWhiteSpace(Model.ReturnUrl.ToString()))
+        {
+            <input type="hidden" value="@Model.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
+        }
+        else if (!string.IsNullOrEmpty(ViewBag.ReturnUrl as string))
+        {
+            <input type="hidden" value="@ViewBag.ReturnUrl" name="ReturnUrl" id="ReturnUrl" />
+        }
+        if (Html.ValidationMessage("General") != null)
+        {
+            <div>@Html.ValidationMessage("General")</div>
+        }
+        <div class="input-row">
+            <div class="go-to-link" onclick="goToRegister()">Register</div>
+            <button class="login-button register-btn" id="loginButton" type="submit">Login</button>
+        </div>
+    }
+</div>
 
 

@@ -1,10 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using sReportsV2.Domain.Entities.Form;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.FormValues
 {
@@ -17,6 +14,7 @@ namespace sReportsV2.Domain.FormValues
         public string InstanceId{ get; set; }
         public string Type { get; set; }
         public List<FormFieldValue> Options { get; set; }
+        public List<string> ValueLabel { get; set; }
 
         public void SetValue(string value)
         {
@@ -25,6 +23,16 @@ namespace sReportsV2.Domain.FormValues
                 this.Value = this.Value ?? new List<string>();
                 this.Value.Add(value);
             }
+        }
+
+        public List<string> TryGetAllDifferentValues()
+        {   
+            List<string> result = new List<string>();
+            if (Value != null && Value.Count > 0)
+            {
+                result = result.Distinct().ToList();
+            }
+            return result;
         }
     } 
 }

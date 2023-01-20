@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
+using sReportsV2.Domain.Entities.CustomFieldFilters;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.FieldEntity.Custom;
 using sReportsV2.Domain.Entities.FieldEntity.Custom.Action;
+using sReportsV2.DTOs.DTOs.Field.DataIn.Custom;
+using sReportsV2.DTOs.DTOs.Field.DataOut.Custom;
 using sReportsV2.DTOs.Field.DataIn;
 using sReportsV2.DTOs.Field.DataIn.Custom;
 using sReportsV2.DTOs.Field.DataIn.Custom.Action;
 using sReportsV2.DTOs.Field.DataOut;
 using sReportsV2.DTOs.Field.DataOut.Custom;
 using sReportsV2.DTOs.Field.DataOut.Custom.Action;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace sReportsV2.MapperProfiles
 {
@@ -186,6 +185,13 @@ namespace sReportsV2.MapperProfiles
 
             CreateMap<ControllerActionDataIn, ControllerActionDataOut>()
                 .IncludeBase<CustomActionDataIn, CustomActionDataOut>();
+
+            CreateMap<CustomFieldFilterDataIn, CustomFieldFilterData>()
+                .ReverseMap();
+
+            CreateMap<CustomFieldFilterGroup, CustomFieldFilterDataOut>()
+                .ForMember(d => d.CustomFieldFiltersId, dst => dst.MapFrom(src => src.Id))
+                .ReverseMap();
         }
     }
 }

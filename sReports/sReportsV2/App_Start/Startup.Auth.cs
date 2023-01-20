@@ -9,8 +9,6 @@ using Microsoft.Owin.Security.Notifications;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using sReportsV2.Common.MicrosoftAuthentificationHelper;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.Models.MicrosoftAuthentification;
 using sReportsV2.TokenStorage;
 using System;
@@ -18,15 +16,15 @@ using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Security;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 using Microsoft.Owin.Security.Google;
-using Owin.Security.Providers.LinkedIn;
 using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Sql.Entities.GlobalThesaurusUser;
 using sReportsV2.SqlDomain.Interfaces;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using AutoMapper;
+using sReportsV2.DTOs.DTOs.GlobalThesaurusUser.DataOut;
 
 namespace sReportsV2
 {
@@ -113,18 +111,17 @@ namespace sReportsV2
 
         }
 
-            
-        
         private Task OnGoogleAuthenticatedAsync(GoogleOAuth2AuthenticatedContext context)
         {
+            string email = context.User.Value<string>("email");
             AddUserIfNotExist(new CachedUser() 
             {
-                Email = context.User.Value<string>("email"),
+                Email = email,
                 FirstName = context.User.Value<string>("given_name"),
                 LastName = context.User.Value<string>("family_name")
             }, GlobalUserSource.Google);
 
-           
+            SetCustomClaims(email, context.OwinContext);
 
             return Task.FromResult(0);
         }
@@ -159,7 +156,6 @@ namespace sReportsV2
 
             try
             {
-
                 string[] scopes = graphScopes.Split(' ');
 
                 var result = await idClient.AcquireTokenByAuthorizationCode(
@@ -168,6 +164,7 @@ namespace sReportsV2
                 var userDetails = await GraphHelper.GetUserDetailsAsync(result.AccessToken);
                 tokenStore.SaveUserDetails(userDetails);
                 AddUserIfNotExist(userDetails, GlobalUserSource.Microsoft);
+                SetCustomClaims(userDetails.Email, notification.OwinContext);
                 notification.HandleCodeRedemption(null, result.IdToken);
                 
             }
@@ -185,21 +182,45 @@ namespace sReportsV2
             }
         }
 
-
         private void AddUserIfNotExist(CachedUser user, GlobalUserSource source)
         {
-            var userDAL = DependencyResolver.Current.GetService<IGlobalUserDAL>();
+            var userDAL = DependencyResolver.Current.GetService<IGlobalThesaurusUserDAL>();
 
             if (!userDAL.ExistByEmailAndSource(user.Email, source)) 
             {
-                userDAL.InsertOrUpdate(new GlobalThesaurusUser()
+                GlobalThesaurusUser userDb = new GlobalThesaurusUser()
                 {
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Source = source,
-                    EntryDatetime = DateTime.Now
-                }) ;
+                    Status = GlobalUserStatus.Active
+                };
+                SetPredifinedRole(userDb);
+                userDAL.InsertOrUpdate(userDb);
+            }
+        }
+
+        private void SetPredifinedRole(GlobalThesaurusUser user)
+        {
+            var globalThesaurusRoleDAL = DependencyResolver.Current.GetService<IGlobalThesaurusRoleDAL>();
+            GlobalThesaurusRole viewerRole = globalThesaurusRoleDAL.GetByName(PredifinedGlobalUserRole.Viewer.ToString());
+            user.UpdateRoles(new List<int>() { viewerRole.GlobalThesaurusRoleId });
+        }
+
+        private void SetCustomClaims(string email, IOwinContext owinContext)
+        {
+            var userDAL = DependencyResolver.Current.GetService<IGlobalThesaurusUserDAL>();
+            var user = userDAL.GetByEmail(email);
+            if (user != null)
+            {
+                var userDataOut = Mapper.Map<GlobalThesaurusUserDataOut>(user);
+                var claimsIdentity = new ClaimsIdentity(userDataOut.GetClaims(),
+                    CookieAuthenticationDefaults.AuthenticationType);
+
+                owinContext.Authentication.SignIn(
+                        new AuthenticationProperties { IsPersistent = false },
+                       claimsIdentity);
             }
         }
     }

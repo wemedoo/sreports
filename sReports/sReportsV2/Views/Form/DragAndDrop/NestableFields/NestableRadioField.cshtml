@@ -1,0 +1,68 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Field.DataOut;
+
+@model FieldRadioDataOut
+
+<li class="drag-and-drop-element dd-item d-flex padding-right-10 margin-bottom-15" data-itemtype="field" @Model.GetDataAttr()>
+    <div class="dd-handle custom-dd-handle radio-custom-dd-handle">
+        <div class="form-checkbox-legend nestable-checkbox-label filter-label" title="@Model.Type">
+            <div class="drag-item-icon radio-drag-item-icon">
+                <i class="fas fa-arrows-alt"></i>
+            </div>
+            <div class="icon-container">
+                <div class="overlay"></div>
+                <div class="edit-button">
+                    <img src="~/Content/img/icons/edit_pencil_03.svg">
+                </div>
+                @if (!Model.IsDisabled)
+                {
+                    <div class="remove-button">
+                        <img src="~/Content/img/icons/remove_simulator.svg">
+                    </div>
+                }
+            </div>
+              @Html.Raw(Model.FullLabel) 
+</div>
+    </div>
+    <ol class="dd-list ol-fieldvalue">
+        @foreach (var ffv in Model.Values)
+        {
+            <li class="drag-and-drop-element dd-item" data-valuetype="radio" data-itemtype="fieldvalue" @ffv.GetDataAttr()>
+                <div class="dd-handle custom-dd-handle radio-value-custom-dd-handle">
+                    <div class="form-radio-label">
+                        <div class="drag-item-icon radio-drag-item-icon">
+                            <i class="fas fa-arrows-alt"></i>
+                        </div>
+                        <div class="icon-container">
+                            <div class="overlay"></div>
+                            <a class="add-comment-link comment-block-hide" onclick="addComment('@ffv.Id')">
+                                <img class="add-comment-icon" src="~/Content/img/icons/add_comment_1.svg">
+                            </a>
+                            <div class="edit-button">
+                                <img src="~/Content/img/icons/edit_pencil_03.svg">
+                            </div>
+                            @if (!Model.IsDisabled)
+                            {
+                                <div class="remove-button">
+                                    <img src="~/Content/img/icons/remove_simulator.svg">
+                                </div>
+                            }
+                        </div>
+                        <input type="radio" class="form-radio-field">
+                        <i class="form-radio-button"></i>
+                        <span class="radio-break-word radio-text comment-target-item" id="@ffv.Id">@ffv.Label</span>
+                    </div>
+                </div>
+            </li>
+        }
+        @if (!Model.IsDisabled) 
+        { 
+            <li class="drag-and-drop-element dd-item dd-item-placeholder" data-itemtype="fieldvalue" data-valuetype="radio" style="display: @(Model.Values.Count == 0 ? "block": "none")">
+                Drag a radio option here
+            </li>
+        }
+    </ol>
+    <div class="">
+        @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+    </div>
+</li>

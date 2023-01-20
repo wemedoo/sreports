@@ -112,7 +112,10 @@ function loadFields() {
     $("#nestable").find('li[data-itemtype="field"]').each(function () {
         let label = decode($(this).attr('data-label'));
         let id = decode($(this).attr('data-id'));
-        if (label && id) {
+        let fieldId = $('#elementId').val();
+        if (fieldId && fieldId == id) {
+            
+        }else if (label && id) {
             $('#actionParams').append(`<option value='${id}'>${label}</option>`)
         }
     })

@@ -1,0 +1,38 @@
+﻿@using sReportsV2.DTOs.DTOs.AccessManagment.DataOut;
+@using sReportsV2.Common.Extensions;
+@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+<div class="advanced-filter-item input-margin @(ViewBag.UserAdministration ? "" : "d-none")">
+    <div class="label filter-label">
+        @sReportsV2.Resources.TextLanguage.Roles
+    </div>
+    <div class="form-row form-checkbox-inline padding-left-16 margin-top-10">
+        <div class="form-margin col-md-6" id="checkBoxGroup">
+            @{
+                int length = ViewBag.Roles.Count;
+                int half = Convert.ToInt32(Math.Ceiling(length / 2.0));
+            }
+            @for (int i = 0; i < half; i++)
+            {
+                @RenderRole(ViewBag.Roles[i])
+            }
+        </div>
+        <div class="form-margin col-md-6" id="checkBoxGroup">
+            @for (int i = half; i < length; i++)
+            {
+                @RenderRole(ViewBag.Roles[i])
+            }
+        </div>
+    </div>
+</div>
+
+@helper RenderRole(RoleDataOut role)
+{
+    <label class="form-checkbox-label reset-margin" id="checkBoxGroup">
+        <input value="@role.Id" class="form-checkbox-field user-role" type="checkbox" checked="@(Model != null ? Model.IsRoleChecked(role.Id) : false)" @ViewBag.Disabled />
+        <i class="form-checkbox-button custom-checkbox"></i>
+        <span class="organization-types">
+            @role.Name
+        </span>
+    </label>
+    <br />
+}

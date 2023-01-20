@@ -17,6 +17,7 @@ namespace sReportsV2.DTOs.ThesaurusEntry
         public string UmlsName { get; set; }
         public ThesaurusState? State { get; set; }
         public int ActiveThesaurus { get; set; }
-
+        public string ActiveLanguage { get; set; }
+        public List<string> ThesaurusStates { get; set; } = new List<string>();
     }
 }

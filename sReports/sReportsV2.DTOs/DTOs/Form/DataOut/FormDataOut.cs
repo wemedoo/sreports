@@ -56,8 +56,6 @@ namespace sReportsV2.DTOs.Form.DataOut
         public List<ReferralInfoDTO> ReferrableFields { get; set; }
         [DataProp]
         public bool DisablePatientData { get; set; }
-        public string Description { get; set; }
-
         public string Notes { get; set; }
         public FormState? FormState { get; set; }
         public DateTime? Date { get; set; }
@@ -149,6 +147,9 @@ namespace sReportsV2.DTOs.Form.DataOut
             return color;
         }
 
-
+        public IEnumerable<FormStatusDataOut> GetWorkflowHistory()
+        {
+            return WorkflowHistory.OrderByDescending(x => x.Created);
+        }
     }
 }

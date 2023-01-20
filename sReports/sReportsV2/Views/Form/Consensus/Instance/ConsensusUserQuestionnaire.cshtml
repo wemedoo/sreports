@@ -1,0 +1,43 @@
+﻿@using sReportsV2.Common.Enums;
+@using sReportsV2.DTOs.Form.DataOut;
+@model FormDataOut
+@{
+    var questionnaire = ViewBag.ConsensusQuestionnaire;
+    bool canChange = questionnaire.ViewType.Equals("Create") && !questionnaire.Completed;
+}
+<div class="consensus-body single-questionnaire">
+    <input type="hidden" id="formId" value="@Model.Id">
+    <input type="hidden" id="consensusInstanceId" value="@questionnaire.ConsensusInstanceId">
+    <input type="hidden" id="iterationId" value="@questionnaire.IterationId">
+    <input type="hidden" id="showQuestionnaireType" value="ConsensusInstance">
+    <div class="consensus-visible">
+        <div class="consensus-tabs-container">
+            <div class="consensus-tab expand-button active-item" onclick="setActiveTab('consensusQuestionnaire', this) ">
+                @sReportsV2.Resources.TextLanguage.Consensus_Questionnaire
+            </div>
+            <div class="consensus-tab expand-button" onclick="@(canChange ? "showQuestionnaireSaveModal()": "setActiveTab('consensusFormPreview', this)")" id="consensusFormPreviewTab">
+                @sReportsV2.Resources.TextLanguage.Form_Preview
+            </div>
+        </div>
+        <div id="consensusContainer">
+            @Html.Partial("~/Views/Form/Consensus/Questionnaire/ConsensusQuestionnairePartial.cshtml", Model)
+        </div>
+    </div>
+    @if (canChange)
+    {
+        <div class="button-wrapper-filter filter-button mt-2">
+            <button class="btn btn-filter-primary w-100 h-100"
+                    id="questionnaireSaveButton" type="button"
+                    data-userid="@questionnaire.UserId"
+                    data-consensusid="@questionnaire.Consensus.Id"
+                    data-isoutsideuser="@questionnaire.IsOutsideUser.ToString()"
+                    onclick="saveConsensusInstance(event)">
+                @sReportsV2.Resources.TextLanguage.Submit
+            </button>
+        </div>
+        @Html.Partial("~/Views/Form/Consensus/Instance/QuestionnaireSaveModal.cshtml")
+    }
+
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/designer/consensus.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/designer/consensusInstance.js")
+</div>

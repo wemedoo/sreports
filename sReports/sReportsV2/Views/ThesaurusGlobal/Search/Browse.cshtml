@@ -1,13 +1,16 @@
 ﻿@model string
+@{
+    ViewBag.Title = "Browse";
+}
 <div class="browse-container">
     <div class="search-input browse-search">
         <img class="search-book" src="~/Content/img/icons/SwissOpenOncology/search_icon.svg">
         <input type="text" class="search-btn-gt" placeholder="Search by Name, Code or Property" id="search" value="@(ViewBag.FilterData != null ? ViewBag.FilterData.Term : "")" />
-        <img  class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg">
+        <img class="search-i" id="searchIcon" src="~/Content/img/icons/search_green.svg">
         <div class="advanced-search-btn" onclick="advancedFilterModal(event)">Advanced Search</div>
     </div>
     <div id="browseResults" class="browse-results">
-        
+
     </div>
 </div>
 <div id="gtAdvancedSearch">
@@ -15,5 +18,5 @@
 
 </div>
 
-<script src="~/Scripts/SwissOpenOncology/browse.js"></script>
-<script src="~/Scripts/sReports/tableCommon.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/SwissOpenOncology/browse.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/tableCommon.js")

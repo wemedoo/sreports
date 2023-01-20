@@ -1,0 +1,94 @@
+﻿@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+@{
+    bool isEditable = ViewBag.Editable != null && ViewBag.Editable;
+}
+
+<div class="trees-container">
+    <div class="position-relative">
+        <input type="text" class="quick-search-input" placeholder="Quick Search" id="homeSearch" />
+        <img class="search-i" style="top:16px;" src="~/Content/img/icons/search_green.svg">
+    </div>
+    <div class="browse-accordion">
+        <div class="browse-accordion-header collapsed" data-toggle="collapse" data-target="#browseAccContent" aria-expanded="false" aria-controls="browseAccContent">
+            <img src="~/Content/img/icons/SwissOpenOncology/browse.svg" />
+            <div class="browse-text">Browse</div>
+            <img class="browse-arrow" src="~/Content/img/icons/SwissOpenOncology/arrow_close.svg" />
+        </div>
+        <div class="collapse" id="browseAccContent">
+            test
+        </div>
+    </div>
+    <div class="knowledge-in-context">
+        Knowledge in context
+    </div>
+    <div class="preview-accordion">
+        <div class="preview-accordion-header collapsed" data-toggle="collapse" data-target="#formalOntology" aria-expanded="false" aria-controls="formalOntology">
+            <img class="acc-book" />
+            <div class="acc-text">Connection with other ontologies</div>
+            @if (isEditable)
+            {
+                <img class="acc-ontology" src="~/Content/img/icons/SwissOpenOncology/add.svg" onclick="showConnectionOntologyModal(event)">
+            }
+            <img class="acc-arrow @(isEditable ? "no-any-margin" : "")" />
+        </div>
+        <div class="collapse" id="formalOntology">
+            <div class="acc-content">
+                <div class="acc-content-row">
+                    <div>
+                        Uri of the Class:
+                    </div>
+                    <div>
+                        @if (Model != null)
+                        {
+                            <a href="@Model.UriClassLink" target="_blank" , rel="noreferrer" class="text-underline">@Model.UriClassGUI</a>
+                        }
+                        else
+                        {
+                            <span>Not defined</span>
+                        }
+                    </div>
+                </div>
+                <div class="acc-content-row">
+                    <div>
+                        Uri of the source:
+                    </div>
+                    <div>
+                        @if (Model != null)
+                        {
+                            <a href="@Model.UriSourceLink" target="_blank" , rel="noreferrer" class="text-underline">@Model.UriSourceGUI</a>
+                        }
+                        else
+                        {
+                            <span>Not defined</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="preview-accordion">
+        <div class="preview-accordion-header collapsed" data-toggle="collapse" data-target="#documentFound" aria-expanded="false" aria-controls="documentFound">
+            <img class="acc-book" />
+            <div class="acc-text">The entity is found in 0 medical documents</div>
+            <img class="acc-arrow" />
+        </div>
+        <div class="collapse" id="documentFound">
+            <div class="acc-content">
+                The entity is found in 0 medical documents content
+            </div>
+        </div>
+    </div>
+    <div class="preview-accordion">
+        <div class="preview-accordion-header collapsed" data-toggle="collapse" data-target="#documentProperties" aria-expanded="false" aria-controls="documentProperties">
+            <img class="acc-book" />
+            <div class="acc-text">Document Properties</div>
+            <img class="acc-arrow" />
+        </div>
+        <div class="collapse" id="documentProperties">
+            <div class="acc-content">
+                Document Properties content
+            </div>
+        </div>
+    </div>
+    @Html.Partial("Shared/ConnectionOntologyModal")
+</div>

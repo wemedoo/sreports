@@ -10,11 +10,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>sReportsV2.SqlDomain</RootNamespace>
     <AssemblyName>sReportsV2.SqlDomain</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -61,39 +65,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filter\ChemotherapySchemaFilter.cs" />
+    <Compile Include="Filter\ChemotherapySchemaInstanceFilter.cs" />
     <Compile Include="Filter\OrganizationFilter.cs" />
+    <Compile Include="Filter\SmartOncologyPatientFilter.cs" />
+    <Compile Include="Implementations\AcademicPositionDAL.cs" />
     <Compile Include="Implementations\AddressDAL.cs" />
+    <Compile Include="Implementations\AdministrativeDataDAL.cs" />
+    <Compile Include="Implementations\BodySurfaceCalculationFormulaDAL.cs" />
+    <Compile Include="Implementations\ChemotherapySchemaDAL.cs" />
+    <Compile Include="Implementations\ChemotherapySchemaInstanceDAL.cs" />
+    <Compile Include="Implementations\ChemotherapySchemaInstanceHistoryDAL.cs" />
     <Compile Include="Implementations\ClinicalDomainDAL.cs" />
     <Compile Include="Implementations\CommentDAL.cs" />
     <Compile Include="Implementations\CustomEnumDAL.cs" />
     <Compile Include="Implementations\CodeSystemDAL.cs" />
     <Compile Include="Implementations\EncounterDAL.cs" />
     <Compile Include="Implementations\EpisodeOfCareDAL.cs" />
-    <Compile Include="Implementations\GlobalUserDAL.cs" />
+    <Compile Include="Implementations\GlobalThesaurusRoleDAL.cs" />
+    <Compile Include="Implementations\GlobalThesaurusUserDAL.cs" />
+    <Compile Include="Implementations\LiteratureReferenceDAL.cs" />
+    <Compile Include="Implementations\MedicationDAL.cs" />
+    <Compile Include="Implementations\MedicationDoseDAL.cs" />
+    <Compile Include="Implementations\MedicationDoseInstanceDAL.cs" />
+    <Compile Include="Implementations\MedicationDoseTypeDAL.cs" />
+    <Compile Include="Implementations\MedicationInstanceDAL.cs" />
+    <Compile Include="Implementations\MedicationReplacementDAL.cs" />
+    <Compile Include="Implementations\ModuleDAL.cs" />
     <Compile Include="Implementations\O4CodeableConceptDAL.cs" />
     <Compile Include="Implementations\OrganizationDAL.cs" />
     <Compile Include="Implementations\OrganizationRelationDAL.cs" />
     <Compile Include="Implementations\OutsideUserDAL.cs" />
     <Compile Include="Implementations\PatientDAL.cs" />
+    <Compile Include="Implementations\PermissionDAL.cs" />
+    <Compile Include="Implementations\PermissionModuleDAL.cs" />
+    <Compile Include="Implementations\PermissionRoleDAL.cs" />
+    <Compile Include="Implementations\RoleDAL.cs" />
+    <Compile Include="Implementations\RouteOfAdministrationDAL.cs" />
+    <Compile Include="Implementations\SmartOncologyPatientDAL.cs" />
     <Compile Include="Implementations\ThesaurusDAL.cs" />
+    <Compile Include="Implementations\ThesaurusMergeDAL.cs" />
     <Compile Include="Implementations\ThesaurusTranslationDAL.cs" />
+    <Compile Include="Implementations\UnitDAL.cs" />
     <Compile Include="Implementations\UserDAL.cs" />
+    <Compile Include="Interfaces\IAcademicPositionDAL.cs" />
     <Compile Include="Interfaces\IAddressDAL.cs" />
+    <Compile Include="Interfaces\IAdministrativeDataDAL.cs" />
+    <Compile Include="Interfaces\IBodySurfaceCalculationFormulaDAL.cs" />
+    <Compile Include="Interfaces\IChemotherapySchemaDAL.cs" />
+    <Compile Include="Interfaces\IChemotherapySchemaInstanceDAL.cs" />
+    <Compile Include="Interfaces\IChemotherapySchemaInstanceHistoryDAL.cs" />
     <Compile Include="Interfaces\IClinicalDomainDAL.cs" />
     <Compile Include="Interfaces\ICodeSystemDAL.cs" />
     <Compile Include="Interfaces\ICommentDAL.cs" />
     <Compile Include="Interfaces\IEncounterDAL.cs" />
     <Compile Include="Interfaces\IEpisodeOfCareDAL.cs" />
-    <Compile Include="Interfaces\IGlobalUserDAL.cs" />
+    <Compile Include="Interfaces\IGlobalThesaurusRoleDAL.cs" />
+    <Compile Include="Interfaces\IGlobalThesaurusUserDAL.cs" />
     <Compile Include="Interfaces\ICustomEnumDAL.cs" />
+    <Compile Include="Interfaces\ILiteratureReferenceDAL.cs" />
+    <Compile Include="Interfaces\IMedicationDAL.cs" />
+    <Compile Include="Interfaces\IMedicationDoseDAL.cs" />
+    <Compile Include="Interfaces\IMedicationDoseTypeDAL.cs" />
+    <Compile Include="Interfaces\IMedicationDoseInstanceDAL.cs" />
+    <Compile Include="Interfaces\IMedicationInstanceDAL.cs" />
+    <Compile Include="Interfaces\IMedicationReplacementDAL.cs" />
+    <Compile Include="Interfaces\IModuleDAL.cs" />
     <Compile Include="Interfaces\IO4CodeableConceptDAL.cs" />
     <Compile Include="Interfaces\IOrganizationDAL.cs" />
     <Compile Include="Interfaces\IOrganizationRelationDAL.cs" />
     <Compile Include="Interfaces\IOutsideUserDAL.cs" />
     <Compile Include="Interfaces\IPatientDAL.cs" />
+    <Compile Include="Interfaces\IPermissionDAL.cs" />
+    <Compile Include="Interfaces\IPermissionModuleDAL.cs" />
+    <Compile Include="Interfaces\IPermissionRoleDAL.cs" />
+    <Compile Include="Interfaces\IRoleDAL.cs" />
+    <Compile Include="Interfaces\IRouteOfAdministrationDAL.cs" />
     <Compile Include="Interfaces\IThesaurusDAL.cs" />
+    <Compile Include="Interfaces\IThesaurusMergeDAL.cs" />
     <Compile Include="Interfaces\IThesaurusTranslationDAL.cs" />
+    <Compile Include="Interfaces\IUnitDAL.cs" />
     <Compile Include="Interfaces\IUserDAL.cs" />
+    <Compile Include="Interfaces\ISmartOncologyPatientDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +159,7 @@
       <Name>sReportsV2.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
-      <Project>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</Project>
+      <Project>{b409aa17-11c7-4e45-9382-fe1ff764a31d}</Project>
       <Name>sReportsV2.Domain.Sql</Name>
     </ProjectReference>
   </ItemGroup>

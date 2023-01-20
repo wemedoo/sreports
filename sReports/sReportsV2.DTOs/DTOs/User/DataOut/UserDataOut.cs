@@ -1,12 +1,11 @@
 ﻿using sReportsV2.Common.Enums;
-using sReportsV2.DTOs.DTOs.User.DTO;
+using sReportsV2.DTOs.DTOs.AccessManagment.DataOut;
 using sReportsV2.DTOs.User.DataOut;
 using sReportsV2.DTOs.User.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Web;
 
 namespace sReportsV2.DTOs.Common.DataOut
 {
@@ -20,14 +19,25 @@ namespace sReportsV2.DTOs.Common.DataOut
         public string MiddleName { get; set; }
         public DateTime? DayOfBirth { get; set; }
         public string Email { get; set; }
+        public string PersonalEmail { get; set; }
         public string ContactPhone { get; set; }
         public UserPrefix Prefix { get; set; }
         public AddressDTO Address{ get; set; }
         public byte[] RowVersion { get; set; }
-        public List<RoleDTO> Roles { get; set; }
-        public List<AcademicPosition> AcademicPositions { get; set; }
+        public List<RoleDataOut> Roles { get; set; } = new List<RoleDataOut>();
+        public List<AcademicPosition> AcademicPositions { get; set; } = new List<AcademicPosition>();
         public List<UserOrganizationDataOut> Organizations { get; set; }
         public List<ClinicalTrialDTO> ClinicalTrials { get; set; }
+
+        public bool IsBlockedInEveryOrganization()
+        {
+            return Organizations.Count > 0 && Organizations.All(x => x.State == UserState.Blocked);
+        }
+
+        public bool HasToChooseActiveOrganization(int activeOrganizationId)
+        {
+            return Organizations.Count == 0 || GetUserStateInOrganization(activeOrganizationId) != UserState.Active;
+        }
 
         public List<int> GetOrganizationRefs()
         {
@@ -39,50 +49,55 @@ namespace sReportsV2.DTOs.Common.DataOut
             return $"{Username} ({FirstName} {LastName})";
         }
 
-        public List<RoleDTO> GetRolesByOrganizationId(int organizationId) 
-        {
-            return this.Organizations != null
-                && this.Organizations.Count > 0
-                && this.Organizations.FirstOrDefault(x => x.OrganizationId == organizationId) != null
-                ? this.Organizations.FirstOrDefault(x => x.OrganizationId == organizationId).Roles : new List<RoleDTO>();
-        }
-
         public string GetorganizationListFormatted()
         {
-            string result = string.Empty;
-            for (int i = 0; i < this.Organizations.Count; i++)
-            {
-                result += this.Organizations != null ? this.Organizations[i].Organization.Name : "";
-                if (i < this.Organizations.Count - 1)
-                {
-                    result += "<text> , </text>";
-                }
-            }
-            return result;
+            return string.Join(", ", Organizations.Select(x => x.Organization.Name));
         }
 
-        public UserState? GetStateByOrganizationId(int organizationId)
+        public IEnumerable<UserOrganizationDataOut> GetActiveOrganizations()
         {
-            return Organizations?.FirstOrDefault(x => x.OrganizationId == organizationId).State;
+            return Organizations.Where(x => x.State == UserState.Active);
+        }
+
+        public IEnumerable<UserOrganizationDataOut> GetNonArchivedOrganizations()
+        {
+            return Organizations.Where(x => x.State != UserState.Archived);
+        }
+
+        public bool IsUserBlocked(int activeOrganizationId)
+        {
+            return GetUserStateInOrganization(activeOrganizationId) == UserState.Blocked;
         }
 
         public List<Claim> GetClaims() 
         {
-            List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Email, this.Email));
-            claims.Add(new Claim(ClaimTypes.Name, this.Username));
-            claims.Add(new Claim("preferred_username", this.Email));
-
-            if (this.Roles != null)
-            {
-                //TO DO IMPORTANT: ROLES ARE DEFINED ON THE USER LEVEL, NOT USER ORGANIZATION LEVEL, THIS PROBABLY WILL BE CHANGED IN THE FUTURE
-                foreach (var role in this.Roles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, role.Name));
-                }
-            }
+            List<Claim> claims = new List<Claim>() {
+                new Claim(ClaimTypes.Email, this.Email),
+                new Claim(ClaimTypes.Name, this.Username),
+                new Claim("preferred_username", this.Email)
+            };
 
             return claims;
+        }
+
+        public bool IsRoleChecked(int roleId)
+        {
+            return Roles.Any(r => r.Id == roleId);
+        }
+
+        public string RenderUserRoles()
+        {
+            return string.Join(", ", Roles.Select(x => x.Name).ToArray());
+        }
+
+        public List<string> RenderUserRoleNames()
+        {
+            return Roles.Select(x => x.Name).ToList();
+        }
+
+        private UserState? GetUserStateInOrganization(int organizationId)
+        {
+            return Organizations?.FirstOrDefault(x => x.OrganizationId == organizationId)?.State;
         }
     }
 }

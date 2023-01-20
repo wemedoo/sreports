@@ -5,6 +5,6 @@
 <div class="com-status @Model.CommentState">
     <div>
         <img>
-        Status: <b>@Model.CommentState</b> by <b>@ViewBag.UserCookieData.FirstName.Substring(0, 1).ToUpper()@Model.User.LastName.Substring(0, 1).ToUpper()</b> on @Model.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string).ToString("dd. MMM yyyy")
+        @sReportsV2.Resources.TextLanguage.Status: <b>@Model.CommentState</b> by <b>@Model.User.FirstName.Substring(0, 1).ToUpper()@Model.User.LastName.Substring(0, 1).ToUpper()</b> on @Model.EntryDatetime.ToTimeZoned(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)
     </div>
 </div>

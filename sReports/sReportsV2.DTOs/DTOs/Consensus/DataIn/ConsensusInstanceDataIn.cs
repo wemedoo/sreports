@@ -10,7 +10,6 @@ namespace sReportsV2.DTOs.Consensus.DataIn
     {
         public string Id { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime EntryDatetime { get; set; }
         public DateTime? LastUpdate { get; set; }
         public List<ConsensusQuestionDataIn> Questions { get; set; }
         public string ConsensusRef { get; set; }

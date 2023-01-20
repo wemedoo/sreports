@@ -1,0 +1,85 @@
+﻿@using sReportsV2.DTOs.Common;
+@using sReportsV2.Common.Singleton;
+
+@model List<AddressDTO>
+
+@{ 
+    string neTranslated = sReportsV2.Resources.TextLanguage.N_E;
+}
+
+<div class="person-margin">
+    <span class="identifiers-info identifier-padd">@sReportsV2.Resources.TextLanguage.Addresses</span>
+    @if (!ViewBag.ReadOnly)
+    {
+        <button type="button" class="btn btn-add-new float-right" onclick="showAddressModal(event)">
+            <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
+        </button>
+    }
+</div>
+
+<div class="identifier-line"></div>
+
+<div id="addresses" class="@(Model.Count == 0 ? "identifier-line-bottom" : "")">
+    <table class="codes-table">
+        <thead>
+            <tr>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.City</span></th>
+                <th width="10%"><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Postal_code</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.State</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Country</span></th>
+                <th><span class="identifier-name">@sReportsV2.Resources.TextLanguage.Street</span></th>
+                @*<th width="10%"><span class="identifier-name">@sReportsV2.Resources.TextLanguage.StreetNumber</span></th>*@
+                <th class="action-th-cell"></th>
+            </tr>
+        </thead>
+
+        <tbody class="identifer-table text-table">
+                @foreach (AddressDTO address in Model)
+                {
+                    <tr data-value="@address.Id" 
+                        class="address-entry" 
+                        data-addressType="@(address.AddressTypeId.HasValue ? address.AddressTypeId.Value.ToString() : "")"
+                        data-countryId="@(address.CountryId.HasValue ? address.CountryId.Value.ToString() : "")"
+                        >
+                        <td title="@address.City" data-property="city" data-value="@address.City" class="custom-td-first">
+                            @RenderTableCell(address.City, neTranslated)
+                        </td>
+                        <td title="@address.PostalCode" data-property="postalCode" data-value="@address.PostalCode" class="custom-td" >
+                            @RenderTableCell(address.PostalCode, neTranslated)
+                        </td>
+                        <td title="@address.State" data-property="state" data-value="@address.State" class="custom-td">
+                            @RenderTableCell(address.State, neTranslated)
+                        </td>
+                        <td title="@address.Country" data-property="country" data-value="@address.Country" class="custom-td">
+                            @RenderTableCell(address.Country, neTranslated)
+                        </td>
+                        <td title="@address.Street" data-property="street" data-value="@address.Street" class="custom-td">
+                            @RenderTableCell(address.Street, neTranslated)
+                        </td>
+                        @*<td title="@address.StreetNumber" data-property="streetNumber" data-value="@address.StreetNumber" class="custom-td">
+                            @RenderTableCell(address.StreetNumber, neTranslated)
+                        </td>*@
+                    <td class="custom-td-last position-relative">
+                        @if (!ViewBag.ReadOnly)
+                        {
+                            <i class="remove-icon remove-address"></i>
+                        }
+                        <img src="~/Content/img/icons/editing.svg" class="edit-address" />
+                    </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
+@helper RenderTableCell(string value, string neTranslated)
+{
+    if (string.IsNullOrEmpty(value))
+    {
+        @neTranslated
+    }
+    else
+    {
+        @value
+    }
+}

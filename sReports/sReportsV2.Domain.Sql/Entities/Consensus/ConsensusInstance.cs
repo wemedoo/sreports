@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Sql.Entities.Consensus
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class ConsensusInstance : EntitiesBase.Entity
     {
         public int Id { get; set; }

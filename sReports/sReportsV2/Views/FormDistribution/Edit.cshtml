@@ -8,112 +8,49 @@
     ViewBag.Title = "GetByThesaurusId";
 }
 
-@model FormDistributionDataOut
-@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Simulator }, { "linkLevel1", "/FormDistribution/GetAll" },{"level2", Model.Title}, { "activeLevel", 2 } })
+@model FormDistributionParameterizationDataOut
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Simulator }, { "linkLevel1", "/FormDistribution/GetAll" }, { "level2", Model.FormDistribution.Title }, { "activeLevel", 2 } })
 <h1>
-    @Model.Title
+    @Model.FormDistribution.Title
     <div>(@sReportsV2.Resources.TextLanguage.DefineDistributionsParameters)</div>
 </h1>
 <form onsubmit="return submitDistributionConfigForm()" id="distributionForm" class="element-background-grey simulator-height">
-    <input type="hidden" id="formDistributionId" name="formDistributionId" value="@Model.Id" />
-    <input type="hidden" id="lastUpdate" name="lastUpdate" value="@Model.LastUpdate" />
-    <input type="hidden" id="thesaurusId" name="thesaurusId" value="@Model.ThesaurusId" />
-    <input type="hidden" id="versionId" name="VersionId" value="@Model.VersionId" />
+    <input type="hidden" id="formDistributionId" name="formDistributionId" value="@Model.FormDistribution.Id" />
+    <input type="hidden" id="lastUpdate" name="lastUpdate" value="@Model.FormDistribution.LastUpdate" />
+    <input type="hidden" id="thesaurusId" name="thesaurusId" value="@Model.FormDistribution.ThesaurusId" />
+    <input type="hidden" id="versionId" name="VersionId" value="@Model.FormDistribution.VersionId" />
 
     <div class="row">
         <div class="col-5">
-            @Html.Partial("SimulatorFormTree", (sReportsV2.DTOs.Form.DataOut.FormDataOut)ViewBag.Form)
+            @Html.Partial("SimulatorFormTree", Model.Form)
         </div>
-        <div class="col-7 rows-container">
-            @foreach (FormFieldDistributionDataOut field in Model.Fields)
-            {
-                <div id="field-distribution-@field.Id">
-                    @Html.Partial("RenderInputs", field)
-                </div>
-            }
+        <div class="col-7 ">
+            <div class="rows-container" id="parameters-container">
 
-
-
-
-        </div>
-    </div>
-    <div class="row simulator-btn-group">
-        <div class="form-button-container mt-3">
-            <input type="submit" class="btn btn-filter-primary simulator-submit-btn" id='submitBtn' value="Submit" />
-
-            <div class="button-wrapper-filter float-right" id="close" onclick="goBack(event)">
-                <a class="btn advanced-cancel">
-                    @sReportsV2.Resources.TextLanguage.Cancel
-                </a>
             </div>
-
+            <div class="simulator-submit-btn-container" style="display: none;">
+                <div class="button-wrapper-filter simulator-submit-btn-cancel" id="close" onclick="goBack(event)">
+                    <a class="btn advanced-cancel">
+                        @sReportsV2.Resources.TextLanguage.Cancel
+                    </a>
+                </div>
+                @if (!ViewBag.ReadOnly)
+                {
+                    <input type="submit" class="btn btn-filter-primary simulator-submit-btn" id='submitBtn' value="Submit" />
+                }
+            </div>
         </div>
     </div>
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="relationModal" tabindex="-1" role="dialog" aria-labelledby="relationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content modal-content-relation">
-            <div class="float-right filter-close-btn">
-                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
-            </div>
-            <div class="modal-body modal-body-advanced" style="padding-top:50px;">
-                <div class="d-flex advanced-filter-header documents-header">
-                    <img class="mr-3" src="~/Content/img/icons/add_relation.svg"> Add Relation
-                </div>
-                <form>
-                    <fieldset class="advanced-filter-item filter-item mt-4">
-                        <div class="label">
-                            @sReportsV2.Resources.TextLanguage.Identifier_type
-                        </div>
-                        <select id="relation-item" class="filter-input arrow-select">
-                            <option value="">Please select field</option>
-                            @foreach (FormFieldDistributionDataOut field in Model.Fields.Where(x => x.Type == FieldTypes.Number || x.Type == FieldTypes.Radio || x.Type == FieldTypes.Digits || x.Type == FieldTypes.Checkbox || x.Type == FieldTypes.Select))
-                            {
-                                <option value="@field.Id" data-type="@field.Type">@field.Label</option>
-                            }
-                        </select>
-
-                    </fieldset>
-
-
-                    <div class="boundaries-container">
-                        <fieldset class="advanced-filter-item filter-item mt-4">
-                            <label for="lowerBoundary" class="label filter-label">
-                                Lower boundary
-                            </label>
-                            <input type="number" step="0.01" name="lowerBoundary" required class="filter-input" id="lowerBoundary" placeholder="Define lower boundary" />
-                        </fieldset>
-                        <fieldset class="advanced-filter-item filter-item mt-4">
-                            <label for="upperBoundary" class="label filter-label">
-                                Upper boundary
-                            </label>
-                            <input type="number" step="0.01" name="upperBoundary" required class="filter-input" id="upperBoundary" placeholder="Define upper boundary" />
-                        </fieldset>
-                    </div>
-                    <input type="hidden" id="targetVariable" />
-                </form>
-
-                <div class="d-flex position-relative margin-top-20">
-                    <div class="button-wrapper-filter filter-button float-right d-flex" style="width:unset" id="submitFilterButton">
-                        <a class="btn advanced-cancel mr-2" data-dismiss="modal" aria-label="Close">
-                            @sReportsV2.Resources.TextLanguage.Cancel
-                        </a>
-                        <button class="btn btn-filter-primary w-100 h-100" onclick="createRelatedField()"> @sReportsV2.Resources.TextLanguage.Save</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("AddRelationModal")
 
 <script>
      $('#distributionForm').validate(
          {
             rules: {
-                 @foreach (var field in Model.Fields)
+                 @foreach (var field in Model.FormDistribution.Fields)
                  {
                      if (field.Type == "radio")
                      {
@@ -132,7 +69,7 @@
                  }
             }
 
-            
+
         });
 </script>
-<script src="~/Scripts/sReports/formDistribution.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/formDistribution.js")

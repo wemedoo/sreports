@@ -3,8 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.DigitalGuideline
 {
@@ -20,6 +18,20 @@ namespace sReportsV2.Domain.Entities.DigitalGuideline
         public GuidelineElements GuidelineElements { get; set; }
         public sReportsV2.Domain.Entities.Form.Version Version { get; set; }
 
+        public Tuple<List<GuidelineEdgeElementData>, List<GuidelineEdgeElementData>> GetEdges(string nodeId)
+        {
+            List<GuidelineEdgeElementData> guidelineNextEdges = new List<GuidelineEdgeElementData>();
+            List<GuidelineEdgeElementData> guidelinePreviusEdges = new List<GuidelineEdgeElementData>();
+            foreach (GuidelineElementData item in this.GuidelineElements.Edges.Select(c => c.Data).ToList()) 
+            { 
+                GuidelineEdgeElementData castedElementData = (GuidelineEdgeElementData)item;
+                if (castedElementData.Source == nodeId)
+                    guidelineNextEdges.Add(castedElementData);
+                if (castedElementData.Target == nodeId)
+                    guidelinePreviusEdges.Add(castedElementData);
+            }
+            return Tuple.Create(guidelineNextEdges, guidelinePreviusEdges);
+        }
     }
 
     public class GuidelineElements

@@ -1,4 +1,5 @@
-﻿using sReportsV2.DTOs.DTOs.CodeSystem;
+﻿using sReportsV2.DTOs.CustomAttributes;
+using sReportsV2.DTOs.DTOs.CodeSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace sReportsV2.DTOs.O4CodeableConcept.DataIn
         public string Value { get; set; }
         public string Version { get; set; }
         public string Link { get; set; }
+        [Year]
         public DateTime? VersionPublishDate { get; set; }
         public int CodeSystemId { get; set; }
+        public string CodeSystemAbbr { get; set; }
+
 
     }
 }

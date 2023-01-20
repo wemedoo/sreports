@@ -1,0 +1,783 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+@using sReportsV2.DTOs.DTOs.SmartOncology.Enum.DataOut;
+@using sReportsV2.Common.Enums;
+@using sReportsV2.Common.SmartOncologyEnums;
+@using sReportsV2.Common.Extensions;
+
+@model SmartOncologyPatientDataOut
+
+@{
+    string toggleEditBtnClass = Model != null ? "toggle" : "";
+    Dictionary<string, string> autocompleteDictionary = new Dictionary<string, string>()
+{
+        {"anatomy", SmartOncologyEnumNames.Anatomy},
+        {"morphology", SmartOncologyEnumNames.Morphology},
+        {"therapeuticContext", SmartOncologyEnumNames.TherapeuticContext},
+        {"chemotherapyType", SmartOncologyEnumNames.ChemotherapyType},
+    };
+}
+
+<form id="smartOncologyPatientForm" method="post" onsubmit="return submitPatientData(this, event)" novalidate>
+    <div class="smart-oncology-patient-detail-header">
+        @RenderFormHeader()
+    </div>
+    <div class="smart-oncology-patient-detail-container">
+        <div class="row ml-0">
+            <div class="col-12 col-lg mr-lg-2">
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.FirstName)
+                    <div class="col-7 column-input">
+                        <input required type="text" id="firstName" name="firstName" value="@(Model != null ? Model.Name : "")" autocomplete="off" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.SecondName)
+                    <div class="col-7 column-input">
+                        <input required type="text" id="secondName" name="secondName" value="@(Model != null ? Model.FamilyName : "")" autocomplete="off" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Gender)
+                    <div class="col-7 column-input">
+                        <select required id="gender" name="gender" data-no-color-change="true">
+                            <option value="">@sReportsV2.Resources.TextLanguage.SelectOption</option>
+                            @foreach (var gender in Enum.GetNames(typeof(sReportsV2.Common.Enums.Gender)))
+                            {
+                                <option @(Model != null && Model.Gender == gender ? "selected" : "") value="@gender">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(gender)</option>
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Date_of_birth)
+                    <div class="col-7 column-input">
+                        @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                        {
+                            InputAttributes = new Dictionary<object, object> { 
+                                { "class", "patient-date-type" }, 
+                                { "id", "dateOfBirth" }, 
+                                { "name", "dateOfBirth" }, 
+                                { "data-parent-field", ".column-input" }, 
+                                { "required", null }, 
+                                { "value", Model != null && Model.BirthDate != null ? Model.BirthDate.Value.ToString(ViewBag.DateFormat) : "" }, 
+                                { "data-no-color-change", "true" } 
+                            }
+                        })
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Identification_number)
+                    <div class="col-7 column-input">
+                        <input type="text" maxlength="20" id="identificationNumber" name="identificationNumber" value="@(Model != null ? Model.IdentificationNumber : "")" data-no-color-change="true" autocomplete="off" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Allergies)
+                    <div class="col-7 column-input">
+                        <input type="text" class="patient-tag-input" data-tag="allergy" placeholder="@sReportsV2.Resources.TextLanguage.Type_and_enter_placeholder" data-no-color-change="true" />
+                        <div class="repetitive-values" data-tag="allergy">
+                            @if (Model != null)
+                            {
+                                foreach (string s in Model.GetRepetitiveValues(Model.Allergies))
+                                {
+                                    <div class="repetitive-value">
+                                        <span class="tag-text" data-value="@s">@s</span>
+                                        <img src="~/Content/img/icons/Administration_remove.svg" class="tag-icon" data-action="remove-tag">
+                                    </div>
+                                }
+                            }
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Patient_is_informed_for)
+                    <div class="col-7 column-input">
+                        <input required type="text" id="patientInformedFor" name="patientInformedFor" value="@(Model != null ? Model.PatientInformedFor : "")" autocomplete="off" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Patient_Informed_by)
+                    <div class="col-7 column-input">
+                        <input readonly type="text" id="patientInformedBy" name="patientInformedBy" value="@(Model != null ? Model.PatientInformedBy : "")" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Patient_info_signed_on)
+                    <div class="col-7 column-input">
+                        @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                       {
+                           InputAttributes = new Dictionary<object, object> {
+                                { "class", "patient-date-type" },
+                                { "id", "patientInfoSignedOn" },
+                                { "name", "patientInfoSignedOn" },
+                                { "data-parent-field", ".column-input" },
+                                { "value", Model != null && Model.PatientInfoSignedOn != null ? Model.PatientInfoSignedOn.Value.ToString(ViewBag.DateFormat) : "" },
+                                { "data-no-color-change", "true" }
+                            }
+                       })
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Copy_delivered_on)
+                    <div class="col-7 column-input">
+                        @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                       {
+                           InputAttributes = new Dictionary<object, object> {
+                                { "class", "patient-date-type" },
+                                { "id", "copyDeliveredOn" },
+                                { "name", "copyDeliveredOn" },
+                                { "data-parent-field", ".column-input" },
+                                { "value", Model != null && Model.CopyDeliveredOn != null ? Model.CopyDeliveredOn.Value.ToString(ViewBag.DateFormat) : "" },
+                                { "data-no-color-change", "true" }
+                            }
+                       })
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Capability_to_work)
+                    <div class="col-7 column-input">
+                        <select id="capabilityToWork" name="capabilityToWork" data-no-color-change="true">
+                            <option value="">@sReportsV2.Resources.TextLanguage.SelectOption</option>
+                            @for (int i = 0; i <= 100; i = i + 10)
+                            {
+                                <option @(Model != null && Model.CapabilityToWork == i ? "selected" : "") value="@i">@i % </option>
+
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Desire_to_have_children)
+                    <div class="col-7 column">
+                        <div class="radio-btn-container">
+                            <label>
+                                <input type="radio"
+                                       id="desireToHaveChildren"
+                                       name="desireToHaveChildren"
+                                       value="true"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.DesireToHaveChildren ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Yes
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       id="desireToHaveChildren"
+                                       name="desireToHaveChildren"
+                                       value="false"
+                                       class="form-radio-field"
+                                       @(Model != null && !Model.DesireToHaveChildren ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.No_
+                                </span>
+                            </label>
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Fertility_conservation)
+                    <div class="col-7 column">
+                        <div class="radio-btn-container">
+                            <label>
+                                <input type="radio"
+                                       id="fertilityConservation"
+                                       name="fertilityConservation"
+                                       value="true"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.FertilityConservation ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Yes
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       id="fertilityConservation"
+                                       name="fertilityConservation"
+                                       value="false"
+                                       class="form-radio-field"
+                                       @(Model != null && !Model.FertilityConservation ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.No_
+                                </span>
+                            </label>
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="semen-cryopreservation @(Model != null && Model.Gender == Gender.Male.ToString() ? "" : "hide")">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.Semen_cryopreservation)
+                        <div class="col-7 column">
+                            <div class="radio-btn-container">
+                                <label>
+                                    <input type="radio"
+                                           id="semenCryopreservation"
+                                           name="semenCryopreservation"
+                                           value="true"
+                                           class="form-radio-field"
+                                           @(Model != null && Model.SemenCryopreservation ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.Yes
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio"
+                                           id="semenCryopreservation"
+                                           name="semenCryopreservation"
+                                           value="false"
+                                           class="form-radio-field"
+                                           @(Model != null && !Model.SemenCryopreservation ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.No_
+                                    </span>
+                                </label>
+                            </div>
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+                </div>
+                <div class="egg-cell-cryopreservation @(Model != null && Model.Gender == Gender.Female.ToString() ? "" : "hide")">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.Egg_cell_cryopreservation)
+                        <div class="col-7 column">
+                            <div class="radio-btn-container">
+                                <label>
+                                    <input type="radio"
+                                           id="eggCellCryopreservation"
+                                           name="eggCellCryopreservation"
+                                           value="true"
+                                           class="form-radio-field"
+                                           @(Model != null && Model.EggCellCryopreservation ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.Yes
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio"
+                                           id="eggCellCryopreservation"
+                                           name="eggCellCryopreservation"
+                                           value="false"
+                                           class="form-radio-field"
+                                           @(Model != null && !Model.EggCellCryopreservation ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.No_
+                                    </span>
+                                </label>
+                            </div>
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Sexual_health_addressed)
+                    <div class="col-7 column">
+                        <div class="radio-btn-container">
+                            <label>
+                                <input type="radio"
+                                       id="sexualHealthAddressed"
+                                       name="sexualHealthAddressed"
+                                       value="true"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.SexualHealthAddressed ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Yes
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       id="sexualHealthAddressed"
+                                       name="sexualHealthAddressed"
+                                       value="false"
+                                       class="form-radio-field"
+                                       @(Model != null && !Model.SexualHealthAddressed ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.No_
+                                </span>
+                            </label>
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Contraception)
+                    <div class="col-7 column">
+                        <div class="radio-btn-container">
+                            <label>
+                                <input type="radio"
+                                       id="contraception"
+                                       name="contraception"
+                                       value="Needed"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.Contraception == Contraception.Needed.ToString() ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Needed
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       id="contraception"
+                                       name="contraception"
+                                       value="NotNecessary"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.Contraception == Contraception.NotNecessary.ToString() ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.NotNecessary
+                                </span>
+                            </label>
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Clinical_trials)
+                    <div class="col-7 column-input">
+                        <div id="dropdownSearch" class="position-relative dropdown-search">
+                            <div id="search">
+                                <input type="text" id="clinicalTrial" name="clinicalTrial" class="patient-tag-input" data-tag="clinicalTrials" placeholder="@sReportsV2.Resources.TextLanguage.Clinical_trials_placeholder" data-no-color-change="true" autocomplete="off" />
+                            </div>
+                            <div id="clinicalTrialOptions" class="clinical-domain-options" aria-labelledby="search">
+                            </div>
+                        </div>
+                        <div class="repetitive-values" data-tag="clinicalTrials">
+                            @if (Model != null)
+                            {
+                                foreach (var s in Model.ClinicalTrials)
+                                {
+                                    <div class="repetitive-value">
+                                        <span class="tag-text" data-value="@s.Id">@s.Name</span>
+                                        <img src="~/Content/img/icons/Administration_remove.svg" class="tag-icon" data-action="remove-tag">
+                                    </div>
+                                }
+                            }
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg ml-lg-2 mt-3 mt-lg-0">
+                @if (Model != null)
+                {
+                    <div class="margin-bottom-15 visible-md">
+                        <div class="row">
+                            <span class="smart-oncology-patient-detail-title">@sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease</span>
+                        </div>
+                    </div>
+                }
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Previous_Treatment)
+                    <div class="col-7 column">
+                        <div class="radio-btn-container">
+                            <label>
+                                <input type="radio"
+                                       id="previousTreatmentYes"
+                                       name="previousTreatment"
+                                       value="true"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.PreviousTreatment ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Yes
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       id="previousTreatmentNo"
+                                       name="previousTreatment"
+                                       value="false"
+                                       class="form-radio-field"
+                                       @(Model != null && !Model.PreviousTreatment ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.No_
+                                </span>
+                            </label>
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="treatment-graubunden @(Model != null && Model.PreviousTreatment ? "" : "hide")">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.Treatment_in_Graubunden)
+                        <div class="col-7 column">
+                            <div class="radio-btn-container">
+                                <label>
+                                    <input type="radio"
+                                           id="treatmentInCantonalHospitalGraubundenYes"
+                                           name="treatmentInCantonalHospitalGraubunden"
+                                           value="true"
+                                           class="form-radio-field"
+                                           @(Model != null && Model.TreatmentInCantonalHospitalGraubunden ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.Yes
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio"
+                                           id="treatmentInCantonalHospitalGraubundenNo"
+                                           name="treatmentInCantonalHospitalGraubunden"
+                                           value="false"
+                                           class="form-radio-field"
+                                           @(Model != null && !Model.TreatmentInCantonalHospitalGraubunden ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.No_
+                                    </span>
+                                </label>
+                            </div>
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="history-oncological-disease @(Model != null && Model.TreatmentInCantonalHospitalGraubunden ? "" : "hide")"">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease)
+                        <div class="col-7 column-input">
+                            <input type="text" id="historyOfOncologicalDisease" name="historyOfOncologicalDisease" value="@(Model != null ? Model.HistoryOfOncologicalDisease : "")" autocomplete="off" data-no-color-change="true" />
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+                </div>
+                <div class="hospital-praxis @(Model != null && Model.PreviousTreatment && !Model.TreatmentInCantonalHospitalGraubunden ? "" : "hide")">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.Hospital_praxis_of_previous_treatment)
+                        <div class="col-7 column-input">
+                            <input type="text" class="patient-tag-input" data-tag="hospitalPreviosTreatment" placeholder="@sReportsV2.Resources.TextLanguage.Type_and_enter_placeholder" data-no-color-change="true" />
+                            <div class="repetitive-values" data-tag="hospitalPreviosTreatment">
+                                @if (Model != null)
+                                {
+                                    foreach (string s in Model.GetRepetitiveValues(Model.HospitalOrPraxisOfPreviousTreatments))
+                                    {
+                                        <div class="repetitive-value">
+                                            <span class="tag-text" data-value="@s">@s</span>
+                                            <img src="~/Content/img/icons/Administration_remove.svg" class="tag-icon" data-action="remove-tag">
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+                </div>
+                <div class="disease-context-initial @(Model != null && Model.PreviousTreatment && !Model.TreatmentInCantonalHospitalGraubunden ? "" : "hide")">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.Disease_context_at_initial_presentation)
+                        <div class="col-7 column">
+                            <div class="radio-btn-container">
+                                <label>
+                                    <input type="radio"
+                                           id="diseaseContextAtInitialPresentation"
+                                           name="diseaseContextAtInitialPresentation"
+                                           value="Primary"
+                                           class="form-radio-field"
+                                           @(Model != null && Model.DiseaseContextAtInitialPresentation == DiseaseContext.Primary.ToString() ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.Primary
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio"
+                                           id="diseaseContextAtInitialPresentation"
+                                           name="diseaseContextAtInitialPresentation"
+                                           value="Secondary"
+                                           class="form-radio-field"
+                                           @(Model != null && Model.DiseaseContextAtInitialPresentation == DiseaseContext.Secondary.ToString() ? "checked" : string.Empty) />
+                                    <i class="form-radio-button user-radio"></i>
+                                    <span class="option-span">
+                                        @sReportsV2.Resources.TextLanguage.Secondary
+                                    </span>
+                                </label>
+                            </div>
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+                </div>
+                <div class="stage-initial @(Model != null && Model.PreviousTreatment ? "" : "hide")">
+                    <div class="row pl-0">
+                        @RenderCellName(sReportsV2.Resources.TextLanguage.Stage_at_initial_presentation)
+                        <div class="col-7 column-input">
+                            <select id="stageAtInitialPresentation" name="stageAtInitialPresentation" data-no-color-change="true">
+                                <option value="">@sReportsV2.Resources.TextLanguage.SelectOption</option>
+                                @foreach (var state in ViewBag.PresentationState)
+                                {
+                                    <option @(Model != null && Model.StageAtInitialPresentation == state.Name ? "selected" : "") value="@state.Name">@state.Name</option>
+                                }
+                            </select>
+                            @RenderCellEditIcon(toggleEditBtnClass)
+                        </div>
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Disease_context_at_current_presentation)
+                    <div class="col-7 column">
+                        <div class="radio-btn-container">
+                            <label>
+                                <input type="radio"
+                                       id="diseaseContextAtCurrentPresentation"
+                                       name="diseaseContextAtCurrentPresentation"
+                                       value="Primary"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.DiseaseContextAtCurrentPresentation == DiseaseContext.Primary.ToString() ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Primary
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       id="diseaseContextAtCurrentPresentation"
+                                       name="diseaseContextAtCurrentPresentation"
+                                       value="Secondary"
+                                       class="form-radio-field"
+                                       @(Model != null && Model.DiseaseContextAtCurrentPresentation == DiseaseContext.Secondary.ToString() ? "checked" : string.Empty) />
+                                <i class="form-radio-button user-radio"></i>
+                                <span class="option-span">
+                                    @sReportsV2.Resources.TextLanguage.Secondary
+                                </span>
+                            </label>
+                        </div>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Stage_at_current_presentation)
+                    <div class="col-7 column-input">
+                        <select id="stageAtCurrentPresentation" name="stageAtCurrentPresentation" data-no-color-change="true">
+                            <option value="">@sReportsV2.Resources.TextLanguage.SelectOption</option>
+                            @foreach (var state in ViewBag.PresentationState)
+                            {
+                                <option @(Model != null && Model.StageAtCurrentPresentation == state.Name ? "selected" : "") value="@state.Name">@state.Name</option>
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Anatomy)
+                    <div class="col-7 column-input">
+                        <select id="anatomy" class="patient-autocomplete" name="anatomy" placeholder="@sReportsV2.Resources.TextLanguage.Anatomy_placeholder" data-no-color-change="true">
+                            @if (Model != null && Model.Anatomy != null)
+                            {
+                                <option value=""></option>
+                                <option selected value="@Model.Anatomy">@Model.Anatomy</option>
+                            }
+                            else
+                            {
+                                <option selected value=""></option>
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Morphology)
+                    <div class="col-7 column-input">
+                        <select id="morphology" class="patient-autocomplete" name="morphology" placeholder="@sReportsV2.Resources.TextLanguage.Morphology_placeholder" data-no-color-change="true">
+                            @if (Model != null && Model.Morphology != null)
+                            {
+                                <option value=""></option>
+                                <option selected value="@Model.Morphology">@Model.Morphology</option>
+                            }
+                            else
+                            {
+                                <option selected value=""></option>
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Therapeutic_context)
+                    <div class="col-7 column-input">
+                        <select id="therapeuticContext" class="patient-autocomplete" name="therapeuticContext" placeholder="@sReportsV2.Resources.TextLanguage.Therapeutic_context_placeholder" data-no-color-change="true">
+                            @if (Model != null && Model.TherapeuticContext != null)
+                            {
+                                <option value=""></option>
+                                <option selected value="@Model.TherapeuticContext">@Model.TherapeuticContext</option>
+                            }
+                            else
+                            {
+                                <option selected value=""></option>
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Chemotherapy_Type)
+                    <div class="col-7 column-input">
+                        <select id="chemotherapyType" class="patient-autocomplete" name="chemotherapyType" placeholder="@sReportsV2.Resources.TextLanguage.Chemotherapy_Type_placeholder" data-no-color-change="true">
+                            @if (Model != null && Model.ChemotherapyType != null)
+                            {
+                                <option value=""></option>
+                                <option selected value="@Model.ChemotherapyType">@Model.ChemotherapyType</option>
+                            }
+                            else
+                            {
+                                <option selected value=""></option>
+                            }
+                        </select>
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Chemotherapy_Course)
+                    <div class="col-7 column-input">
+                        <input type="number" id="chemotherapyCourse" min="1" name="chemotherapyCourse" value="@(Model != null ? Model.ChemotherapyCourse : 1)" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Chemotherapy_Cycle)
+                    <div class="col-7 column-input">
+                        <input type="number" id="chemotherapyCycle" min="1" name="chemotherapyCycle" value="@(Model != null ? Model.ChemotherapyCycle : 1)" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.First_Day_of_Chemotherapy)
+                    <div class="col-7 column-input">
+                        @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                        {
+                            InputAttributes = new Dictionary<object, object> {
+                                { "class", "patient-date-type" },
+                                { "id", "firstDayOfChemotherapy" },
+                                { "name", "firstDayOfChemotherapy" },
+                                { "data-parent-field", ".column-input" },
+                                { "value", Model != null && Model.FirstDayOfChemotherapy != null ? Model.FirstDayOfChemotherapy.Value.ToString(ViewBag.DateFormat) : "" },
+                                { "data-no-color-change", "true" }
+                            }
+                        })
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+                <div class="row pl-0">
+                    @RenderCellName(sReportsV2.Resources.TextLanguage.Consecutive_chemotherapy_days)
+                    <div class="col-7 column-input">
+                        <input type="number" min="1" id="consecutiveChemotherapyDays" name="consecutiveChemotherapyDays" value="@(Model != null && Model.ConsecutiveChemotherapyDays.HasValue ? Model.ConsecutiveChemotherapyDays : 1)" data-no-color-change="true" />
+                        @RenderCellEditIcon(toggleEditBtnClass)
+                    </div>
+                </div>
+            </div>
+        </div>
+        @RenderFormFooter()
+    </div>
+</form>
+
+
+@helper RenderFormHeader()
+{
+    <input type="hidden" id="patientId" name="patientId" value="@(Model != null ? Model.Id : 0)" />
+    if (Model == null)
+    {
+        <div class="row">
+            <div class="col">
+                <span class="smart-oncology-patient-detail-title">@sReportsV2.Resources.TextLanguage.New_Patient</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col">
+                <span class="smart-oncology-patient-detail-title">@sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management</span>
+            </div>
+            <div class="col">
+                <span class="smart-oncology-patient-detail-title ml-2 hidden-md">@sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease</span>
+                <span class="">
+                    <span class="save-btn">
+                        <button class="btn btn-save" type="submit"> @sReportsV2.Resources.TextLanguage.Save</button>
+                    </span>
+                    <span class="cancel-btn" onclick="viewPatient('@Model.Id')">
+                        <a class="btn advanced-cancel">
+                            @sReportsV2.Resources.TextLanguage.Cancel
+                        </a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    }
+}
+
+@helper RenderFormFooter()
+{
+    if (Model == null)
+    {
+        <div class="patient-button-container">
+            <div>
+                <a class="btn advanced-cancel" onclick="backOnCreate()">
+                    @sReportsV2.Resources.TextLanguage.Cancel
+                </a>
+                <button class="btn btn-save" type="submit"> @sReportsV2.Resources.TextLanguage.Save</button>
+            </div>
+        </div>
+    }
+}
+
+@helper RenderCellName(string name)
+{
+    <div class="col-5 column data-name">@name:</div>
+}
+
+@helper RenderCellEditIcon(string toggleEditBtnClass)
+{
+    <img class="edit-patient-field-btn @toggleEditBtnClass" src="~/Content/img/icons/edit_pencil_03.svg" />
+}
+
+<script>
+    $(document).ready(function () {
+        @foreach (KeyValuePair<string, string> entry in autocompleteDictionary)
+        {
+            <text>
+                $('#@entry.Key').select2({
+                    minimumInputLength: 3,
+                    placeholder: '@sReportsV2.Resources.TextLanguage.Type_cmd @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(entry.Key.CapitalizeOnlyFirstLetter()).ToLower()',
+                    allowClear: true,
+                    ajax: {
+                        url: `/SmartOncology/GetAutocompleteEnumData`,
+                        dataType: 'json',
+                        data: function (params) {
+                            return {
+                                Term: params.term, // search term
+                                Page: params.page,
+                                ExcludeId: $('#id').val(),
+                                EnumType: '@entry.Value'
+                            }
+                        }
+                    }
+                });
+            </text>
+        }
+        $('.patient-autocomplete').on('select2:opening select2:closing', function (e) {
+            autocompleteEventHandler(e);
+        });
+        $('.patient-date-type').initDatePicker(true, true);
+    });
+</script>

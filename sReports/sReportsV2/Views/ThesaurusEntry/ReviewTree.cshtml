@@ -50,7 +50,7 @@
 
 
 @Html.Partial("ThesaurusMergeModal")
-@Scripts.Render("~/bundles/reviewThesaurus")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/reviewThesaurus")
 
 <script>
     var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));

@@ -10,6 +10,7 @@ using sReportsV2.DTOs.O4CodeableConcept.DataOut;
 using sReportsV2.DTOs.ThesaurusEntry;
 using sReportsV2.DTOs.ThesaurusEntry.DataOut;
 using sReportsV2.DTOs.ThesaurusEntry.DTO;
+using System.Linq;
 
 namespace sReportsV2.MapperProfiles
 {
@@ -18,7 +19,7 @@ namespace sReportsV2.MapperProfiles
         public ThesaurusEntryProfile()
         {
             CreateMap<Version, VersionDataOut>()
-    .ReverseMap();
+                .ReverseMap();
 
             CreateMap<SimilarTerm, SimilarTermDTO>()
                 .ReverseMap();
@@ -28,12 +29,6 @@ namespace sReportsV2.MapperProfiles
 
             CreateMap<ThesaurusEntry, ThesaurusEntryDataOut>()
                 .ReverseMap();
-
-            CreateMap<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.ThesaurusEntry, ThesaurusEntryDataOut>()
-                .ReverseMap();
-            CreateMap<sReportsV2.Domain.Sql.Entities.ThesaurusEntry.O4CodeableConcept, sReportsV2.DTOs.O4CodeableConcept.DataOut.O4CodeableConceptDataOut>()
-                .ReverseMap();
-
 
             CreateMap<ThesaurusEntryDataOut, ThesaurusEntry>()
                 .ReverseMap();
@@ -59,7 +54,6 @@ namespace sReportsV2.MapperProfiles
                 .ForMember(d => d.Definition, opt => opt.MapFrom(src => src.Definition))
                 .ForMember(d => d.Language, opt => opt.MapFrom(src => src.Language))
                 .ForMember(d => d.PreferredTerm, opt => opt.MapFrom(src => src.PreferredTerm))
-                .ForMember(d => d.SimilarTerms, opt => opt.MapFrom(src => src.SimilarTerms))
                 .ForMember(d => d.Synonyms, opt => opt.MapFrom(src => src.Synonyms))
                 .ReverseMap();
 

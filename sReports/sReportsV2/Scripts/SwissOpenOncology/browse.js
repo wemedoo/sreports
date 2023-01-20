@@ -19,7 +19,7 @@ function reloadTable() {
             $("#pageSizeSelector").hide();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -40,7 +40,6 @@ $('#searchModal').change(function (e) {
 });
 
 $('#searchIcon').on("click", function (e) {
-    $("#searchModal").val($(this).val());
     filterData();
 });
 

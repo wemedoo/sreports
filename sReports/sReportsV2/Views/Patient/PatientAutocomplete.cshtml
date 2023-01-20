@@ -1,0 +1,10 @@
+﻿@using sReportsV2.DTOs.Patient;
+@model List<PatientDataOut>
+
+@foreach (PatientDataOut patient in Model)
+{
+    string name = patient.Name + " " + patient.FamilyName + " " + (patient.BirthDate != null ? patient.BirthDate.Value.ToString("dd/MM/yyyy") : "");
+    <div class="option" data-value="@patient.Id" onclick="editEntity(event,'@patient.Id')">
+        @name
+    </div>
+}

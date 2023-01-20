@@ -1,0 +1,62 @@
+﻿@using sReportsV2.DTOs.Form.DataOut
+
+@model ConsensusOrganizationUserInfoDataOut
+
+<div class="user-filter-part">
+    <div class="consensus-bordered-container">
+        <div class="d-flex world-level">
+            <img class="info-img" src="~/Content/img/icons/world_level.svg">
+            <div class="title-info">
+                <div class="info-title">
+                    World Level
+                </div>
+                <div class="info-title-small">
+                    (upon select focus on country)
+                </div>
+            </div>
+        </div>
+        <div class="wl-items">
+            <div class="world-level-item">
+                <div class="wl-title">
+                    Number of registred organization
+                </div>
+                <div class="wl-value">
+                    @Model.OrganizationsCount
+                </div>
+            </div>
+            <div class="world-level-item">
+                <div class="wl-title">
+                    Number of registred users
+                </div>
+                <div class="wl-value">
+                    @Model.UsersCount
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="user-filter-part">
+    <div class="consensus-bordered-container">
+        <div class="d-flex world-level">
+            <img class="info-img" src="~/Content/img/icons/local.svg">
+            <div class="title-info">
+                <div class="info-title">
+                    Local
+                </div>
+                <div class="info-title-small">
+                    (upon select focus on organization)
+                </div>
+            </div>
+        </div>
+        <div class="wl-items">
+            <div class="world-level-item">
+                <div class="wl-title">
+                    Number of registred organization
+                </div>
+                <div class="wl-value">
+                    @Model.OrganizationsCountByState
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

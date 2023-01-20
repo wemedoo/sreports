@@ -2,9 +2,12 @@
 
 <div class="person-margin">
     <span class="identifiers-info identifier-padd">@sReportsV2.Resources.TextLanguage.Telecoms</span>
-    <button type="button" class="btn btn-add-new float-right" onclick="showTelecomModal(event,'@this.ViewData["Container"].ToString()')">
-        <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
-    </button>
+    @if (!ViewBag.ReadOnly)
+    {
+        <button type="button" class="btn btn-add-new float-right" onclick="showTelecomModal(event,'@this.ViewData["Container"].ToString()')">
+            <i class="fas fa-plus-circle resize-circle"></i> <span class="text-add-new"> @sReportsV2.Resources.TextLanguage.AddNew</span>
+        </button>
+    }
 </div>
 
 <div class="identifier-line"></div>

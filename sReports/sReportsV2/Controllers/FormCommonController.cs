@@ -20,6 +20,7 @@ using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.Common.Extensions;
 using sReportsV2.BusinessLayer.Interfaces;
 using sReportsV2.SqlDomain.Interfaces;
+using sReportsV2.DTOs.Form;
 
 namespace sReportsV2.Controllers
 {
@@ -62,8 +63,7 @@ namespace sReportsV2.Controllers
 
         protected FormDataOut GetFormDataOut(Form form)
         {
-            ViewBag.States = Enum.GetValues(typeof(FormDefinitionState)).Cast<FormDefinitionState>().ToList();
-           
+            ViewBag.States = Enum.GetValues(typeof(FormDefinitionState)).Cast<FormDefinitionState>().ToList();           
             return formBLL.GetFormDataOut(form, userCookieData);
         }
 
@@ -89,6 +89,17 @@ namespace sReportsV2.Controllers
             }
         }
 
+        protected void SetViewBagAndMakeResetAndNeSectionHidden()
+        {
+            ViewBag.ShowResetAndNeSection = false;
+        }
+
+        protected void PopulateFormStates(FormFilterDataIn dataIn)
+        {
+            foreach (var state in (FormDefinitionState[])Enum.GetValues(typeof(FormDefinitionState)))
+                dataIn.FormStates.Add(Resources.TextLanguage.ResourceManager.GetString(state.ToString()));
+        }
+
         #region FormInstanceFromRequest
         protected FormInstance GetFormInstanceSet(Form form)
         {
@@ -109,7 +120,14 @@ namespace sReportsV2.Controllers
 
             result.Id = Request.Form["formInstanceId"];
             result.Referrals = Request.Form["referrals"]?.Split(',')?.ToList() ?? new List<string>();
-            result.LastUpdate = !string.IsNullOrWhiteSpace(Request.Form["LastUpdate"]) ? Convert.ToDateTime(Request.Form["LastUpdate"]) : DateTime.Now;
+            if (string.IsNullOrWhiteSpace(Request.Form["LastUpdate"]))
+            {
+                result.SetLastUpdate();
+            } 
+            else
+            {
+                result.LastUpdate = Convert.ToDateTime(Request.Form["LastUpdate"]);
+            }
 
             SetFieldsIntoFormInstance(result, form);
 
@@ -151,9 +169,10 @@ namespace sReportsV2.Controllers
                 }
             }
 
-            formInstance.Fields = fields.Select(x => new FieldValue() { Id = x.Id, ThesaurusId = x.ThesaurusId, InstanceId = x.InstanceId, Value = x.Value, Type = x.Type }).ToList();
+            formInstance.Fields = fields.Select(x => new FieldValue() { Id = x.Id, ThesaurusId = x.ThesaurusId, InstanceId = x.InstanceId, Value = x.Value, ValueLabel = x.GetValueLabelsFromValue(), Type = x.Type }).ToList();
 
         }
+
         private void RemoveIfExist(List<Field> fields, Field field)
         {
             var fieldExist = fields.FirstOrDefault(x => x.InstanceId == field.InstanceId);

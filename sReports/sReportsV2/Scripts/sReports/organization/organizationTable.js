@@ -7,7 +7,8 @@ function editEntity(event,id) {
     event.preventDefault();
 }
 
-function removeOrganizationEntry(event,id, rowVersion) {
+function removeOrganizationEntry(event, id, rowVersion) {
+    event.preventDefault();
     event.stopPropagation();
     let data = {
         id: id,
@@ -22,18 +23,22 @@ function removeOrganizationEntry(event,id, rowVersion) {
             $(`#row-${id}`).remove();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
 function reloadTable() {
     $('#advancedFilterModal').modal('hide');
+    setFilterFromUrl();
     let requestObject = getFilterParametersObject();
-    setFilterElements();
+    setFilterTagsFromObj(requestObject);
+    setAdvancedFilterBtnStyle(requestObject, ['Name', 'ClinicalDomain', 'Type', 'Page', 'PageSize']);
     checkUrlPageParams();
     requestObject.Page = currentPage;
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     if (!requestObject.Page) {
         requestObject.Page = 1;
@@ -45,9 +50,10 @@ function reloadTable() {
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -62,11 +68,11 @@ function getFilterParametersObject() {
     var identifierType = $("#identifierType").val();
     var identifierValue = $("#identifierValue").val();
     var state = $("#state").val();
-    var country = $("#country").val();
+    var countryId = $("#countryId").val();
     var postalCode = $("#postalCode").val();
     var street = $("#street").val();
     var city = $("#city").val();
-    var parentId = $("#parentId").val();
+    var parentId = $("#parent").val();
     if (defaultFilter) {
         result = getDefaultFilter();
         defaultFilter = null;
@@ -80,24 +86,45 @@ function getFilterParametersObject() {
         addPropertyToObject(result, 'IdentifierType', identifierType);
         addPropertyToObject(result, 'IdentifierValue', identifierValue);
         addPropertyToObject(result, 'State', state);
-        addPropertyToObject(result, 'Country', country);
+        addPropertyToObject(result, 'CountryId', countryId);
         addPropertyToObject(result, 'PostalCode', postalCode);
         addPropertyToObject(result, 'Street', street);
         addPropertyToObject(result, 'ClinicalDomain', clinicalDomain);
-        addPropertyToObject(result, 'ParentId', parentId);
+        addPropertyToObject(result, 'Parent', parentId);
     }
 
     return result;
 }
 
+function getFilterParametersObjectForDisplay(filterObject) {
+    getFilterParameterObjectForDisplay(filterObject, 'IdentifierType');
+    getFilterParameterObjectForDisplay(filterObject, 'Type');
+
+    if (filterObject.hasOwnProperty('Parent')) {
+        let parentDisplay = $('#select2-parent-container').attr('title');
+        if (parentDisplay) {
+            addPropertyToObject(filterObject, 'Parent', parentDisplay);
+        }
+    }
+
+    if (filterObject.hasOwnProperty('CountryId')) {
+        let countryNameByHidden = $('#countryName').val();
+        if (countryNameByHidden) {
+            addPropertyToObject(filterObject, 'CountryId', countryNameByHidden);
+        }
+        let countryNameBySelect2 = $('#select2-countryId-container').attr('title');
+        if (countryNameBySelect2) {
+            addPropertyToObject(filterObject, 'CountryId', countryNameBySelect2);
+        }
+    }
+   
+    return filterObject;
+}
+
 function mainFilter() {
     $('#name').val($('#organizationName').val());
-    $('#checkBoxGroup').val($('#organizationType').val());
+    $('#type').val($('#organizationType').val());
     $('#clinicalDomain').val($('#organizationClinicalDomain').val());
-
-    $('#advancedId').children('div:first').removeClass('btn-advanced');
-    $('#advancedId').find('button:first').addClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'none');
 
     filterData();
     //clearFilters();
@@ -105,12 +132,8 @@ function mainFilter() {
 
 function advanceFilter() {
     $('#organizationName').val($('#name').val());
-    $('#organizationType').val($('#checkBoxGroup').val());
+    $('#organizationType').val($('#type').val());
     $('#organizationClinicalDomain').val($('#clinicalDomain').val());
-
-    $('#advancedId').children('div:first').addClass('btn-advanced');
-    $('#advancedId').find('button:first').removeClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'inline-block');
 
     filterData();
     //clearFilters();

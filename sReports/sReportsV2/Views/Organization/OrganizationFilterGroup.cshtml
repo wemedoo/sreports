@@ -5,7 +5,7 @@
             <div class="label filter-label">
                 @sReportsV2.Resources.TextLanguage.Name
             </div>
-            <input type="text" class="filter-input" id="organizationName">
+            <input type="text" class="filter-input" id="organizationName" value="@(ViewBag.FilterData!= null ? ViewBag.FilterData.Name : "")">
         </div>
         <div class="advanced-filter-item filter-item margin-right-10 advanced-max-width">
             <div class="label filter-label">
@@ -13,9 +13,9 @@
             </div>
             <select class="filter-input arrow-select" id="organizationClinicalDomain">
                 <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
-                @foreach (var option in Enum.GetNames(typeof(DocumentClinicalDomain)))
+                @foreach (var option in Enum.GetNames(typeof(DocumentClinicalDomain)).OrderBy(enm => enm.ToString()))
                 {
-                    <option value="@option">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)</option>
+                    <option value="@option" @(ViewBag.FilterData.ClinicalDomain == option ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(option)</option>
                 }
             </select>
         </div>
@@ -28,7 +28,7 @@
                 <option value=""> @sReportsV2.Resources.TextLanguage.SelectOption</option>
                 @foreach (var option in ViewBag.OrganizationTypes)
                 {
-                    <option value="@option.Thesaurus.Id.ToString()">@option.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</option>
+                    <option value="@option.Thesaurus.Id.ToString()" @(ViewBag.FilterData.Type == option.Thesaurus.Id.ToString() ? "selected" : "")>@option.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage as string)</option>
                 }
             </select>
         </div>

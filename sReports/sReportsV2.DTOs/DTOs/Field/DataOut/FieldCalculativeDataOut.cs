@@ -43,16 +43,5 @@ namespace sReportsV2.DTOs.Field.DataOut
 
         [JsonIgnore]
         public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableCalculativeField.cshtml";
-
-        [JsonIgnore]
-        public override string ValidationAttr
-        {
-            get
-            {
-                string retVal = "";
-                retVal += IsRequired ? " required " : "";
-                return retVal;
-            }
-        }
     }
 }

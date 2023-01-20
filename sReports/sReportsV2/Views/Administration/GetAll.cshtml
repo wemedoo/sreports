@@ -1,11 +1,20 @@
-﻿@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Administration }, { "activeLevel", 1 } })
+﻿@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
 @{
-    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Administration;
+    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.SystemResourceAdministration;
+    var userCookieData = ViewBag.UserCookieData;
+    var selectedPredefinedType = ViewBag.FilterData.PredefinedType;
+    bool codeSystemSelected = selectedPredefinedType == sReportsV2.Common.Enums.CustomEnumType.CodeSystem;
 }
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.SystemResourceAdministration }, { "activeLevel", 1 } })
 <div class="table-container border-0">
     <div class="header header-new padding-top-4">
-        <span class="administration">@sReportsV2.Resources.TextLanguage.Administration</span>
-        <button class="btn btn-create float-right" onclick="createNewType()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.AddNew</button>
+        <span class="administration">@sReportsV2.Resources.TextLanguage.SystemResourceAdministration</span>
+        @if (userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Administration))
+        {
+            <button id="createPredefinedTypeBtn" class="btn btn-create float-right" onclick="@(codeSystemSelected ? "createNewCodeSystem()" : "createNewType()")"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.AddNew</button>
+        }
     </div>
     <div class="form-row predefined-margin">
         <div class="predefined-type">
@@ -16,18 +25,11 @@
                 <option value="">@sReportsV2.Resources.TextLanguage.SelectOption</option>
                 @foreach (var predefinedType in Enum.GetNames(typeof(sReportsV2.Common.Enums.PredefinedType)))
                 {
-                    if (ViewBag.FilterData.PredefinedType != null && ViewBag.FilterData.PredefinedType.ToString() == predefinedType)
-                    {
-                        <option class="head-and-neck-cancer" selected value="@predefinedType">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(predefinedType)</option>
-                    }
-                    else
-                    {
-                        <option class="head-and-neck-cancer" value="@predefinedType">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(predefinedType)</option>
-                    }
+                    bool selected = selectedPredefinedType != null && selectedPredefinedType.ToString() == predefinedType;
+                    <option class="head-and-neck-cancer" @(selected ? "selected" : "") value="@predefinedType">@sReportsV2.Resources.TextLanguage.ResourceManager.GetStringOrDefault(predefinedType)</option>
                 }
             </select>
         </div>
-
         <div class="predefined-item">
             <div class="align-right predefined-filter">
                 <span id="filterTablePredefined" class="filter-predefined" onclick="filterTableData()">@sReportsV2.Resources.TextLanguage.Filter</span>
@@ -53,4 +55,4 @@
     var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
 </script>
 
-@Scripts.Render("~/bundles/administrationPredefined")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/administrationPredefined")

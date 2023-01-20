@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using sReportsV2.Common.Enums;
+﻿using sReportsV2.Common.Enums;
 using sReportsV2.Common.Constants;
 using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.Form;
@@ -17,6 +16,7 @@ using sReportsV2.Domain.Sql.Entities.ThesaurusEntry;
 using sReportsV2.Domain.Sql.Entities.Encounter;
 using sReportsV2.Domain.Sql.Entities.EpisodeOfCare;
 using sReportsV2.Domain.Sql.Entities.Patient;
+using sReportsV2.Common.CustomAttributes;
 
 namespace sReportsV2.Controllers
 {
@@ -85,9 +85,41 @@ namespace sReportsV2.Controllers
             }
 
             formInstance.Id = null;
-            formInstanceService.InsertOrUpdate(formInstance);
+            formInstanceService.InsertOrUpdate(formInstance, formInstance.GetCurrentFormInstanceStatus(userCookieData?.Id));
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [SReportsAuthorize(Permission = PermissionNames.Download, Module = ModuleNames.Engine)]
+        public ActionResult Export(string formInstanceId)
+        {
+            List<PathoLinkField> dataOutFields = new List<PathoLinkField>();
+            FormInstance formInstance = formInstanceService.GetById(formInstanceId);
+            Form form = new Form(formInstance, formService.GetForm(formInstance.FormDefinitionId));
+            form.Id = formInstance.Id;
+            Patient patient = GetPatient(formInstance);
+            
+            if (formInstanceId != null)            
+            {
+                List<ThesaurusEntry> thesauruses = thesaurusDAL.GetByIdsList(form.GetAllThesaurusIds());
+                List<Field> fields = form.GetAllFields().ToList();
+                MapFieldsToPathoLink(form, fields, dataOutFields, thesauruses);
+            }
+
+            PathoLink result = new PathoLink
+            {
+                CaseDetails = new CaseDetails()
+                {
+                    birthday = patient != null && patient.BirthDate.HasValue ? patient.BirthDate.Value.ToString(ViewBag.DateFormat) : "",
+                    dateOfSurgery = formInstance.Date.HasValue ? formInstance.Date.Value.ToString(ViewBag.DateFormat) : "",
+                    gender = patient == null ? "" : patient.Gender == Gender.Male ? "M" : patient.Gender == Gender.Female ? "F" : "",
+                    submissionID = formInstance.Id,
+                    
+                },
+                ClinicalInformation = dataOutFields
+            };
+            SetCustomResponseHeaderForMultiFileDownload();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         private List<string> GetSelectableFieldValueFromPathoLink(List<Field> fields, List<PathoLinkField> patholinkFields, FieldValue fieldValue)
@@ -114,47 +146,23 @@ namespace sReportsV2.Controllers
 
         private void NormalizePathlinkFields(List<PathoLinkField> fields)
         {
-            foreach(PathoLinkField field in fields)
+            foreach (PathoLinkField field in fields)
             {
                 field.RemoveFormIdFromO4MTId();
             }
         }
 
-        // GET: Patholink
-        public ActionResult Export(string formInstanceId)
+        private Patient GetPatient(FormInstance formInstance)
         {
-            List<PathoLinkField> dataOutFields = new List<PathoLinkField>();
-            FormInstance formInstance = formInstanceService.GetById(formInstanceId);
-            Form form = new Form(formInstance, formService.GetForm(formInstance.FormDefinitionId));
-            form.Id = formInstance.Id;
             Encounter encounter = encounterDAL.GetById(formInstance.EncounterRef);
+            if (encounter == null) return null;
             EpisodeOfCare episodeOfCareEntity = episodeOfCareDAL.GetById(encounter.EpisodeOfCareId);
-            Patient patientEntity = patientDAL.GetById(episodeOfCareEntity.PatientId);
-            if(formInstanceId != null)            
-            {
-                List<ThesaurusEntry> thesauruses = thesaurusDAL.GetByIdsList(form.GetAllThesaurusIds());
-                List<Field> fields = form.GetAllFields().ToList();
-                MapFieldsToPathoLink(form, fields, dataOutFields, thesauruses);
-            }
-
-            PathoLink result = new PathoLink
-            {
-                CaseDetails = new CaseDetails()
-                {
-                    birthday = patientEntity.BirthDate != null ? patientEntity.BirthDate.Value.ToShortDateString() : "",
-                    dateOfSurgery = formInstance.Date.ToString(),
-                    gender = patientEntity.Gender == Gender.Male ? "M" : patientEntity.Gender == Gender.Female ? "F" : "",
-                    submissionID = formInstance.Id,
-                    
-                },
-                ClinicalInformation = dataOutFields
-            };
-            return Json(result, JsonRequestBehavior.AllowGet);
+            
+            return patientDAL.GetById(episodeOfCareEntity.PatientId);
         }
 
         private void MapFieldsToPathoLink(Form formInstance, List<Field> fields, List<PathoLinkField> dataOutFields, List<ThesaurusEntry> thesauruses, string namePrefix = "")
         {
-
             foreach (Field field in fields)
             {
                 ParseToPathoLinkField(field, formInstance, dataOutFields,thesauruses, namePrefix);
@@ -163,24 +171,22 @@ namespace sReportsV2.Controllers
 
         private void ParseToPathoLinkField(Field field, Form formInstance, List<PathoLinkField> dataOutFields, List<ThesaurusEntry> thesauruses, string namePrefix)
         {
-            if (field.Type.Equals(FieldTypes.Radio) || field.Type == FieldTypes.Checkbox || field.Type == FieldTypes.Select)
+            if (field is FieldSelectable selectable)
             {
-                InsertSelectableField(formInstance, (FieldSelectable)field, dataOutFields,thesauruses, namePrefix);
+                InsertSelectableField(formInstance, selectable, dataOutFields,thesauruses, namePrefix);
             }
             else
             {
-                InsertNonSelectableField(formInstance.Id, (FieldString)field, dataOutFields,thesauruses, namePrefix);
+                InsertNonSelectableField(formInstance.Id, field, dataOutFields,thesauruses, namePrefix);
             }
         }
 
-        private void InsertNonSelectableField(string formInstanceId, FieldString field, List<PathoLinkField> dataOutFields, List<ThesaurusEntry> thesauruses, string namePrefix)
+        private void InsertNonSelectableField(string formInstanceId, Field field, List<PathoLinkField> dataOutFields, List<ThesaurusEntry> thesauruses, string namePrefix)
         {
-            string id = thesauruses.FirstOrDefault(x => x.Id.Equals(field.ThesaurusId))?.Codes?.FirstOrDefault(z => z.System.Equals("Patholink"))?.Code;
             string o40mtid = $"{formInstanceId}-{field.Id}";
             PathoLinkField pathLinkField = new PathoLinkField
             {
-                value = field.GetValue(),
-                id = id,
+                value = field.GetPatholinkValue(Resources.TextLanguage.N_E),
                 name = string.IsNullOrWhiteSpace(namePrefix) ? $"[{field.Label}] [{field.Label}]" : $"{namePrefix} [{field.Label}]",
                 defaultValue = string.Empty,
                 type = field.Type,
@@ -197,24 +203,16 @@ namespace sReportsV2.Controllers
         {
             field.Values.ForEach(x =>
             {
-                string id = thesauruses.FirstOrDefault(y => y.Id.ToString().Equals(x.ThesaurusId))?.Codes?.FirstOrDefault(z => z.System.Equals("Patholink"))?.Code;
-
                 string name = string.IsNullOrWhiteSpace(namePrefix) ? $"[{field.Label}] [{x.Value}]" : $"{namePrefix} [{field.Label}] [{x.Value}]";
                 string o40mtid = $"{formInstance.Id}-{field.Id}-{x.ThesaurusId}";
                 PathoLinkField pathLinkField = new PathoLinkField
                 {
-                    value = field.Value != null && field.Value.Count > 0 && field.Value[0].Contains(x.Value) ? "true" : "",
-                    id = id,
+                    value = field.GetPatholinkValue(Resources.TextLanguage.N_E, field.Type == FieldTypes.Radio ? x.ThesaurusId.ToString() : x.Value),
                     name = name,
                     defaultValue = "false",
                     type = field.Type,
                     o40MtId = o40mtid
                 };
-
-                if (field.Type == FieldTypes.Radio) 
-                {
-                    pathLinkField.value = field.Value != null && field.Value.Count > 0 && field.Value[0].Contains(x.ThesaurusId.ToString()) ? "true" : "";
-                }
 
                 if (!dataOutFields.Any(y => y.o40MtId.Equals(o40mtid)))
                 {

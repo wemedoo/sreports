@@ -11,8 +11,8 @@
                 showOrHideRepetitiveFields(stringFields.includes(selectetFieldType));
                 $('#customFields').html(data);
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                toastr.error(jqXHR.responseText);
+            error: function (xhr, textStatus, thrownError) {
+                handleResponseError(xhr, thrownError);
             }
         })
     }

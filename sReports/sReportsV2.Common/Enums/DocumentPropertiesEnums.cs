@@ -177,11 +177,11 @@ namespace sReportsV2.Common.Enums.DocumentPropertiesEnums
         WoundOstomyAndContinenceCare,
 
         AccidentAndEmergencyMedicine,
-        Alleorgology,
+        Allergology,
         Anaestetics,
         Cardiology,
         ChildPsyhiatry,
-        ClinicalBilology,
+        ClinicalBiology,
         ClinicalChemistry,
         ClinicalNeurophysiology,
         CraniofacialSurgery,
@@ -233,7 +233,7 @@ namespace sReportsV2.Common.Enums.DocumentPropertiesEnums
         Venereology,
         PreClinicalResearch,
         VeterinaryMedicine,
-
+        ClinicalMicrobiology
     }
 
     [JsonConverter(typeof(StringEnumConverter))]

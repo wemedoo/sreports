@@ -9,4 +9,4 @@
 </div>
 
 
-<script src="~/Scripts/sReports/export_csv.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/sReports/export_csv.js")

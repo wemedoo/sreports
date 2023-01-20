@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.UMLSEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class MRDEFEntity : Entity
     {
         [BsonId]
@@ -33,10 +34,8 @@ namespace sReportsV2.Domain.Entities.UMLSEntities
             this.DEF = def;
             this.SUPPRESS = suppress;
             this.CVF = cvf;
-            this.EntryDatetime = DateTime.Now;
-            this.LastUpdate = DateTime.Now;
             this.IsDeleted = false;
-
+            this.Copy(null);
         }
     }
 }

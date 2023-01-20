@@ -1,17 +1,49 @@
-﻿@{
-    ViewData["Title"] = @sReportsV2.Resources.TextLanguage.User_Administration;
+﻿@using sReportsV2.Common.Constants;
+@{
+    ViewBag.Title = @sReportsV2.Resources.TextLanguage.User_Administration;
+    var userCookieData = ViewBag.UserCookieData;
+    bool showUnassignedUsers = ViewBag.FilterData.ShowUnassignedUsers;
 }
+
+@section Stylesheet
+{
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/toggle-switch-button.css")
+}
+
 @Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Users }, { "activeLevel", 1 } })
 
-    <div class="table-container border-0">
-        <div class="header header-new">
-            @sReportsV2.Resources.TextLanguage.Users
+<div class="table-container border-0">
+    <div class="header header-new">
+        @sReportsV2.Resources.TextLanguage.Users
+        @if (userCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Administration))
+        {
             <button class="btn btn-create float-right" onclick="createUserEntry()"><i class="fas fa-plus-circle"></i> @sReportsV2.Resources.TextLanguage.Create</button>
+        }
+    </div>
+    @if (userCookieData.UserHasAnyOfRole(SmartOncologyRoleNames.SuperAdministrator))
+    {
+        <div>
+            @RenderToggleSwitchButton(showUnassignedUsers)
         </div>
-        <div id="tableContainer">
-
-        </div>
+    }
+    <div id="tableContainer">
 
     </div>
+</div>
 
-@Scripts.Render("~/bundles/userGetAll")
+@helper RenderToggleSwitchButton(bool showUnassignedUsers)
+{
+    <div class="float-right margin-bottom-10">
+        <input class='tgl-switch' id='showUnassignedUsers' type='checkbox' @(showUnassignedUsers ? "checked" : "")>
+        <label class='tgl-switch-btn' for='showUnassignedUsers'>
+            <label class="tgl-label unchecked-value">@sReportsV2.Resources.TextLanguage.Active</label>
+            <label class="tgl-label checked-value">@sReportsV2.Resources.TextLanguage.Inactive</label>
+        </label>
+    </div>
+}
+
+<script>
+    var defaultFilter = @Html.Raw(Json.Encode(ViewBag.FilterData));
+</script>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/userGetAll")

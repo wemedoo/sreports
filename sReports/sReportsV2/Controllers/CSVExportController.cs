@@ -89,7 +89,8 @@ namespace sReportsV2.Controllers
                     if(umls.Ui != "NONE")
                         sb.AppendLine(umls.Ui + "," + umls.RootSource + "," + "\"" + umls.Name + "\"" + "," + "\"" + definition + "\"" + "," + "\"" + atom + "\"" + "," + "\"" + semanticTypes + "\"");
                 }
-                currentPage = !result.Result.Results[0].Name.Equals("NO RESULTS") ? currentPage + 1 : -1;
+                bool hasNoResults = result.Result.Results.Count == 0 || result.Result.Results[0].Name.Equals("NO RESULTS"); 
+                currentPage = hasNoResults ? -1 : currentPage + 1;
             }
 
             return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv");

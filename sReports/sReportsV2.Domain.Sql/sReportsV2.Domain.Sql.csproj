@@ -10,11 +10,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>sReportsV2.Domain.Sql</RootNamespace>
     <AssemblyName>sReportsV2.Domain.Sql</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,22 +34,105 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Azure.Core, Version=1.15.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.15.0\lib\net461\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.1.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Identity.1.1.1\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.2.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.2.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Azure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Azure.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Azure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.33.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.33.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\System.ComponentModel.DataAnnotations.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.ProtectedData.4.5.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.2\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.6.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,9 +141,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Common\TelecomBase.cs" />
+    <Compile Include="Entities\Patient\PatientTelecom.cs" />
+    <Compile Include="Entities\User\UserView.cs" />
+    <Compile Include="MigrationHelper.cs" />
+    <Compile Include="Entities\AccessManagment\Module.cs" />
+    <Compile Include="Entities\AccessManagment\Permission.cs" />
+    <Compile Include="Entities\AccessManagment\PermissionModule.cs" />
+    <Compile Include="Entities\AccessManagment\PermissionRole.cs" />
     <Compile Include="Entities\Base\Entity.cs" />
+    <Compile Include="Entities\ChemotherapySchemaInstance\ChemotherapySchemaInstance.cs" />
+    <Compile Include="Entities\ChemotherapySchemaInstance\ChemotherapySchemaInstanceVersion.cs" />
+    <Compile Include="Entities\ChemotherapySchemaInstance\MedicationDoseInstance.cs" />
+    <Compile Include="Entities\ChemotherapySchemaInstance\MedicationDoseTimeInstance.cs" />
+    <Compile Include="Entities\ChemotherapySchemaInstance\MedicationInstance.cs" />
+    <Compile Include="Entities\ChemotherapySchemaInstance\MedicationReplacement.cs" />
+    <Compile Include="Entities\ChemotherapySchema\BodySurfaceCalculationFormula.cs" />
+    <Compile Include="Entities\ChemotherapySchema\ChemotherapySchema.cs" />
+    <Compile Include="Entities\ChemotherapySchema\Indication.cs" />
+    <Compile Include="Entities\ChemotherapySchema\LiteratureReference.cs" />
+    <Compile Include="Entities\ChemotherapySchema\Medication.cs" />
+    <Compile Include="Entities\ChemotherapySchema\MedicationDose.cs" />
+    <Compile Include="Entities\ChemotherapySchema\MedicationDoseTime.cs" />
+    <Compile Include="Entities\ChemotherapySchema\MedicationDoseType.cs" />
+    <Compile Include="Entities\ChemotherapySchema\RouteOfAdministration.cs" />
+    <Compile Include="Entities\ChemotherapySchema\Unit.cs" />
     <Compile Include="Entities\CodeSystem\CodeSystem.cs" />
     <Compile Include="Entities\Common\Address.cs" />
+    <Compile Include="Entities\Common\AddressBase.cs" />
+    <Compile Include="Entities\Common\AutoCompleteData.cs" />
     <Compile Include="Entities\Common\CustomEnum.cs" />
     <Compile Include="Entities\Common\Identifier.cs" />
     <Compile Include="Entities\Common\Name.cs" />
@@ -75,6 +185,8 @@
     <Compile Include="Entities\EpisodeOfCare\EpisodeOfCareWorkflow.cs" />
     <Compile Include="Entities\FormComment\Comment.cs" />
     <Compile Include="Entities\GlobalThesaurusUser\GlobalThesaurusUser.cs" />
+    <Compile Include="Entities\GlobalThesaurusUser\GlobalThesaurusUserRole.cs" />
+    <Compile Include="Entities\GlobalThesaurusUser\GlobalThesaurusRole.cs" />
     <Compile Include="Entities\Organization\ClinicalDomain.cs" />
     <Compile Include="Entities\Organization\Organization.cs" />
     <Compile Include="Entities\Organization\OrganizationClinicalDomain.cs" />
@@ -85,7 +197,12 @@
     <Compile Include="Entities\Patient\Contact.cs" />
     <Compile Include="Entities\Patient\MultipleBirth.cs" />
     <Compile Include="Entities\Patient\Patient.cs" />
+    <Compile Include="Entities\Base\PatientBase.cs" />
+    <Compile Include="Entities\Patient\PatientAddress.cs" />
     <Compile Include="Entities\Patient\PatientFilter.cs" />
+    <Compile Include="Entities\Patient\PatientSearchFilter.cs" />
+    <Compile Include="Entities\RoleEntry\RoleFilter.cs" />
+    <Compile Include="Entities\SmartOncologyPatient\SmartOncologyPatient.cs" />
     <Compile Include="Entities\ThesaurusEntry\AdministrativeData.cs" />
     <Compile Include="Entities\ThesaurusEntry\GlobalThesaurusFilter.cs" />
     <Compile Include="Entities\ThesaurusEntry\O4CodeableConcept.cs" />
@@ -97,15 +214,19 @@
     <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryFilterData.cs" />
     <Compile Include="Entities\ThesaurusEntry\ThesaurusEntryTranslation.cs" />
     <Compile Include="Entities\ThesaurusEntry\ThesaurusFilter.cs" />
+    <Compile Include="Entities\ThesaurusEntry\ThesaurusMerge.cs" />
     <Compile Include="Entities\ThesaurusEntry\ThesaurusReviewFilterData.cs" />
     <Compile Include="Entities\ThesaurusEntry\TranslationBulkInfo.cs" />
     <Compile Include="Entities\ThesaurusEntry\Version.cs" />
-    <Compile Include="Entities\User\Role.cs" />
+    <Compile Include="Entities\User\AcademicPositionType.cs" />
+    <Compile Include="Entities\AccessManagment\Role.cs" />
     <Compile Include="Entities\User\User.cs" />
+    <Compile Include="Entities\User\UserAcademicPosition.cs" />
     <Compile Include="Entities\User\UserClinicalTrial.cs" />
     <Compile Include="Entities\User\UserConfig.cs" />
+    <Compile Include="Entities\User\UserFilter.cs" />
     <Compile Include="Entities\User\UserOrganization.cs" />
-    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Entities\User\UserRole.cs" />
     <Compile Include="Migrations\202105281507127_Initial.cs" />
     <Compile Include="Migrations\202105281507127_Initial.Designer.cs">
       <DependentUpon>202105281507127_Initial.cs</DependentUpon>
@@ -114,15 +235,225 @@
     <Compile Include="Migrations\202106011050210_OrganizationType.Designer.cs">
       <DependentUpon>202106011050210_OrganizationType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106291034207_OrganizationRole.cs" />
+    <Compile Include="Migrations\202106291034207_OrganizationRole.designer.cs">
+      <DependentUpon>202106291034207_OrganizationRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107051435118_AcademicPositionType.cs" />
+    <Compile Include="Migrations\202107051435118_AcademicPositionType.designer.cs">
+      <DependentUpon>202107051435118_AcademicPositionType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107061212134_Empty.cs" />
+    <Compile Include="Migrations\202107061212134_Empty.designer.cs">
+      <DependentUpon>202107061212134_Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107161440279_ThesaurusMerge_MigrateToSql.cs" />
+    <Compile Include="Migrations\202107161440279_ThesaurusMerge_MigrateToSql.designer.cs">
+      <DependentUpon>202107161440279_ThesaurusMerge_MigrateToSql.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107211437301_PersonalEmail.cs" />
+    <Compile Include="Migrations\202107211437301_PersonalEmail.designer.cs">
+      <DependentUpon>202107211437301_PersonalEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107301443311_SuggestedForms_MigrateToSql.cs" />
+    <Compile Include="Migrations\202107301443311_SuggestedForms_MigrateToSql.designer.cs">
+      <DependentUpon>202107301443311_SuggestedForms_MigrateToSql.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108111259550_Remove_Organization_Role.cs" />
+    <Compile Include="Migrations\202108111259550_Remove_Organization_Role.designer.cs">
+      <DependentUpon>202108111259550_Remove_Organization_Role.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108160750055_AccessManagment.cs" />
+    <Compile Include="Migrations\202108160750055_AccessManagment.designer.cs">
+      <DependentUpon>202108160750055_AccessManagment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108240629100_UserRole.cs" />
+    <Compile Include="Migrations\202108240629100_UserRole.designer.cs">
+      <DependentUpon>202108240629100_UserRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108300856351_ResourcesByOrganization.cs" />
+    <Compile Include="Migrations\202108300856351_ResourcesByOrganization.designer.cs">
+      <DependentUpon>202108300856351_ResourcesByOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110061302510_UpdatePermissions.cs" />
+    <Compile Include="Migrations\202110061302510_UpdatePermissions.designer.cs">
+      <DependentUpon>202110061302510_UpdatePermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110141243564_SmartOncologyPatient.cs" />
+    <Compile Include="Migrations\202110141243564_SmartOncologyPatient.designer.cs">
+      <DependentUpon>202110141243564_SmartOncologyPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111011541495_GlobalThesaurusUserRole.cs" />
+    <Compile Include="Migrations\202111011541495_GlobalThesaurusUserRole.designer.cs">
+      <DependentUpon>202111011541495_GlobalThesaurusUserRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111101421490_SmartOncologyConsecutiveChemotherapyDays.cs" />
+    <Compile Include="Migrations\202111101421490_SmartOncologyConsecutiveChemotherapyDays.designer.cs">
+      <DependentUpon>202111101421490_SmartOncologyConsecutiveChemotherapyDays.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111181615013_ChemotherapySchemaDefinition.cs" />
+    <Compile Include="Migrations\202111181615013_ChemotherapySchemaDefinition.designer.cs">
+      <DependentUpon>202111181615013_ChemotherapySchemaDefinition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111251653450_ChemotherapySchemaInstance.cs" />
+    <Compile Include="Migrations\202111251653450_ChemotherapySchemaInstance.designer.cs">
+      <DependentUpon>202111251653450_ChemotherapySchemaInstance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111291532321_UnitEntity.cs" />
+    <Compile Include="Migrations\202111291532321_UnitEntity.designer.cs">
+      <DependentUpon>202111291532321_UnitEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112021310043_RemoveDanglingIndications.cs" />
+    <Compile Include="Migrations\202112021310043_RemoveDanglingIndications.designer.cs">
+      <DependentUpon>202112021310043_RemoveDanglingIndications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112061311252_ChemotherapySchemaChanges.cs" />
+    <Compile Include="Migrations\202112061311252_ChemotherapySchemaChanges.designer.cs">
+      <DependentUpon>202112061311252_ChemotherapySchemaChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112061315065_MedicationDoseCopyValuesFromIntervalToIntervalId.cs" />
+    <Compile Include="Migrations\202112061315065_MedicationDoseCopyValuesFromIntervalToIntervalId.designer.cs">
+      <DependentUpon>202112061315065_MedicationDoseCopyValuesFromIntervalToIntervalId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112061317416_MedicationDoseRemoveIntervalColumn.cs" />
+    <Compile Include="Migrations\202112061317416_MedicationDoseRemoveIntervalColumn.designer.cs">
+      <DependentUpon>202112061317416_MedicationDoseRemoveIntervalColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112071012050_MedicationAndInstanceDoseUpdate.cs" />
+    <Compile Include="Migrations\202112071012050_MedicationAndInstanceDoseUpdate.designer.cs">
+      <DependentUpon>202112071012050_MedicationAndInstanceDoseUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112081011297_IntervalIdNullable.cs" />
+    <Compile Include="Migrations\202112081011297_IntervalIdNullable.designer.cs">
+      <DependentUpon>202112081011297_IntervalIdNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112131420442_ChemotherapySchemaInstanceChanges.cs" />
+    <Compile Include="Migrations\202112131420442_ChemotherapySchemaInstanceChanges.designer.cs">
+      <DependentUpon>202112131420442_ChemotherapySchemaInstanceChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112131422352_ChemotherapySchemaInstanceCopyValues.cs" />
+    <Compile Include="Migrations\202112131422352_ChemotherapySchemaInstanceCopyValues.designer.cs">
+      <DependentUpon>202112131422352_ChemotherapySchemaInstanceCopyValues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112131424230_ChemotherapySchemaInstanceFK.cs" />
+    <Compile Include="Migrations\202112131424230_ChemotherapySchemaInstanceFK.Designer.cs">
+      <DependentUpon>202112131424230_ChemotherapySchemaInstanceFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112210710181_UserSaltProperty.cs" />
+    <Compile Include="Migrations\202112210710181_UserSaltProperty.designer.cs">
+      <DependentUpon>202112210710181_UserSaltProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112210945410_PasswordHash.cs" />
+    <Compile Include="Migrations\202112210945410_PasswordHash.designer.cs">
+      <DependentUpon>202112210945410_PasswordHash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112220944063_ChemotherapySchemaInstanceHistory.cs" />
+    <Compile Include="Migrations\202112220944063_ChemotherapySchemaInstanceHistory.designer.cs">
+      <DependentUpon>202112220944063_ChemotherapySchemaInstanceHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112230959365_ChemotherapySchemaInstanceHistoryComment.cs" />
+    <Compile Include="Migrations\202112230959365_ChemotherapySchemaInstanceHistoryComment.designer.cs">
+      <DependentUpon>202112230959365_ChemotherapySchemaInstanceHistoryComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112291218294_ChemotherapySchemaInstanceMedications.cs" />
+    <Compile Include="Migrations\202112291218294_ChemotherapySchemaInstanceMedications.designer.cs">
+      <DependentUpon>202112291218294_ChemotherapySchemaInstanceMedications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202210111516486_InitImpressum.cs" />
+    <Compile Include="Migrations\202210111516486_InitImpressum.designer.cs">
+      <DependentUpon>202210111516486_InitImpressum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211150917445_UserView.cs" />
+    <Compile Include="Migrations\202211150917445_UserView.designer.cs">
+      <DependentUpon>202211150917445_UserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211170817439_AddEntityParentToAddress.cs" />
+    <Compile Include="Migrations\202211170817439_AddEntityParentToAddress.designer.cs">
+      <DependentUpon>202211170817439_AddEntityParentToAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211170842595_AddManyPatientAddresses.cs" />
+    <Compile Include="Migrations\202211170842595_AddManyPatientAddresses.designer.cs">
+      <DependentUpon>202211170842595_AddManyPatientAddresses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211170925370_SavePatientAddressData.cs" />
+    <Compile Include="Migrations\202211170925370_SavePatientAddressData.designer.cs">
+      <DependentUpon>202211170925370_SavePatientAddressData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211171025163_RemoveOnlyOnePatientAddress.cs" />
+    <Compile Include="Migrations\202211171025163_RemoveOnlyOnePatientAddress.designer.cs">
+      <DependentUpon>202211171025163_RemoveOnlyOnePatientAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211231104555_AddStartDateEndDateToEntity.cs" />
+    <Compile Include="Migrations\202211231104555_AddStartDateEndDateToEntity.designer.cs">
+      <DependentUpon>202211231104555_AddStartDateEndDateToEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211280840519_AddActivePropertyToEntity.cs" />
+    <Compile Include="Migrations\202211280840519_AddActivePropertyToEntity.designer.cs">
+      <DependentUpon>202211280840519_AddActivePropertyToEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211280857451_AddIndexesToEntity.cs" />
+    <Compile Include="Migrations\202211280857451_AddIndexesToEntity.designer.cs">
+      <DependentUpon>202211280857451_AddIndexesToEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211280950009_AddEntityParentToTelecoms.cs" />
+    <Compile Include="Migrations\202211280950009_AddEntityParentToTelecoms.designer.cs">
+      <DependentUpon>202211280950009_AddEntityParentToTelecoms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211281051153_AddManyPatientTelecoms.cs" />
+    <Compile Include="Migrations\202211281051153_AddManyPatientTelecoms.designer.cs">
+      <DependentUpon>202211281051153_AddManyPatientTelecoms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211281236585_SavePatientTelecomData.cs" />
+    <Compile Include="Migrations\202211281236585_SavePatientTelecomData.designer.cs">
+      <DependentUpon>202211281236585_SavePatientTelecomData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211281243373_RemoveTelecomsAttributeFromPatient.cs" />
+    <Compile Include="Migrations\202211281243373_RemoveTelecomsAttributeFromPatient.designer.cs">
+      <DependentUpon>202211281243373_RemoveTelecomsAttributeFromPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211281251106_AddIndexesAndVersioningForTelecoms.cs" />
+    <Compile Include="Migrations\202211281251106_AddIndexesAndVersioningForTelecoms.designer.cs">
+      <DependentUpon>202211281251106_AddIndexesAndVersioningForTelecoms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211281502238_AddCreatedByToEntity.cs" />
+    <Compile Include="Migrations\202211281502238_AddCreatedByToEntity.designer.cs">
+      <DependentUpon>202211281502238_AddCreatedByToEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211291524315_AddPatientSpecificProperties.cs" />
+    <Compile Include="Migrations\202211291524315_AddPatientSpecificProperties.designer.cs">
+      <DependentUpon>202211291524315_AddPatientSpecificProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211301529552_AddAddressType.cs" />
+    <Compile Include="Migrations\202211301529552_AddAddressType.designer.cs">
+      <DependentUpon>202211301529552_AddAddressType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212011044432_AddTempCountryTable.cs" />
+    <Compile Include="Migrations\202212011044432_AddTempCountryTable.designer.cs">
+      <DependentUpon>202212011044432_AddTempCountryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212011117456_MapCountryToCustomEnum.cs" />
+    <Compile Include="Migrations\202212011117456_MapCountryToCustomEnum.designer.cs">
+      <DependentUpon>202212011117456_MapCountryToCustomEnum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212011250063_SetCountryDataFromTempTable.cs" />
+    <Compile Include="Migrations\202212011250063_SetCountryDataFromTempTable.designer.cs">
+      <DependentUpon>202212011250063_SetCountryDataFromTempTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212061246493_UserViewAddMissingAttributes.cs" />
+    <Compile Include="Migrations\202212061246493_UserViewAddMissingAttributes.designer.cs">
+      <DependentUpon>202212061246493_UserViewAddMissingAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212160841237_DbNamingConvention.cs" />
+    <Compile Include="Migrations\202212160841237_DbNamingConvention.designer.cs">
+      <DependentUpon>202212160841237_DbNamingConvention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212160843155_DbNamingConvention2.cs" />
+    <Compile Include="Migrations\202212160843155_DbNamingConvention2.designer.cs">
+      <DependentUpon>202212160843155_DbNamingConvention2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sReportsContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
-      <Project>{445B106A-0B89-41E7-BB97-AF841F375718}</Project>
-      <Name>sReportsV2.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -135,7 +466,177 @@
     <EmbeddedResource Include="Migrations\202106011050210_OrganizationType.resx">
       <DependentUpon>202106011050210_OrganizationType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106291034207_OrganizationRole.resx">
+      <DependentUpon>202106291034207_OrganizationRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107051435118_AcademicPositionType.resx">
+      <DependentUpon>202107051435118_AcademicPositionType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107061212134_Empty.resx">
+      <DependentUpon>202107061212134_Empty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107161440279_ThesaurusMerge_MigrateToSql.resx">
+      <DependentUpon>202107161440279_ThesaurusMerge_MigrateToSql.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107211437301_PersonalEmail.resx">
+      <DependentUpon>202107211437301_PersonalEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107301443311_SuggestedForms_MigrateToSql.resx">
+      <DependentUpon>202107301443311_SuggestedForms_MigrateToSql.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108111259550_Remove_Organization_Role.resx">
+      <DependentUpon>202108111259550_Remove_Organization_Role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108160750055_AccessManagment.resx">
+      <DependentUpon>202108160750055_AccessManagment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108240629100_UserRole.resx">
+      <DependentUpon>202108240629100_UserRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108300856351_ResourcesByOrganization.resx">
+      <DependentUpon>202108300856351_ResourcesByOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110061302510_UpdatePermissions.resx">
+      <DependentUpon>202110061302510_UpdatePermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110141243564_SmartOncologyPatient.resx">
+      <DependentUpon>202110141243564_SmartOncologyPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111011541495_GlobalThesaurusUserRole.resx">
+      <DependentUpon>202111011541495_GlobalThesaurusUserRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111101421490_SmartOncologyConsecutiveChemotherapyDays.resx">
+      <DependentUpon>202111101421490_SmartOncologyConsecutiveChemotherapyDays.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111181615013_ChemotherapySchemaDefinition.resx">
+      <DependentUpon>202111181615013_ChemotherapySchemaDefinition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111251653450_ChemotherapySchemaInstance.resx">
+      <DependentUpon>202111251653450_ChemotherapySchemaInstance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111291532321_UnitEntity.resx">
+      <DependentUpon>202111291532321_UnitEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112021310043_RemoveDanglingIndications.resx">
+      <DependentUpon>202112021310043_RemoveDanglingIndications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061311252_ChemotherapySchemaChanges.resx">
+      <DependentUpon>202112061311252_ChemotherapySchemaChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061315065_MedicationDoseCopyValuesFromIntervalToIntervalId.resx">
+      <DependentUpon>202112061315065_MedicationDoseCopyValuesFromIntervalToIntervalId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112061317416_MedicationDoseRemoveIntervalColumn.resx">
+      <DependentUpon>202112061317416_MedicationDoseRemoveIntervalColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112071012050_MedicationAndInstanceDoseUpdate.resx">
+      <DependentUpon>202112071012050_MedicationAndInstanceDoseUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112081011297_IntervalIdNullable.resx">
+      <DependentUpon>202112081011297_IntervalIdNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112131420442_ChemotherapySchemaInstanceChanges.resx">
+      <DependentUpon>202112131420442_ChemotherapySchemaInstanceChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112131422352_ChemotherapySchemaInstanceCopyValues.resx">
+      <DependentUpon>202112131422352_ChemotherapySchemaInstanceCopyValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112131424230_ChemotherapySchemaInstanceFK.resx">
+      <DependentUpon>202112131424230_ChemotherapySchemaInstanceFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112210710181_UserSaltProperty.resx">
+      <DependentUpon>202112210710181_UserSaltProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112210945410_PasswordHash.resx">
+      <DependentUpon>202112210945410_PasswordHash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112220944063_ChemotherapySchemaInstanceHistory.resx">
+      <DependentUpon>202112220944063_ChemotherapySchemaInstanceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112230959365_ChemotherapySchemaInstanceHistoryComment.resx">
+      <DependentUpon>202112230959365_ChemotherapySchemaInstanceHistoryComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112291218294_ChemotherapySchemaInstanceMedications.resx">
+      <DependentUpon>202112291218294_ChemotherapySchemaInstanceMedications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202210111516486_InitImpressum.resx">
+      <DependentUpon>202210111516486_InitImpressum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211150917445_UserView.resx">
+      <DependentUpon>202211150917445_UserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211170817439_AddEntityParentToAddress.resx">
+      <DependentUpon>202211170817439_AddEntityParentToAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211170842595_AddManyPatientAddresses.resx">
+      <DependentUpon>202211170842595_AddManyPatientAddresses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211170925370_SavePatientAddressData.resx">
+      <DependentUpon>202211170925370_SavePatientAddressData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211171025163_RemoveOnlyOnePatientAddress.resx">
+      <DependentUpon>202211171025163_RemoveOnlyOnePatientAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211231104555_AddStartDateEndDateToEntity.resx">
+      <DependentUpon>202211231104555_AddStartDateEndDateToEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211280840519_AddActivePropertyToEntity.resx">
+      <DependentUpon>202211280840519_AddActivePropertyToEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211280857451_AddIndexesToEntity.resx">
+      <DependentUpon>202211280857451_AddIndexesToEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211280950009_AddEntityParentToTelecoms.resx">
+      <DependentUpon>202211280950009_AddEntityParentToTelecoms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211281051153_AddManyPatientTelecoms.resx">
+      <DependentUpon>202211281051153_AddManyPatientTelecoms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211281236585_SavePatientTelecomData.resx">
+      <DependentUpon>202211281236585_SavePatientTelecomData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211281243373_RemoveTelecomsAttributeFromPatient.resx">
+      <DependentUpon>202211281243373_RemoveTelecomsAttributeFromPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211281251106_AddIndexesAndVersioningForTelecoms.resx">
+      <DependentUpon>202211281251106_AddIndexesAndVersioningForTelecoms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211281502238_AddCreatedByToEntity.resx">
+      <DependentUpon>202211281502238_AddCreatedByToEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211291524315_AddPatientSpecificProperties.resx">
+      <DependentUpon>202211291524315_AddPatientSpecificProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211301529552_AddAddressType.resx">
+      <DependentUpon>202211301529552_AddAddressType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212011044432_AddTempCountryTable.resx">
+      <DependentUpon>202212011044432_AddTempCountryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212011117456_MapCountryToCustomEnum.resx">
+      <DependentUpon>202212011117456_MapCountryToCustomEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212011250063_SetCountryDataFromTempTable.resx">
+      <DependentUpon>202212011250063_SetCountryDataFromTempTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212061246493_UserViewAddMissingAttributes.resx">
+      <DependentUpon>202212061246493_UserViewAddMissingAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212160841237_DbNamingConvention.resx">
+      <DependentUpon>202212160841237_DbNamingConvention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212160843155_DbNamingConvention2.resx">
+      <DependentUpon>202212160843155_DbNamingConvention2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
+      <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
+      <Name>sReportsV2.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

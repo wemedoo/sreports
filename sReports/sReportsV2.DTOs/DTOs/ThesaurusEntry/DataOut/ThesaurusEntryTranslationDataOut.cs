@@ -10,7 +10,6 @@ namespace sReportsV2.DTOs.ThesaurusEntry.DataOut
         public string Language { get; set; }
         public string Definition { get; set; }
         public string PreferredTerm { get; set; }
-        public List<SimilarTermDataOut> SimilarTerms { get; set; }
         public List<string> Synonyms { get; set; }
         public List<string> Abbreviations { get; set; }
     }

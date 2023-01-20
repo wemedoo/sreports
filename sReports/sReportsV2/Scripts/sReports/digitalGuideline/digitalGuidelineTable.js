@@ -1,10 +1,13 @@
 ﻿function reloadTable() {
     $('#advancedFilterModal').modal('hide');
-    setFilterElements();
+    setFilterTagsFromUrl();
     setFilterFromUrl();
     let requestObject = getFilterParametersObject();
+    setAdvancedFilterBtnStyle(requestObject, ['Title', 'page', 'pageSize']);
     requestObject.Page = getPageNum();
     requestObject.PageSize = getPageSize();
+    requestObject.IsAscending = isAscending;
+    requestObject.ColumnName = columnName;
 
     $.ajax({
         type: 'GET',
@@ -12,9 +15,10 @@
         data: requestObject,
         success: function (data) {
             $("#tableContainer").html(data);
+            addSortArrows();
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            toastr.error(`Error: ${errorThrown}`);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -42,7 +46,7 @@ function removeEntry(event, id, lastUpdate) {
             toastr.success(`Success`);
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }
@@ -50,19 +54,12 @@ function removeEntry(event, id, lastUpdate) {
 function advanceFilter() {
     $('#TitleTemp').val($('#title').val());
 
-    $('#advancedId').children('div:first').addClass('btn-advanced');
-    $('#advancedId').find('button:first').removeClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'inline-block');
     filterData();
     //clearFilters();
 }
 
 function mainFilter() {
     $('#title').val($('#TitleTemp').val());
-
-    $('#advancedId').children('div:first').removeClass('btn-advanced');
-    $('#advancedId').find('button:first').addClass('btn-advanced-link');
-    $('#advancedId').find('img:first').css('display', 'none');
 
     filterData();
     //clearFilters();
@@ -78,9 +75,14 @@ function getFilterParametersObject() {
         addPropertyToObject(requestObject, 'Title', $('#title').val());
         addPropertyToObject(requestObject, 'Major', $('#major').val());
         addPropertyToObject(requestObject, 'Minor', $('#minor').val());
-        addPropertyToObject(requestObject, 'DateTimeTo', $('#dateTimeTo').val());
-        addPropertyToObject(requestObject, 'DateTimeFrom', $('#dateTimeFrom').val());
-
+        addPropertyToObject(requestObject, 'DateTimeTo', toLocaleDateStringIfValue($('#dateTimeTo').val()));
+        addPropertyToObject(requestObject, 'DateTimeFrom', toLocaleDateStringIfValue($('#dateTimeFrom').val()));
+    }
+    if (requestObject['DateTimeFrom']) {
+        addPropertyToObject(requestObject, 'DateTimeFrom', toValidTimezoneFormat(requestObject['DateTimeFrom']));
+    }
+    if (requestObject['DateTimeTo']) {
+        addPropertyToObject(requestObject, 'DateTimeTo', toValidTimezoneFormat(requestObject['DateTimeTo']));
     }
 
     return requestObject;

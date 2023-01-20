@@ -127,15 +127,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\sReportsV2.Common\sReportsV2.Common.csproj">
-      <Project>{445B106A-0B89-41E7-BB97-AF841F375718}</Project>
+      <Project>{445b106a-0b89-41e7-bb97-af841f375718}</Project>
       <Name>sReportsV2.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj">
-      <Project>{406BDC5C-0219-4083-B83F-0A33A46BCCDC}</Project>
+      <Project>{406bdc5c-0219-4083-b83f-0a33a46bccdc}</Project>
       <Name>sReportsV2.DAL.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj">
-      <Project>{B409AA17-11C7-4E45-9382-FE1FF764A31D}</Project>
+      <Project>{b409aa17-11c7-4e45-9382-fe1ff764a31d}</Project>
       <Name>sReportsV2.Domain.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj">

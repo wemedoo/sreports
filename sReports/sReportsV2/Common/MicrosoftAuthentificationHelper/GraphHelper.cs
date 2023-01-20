@@ -1,11 +1,7 @@
 ﻿using Microsoft.Graph;
 using sReportsV2.Models.MicrosoftAuthentification;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace sReportsV2.Common.MicrosoftAuthentificationHelper
 {
@@ -23,9 +19,10 @@ namespace sReportsV2.Common.MicrosoftAuthentificationHelper
 
             var user = await graphClient.Me.Request()
                 .Select(u => new {
-                    u.DisplayName,
                     u.Mail,
-                    u.UserPrincipalName
+                    u.UserPrincipalName,
+                    u.GivenName,
+                    u.Surname
                 })
                 .GetAsync();
 

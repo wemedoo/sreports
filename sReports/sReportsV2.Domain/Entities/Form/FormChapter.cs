@@ -75,8 +75,8 @@ namespace sReportsV2.Domain.Entities.Form
         {
             foreach (FormPage page in Pages)
             {
-                page.Title = entries.FirstOrDefault(x => x.Id.Equals(page.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
-                page.Description = entries.FirstOrDefault(x => x.Id.Equals(page.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
+                page.Title = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(page.ThesaurusId))?.GetPreferredTermByTranslationOrDefault(language, activeLanguage);
+                page.Description = entries.FirstOrDefault(x => x.ThesaurusEntryId.Equals(page.ThesaurusId))?.GetDefinitionByTranslationOrDefault(language, activeLanguage);
                 page.GenerateTranslation(entries, language, activeLanguage);
             }  
         }

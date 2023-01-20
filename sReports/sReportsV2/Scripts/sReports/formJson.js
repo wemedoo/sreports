@@ -61,16 +61,14 @@ function getFormTree(formDefinition) {
         contentType: 'application/json',
         success: function (data) {
             $('#formTreeContainer').html(data);
-            getFormPartial(formDefinition);
-
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
 }
 
-function goToTree() {
+function goBackToTree() {
     formDefinition = editorTree.get();
     getFormTree(formDefinition);
     getNestableFormElements();

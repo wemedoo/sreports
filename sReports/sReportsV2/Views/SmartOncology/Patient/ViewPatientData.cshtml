@@ -1,0 +1,85 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncologyPatient.DataOut;
+@using sReportsV2.Common.Enums;
+
+@model SmartOncologyPatientDataOut
+
+<div class="smart-oncology-patient-detail-header">
+    <div class="row">
+        <div class="col">
+            <span class="smart-oncology-patient-detail-title">@sReportsV2.Resources.TextLanguage.Clinical_Oncology_Patient_Management</span>
+        </div>
+        <div class="col">
+            <span class="smart-oncology-patient-detail-title ml-2 hidden-md">@sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease</span>
+            <span class="smart-oncology-patient-edit-btn" onclick="editPatient('@Model.Id')">
+                <img src="~/Content/img/icons/edit_pencil_02.svg">
+                <span class="pl-2 btn-label">@sReportsV2.Resources.TextLanguage.Edit</span>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="smart-oncology-patient-detail-container">
+    <div class="row ml-0">
+        <div class="col-12 col-lg mr-lg-2">
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.FirstName, Model.Name)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.SecondName, Model.FamilyName)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Gender, sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.Gender))
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Date_of_birth, Model.BirthDate != null ? Model.BirthDate.Value.ToString(ViewBag.DateFormat) : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Identification_number, Model.IdentificationNumber)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Allergies, Model.Allergies != null ? Model.Allergies.Replace(";", ", ") : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Patient_is_informed_for, Model.PatientInformedFor)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Patient_Informed_by, Model.PatientInformedBy)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Patient_info_signed_on, Model.PatientInfoSignedOn != null ? Model.PatientInfoSignedOn.Value.ToString(ViewBag.DateFormat) : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Copy_delivered_on, Model.CopyDeliveredOn != null ? Model.CopyDeliveredOn.Value.ToString(ViewBag.DateFormat) : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Capability_to_work, string.Concat(Model.CapabilityToWork, " ", "%"))
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Desire_to_have_children, Model.DesireToHaveChildren ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Fertility_conservation, Model.FertilityConservation ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Semen_cryopreservation, Model.SemenCryopreservation ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_, Model.Gender == Gender.Male.ToString())
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Egg_cell_cryopreservation, Model.EggCellCryopreservation ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_, Model.Gender == Gender.Female.ToString())
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Sexual_health_addressed, Model.SexualHealthAddressed ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Copy_delivered_on, Model.CopyDeliveredOn != null ? Model.CopyDeliveredOn.Value.ToString(ViewBag.DateFormat) : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Copy_delivered_on, Model.CopyDeliveredOn != null ? Model.CopyDeliveredOn.Value.ToString(ViewBag.DateFormat) : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Contraception, string.IsNullOrEmpty(Model.Contraception) ? "" : sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.Contraception))
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Clinical_trials, Model.ClinicalTrials != null ? string.Join(", ", Model.ClinicalTrials.Select(x => x.Name)) : "")
+        </div>
+        <div class="col-12 col-lg ml-lg-2 mt-3 mt-lg-0">
+            <div class="margin-bottom-15 visible-md">
+                <div class="row">
+                    <span class="smart-oncology-patient-detail-title">@sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease</span>
+                </div>
+            </div>
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Previous_Treatment, Model.PreviousTreatment ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Treatment_in_Graubunden, Model.TreatmentInCantonalHospitalGraubunden ? sReportsV2.Resources.TextLanguage.Yes : sReportsV2.Resources.TextLanguage.No_, Model.PreviousTreatment)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.History_of_Oncological_Disease, Html.ActionLink(sReportsV2.Resources.TextLanguage.Link, "PatientOncologyDiseaseHistory", "SmartOncology", new { patientId = Model.Id }, new { target = "_blank", rel = "noreferrer", @class = "advanced-link" }), Model.PreviousTreatment && Model.TreatmentInCantonalHospitalGraubunden)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Hospital_praxis_of_previous_treatment, Model.HospitalOrPraxisOfPreviousTreatments != null ? Model.HospitalOrPraxisOfPreviousTreatments.Replace(";", ", ") : "", Model.PreviousTreatment && !Model.TreatmentInCantonalHospitalGraubunden)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Disease_context_at_initial_presentation, string.IsNullOrEmpty(Model.DiseaseContextAtInitialPresentation) ? "" : sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.DiseaseContextAtInitialPresentation), Model.PreviousTreatment && !Model.TreatmentInCantonalHospitalGraubunden)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Stage_at_initial_presentation, Model.StageAtInitialPresentation, Model.PreviousTreatment)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Disease_context_at_current_presentation, string.IsNullOrEmpty(Model.DiseaseContextAtCurrentPresentation) ? "" : sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.DiseaseContextAtCurrentPresentation))
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Stage_at_current_presentation, Model.StageAtCurrentPresentation)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Anatomy, Model.Anatomy)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Morphology, Model.Morphology)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Therapeutic_context, Model.TherapeuticContext)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Chemotherapy_Type, Model.ChemotherapyType)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Chemotherapy_Course, Model.ChemotherapyCourse)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Chemotherapy_Cycle, Model.ChemotherapyCycle)
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.First_Day_of_Chemotherapy, Model.FirstDayOfChemotherapy != null ? Model.FirstDayOfChemotherapy.Value.ToString(ViewBag.DateFormat) : "")
+            @RenderPatientCellData(sReportsV2.Resources.TextLanguage.Consecutive_chemotherapy_days, Model.ConsecutiveChemotherapyDays.HasValue ? Model.ConsecutiveChemotherapyDays.Value : 1)
+        </div>
+    </div>
+</div>
+
+@helper RenderPatientCellData(string name, object value, bool condition = true)
+{
+    if (condition)
+    {
+        <div class="row pl-0">
+            <div class="col-5 column data-name">@name:</div>
+            <div class="col-7 column">
+                <div class="input">
+                    <div>
+                        @value
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

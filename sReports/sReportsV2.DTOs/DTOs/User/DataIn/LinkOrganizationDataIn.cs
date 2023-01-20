@@ -7,7 +7,7 @@ namespace sReportsV2.DTOs.User.DataIn
 {
     public class LinkOrganizationDataIn
     {
-        public string OrganizationName { get; set; }
+        public int OrganizationId { get; set; }
         public List<int> OrganizationsIds{ get; set; }
     }
 }

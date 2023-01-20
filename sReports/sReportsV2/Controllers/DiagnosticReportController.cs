@@ -1,28 +1,19 @@
 ﻿using AutoMapper;
 using Serilog;
 using sReportsV2.BusinessLayer.Interfaces;
+using sReportsV2.Common.Constants;
 using sReportsV2.Common.CustomAttributes;
 using sReportsV2.Common.Extensions;
-using sReportsV2.Domain.Entities.Encounter;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
-using sReportsV2.Domain.Exceptions;
-using sReportsV2.Domain.Extensions;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.Domain.Sql.Entities.Encounter;
-using sReportsV2.DTOs.DiagnosticReport;
 using sReportsV2.DTOs.DiagnosticReport.DataOut;
 using sReportsV2.DTOs.Encounter;
-using sReportsV2.DTOs.EpisodeOfCare;
-using sReportsV2.DTOs.Form;
 using sReportsV2.DTOs.Form.DataOut;
 using sReportsV2.DTOs.FormInstance.DataOut;
-using sReportsV2.DTOs.Pagination;
 using sReportsV2.SqlDomain.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
@@ -36,7 +27,7 @@ namespace sReportsV2.Controllers
         {
             return View(GetEpisodeOfCareListFormsDataOut(episodeOfCareId, referrals, encounterId));
         }
-
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Patients)]
         public ActionResult CreateFromPatient(string patientId, int encounterId, string episodeOfCareId, string formId, List<string> referrals)
         {
             Form form = formDAL.GetForm(formId);
@@ -57,7 +48,7 @@ namespace sReportsV2.Controllers
             {
                 CurrentForm = formOut,
                 Encounter = Mapper.Map<EncounterDataOut>(encounter),
-                FormInstances = Mapper.Map<List<FormInstanceDataOut>>(this.formInstanceDAL.GetAllByEncounter(encounterId))
+                FormInstances = Mapper.Map<List<FormInstanceDataOut>>(this.formInstanceDAL.GetAllByEncounter(encounterId, userCookieData.ActiveOrganization))
             };
             ViewBag.EncounterId = encounterId;
             ViewBag.Action = $"/DiagnosticReport/CreateFromPatient?episodeOfCareId={episodeOfCareId}&patientId={patientId}";
@@ -66,7 +57,7 @@ namespace sReportsV2.Controllers
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.View, Module = ModuleNames.Patients)]
         public ActionResult EditFromPatient(string formInstanceId, int encounterId)
         {
              formInstanceId = Ensure.IsNotNull(formInstanceId, nameof(formInstanceId));
@@ -84,7 +75,7 @@ namespace sReportsV2.Controllers
 
             DiagnosticReportCreateFromPatientDataOut diagnosticReportCreateFromPatientDataOut = new DiagnosticReportCreateFromPatientDataOut()
             {
-                FormInstances = Mapper.Map<List<FormInstanceDataOut>>(this.formInstanceDAL.GetAllByEncounter(encounterId)),
+                FormInstances = Mapper.Map<List<FormInstanceDataOut>>(this.formInstanceDAL.GetAllByEncounter(encounterId, userCookieData.ActiveOrganization)),
                 Encounter = Mapper.Map<EncounterDataOut>(encounter),
                 CurrentForm = data
             };
@@ -96,13 +87,13 @@ namespace sReportsV2.Controllers
             ViewBag.VersionId = formInstance.Version.Id;
             ViewBag.EncounterId = formInstance.EncounterRef;
             ViewBag.Referrals = formInstance.Referrals;
-            ViewBag.Action = $"/DiagnosticReport/Create?episodeOfCareId={encounter.EpisodeOfCareId}&patientId={encounter.PatientId}";
-
+            ViewBag.Action = $"/DiagnosticReport/CreateFromPatient?episodeOfCareId={encounter.EpisodeOfCareId}&patientId={encounter.PatientId}";
+            SetReadOnlyAndDisabledViewBag(!ViewBag.UserCookieData.UserHasPermission(PermissionNames.CreateUpdate, ModuleNames.Patients));
             return PartialView("CreateFromPatient", diagnosticReportCreateFromPatientDataOut);
         }
 
         [SReportsAuditLog]
-        [SReportsAutorize]
+        [SReportsAuthorize(Permission = PermissionNames.CreateUpdate, Module = ModuleNames.Patients)]
         [HttpPost]
         //[ValidateInput(false)]
         public ActionResult CreateFromPatient(int episodeOfCareId, int patientId)
@@ -118,41 +109,17 @@ namespace sReportsV2.Controllers
             formInstance.EpisodeOfCareRef = episodeOfCareId;
             formInstance.PatientId = patientId;
 
-            try
-            {
-                formInstanceDAL.InsertOrUpdate(formInstance);
-            }
-            catch (MongoDbConcurrencyException ex)
-            {
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, Resources.TextLanguage.ConcurrencyExEdit);
-            }
+            formInstanceDAL.InsertOrUpdate(formInstance, formInstance.GetCurrentFormInstanceStatus(userCookieData?.Id));
 
             return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
 
-        [SReportsAutorize]
+        [SReportsAuthorize]
         [System.Web.Http.HttpDelete]
         [SReportsAuditLog]
         public ActionResult Delete(string diagnosticReportId, DateTime lastUpdate)
         {
-            try
-            {
-                formInstanceDAL.Delete(diagnosticReportId, lastUpdate);
-            }
-            catch (MongoDbConcurrencyException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExDeleteEdit;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
-            catch (MongoDbConcurrencyDeleteException ex)
-            {
-                string message = Resources.TextLanguage.ConcurrencyExDelete;
-                Log.Error(ex.Message);
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict, message);
-            }
-
+            formInstanceDAL.Delete(diagnosticReportId, lastUpdate);
             return new HttpStatusCodeResult(HttpStatusCode.NoContent);
         }
     }

@@ -1,0 +1,94 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@model ChemotherapySchemaDataOut
+
+<div class="schema-col col-2">
+    <div class="schema-card treatment-cycles">
+        <div class="schema-card-header">
+            <span class="icon">
+                <img src="~/Content/open-oncology/images/icons/cycle.svg" alt="Cycle">
+            </span>
+            <h3>@sReportsV2.Resources.TextLanguage.Treatment_cycles</h3>
+        </div>
+        <div class="schema-card-item">
+            <div class="item-body">
+                <div class="item-body-item">
+                    <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.Length_of_treatment_cycles:</p>
+                    <div class="select-wrapper">
+                        <div class="select schema-text">
+                            @sReportsV2.Resources.TextLanguage.Weeks:
+                            <select class="select-input" name="weeks" id="weeks" data-no-color-change="true">
+                                <option value=""></option>
+                                @RenderOptions(Model != null ? Model.GetNumberOfWeeks() : 0)
+                            </select>
+                        </div>
+                        <div class="select schema-text ml-4">
+                            @sReportsV2.Resources.TextLanguage.Or_ @sReportsV2.Resources.TextLanguage.Days:
+                            <select class="select-input" name="days" id="days" data-no-color-change="true">
+                                <option value=""></option>
+                                @RenderOptions(Model != null ? Model.GetNumberOfDays() : 0)
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item-body-item">
+                    <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.How_many_cycles_predicted:</p>
+                    <div class="select-wrapper">
+                        <div class="select-option schema-text">
+                            @sReportsV2.Resources.TextLanguage.Select:
+                            <select class="select-input" name="cycles" id="cycles" data-no-color-change="true">
+                                <option value=""></option>
+                                @RenderOptions(Model != null ? Model.NumOfCycles : 0)
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item-body-item">
+                    <p class="item-body-heading">@sReportsV2.Resources.TextLanguage.How_many_course_predicted:</p>
+                    <div class="select-wrapper">
+                        <div class="schema-text select-radio">
+                            <label class="radio-container" for="limited">
+                                <input type="radio" name="limited" id="limited" value="true" @(Model != null && Model.AreCoursesLimited ? "checked" : "")>
+                                <span class="checkmark"></span>
+                                <span class="schema-text">@sReportsV2.Resources.TextLanguage.Limited</span>
+                            </label>
+                        </div>
+                        <div class="schema-text select-radio ml-4">
+                            <label class="radio-container" for="unlimited">
+                                <input type="radio" name="limited" id="unlimited" value="false" @(Model == null ? "" : Model.AreCoursesLimited ? "" : "checked")>
+                                <span class="checkmark"></span>
+                                <span class="schema-text">@sReportsV2.Resources.TextLanguage.Unlimited</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="select-wrapper select-limited @(Model != null && Model.AreCoursesLimited ? "" : "unselect-limited")">
+                        <div class="select-option schema-text">
+                            @sReportsV2.Resources.TextLanguage.Select:
+                            <select class="select-input" name="s-limited" id="s-limited">
+                                <option value=""></option>
+                                @RenderOptions(Model != null ? Model.NumOfLimitedCourses : 0)
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="schema-card-item add-new">
+            <div class="item-header" onclick="updateGeneralProperties()">
+                <h3>@sReportsV2.Resources.TextLanguage.Add_to_library</h3>
+                <span class="icon">
+                    <img src="~/Content/open-oncology/images/icons/plus.svg" alt="Add new">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@helper RenderOptions(int selectedOption)
+{
+    for (int i = 1; i <= 10; i++)
+    {
+        <option value="@i" @(i == selectedOption ? "selected" : "")>@i</option>
+    }
+}

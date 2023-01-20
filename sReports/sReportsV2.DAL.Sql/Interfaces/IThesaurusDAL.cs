@@ -11,10 +11,8 @@ namespace sReportsV2.SqlDomain.Interfaces
 {
     public interface IThesaurusDAL
     {
-        int InsertOrUpdate(ThesaurusEntry thesaurus);
+        void InsertOrUpdate(ThesaurusEntry thesaurus);
         ThesaurusEntry GetById(int id);
-        int InsertOrUpdateCode(O4CodeableConcept code, int id);
-
         IQueryable<ThesaurusEntry> GetFilteredQuery(GlobalThesaurusFilter filterDataIn);
         List<ThesaurusEntry> GetFiltered(GlobalThesaurusFilter filterDataIn);
         int GetFilteredCount(GlobalThesaurusFilter filterDataIn);
@@ -22,10 +20,10 @@ namespace sReportsV2.SqlDomain.Interfaces
         int GetAllCount();
         void InsertMany(List<ThesaurusEntry> thesauruses);
         List<int> GetLastBulkInserted(int size);
+        List<int> GetBulkInserted(int size);
         int GetAllEntriesCount(ThesaurusEntryFilterData filterData);
         long GetUmlsEntriesCount();
         List<ThesaurusEntry> GetAll(ThesaurusEntryFilterData filterData);
-        string InsertOrUpdate(ThesaurusEntry thesaurusEntry, UserData user);
         bool ExistsThesaurusEntry(int id);
         void Delete(int id);
         List<ThesaurusEntry> GetAllSimilar(ThesaurusReviewFilterData filter, string preferredTerm, string language);
@@ -33,6 +31,7 @@ namespace sReportsV2.SqlDomain.Interfaces
         void UpdateState(int thesaurusId, ThesaurusState state);
         List<ThesaurusEntry> GetByIdsList(List<int> thesaurusList);
         List<string> GetAll(string language, string searchValue, int page);
-
+        O4CodeableConcept GetCodeById(int id);
+        int GetIdByPreferredTerm(string prefferedTerm);
     }
 }

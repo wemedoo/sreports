@@ -258,12 +258,12 @@ p {
 
     .dd-item[data-itemtype=fieldset] {
         > button {
-            top: 10px;
+            top: 5px;
         }
 
         &:first-child {
             > button {
-                top: 16px;
+                top: 8px;
             }
         }
     }
@@ -311,12 +311,16 @@ p {
     }
 
     .custom-dd-handle {
-        &.radio-custom-dd-handle {
-            width: 100%;
+        &.radio-custom-dd-handle, &.checkbox-custom-dd-handle {
+            &.add-new-element {
+                width: 100%;
+            }
         }
+    }
 
-        &.checkbox-custom-dd-handle {
-            width: 100%;
+    ol {
+        &.ol-fieldvalue {
+            width: calc(100% - 104.72px - 32%);
         }
     }
 }
@@ -531,6 +535,10 @@ p {
         top: 5px;
         z-index: 100;
         cursor: pointer;
+
+        &.to-the-right {
+            right: 7px;
+        }
     }
 
     .item-settings-button {
@@ -562,19 +570,19 @@ p {
     }
 
     .form-checkbox-button {
-        top: 3px;
-        left: 25px;
+        top: 7px;
+        left: 22px;
     }
 
     .form-radio-button {
-        top: 3px;
+        top: 5px;
         left: 25px;
     }
 
     .nestable-checkbox-label {
         display: inline-block;
         vertical-align: top;
-        padding-right: 15px;
+        padding-right: 27px;
         width: 100%;
         position: relative;
         float: right;
@@ -1017,7 +1025,7 @@ p {
     }
 
     &.field-custom-dd-handle {
-        padding-top: 10px;
+        padding-top: 5px;
     }
 
     .filter-label {
@@ -1433,11 +1441,11 @@ p {
 }
 
 .checkbox-text{
-    margin-left: 30px;
+    margin-left: 17px;
 }
 
 .radio-text{
-    margin-left: 30px;
+    margin-left: 22px;
 }
 
 .modal{
@@ -1451,7 +1459,7 @@ p {
 }
 
 .predefined-item-placeholder {
-    padding: 10px 15px;
+    padding: 5px 10px;
     font-size: 14px;
     font-weight: 600;
     background-repeat: no-repeat;
@@ -1522,10 +1530,22 @@ p {
 
         &.radio-field-predefined-item-placeholder {
             background-image: url('img/icons/Drag and drop/radio.svg');
+
+            &.field-type {
+                background-color: #fffbde !important;
+            }
         }
 
         &.checkbox-field-predefined-item-placeholder {
             background-image: url('img/icons/Drag and drop/check.svg');
+
+            &.field-type {
+                background-color: #fffbde !important;
+            }
+        }
+
+        &.select-field-predefined-item-placeholder {
+            background-image: url('img/icons/Drag and drop/select.svg');
         }
     }
 

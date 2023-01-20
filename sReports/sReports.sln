@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sReportsV2.DAL.MongoDb", "sReportsV2.Domain\sReportsV2.DAL.MongoDb.csproj", "{F6570A48-CAE5-4412-940E-05A081AAD9C4}"
 EndProject
@@ -46,10 +46,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sReportsV2.Common", "sReportsV2.Common\sReportsV2.Common.csproj", "{445B106A-0B89-41E7-BB97-AF841F375718}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sReportsV2.BusinessLayer", "sReportsV2.BusinessLayer\sReportsV2.BusinessLayer.csproj", "{108D6343-92E5-4959-BCBB-063FF21585D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B409AA17-11C7-4E45-9382-FE1FF764A31D} = {B409AA17-11C7-4E45-9382-FE1FF764A31D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sReportsV2.Domain.Sql", "sReportsV2.Domain.Sql\sReportsV2.Domain.Sql.csproj", "{B409AA17-11C7-4E45-9382-FE1FF764A31D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sReportsV2.DAL.Sql", "sReportsV2.DAL.Sql\sReportsV2.DAL.Sql.csproj", "{406BDC5C-0219-4083-B83F-0A33A46BCCDC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B409AA17-11C7-4E45-9382-FE1FF764A31D} = {B409AA17-11C7-4E45-9382-FE1FF764A31D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChemotherapyExcelImporter", "ExcelImporter\ChemotherapyExcelImporter.csproj", "{65D22046-D764-45DA-92F1-2911E852DF86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -184,6 +192,12 @@ Global
 		{406BDC5C-0219-4083-B83F-0A33A46BCCDC}.Dev|Any CPU.Build.0 = Debug|Any CPU
 		{406BDC5C-0219-4083-B83F-0A33A46BCCDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{406BDC5C-0219-4083-B83F-0A33A46BCCDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D22046-D764-45DA-92F1-2911E852DF86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D22046-D764-45DA-92F1-2911E852DF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D22046-D764-45DA-92F1-2911E852DF86}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D22046-D764-45DA-92F1-2911E852DF86}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{65D22046-D764-45DA-92F1-2911E852DF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D22046-D764-45DA-92F1-2911E852DF86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

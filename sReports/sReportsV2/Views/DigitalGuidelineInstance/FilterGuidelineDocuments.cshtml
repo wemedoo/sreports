@@ -1,0 +1,20 @@
+﻿@using sReportsV2.DTOs.FormInstance.DataOut;
+@using sReportsV2.Common.Extensions;
+
+@model List<FormInstanceDataOut>
+
+@foreach (FormInstanceDataOut instance in Model)
+{
+    <div class="single-form-list-element" data-forminstanceid="@instance.Id">
+        <div class="title">
+            @instance.Title - @instance.EntryDatetime.ToTimeZonedDateTime(ViewBag.UserCookieData.TimeZoneOffset as string, ViewBag.DateFormat as string)
+        </div>
+        <div class="select-button unselect">
+            Unselect
+        </div>
+        <div class="select-button">
+            Select
+        </div>
+    </div>
+}
+

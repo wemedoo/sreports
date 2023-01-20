@@ -1,20 +1,9 @@
 ﻿using AutoMapper;
-using sReportsV2.Domain.Entities.Common;
-using sReportsV2.Domain.Entities.DocumentProperties;
-using sReportsV2.Domain.Entities.Encounter;
-using sReportsV2.Domain.Entities.EpisodeOfCareEntities;
-using sReportsV2.Domain.Entities.FieldEntity;
 using sReportsV2.Domain.Entities.Form;
 using sReportsV2.Domain.Entities.FormInstance;
 using sReportsV2.Common.Enums;
-using sReportsV2.Domain.Exceptions;
-using sReportsV2.Domain.Extensions;
-using sReportsV2.Domain.FormValues;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.DTOs.Form.DataOut;
 using sReportsV2.DTOs.FormInstance;
-using sReportsV2.DTOs.FormInstance.DataOut;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +17,9 @@ using sReportsV2.Common.Entities.User;
 using sReportsV2.Domain.Sql.Entities.Encounter;
 using sReportsV2.Domain.Sql.Entities.EpisodeOfCare;
 using sReportsV2.Domain.Sql.Entities.Patient;
+using Serilog;
+using sReportsV2.Common.Singleton;
+using sReportsV2.Common.Constants;
 
 namespace sReportsV2.Controllers
 {
@@ -50,21 +42,37 @@ namespace sReportsV2.Controllers
             return this.formBLL.GetFormByThesaurusAndLanguageAndVersionAndOrganization(Int32.Parse(Request.Form["thesaurusId"]), userCookieData.ActiveOrganization, Request.Form["language"], versionId);
         }
 
-        protected ActionResult GetEdit(FormInstance formInstance, FormInstanceFilterDataIn filter)
+        protected ActionResult GetEdit(FormInstanceFilterDataIn filter, string partialViewName = "")
         {
-            formInstance = Ensure.IsNotNull(formInstance, nameof(formInstance));
             filter = Ensure.IsNotNull(filter, nameof(filter));
-            List<FormInstance> referrals = this.formInstanceBLL.GetByIds(formInstance.Referrals != null ? formInstance.Referrals : new List<string>());
+
+            FormInstance formInstance = formInstanceBLL.GetById(filter.FormInstanceId);
+            if (formInstance == null)
+            {
+                Log.Warning(SReportsResource.FormInstanceNotExists, 404, filter.FormInstanceId);
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            List<FormInstance> referrals = this.formInstanceBLL.GetByIds(formInstance.Referrals ?? new List<string>());
             FormDataOut data = formBLL.GetFormDataOut(formInstance, referrals, userCookieData);
 
             ViewBag.FormInstanceId = filter.FormInstanceId;
+            ViewBag.VersionId = formInstance.Version.Id;
             ViewBag.EncounterId = formInstance.EncounterRef;
             ViewBag.FilterFormInstanceDataIn = filter;
             ViewBag.LastUpdate = formInstance.LastUpdate;
             ViewBag.Referrals = referrals != null && referrals.Count > 0 ? referrals.Select(x => x.Id) : null;
-            
+            ViewBag.FormInstanceWorkflowHistory = formInstanceBLL.GetWorkflowHistory(formInstance.WorkflowHistory);
 
-            return View("~/Views/Form/Form.cshtml", data);
+            if (!string.IsNullOrEmpty(partialViewName))
+            {
+                return PartialView(partialViewName, data);
+            }
+            else
+            {
+                ViewBag.Title = formInstance.Title;
+                return View("~/Views/Form/Form.cshtml", data);
+            }
         }
 
         protected FormInstanceFilterDataIn GetFormInstaceFilter(HttpRequestBase request, FormInstance formInstance, string formId)
@@ -139,7 +147,7 @@ namespace sReportsV2.Controllers
             {
                 if (encounterId == 0)
                 {
-                    int patientId = ParseAndInsertPatient(form.Chapters.FirstOrDefault(x => x.ThesaurusId.Equals("9356")));
+                    int patientId = ParseAndInsertPatient(form);
                     formInstance.PatientId = patientId;
                     int eocId = InsertEpisodeOfCare(patientId, form.EpisodeOfCare, "Engine", DateTime.Now, user);
                     formInstance.EpisodeOfCareRef = eocId;
@@ -148,12 +156,13 @@ namespace sReportsV2.Controllers
                 formInstance.EncounterRef = encounterId;
             }
         }
-        private int ParseAndInsertPatient(FormChapter chapter)
+        private int ParseAndInsertPatient(Form form)
         {
             //TO DO 
             //PatientParser patientParser = new PatientParser(customEnumBLL.GetAll().Where(x => x.Type == IdentifierKind.PatientIdentifierType.ToString()).ToList());
-            PatientParser patientParser = new PatientParser(new List<Domain.Sql.Entities.Common.CustomEnum>());
-            Patient patient = patientParser.ParsePatientChapter(chapter);
+            PatientParser patientParser = new PatientParser(new List<Domain.Sql.Entities.Common.CustomEnum>(), SingletonDataContainer.Instance.GetEnumsByType(CustomEnumType.Country));
+            Patient patient = patientParser.ParsePatientChapter(form.Chapters.FirstOrDefault(x => x.ThesaurusId.ToString().Equals(ResourceTypes.PatientThesaurus)));
+            patient.OrganizationId = form.OrganizationId;
 
             return InsertPatient(patient);
         }
@@ -166,12 +175,12 @@ namespace sReportsV2.Controllers
                 :
                 patientDAL.GetByIdentifier(patient.Identifiers[0]);
 
-            if (patientDb?.Id == 0)
+            if (patientDb?.PatientId == 0)
             {
                 patientDAL.InsertOrUpdate(patientDb);
             }
         
-            return patientDb.Id;
+            return patientDb.PatientId;
         }
 
         protected int InsertEpisodeOfCare(int patientId, FormEpisodeOfCare episodeOfCare, string source, DateTime startDate, UserData user)
@@ -221,7 +230,7 @@ namespace sReportsV2.Controllers
                 Type = 12208,
                 ServiceType = 11087
             };
-            return encounterDAL.Insert(encounterEntity);
+            return encounterDAL.InsertOrUpdate(encounterEntity);
         }
         #endregion
 

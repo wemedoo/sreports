@@ -8,8 +8,9 @@ namespace sReportsV2.DTOs.DTOs.CodeSystem
 {
     public class CodeSystemDataIn
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Value { get; set; }
         public string Label { get; set; }
+        public string SAB { get; set; }
     }
 }

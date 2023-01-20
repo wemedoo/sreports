@@ -22,9 +22,14 @@ namespace sReportsV2.Domain.Entities.Consensus
 
         public double GetPercentDone() 
         {
-            return this != null ?
-                this.Questions.Where(x => !string.IsNullOrWhiteSpace(x.Value)).Count() / (double)Questions.Count * 100
+            return Questions.Count > 0 ?
+                Math.Round(this.Questions.Where(x => !string.IsNullOrWhiteSpace(x.Value)).Count() / (double)Questions.Count * 100, 2)
                 : 0;
+        }
+
+        public bool IsCompleted()
+        {
+            return GetPercentDone() == 100;
         }
     }
 }

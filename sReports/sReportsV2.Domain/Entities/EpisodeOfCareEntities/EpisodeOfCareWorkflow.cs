@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.EpisodeOfCareEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class EpisodeOfCareWorkflow
     {
         public string DiagnosisCondition { get; set; }

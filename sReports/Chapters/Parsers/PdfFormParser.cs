@@ -13,6 +13,8 @@ using System.Data;
 using sReportsV2.Domain.FormValues;
 using sReportsV2.Domain.Sql.Entities.Common;
 using sReportsV2.Domain.Sql.Entities.Patient;
+using sReportsV2.Common.Constants;
+using sReportsV2.DTOs.CustomEnum.DataOut;
 
 namespace Chapters
 {
@@ -20,12 +22,13 @@ namespace Chapters
     {
         private PdfDocument pdfDocument;
         private PdfAcroForm pdfAcroForm;
-        private Form formJson;
+        private readonly Form formJson;
         public Patient Patient { get; set; }
-        private string basePath;
-        private List<CustomEnum> identifierTypes;
+        private readonly string basePath;
+        private readonly List<CustomEnum> identifierTypes;
 
         public List<sReportsV2.Domain.FormValues.FieldValue> Fields = new List<sReportsV2.Domain.FormValues.FieldValue>();
+        private readonly List<CustomEnumDataOut> countries;
 
         public PdfFormParser(string jsonFormPath, string path)
         {
@@ -33,11 +36,12 @@ namespace Chapters
             formJson = JsonConvert.DeserializeObject<Form>(File.ReadAllText(jsonFormPath));
         }
 
-        public PdfFormParser(Form form, PdfDocument document, List<CustomEnum> identifierTypes)
+        public PdfFormParser(Form form, PdfDocument document, List<CustomEnum> identifierTypes, List<CustomEnumDataOut> countries)
         {
-            pdfDocument = document;
-            formJson = form;
+            this.pdfDocument = document;
+            this.formJson = form;
             this.identifierTypes = identifierTypes;
+            this.countries = countries;
         }
 
         public Form GetForm()
@@ -85,23 +89,23 @@ namespace Chapters
 
             if (Patient != null)
             {
-                InsertTelecomCheckboxValue(Patient.Telecoms, "TelecomCheckBox");
-                InsertTelecomCheckboxValue(Patient.ContactPerson.Telecoms, "ContactTelecomCheckBox");
+                InsertTelecomCheckboxValue(Patient.PatientTelecoms.Select(t => t.System), "TelecomCheckBox");
+                InsertTelecomCheckboxValue(Patient.Contact.Telecoms.Select(t => t.System), "ContactTelecomCheckBox");
             }
 
             formJson.FormState = sReportsV2.Common.Enums.FormState.Finished;
             return formJson;
         }
 
-        public void InsertTelecomCheckboxValue(List<Telecom> telecoms, string checkboxType)
+        public void InsertTelecomCheckboxValue(IEnumerable<string> telecomSystems, string checkboxType)
         {
             string value = string.Empty;
             List<string> values = new List<string>();
             Field formField = formJson.GetAllFields().FirstOrDefault(x => x.FhirType != null && x.FhirType.Equals(checkboxType));
 
-            foreach (var telecom in telecoms)
+            foreach (var telecomSystem in telecomSystems)
             {
-                values.Add(telecom.System);
+                values.Add(telecomSystem);
             }
 
             formField.SetValue(formField != null ? string.Join(",", values) : "");
@@ -131,7 +135,6 @@ namespace Chapters
 
         public void ParseFields()
         {
-            var keys = pdfAcroForm.GetFormFields().Keys.ToList();
             foreach (var fieldFromPdf in pdfAcroForm.GetFormFields())
             {
                 string key = fieldFromPdf.Key;
@@ -144,7 +147,7 @@ namespace Chapters
                     FieldSet fieldSet = listFieldSet[fieldSetPosition];
                     Field field = fieldSet.Fields.FirstOrDefault(x => x.Id.Equals(partsOfKey[1]));
                     field.InstanceId = $"{fieldSet.Id}-{fieldSetPosition}-{field.Id}-1";
-                    SetField(field, partsOfKey, fieldFromPdf, fieldSet);
+                    SetField(field, partsOfKey, fieldFromPdf);
 
                     RemoveIfExist(Fields, field.InstanceId);
                     Fields.Add(new sReportsV2.Domain.FormValues.FieldValue() { Id = field.Id, ThesaurusId = field.ThesaurusId, InstanceId = field.InstanceId, Type = field.Type, Value = field.Value });
@@ -184,7 +187,7 @@ namespace Chapters
             }
         }
 
-        public void SetField(Field field, string[] partsOfKey, KeyValuePair<string,PdfFormField> fieldFromPdf, FieldSet fieldSet) 
+        public void SetField(Field field, string[] partsOfKey, KeyValuePair<string,PdfFormField> fieldFromPdf) 
         {
             if (field.Type == PdfGeneratorType.Checkbox)
             {
@@ -197,10 +200,9 @@ namespace Chapters
             else if (field.Type == PdfGeneratorType.Radio)
             {
                 string value = fieldFromPdf.Value.GetValueAsString();
-                if (!String.IsNullOrWhiteSpace(value))
+                if (!string.IsNullOrWhiteSpace(value))
                 {
-                    int thesaurus = Int32.Parse(value);
-                    if (thesaurus > 0)
+                    if (Int32.TryParse(value, out int thesaurus))
                     {
                         field.SetValue(((FieldSelectable)field).Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId.ToString());
                     }
@@ -208,7 +210,7 @@ namespace Chapters
             }
             else if (field.Type == PdfGeneratorType.Calculative)
             {
-                SetCalculativeFieldValue(field, fieldSet);
+                SetCalculativeFieldValue(field);
             }
             else
             {
@@ -216,17 +218,18 @@ namespace Chapters
             }
         }
 
-        public void SetCalculativeFieldValue(Field field, FieldSet fieldSet) 
+        public void SetCalculativeFieldValue(Field field) 
         {
+            var fields = formJson.GetAllFields();
             FieldCalculative fieldCalculative = field as FieldCalculative;
             string formula = fieldCalculative.Formula;
             foreach (string id in fieldCalculative.IdentifiersAndVariables.Keys)
             {
-                string value = fieldSet.Fields.FirstOrDefault(x => x.Id.Equals(id)).Value?[0];
+                string value = fields.FirstOrDefault(x => x.Id.Equals(id)).Value?[0];
                 formula = formula.Replace($"[{fieldCalculative.IdentifiersAndVariables[id]}]", value);
             }
-            DataTable dt = new DataTable();
-            field.SetValue(dt.Compute(formula, "").ToString());
+            
+            field.SetValue(ParseFormula(formula));
         }
 
         public List<string> GetRepetitiveValues(string formFieldId) 
@@ -326,7 +329,7 @@ namespace Chapters
                     string thesaurus = field.Value.GetValueAsString();
                     if (!string.IsNullOrWhiteSpace(thesaurus))
                     {
-                        result = formField.Values.FirstOrDefault(x => x.ThesaurusId.Equals(thesaurus)).ThesaurusId.ToString();
+                        result = formField.Values.FirstOrDefault(x => x.ThesaurusId.ToString().Equals(thesaurus)).ThesaurusId.ToString();
                     }
 
                 }
@@ -340,10 +343,23 @@ namespace Chapters
             return result;
         }
 
+        private string ParseFormula(string formula)
+        {
+            try
+            {
+                object calculatedResult = new DataTable().Compute(formula, "");
+                return Math.Round(Convert.ToDouble(calculatedResult), 4).ToString();
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
         private void ParsePatient()
         {
-            PatientParser patientParser = new PatientParser(identifierTypes);
-            Patient = patientParser.ParsePatientChapter(formJson.Chapters.FirstOrDefault(x => x.ThesaurusId.Equals("9356")));
+            PatientParser patientParser = new PatientParser(identifierTypes, countries);
+            Patient = patientParser.ParsePatientChapter(formJson.Chapters.FirstOrDefault(x => x.ThesaurusId.ToString().Equals(ResourceTypes.PatientThesaurus)));
         }
     }
 }

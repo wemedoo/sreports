@@ -1,5 +1,4 @@
-﻿$('#helpContent').ckeditor();
-$(document).on('click', '#submit-fieldset-info', function (e) {
+﻿$(document).on('click', '#submit-fieldset-info', function (e) {
     if ($('#fieldsetGeneralInfoForm').valid()) {
         createNewThesaurusIfNotSelected();
 

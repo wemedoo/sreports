@@ -1,4 +1,8 @@
-﻿function submitConsensusInstance(userId, consensusId, isOutsideUser) {
+﻿function saveConsensusInstance(event) {
+    submitConsensusInstance($(event.target).data('userid'), $(event.target).data('consensusid'), $(event.target).data('isoutsideuser'));
+}
+
+function submitConsensusInstance(userId, consensusId, isOutsideUser, autosave = false) {
     let consensusInstance = {};
     consensusInstance["ConsensusRef"] = consensusId;
     consensusInstance["UserRef"] = userId;
@@ -13,11 +17,15 @@
         url: `/FormConsensus/CreateConsensusInstance`,
         contentType: 'application/json',
         success: function (data) {
-            location.reload();
-            toastr.success("Success");
+            if (autosave) {
+                $('#consensusInstanceId').val(data.Id);
+            } else {
+                location.reload();
+                toastr.success("Success");
+            }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.statusText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     })
 }
@@ -33,7 +41,7 @@ function getQuestions() {
         });
         question["Value"] = $(element).find(".consensus-radio:checked").val();
         question["Question"] = $(element).find('.qp-question').attr("data-value");
-        question["Comment"] = $(`#qcomment-${$(element).attr('id').split('-')[1]}`).val();
+        question["Comment"] = $(`#qcomment-${$(element).data('id')}`).val();
 
         questions.push(question);
     });
@@ -47,14 +55,31 @@ function loadConsensusInstanceTree() {
 
     $.ajax({
         method: 'get',
-        url: `/FormConsensus/ReloadConsensusInstanceTree?formId=${formId}&consensusInstanceId=${consensusInstanceId}&iterationId=${$("#iterationId").val()}`,
+        url: `/FormConsensus/ReloadConsensusInstanceTree?formId=${formId}&consensusInstanceId=${consensusInstanceId}&iterationId=${$("#iterationId").val()}&questionnaireViewType=${$("#questionnaireViewType").val()}`,
         contentType: 'application/json',
         success: function (data) {
             $('#consensusTree').html(data);
             $('.consensus-visible').show();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            toastr.error(jqXHR.responseText);
+        error: function (xhr, textStatus, thrownError) {
+            handleResponseError(xhr, thrownError);
         }
     });
+}
+
+function showQuestionnaireSaveModal() {
+    $("#saveModal").modal('show');
+}
+
+function questionnaireSaveModalDecision(event, decision) {
+    event.preventDefault();
+    $("#saveModal").modal('hide');
+
+    if (decision == 'yes') {
+        submitConsensusInstance($('#questionnaireSaveButton').data('userid'), $('#questionnaireSaveButton').data('consensusid'), $('#questionnaireSaveButton').data('isoutsideuser'), true);
+    }
+
+    $(".consensus-tab").removeClass('active-item');
+    $("#consensusFormPreviewTab").addClass('active-item');
+    showConsensusFormPreview();
 }

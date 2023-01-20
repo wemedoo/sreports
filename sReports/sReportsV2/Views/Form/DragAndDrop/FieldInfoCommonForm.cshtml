@@ -15,7 +15,7 @@
                 <div class="label filter-label">
                     Field type
                 </div>
-                <select required class="designer-form-input select-arrow" id="type" name="type">
+                <select required class="designer-form-input select-arrow" id="type" name="type" @ViewBag.Disabled>
                     <option value="">Select an option</option>
                     <option value="@FieldTypes.Calculative" @(Model != null && Model.Type == FieldTypes.Calculative ? "selected" : "")>Calculative</option>
                     <option value="@FieldTypes.Checkbox" @(Model != null && Model.Type == FieldTypes.Checkbox ? "selected" : "")>Checkbox</option>
@@ -37,13 +37,13 @@
             <div class="label filter-label">
                 Field label
             </div>
-            <input required class="designer-form-input item-title" id="label" name="label" type="text" value="@(Model != null && Model.Label != null ? Model.Label : "")" />
+            <input required class="designer-form-input item-title" id="label" name="label" type="text" value="@(Model != null && Model.Label != null ? Model.Label : "")" @ViewBag.Disabled/>
         </div><!--
         --><div class="designer-form-input-group two-margins">
             <div class="label filter-label">
                 Fhir type
             </div>
-            <select class="designer-form-input" id="fhirType">
+            <select class="designer-form-input" id="fhirType" @ViewBag.Disabled>
                 <option value="">Select an option</option>
                 <option value="procedure" @(Model != null && Model.FhirType != null && Model.FhirType.Equals("procedure") ? "selected" : "")>Procedure</option>
                 <option value="observation" @(Model != null && Model.FhirType != null && Model.FhirType.Equals("observation") ? "selected" : "")>Observation</option>
@@ -53,7 +53,7 @@
             <div class="label filter-label">
                 Repetitive
             </div>
-            <select class="designer-form-input" id="isRepetitive">
+            <select class="designer-form-input" id="isRepetitive" @ViewBag.Disabled>
                 <option value="">Select an option</option>
                 <option value="true" @(Model != null && Model is FieldStringDataOut && (Model as FieldStringDataOut).IsRepetitive ? "selected" : "")>Yes</option>
                 <option value="false" @(Model == null || !(Model is FieldStringDataOut) || !(Model as FieldStringDataOut).IsRepetitive ? "selected" : "")>No</option>
@@ -63,47 +63,47 @@
             <div class="label filter-label">
                 Number of repetitions for pdf
             </div>
-            <input required class="designer-form-input" id="numberOfRepetitions" name="numberOfRepetitions" type="number" value="@(Model != null && Model is FieldStringDataOut ? (Model as FieldStringDataOut).NumberOfRepetitions : 1)" />
+            <input required class="designer-form-input" id="numberOfRepetitions" name="numberOfRepetitions" type="number" value="@(Model != null && Model is FieldStringDataOut ? (Model as FieldStringDataOut).NumberOfRepetitions : 1)" @ViewBag.Disabled/>
         </div><!--
         --><div class="designer-form-input-group two-margins">
             <div class="label filter-label">
                 Field description
             </div>
-            <textarea class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")" rows="5">@(Model != null ? Model.Description : "")</textarea>
+            <textarea class="designer-form-input" id="description" name="description" value="@(Model != null ? Model.Description : "")" rows="5" @ViewBag.Disabled>@(Model != null ? Model.Description : "")</textarea>
         </div><!--
         --><div class="designer-form-input-group checkbox-group-container two-margins">
             <div class="checkbox-group">
                 <label class="form-checkbox-label">
                     <span>Bolded?</span>
-                    <input name="isBold" value="isBold" @(Model.IsBold ? "checked" : string.Empty) id="isBold" class="form-checkbox-field" type="checkbox" />
+                    <input name="isBold" value="isBold" @(Model.IsBold ? "checked" : string.Empty) id="isBold" class="form-checkbox-field" type="checkbox" @ViewBag.Disabled/>
                     <i class="form-checkbox-button table-checkbox"></i>
                 </label>
             </div>
             <div class="checkbox-group">
                 <label class="form-checkbox-label">
                     <span>Is hidden on pdf?</span>
-                    <input name="isHiddenOnPdf" value="isHiddenOnPdf" @(Model.IsHiddenOnPdf ? "checked" : string.Empty) id="isHiddenOnPdf" class="form-checkbox-field" type="checkbox" />
+                    <input name="isHiddenOnPdf" value="isHiddenOnPdf" @(Model.IsHiddenOnPdf ? "checked" : string.Empty) id="isHiddenOnPdf" class="form-checkbox-field" type="checkbox" @ViewBag.Disabled/>
                     <i class="form-checkbox-button table-checkbox"></i>
                 </label>
             </div>
             <div class="checkbox-group">
                 <label class="form-checkbox-label">
                     <span>Visible?</span>
-                    <input name="isVisible" value="isVisible" @(Model.IsVisible ? "checked" : string.Empty) id="isVisible" class="form-checkbox-field" type="checkbox" />
+                    <input name="isVisible" value="isVisible" @(Model.IsVisible ? "checked" : string.Empty) id="isVisible" class="form-checkbox-field" type="checkbox" @ViewBag.Disabled/>
                     <i class="form-checkbox-button table-checkbox"></i>
                 </label>
             </div>
             <div class="checkbox-group">
                 <label class="form-checkbox-label">
                     <span>Readonly?</span>
-                    <input name="isReadonly" value="isRequired" @(Model.IsReadonly ? "checked" : string.Empty) id="isReadonly" class="form-checkbox-field" type="checkbox" />
+                    <input name="isReadonly" value="isRequired" @(Model.IsReadonly ? "checked" : string.Empty) id="isReadonly" class="form-checkbox-field" type="checkbox" @ViewBag.Disabled/>
                     <i class="form-checkbox-button table-checkbox"></i>
                 </label>
             </div>
             <div class="checkbox-group">
                 <label class="form-checkbox-label">
                     <span>Required?</span>
-                    <input name="isRequired" value="isRequired" @(Model.IsRequired ? "checked" : string.Empty) id="isRequired" class="form-checkbox-field" type="checkbox" />
+                    <input name="isRequired" value="isRequired" @(Model.IsRequired ? "checked" : string.Empty) id="isRequired" class="form-checkbox-field" type="checkbox" @ViewBag.Disabled/>
                     <i class="form-checkbox-button table-checkbox"></i>
                 </label>
             </div>
@@ -112,7 +112,7 @@
             <div class="label filter-label">
                 Unit
             </div>
-            <input class="designer-form-input" id="unit" name="unit" type="number" value="@(Model != null ? Model.Unit : "")" />
+            <input class="designer-form-input" id="unit" name="unit" type="text" value="@(Model != null ? Model.Unit : "")" @ViewBag.Disabled/>
         </div>
     </div>
     <div class="designer-form-section thesaurus-section">
@@ -179,7 +179,7 @@
                 <div class="label filter-label">
                     Title
                 </div>
-                <input class="designer-form-input" id="helpTitle" name="helpTitle" type="text" value="@(Model != null && Model.Help != null ? Model.Help.Title : "")" />
+                <input class="designer-form-input" id="helpTitle" name="helpTitle" type="text" value="@(Model != null && Model.Help != null ? Model.Help.Title : "")" @ViewBag.Disabled/>
 
             </div>
         </div>
@@ -187,21 +187,24 @@
             <div class="label filter-label">
                 Content
             </div>
-            <textarea required class="designer-form-input" id="helpContent" name="helpContent" value="@(Model != null && Model.Help != null ? Model.Help.Content : "")">@(Model != null && Model.Help != null? Model.Help.Content : "")</textarea>
+            <textarea class="designer-form-input" id="helpContent" name="helpContent" value="@(Model != null && Model.Help != null ? Model.Help.Content : "")" @ViewBag.Disabled>@(Model != null && Model.Help != null? Model.Help.Content : "")</textarea>
         </div>
     </div>
     <div class="button-container">
         <div class="cancel-button cancel-modal-action">
             Back
         </div>
-        <div class="submit-button" id="submit-field-info">Update data</div>
+        @if (!ViewBag.ReadOnly)
+        {
+            <div class="submit-button" id="submit-field-info">Update data</div>
+        }
     </div>
 </form>
 
 <script>
     var fieldId;
-    $('#helpContent').ckeditor();
     $(document).ready(function () {
+        $('#helpContent').ckeditor();
         initializeValidator();
         validateIfHasError();
     });

@@ -1,0 +1,24 @@
+﻿@using sReportsV2.DTOs.DTOs.AccessManagment.DataOut;
+@model sReportsV2.DTOs.Common.DataOut.UserDataOut
+@{
+    var roles = Model.RenderUserRoleNames();
+}
+<div class="advanced-filter-item input-margin">
+    <div class="label filter-label">
+        @sReportsV2.Resources.TextLanguage.Roles
+    </div>
+    <div class="margin-top-10 container-persmission-role">
+        @if (roles.Count == 0)
+        {
+            <div class="filter-element">@sReportsV2.Resources.TextLanguage.None</div>
+        }
+        else
+        {
+            foreach (var role in roles)
+            {
+                <div class="filter-element">@role</div>
+            }
+        }
+    </div>
+</div>
+

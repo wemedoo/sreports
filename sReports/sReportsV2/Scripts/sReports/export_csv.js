@@ -50,7 +50,7 @@ function upload() {
         success: function (data) {
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(` Error: ${xhr.status} ${thrownError}`);
+            handleResponseError(xhr, thrownError);
         }
     });
     return false;
@@ -71,7 +71,7 @@ function uploadSecond() {
         success: function (data) {
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            toastr.error(` Error: ${xhr.status} ${thrownError}`);
+            handleResponseError(xhr, thrownError);
         }
     });
     return false;

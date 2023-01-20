@@ -2,52 +2,30 @@
 using sReportsV2.Domain.Sql.Entities.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using sReportsV2.Domain.Sql.Entities.EpisodeOfCare;
 
 namespace sReportsV2.Domain.Sql.Entities.Patient
 {
-    public class Patient : EntitiesBase.Entity
+    public class Patient : PatientBase
     {
-        public int Id { get; set; }
-        public List<Identifier> Identifiers { get; set; }
-        public bool Active { get; set; }
-        public Name Name { get; set; }
-        public Gender Gender { get; set; }
-        public DateTime? BirthDate { get; set; }
-        public Address Addresss { get; set; }
-        public MultipleBirth MultipleB { get; set; }
-        public Contact ContactPerson { get; set; }
-        public List<Telecom> Telecoms { get; set; }
-        public List<Communication> Communications { get; set; }
-
-        public List<EpisodeOfCare.EpisodeOfCare> EpisodeOfCares { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("PatientId")]
+        public int PatientId { get; set; }
+        public int OrganizationId { get; set; }
+        public List<PatientAddress> Addresses { get; set; }
+        public List<PatientTelecom> PatientTelecoms { get; set; }
+        public int? CitizenshipId { get; set; }
+        [ForeignKey("CitizenshipId")]
+        public CustomEnum Citizenship { get; set; }
+        public int? ReligionId { get; set; }
+        [ForeignKey("ReligionId")]
+        public CustomEnum Religion { get; set; }
+        public DateTime? DeceasedDateTime { get; set; }
+        public bool? Deceased { get; set; }
         
-        public void SetAddress(Address address)
-        {
-            if (this.Addresss != null)
-            {
-                this.Addresss.SetAddress(address);
-            }
-            else 
-            {
-                this.Addresss = address;
-            }
-        }
-        private void SetName(Name name)
-        {
-            if (this.Name != null)
-            {
-                this.Name.SetName(name);
-            }
-            else
-            {
-                this.Name = name;
-            }
-        }
 
         public void SetGenderFromString(string gender)
         {
@@ -68,51 +46,95 @@ namespace sReportsV2.Domain.Sql.Entities.Patient
 
         public void Copy(Patient patient)
         {
-            SetIdentifiers(patient.Identifiers);
-            Gender = patient.Gender;
-            BirthDate = patient.BirthDate;
-            SetName(patient.Name);
-            SetAddress(patient.Addresss);
-            MultipleB.isMultipleBorn = patient.MultipleB.isMultipleBorn;
-            MultipleB.Number = patient.MultipleB.Number;
-            SetTelecoms(patient.Telecoms);
-            SetComunication(patient.Communications);
-            SetContactPerson(patient.ContactPerson);
+            base.Copy(patient);
+            
+            OrganizationId = patient.OrganizationId;
+            CitizenshipId = patient.CitizenshipId;
+            ReligionId = patient.ReligionId;
+            Deceased = patient.Deceased;
+            DeceasedDateTime = patient.DeceasedDateTime;
+
+            CopyAddresses(patient.Addresses);
+            CopyTelecoms(patient.PatientTelecoms);
         }
 
-        private void SetIdentifiers(List<Identifier> identifiers)
+        private void CopyAddresses(List<PatientAddress> upcomingPatientAddresses)
         {
-            foreach (var identifier in identifiers.Where(x => x.Id == 0).ToList())
+            if (upcomingPatientAddresses != null)
             {
-                this.Identifiers.Add(identifier);
+                DeleteExistingRemovedAddresses(upcomingPatientAddresses);
+                AddNewOrUpdateOldAddresses(upcomingPatientAddresses);
             }
         }
 
-        private void SetTelecoms(List<Telecom> telecoms)
+        private void DeleteExistingRemovedAddresses(List<PatientAddress> upcomingPatientAddresses)
         {
-            foreach (var telecom in telecoms.Where(x => x.Id == 0).ToList())
+            foreach (var address in Addresses)
             {
-                this.Telecoms.Add(telecom);
+                var remainingAddress = upcomingPatientAddresses.Any(x => x.PatientAddressId == address.PatientAddressId);
+                if (!remainingAddress)
+                {
+                    address.IsDeleted = true;
+                }
             }
         }
 
-        private void SetComunication(List<Communication> communications)
+        private void AddNewOrUpdateOldAddresses(List<PatientAddress> upcomingPatientAddresses)
         {
-            foreach (var communication in communications.Where(x => x.Id == 0))
+            foreach (var patientAddress in upcomingPatientAddresses)
             {
-                this.Communications.Add(communication);
+                if (patientAddress.PatientAddressId == 0)
+                {
+                    Addresses.Add(patientAddress);
+                }
+                else
+                {
+                    var dbPatientAddress = Addresses.FirstOrDefault(x => x.PatientAddressId == patientAddress.PatientAddressId && !x.IsDeleted);
+                    if (dbPatientAddress != null)
+                    {
+                        dbPatientAddress.Copy(patientAddress);
+                    }
+                }
             }
         }
 
-        private void SetContactPerson(Contact contact)
+        private void CopyTelecoms(List<PatientTelecom> upcomingPatientTelecoms)
         {
-            if(this.ContactPerson == null)
+            if (upcomingPatientTelecoms != null)
             {
-                this.ContactPerson = contact;
+                DeleteExistingRemovedTelecoms(upcomingPatientTelecoms);
+                AddNewOrUpdateOldTelecoms(upcomingPatientTelecoms);
             }
-            else
+        }
+
+        private void DeleteExistingRemovedTelecoms(List<PatientTelecom> upcomingPatientTelecoms)
+        {
+            foreach (var telecom in PatientTelecoms)
             {
-                this.ContactPerson.Copy(contact);   
+                var remainingTelecom = upcomingPatientTelecoms.Any(x => x.PatientTelecomId == telecom.PatientTelecomId);
+                if (!remainingTelecom)
+                {
+                    telecom.IsDeleted = true;
+                }
+            }
+        }
+
+        private void AddNewOrUpdateOldTelecoms(List<PatientTelecom> upcomingPatientTelecoms)
+        {
+            foreach (var patientTelecom in upcomingPatientTelecoms)
+            {
+                if (patientTelecom.PatientTelecomId == 0)
+                {
+                    PatientTelecoms.Add(patientTelecom);
+                }
+                else
+                {
+                    var dbPatientTelecom = PatientTelecoms.FirstOrDefault(x => x.PatientTelecomId == patientTelecom.PatientTelecomId && !x.IsDeleted);
+                    if (dbPatientTelecom != null)
+                    {
+                        dbPatientTelecom.Copy(patientTelecom);
+                    }
+                }
             }
         }
     }

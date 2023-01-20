@@ -1,12 +1,15 @@
-﻿function submitEOCForm(form) {
+﻿$(document).ready(function () {
+    setCommonValidatorMethods();
+});
+
+function submitEOCForm(form) {
     console.log('eoc submit');
     $(form).validate();
 
     if ($(form).valid()) {
         var period = {
-            StartDate: new Date($("#periodStartDate").val()).toDateString(),
-            EndDate: $("#periodEndDate").val() ? new Date($("#periodEndDate").val()).toDateString() : null
-
+            StartDate: toDateStringIfValue($("#periodStartDate").val()),
+            EndDate: toDateStringIfValue($("#periodEndDate").val())
         };
 
         var request = {};
@@ -20,7 +23,6 @@
         request['PatientId'] = $("#patId").val();
         request['Description'] = $("#description").val();
         request['PatientId'] = $("#patientId").val();
-        request['LastUpdate'] = $("#lastUpdate").val();
 
         $.ajax({
             type: "POST",
@@ -32,7 +34,7 @@
 
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                handleResponseError(xhr, thrownError);
             }
 
         });
@@ -40,15 +42,3 @@
     }
     return false;
 }
-
-$('#startDateCalendar').click(function () {
-    $("#periodStartDate").datepicker({
-        dateFormat: df
-    }).focus();
-});
-
-$('#endDateCalendar').click(function () {
-    $("#periodEndDate").datepicker({
-        dateFormat: df
-    }).focus();
-});

@@ -8,7 +8,6 @@ var guidelineStyle = [
                 "shape": function (element) {
                     let elementData = element.data();
                     let result = 'round-rectangle';
-                    console.log(elementData.type);
                     switch (elementData.type) {
                         case 'Statement':
                             result = 'round-rectangle';
@@ -37,7 +36,26 @@ var guidelineStyle = [
                     }
                 },
                 'padding': '20',
-                'background-color': '#f0f1f1',
+                "background-color": function (element) {
+                    let elementData = element.data();
+                    if (elementData.state == "Completed") {
+                        return '#0000ff';
+                    }
+                    else if (elementData.state == "Active") {
+                        return '#00ff00';
+                    }
+                    else {
+                        return '#f0f1f1';
+                    }
+                },
+                "color": function (element) {
+                    let elementData = element.data();
+                    if (elementData.state == "Completed") {
+                        return 'white';
+                    }
+                    else
+                        return 'black';
+                },
                 'border-width': '1px',
                 'border-color': 'black',
                 'text-halign': 'center',

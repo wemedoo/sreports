@@ -3,13 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - sReports by weMedoo</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous" />
-    <link href="~/Scripts/jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
+    <title>@ViewBag.Title - @sReportsV2.Common.Constants.ResourceTypes.SoftwareName by weMedoo</title>
+    @Styles.RenderFormat("<link integrity=\"sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP\" crossorigin=\"anonymous\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://use.fontawesome.com/releases/v5.6.1/css/all.css")
+    @Styles.RenderFormat("<link type=\"text/css\" href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Scripts/jsoneditor/dist/jsoneditor.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css")
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/css")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/jquery")
 </head>
 <body class="sidebar-shrink">
     <nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
@@ -20,7 +19,7 @@
             <div class="navbar-brand col-6 col-sm-3 col-md-2">
                 <a href="#" class="dfd-logo">
                     <img class="navbar-logo" src="~/Content/img/icons/weMedoo-logo.png">
-                    sReports
+                    @sReportsV2.Common.Constants.ResourceTypes.SoftwareName
                 </a>
             </div>
         </div>
@@ -45,10 +44,10 @@
         var userPageSize = '@(ViewBag.UserCookieData != null ? ViewBag.UserCookieData.PageSize : 5)';
         var simplifiedApp;
     </script>
-    <script src="~/Scripts/jsoneditor/dist/jsoneditor.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/jsoneditor/dist/jsoneditor.min.js")
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js")
+    @Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js")
 
     @RenderSection("scripts", required: false)
 </body>

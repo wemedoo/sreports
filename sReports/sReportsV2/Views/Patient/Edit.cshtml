@@ -1,11 +1,16 @@
-﻿@using sReportsV2.DTOs.Common;
-@using sReportsV2.DTOs.Common.DTO;
+﻿@using sReportsV2.Common.Constants;
+
+@section Stylesheet
+{
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/digital-guideline.css")
+}
 
 @model sReportsV2.DTOs.Patient.PatientDataOut
 @{
     ViewData["Title"] = @sReportsV2.Resources.TextLanguage.Patient_Create;
     ViewBag.Action = "/Patient/Edit";
-
+    var userCookieData = ViewBag.UserCookieData;
+    string cityNames = Model.CityNames;
 }
 <input type="hidden" name="formPartialIndicator" value="@ViewBag.Action" />
 
@@ -26,20 +31,22 @@
         </div>
         <div class="property">
             <div class="property-name">@sReportsV2.Resources.TextLanguage.Gender</div>
-            <div class="property-value">@Model.Gender</div>
+            <div class="property-value">
+                @sReportsV2.Resources.TextLanguage.ResourceManager.GetString(Model.Gender)
+            </div>
         </div>
         <div class="property">
             <div class="property-name">@sReportsV2.Resources.TextLanguage.BirthDate</div>
-            <div class="property-value">@(Model.BirthDate != null ? Model.BirthDate.Value.ToShortDateString() : "Not known")</div>
+            <div class="property-value">@(Model.BirthDate != null ? Model.BirthDate.Value.ToString(ViewBag.DateFormat) : sReportsV2.Resources.TextLanguage.NotDefined)</div>
         </div>
         <div class="property no-border">
             <div class="property-name">@sReportsV2.Resources.TextLanguage.City</div>
-            <div class="property-value">@(Model.Address == null || string.IsNullOrWhiteSpace(Model.Address.City) ? "Not known" : Model.Address.City)</div>
+            <div class="property-value">@(string.IsNullOrWhiteSpace(cityNames) ? sReportsV2.Resources.TextLanguage.NotDefined : cityNames)</div>
         </div>
         <div class="property no-border">
             <button class="button-edit edit-patient-button" id="@Model.Id">
                 <i class="fas fa-pen"></i>
-                <span>@sReportsV2.Resources.TextLanguage.Edit</span>
+                <span>@(ViewBag.ReadOnly ? sReportsV2.Resources.TextLanguage.View : sReportsV2.Resources.TextLanguage.Edit)</span>
             </button>
         </div>
     </div>
@@ -55,7 +62,6 @@
             </div>
         </div>
         <div class="col-8">
-
             <div class="row">
                 <div class="col-12 edit-patient" id="patientContainer">
 
@@ -81,5 +87,4 @@
     </div>
 </div>
 
-<script src="~/Scripts/sReports/patientTree.js"></script>
-<script src="~/Scripts/sReports/datetimepicker.js"></script>
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/patient")

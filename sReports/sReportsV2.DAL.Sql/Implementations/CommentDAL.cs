@@ -19,7 +19,7 @@ namespace sReportsV2.SqlDomain.Implementations
         }
         public Comment FindById(int id)
         {
-            return context.Comments.FirstOrDefault(c => c.Id.Equals(id));
+            return context.Comments.FirstOrDefault(c => c.CommentId.Equals(id));
         }
 
         public List<Comment> FindCommentsByFormId(string formId)
@@ -31,26 +31,25 @@ namespace sReportsV2.SqlDomain.Implementations
 
         public void InsertOrUpdate(Comment comment)
         {
-            if (comment.Id == 0)
+            if (comment.CommentId == 0)
             {
-                comment.EntryDatetime = DateTime.Now;
-                comment.LastUpdate = DateTime.Now;
+                comment.SetLastUpdate();
                 context.Comments.Add(comment);
                 context.SaveChanges();
             }
             else 
             {
-                
+                comment.SetLastUpdate();
             }
         }
 
         public void UpdateState(int commentId, CommentState state)
         {
-            Comment comment = context.Comments.FirstOrDefault(x => x.Id == commentId);
+            Comment comment = context.Comments.FirstOrDefault(x => x.CommentId == commentId);
             if (comment != null) 
             {
                 comment.CommentState = state;
-                comment.LastUpdate = DateTime.Now;
+                comment.SetLastUpdate();
                 context.SaveChanges();
             }
         }

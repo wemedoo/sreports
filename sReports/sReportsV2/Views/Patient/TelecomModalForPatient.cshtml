@@ -13,7 +13,7 @@
                         <div class="d-flex advanced-filter-header">
                             <img class="mr-3" src="~/Content/img/icons/change_password.svg">@sReportsV2.Resources.TextLanguage.Telecom_Add
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Telecom_System
                             </div>
@@ -25,13 +25,13 @@
                                 }
                             </select>
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Telecom_Value
                             </div>
-                            <input required class="filter-input" type="text" id="telecomValueForPatient" name="telecomValueForPatient" />
+                            <input required class="filter-input" type="text" id="telecomValueForPatient" name="telecomValueForPatient" onkeydown="pressButtonOnEnterKey(event, 'patient-telecom-modal-button')"/>
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Telecom_Use
                             </div>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="button-partial">
-                            <button class="submit-patient right-button" type="button" style="outline: none;" onclick="addNewTelecomForPatient(event)" dismiss="modal">
+                            <button id="patient-telecom-modal-button" class="submit-patient right-button" type="button" style="outline: none;" onclick="addNewTelecomForPatient(event)" dismiss="modal">
                                 <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
                             </button>
                             <div class="button-wrapper-filter cancel-filter-btn float-right" id="close">

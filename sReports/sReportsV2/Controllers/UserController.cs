@@ -1,30 +1,19 @@
 ﻿using sReportsV2.BusinessLayer.Interfaces;
 using sReportsV2.Common.Extensions;
-using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
-using sReportsV2.Common.Enums;
-using sReportsV2.Common.Helpers;
-using sReportsV2.Domain.Extensions;
-using sReportsV2.Domain.Services.Implementations;
-using sReportsV2.Domain.Services.Interfaces;
 using sReportsV2.DTOs.Common.DataOut;
 using sReportsV2.DTOs.User.DataIn;
 using sReportsV2.TokenStorage;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Web.Security;
-using sReportsV2.DTOs.DTOs.User.DTO;
+using System;
 
 namespace sReportsV2.Controllers
 {
@@ -56,7 +45,6 @@ namespace sReportsV2.Controllers
         [AllowAnonymous]
         public ActionResult Login(UserLoginDataIn userDataIn)
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -65,31 +53,43 @@ namespace sReportsV2.Controllers
 
             if (ModelState.IsValid)
             {
-                UserDataOut userDataOut = userBLL.TryLoginUser(userDataIn);
-                if(userDataOut == null)
+                Tuple<UserDataOut, int?> loginDataOut = userBLL.TryLoginUser(userDataIn);
+                UserDataOut userDataOut = loginDataOut.Item1;
+                if (userDataOut == null || userDataOut.IsBlockedInEveryOrganization())
                 {
-                    ModelState.AddModelError("General", "Invalid Username or Password");
+                    AddError();
                     return View(userDataIn);
                 }
-
+                
                 SignInUser(userDataOut.GetClaims());
 
-                if (userDataOut.Organizations == null || userDataOut.Organizations.Count == 0)
+                int activeOrganizationId = loginDataOut.Item2.GetValueOrDefault();
+                if (userDataOut.HasToChooseActiveOrganization(activeOrganizationId))
                 {
-                    return View("ChooseActiveOrganization", userDataOut);
+                    TempData["activeOrganizations"] = userDataOut.GetActiveOrganizations();
+                    return RedirectToAction("ChooseActiveOrganization");
                 }
 
-                    
-                if (!string.IsNullOrEmpty(userDataIn.ReturnUrl))
+                if (string.IsNullOrEmpty(userDataIn.ReturnUrl))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
                 {
                     return Redirect(userDataIn.ReturnUrl);
                 }
-                return RedirectToAction("GetAll", "EpisodeOfCare");
             }
+            else
+            {
+                return View(userDataIn);
+            }
+        }
 
-            ModelState.AddModelError("General", "Invalid Username or Password");
-
-            return View(userDataIn);
+        [Authorize]
+        public ActionResult ChooseActiveOrganization()
+        {
+            var activeOrganizations = TempData["activeOrganizations"];
+            return View("~/Views/User/ChooseActiveOrganization.cshtml", activeOrganizations);
         }
 
         [AllowAnonymous]
@@ -117,24 +117,24 @@ namespace sReportsV2.Controllers
         }
 
         [AllowAnonymous]
-        public void SignIn()
+        public void SignIn(string returnUrl = "/")
         {
             if (!Request.IsAuthenticated)
             {
                 Response.SuppressFormsAuthenticationRedirect = true;
 
                 HttpContext.GetOwinContext().Authentication.Challenge(
-                    new AuthenticationProperties { RedirectUri = "/" },
+                    new AuthenticationProperties { RedirectUri = returnUrl },
                     OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
             else 
             {
-                Response.Redirect(Url.Action("Index", "Home", null));
+                Response.Redirect(Url.Action("Index", ConfigurationManager.AppSettings["DefaultController"], null));
             }
         }
 
         [AllowAnonymous]
-        public void SignInGoogle()
+        public void SignInGoogle(string returnUrl = "/")
         {
             if (!Request.IsAuthenticated)
             {
@@ -142,17 +142,23 @@ namespace sReportsV2.Controllers
                 Response.SuppressFormsAuthenticationRedirect = true;
 
                 HttpContext.GetOwinContext().Authentication.Challenge(
-                    new AuthenticationProperties { RedirectUri = "/" },
+                    new AuthenticationProperties { RedirectUri = returnUrl },
                     DefaultAuthenticationTypes.ApplicationCookie);
             }
             else
             {
-                Response.Redirect(Url.Action("Index", "Home", null));
+                Response.Redirect(Url.Action("Index", ConfigurationManager.AppSettings["DefaultController"], null));
             }
         }
+
         public ActionResult Error(string message, string debug)
         {
             return RedirectToAction("Login", "User", new { ReturnUrl = "/" });
+        }
+
+        private void AddError()
+        {
+            ModelState.AddModelError("General", "Invalid Username or Password");
         }
 
         private void SignInUser(List<Claim> claims)
@@ -174,7 +180,6 @@ namespace sReportsV2.Controllers
             tokenStore.Clear();
             System.Web.HttpContext.Current.Session["userData"] = null;
             HttpContext.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType, DefaultAuthenticationTypes.ApplicationCookie);
-
         }
     }
 }

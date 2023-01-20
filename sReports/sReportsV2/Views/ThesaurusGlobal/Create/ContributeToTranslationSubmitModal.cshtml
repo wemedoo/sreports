@@ -1,0 +1,28 @@
+﻿<div class="modal fade" id="gtTranslationSubmitModal" tabindex="-1" role="dialog" aria-labelledby="gtTranslationSubmitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-delete-item">
+            <div class="float-right filter-close-btn">
+                <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+            </div>
+            <div class="modal-body modal-delete-body">
+                <form id="gtTranslationSubmitModalForm">
+                    <div class="d-flex advanced-filter-header margin-bottom-14">
+                        <img class="mr-3" src="~/Content/img/icons/adding_doc.svg">Save current translation
+                    </div>
+                    <div class="confirm-deletion">Would you like to save current changes of translations?</div>
+                    <div class="button-partial">
+                        <button class="submit-button right-button margin-left-13 yes-button remove-modal-button" data-remove-status="confirm" type="button" style="outline: none;" onclick="submitThesaurusTranslationConfirm(event)" dismiss="modal">
+                            <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Yes</span>
+                        </button>
+                        <div class="button-wrapper-filter float-right" id="close">
+                            <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close" onclick="submitThesaurusTranslationClose(event)">
+                                No, continue without saving
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

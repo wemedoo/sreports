@@ -14,7 +14,7 @@
             <div class="label filter-label">
                 Formula
             </div>
-            <textarea required id="formula" name="formula" class="designer-form-input" value="@(Model != null ? Model.Formula : "") " rows="5">@(Model != null ? Model.Formula : "")</textarea>
+            <textarea required id="formula" name="formula" class="designer-form-input" value="@(Model != null ? Model.Formula : "") " rows="5" @ViewBag.Disabled>@(Model != null ? Model.Formula : "")</textarea>
         </div>
     </div>
 

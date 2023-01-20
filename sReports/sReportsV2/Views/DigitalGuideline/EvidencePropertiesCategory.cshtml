@@ -1,0 +1,57 @@
+﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut
+@model GuidelineElementDataDataOut
+
+<div class="node-preview-section">
+    <div class="section-title">Evidence category</div>
+    <div class="section-items">
+        <div class="section-item">
+            <div class="section-items-cell key-cell">
+                Strength Of Recommendation:
+            </div>
+            <div class="section-items-cell value-cell no-left-border">
+                Strength Of Recommendation:
+                @Model.EvidenceProperties.EvidenceCategory.StrengthOfRecommendation.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+            </div>
+        </div>
+        <div class="section-item">
+            <div class="section-items-cell no-top-border key-cell">
+                Oxford LevelOf Evidence System:
+            </div>
+            <div class="section-items-cell no-left-border no-top-border value-cell">
+                Oxford LevelOf Evidence System:
+                @Model.EvidenceProperties.EvidenceCategory.OxfordLevelOfEvidenceSystem.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+            </div>
+        </div>
+
+        @if (Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory != null)
+        {
+            <div class="sub-section">
+                <div class="sub-section-title">NCCN</div>
+                <div class="section-item">
+                    <div class="section-items-cell no-top-border key-cell">
+                        Category Of Evidence And Consensus:
+                    </div>
+                    <div class="section-items-cell no-left-border no-top-border value-cell">
+                        Category Of Evidence And Consensus:
+                        @if (Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfEvidenceAndConsensus != null)
+                        {
+                            @Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfEvidenceAndConsensus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+                        }
+                    </div>
+                </div>
+                <div class="section-item">
+                    <div class="section-items-cell no-top-border key-cell">
+                        Category Of Preference:
+                    </div>
+                    <div class="section-items-cell no-left-border no-top-border value-cell">
+                        Category Of Preference:
+                        @if (Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfPreference != null)
+                        {
+                            @Model.EvidenceProperties.EvidenceCategory.NCCNEvidenceCategory.CategoryOfPreference.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage)
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

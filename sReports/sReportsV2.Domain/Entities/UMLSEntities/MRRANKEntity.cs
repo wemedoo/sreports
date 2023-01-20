@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Entities.UMLSEntities
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class MRRANKEntity : Entity
     {
         [BsonId]
@@ -26,10 +27,8 @@ namespace sReportsV2.Domain.Entities.UMLSEntities
             this.Sab = sab;
             this.TTY = tty;
             this.SupPress = supPress;
-            this.EntryDatetime = DateTime.Now;
-            this.LastUpdate = DateTime.Now;
             this.IsDeleted = false;
-
+            this.Copy(null);
         }
 
     }

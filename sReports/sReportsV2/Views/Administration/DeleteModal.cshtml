@@ -31,9 +31,10 @@
     function removeItem(e) {
     e.stopPropagation();
     e.preventDefault();
+    $('#deleteModal').modal('hide');
     var callingFunction = document.getElementById("buttonSubmitDelete").getAttribute('data-callingfunction');
 
-        window[callingFunction](e);
+    window[callingFunction](e);
     //if (callingFunction == "removePredefinedType")
     //        removePredefinedType(e);
     //if (callingFunction == "deleteFormItem")
@@ -43,7 +44,6 @@
 function showDeleteModal(e, id, callingFunction) {
     e.stopPropagation();
     e.preventDefault();
-    var predefinedType = $("#predefinedType").val();
     document.getElementById("buttonSubmitDelete").setAttribute('data-id', id);
     document.getElementById("buttonSubmitDelete").setAttribute('data-callingfunction', callingFunction);
 

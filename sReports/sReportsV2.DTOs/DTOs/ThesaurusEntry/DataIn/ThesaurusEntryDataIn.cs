@@ -41,6 +41,13 @@ namespace sReportsV2.DTOs.ThesaurusEntry
 
         public DateTime? LastUpdate { get; set; }
 
+        [DataMember(Name = "preferredLanguage")]
+        public string PreferredLanguage { get; set; }
+
+        public string UriClassLink { get; set; }
+        public string UriClassGUI { get; set; }
+        public string UriSourceLink { get; set; }
+        public string UriSourceGUI { get; set; }
 
     }
 }

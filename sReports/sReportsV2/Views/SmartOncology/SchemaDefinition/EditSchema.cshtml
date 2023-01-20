@@ -1,0 +1,93 @@
+﻿@using sReportsV2.DTOs.DTOs.SmartOncology.ChemotherapySchema.DataOut;
+@model ChemotherapySchemaDataOut
+
+@{
+    ViewBag.Title = sReportsV2.Resources.TextLanguage.Create_New_Schema;
+}
+
+@section Stylesheet {
+    @Styles.RenderFormat("<link href='{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "' rel='stylesheet'>", "~/Content/open-oncology/scss/schema_style.css")
+}
+
+@Html.Partial("Breadcrumb", new ViewDataDictionary { { "level1", @sReportsV2.Resources.TextLanguage.Chemotherapy_Schema }, { "linkLevel1", "/SmartOncology/BrowseSchemas" }, { "level2", Model != null ? Model.Name ?? sReportsV2.Resources.TextLanguage.Predefined_schema_name : @sReportsV2.Resources.TextLanguage.Create_New_Schema }, { "activeLevel", 2 } })
+
+<div class="schema-definition-wrapper">
+    <div class="chemotherapy-schema-content">
+        <div class="chemotherapy-schema-header">
+            <h1 class="title">
+                @sReportsV2.Resources.TextLanguage.Chemotherapy_Schema
+            </h1>
+            <button class="btn-primary-schema btn-icon @(Model == null ? "d-none" : "")" id="previewSchemaBtn" data-id="@(Model != null ? Model.Id : 0)">
+                <span class="icon"><img src="~/Content/open-oncology/images/icons/dashboard.svg" alt="Dashboard icon"></span>
+                @sReportsV2.Resources.TextLanguage.Preview_Chemotherapy_Schema
+            </button>
+        </div>
+
+        <!-- Start .chemotherapy-schema  -->
+        <input id="rowVersion" name="rowVersion" type="hidden" value="@(Model != null ? Model.RowVersion: "")" />
+        <section class="chemotherapy-schema" data-id="@(Model != null ? Model.Id : 0)">
+            <div class="row">
+                @Html.Partial("SchemaDefinition/EditPreviewBasicProperties")
+                <div class="schema-col col-2">
+                    <div class="schema-card">
+                        <div class="schema-card-header">
+                            <span class="icon">
+                                <img src="~/Content/open-oncology/images/icons/medications.svg" alt="">
+                            </span>
+                            <h3>
+                                @sReportsV2.Resources.TextLanguage.Medications
+                            </h3>
+                            <button class="add-new-medication-btn update-medication" data-id="0">
+                                <i class="fas fa-plus-circle"></i>
+                                @sReportsV2.Resources.TextLanguage.Add_New
+                            </button>
+                        </div>
+                        <div id="medicationsPreview">
+                            @if (Model != null)
+                            {
+                                foreach (var medication in Model.Medications)
+                                {
+                                    <div class="schema-card-item item-link update-medication" data-id="@medication.Id">
+                                        <div class="item-header pointer">
+                                            <h3>@medication.Name</h3>
+                                            <span class="icon">
+                                                <img src="~/Content/open-oncology/images/icons/edit-icon.svg" alt="Edit">
+                                            </span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="schema-card-item add-new update-medication" data-id="0">
+                            <div class="item-header">
+                                <h3>
+                                    @sReportsV2.Resources.TextLanguage.Add_new_medication
+                                </h3>
+                                <span class="icon">
+                                    <img src="~/Content/open-oncology/images/icons/plus.svg" alt="Add new">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schema-col col-6 new-medication-wrapper"></div>
+                @Html.Partial("SchemaDefinition/EditGeneralProperties")
+            </div>
+        </section>
+        <!-- End .chemotherapy-schema  -->
+        <!-- Modal window for indication -->
+        @Html.Partial("SchemaDefinition/EditIndicationsModal")
+
+        <!-- Modal window for Schema Name -->
+        @Html.Partial("SchemaDefinition/EditNameModal")
+
+        <!-- Modal window for  Literature reference-->
+        <div class="modal-window modal-reference" id="literatureReferenceModal">
+        </div>
+
+    </div>
+</div>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaDefinition.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/Scripts/openOncology/schemaDefinitionMedication.js")

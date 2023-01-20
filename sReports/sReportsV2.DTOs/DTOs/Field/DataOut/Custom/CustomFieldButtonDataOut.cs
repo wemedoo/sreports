@@ -12,7 +12,7 @@ namespace sReportsV2.DTOs.Field.DataOut.Custom
     {
         [JsonIgnore]
         public override string PartialView { get; } = "~/Views/Form/Custom/FieldCustomButton.cshtml";
-        public override string NestableView { get; } = "~/Views/Form/Custom/FieldCustomButton.cshtml";
+        public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableCustomButton.cshtml";
 
 
         [DataProp]

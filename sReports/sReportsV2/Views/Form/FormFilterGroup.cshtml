@@ -1,5 +1,14 @@
 ﻿<div class="d-flex">
     <div class="d-flex main-filter mb-2">
+        @if (this.ViewContext.RouteData.Values["controller"].ToString().Equals("FormInstance"))
+        {
+            <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
+                <div class="label filter-label">
+                    @sReportsV2.Resources.TextLanguage.Content
+                </div>
+                <input type="text" class="filter-input" id="ContentTemp">
+            </div>
+        }
         <div class="filter-item advanced-filter-item margin-right-10 advanced-max-width">
             <div class="label filter-label">
                 @sReportsV2.Resources.TextLanguage.Title
@@ -10,7 +19,7 @@
             <div class="label filter-label">
                 @sReportsV2.Resources.TextLanguage.Thesaurus
             </div>
-            <input type="text" class="filter-input" id="ThesaurusIdTemp">
+            <input type="text" class="filter-input" id="ThesaurusIdTemp" value="@(ViewBag.FilterData != null && ViewBag.FilterData.ThesaurusId > 0 ? ViewBag.FilterData.ThesaurusId : "")">
         </div>
         <div class="advanced-filter-item filter-item margin-right-10 advanced-max-width">
             <div class="label filter-label">
@@ -31,7 +40,7 @@
         </div>
         <div id="advancedId" class=" filter-item border-0 margin-top-15">
             <div class="button-wrapper-filter" id="submitFilterButton">
-                <button class="btn w-100 h-100 float-right font-size-14 btn-advanced-link" onclick="advancedFilterModal(event)"><img class="display-none" src="/Content/img/icons/advanced_filter.svg">@sReportsV2.Resources.TextLanguage.Advanced_filter</button>
+                <button class="btn w-100 h-100 float-right font-size-14 btn-advanced-link" onclick="advancedFilterModal(event)"><img class="display-none" src="~/Content/img/icons/advanced_filter.svg">@sReportsV2.Resources.TextLanguage.Advanced_filter</button>
             </div>
         </div>
 

@@ -1,0 +1,32 @@
+﻿@using sReportsV2.DTOs.DTOs.Consensus.DataOut
+@model ConsensusUsersDataOut
+
+<div class="c-user-filter-title">
+    <img class="user-filter-icon" src="~/Content/img/icons/select_table.svg"> Select all user entering in consensus finding
+</div>
+<div class="d-flex" id="consensusUserFilter">
+    @Html.Partial("~/Views/Form/Consensus/Users/MapFilterPartial.cshtml")
+    @Html.Partial("~/Views/Form/Consensus/Users/OrganizationFilter.cshtml", Model.OrganizationUsersCount)
+
+    <div id="consensusUsers" class="user-filter-part" style="margin-top:45px;">
+    </div>
+</div>
+<div id="consensusOrganizationUserInfo" class="d-flex">
+    @Html.Partial("~/Views/Form/Consensus/Users/ConsensusOrganizationUserInfo.cshtml", Model.ConsensusOrganizationUserInfoData)
+</div>
+
+<div id="usersInsideSystem" class="d-flex">
+    @Html.Partial("~/Views/Form/Consensus/Users/InsideUsers.cshtml", Model.Users)
+</div>
+
+<div id="usersOutsideSystem" class="d-flex">
+    @Html.Partial("~/Views/Form/Consensus/Users/OutsideUsers.cshtml", Model.OutsideUsers)
+</div>
+
+@Html.Partial("~/Views/Form/Consensus/Users/AddUserModal.cshtml")
+
+<script>
+    $(document).ready(function () {
+        updateNumberOfSelectedUsers();
+    });
+</script>

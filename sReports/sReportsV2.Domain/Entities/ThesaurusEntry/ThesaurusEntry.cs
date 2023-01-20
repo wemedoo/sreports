@@ -13,6 +13,7 @@ using sReportsV2.Common.Extensions;
 
 namespace sReportsV2.Domain.Entities.ThesaurusEntry
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     [BsonIgnoreExtraElements]
     public class ThesaurusEntry : Entity
     {
@@ -130,7 +131,6 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
                 {
                     ThesaurusEntryTranslation trans = fromThesaurus.Translations.FirstOrDefault(x => x.Language == translation.Language);
                     translation.PreferredTerm = trans?.PreferredTerm;
-                    translation.SimilarTerms = trans?.SimilarTerms;
                     translation.Synonyms = trans?.Synonyms;
                     translation.Definition = trans?.Definition;
                     translation.Abbreviations = trans?.Abbreviations;
@@ -149,29 +149,6 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
                     this.Translations.Add(tr);
                 }
             }
-        }
-
-        public void MergeSimilarTerms(ThesaurusEntry fromThesaurus)
-        {
-            Ensure.IsNotNull(fromThesaurus, nameof(fromThesaurus));
-            if (this.Translations != null) 
-            {
-                foreach (ThesaurusEntryTranslation translation in this.Translations)
-                {
-                    ThesaurusEntryTranslation fromThesaurusTranslation = fromThesaurus.Translations.FirstOrDefault(x => x.Language == translation.Language);
-                    if (fromThesaurusTranslation != null && fromThesaurusTranslation.SimilarTerms != null) 
-                    {
-                        foreach (SimilarTerm similarTerm in fromThesaurusTranslation.SimilarTerms)
-                        {
-                            if (translation.SimilarTerms!= null && translation.SimilarTerms.FirstOrDefault(x => x.Definition == similarTerm.Definition && x.Name == similarTerm.Name && x.Source == similarTerm.Source) == null)
-                            {
-                                translation.SimilarTerms.Add(similarTerm);
-                            }
-                        }
-                    }
-                }
-            }
-            
         }
         public void MergeSynonyms(ThesaurusEntry fromThesaurus)
         {
@@ -242,14 +219,6 @@ namespace sReportsV2.Domain.Entities.ThesaurusEntry
                         this.Codes.Add(code);
                     }
                 }
-            }
-        }
-
-        public void SetSimilarTermEntryDate()
-        {
-            foreach (SimilarTerm similarTerm in this.Translations.Where(c => c.SimilarTerms != null).Select(x => x.SimilarTerms).SelectMany(y => y).Where(z => z.EntryDateTime == null))
-            {
-                similarTerm.EntryDateTime = DateTime.Now;
             }
         }
     }

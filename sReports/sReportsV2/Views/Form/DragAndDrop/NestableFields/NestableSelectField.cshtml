@@ -1,1 +1,51 @@
-﻿
+﻿@using sReportsV2.DTOs.Form.DataOut;
+@using sReportsV2.Common.Extensions;
+@using sReportsV2.DTOs.Field.DataOut;
+@model FieldSelectDataOut
+@{
+    string hasValue = Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) ? "-hasvalue" : "";
+    bool isChapterReadonly = ViewBag.Chapter;
+    int fieldSetCounter = ViewBag.FieldSetCounter;
+    string fieldSetId = ViewBag.FieldSetId;
+}
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element form-select">
+    <div class="field-group">
+        <div for="sel-@Model.Id" class="filter-label form-label-size d-inline-block">
+            <span class="comment-target-item" id="@Model.Id">@Html.Raw(Model.FullLabel)</span>
+        </div>
+        <div class="repetitive-field filter-input d-inline-block arrow-select">
+            @AddSelect(fieldSetCounter, fieldSetId, hasValue, Model.IsReadonly || isChapterReadonly)
+        </div>
+        @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
+    </div>
+</fieldset>
+
+@helper AddSelect(int fieldSetCounter, string fieldSetId, string hasValue, bool isDisabled)
+{
+    <select
+            id="sel-@fieldSetCounter-@Model.Id"
+            name="@fieldSetId-@fieldSetCounter-@Model.Id-1"
+    class="form-element-field  @hasValue"
+    value="@(Model.Value != null && Model.Value.Count() > 0 ? Model.Value[0] : string.Empty)"
+            disabled
+            >
+           <option value="" class="form-select-placeholder" @(Model.Value != null && Model.Value.Count > 0 && string.IsNullOrEmpty(Model.Value[0]) ? "disabled selected" : string.Empty) data-itemtype="fieldvalue"></option>
+           @foreach (FormFieldValueDataOut ffv in Model.Values)
+           {
+                <option
+                 value="@ffv.Value"
+                  title="@ffv.Label"
+                @(Model.Value != null && Model.Value.Count > 0 && !string.IsNullOrEmpty(Model.Value[0]) && Model.Value[0].Contains(ffv.Value) ? "selected" : string.Empty)
+                @ffv.GetDataAttr()
+                data-valuetype="option"
+                data-itemtype="fieldvalue"
+            >@ffv.GetShortValue()</option>
+           }
+    </select>
+
+    if (isDisabled)
+    {
+        <input type="hidden" id="sel-@Model.Id" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" class="form-element-field @hasValue" value="@(Model.Value != null && Model.Value.Count() > 0 ? Model.Value[0] : string.Empty)">
+    }
+}
+

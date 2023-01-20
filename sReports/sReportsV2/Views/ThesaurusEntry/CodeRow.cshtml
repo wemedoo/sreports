@@ -1,0 +1,45 @@
+﻿@using sReportsV2.DTOs.O4CodeableConcept.DataOut;
+@using sReportsV2.Common.Constants;
+
+@model O4CodeableConceptDataOut
+
+@{
+    var userCookieData = ViewBag.UserCookieData;
+}
+
+<tr class="tr edit-raw" data-id="@Model.Id">
+    <td data-property="codeId" hidden data-value="@Model.Id"></td>
+    <td data-property="codeSystem" data-value="@(Model.System != null ? Model.System.Id.ToString() : null)" class="custom-td-first">
+        @(Model.System != null ? Model.System.Label : "")
+    </td>
+    <td data-property="codeVersion" data-value="@Model.Version" class="custom-td">
+        @Model.Version
+    </td>
+    <td data-property="codeCode" data-value="@Model.Code" class="custom-td">
+        @Model.Code
+    </td>
+    <td data-property="codeValue" data-value="@Model.Value" class="custom-td">
+        @Model.Value
+    </td>
+    <td data-property="codeVersionPublishDate" data-value="@(Model.VersionPublishDate != null ? Model.VersionPublishDate.Value.ToString(ViewBag.DateFormat) : "")" class="custom-td">
+        @(Model.VersionPublishDate != null ? Model.VersionPublishDate.Value.ToString(ViewBag.DateFormat) : "")
+    </td>
+    <td class="custom-td-last" style="padding:unset">
+        @if (!ViewBag.ReadOnly)
+        {
+            <div class="dropdown show">
+                <a class="dropdown-button" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="codes-dots" src="~/Content/img/icons/dots-active.png">
+                </a>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item edit-code" href="#"><img class="edit-svg-size" src="~/Content/img/icons/edit.svg">@sReportsV2.Resources.TextLanguage.Edit</a>
+                    @if (userCookieData.UserHasPermission(PermissionNames.Delete, ModuleNames.Thesaurus))
+                    {
+                        <a class="dropdown-item delete-code" href="#"><img class="edit-svg-size" src="~/Content/img/icons/remove.svg">@sReportsV2.Resources.TextLanguage.Delete</a>
+                    }
+                </div>
+            </div>
+        }
+    </td>
+</tr>

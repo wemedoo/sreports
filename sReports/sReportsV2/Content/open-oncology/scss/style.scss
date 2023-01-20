@@ -1,0 +1,25 @@
+// Importing: Abstracts
+@import "abstracts/_mixins.scss";
+@import "abstracts/_variables.scss";
+@import "abstracts/_functions.scss";
+
+// Importing: Base
+@import "base/_typography.scss";
+@import "base/_base.scss";
+@import "base/_utilities.scss";
+
+// Importing: Components
+@import "components/_buttons.scss";
+@import "components/schema/_buttons.scss";
+@import "components/schema/_checkbox.scss";
+@import "components/_table.scss";
+@import "components/_history.scss";
+@import "components/_basicPatientDataOncology.scss";
+@import "components/schema/_modals.scss";
+
+// Importing: Layouts
+@import "layout/_navbar.scss";
+@import "layout/_header.scss";
+@import "layout/_main.scss";
+@import "layout/_modal.scss";
+@import "layout/_medicationInstanceModal.scss";

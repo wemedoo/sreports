@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using sReportsV2.Common.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,10 @@ namespace sReportsV2.DTOs.Field.DataOut
 
         [JsonIgnore]
         public override string NestableView { get; } = "~/Views/Form/DragAndDrop/NestableFields/NestableFileField.cshtml";
+
+        public override string GetSynopticValue(string value, string neTranslated)
+        {
+            return value.ShouldSetSpecialValue(IsRequired) ? neTranslated : value.GetFileNameFromUri();
+        }
     }
 }

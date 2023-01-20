@@ -1,0 +1,28 @@
+﻿<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content modal-delete-item">
+            <div class="float-right filter-close-btn">
+                <img class="close-save-modal" src="~/Content/img/icons/close_black.svg" onclick="questionnaireSaveModalDecision(event, 'no')">
+            </div>
+            <div class="modal-body modal-delete-body">
+                <form id="saveModalForm">
+                    <div class="d-flex advanced-filter-header margin-bottom-14">
+                        <img class="mr-3" src="~/Content/img/icons/adding_doc.svg">@sReportsV2.Resources.TextLanguage.SaveChanges
+                    </div>
+                    <div class="confirm-deletion">@sReportsV2.Resources.TextLanguage.Save_Changes</div>
+                    <div class="button-partial">
+                        <button class="submit-button right-button margin-left-13 yes-button remove-modal-button" data-remove-status="confirm" type="button" style="outline: none;" onclick="questionnaireSaveModalDecision(event, 'yes')" dismiss="modal" id="buttonSubmitSave">
+                            <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Yes</span>
+                        </button>
+                        <div class="button-wrapper-filter float-right" id="close">
+                            <a class="btn advanced-cancel" aria-label="Cancel" onclick="questionnaireSaveModalDecision(event, 'no')">
+                                @sReportsV2.Resources.TextLanguage.Cancel
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

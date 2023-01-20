@@ -1,29 +1,22 @@
-﻿@using sReportsV2.DTOs.Field.DataOut;
-@using sReportsV2.DTOs.Form.DataOut;
+﻿@using System.Web.Mvc.Html;
+@using sReportsV2.DTOs.Field.DataOut;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.Common.Extensions;
+
 @model FieldCalculativeDataOut
 
 @{
     int fieldSetCounter = ViewBag.FieldSetCounter;
     string fieldSetId = ViewBag.FieldSetId;
 }
-    <fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content calculative" @Html.Raw(Model.Visibility)>
+<fieldset id="@fieldSetId-@fieldSetCounter-@Model.Id-1" data-dependables="@Model.IsVisible" class="form-element form-input position-relative field-set-content calculative" @Html.Raw(Model.Visibility) @Html.Raw(Model.IsRequiredDataAttr)>
+    @AddField(Html, Model, false, fieldSetId, fieldSetCounter, additionalInputClass: "calculative-background")
+    <div style="display:none" class="form-element-description field-desc">
+        @Html.Raw(Model.Description)
+    </div>
+</fieldset>
 
-        <div class=" field-group">
-            <div for="@Model.Id" class="filter-label form-label-size d-inline-block">
-                @Html.Raw(Model.FullLabel)
-            </div>
-            <div class="repetitive-field filter-input d-inline-block calculative-background">
-                <input type="text" class="form-element-field" name="@fieldSetId-@fieldSetCounter-@Model.Id-1" readonly placeholder="@Model.DescriptionLabel" @Html.Raw(Model.ValidationAttr) value="@(Model.Value != null && Model.Value.Count > 0 ? Model.Value[0] : string.Empty)" />
-            </div>
-            @Html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", Model)
-        </div>
-
-        <div style="display:none" class="form-element-description field-desc">
-            @Html.Raw(Model.Description)
-        </div>
-    </fieldset>
-
-    <script>
+<script>
     $(document).ready(function () {
         let identifiersAndVariablesDictionary = [];
         @if (Model.IdentifiersAndVariables != null) {
@@ -38,7 +31,7 @@
             {
                 <text>
                     $(document).on('change', '[name*="-@fieldId-"]', function () {
-                        if ($(this).is('input') || $(this).is('select')) {
+                        if (($(this).is('input') || $(this).is('select')) && !isSpecialValue($(this))) {
                             try {
                                 let name = $(this).attr("name");
                                 let nameValues = name.split("-");
@@ -55,3 +48,55 @@
 
     })
 </script>
+
+@*
+    ---------------------------------------------------------------------------------------------------
+                                        Temporarily - Hotfix
+    ---------------------------------------------------------------------------------------------------
+*@
+@helper AddField(System.Web.Mvc.HtmlHelper html, FieldStringDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, string additionalFieldClass = "", string additionalInputClass = "")
+{
+    if (objectModel.HasValue())
+    {
+        for (int i = 0; i < objectModel.Value.Count; i++)
+        {
+            @AddField(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, i + 1, objectModel.Value[i], objectModel.IsRepetitive, additionalFieldClass, additionalInputClass)
+        }
+    }
+    else
+    {
+        @AddField(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, 1, "", objectModel.IsRepetitive, additionalFieldClass, additionalInputClass)
+    }
+}
+
+@helper AddField(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive, string additionalFieldClass, string additionalInputClass, string customLabel = "")
+{
+    <div class="field-group @additionalFieldClass">
+        <div for="@objectModel.Id" class="filter-label form-label-size d-inline-block">
+            @if (string.IsNullOrEmpty(customLabel))
+            {
+                @html.Raw(objectModel.FullLabel)
+            }
+            else
+            {
+                @customLabel
+            }
+        </div>
+        <div class="repetitive-field filter-input d-inline-block @additionalInputClass">
+            @AddInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive)
+        </div>
+        @html.Partial("~/Views/Form/Custom/FieldButtonGroup.cshtml", objectModel, new System.Web.Mvc.ViewDataDictionary(html.ViewData) { { "repetitiveCounter", repetitiveCounter }, { "repetitiveValue", repetitiveValue } })
+    </div>
+}
+
+@helper AddInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive)
+{
+    bool isSpecialValue = repetitiveValue.IsSpecialValue();
+    repetitiveValue = repetitiveValue.ResetIfSpecialValue();
+    @AddCalculativeInput(html, objectModel, isChapterReadonly, fieldSetId, fieldSetCounter, repetitiveCounter, repetitiveValue, isRepetitive)
+}
+
+@helper AddCalculativeInput(System.Web.Mvc.HtmlHelper html, FieldDataOut objectModel, bool isChapterReadonly, string fieldSetId, int fieldSetCounter, int repetitiveCounter, string repetitiveValue, bool isRepetitive)
+{
+    <input type="text" class="form-element-field field-calculative" name="@fieldSetId-@fieldSetCounter-@objectModel.Id-@repetitiveCounter" readonly placeholder="@objectModel.DescriptionLabel" @html.Raw(objectModel.ValidationAttr) value="@repetitiveValue" />
+}

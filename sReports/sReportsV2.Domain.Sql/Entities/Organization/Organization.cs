@@ -16,7 +16,8 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; set; }  
+        [Column("OrganizationId")]
+        public int OrganizationId { get; set; }  
         [NotMapped]
         public List<int> Type { get; set; }
         public string TypesString
@@ -44,22 +45,38 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
         public string LogoUrl { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
+        public string Impressum { get; set; }
         public int NumOfUsers { get; set; }
         public int? AddressId { get; set; }
         public virtual int? OrganizationRelationId { get; set; }
+        [ForeignKey("AddressId")]
         public virtual Address Address { get; set; }
+        [ForeignKey("OrganizationRelationId")]
         public virtual OrganizationRelation OrganizationRelation { get; set; }
-        public virtual List<OrganizationClinicalDomain> ClinicalDomains { get; set; }
+        public virtual List<OrganizationClinicalDomain> ClinicalDomains { get; set; } = new List<OrganizationClinicalDomain>();
         public virtual List<Identifier> Identifiers { get; set; }
         public virtual List<Telecom> Telecoms { get; set; }
+
         
+        //{
+        //    get
+        //    {
+        //        return Impressum;
+        //    }
+        //    set
+        //    {
+        //        if (value.Length > 600)
+        //            value = value.Substring(0, 600);
+        //        Impressum = value;
+        //    }
+        //}
+
         public void CopyData(Organization copyFrom)
         {
-            this.RowVersion = copyFrom.RowVersion;
             this.Alias = copyFrom.Alias;
             this.Description = copyFrom.Description;
             this.Email = copyFrom.Email;
-            this.Id = copyFrom.Id;
+            this.OrganizationId = copyFrom.OrganizationId;
             this.IsDeleted = copyFrom.IsDeleted;
             this.LogoUrl = copyFrom.LogoUrl;
             this.Name = copyFrom.Name;
@@ -67,7 +84,18 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
             this.RowVersion = copyFrom.RowVersion;
             this.SecondaryColor = copyFrom.SecondaryColor;
             this.Type = copyFrom.Type;
+            this.Impressum = copyFrom.Impressum;
             CopyAddress(copyFrom.Address);
+            SetTelecoms(copyFrom.Telecoms);
+            SetIdentifiers(copyFrom.Identifiers);
+        }
+
+        private void SetIdentifiers(List<Identifier> identifiers)
+        {
+            foreach (var identifier in identifiers.Where(x => x.IdentifierId == 0).ToList())
+            {
+                this.Identifiers.Add(identifier);
+            }
         }
 
         public void SetRelation(int? parentId)
@@ -89,8 +117,6 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
             {
                 this.OrganizationRelation = new OrganizationRelation()
                 {
-                    EntryDatetime = DateTime.Now,
-                    LastUpdate = DateTime.Now,
                     Child = this,
                     ParentId = parentId.GetValueOrDefault()
                 };
@@ -98,7 +124,7 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
             else
             {
                 this.OrganizationRelation.ParentId = parentId.GetValueOrDefault();
-                this.OrganizationRelation.LastUpdate = DateTime.Now;
+                this.OrganizationRelation.SetLastUpdate();
             }
         }
 
@@ -125,9 +151,7 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
                     this.ClinicalDomains.Add(new OrganizationClinicalDomain()
                     {
                         ClinicalDomainId = (int)clinicalDomain,
-                        EntryDatetime = DateTime.Now,
-                        LastUpdate = DateTime.Now,
-                        OrganizationId = this.Id
+                        OrganizationId = this.OrganizationId
                     });
                 }
             }
@@ -146,13 +170,15 @@ namespace sReportsV2.Domain.Sql.Entities.OrganizationEntities
                 this.Address = new Address();
             }
 
-            this.Address.Id = copyFrom.Id;
-            this.Address.City = copyFrom.City;
-            this.Address.Country = copyFrom.Country;
-            this.Address.PostalCode = copyFrom.PostalCode;
-            this.Address.State = copyFrom.State;
-            this.Address.Street = copyFrom.Street;
-            this.Address.StreetNumber = copyFrom.StreetNumber;  
+            this.Address.Copy(copyFrom);
+        }
+
+        private void SetTelecoms(List<Telecom> telecoms)
+        {
+            foreach (var telecom in telecoms.Where(x => x.TelecomId == 0).ToList())
+            {
+                this.Telecoms.Add(telecom);
+            }
         }
     }
 }

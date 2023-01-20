@@ -1,4 +1,6 @@
-﻿<div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel" aria-hidden="true">
+﻿@using sReportsV2.Common.Extensions;
+
+<div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content modal-content-codes">
             <div class="float-right filter-close-btn">
@@ -6,16 +8,23 @@
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-
-                    <form id="newCodeForm">
+                    <form id="newCodeForm" onsubmit="addNewCode(event)" novalidate>
+                        <input type="hidden" id="codeId" name="codeId" />
+                        <input type="hidden" id="bevalid" name="bevalid" />
                         <div class="d-flex advanced-filter-header">
-                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">@sReportsV2.Resources.TextLanguage.AddCode
+                            <img class="mr-3" src="~/Content/img/icons/change_password.svg">
+                            <label class="code-form-title" id="addCodeTitle">
+                                @sReportsV2.Resources.TextLanguage.AddCode
+                            </label>
+                            <label class="code-form-title" style="display: none" id="editCodeTitle">
+                                @sReportsV2.Resources.TextLanguage.EditCode
+                            </label>
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.System
                             </div>
-                            <select class="filter-input arrow-select" id="codeSystem" name="codeSystem">
+                            <select class="filter-input arrow-select" id="codeSystem" name="codeSystem" required>
                                 <option value=""></option>
                                 @foreach( var codeSystem in ViewBag.CodeSystems)
                                 {
@@ -23,43 +32,54 @@
                                 }
                             </select>
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Version
                             </div>
                             <input required class="filter-input" type="text" id="codeVersion" name="codeVersion" />
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Code
                             </div>
                             <input required class="filter-input" type="text" id="codeCode" name="codeCode" />
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.Value (@sReportsV2.Resources.TextLanguage.Preferred_term)
                             </div>
                             <input required class="filter-input" type="text" id="codeValue" name="codeValue" />
                         </div>
-                        <div class="advanced-filter-item filter-item input-margin">
+                        <div class="advanced-filter-item input-margin">
                             <div class="label filter-label">
                                 @sReportsV2.Resources.TextLanguage.VersionPublishDate
                             </div>
-                            <input type="text" class="filter-input" id="codeVersionPublishDate" name="codeVersionPublishDate">
-                            <img class="date-img" src="~/Content/img/icons/date_field.svg" style="top:33px;" id="codeCalendar">
+                            @Html.Partial("~/Views/Shared/DateInput.cshtml", new sReportsV2.DTOs.Common.DateInputDTO()
+                            {
+                                InputAttributes = new Dictionary<object, object> { 
+                                    { "class", "filter-input" }, 
+                                    { "id", "codeVersionPublishDate" }, 
+                                    { "name", "codeVersionPublishDate" } 
+                                },
+                                InputBtnAttributes = new Dictionary<object, object> { 
+                                    { "class", "date-img" }, 
+                                    { @Html.DateDisabled(readOnly: false), null }, 
+                                    { "id", "codeCalendar"}, 
+                                    {"style", "top:33px" } 
+                                },
+                            })
                         </div>
 
                         <div class="button-partial">
-                            <button class="submit-button right-button margin-left-13" type="button" style="outline: none;" onclick="addNewCode(event)" dismiss="modal">
+                            <button class="submit-button right-button margin-left-13" type="submit" style="outline: none;" dismiss="modal">
                                 <span class="submit-patient-info">@sReportsV2.Resources.TextLanguage.Save</span>
-                            </button>
+                            </button>                            
                             <div class="button-wrapper-filter float-right" id="close">
                                 <a class="btn advanced-cancel" data-dismiss="modal" aria-label="Close">
                                     @sReportsV2.Resources.TextLanguage.Cancel
                                 </a>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

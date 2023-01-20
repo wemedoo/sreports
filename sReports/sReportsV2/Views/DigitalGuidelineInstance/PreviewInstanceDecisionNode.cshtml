@@ -1,0 +1,63 @@
+﻿@using sReportsV2.DTOs.DigitalGuideline.DataOut
+@using sReportsV2.Common.Constants;
+@model GuidelineElementDataDataOut
+
+<div class="single-node-preview" style="padding-top: unset">
+    <div class="title">
+        @Model.Title
+    </div>
+    <div class="node-preview-section">
+        <div>
+            <div class="section-title">Thesarus data</div>
+            <div class="section-items">
+                <div class="section-items-row">
+                    <div class="section-items-cell key-cell">Preferred term</div>
+                    <div class="section-items-cell no-left-border key-cell">O4MtId</div>
+                </div>
+                <div class="section-items-row">
+                    <div class="section-items-cell no-top-border">
+                        @if (Model.Thesaurus != null)
+                        {
+                            @(Model.Thesaurus.GetPreferredTermByTranslationOrDefault(ViewBag.UserCookieData.ActiveLanguage))
+                        }
+                        else
+                        {
+                            <div>Not defined</div>
+                        }
+                    </div>
+                    <div class="section-items-cell no-left-border no-top-border">
+                        @if (Model.Thesaurus != null)
+                        {
+                            @(Model.Thesaurus.Id)
+                            if (ViewBag.UserCookieData != null && ViewBag.UserCookieData.UserHasPermission(PermissionNames.View, ModuleNames.Thesaurus))
+                            {
+                                <div class="thesaurus-link">
+                                    <img title="Thesaurus" class="mr-1 thesaurus" src="~/Content/img/icons/thesaurus_green.svg" onclick="goToThesaurus('@Model.Thesaurus.Id')">
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div>Not defined</div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.EvidenceProperties != null && Model.EvidenceProperties.Publications != null && Model.EvidenceProperties.Publications.Count > 0)
+    {
+        @Html.Partial("~/Views/DigitalGuideline/EvidencePropertiesPublications.cshtml", Model)
+    }
+    @if (Model.EvidenceProperties != null && Model.EvidenceProperties.EvidenceCategory != null)
+    {
+        @Html.Partial("~/Views/DigitalGuideline/EvidencePropertiesCategory.cshtml", Model)
+    }
+    <div class="m-2">
+        <button type="button" class="btn btn-add-new float-right" onclick="chooseCondition(event, '@Model.Id', '@ViewBag.NodeGuidelineId', '@ViewBag.NodeGuidelineInstanceId')">
+            <i class="fas fa-random"></i> <span>Choose condition</span>
+        </button>
+    </div>
+</div>

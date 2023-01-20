@@ -1,55 +1,10 @@
 ﻿@model sReportsV2.DTOs.Patient.PatientDataOut
 
 <div class="form-row remove-right-margin">
-
-    <div class="general-partial">
-        <div class="person-margin">
-            <span class="person-info">@sReportsV2.Resources.TextLanguage.Address_Info</span>
-        </div>
-
-        <div class="edit-patient-left">
-            <div class="advanced-filter-item filter-item input-margin">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.City
-                </div>
-                <input type="text" class="filter-input" id="city" value="@(Model != null && Model.Address != null ? Model.Address.City : "")">
-            </div>
-
-            <div class="advanced-filter-item filter-item input-margin">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.State
-                </div>
-                <input type="text" class="filter-input" id="state" value="@(Model != null && Model.Address != null ? Model.Address.State : "")">
-            </div>
-
-            <div class="advanced-filter-item filter-item input-margin">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Postal_code
-                </div>
-                <input type="text" class="filter-input" id="postalCode" value="@(Model != null && Model.Address != null ? Model.Address.PostalCode : "")">
-            </div>
-        </div>
-
-        <div class="edit-patient-right">
-            <div class="advanced-filter-item filter-item input-margin">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Street
-                </div>
-                <input type="text" class="filter-input" id="street" value="@(Model != null && Model.Address != null ? Model.Address.Street : "")">
-            </div>
-
-            <div class="advanced-filter-item filter-item input-margin">
-                <div class="label filter-label">
-                    @sReportsV2.Resources.TextLanguage.Country
-                </div>
-                <input type="text" class="filter-input" id="country" value="@(Model != null && Model.Address != null ? Model.Address.Country : "")">
-            </div>
-        </div>
-
+    <div class="patient-address-telecom-table address-table">
+        @Html.Partial("AddressTable", Model != null ? Model.Addresses : new List<sReportsV2.DTOs.Common.AddressDTO>())
     </div>
-
-    <div class="telecom-space">
-        @Html.Partial("TelecomTable", new ViewDataDictionary { { "Container", "PatientTelecom" }, { "Telecoms", Model != null ? Model.Telecoms : null }, { "TelecomsCount", Model != null && Model.Telecoms != null ? Model.Telecoms.Count : 0 } })
+    <div class="patient-address-telecom-table">
+        @Html.Partial("TelecomTable", new ViewDataDictionary { { "Container", "PatientTelecom" }, { "Telecoms", Model != null ? Model.Telecoms : null }, { "TelecomsCount", Model != null && Model.Telecoms != null ? Model.Telecoms.Count : 0 }, { "ReadOnly", ViewBag.ReadOnly } })
     </div>
-
 </div>

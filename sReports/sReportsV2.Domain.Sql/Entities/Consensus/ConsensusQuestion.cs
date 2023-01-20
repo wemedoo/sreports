@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Sql.Entities.Consensus
 {
+    // ---------------------------- NOT USED ANYMORE ---------------------------------------
     public class ConsensusQuestion
     {
         public int Id { get; set; }

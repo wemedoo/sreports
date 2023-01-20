@@ -10,5 +10,6 @@ namespace sReportsV2.DTOs.Common.DTO
         public int Id { get; set; }
         public string LastUpdate { get; set; }
         public byte[] RowVersion { get; set; }
+        public string Message { get; set; }
     }
 }

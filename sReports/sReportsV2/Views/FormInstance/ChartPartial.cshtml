@@ -1,0 +1,33 @@
+﻿@using sReportsV2.Common.Extensions;
+@using sReportsV2.Common.Constants;
+@using sReportsV2.DTOs;
+@using sReportsV2.DTOs.Field.DataOut;
+
+
+<form id="chartForm" name="AdvancedFilterForm" onsubmit="return false">
+    <div class="modal fade" id="chartModal" tabindex="-1" role="dialog" aria-labelledby="chartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="float-right filter-close-btn">
+                    <img class="close-modal" src="~/Content/img/icons/close_black.svg">
+                </div>
+
+                <div class="d-flex advanced-filter-header margin-left-30">
+                    @sReportsV2.Resources.TextLanguage.Data_Capture_Chart
+                </div>
+
+                <div class="modal-body" id="chartModalContent">
+                    <div id="checkbox-fields-to-plot">
+                        @Html.Partial("~/Views/FormInstance/ChartFiltersPartial.cshtml")
+                    </div>
+
+                    <canvas id="data-capture-chart" class="data-capture-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js")
+@Scripts.RenderFormat("<script type=\"text/javascript\" src=\"{0}?v=" + System.Reflection.Assembly.GetAssembly(typeof(sReportsV2.MvcApplication)).GetName().Version.ToString() + "\"></script>", "~/bundles/dataCaptureChart")

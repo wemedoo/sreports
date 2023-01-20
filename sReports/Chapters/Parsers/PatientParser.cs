@@ -5,24 +5,24 @@ using sReportsV2.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using sReportsV2.Domain.Entities.Encounter;
 using sReportsV2.Domain.Sql.Entities.Common;
 using sReportsV2.Domain.Sql.Entities.Patient;
+using sReportsV2.DTOs.CustomEnum.DataOut;
 
 namespace Chapters
 {
     public class PatientParser
     {
         public List<string> identifierList;
-        private List<CustomEnum> identifierTypes;
+        private readonly List<CustomEnum> identifierTypes;
         public FormChapter patientChapter { get; set; }
+        private readonly List<CustomEnumDataOut> countries;
 
-        public PatientParser(List<CustomEnum> identifierTypes)
+        public PatientParser(List<CustomEnum> identifierTypes, List<CustomEnumDataOut> countries)
         {
-            identifierList = Enum.GetNames(typeof(TypeOfIdentifier)).ToList();
+            this.identifierList = Enum.GetNames(typeof(TypeOfIdentifier)).ToList();
             this.identifierTypes = identifierTypes;
+            this.countries = countries;
         }
 
         public Patient ParsePatientChapter(FormChapter chapter)
@@ -38,7 +38,7 @@ namespace Chapters
             return result;
         }
 
-        public Patient ParseIntoPatient()
+        private Patient ParseIntoPatient()
         {
             Patient patient = null;
             if (patientChapter != null)
@@ -50,10 +50,12 @@ namespace Chapters
                 List<Field> telecomFields = patientChapter.GetFieldsByList(PatientRelatedLists.telecomValues);
 
                 patient = ParseBasicIntoPatient(basicInfoFields);
-                patient.Telecoms = GetTelecomsForPatient(telecomFields);
+                patient.PatientTelecoms = GetTelecomsForPatient(telecomFields, patient.PatientId);
                 patient.Identifiers = GetListIdentifiers(identifiersFields);
-                patient.Addresss = ParseIntoPatientAddress(addressInfoFields);
-                patient.ContactPerson = ParseIntoContactPerson(contactPersonFields);
+                patient.Addresses =
+                    new List<PatientAddress>() { new PatientAddress(ParseIntoPatientAddress(addressInfoFields), patient.PatientId) }
+                    ;
+                patient.Contact = ParseIntoContactPerson(contactPersonFields);
             }
 
             return patient;
@@ -138,9 +140,8 @@ namespace Chapters
                 City = addressFields.FirstOrDefault(x => x.FhirType == PdfParserType.City)?.Value?[0],
                 State = addressFields.FirstOrDefault(x => x.FhirType == PdfParserType.State)?.Value?[0],
                 PostalCode = addressFields.FirstOrDefault(x => x.FhirType == PdfParserType.PostalCode)?.Value?[0],
-                Country = addressFields.FirstOrDefault(x => x.FhirType == PdfParserType.Country)?.Value?[0],
+                CountryId = ParseCountryId(addressFields, PdfParserType.Country),
                 Street = addressFields.FirstOrDefault(x => x.FhirType == PdfParserType.Street)?.Value?[0]
-
             };
 
             return address;
@@ -171,7 +172,7 @@ namespace Chapters
             }
         }
 
-        private List<Telecom> GetTelecomsForPatient(List<Field> telecomsOptions)
+        private List<PatientTelecom> GetTelecomsForPatient(List<Field> telecomsOptions, int patientId)
         {
             List<Telecom> telecoms = new List<Telecom>();
             SetTelecom(nameof(TelecomSystemType.Phone), PdfParserType.Phone, PdfParserType.PhoneUse, telecomsOptions, telecoms);
@@ -182,7 +183,7 @@ namespace Chapters
             SetTelecom(nameof(TelecomSystemType.Other), PdfParserType.Other, PdfParserType.OtherUse, telecomsOptions, telecoms);
             SetTelecom(nameof(TelecomSystemType.Pager), PdfParserType.Pager, PdfParserType.PagerUse, telecomsOptions, telecoms);
 
-            return telecoms;
+            return telecoms.Select(telecom => new PatientTelecom(telecom, patientId)).ToList();
         }
 
         private Contact ParseIntoContactPerson(List<Field> contactFields)
@@ -192,7 +193,7 @@ namespace Chapters
                 City = contactFields.FirstOrDefault(x => x.FhirType == PdfParserType.ContactCity)?.Value?[0],
                 State = contactFields.FirstOrDefault(x => x.FhirType == PdfParserType.ContactState)?.Value?[0],
                 PostalCode = contactFields.FirstOrDefault(x => x.FhirType == PdfParserType.ContactPostalCode)?.Value?[0],
-                Country = contactFields.FirstOrDefault(x => x.FhirType == PdfParserType.ContactCountry)?.Value?[0],
+                CountryId = ParseCountryId(contactFields, PdfParserType.ContactCountry),
                 Street = contactFields.FirstOrDefault(x => x.FhirType == PdfParserType.ContactStreet)?.Value?[0]
             };
 
@@ -209,6 +210,18 @@ namespace Chapters
             contactPerson.Relationship = contactFields.FirstOrDefault(x => x.FhirType == PdfParserType.Relationship).Value?[0];
 
             return contactPerson;
+        }
+
+        private int? ParseCountryId(List<Field> addressFields, string fhirType)
+        {
+            string countryName = addressFields.FirstOrDefault(x => x.FhirType == fhirType)?.Value?[0];
+            int? countryId = null;
+            if (!string.IsNullOrEmpty(countryName))
+            {
+                countryId = countries.Where(e => e.Thesaurus.Translations.Any(t => t.PreferredTerm == countryName)).Select(x => x.Id).FirstOrDefault();
+            }
+
+            return countryId;
         }
     }
 }

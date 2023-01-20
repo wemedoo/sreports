@@ -19,8 +19,9 @@ namespace sReportsV2.Common.CustomAttributes
             if (!filterContext.Controller.ViewData.ModelState.IsValid)
             {
                 var allErrors = filterContext.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                Log.Error(string.Join(", ", allErrors));
-                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var allErrorsStr = string.Join(", ", allErrors);
+                Log.Error(allErrorsStr);
+                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.BadRequest, allErrorsStr);
             }
 
         }

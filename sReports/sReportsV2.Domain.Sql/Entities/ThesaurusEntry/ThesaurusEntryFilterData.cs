@@ -20,5 +20,9 @@ namespace sReportsV2.Domain.Sql.Entities.ThesaurusEntry
         public int PageSize { get; set; }
         public int Page { get; set; }
         public ThesaurusState? State { get; set; }
+        public string ColumnName { get; set; }
+        public bool IsAscending { get; set; }
+        public string ActiveLanguage { get; set; }
+        public List<string> ThesaurusStates { get; set; } = new List<string>();
     }
 }

@@ -1,7 +1,11 @@
-﻿function submitEncounterForm(event, form) {
+﻿$(document).ready(function () {
+    setCommonValidatorMethods();
+});
+
+function submitEncounterForm(event, form) {
     event.preventDefault();
     event.stopPropagation();
-    //$('#idEpisodeOfCare').validate();
+    $('#idEpisodeOfCare').validate();
     if ($(form).valid()) {
         $('.encounter-submit-button').attr('disabled', 'disabled');
         var request = {};
@@ -14,11 +18,9 @@
         request['Type'] = $("#type").val();
         request['ServiceType'] = $("#servicetype").val();
         request['EpisodeOfCareId'] = $("#eocId").val();
-        request['LastUpdate'] = $("#lastUpdate").val();
-        console.log(new Date().toISOString());
         request['Period'] = {
-            StartDate: new Date($('#start').val()).toISOString() ,
-            EndDate: $('#end').val() ? new Date($('#end').val()).toISOString() : null
+            StartDate: toLocaleDateStringIfValue($('#start').val()),
+            EndDate: toLocaleDateStringIfValue($('#end').val())
         }
         $.ajax({
             type: "POST",
@@ -29,7 +31,7 @@
                 toastr.success("Success");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(`${thrownError} `);
+                handleResponseError(xhr, thrownError);
             }
         });
 
@@ -40,11 +42,11 @@
 
 
 
-function deleteEncounter(event, id, lastUpdate) {
+function deleteEncounter(event, id) {
     event.stopPropagation();
     $.ajax({
         type: "DELETE",
-        url: `/Encounter/Delete?id=${id}&lastUpdate=${lastUpdate}`,
+        url: `/Encounter/Delete?id=${id}`,
         success: function (data) {
             $(`#row-${id}`).remove();
             toastr.success(`Success`);
@@ -52,7 +54,7 @@ function deleteEncounter(event, id, lastUpdate) {
             //$(event.srcElement).parent().parent().parent().parent().remove();
         },
         error: function (xhr, textStatus, thrownError) {
-            toastr.error(`${thrownError} `);
+            handleResponseError(xhr, thrownError);
         }
     });
 }

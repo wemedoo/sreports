@@ -12,11 +12,18 @@ namespace sReportsV2.Domain.Sql.Entities.Common
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; set; }
+        [Column("IdentifierId")]
+        public int IdentifierId { get; set; }
         public string System { get; set; }
         public string Value { get; set; }
         public string Type { get; set; }
         public string Use { get; set; }
+        [Column("OrganizationId")]
+        public int? OrganizationId { get; set; }
+        [Column("PatientId")]
+        public int? PatientId { get; set; }
+        [Column("SmartOncologyPatientId")]
+        public int? SmartOncologyPatientId { get; set; }
 
         public Identifier() { }
 

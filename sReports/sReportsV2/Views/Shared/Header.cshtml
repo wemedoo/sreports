@@ -1,0 +1,97 @@
+﻿@{
+    var userCookieData = ViewBag.UserCookieData;
+}
+<nav class="top-bar navbar sticky-top navbar-expand-lg p-0 navbar navbar-expand-lg navbar-light">
+    <div class="header-wrapper color-header header-wrapper-height">
+        <button class="menu-btn-md" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="navbar-brand col-6 col-sm-3 col-md-2" style="padding-left:7px;">
+            <button class="menu-shrink-btn-new" id="menuShrinkBtn">
+                <img src="~/Content/img/icons/menu_burger.svg">
+            </button>
+            <a href="#" class="color-text layout-header-group">
+                <img class="navbar-logo" src="~/Content/img/icons/weMedoo-logo.png">
+                @sReportsV2.Common.Constants.ResourceTypes.SoftwareName
+            </a>
+        </div>
+        <ul class="navbar-nav ml-auto pl-4 mobile-hidden" style="padding-right:10px;">
+            <li class="nav-item">
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link pl-4 dropdown-toggle color-text" href="#" id="dropdownAcc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-hospital-symbol avatar default-organization-icon"></i>
+                    <div class="dropdown-doubleline color-text ml-2 mr-2" style="font-weight:700;font-size:13px;">
+                        <div class="d-flex position-relative">
+                            <div>@(userCookieData != null ? userCookieData.Username : "")</div>
+                            <div class="language-indicator"> @(userCookieData != null ? userCookieData.ActiveLanguage : "")</div>
+                        </div>
+                        <span class="color-dark-grey font-weight-500">@(userCookieData != null ? userCookieData.GetActiveOrganizationName() : "")</span>
+                    </div>
+                    <img class="ml-2" src="~/Content/img/icons/arrow.svg">
+
+                </a>
+                <ul class="dropdown-menu first-level dropdown-border-radius w-50" aria-labelledby="dropdownAcc">
+                    <li class="dropdown-submenu parent dropdown-item-custom">
+                        <a class="dropdown-item dropdown-toggle dropdown-toggle-left h-100" href="#"><div class="mt-2"><i class="fas fa-angle-right"></i>@sReportsV2.Resources.TextLanguage.Language</div></a>
+                        <ul class="dropdown-menu dropdown-left dropdown-border-radius">
+                            @foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages as List<sReportsV2.DTOs.EnumDTO>)
+                            {
+                                if (userCookieData != null && language.Value == (userCookieData.ActiveLanguage as string))
+                                {
+                                    <li onclick="setActiveLanguage(event, '@language.Value')" class="language active">
+                                        <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li onclick="setActiveLanguage(event, '@language.Value')" class="language">
+                                        <a class="dropdown-item" href="#">@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu parent dropdown-item-custom">
+                        <a class="dropdown-item dropdown-toggle dropdown-toggle-left h-100" href="#"><div class="mt-2"><i class="fas fa-angle-right"></i>@sReportsV2.Resources.TextLanguage.Institution</div></a>
+                        @if (userCookieData != null)
+                        {
+                            <ul class="dropdown-menu dropdown-left dropdown-institutions dropdown-border-radius">
+
+                                @foreach (sReportsV2.DTOs.Organization.OrganizationDataOut organization in userCookieData.Organizations as List
+                                <sReportsV2.DTOs.Organization.OrganizationDataOut>
+                                    )
+                                {
+                                    if (organization.Id.Equals(userCookieData.ActiveOrganization))
+                                    {
+                                        <li onclick="setActiveOrganization(event, '@organization.Id', '/Home/Index')" class="language active">
+                                            <a class="dropdown-item" href="#">@organization.Name</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li onclick="setActiveOrganization(event, '@organization.Id', '/Home/Index')" class="language">
+                                            <a class="dropdown-item" href="#">@organization.Name</a>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                        }
+                    </li>
+                    <li class="dropdown-submenu parent dropdown-item-custom" style="padding-left: 25px;">
+                        <!--<img src="~/Content/img/icons/acc.svg">-->
+                        <a class="dropdown-item h-100" href="~/UserAdministration/UserProfile?userId=@(userCookieData != null ? userCookieData.Id : -1)">@sReportsV2.Resources.TextLanguage.Profile</a>
+                    </li>
+
+                    <li class="dropdown-item logout-menu-item dropdown-item-custom border-0" onclick="logout(event)">
+                        <img src="~/Content/img/icons/logout .svg">
+                        <a class="h-100 ml-2" href="#"><u>@sReportsV2.Resources.TextLanguage.Logout</u></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!--Displayed when lower screen resolution-->
+    @Html.Partial("Navbar")
+</nav>

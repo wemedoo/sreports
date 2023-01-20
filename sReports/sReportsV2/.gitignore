@@ -7,3 +7,6 @@
 /.vs/sReportsV2/v15/.suo
 /.vs/config
 /.vs/sReportsV2/v15/Server/sqlite3
+
+/UploadedFiles/
+/App_Data/MigrationStatus.json

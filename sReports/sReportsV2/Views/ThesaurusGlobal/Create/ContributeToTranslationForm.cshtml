@@ -1,0 +1,202 @@
+﻿@using sReportsV2.DTOs.ThesaurusEntry.DTO
+@using sReportsV2.Common.Extensions
+@using sReportsV2.DTOs;
+
+@model sReportsV2.DTOs.ThesaurusEntry.DataOut.ThesaurusEntryDataOut
+@{
+    ThesaurusEntryTranslationDTO targetTranslation = null;
+    string initialTargetLanguage = "en";
+
+    ThesaurusEntryTranslationDTO preferredTranslation = Model.GetTranslation(Model.PreferredLanguage);
+    if (preferredTranslation != null && preferredTranslation.Language != null)
+    {
+        initialTargetLanguage = preferredTranslation.Language.Equals("en") ? "fr" : initialTargetLanguage;
+    }
+}
+@Html.Partial("~/Views/ThesaurusGlobal/Create/TranslationsTitle.cshtml", Model)
+
+@if (preferredTranslation != null && preferredTranslation.Language != null)
+{
+    <input type="hidden" id="thesaurusId" value="@Model.Id" />
+    <h3 class="my-3"><b>Contribute to translation</b></h3>
+    <div class="translation-input-container">
+        <div class="language-input-create">
+            <div class="language-input-title input-label">
+                Translate from:
+            </div>
+            <div class="w-50">
+                <select class="languages-input" style="-webkit-appearance: none;" disabled>
+                    @foreach (var language in ViewBag.Languages)
+                    {
+                        <option value="@language.Value" @(language.Value.Equals(preferredTranslation.Language) ? "selected" : "")>@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="language-input-create">
+            <div class="language-input-title input-label translation-input-text-highlight">
+                To:
+            </div>
+            <div class="w-50">
+                <select class="languages-input translation-input-text-highlight" style="-webkit-appearance: none;" id="targetingLanguage">
+                    @foreach (EnumDTO language in ViewBag.Languages)
+                    {
+                        <option 
+                                value="@language.Value" 
+                                @(language.Value == initialTargetLanguage ? "selected" : "") 
+                                @Html.Disabled(language.Value.Equals(preferredTranslation.Language))
+                                >@sReportsV2.Resources.TextLanguage.ResourceManager.GetString(language.Label)</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        @foreach (sReportsV2.DTOs.EnumDTO language in ViewBag.Languages)
+        {
+            {
+                targetTranslation = Model != null ? Model.GetTranslation(language.Value) : null;
+            }
+        <div class="tab-pane fade @(language.Value == initialTargetLanguage ? "show active" : "")" id="@language.Value" role="tabpanel" aria-labelledby="@language.Value-tab">
+            <input type="hidden" class="translation-id" value="@(targetTranslation != null ? targetTranslation.Id : 0)">
+            <div class="translation-input-container">
+                <div class="translation-input-item">
+                    <div class="language-input-title input-label">
+                        Preferred term:
+                    </div>
+                    <div class="translations-item-value input-value">
+                        <input class=" w-100"
+                               value="@preferredTranslation.PreferredTerm" disabled>
+                    </div>
+                </div>
+                <div class="translation-input-item">
+                    <div class="language-input-title input-label">
+
+                    </div>
+                    <div class="translations-item-value input-value">
+                        <input class=" w-100 thesaurus-term thesaurus-term translation-input-field translation-input-text-highlight bordered"
+                               placeholder="Enter translation" value="@targetTranslation.PreferredTerm" />
+                    </div>
+                </div>
+            </div>
+            <div class="translation-input-container">
+                <div class="translation-input-item">
+                    <div class="language-input-title input-label">
+                        Definition:
+                    </div>
+                    <div class="translations-item-value input-value">
+                        <textarea class="thesaurus-textarea w-100" disabled>@preferredTranslation.Definition</textarea>
+                    </div>
+                </div>
+                <div class="translation-input-item">
+                    <div class="language-input-title input-label">
+
+                    </div>
+                    <div class="translations-item-value input-value">
+                        <textarea class="thesaurus-textarea w-100 thesaurus-definition translation-input-field translation-input-text-highlight"
+                                  placeholder="Enter translation">@targetTranslation.Definition</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="translation-input-container">
+                <div class="translation-input-item">
+                    <div class="language-input-title input-label">
+                        Synonyms:
+                    </div>
+                    <div class="translations-item-value input-value-list" style="padding-right:10px">
+                        <div class="items-container">
+                            @if (preferredTranslation != null && preferredTranslation.Synonyms != null)
+                            {
+                                foreach (var synonym in preferredTranslation.Synonyms)
+                                {
+                                    <div class="rounded-item synonym-color" data-value="@synonym">
+                                        @synonym
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="translations-item-value input-value-list gt-items-container" style="padding-left: 10px">
+                        <div class="translations-item-label d-flex contribute-input-container">
+                            <div class="input-value input">
+                                <input type="text" class="add-input synonym-input translation-input-text-highlight" track-form-change="true"/>
+                                <img class="add-btn synonym-add" src="~/Content/img/icons/SwissOpenOncology/add.svg" track-form-change="true"/>
+                            </div>
+                        </div>
+                        <div class="items-container">
+                            @if (targetTranslation != null && targetTranslation.Synonyms != null)
+                            {
+                                foreach (var synonym in targetTranslation.Synonyms)
+                                {
+                                    <div class="rounded-item synonym-color synonym-item" data-value="@synonym">
+                                        @synonym <div class="synonym-remove item-remove" track-form-change="true"></div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="translation-input-container">
+                <div class="translation-input-item">
+                    <div class="language-input-title input-label">
+                        Abbreviations:
+                    </div>
+                    <div class="translations-item-value input-value-list" style="padding-right:10px">
+                        <div class="items-container">
+                            @if (preferredTranslation != null && preferredTranslation.Abbreviations != null)
+                            {
+                                foreach (var abbreviation in preferredTranslation.Abbreviations)
+                                {
+                                    <div class="rounded-item abbreviation-color" data-value="@abbreviation">
+                                        @abbreviation
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="translations-item-value input-value-list gt-items-container" style="padding-left: 10px">
+                        <div class="translations-item-label d-flex contribute-input-container">
+                            <div class="input-value input">
+                                <input type="text" class="add-input abbreviation-input translation-input-text-highlight" track-form-change="true"/>
+                                <img class="add-btn abbreviation-add" src="~/Content/img/icons/SwissOpenOncology/add.svg" track-form-change="true"/>
+                            </div>
+                        </div>
+                        <div class="items-container">
+                            @if (targetTranslation != null && targetTranslation.Abbreviations != null)
+                            {
+                                foreach (var abbreviation in targetTranslation.Abbreviations)
+                                {
+                                    <div class="rounded-item abbreviation-color abbreviation-item" data-value="@abbreviation">
+                                        @abbreviation <div class="abbreviation-remove item-remove" track-form-change="true"></div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         }
+        <div>
+            <div class="codes-btns " style="height:80px;">
+                <div class="button-wrapper-filter filter-button" style="right:0px;">
+                    <button class="btn btn-filter-primary w-100 h-100" onclick="submitThesaurusTranslation(event)">Save</button>
+                </div>
+                <div class="button-wrapper-filter cancel-filter-btn float-right" id="close" style="right: 90px;" onclick="goBack('@ViewBag.ReturnUrl')">
+                    <a class="btn advanced-cancel translation-input-text-highlight" data-dismiss="modal" aria-label="Close" style="color: #097c8a;">
+                        @sReportsV2.Resources.TextLanguage.Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("~/Views/ThesaurusGlobal/Create/ContributeToTranslationSubmitModal.cshtml")
+    </div>
+}
+else
+{
+    <div class="text-warning">
+        <h2>Please define preferred language for thesaurus!</h2>
+    </div>
+}

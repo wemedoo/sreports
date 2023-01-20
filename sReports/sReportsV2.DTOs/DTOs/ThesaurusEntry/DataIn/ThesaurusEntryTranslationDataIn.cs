@@ -14,6 +14,7 @@ namespace sReportsV2.DTOs.ThesaurusEntry
     {
         [DataMember(Name = "Id")]
         public string Id { get; set; }
+        
         [DataMember(Name = "language")]
         public string Language { get; set; }
 
@@ -27,9 +28,6 @@ namespace sReportsV2.DTOs.ThesaurusEntry
         [DataMember(Name = "parentId")]
         public string ParentId { get; set; }
 
-        [DataMember(Name = "similarTerms")]
-        public List<SimilarTermDTO> SimilarTerms { get; set; }
-
         [DataMember(Name = "synonyms")]
         public List<string> Synonyms { get; set; }
 
@@ -37,6 +35,5 @@ namespace sReportsV2.DTOs.ThesaurusEntry
         public List<string> Abbreviations { get; set; }
 
         public int ThesaurusEntryId { get; set; }
-
     }
 }

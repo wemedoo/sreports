@@ -1,19 +1,24 @@
 ﻿using sReportsV2.Domain.Sql.Entities.Common;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sReportsV2.Domain.Sql.Entities.Patient
 {
     public class Contact
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("ContactId")]
+        public int ContactId { get; set; }
         public string Relationship { get; set; }
         public Name Name { get; set; }
+        [ForeignKey("AddressId")]
         public Address Address { get; set; }
         public string Gender { get; set; }
+        public int? AddressId { get; set; }
+
         public List<Telecom> Telecoms { get; set; }
 
         public Contact()
@@ -49,18 +54,13 @@ namespace sReportsV2.Domain.Sql.Entities.Patient
                     this.Address = new Address();
                 }
 
-                this.Address.City = address.City;
-                this.Address.Country = address.Country;
-                this.Address.StreetNumber = address.StreetNumber;
-                this.Address.PostalCode = address.PostalCode;
-                this.Address.State = address.State;
-                this.Address.StreetNumber = address.StreetNumber;
+                this.Address.Copy(address);
             }
         }
 
         private void SetTelecoms(List<Telecom> telecoms)
         {
-            foreach (var telecom in telecoms.Where(x => x.Id == 0).ToList())
+            foreach (var telecom in telecoms.Where(x => x.TelecomId == 0).ToList())
             {
                 this.Telecoms.Add(telecom);
             }

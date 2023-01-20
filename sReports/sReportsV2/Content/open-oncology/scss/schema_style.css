@@ -1,0 +1,941 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap");
+.chemotherapy-schema-content {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400; }
+
+h1, h2, h3, h4 {
+  margin-bottom: 0; }
+
+.title {
+  font-family: 'NunitoSans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #000; }
+
+.schema-card-header h3 {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #3E4956;
+  margin-bottom: 0; }
+
+.item-header h3 {
+  font-size: 1.5rem;
+  color: #000;
+  font-weight: 500; }
+
+.schema-text {
+  font-size: 1.4rem;
+  color: #444;
+  margin-bottom: 0; }
+
+.text-strong {
+  font-size: 1.4rem;
+  color: #000;
+  margin-bottom: 0;
+  font-weight: 500; }
+
+/**,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}*/
+html {
+  font-size: 62.5% !important; }
+
+.smart-oncology-wrapper, .schema-definition-wrapper {
+  background-color: #F9F9F9; }
+
+.layout-header-group {
+  font-size: 1.92rem; }
+
+.ui-widget {
+  font-size: 1.6rem; }
+
+.toast-message {
+  font-size: 1.4rem; }
+
+.btn-advanced-link {
+  font-size: 1.6rem; }
+
+.pager-container {
+  font-size: 1.6rem; }
+
+.dropdown-menu {
+  font-size: 1.6rem;
+  min-width: 16rem; }
+
+ul {
+  list-style-type: none; }
+
+.day-item-display.green {
+  background-color: #1ca37d;
+  border: 1px solid #1ca37d;
+  color: #fff; }
+
+.day-item-display.orange {
+  background-color: #ff8821;
+  border: 1px solid #ff8821;
+  color: #fff; }
+
+.day-item {
+  border: 1px solid #979797;
+  display: inline-block;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  color: #444;
+  font-size: 1.5rem;
+  margin: 0.4rem 0.3rem;
+  min-width: 7.5rem;
+  text-align: center;
+  cursor: pointer; }
+
+.form-control[readonly] {
+  background-color: #fff; }
+
+.num-input-instance {
+  width: 100% !important;
+  height: auto; }
+
+.m-20 {
+  margin: 20px 0; }
+
+.mr-5 {
+  margin-right: 5px !important; }
+
+.ml-5 {
+  margin-left: 5px !important; }
+
+.mt-10 {
+  margin-top: 10px !important; }
+
+.mb-5 {
+  margin-bottom: 5px !important; }
+
+.mb-25 {
+  margin-bottom: 25px !important; }
+
+.mb-35 {
+  margin-bottom: 35px !important; }
+
+.mb-50 {
+  margin-bottom: 50px !important; }
+
+.mt-15 {
+  margin-top: 15px !important; }
+
+.mt-35 {
+  margin-top: 35px !important; }
+
+.mt-100 {
+  margin-top: 100px !important; }
+
+.text-green {
+  color: #00925D; }
+
+.text-red {
+  color: #C84A4A; }
+
+button:focus, button:active, button:hover {
+  outline: none; }
+
+.btn-primary-schema {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1c94a3;
+  padding: 1.5rem 2rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  border-radius: .4rem;
+  font-weight: 400;
+  text-align: center;
+  transition: .115s all ease-in;
+  border: none;
+  color: #fff; }
+  .btn-primary-schema svg {
+    margin-left: 5rem; }
+  .btn-primary-schema:focus, .btn-primary-schema:active, .btn-primary-schema:hover {
+    text-decoration: none !important;
+    background-color: #198492; }
+
+.btn-text {
+  border: none !important;
+  background-color: transparent !important;
+  font-size: 1.4rem;
+  text-decoration: underline;
+  font-weight: 600; }
+  .btn-text.text-green {
+    color: #0a966e; }
+    .btn-text.text-green:hover {
+      color: #1c94a3; }
+
+.btn-icon {
+  display: flex;
+  align-items: center; }
+  .btn-icon .icon {
+    margin-right: .8rem; }
+    .btn-icon .icon.white-background {
+      background-color: white;
+      border-radius: 50%; }
+    .btn-icon .icon img {
+      display: block; }
+
+#select-all {
+  cursor: pointer; }
+
+.chemotherapy-schema-header {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 6rem;
+  padding: 2rem 3rem;
+  border-bottom: 1px solid #e5e5e5; }
+
+.schema-definition-wrapper {
+  margin-left: -30px;
+  margin-right: -30px;
+  overflow-x: hidden; }
+
+.chemotherapy-schema {
+  padding: 2rem;
+  margin-right: -5px;
+  margin-left: -5px; }
+  .chemotherapy-schema .row {
+    padding-left: calc(3rem - 5px);
+    padding-right: calc(3rem - 5px); }
+  .chemotherapy-schema .schema-col {
+    padding: 0 .5rem !important;
+    margin-bottom: 1rem; }
+  .chemotherapy-schema .schema-card {
+    background-color: #eceeef;
+    border-radius: .5rem;
+    padding: .7rem;
+    min-height: 75vh;
+    height: 100%; }
+    .chemotherapy-schema .schema-card-header {
+      padding: 1.3rem .8rem;
+      display: flex; }
+      .chemotherapy-schema .schema-card-header .icon {
+        cursor: pointer;
+        margin-right: .8rem; }
+        .chemotherapy-schema .schema-card-header .icon img {
+          display: block; }
+    .chemotherapy-schema .schema-card-item {
+      background-color: #fff;
+      border-radius: .5rem;
+      box-shadow: 0 2px 2px 0 rgba(191, 191, 191, 0.5);
+      margin-bottom: .5rem; }
+      .chemotherapy-schema .schema-card-item.add-new, .chemotherapy-schema .schema-card-item.item-link {
+        box-shadow: none; }
+        .chemotherapy-schema .schema-card-item.add-new .item-header h3, .chemotherapy-schema .schema-card-item.item-link .item-header h3 {
+          color: #12707c; }
+      .chemotherapy-schema .schema-card-item.add-new {
+        margin-top: 1.5rem;
+        border: 1px dashed #1c94a3;
+        cursor: pointer;
+        transition: .3s all ease; }
+      .chemotherapy-schema .schema-card-item.add-new:hover {
+        background-color: #effdff; }
+      .chemotherapy-schema .schema-card-item .item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 1rem; }
+        .chemotherapy-schema .schema-card-item .item-header .icon {
+          cursor: pointer;
+          color: #1c94a3;
+          margin-left: .5rem; }
+          .chemotherapy-schema .schema-card-item .item-header .icon img {
+            display: block; }
+        .chemotherapy-schema .schema-card-item .item-header.pointer {
+          cursor: pointer; }
+      .chemotherapy-schema .schema-card-item .item-body {
+        padding: 0 1rem 1.6rem; }
+        .chemotherapy-schema .schema-card-item .item-body .link {
+          font-size: 1.4rem;
+          margin-right: 2rem;
+          font-weight: 500;
+          color: #12707c !important;
+          white-space: nowrap;
+          overflow: hidden;
+          display: block;
+          text-overflow: ellipsis; }
+        .chemotherapy-schema .schema-card-item .item-body .item-body-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-top: 1px solid #e5e5e5;
+          margin: 0.5rem 0rem;
+          padding-top: 0.5rem; }
+          .chemotherapy-schema .schema-card-item .item-body .item-body-header .icon {
+            cursor: pointer;
+            color: #1c94a3;
+            margin-left: 0.5rem; }
+      .chemotherapy-schema .schema-card-item.active {
+        background-color: #E3FCFF;
+        box-shadow: 0 0 5px 0 #1c94a3; }
+  .chemotherapy-schema .item-body-row {
+    display: flex;
+    margin-right: -2rem;
+    margin-left: -2rem; }
+    .chemotherapy-schema .item-body-row .item-body-item {
+      padding: 0 2rem !important; }
+  .chemotherapy-schema .new-medication .item-body,
+  .chemotherapy-schema .treatment-cycles .item-body {
+    padding: 1.5rem; }
+    .chemotherapy-schema .new-medication .item-body-heading,
+    .chemotherapy-schema .treatment-cycles .item-body-heading {
+      color: #000;
+      font-size: 1.5rem;
+      font-weight: 400; }
+  .chemotherapy-schema .new-medication .add-new,
+  .chemotherapy-schema .treatment-cycles .add-new {
+    border: 1px solid #1C94a3 !important;
+    background-color: #D7FBFF; }
+  .chemotherapy-schema .new-medication .text,
+  .chemotherapy-schema .treatment-cycles .text {
+    color: #000; }
+  .chemotherapy-schema .select-wrapper {
+    display: flex;
+    align-items: center; }
+    .chemotherapy-schema .select-wrapper .select {
+      font-size: 1.4rem; }
+    .chemotherapy-schema .select-wrapper .select-input {
+      cursor: pointer;
+      font-size: 15px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      padding: 8.5px 6px; }
+      .chemotherapy-schema .select-wrapper .select-input:focus {
+        color: #495057;
+        background-color: white;
+        border-color: #4dbbc8;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(77, 187, 200, 0.25) !important; }
+      .chemotherapy-schema .select-wrapper .select-input::after {
+        color: palevioletred; }
+      .chemotherapy-schema .select-wrapper .select-input.error {
+        border: solid 1px #ed1e1e;
+        background-color: #fff5f5;
+        color: green; }
+      .chemotherapy-schema .select-wrapper .select-input input, .chemotherapy-schema .select-wrapper .select-input textarea, .chemotherapy-schema .select-wrapper .select-input select {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        opacity: unset; }
+      .chemotherapy-schema .select-wrapper .select-input option {
+        cursor: pointer; }
+      .chemotherapy-schema .select-wrapper .select-input .tooltip-icon::before {
+        content: "x";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: #000;
+        width: 5px;
+        height: 5px; }
+    .chemotherapy-schema .select-wrapper .radio-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-left: 3rem;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+      .chemotherapy-schema .select-wrapper .radio-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer; }
+      .chemotherapy-schema .select-wrapper .radio-container .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 2rem;
+        width: 2rem;
+        background-color: #fff;
+        border: 1px solid #ABABAB;
+        border-radius: 50%; }
+      .chemotherapy-schema .select-wrapper .radio-container:hover input ~ .checkmark {
+        background-color: #E7FCFF;
+        border: 1px solid #1c94a3; }
+      .chemotherapy-schema .select-wrapper .radio-container input:checked ~ .checkmark {
+        background-color: #E7FCFF;
+        border: 1px solid #1c94a3; }
+      .chemotherapy-schema .select-wrapper .radio-container .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none; }
+      .chemotherapy-schema .select-wrapper .radio-container input:checked ~ .checkmark:after {
+        display: block; }
+      .chemotherapy-schema .select-wrapper .radio-container .checkmark:after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #12707C; }
+    .chemotherapy-schema .select-wrapper.unselect-limited {
+      display: none; }
+    .chemotherapy-schema .select-wrapper .select-checkbox {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: -.5rem; }
+      .chemotherapy-schema .select-wrapper .select-checkbox .checkbox-wrapper {
+        margin: 0; }
+  .chemotherapy-schema .new-medication {
+    background-color: #fff;
+    padding-bottom: 10rem; }
+    .chemotherapy-schema .new-medication-wrapper {
+      display: none; }
+    .chemotherapy-schema .new-medication .schema-card-item {
+      box-shadow: none !important; }
+    .chemotherapy-schema .new-medication .item-body-heading {
+      color: #444 !important;
+      margin-bottom: 2rem; }
+      .chemotherapy-schema .new-medication .item-body-heading.col-12 {
+        padding: 0 !important;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        font-size: 1.4rem; }
+    .chemotherapy-schema .new-medication .item-body-item {
+      margin-bottom: 1rem; }
+      .chemotherapy-schema .new-medication .item-body-item.hide {
+        display: none; }
+    .chemotherapy-schema .new-medication .text-input,
+    .chemotherapy-schema .new-medication .num-input {
+      padding: 8px 10px;
+      padding-right: 0;
+      cursor: pointer;
+      border-radius: 0.4rem;
+      font-size: 15px;
+      width: 10rem; }
+    .chemotherapy-schema .new-medication .text-input {
+      width: 100%;
+      min-width: 22rem;
+      height: 4rem; }
+    .chemotherapy-schema .new-medication .max-dose-radio {
+      margin-top: 3rem; }
+    .chemotherapy-schema .new-medication .med-name .form-group {
+      align-items: center;
+      display: flex; }
+    .chemotherapy-schema .new-medication .select-wrapper .form-row .col-md-7 {
+      flex: 0 0 56% !important;
+      max-width: 56% !important; }
+    .chemotherapy-schema .new-medication .select-wrapper .form-row .col-md-2-5 {
+      flex: 0 0 22% !important;
+      max-width: 22% !important; }
+    .chemotherapy-schema .new-medication .select-wrapper .form-row .col-md-5 {
+      flex: 0 0 44% !important;
+      max-width: 44% !important; }
+    .chemotherapy-schema .new-medication .cancel {
+      padding-right: 2rem;
+      text-decoration: underline;
+      color: #000; }
+      .chemotherapy-schema .new-medication .cancel:hover {
+        color: #12707c; }
+    .chemotherapy-schema .new-medication .btn-row {
+      margin-right: .5rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; }
+    .chemotherapy-schema .new-medication .days-wrapper-header {
+      display: flex; }
+      .chemotherapy-schema .new-medication .days-wrapper-header .col-5 {
+        padding-left: 0 !important; }
+      .chemotherapy-schema .new-medication .days-wrapper-header button {
+        margin-left: auto; }
+    .chemotherapy-schema .new-medication .days-wrapper .quantity-wrapper {
+      display: flex;
+      align-items: center; }
+      .chemotherapy-schema .new-medication .days-wrapper .quantity-wrapper p {
+        margin: 0;
+        padding-right: 1rem;
+        font-weight: 500;
+        font-size: 1.5rem; }
+      .chemotherapy-schema .new-medication .days-wrapper .quantity-wrapper.num-of-days {
+        justify-content: space-between; }
+    .chemotherapy-schema .new-medication .days-wrapper .col-5 {
+      padding: 0; }
+    .chemotherapy-schema .new-medication .select2-container, .chemotherapy-schema .new-medication .select2-selection {
+      height: 40px !important; }
+      .chemotherapy-schema .new-medication .select2-container .select2-selection.select2-selection--single .select2-selection__rendered, .chemotherapy-schema .new-medication .select2-selection .select2-selection.select2-selection--single .select2-selection__rendered {
+        padding: 5px 30px 2px 13px; }
+        .chemotherapy-schema .new-medication .select2-container .select2-selection.select2-selection--single .select2-selection__rendered:focus, .chemotherapy-schema .new-medication .select2-selection .select2-selection.select2-selection--single .select2-selection__rendered:focus {
+          outline: none;
+          border: 1px solid #d4d4d4 !important; }
+
+.form-row {
+  width: 100%; }
+  .form-row label {
+    font-size: 1.4rem;
+    margin-right: .8rem;
+    margin-bottom: 0;
+    color: #444; }
+    .form-row label.item-body-heading {
+      margin-bottom: 1rem !important;
+      font-size: 1.4rem !important; }
+    .form-row label.error {
+      color: #ed1e1e;
+      margin: 10px 0px; }
+  .form-row .form-group .num-input {
+    width: 100% !important;
+    height: auto; }
+  .form-row .form-group .text-input {
+    height: auto; }
+  .form-row textarea {
+    font-size: 1.5rem !important; }
+
+.divider {
+  display: block;
+  background-color: #e5e5e5;
+  height: 1px;
+  width: 100%;
+  margin: 1.5rem 0; }
+  .divider.no-background {
+    background-color: inherit; }
+
+.day-item {
+  border: 1px solid #979797;
+  display: inline-block;
+  border-radius: .4rem;
+  padding: .4rem .8rem;
+  color: #444;
+  font-size: 1.5rem;
+  margin: .4rem .3rem;
+  min-width: 7.5rem;
+  text-align: center;
+  cursor: pointer; }
+
+#prem-day-wrapper .day-item.background {
+  background-color: #ff8821;
+  border: 1px solid #ff8821;
+  color: #fff; }
+
+#num-day-wrapper .day-item.background {
+  background-color: #1ca37d;
+  border: 1px solid #1ca37d;
+  color: #fff; }
+
+.link.reference-item {
+  margin-bottom: 1rem; }
+
+.quantity {
+  margin: 2rem 0;
+  display: flex;
+  align-items: center; }
+  .quantity span {
+    cursor: pointer; }
+  .quantity .minus,
+  .quantity .plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: #f1f1f1;
+    border-radius: 0;
+    border: 1px solid #D4D4D4;
+    text-align: center;
+    font-size: 2rem; }
+  .quantity .minus {
+    border-top-right-radius: .4rem;
+    border-bottom-right-radius: .4rem; }
+  .quantity .plus {
+    border-top-left-radius: .4rem;
+    border-bottom-left-radius: .4rem; }
+  .quantity input {
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    font-size: 2rem;
+    border: 1px solid #D4D4D4;
+    border-radius: 0;
+    display: inline-block;
+    background-color: #fff;
+    border-right: 0;
+    border-left: none;
+    font-size: 1.5rem;
+    font-weight: 500; }
+    .quantity input:focus-visible {
+      outline: none; }
+
+input[type="text"].error::placeholder {
+  color: red;
+  opacity: 0.7; }
+
+.select2-selection__arrow {
+  top: 5px !important;
+  color: #000;
+  font-size: 15px;
+  font-weight: 500; }
+
+.select2-selection.select2-selection--single:focus {
+  outline: none;
+  color: #495057;
+  background-color: white;
+  border-color: #d4d4d4;
+  box-shadow: none !important; }
+
+.select2-container, .select2-selection {
+  height: 35px !important; }
+  .select2-container .select2-selection.select2-selection--single .select2-selection__rendered, .select2-selection .select2-selection.select2-selection--single .select2-selection__rendered {
+    font-size: 15px;
+    padding: 2px 30px 2px 13px; }
+    .select2-container .select2-selection.select2-selection--single .select2-selection__rendered:focus, .select2-selection .select2-selection.select2-selection--single .select2-selection__rendered:focus {
+      outline: none;
+      border: 1px solid #d4d4d4 !important; }
+
+.add-new-medication-btn {
+  margin-bottom: 0;
+  margin-top: -5px;
+  background-color: #FE5959;
+  border-radius: 1.6rem;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  justify-content: center;
+  border: 0;
+  transition: .15s all ease-in;
+  margin-left: auto; }
+
+.indication-values {
+  margin-top: 1rem;
+  margin-bottom: 20px; }
+
+.cumulative-dose-wrapper .select2-container {
+  width: 50% !important; }
+
+@media only screen and (max-width: 1600px) {
+  .schema-col.col-2 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%; } }
+
+@media only screen and (max-width: 1300px) {
+  .schema-col.col-2 {
+    -ms-flex: 0 0 33.333%;
+    flex: 0 0 33.333%;
+    max-width: 33.333%; }
+    .schema-col.col-2:first-child {
+      order: 2; }
+    .schema-col.col-2:last-child {
+      order: 3; }
+  .schema-col.col-6 {
+    -ms-flex: 0 0 66%;
+    flex: 0 0 66%;
+    max-width: 66%; } }
+
+@media only screen and (max-width: 1080px) {
+  .chemotherapy-schema .new-medication-wrapper .item-body-row {
+    flex-direction: column; }
+  .chemotherapy-schema .new-medication-wrapper .max-dose-radio {
+    margin-top: 0 !important; }
+  .chemotherapy-schema .new-medication-wrapper .select-wrapper.row .form-row {
+    flex-wrap: wrap; }
+  .chemotherapy-schema .new-medication-wrapper .select-wrapper.row .col-4,
+  .chemotherapy-schema .new-medication-wrapper .select-wrapper.row .col-8,
+  .chemotherapy-schema .new-medication-wrapper .select-wrapper.row .col-md-7 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important; }
+  .chemotherapy-schema .new-medication-wrapper .select-wrapper.row .col-md-2-5 {
+    flex: 0 0 50% !important;
+    max-width: 50% !important; }
+  .chemotherapy-schema .new-medication-wrapper .col-4, .chemotherapy-schema .new-medication-wrapper .col-8, .chemotherapy-schema .new-medication-wrapper .col-5, .chemotherapy-schema .new-medication-wrapper .col-7 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important; } }
+
+@media only screen and (max-width: 800px) {
+  .schema-col.col-2 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%; }
+  .schema-col.col-6 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%; } }
+
+@media only screen and (max-width: 500px) {
+  .chemotherapy-schema-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto; }
+    .chemotherapy-schema-header h1 {
+      margin-bottom: 1rem; }
+  .new-medication .num-of-days {
+    flex-wrap: wrap;
+    justify-content: flex-start !important; }
+    .new-medication .num-of-days #select-all {
+      width: 100%;
+      display: flex;
+      margin-bottom: 2rem; } }
+
+.checkbox-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  font-size: 1.4rem; }
+  .checkbox-wrapper .checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  .checkbox-wrapper .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2rem;
+    width: 2rem;
+    background-color: #fff;
+    border: 1px solid #ababab;
+    transform: all .2s ease-in;
+    border-radius: .4rem; }
+  .checkbox-wrapper .checkbox {
+    margin-bottom: 0; }
+    .checkbox-wrapper .checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      display: none;
+      height: 0;
+      width: 0; }
+      .checkbox-wrapper .checkbox input:checked ~ .checkmark {
+        background-color: #E7FCFF;
+        border: 1px solid #1c94a3; }
+      .checkbox-wrapper .checkbox input:checked ~ .checkmark:after {
+        display: block; }
+    .checkbox-wrapper .checkbox .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none; }
+    .checkbox-wrapper .checkbox .checkmark:after {
+      left: 6px;
+      top: 1px;
+      width: 8px;
+      height: 12px;
+      border: solid #1c94a3;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg); }
+
+body.modal-active::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%; }
+
+.modal-delay-dose,
+.modal-med-day,
+.modal-schema-name,
+.modal-reference,
+.modal-indication {
+  display: none; }
+
+.modal-window {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  z-index: 1050;
+  width: 55rem;
+  max-width: 90%;
+  max-height: 100%;
+  height: auto;
+  overflow: auto;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 2rem; }
+  .modal-window-content {
+    margin: 30px 10px 0px;
+    padding: 0rem 3rem; }
+  .modal-window .modal-title {
+    font-family: 'NunitoSans', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem; }
+    .modal-window .modal-title.no-margin-top {
+      margin-top: 0rem; }
+  .modal-window p.text {
+    color: #000;
+    font-weight: 600; }
+  .modal-window .form-group {
+    margin-bottom: 2rem; }
+  .modal-window .modal-footer {
+    padding-top: 2rem; }
+    .modal-window .modal-footer .btn-text {
+      font-weight: 500 !important;
+      margin-right: 2rem; }
+    .modal-window .modal-footer button {
+      font-size: 1.4rem; }
+  .modal-window span.close-modal {
+    position: absolute;
+    right: 2rem;
+    cursor: pointer;
+    padding: .3rem;
+    transition: .2s opacity; }
+    .modal-window span.close-modal:hover {
+      opacity: .5; }
+  .modal-window .dose-time-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1px; }
+    .modal-window .dose-time-wrapper .dose-time {
+      margin: 1rem;
+      width: 10rem; }
+      .modal-window .dose-time-wrapper .dose-time input {
+        text-indent: 3px;
+        font-weight: 400; }
+
+.modal-subtitle {
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem; }
+  .modal-subtitle .modal-title {
+    font-family: 'NunitoSans', sans-serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-left: 1rem; }
+
+.modal-reference .reference-item-wrapper,
+.modal-schema-name .reference-item-wrapper,
+.modal-indication .reference-item-wrapper {
+  position: relative; }
+
+.modal-reference .indication-item-wrapper,
+.modal-schema-name .indication-item-wrapper,
+.modal-indication .indication-item-wrapper {
+  position: relative;
+  margin: .8rem 0; }
+
+.modal-reference .add-item,
+.modal-reference .remove-item,
+.modal-schema-name .add-item,
+.modal-schema-name .remove-item,
+.modal-indication .add-item,
+.modal-indication .remove-item {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+  cursor: pointer;
+  padding: 0.2rem; }
+  .modal-reference .add-item img,
+  .modal-reference .remove-item img,
+  .modal-schema-name .add-item img,
+  .modal-schema-name .remove-item img,
+  .modal-indication .add-item img,
+  .modal-indication .remove-item img {
+    transition: .2s; }
+  .modal-reference .add-item:hover img,
+  .modal-reference .remove-item:hover img,
+  .modal-schema-name .add-item:hover img,
+  .modal-schema-name .remove-item:hover img,
+  .modal-indication .add-item:hover img,
+  .modal-indication .remove-item:hover img {
+    transform: scale(1.2); }
+
+.modal-delay-dose .modal-subtitle {
+  margin-bottom: 1rem; }
+
+.modal-med-day .advanced-filter-item {
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: 0px; }
+  .modal-med-day .advanced-filter-item input, .modal-med-day .advanced-filter-item select {
+    cursor: pointer; }
+  .modal-med-day .advanced-filter-item #cycle-starts {
+    text-indent: 3px; }
+
+#allergyModal .modal-dialog {
+  transform: translate(0%, 50%); }
+
+#historyDelayDoseModal .modal-dialog {
+  transform: translate(0%, 50%); }
+  #historyDelayDoseModal .modal-dialog .modal-content {
+    height: unset !important;
+    width: 900px; }
+    #historyDelayDoseModal .modal-dialog .modal-content .modal-body {
+      overflow: unset;
+      font-size: 14px; }
+      #historyDelayDoseModal .modal-dialog .modal-content .modal-body .day-item {
+        margin: 5px 0px 5px 5px;
+        min-width: unset !important; }
+      #historyDelayDoseModal .modal-dialog .modal-content .modal-body .version-data {
+        position: absolute;
+        top: 50%;
+        transform: translate(0%, -50%); }
+
+.schema-definition-wrapper.has-border {
+  border-top: 1px solid #e5e5e5; }
+
+.chemotherapy-schema .shema-card-no-border {
+  padding: 0.7rem; }
+
+.btn-preview-edit {
+  border: none !important;
+  background-color: transparent !important;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1c94a3;
+  margin-right: 5px;
+  margin-top: 10px;
+  cursor: pointer; }
+
+.divider.smaller-margin {
+  margin: 0rem 0rem 1rem 0rem; }
+
+.vl {
+  border-left: 1px solid #e5e5e5;
+  height: inherit;
+  margin-left: -3px;
+  margin-top: -2rem; }
+
+.schema-medications {
+  padding: 0.7rem; }
+  .schema-medications .table-bordered {
+    border: 1px solid #e5e5e5; }
+  .schema-medications .table thead th {
+    border: 1px solid #12707C;
+    vertical-align: middle;
+    font-size: 1.4rem;
+    color: #12707C;
+    font-weight: 600;
+    background-color: #E4FBFF;
+    width: 16.67%;
+    padding: 1rem; }
+  .schema-medications .table tr td {
+    vertical-align: middle;
+    font-size: 1.4rem;
+    background-color: #fff;
+    font-weight: 500;
+    padding: 1rem; }

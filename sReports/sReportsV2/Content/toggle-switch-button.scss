@@ -1,0 +1,98 @@
+﻿$color-green-primary: #1c94a3;
+$color-green-secondary: #cbe7ea;
+$color-red-primary: #fe5959;
+
+.tgl-switch:disabled + .tgl-switch-btn {
+    cursor: not-allowed;
+}
+
+.tgl-switch, .tgl-switch:after, .tgl-switch:before, .tgl-switch *, .tgl-switch *:after, .tgl-switch *:before, .tgl-switch + .tgl-switch-btn {
+    box-sizing: border-box;
+}
+
+.tgl-switch::-moz-selection, .tgl-switch:after::-moz-selection, .tgl-switch:before::-moz-selection, .tgl-switch *::-moz-selection, .tgl-switch *:after::-moz-selection, .tgl-switch *:before::-moz-selection, .tgl-switch + .tgl-switch-btn::-moz-selection {
+    background: none;
+}
+
+.tgl-switch::selection, .tgl-switch:after::selection, .tgl-switch:before::selection, .tgl-switch *::selection, .tgl-switch *:after::selection, .tgl-switch *:before::selection, .tgl-switch + .tgl-switch-btn::selection {
+    background: none;
+}
+
+.tgl-switch {
+    display: none;
+
+    + .tgl-switch-btn {
+        outline: 0;
+        display: block;
+        width: 130px;
+        height: 37px;
+        position: relative;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin: 0;
+        background: $color-green-primary;
+        border-radius: 2em;
+        padding: 2px;
+        -webkit-transition: all .4s ease;
+        transition: all .4s ease;
+
+        &:after, &:before {
+            position: relative;
+            display: block;
+            content: "";
+            width: 29px;
+            height: 29px;
+        }
+
+        &:after {
+            left: 2%;
+            top: -180%;
+            border-radius: 50%;
+            background: #fff;
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
+        }
+
+        &:before {
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
+        }
+
+        .tgl-label {
+            top: -75%;
+            position: relative;
+            display: block;
+            color: white;
+        }
+
+        .checked-value {
+            display: none;
+        }
+
+        .unchecked-value {
+            left: 40%;
+        }
+    }
+
+    &:checked {
+        + .tgl-switch-btn {
+            background: $color-red-primary;
+
+            .checked-value {
+                left: 10%;
+                display: block;
+            }
+
+            .unchecked-value {
+                display: none;
+            }
+
+            &:after {
+                left: 75%;
+            }
+        }
+    }
+}

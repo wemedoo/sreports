@@ -3,6 +3,8 @@ using sReportsV2.Common.Enums;
 using sReportsV2.Domain.Sql.Entities.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,10 @@ namespace sReportsV2.Domain.Sql.Entities.EpisodeOfCare
 {
     public class EpisodeOfCare :EntitiesBase.Entity
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Column("EpisodeOfCareId")]
+        public int EpisodeOfCareId { get; set; }
         public int PatientId { get; set; }
         public int OrganizationId { get; set; }
         public EOCStatus Status { get; set; }
@@ -22,6 +27,8 @@ namespace sReportsV2.Domain.Sql.Entities.EpisodeOfCare
         public PeriodDatetime Period { get; set; }
         public string Description { get; set; }
         public List<EpisodeOfCareWorkflow> WorkflowHistory { get; set; }
+        [Column("SmartOncologyPatientId")]
+        public int? SmartOncologyPatientId { get; set; }
       
 
         public void ReplaceThesauruses(int oldThesaurus, int newThesaurus)
